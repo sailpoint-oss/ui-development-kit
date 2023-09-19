@@ -1,0 +1,72 @@
+{
+	"name": "sveltekit-electron",
+	"version": "0.0.1",
+	"private": true,
+	"description": "Minimal Sveltekit + Electron starter template.",
+	"main": "src/electron.cjs",
+	"type": "module",
+	"author": "Braden Wiggins",
+	"scripts": {
+		"dev": "cross-env NODE_ENV=dev npm run dev:all",
+		"dev:all": "concurrently -n=svelte,electron -c='#ff3e00',blue \"npm run dev:svelte\" \"npm run dev:electron\"",
+		"dev:svelte": "vite dev",
+		"dev:electron": "electron src/electron.cjs",
+		"build": "cross-env NODE_ENV=production npm run build:svelte && npm run build:electron",
+		"build:svelte": "vite build",
+		"build:electron": "electron-builder -mwl --config build.config.json"
+	},
+	"engines": {
+		"npm": ">=7",
+		"yarn": "use npm - https://github.com/FractalHQ/sveltekit-electron/issues/12#issuecomment-1068399385"
+	},
+	"browserslist": [
+		"Chrome 89"
+	],
+	"dependencies": {
+		"electron-context-menu": "^3.6.1",
+		"electron-reloader": "^1.2.3",
+		"electron-serve": "^1.1.0",
+		"electron-window-state": "^5.0.3"
+	},
+	"devDependencies": {
+		"@skeletonlabs/skeleton": "^2.1.0",
+		"@skeletonlabs/tw-plugin": "^0.2.0",
+		"@sveltejs/adapter-static": "2.0.1",
+		"@sveltejs/kit": "1.14.0",
+		"@types/node": "^20.6.2",
+		"@typescript-eslint/eslint-plugin": "^5.56.0",
+		"@typescript-eslint/parser": "^5.56.0",
+		"autoprefixer": "^10.4.14",
+		"axios": "^1.5.0",
+		"concurrently": "^7.6.0",
+		"cross-env": "^7.0.3",
+		"dotenv": "^16.0.3",
+		"electron": "^23.2.0",
+		"electron-builder": "^23.6.0",
+		"electron-connect": "^0.6.3",
+		"electron-packager": "^17.1.1",
+		"electron-updater": "^5.3.0",
+		"eslint": "^8.36.0",
+		"eslint-config-prettier": "^8.8.0",
+		"eslint-plugin-svelte3": "^4.0.0",
+		"npm-run-all": "^4.1.5",
+		"postcss": "^8.4.24",
+		"postcss-load-config": "^4.0.1",
+		"prettier": "^2.8.7",
+		"prettier-plugin-svelte": "^2.10.0",
+		"sailpoint-api-client": "^1.2.1",
+		"sass": "^1.60.0",
+		"svelte": "^3.57.0",
+		"svelte-check": "^3.1.4",
+		"svelte-preprocess": "^5.0.3",
+		"tailwindcss": "^3.3.2",
+		"tslib": "^2.5.0",
+		"typescript": "^4.9.4",
+		"vite": "^4.0.4"
+	},
+	"overrides": {
+		"electron": {
+			"got": "^12.5.1"
+		}
+	}
+}
