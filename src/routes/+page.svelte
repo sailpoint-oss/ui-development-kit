@@ -56,7 +56,7 @@
 			/>
 		</label>
 
-		<button type="button" class="btn variant-filled-primary w-full mt-2 text-slate-50 text-lg">
+		<button type="submit" class="btn variant-filled-primary w-full mt-2 text-slate-50 text-lg">
 			login
 		</button>
 	</form>

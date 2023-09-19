@@ -19,6 +19,6 @@ export const load: PageServerLoad = async ({ cookies }) => {
         },
         sort: ["created"]
     }
-    const val = Paginator.paginateSearchApi(api, search, 100, 1000)
+    const val = (await Paginator.paginateSearchApi(api, search, 100, 1000)).data
     return {val}
 }

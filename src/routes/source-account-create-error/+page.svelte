@@ -1,6 +1,6 @@
 <script>
 	export let data;
-	console.log(data.val.data);
+	console.log(data);
 </script>
 
 <div>Page Works!</div>
