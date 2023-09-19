@@ -23,16 +23,20 @@
 </script>
 
 <main class="p-4">
+	<img src="/SailPoint-Developer-Community-Lockup.png" alt="sailPoint Logo" />
+	<div class="text-2xl text-slate-500 divide-dashed divide-y-2 mt-4 mb-2">
+		Enter your tenant information to continue
+	</div>
 	<form method="POST">
-		<label>
+		<label class="text-slate-600">
 			Tenant
 			<input name="tenant" placeholder={``} bind:value={tenant} class="input p-2" />
 		</label>
-		<label>
+		<label class="text-slate-600">
 			Domain
 			<input name="domain" placeholder={``} bind:value={domain} class="input p-2" />
 		</label>
-		<label>
+		<label class="text-slate-600">
 			API Base URL
 			<input
 				name="baseUrl"
@@ -42,7 +46,7 @@
 			/>
 		</label>
 
-		<label>
+		<label class="text-slate-600">
 			Tenant URL
 			<input
 				name="tenantUrl"
@@ -52,7 +56,9 @@
 			/>
 		</label>
 
-		<button>login</button>
+		<button type="button" class="btn variant-filled-primary w-full mt-2 text-slate-50 text-lg">
+			login
+		</button>
 	</form>
 </main>
 
