@@ -44,7 +44,7 @@ export const load: PageServerLoad = async ({ params, url, cookies }) => {
 		});
 
 	const idnSession: IdnSession = response.data as IdnSession;
-
+		console.log(idnSession)
 	cookies.set("idnSession", JSON.stringify(idnSession));
 
 	return { idnSession, counterList };

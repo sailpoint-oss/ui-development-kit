@@ -2,8 +2,18 @@
 	import { each } from 'svelte/internal';
 
 	let pages = [
-		{ url: '/source-account-create-error', name: 'Source Account Create Error' },
-		{ url: '/source-account-make-error', name: 'Source Account Make Error' },
+		{
+			url: '/source-account-create-error',
+			name: 'Source Account Create Error',
+			description:
+				'This report will show all source accounts for which there is a create error associated with the source',
+		},
+		{
+			url: '/source-account-make-error',
+			name: 'Source Account Make Error',
+			description:
+				'This report will show all source accounts for which there is a create error associated with the source',
+		},
 	];
 </script>
 
@@ -28,16 +38,10 @@
 					</div>
 				</header>
 				<div class="p-4 space-y-4">
-					<h6 class="h6" data-toc-ignore>Announcements</h6>
-					<h3 class="h3" data-toc-ignore>Skeleton is Awesome!</h3>
+					<h3 class="h3" data-toc-ignore>Summary</h3>
 					<article>
 						<p>
-							<!-- cspell:disable -->
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam aspernatur
-							provident eveniet eligendi cumque consequatur tempore sint nisi sapiente.
-							Iste beatae laboriosam iure molestias cum expedita architecto itaque quae
-							rem.
-							<!-- cspell:enable -->
+							{page.description}
 						</p>
 					</article>
 				</div>
