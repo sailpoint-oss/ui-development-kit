@@ -1,10 +1,23 @@
 <script lang="ts">
+	import type { TableSource } from '@skeletonlabs/skeleton';
+	import { ProgressRadial, Table, tableMapperValues } from '@skeletonlabs/skeleton';
+	import type { Search } from 'sailpoint-api-client';
+	import { onMount } from 'svelte';
 	//export let data;
 	let tableSimple: TableSource | undefined = undefined;
 
 	onMount(async () => {
-		const response = await fetch('/api/sailpoint', {
-			method: 'GET',
+		const search: Search = {
+			indices: ['events'],
+			query: {
+				query: `name: "Create Account Failed" AND created: [now-90d TO now]`,
+			},
+			sort: ['created'],
+		};
+
+		const response = await fetch('/api/sailpoint/search', {
+			method: 'POST',
+			body: JSON.stringify(search),
 			headers: {
 				'content-type': 'application/json',
 			},
@@ -34,30 +47,37 @@
 			};
 		}
 	});
-
-	import type { TableSource } from '@skeletonlabs/skeleton';
-	import { ProgressRadial, Table, tableMapperValues } from '@skeletonlabs/skeleton';
-	import { onMount } from 'svelte';
 </script>
 
-<div class="p-4">
-	<img src="/SailPoint-Developer-Community-Lockup.png" alt="sailPoint Logo" />
-	<a href="/home" class="btn variant-filled-primary w-full mt-2 text-slate-50 text-lg">
-		Go back report screen
-	</a>
-	<div class="flex justify-center mt-4 flex-col">
-		<div class="text-2xl text-slate-500 divide-dashed divide-y-2 mt-4 mb-2">
-			Listing of Source Account Create Errors
+<main>
+	<div class="p-4">
+		<img src="/SailPoint-Developer-Community-Lockup.png" alt="sailPoint Logo" />
+		<a href="/home" class="btn variant-filled-primary w-full mt-2 text-slate-50 text-lg">
+			Go back report screen
+		</a>
+		<div class="flex justify-center mt-4 flex-col align-middle">
+			<div class="text-2xl text-slate-500 divide-dashed divide-y-2 mt-4 mb-2">
+				Listing of Source Account Create Errors
+			</div>
+			{#if tableSimple}
+				<Table class="w-full" source={tableSimple} />
+			{:else}
+				<div class="progress-bar">
+					<ProgressRadial
+						stroke={100}
+						meter="stroke-primary-500"
+						track="stroke-primary-500/30"
+						class="progress-bar"
+					/>
+				</div>
+			{/if}
 		</div>
-		{#if tableSimple}
-			<Table class="w-full" source={tableSimple} />
-		{:else}
-			<ProgressRadial
-				...
-				stroke={100}
-				meter="stroke-primary-500"
-				track="stroke-primary-500/30"
-			/>
-		{/if}
 	</div>
-</div>
+</main>
+
+<style>
+	.progress-bar {
+		padding-top: calc(50vh - 4.5rem - 200px);
+		padding-left: calc(50% - 4.5rem);
+	}
+</style>

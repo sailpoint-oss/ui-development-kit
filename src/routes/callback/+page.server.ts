@@ -23,14 +23,6 @@ export const load: PageServerLoad = async ({ params, url, cookies }) => {
 				console.log(err.response.data);
 				console.log(err.response.status);
 				console.log(err.response.headers);
-				// throw error(err.response.status, {
-				// 	message: 'IDN Responded with an Error',
-				// 	code: JSON.stringify(
-				// 		{ data: err.response.data, headers: err.response.headers },
-				// 		null,
-				// 		' '
-				// 	)
-				// });
 				throw redirect(302, generateAuthLink(session.tenantUrl));
 			} else if (err.request) {
 				// The request was made but no response was received
