@@ -26,8 +26,17 @@
 	}
 </script>
 
-<div>Page Works!</div>
-<a href="/" class="">Go back</a>
-{#if tableSimple}
-	<Table class="w-4/5" source={tableSimple} />
-{/if}
+<div class="p-4">
+	<img src="/SailPoint-Developer-Community-Lockup.png" alt="sailPoint Logo" />
+	<a href="/home" class="btn variant-filled-primary w-full mt-2 text-slate-50 text-lg">
+		Go back report screen
+	</a>
+	<div class="flex justify-center mt-4 flex-col">
+		<div class="text-2xl text-slate-500 divide-dashed divide-y-2 mt-4 mb-2">
+			Listing of Source Account Create Errors
+		</div>
+		{#if tableSimple}
+			<Table class="w-full" source={tableSimple} />
+		{/if}
+	</div>
+</div>
