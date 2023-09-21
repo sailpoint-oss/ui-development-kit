@@ -39,14 +39,14 @@ export async function refreshToken(apiUrl: string, refreshToken: string): Promis
 		}
 		return undefined
 	});
-	if (response) {
-		console.log(response.data)
-	}
+	// if (response) {
+	// 	console.log(response.data)
+	// }
 	const idnSession: IdnSession = response!.data as IdnSession;
 	return idnSession
 }
 
-export function getToken(cookies: Cookies): Promise<IdnSession> {
+export async function getToken(cookies: Cookies): Promise<IdnSession> {
 	
 	const idnSession = <IdnSession>JSON.parse(cookies.get('idnSession')!)
 	const session = JSON.parse(cookies.get('session')!)
@@ -58,7 +58,9 @@ export function getToken(cookies: Cookies): Promise<IdnSession> {
 	}
 	if (isJwtExpired(idnSession.access_token)) {
 		console.log("refreshing token")
-		return refreshToken(session.baseUrl, idnSession.refresh_token)
+		const newSession = await refreshToken(session.baseUrl, idnSession.refresh_token)
+		cookies.set("idnSession", JSON.stringify(newSession));
+		return Promise.resolve(newSession)
 	} else {
 		console.log("token is good")
 		return Promise.resolve(idnSession)
