@@ -1,13 +1,15 @@
 <script lang="ts">
 	import '../app.postcss';
 	import { onMount } from 'svelte';
+	import { Modal, initializeStores } from '@skeletonlabs/skeleton';
 
+	initializeStores();
 	let ready: boolean = false;
 	onMount(() => (ready = true));
 </script>
 
 <div class="dragbar" />
-
+<Modal />
 {#if ready}
 	<slot />
 {/if}

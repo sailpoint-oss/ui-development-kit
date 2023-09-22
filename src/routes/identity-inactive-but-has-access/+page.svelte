@@ -1,22 +1,20 @@
 <script lang="ts">
-	import type { ModalSettings, TableSource } from '@skeletonlabs/skeleton';
+	import type { TableSource } from '@skeletonlabs/skeleton';
 	import { ProgressRadial, Table, tableMapperValues } from '@skeletonlabs/skeleton';
 	import type { Search } from 'sailpoint-api-client';
 	import { onMount } from 'svelte';
 	import alasql from 'alasql';
-	import { getModalStore } from '@skeletonlabs/skeleton';
 
-	const modalStore = getModalStore();
 	//export let data;
 	let tableSimple: TableSource | undefined = undefined;
-	let rawData: any;
+
 	onMount(async () => {
 		const search: Search = {
-			indices: ['events'],
+			indices: ['identities'],
 			query: {
-				query: `name: "Create Account Failed" AND created: [now-90d TO now]`,
+				query: `@accounts(disabled:false) AND (attributes.cloudLifecycleState:inactive)`,
 			},
-			sort: ['created'],
+			sort: ['name'],
 		};
 
 		const response = await fetch('/api/sailpoint/search', {
@@ -27,55 +25,68 @@
 			},
 		});
 
-		rawData = await response.json();
+		let data = await response.json();
+		console.log(data);
 
-		if (JSON.stringify(rawData) !== '{}') {
+		if (JSON.stringify(data) !== '{}') {
 			let reportResult = [];
 
-			for (let row of <any>rawData) {
+			for (let row of <any>data) {
+				let accounts: string[] = [];
+				for (let account of row.accounts) {
+					if (account.disabled == false) {
+						accounts.push(account.source.name);
+					}
+				}
 				reportResult.push({
-					name: row.target.name,
-					source: row.attributes.sourceName,
-					failure: row.name,
+					name: row.displayName,
+					source: accounts.join(', '),
+					department: row.attributes.department,
+					accessCount: row.accessCount,
+					entitlementCount: row.entitlementCount,
+					roleCount: row.roleCount,
 				});
 			}
 
 			let res = alasql(
-				'SELECT failure, source, name, count(*) as failures FROM ? GROUP BY failure, source, name',
+				'SELECT name, source, department, accessCount, entitlementCount, roleCount FROM ?',
 				[reportResult],
 			);
 			console.log(res);
 			tableSimple = {
 				// A list of heading labels.
-				head: ['Name', 'Source', 'Failure', 'Number Failures'],
+				head: [
+					'Name',
+					'Sources',
+					'Departments',
+					'Access Count',
+					'Entitlement Count',
+					'Role Count',
+				],
 				// The data visibly shown in your table body UI.
-				body: tableMapperValues(res, ['name', 'source', 'failure', 'failures']),
+				body: tableMapperValues(res, [
+					'name',
+					'source',
+					'department',
+					'accessCount',
+					'entitlementCount',
+					'roleCount',
+				]),
 				// Optional: The data returned when interactive is enabled and a row is clicked.
-				meta: tableMapperValues(res, ['name', 'source', 'failure', 'failures']),
+				meta: tableMapperValues(res, [
+					'name',
+					'source',
+					'department',
+					'accessCount',
+					'entitlementCount',
+					'roleCount',
+				]),
 			};
 		}
 	});
 
 	function onTableclick(event: any) {
 		console.log(event);
-		let exceptions = '';
-		for (let row of rawData) {
-			if (
-				row.target.name == event.detail[0] &&
-				row.attributes.sourceName == event.detail[1] &&
-				row.name == event.detail[2]
-			) {
-				console.log(row.attributes.errors);
-				exceptions = JSON.stringify(JSON.parse(row.attributes.errors), null, '  ');
-			}
-		}
-		const modal: ModalSettings = {
-			type: 'alert',
-			// Data
-			title: 'Exception Details',
-			body: `${exceptions}`,
-		};
-		modalStore.trigger(modal);
 	}
 </script>
 
@@ -87,7 +98,7 @@
 		</a>
 		<div class="flex justify-center mt-4 flex-col align-middle">
 			<div class="text-2xl text-slate-500 divide-dashed divide-y-2 mt-4 mb-2">
-				Listing of Source Account Create Errors
+				Listing of identities that are inactive but still have access in sources
 			</div>
 			{#if tableSimple}
 				<Table

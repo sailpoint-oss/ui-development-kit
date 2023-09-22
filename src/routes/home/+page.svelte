@@ -9,10 +9,10 @@
 				'This report will show all source accounts for which there is a create error associated with the source',
 		},
 		{
-			url: '/source-account-make-error',
-			name: 'Source Account Make Error',
+			url: '/identity-inactive-but-has-access',
+			name: 'Inactive Identities With Access',
 			description:
-				'This report will show all source accounts for which there is a create error associated with the source',
+				'This report will show all identities that are inactive but still have access in sources',
 		},
 	];
 </script>
@@ -28,10 +28,7 @@
 
 	<div class="flex flex-row flex-wrap">
 		{#each pages as page (page.url)}
-			<a
-				class="card card-hover overflow-hidden m-4 w-modal-slim"
-				href="/source-account-create-error"
-			>
+			<a class="card card-hover overflow-hidden m-4 w-modal-slim" href={page.url}>
 				<header>
 					<div class="w-full aspect-[21/9] text-container" alt="Post">
 						<div class="text">{page.name}</div>
