@@ -8,8 +8,10 @@
 		"email": "luke.hagar@sailpoint.com"
 	},
 	"scripts": {
+		"patch": "npm version patch",
 		"dev": "vite dev",
-		"build": "vite build",
+		"build:web": "vite build",
+		"build": "cross-env ORIGIN=http://localhost:3000 vite build",
 		"publish": "npm run build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -31,9 +33,9 @@
 		"@types/node": "20.11.5",
 		"@typescript-eslint/eslint-plugin": "^6.20.0",
 		"@typescript-eslint/parser": "^6.20.0",
-		"alasql": "^4.2.6",
 		"autoprefixer": "10.4.17",
 		"axios": "^1.6.7",
+		"cross-env": "^7.0.3",
 		"eslint": "^8.56.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.35.1",

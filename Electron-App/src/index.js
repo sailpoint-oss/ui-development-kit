@@ -1,36 +1,44 @@
-import windowStateManager from "electron-window-state";
-import { app, BrowserWindow } from "electron";
-import path from "path";
-import { is } from "@electron-toolkit/utils";
-import express from "express";
-import log from "electron-log/main";
-
+const windowStateManager = require("electron-window-state");
+const { app, BrowserWindow } = require("electron");
+const path = require("path");
+const { is } = require("@electron-toolkit/utils");
+// const { updateElectronApp } = require("update-electron-app");
 const handlerPkg = import(
   is.dev
-    ? "./build/handler.js"
-    : `file://${path.join(process.resourcesPath, "build", "handler.js")}`
+    ? "../../Sveltekit-Build/src/handler.js"
+    : `file://${path.join(
+        process.resourcesPath,
+        "Sveltekit-Build",
+        "src",
+        "handler.js"
+      )}`
 );
+const express = require("express");
+const log = require("electron-log/main");
 
-// Assign the log functions so you get global logging to file by default in dev and production
-
-// By default, it writes logs to the following locations:
-// on Linux: ~/.config/{app name}/logs/main.log
-// on macOS: ~/Library/Logs/{app name}/main.log
-// on Windows: %USERPROFILE%\AppData\Roaming\{app name}\logs\main.log
 Object.assign(console, log.functions);
 
-console.log("===Log Start===");
+console.log(
+  "==================================Log Start=================================="
+);
 
-const port = process.env.port || 3000;
-const origin = process.env.origin || `http://localhost:${port}`;
+// try {
+//   console.log("Trying to update...");
+//   updateElectronApp();
+// } catch (e) {
+//   console.log("Error updating");
+//   console.log(e);
+// }
 
-console.log(`Express Server will be running on ${origin}...`);
+const port = 3000;
+const origin = `http://localhost:${port}`;
+console.log(`Starting server on ${origin}...`);
 
 const server = express();
 
 const createServer = async () => {
   try {
-    console.log("Importing handler...");
+    console.log("Importing Handler...");
     const { handler } = await handlerPkg;
 
     // add a route that lives separately from the SvelteKit app
@@ -43,7 +51,6 @@ const createServer = async () => {
     // let SvelteKit handle everything else, including serving prerendered pages and static assets
     server.use(handler);
 
-    console.log("Starting server...");
     server.listen(port, () => {
       console.log(`Server listening on ${origin}`);
     });
@@ -84,6 +91,7 @@ const createWindow = () => {
         nodeIntegration: true,
         spellcheck: false,
         devTools: true,
+        preload: path.join(__dirname, "preload.js"),
       },
       x: windowState.x,
       y: windowState.y,
@@ -91,7 +99,6 @@ const createWindow = () => {
       height: windowState.height,
     });
 
-    // If the window failed to load the given url, wait 500ms and try again
     mainWindow.webContents.on("did-fail-load", function () {
       console.log("did-fail-load");
       setTimeout(() => {
@@ -112,7 +119,7 @@ const createWindow = () => {
       windowState.saveState(mainWindow);
     });
 
-    // If dev, Open the DevTools.
+    // Open the DevTools.
     if (is.dev) mainWindow.webContents.openDevTools();
   } catch (e) {
     console.log("Error creating window");

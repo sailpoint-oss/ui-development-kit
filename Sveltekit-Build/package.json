@@ -1,0 +1,9 @@
+{
+  "name": "built-app",
+  "version": "0.0.2",
+  "scripts": {
+    "patch": "npm version patch",
+    "start": "node ./src"
+  },
+  "type": "module"
+}

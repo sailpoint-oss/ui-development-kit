@@ -1,11 +1,5 @@
 export const reports = [
 	{
-		url: '/home/reports/source-account-create-error',
-		name: 'Source Account Create Error',
-		description:
-			'This report will show all source accounts for which there is a create error associated with the source'
-	},
-	{
 		url: '/home/reports/inactive-identities-with-access',
 		name: 'Inactive Identities With Access',
 		description:

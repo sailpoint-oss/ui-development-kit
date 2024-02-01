@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { reports } from '$lib/reports';
+	import { reports } from './reports';
 </script>
 
 <div class="grid gap-2 grid-flow-row xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 justify-center">

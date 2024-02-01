@@ -1,4 +1,6 @@
-import { generateAuthLink } from '$lib/utils/oauth';
+import {
+	generateAuthLink
+} from '$lib/utils/oauth';
 import { redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 
@@ -37,7 +39,9 @@ export const actions = {
 	}
 } satisfies Actions;
 
-export const load = async ({ locals }) => {
+export const load = async ({parent, locals }) => {
+	await parent();
+	console.log('locals', locals);
 	if (!locals.hasSession || !locals.hasIdnSession) return {};
 
 	if (

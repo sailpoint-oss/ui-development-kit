@@ -1,11 +1,16 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { goto } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import AnimatedCounter from '$lib/Components/AnimatedCounter.svelte';
+	import type { PageData } from './$types';
 
-	export let data;
+	export let data: PageData;
 	console.log(data);
-	if (browser) setTimeout(() => goto(`/home`), 2000);
+	if (browser)
+		setTimeout(async () => {
+			if (!data.tokenDetails) await invalidateAll();
+			goto(`/home`);
+		}, 1000);
 </script>
 
 <div class="grid place-content-center h-[80vh]">

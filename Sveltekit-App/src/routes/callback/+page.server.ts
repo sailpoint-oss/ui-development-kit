@@ -1,7 +1,7 @@
-import { generateAuthLink } from '$lib/utils/oauth';
 import { error, redirect } from '@sveltejs/kit';
-import axios from 'axios';
 import type { PageServerLoad } from './$types';
+import axios from 'axios';
+import { generateAuthLink, type IdnSession } from '$lib/utils/oauth';
 import { counterList } from './loadinglist';
 
 export const load: PageServerLoad = async ({ url, cookies, locals }) => {
@@ -33,8 +33,9 @@ export const load: PageServerLoad = async ({ url, cookies, locals }) => {
 			}
 		});
 
-	console.log(response.data);
-	cookies.set('idnSession', JSON.stringify(response.data), {
+	const idnSession: IdnSession = response.data as IdnSession;
+	console.log(idnSession);
+	cookies.set('idnSession', JSON.stringify(idnSession), {
 		path: '/',
 		httpOnly: false,
 		secure: false
