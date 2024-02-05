@@ -1,22 +1,20 @@
 <a id="readme-top"></a>
 
 <!-- PROJECT SHIELDS -->
-[![Discourse Topics][discourse-shield]][discourse-url]
-![Times Downloaded][downloads-shield]
+
 ![Issues][issues-shield]
-![Latest Releases][release-shield]
 ![Contributor Shield][contributor-shield]
 
 
-<!-- [discourse-shield]: https://img.shields.io/discourse/topics?label=Discuss%20This%20Tool&server=https%3A%2F%2Fdeveloper.sailpoint.com%2Fdiscuss -->
-[discourse-shield]: https://img.shields.io/badge/Discuss_This_Tool-0033a1
-[discourse-url]: https://developer.sailpoint.com/discuss/tag/idn-admin-console
-[downloads-shield]: https://img.shields.io/github/downloads/sailpoint-oss/idn-admin-console/total?label=Downloads
-[issues-shield]:https://img.shields.io/github/issues/sailpoint-oss/idn-admin-console?label=Issues
-[release-shield]: https://img.shields.io/github/v/tag/sailpoint-oss/idn-admin-console?label=Current%20Release
-[contributor-shield]:https://img.shields.io/github/contributors/sailpoint-oss/idn-admin-console?label=Contributors
 
-[product-screenshot]: ./assets/images/idn-admin-console-output.png
+
+
+
+[issues-shield]:https://img.shields.io/github/issues/sailpoint-oss/electron-identitynow-starter?label=Issues
+
+[contributor-shield]:https://img.shields.io/github/contributors/sailpoint-oss/electron-identitynow-starter?label=Contributors
+
+[product-screenshot]: ./assets/images/electron-identitynow-starter-output.png
 
 <!-- PROJECT LOGO -->
 <br />
@@ -25,14 +23,14 @@
     <img src="https://avatars.githubusercontent.com/u/63106368?s=200&v=4" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">IdentityNow Admin Console - README</h3>
+  <h3 align="center">Electron IdentityNow Starter - README</h3>
 
   <p align="center">
-    A desktop application to administer and troubleshoot IdentityNow
+    A desktop application starter to build on IdentityNow
     <br />
-    <a href="https://github.com/sailpoint-oss/idn-admin-console/issues/new?assignees=&labels=bug&projects=&template=bug-report.md&title=%5BBUG%5D+Your+Bug+Report+Here">Report Bug</a>
+    <a href="https://github.com/sailpoint-oss/electron-identitynow-starter/issues/new?assignees=&labels=bug&projects=&template=bug-report.md&title=%5BBUG%5D+Your+Bug+Report+Here">Report Bug</a>
     ·
-    <a href="https://github.com/sailpoint-oss/idn-admin-console/issues/new?assignees=&labels=enhancement&projects=&template=feature-request.md&title=%5BFEATURE%5D+Your+Feature+Request+Here+">Request Feature</a>
+    <a href="https://github.com/sailpoint-oss/electron-identitynow-starter/issues/new?assignees=&labels=enhancement&projects=&template=feature-request.md&title=%5BFEATURE%5D+Your+Feature+Request+Here+">Request Feature</a>
   </p>
 </div>
 
@@ -50,7 +48,7 @@
 ## About the project
 
 <!-- <div align="center">
-<img src="./assets/images/idn-admin-console-output.png" width="500" height="" style="text-align:center">
+<img src="./assets/images/electron-identitynow-starter-output.png" width="500" height="" style="text-align:center">
 </div> -->
 
 This Electron IdentityNow starter is a template for a desktop application you can use build out GUI applications that integrate with IdentityNow.  
@@ -160,6 +158,6 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <!-- CONTACT -->
 ## Discuss
-You can go to the [SailPoint Developer Community Forum](https://developer.sailpoint.com/discuss/tag/idn-admin-console) to discuss this tool with other users! 
+You can go to the [SailPoint Developer Community Forum](https://developer.sailpoint.com/discuss/tag/electron-identitynow-starter) to discuss this tool with other users! 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
