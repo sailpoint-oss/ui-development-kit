@@ -36,9 +36,12 @@
 
 - [About the project](#about-the-project)
 - [Project Structure](#project-structure)
-  - [Sveltekit App](#sveltekit-app)
-  - [Sveltekit Build](#sveltekit-build)
-  - [Electron App](#electron-app)
+  - [Sveltekit-App](#sveltekit-app)
+  - [Sveltekit-Build](#sveltekit-build)
+  - [Electron-App](#electron-app)
+- [Using the starter](#using-the-starter)
+  - [Local Development](#local-development)
+  - [Build the application from source](#build-the-application-from-source)
 - [Contribute](#contribute)
 - [License](#license)
 - [Discuss](#discuss)
@@ -98,6 +101,13 @@ The `Electron-App` folder contains the code relevant to the electron portion of 
 Currently when running the electron application, the `handler` that is generated from the sveltekit build is imported and passed to an express server that runs the application, an electron window is then opened pointing at that local express server, so once the app is running you can even open the app directly in a web browser if you prefer.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Using the starter
+
+### Local Development
+
+To start the local dev server, navigate to the `./Sveltekit-App` folder and run `npm run dev`. 
+This will start the local dev server and you can access the application at `http://localhost:3000`.
 
 ### Build the application from source
 
