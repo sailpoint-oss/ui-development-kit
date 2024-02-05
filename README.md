@@ -37,9 +37,10 @@
 </div>
 
 - [About the project](#about-the-project)
-- [Get started](#get-started)
-  - [Use a release](#use-a-release)
-  - [Building the application from source](#build-the-application-from-source)
+- [Project Structure](#project-structure)
+  - [Sveltekit App](#sveltekit-app)
+  - [Sveltekit Build](#sveltekit-build)
+  - [Electron App](#electron-app)
 - [Contribute](#contribute)
 - [License](#license)
 - [Discuss](#discuss)
@@ -60,11 +61,13 @@ This Electron IdentityNow starter is a template for a desktop application you ca
 ## Project Structure
 
 The current implementation of this app has three main folders:
-- `Electron-App`
 - `Sveltekit-App`
 - `Sveltekit-Build`
+- `Electron-App`
 
 The purpose of each of these folders is to hold a different portion of the total app, or rather different stages of the application.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Sveltekit-App
 
@@ -73,15 +76,22 @@ The `Sveltekit-App` folder contains the main content of the application, this is
 SvelteKit is a framework that allows easy development of applications utilizing both frontend and backend components and modern security standards, and when you are ready to build it allows you to compile your code into numerous different deployment methods using different adapters (static html, node server, edge or lambda functions).   
 [SvelteKit can be explored more here](https://kit.svelte.dev).
 
-If you use our base to build on top of, you will get a number of things implemented right out of the box:  
+If you use this starter to build on top of, you will get a number of things implemented right out of the box:  
 
 - an OAuth Flow
 - the SailPoint SDK
-- an Electron Desktop application version of your application
+- a Desktop build of your app
+- TypeScript
+- SvelteKit
+- TailwindCSS
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Sveltekit-Build
 
 When you are ready to build your application, running the build command in the `Sveltekit-App` folder, will build the application using the node adapter for SvelteKit, and the build will be placed in the folder `Sveltekit-Build/src` 
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Electron-App
 
