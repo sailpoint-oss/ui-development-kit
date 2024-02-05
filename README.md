@@ -52,29 +52,42 @@
 <img src="./assets/images/idn-admin-console-output.png" width="500" height="" style="text-align:center">
 </div> -->
 
-The IdentityNow Admin Console is a desktop application you can use to administer and troubleshoot IdentityNow. The admin console is built using Electron and Sveltekit, and it is developed and maintained by the SailPoint Developer Relations team. 
-
-The goal of the admin console is to provide a single place to perform common administrative tasks and troubleshoot issues in your IdentityNow tenant.
+This Electron IdentityNow starter is a template for a desktop application you can use build out GUI applications that integrate with IdentityNow.  
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
-## Get started
+## Project Structure
 
-To use this tool, you will need to have an IdentityNow tenant. 
+The current implementation of this app has three main folders:
+- `Electron-App`
+- `Sveltekit-App`
+- `Sveltekit-Build`
 
-### Use a release
+The purpose of each of these folders is to hold a different portion of the total app, or rather different stages of the application.
 
-There are built versions of this application available for each major OS platform. You can find the latest release [here](https://github.com/sailpoint-oss/idn-admin-console/releases/latest). 
+### Sveltekit-App
 
-Pick your OS and download the relevant file from the latest release:
-| Platform | File Type |
-| -------- | --------- |
-| Windows  | exe, zip  |
-| Mac      | dmg, zip  |
-| Linux    | deb, rpm, zip |
+The `Sveltekit-App` folder contains the main content of the application, this is where you will likely be doing 90% of your development. 
 
-If you want to build the application yourself, follow these steps:
+SvelteKit is a framework that allows easy development of applications utilizing both frontend and backend components and modern security standards, and when you are ready to build it allows you to compile your code into numerous different deployment methods using different adapters (static html, node server, edge or lambda functions).   
+[SvelteKit can be explored more here](https://kit.svelte.dev).
+
+If you use our base to build on top of, you will get a number of things implemented right out of the box:  
+
+- an OAuth Flow
+- the SailPoint SDK
+- an Electron Desktop application version of your application
+
+### Sveltekit-Build
+
+When you are ready to build your application, running the build command in the `Sveltekit-App` folder, will build the application using the node adapter for SvelteKit, and the build will be placed in the folder `Sveltekit-Build/src` 
+
+### Electron-App
+
+The `Electron-App` folder contains the code relevant to the electron portion of the application, this is where you determine the window theme, size, shape, and behavior as well as the startup logic for the application.
+
+Currently when running the electron application, the `handler` that is generated from the sveltekit build is imported and passed to an express server that runs the application, an electron window is then opened pointing at that local express server, so once the app is running you can even open the app directly in a web browser if you prefer.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
