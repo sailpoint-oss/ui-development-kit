@@ -121,7 +121,7 @@
 					<img class="h-8 w-8" src="/logo.ico" alt="SailPoint TetraSail" />
 				</div>
 			</svelte:fragment>
-			<p class="text-xl lg:!block hidden">IdentityNow Admin Console</p>
+			<p class="text-xl lg:!block hidden">IdentityNow Starter Application</p>
 			<svelte:fragment slot="trail">
 				<LightSwitch />
 				{#if data.tokenDetails}
