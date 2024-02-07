@@ -17,12 +17,6 @@ export const navigation = [
 				name: 'Reports',
 				description: 'a list of example pages showcasing how to implement the IdentityNow SDK.',
 				icon: ReportsSvg
-			},
-			{
-				url: '/home/courier',
-				name: 'Courier',
-				description: 'an API client for IdentityNow with authentication baked right in.',
-				icon: MessagesSvg
 			}
 		]
 	}
