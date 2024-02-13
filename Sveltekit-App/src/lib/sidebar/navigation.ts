@@ -1,5 +1,4 @@
 import HomeSvg from '$lib/Components/SVGs/HomeSVG.svelte';
-import MessagesSvg from '$lib/Components/SVGs/MessagesSVG.svelte';
 import ReportsSvg from '$lib/Components/SVGs/ReportsSVG.svelte';
 
 export const navigation = [
@@ -13,10 +12,15 @@ export const navigation = [
 				icon: HomeSvg
 			},
 			{
-				url: '/home/Example Pages',
-				name: 'Reports',
+				url: '/home/reports',
+				name: 'Example Pages',
 				description: 'a list of example pages showcasing how to implement the IdentityNow SDK.',
 				icon: ReportsSvg
+			},
+			{
+				url: '/home/example-form',
+				name: 'Example Form',
+				description: 'A form example using the IdentityNow SDK.'
 			}
 		]
 	}
