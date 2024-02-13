@@ -6,29 +6,35 @@
 	export let onPageChange: (e: CustomEvent<number>) => void;
 	export let onAmountChange: (e: CustomEvent<number>) => void;
 	export let onGo: (e: KeyboardEvent | MouseEvent) => void;
-	export let filters: string = '';
-	export let sorters: string = '';
+	export let filters: string | undefined = undefined;
+	export let sorters: string | undefined = undefined;
 </script>
 
 <div class=" p-4 flex flex-row flex-wrap justify-between gap-4">
 	<div class="flex flex-row gap-1">
-		<input
-			on:keydown={onGo}
-			bind:value={filters}
-			class="input"
-			title="Filter"
-			type="text"
-			placeholder="Filter"
-		/>
-		<input
-			on:keydown={onGo}
-			bind:value={sorters}
-			class="input"
-			title="Sorter"
-			type="text"
-			placeholder="Sorter"
-		/>
-		<button on:click={onGo} class="btn variant-filled-primary !text-white"> Go </button>
+		{#if filters !== undefined}
+			<input
+				on:keydown={onGo}
+				bind:value={filters}
+				class="input"
+				title="Filter"
+				type="text"
+				placeholder="Filter"
+			/>
+		{/if}
+		{#if sorters !== undefined}
+			<input
+				on:keydown={onGo}
+				bind:value={sorters}
+				class="input"
+				title="Sorter"
+				type="text"
+				placeholder="Sorter"
+			/>
+		{/if}
+		{#if filters !== undefined || sorters !== undefined}
+			<button on:click={onGo} class="btn variant-filled-primary !text-white"> Go </button>
+		{/if}
 	</div>
 	<p class="my-auto">Total Count: {totalCount}</p>
 	<Paginator
