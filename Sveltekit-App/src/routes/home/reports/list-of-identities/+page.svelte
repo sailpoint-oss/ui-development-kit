@@ -105,13 +105,6 @@
 								</td>
 								<td>
 									<div class="flex flex-col justify-center gap-1">
-										<a
-											href={`/home/identities/${identity.id}`}
-											class="btn btn-sm variant-filled-primary text-sm !text-white"
-											data-sveltekit-preload-data="hover"
-										>
-											Open
-										</a>
 										<button
 											on:click={() => TriggerCodeModal(identity, modalStore)}
 											class="btn btn-sm variant-filled-primary text-sm !text-white"
