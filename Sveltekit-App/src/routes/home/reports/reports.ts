@@ -1,5 +1,10 @@
 export const reports = [
 	{
+		url: '/home/reports/list-of-identities',
+		name: 'List of Identities',
+		description: 'This report will show all identities in the system'
+	},
+	{
 		url: '/home/reports/inactive-identities-with-access',
 		name: 'Inactive Identities With Access',
 		description:
