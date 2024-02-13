@@ -7,7 +7,7 @@ export function formatDate(date: string | null | undefined) {
 }
 
 export function getLimit(url: URL) {
-	return url.searchParams.get('limit') || '250';
+	return url.searchParams.get('limit') || '5';
 }
 
 export function getFilters(url: URL) {
@@ -71,10 +71,10 @@ export function createOnGo(params: PaginationParams, path: string) {
 		if (e.type !== 'click' && (e as KeyboardEvent).key !== 'Enter') return;
 
 		const urlParams = new URLSearchParams();
-		urlParams.set('page', params.page);
-		urlParams.set('limit', params.limit);
-		urlParams.set('sorters', params.sorters);
-		urlParams.set('filters', params.filters);
+		if (params.page != '') urlParams.set('page', params.page);
+		if (params.limit != '') urlParams.set('limit', params.limit);
+		if (params.sorters != '') urlParams.set('sorters', params.sorters);
+		if (params.filters != '') urlParams.set('filters', params.filters);
 
 		console.log(`${path}?${urlParams.toString()}`);
 
