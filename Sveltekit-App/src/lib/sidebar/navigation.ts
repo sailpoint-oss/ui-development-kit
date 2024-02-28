@@ -12,7 +12,7 @@ export const navigation = [
 				icon: HomeSvg
 			},
 			{
-				url: '/home/reports',
+				url: '/home/example-pages',
 				name: 'Example Pages',
 				description: 'a list of example pages showcasing how to implement the IdentityNow SDK.',
 				icon: ReportsSvg
