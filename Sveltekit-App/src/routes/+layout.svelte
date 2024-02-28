@@ -177,7 +177,7 @@
 	<!-- <svelte:fragment slot="sidebarRight">Sidebar Right</svelte:fragment> -->
 	<!-- <svelte:fragment slot="pageHeader">Page Header</svelte:fragment> -->
 	<!-- Router Slot -->
-	<div class="flex flex-col">
+	<div class="flex flex-col h-full">
 		{#if crumbs.length > 0}
 			<div class="pl-2 pt-2 pr-2">
 				<ol class="breadcrumb card p-2">

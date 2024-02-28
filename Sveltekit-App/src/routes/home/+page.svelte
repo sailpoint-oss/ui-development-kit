@@ -1,18 +1,11 @@
-<script lang="ts">
-	import ResourceLinksCard from '$lib/Components/HomepageCards/ResourceLinksCard.svelte';
-	import StatusCard from '$lib/Components/HomepageCards/StatusCard.svelte';
-	import SupportLinksCard from '$lib/Components/HomepageCards/SupportLinksCard.svelte';
-	import TenantLinksCard from '$lib/Components/HomepageCards/TenantLinksCard.svelte';
+<div class="grid place-content-center h-full">
+	<p class="text-center px-60">
+		This starter application is meant to be an example of how you can build on top of the
+		IdentityNow UI development kit to build your own applications and tools for IdentityNow
 
-	export let data;
-	console.log(data);
-</script>
+		<br />
 
-<div class="flex flex-col gap-2 grow">
-	<div class="flex flex-row flex-wrap gap-2 grow">
-		<StatusCard />
-		<TenantLinksCard tenantUrl={data.session?.tenantUrl} />
-		<ResourceLinksCard />
-		<SupportLinksCard />
-	</div>
+		On the left hand side you will see some example pages showcasing some different kinds of pages
+		you could build. Each page is meant to be a starting point for you to build your own pages
+	</p>
 </div>
