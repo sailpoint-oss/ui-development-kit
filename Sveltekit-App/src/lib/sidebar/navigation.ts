@@ -21,6 +21,11 @@ export const navigation = [
 				url: '/home/example-form',
 				name: 'Example Form',
 				description: 'A form example using the IdentityNow SDK.'
+			},
+			{
+				url: '/home/form-integration',
+				name: 'SailPoint Form Integration',
+				description: 'A form example using the IdentityNow SDK.'
 			}
 		]
 	}

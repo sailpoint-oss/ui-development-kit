@@ -6,6 +6,6 @@
 		<br />
 
 		On the left hand side you will see some example pages showcasing some different kinds of pages
-		you could build. Each page is meant to be a starting point for you to build your own pages
+		you could build. Each page is meant to be a starting point for you to build your own pages.
 	</p>
 </div>

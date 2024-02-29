@@ -16,23 +16,33 @@ export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.hasIdnSession = hasIdnSession;
 	if (hasSession) {
 		event.locals.session = getSession(event.cookies);
-		if(hasIdnSession){
-		event.locals.idnSession = await getToken(event.cookies);
-		const lastToken = lastCheckedToken(event.cookies);
-		const tokenDetails = getTokenDetails(event.cookies);
-		if (tokenDetails && lastToken != '' && lastToken === event.locals.idnSession.access_token ) {
-			event.locals.tokenDetails = tokenDetails
-		} else {
-			event.locals.tokenDetails = await checkToken(
-				event.locals.session.baseUrl,
-				event.locals.idnSession.access_token
-			);
-			event.cookies.set('tokenDetails', JSON.stringify(event.locals.tokenDetails), {
-				path: '/',
-				httpOnly: false,
-				secure: false
-			});
-		}}
+		if (hasIdnSession) {
+			const session = await getToken(event.cookies);
+			if (!session) {
+				event.locals.hasIdnSession = false;
+				event.locals.idnSession = undefined;
+			} else {
+				event.locals.idnSession = session;
+				const lastToken = lastCheckedToken(event.cookies);
+				const tokenDetails = getTokenDetails(event.cookies);
+				if (tokenDetails && lastToken != '' && lastToken === event.locals.idnSession.access_token) {
+					event.locals.tokenDetails = tokenDetails;
+				} else {
+					const tempTokenDetails = await checkToken(
+						event.locals.session.baseUrl,
+						event.locals.idnSession.access_token
+					);
+					if (tempTokenDetails) {
+						event.locals.tokenDetails = tempTokenDetails;
+						event.cookies.set('tokenDetails', JSON.stringify(event.locals.tokenDetails), {
+							path: '/',
+							httpOnly: false,
+							secure: false
+						});
+					}
+				}
+			}
+		}
 	}
 
 	if (event.url.pathname.startsWith('/home') || event.url.pathname.startsWith('/api')) {
