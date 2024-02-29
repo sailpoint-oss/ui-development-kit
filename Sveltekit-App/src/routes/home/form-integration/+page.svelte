@@ -10,9 +10,29 @@
 	let inputs = {};
 	let loading = false;
 	let formUrl: string;
+	let conditions = new Map();
+
+	function parseFormConditions(conditions) {
+		let parsedConditionals = new Map();
+		console.log(conditions);
+		for (const condition of conditions || []) {
+			for (const rule of condition.rules) {
+				console.log(rule);
+				const temp = parsedConditionals.get(rule.source) || [];
+				parsedConditionals.set(rule.source, Array.from(new Set([...temp, rule.value])));
+			}
+		}
+
+		console.log(parsedConditionals);
+		return parsedConditionals;
+	}
+
+	$: if (selectedForm) {
+		conditions = parseFormConditions(selectedForm.object?.formConditions);
+	}
 </script>
 
-<dialog class="card text-white p-8" bind:this={dialog}>
+<dialog class="card p-8" bind:this={dialog}>
 	<div class="flex flex-col gap-4">
 		{#if selectedForm}
 			<p id="name" class="text-center">
@@ -26,7 +46,16 @@
 				<p>Form Inputs:</p>
 				{#if selectedForm.object?.formInput}
 					{#each selectedForm.object?.formInput as input}
-						{#if input.label}
+						{#if conditions.get(input.label)}
+							<label class="label" for={input.label}>
+								<span>{input.label}</span>
+								<select class="input" id={input.label} bind:value={inputs[input.label]}>
+									{#each conditions.get(input.label) as condition}
+										<option value={condition}>{condition}</option>
+									{/each}
+								</select>
+							</label>
+						{:else}
 							<label class="label" for={input.label}>
 								<span>{input.label}</span>
 								<input
@@ -108,7 +137,7 @@
 						<p>Form Inputs:</p>
 						{#if form.object?.formInput}
 							{#each form.object?.formInput as input}
-								<p class="text-center">
+								<p class="">
 									{input.label}
 								</p>
 							{/each}
@@ -122,7 +151,7 @@
 							dialog.showModal();
 						}}
 					>
-						Open form
+						Assign form
 					</button>
 				</div>
 			{/each}
