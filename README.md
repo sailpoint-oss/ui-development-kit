@@ -23,7 +23,7 @@
     <img src="https://avatars.githubusercontent.com/u/63106368?s=200&v=4" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Electron IdentityNow Starter - README</h3>
+  <h3 align="center">UI Development Kit - README</h3>
 
   <p align="center">
     A desktop application starter to build on IdentityNow
