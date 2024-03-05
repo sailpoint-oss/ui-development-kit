@@ -73,7 +73,7 @@ export function setTokenDetails(cookies: Cookies, tokenDetails: TokenDetails) {
 	});
 }
 
-export async function checkToken(apiUrl: string, token: string): Promise<TokenDetails> {
+export async function checkToken(apiUrl: string, token: string): Promise<TokenDetails | undefined> {
 	const body = 'token=' + token;
 	const url = `${apiUrl}/oauth/check_token/`;
 	const response = await axios.post(url, body).catch(function (err) {
@@ -85,15 +85,19 @@ export async function checkToken(apiUrl: string, token: string): Promise<TokenDe
 		}
 		return undefined;
 	});
-	// if (response) {
-	// 	console.log(response.data);
-	// }
-	const tokenDetails = response!.data;
+	if (!response) {
+		return undefined;
+	}
+
+	const tokenDetails = response.data;
 
 	return tokenDetails;
 }
 
-export async function refreshToken(apiUrl: string, refreshToken: string): Promise<IdnSession> {
+export async function refreshToken(
+	apiUrl: string,
+	refreshToken: string
+): Promise<IdnSession | undefined> {
 	const url = `${apiUrl}/oauth/token?grant_type=refresh_token&client_id=sailpoint-cli&refresh_token=${refreshToken}`;
 	const response = await axios.post(url).catch(function (err) {
 		if (err.response) {
@@ -104,10 +108,12 @@ export async function refreshToken(apiUrl: string, refreshToken: string): Promis
 		}
 		return undefined;
 	});
-	// if (response) {
-	// 	console.log(response.data)
-	// }
-	const idnSession: IdnSession = response!.data as IdnSession;
+
+	if (!response) {
+		return undefined;
+	}
+
+	const idnSession: IdnSession = response.data as IdnSession;
 	return idnSession;
 }
 
@@ -147,7 +153,7 @@ export function getSession(cookies: Cookies): Session {
 	return JSON.parse(sessionString) as Session;
 }
 
-export async function getToken(cookies: Cookies): Promise<IdnSession> {
+export async function getToken(cookies: Cookies): Promise<IdnSession | undefined> {
 	const sessionString = cookies.get('session');
 	const idnSessionString = cookies.get('idnSession');
 
@@ -171,12 +177,17 @@ export async function getToken(cookies: Cookies): Promise<IdnSession> {
 	if (isJwtExpired(idnSession.access_token)) {
 		console.log('Refreshing IdnSession token...');
 		const newSession = await refreshToken(session.baseUrl, idnSession.refresh_token);
-		cookies.set('idnSession', JSON.stringify(newSession), {
-			path: '/',
-			httpOnly: false,
-			secure: false
-		});
-		return Promise.resolve(newSession);
+		if (newSession) {
+			cookies.set('idnSession', JSON.stringify(newSession), {
+				path: '/',
+				httpOnly: false,
+				secure: false
+			});
+			return Promise.resolve(newSession);
+		} else {
+			console.log('IdnSession token is expired');
+			return Promise.resolve(undefined);
+		}
 	} else {
 		console.log('IdnSession token is good');
 		return Promise.resolve(idnSession);
