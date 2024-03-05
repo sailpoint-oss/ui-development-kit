@@ -5,15 +5,8 @@
 ![Issues][issues-shield]
 ![Contributor Shield][contributor-shield]
 
-
-
-
-
-
 [issues-shield]:https://img.shields.io/github/issues/sailpoint-oss/electron-identitynow-starter?label=Issues
-
 [contributor-shield]:https://img.shields.io/github/contributors/sailpoint-oss/electron-identitynow-starter?label=Contributors
-
 [product-screenshot]: ./assets/images/electron-identitynow-starter-output.png
 
 <!-- PROJECT LOGO -->

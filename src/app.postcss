@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
+:root [data-theme='wintry'] {
+	--theme-rounded-base: 5px;
+	--theme-rounded-container: 4px;
+}
+
+html,
+body {
+	@apply h-full overflow-hidden;
+}
+
+td {
+	@apply !align-middle !text-center;
+}

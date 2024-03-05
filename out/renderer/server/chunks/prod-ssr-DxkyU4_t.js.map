@@ -1,0 +1,1 @@
+{"version":3,"file":"prod-ssr-DxkyU4_t.js","sources":["../../../../.svelte-kit/adapter-node/chunks/prod-ssr.js"],"sourcesContent":["const BROWSER = false;\nconst DEV = false;\nexport {\n  BROWSER as B,\n  DEV as D\n};\n"],"names":[],"mappings":"AAAK,MAAC,OAAO,GAAG,MAAM;AACjB,MAAC,GAAG,GAAG;;;;"}
