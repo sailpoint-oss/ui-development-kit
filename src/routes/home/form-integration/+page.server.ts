@@ -5,10 +5,12 @@ import {
 } from 'sailpoint-api-client';
 
 export const load = async ({ locals }) => {
+	console.log(locals);
+
 	const config = createConfiguration(locals.session!.baseUrl, locals.idnSession!.access_token);
 	const api = new CustomFormsBetaApi(config);
 
-	const formsResp = api.exportFormDefinitionsByTenant({});
+	const formsResp = api.exportFormDefinitionsByTenant();
 
 	const forms = new Promise<ExportFormDefinitionsByTenant200ResponseInnerBeta[]>((resolve) => {
 		formsResp.then((response) => {

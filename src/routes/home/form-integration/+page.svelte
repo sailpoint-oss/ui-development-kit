@@ -32,7 +32,7 @@
 	}
 </script>
 
-<dialog class="card p-8" bind:this={dialog}>
+<dialog class="card p-8 dark:text-white" bind:this={dialog}>
 	<div class="flex flex-col gap-4">
 		{#if selectedForm}
 			<p id="name" class="text-center">
@@ -123,9 +123,11 @@
 		<div class="flex flex-row">
 			{#each forms as form}
 				<div class="card flex flex-col p-4 gap-4">
-					<p id="name" class="text-center">
-						Name: {form.object?.name}
-					</p>
+					{#if form.object}
+						<p id="name" class="text-center">
+							Name: {form.object?.name}
+						</p>
+					{/if}
 					<p>
 						ID: {form.object?.id}
 					</p>
