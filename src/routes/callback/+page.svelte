@@ -8,7 +8,6 @@
 	console.log(data);
 	if (browser)
 		setTimeout(async () => {
-			if (!data.tokenDetails) await invalidateAll();
 			goto(`/home`);
 		}, 1000);
 </script>

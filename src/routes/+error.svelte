@@ -7,7 +7,7 @@
 
 <div class="p-4">
 	<div class="card p-4">
-		<p class="text-center p-2">
+		<p class="text-center p-2 pb-4">
 			WHOOPS! <br /> <span class="text-red-500">a {$page.status} error occurred.</span> <br /> If
 			you believe this is a bug please submit an issue on
 			<a
@@ -19,6 +19,9 @@
 				GitHub
 			</a>
 		</p>
+		<div class="grid place-content-center">
+			<a href="/" class="btn variant-filled-primary dark:text-white"> Go Back to Login </a>
+		</div>
 		{#if $page.error?.message}
 			<p class="py-2">Message: <br /><span class="text-red-500">{$page.error.message}</span></p>
 		{/if}

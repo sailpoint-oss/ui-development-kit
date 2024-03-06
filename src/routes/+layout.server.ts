@@ -1,9 +1,7 @@
 export const load = async ({ url, locals }) => {
-	if (
-		!locals.hasSession ||
-		!locals.hasIdnSession ||
-		url.pathname === '/logout'
-	) {
+	console.log(`Load runnning for path ${url.pathname}`);
+
+	if (!locals.session || !locals.idnSession || url.pathname === '/logout') {
 		return { tokenDetails: undefined };
 	}
 

@@ -1,4 +1,6 @@
-export const load = async ({ cookies }) => {
+import { generateLogoutLink } from '$lib/utils/oauth.js';
+
+export const load = async ({ cookies, locals }) => {
 	cookies.delete('session', {
 		path: '/',
 		httpOnly: false,
@@ -11,5 +13,8 @@ export const load = async ({ cookies }) => {
 		secure: false
 	});
 
-	return { sessionLoggedOut: true };
+	console.log('Logging out');
+	console.log('locals', locals);
+
+	return { logoutLink: generateLogoutLink(locals.session.tenantUrl) };
 };
