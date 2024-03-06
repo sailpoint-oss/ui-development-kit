@@ -28,14 +28,11 @@
 </div>
 
 - [About the project](#about-the-project)
-- [Project Structure](#project-structure)
-  - [Sveltekit-App](#sveltekit-app)
-  - [Sveltekit-Build](#sveltekit-build)
-  - [Electron-App](#electron-app)
+  - [SvelteKit](#sveltekit)
+  - [Electron](#electron)
 - [Using the starter](#using-the-starter)
+  - [Installing Dependencies](#installing-dependencies)
   - [Local Development](#local-development)
-    - [Svletekit](#svletekit)
-    - [Electron](#electron)
   - [Build the application from source](#build-the-application-from-source)
 - [Contribute](#contribute)
 - [License](#license)
@@ -53,21 +50,7 @@ This Electron IdentityNow starter is a template for a desktop application you ca
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- GETTING STARTED -->
-## Project Structure
-
-The current implementation of this app has three main folders:
-- `Sveltekit-App`
-- `Sveltekit-Build`
-- `Electron-App`
-
-The purpose of each of these folders is to hold a different portion of the total app, or rather different stages of the application.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-### Sveltekit-App
-
-The `Sveltekit-App` folder contains the main content of the application, this is where you will likely be doing 90% of your development. 
+### SvelteKit
 
 SvelteKit is a framework that allows easy development of applications utilizing both frontend and backend components and modern security standards, and when you are ready to build it allows you to compile your code into numerous different deployment methods using different adapters (static html, node server, edge or lambda functions).   
 [SvelteKit can be explored more here](https://kit.svelte.dev).
@@ -83,66 +66,88 @@ If you use this starter to build on top of, you will get a number of things impl
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Sveltekit-Build
+### Electron
 
-When you are ready to build your application, running the build command in the `Sveltekit-App` folder, will build the application using the node adapter for SvelteKit, and the build will be placed in the folder `Sveltekit-Build/src` 
+`Electron` is a framework that allows you to build cross-platform desktop applications using web technologies. It combines the Chromium rendering engine and the Node.js runtime to allow you to build applications that can run on Windows, Mac, and Linux.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-### Electron-App
-
-The `Electron-App` folder contains the code relevant to the electron portion of the application, this is where you determine the window theme, size, shape, and behavior as well as the startup logic for the application.
-
-Currently when running the electron application, the `handler` that is generated from the sveltekit build is imported and passed to an express server that runs the application, an electron window is then opened pointing at that local express server, so once the app is running you can even open the app directly in a web browser if you prefer.
+Inside the projects `src` folder there are two additional folders `main` and `preload`, these folders contain the code relevant to the electron portion of the application, this is where you determine the window theme, size, shape, and behavior as well as the startup logic for the application.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Using the starter
 
+To use this starter application you will need NPM installed. You can find instructions on how to install NPM [here](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
+
+Once you have NPM installed, you can clone this repository and run the below commands depending on your package manager of choice.
+
+### Installing Dependencies
+
+To install the dependencies, run `install` using your package manager of choice.
+
+```bash
+# Using NPM
+npm install
+```
+
+```bash
+# Using Yarn
+yarn install
+```
+
+```bash
+# Using PNPM
+pnpm install
+```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ### Local Development
 
-#### Svletekit 
+To start the application in development mode, first [install dependencies](#installing-dependencies), then run the `dev` script using your package manager of choice.
 
-To start the sveltekit dev server, navigate to the `./Sveltekit-App` folder and run `npm run dev`. 
-This will start the local dev server and you can access the application at `http://localhost:3000`.
+```bash
+# Using NPM
+npm run dev
+```
 
-#### Electron
+```bash
+# Using Yarn
+yarn dev
+```
 
-> Note: You will need to have the sveltekit app built already in order to start the electron app.
+```bash
+# Using PNPM
+pnpm dev
+```
 
-To start the electron app, navigate to the `./Electron-App` folder and run `npm run start`.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Build the application from source
 
-Prerequisites:
-* To build the application from source you will need NPM installed. You can find instructions on how to install NPM [here](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
+To build the application from source, first [install dependencies](#installing-dependencies), then run the `build` script matching your OS platform, using your package manager of choice.
 
-Once you have NPM installed, you can clone this repository and run the following commands in the specified order and folders:
+| Command | Description | OS |
+| --- | --- | --- |
+| `build:win` | Builds the application for Windows | Windows |
+| `build:mac` | Builds the application for MacOS | MacOS |
+| `build:linux` | Builds the application for Linux | Linux |
 
-Go to the folder: `./Sveltekit-App`
-First, run this command:
 ```bash
-npm install
+# Using NPM
+npm run build:win
 ```
 
-Then run this command:
 ```bash
-npm run build
+# Using Yarn
+yarn build:mac
 ```
 
-Next, go to the folder: `./Electron-App`
-First, run this command: 
 ```bash
-npm install
+# Using PNPM
+pnpm build:linux
 ```
 
-Then, run this command:
-```bash
-npm run build
-```
-
-As long as there are no errors during the build process, the built application binaries will then be located in the `./Electron-App/out` folder.
-
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
 ## Contribute
