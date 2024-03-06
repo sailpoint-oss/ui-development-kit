@@ -176,6 +176,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <!-- CONTACT -->
 ## Discuss
+
 You can go to the [SailPoint Developer Community Forum](https://developer.sailpoint.com/discuss/tag/electron-identitynow-starter) to discuss this tool with other users! 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
