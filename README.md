@@ -46,20 +46,20 @@
 <img src="./assets/images/electron-identitynow-starter-output.png" width="500" height="" style="text-align:center">
 </div> -->
 
-This UI Development Kit is a template for building desktop applications integrating with Identity Security Cloud.  
+The UI Development Kit is a template for building desktop applications integrating with Identity Security Cloud.  
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### SvelteKit
 
-SvelteKit is a framework that allows easy development of applications utilizing both frontend and backend components and modern security standards and when you are ready to build it allows you to compile your code into numerous different deployment methods using different adapters (static html, node server, edge or lambda functions).   
+SvelteKit is a framework that allows easy application development, utilizing both front-end and back-end components, as well as modern security standards. When you're ready to build the UI development kit, it allows you to compile your code into numerous different deployment methods by using different adapters (static html, node server, edge, or lambda functions).   
 [SvelteKit can be explored more here](https://kit.svelte.dev).
 
-If you use this starter to build on top of, you will get several things implemented right out of the box:  
+If you use this starter to build on top of an existing project, you will get several things implemented right out of the box:  
 
-- an OAuth Flow
-- the SailPoint SDK
-- a Desktop build of your app
+- OAuth Flow
+- SailPoint SDK
+- Desktop build of your application
 - TypeScript
 - SvelteKit
 - TailwindCSS
@@ -68,34 +68,34 @@ If you use this starter to build on top of, you will get several things implemen
 
 ### Electron
 
-`Electron` is a framework that allows you to build cross-platform desktop applications using web technologies. It combines the Chromium rendering engine and the Node.js runtime to allow you to build applications that can run on Windows, Mac, and Linux.
+`Electron` is a framework that allows you to build cross-platform desktop applications, using web technologies. It combines the Chromium rendering engine and the Node.js runtime to allow you to build applications that can run on Windows, Mac, and Linux.
 
-Inside the projects `src` folder there are two additional folders `main` and `preload`, these folders contain the code relevant to the electron portion of the application, this is where you determine the window theme, size, shape, and behavior as well as the startup logic for the application.
+In the projects `src` folder, there are two additional folders: `main` and `preload`. These folders contain the code relevant to the electron portion of the application. The electron portion of the application is where you determine the window theme, size, shape, and behavior as well as the startup logic for the application.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Using the starter
+## Use the starter
 
-To use this starter application you will need NPM installed. You can find instructions on how to install NPM [here](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
+To use this starter application, you must install NPM. You can find instructions about how to install NPM [here](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
 
-Once you have NPM installed, you can clone this repository and run the below commands depending on your package manager of choice.
+Once you have NPM installed, you can clone this repository and run the following commands, depending on your package manager of choice.
 
-### Installing Dependencies
+### Install dependencies
 
-To install the dependencies, run `install` using your package manager of choice.
+To install the dependencies, run `install` using your package manager of choice:
 
 ```bash
-# Using NPM
+# NPM
 npm install
 ```
 
 ```bash
-# Using Yarn
+# Yarn
 yarn install
 ```
 
 ```bash
-# Using PNPM
+# PNPM
 pnpm install
 ```
 
@@ -103,20 +103,20 @@ pnpm install
 
 ### Local Development
 
-To start the application in development mode, first [install dependencies](#installing-dependencies), then run the `dev` script using your package manager of choice.
+To start the application in development mode, first [install dependencies](#installing-dependencies). Then run the `dev` script using your package manager of choice:
 
 ```bash
-# Using NPM
+# NPM
 npm run dev
 ```
 
 ```bash
-# Using Yarn
+# Yarn
 yarn dev
 ```
 
 ```bash
-# Using PNPM
+# PNPM
 pnpm dev
 ```
 
@@ -124,26 +124,26 @@ pnpm dev
 
 ### Build the application from source
 
-To build the application from source, first [install dependencies](#installing-dependencies), then run the `build` script matching your OS platform, using your package manager of choice.
+To build the application from source, first [install dependencies](#installing-dependencies). Then run the `build` script matching your OS platform, using your package manager of choice:
 
 | Command | Description | OS |
 | --- | --- | --- |
-| `build:win` | Builds the application for Windows | Windows |
-| `build:mac` | Builds the application for MacOS | MacOS |
-| `build:linux` | Builds the application for Linux | Linux |
+| `build:win` | Builds the application for Windows. | Windows |
+| `build:mac` | Builds the application for MacOS. | MacOS |
+| `build:linux` | Builds the application for Linux. | Linux |
 
 ```bash
-# Using NPM
+# NPM
 npm run build:win
 ```
 
 ```bash
-# Using Yarn
+# Yarn
 yarn build:mac
 ```
 
 ```bash
-# Using PNPM
+# PNPM
 pnpm build:linux
 ```
 
