@@ -46,16 +46,16 @@
 <img src="./assets/images/electron-identitynow-starter-output.png" width="500" height="" style="text-align:center">
 </div> -->
 
-This Electron IdentityNow starter is a template for a desktop application you can use build out GUI applications that integrate with IdentityNow.  
+This UI Development Kit is a template for building desktop applications integrating with Identity Security Cloud.  
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### SvelteKit
 
-SvelteKit is a framework that allows easy development of applications utilizing both frontend and backend components and modern security standards, and when you are ready to build it allows you to compile your code into numerous different deployment methods using different adapters (static html, node server, edge or lambda functions).   
+SvelteKit is a framework that allows easy development of applications utilizing both frontend and backend components and modern security standards and when you are ready to build it allows you to compile your code into numerous different deployment methods using different adapters (static html, node server, edge or lambda functions).   
 [SvelteKit can be explored more here](https://kit.svelte.dev).
 
-If you use this starter to build on top of, you will get a number of things implemented right out of the box:  
+If you use this starter to build on top of, you will get several things implemented right out of the box:  
 
 - an OAuth Flow
 - the SailPoint SDK
@@ -152,7 +152,7 @@ pnpm build:linux
 <!-- CONTRIBUTING -->
 ## Contribute
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 If you have a suggestion to improve this project, please fork the repo and create a pull request. You can also make a suggestion by opening an issue with the tag `enhancement`.
 Don't forget to give the project a star! Thanks again!
