@@ -5,6 +5,7 @@ import log from 'electron-log/main';
 import { start, load } from 'adapter-electron/functions';
 import path from 'node:path';
 import ess from 'electron-squirrel-startup';
+import { session } from 'electron';
 
 Object.assign(console, log.functions);
 
@@ -38,7 +39,7 @@ const createWindow = () => {
 			minWidth: 800,
 			webPreferences: {
 				contextIsolation: true,
-				nodeIntegration: true,
+				nodeIntegration: false,
 				spellcheck: false,
 				devTools: true,
 				preload: path.join(__dirname, '../preload/index.mjs')
@@ -62,6 +63,15 @@ const createWindow = () => {
 
 		mainWindow.on('close', () => {
 			windowState.saveState(mainWindow);
+		});
+
+		session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+			callback({
+				responseHeaders: {
+					...details.responseHeaders,
+					'Content-Security-Policy': ["script-src 'self' 'unsafe-inline' *"]
+				}
+			});
 		});
 	} catch (e) {
 		console.log('Error creating window');
