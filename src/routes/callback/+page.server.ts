@@ -36,9 +36,7 @@ export const load: PageServerLoad = async ({ url, cookies, locals }) => {
 		});
 
 	cookies.set('idnSession', encrypt(JSON.stringify(response.data)), {
-		path: '/',
-		httpOnly: false,
-		secure: false
+		path: '/'
 	});
 
 	return { counterList };
