@@ -76,9 +76,7 @@ export function getTokenDetails(cookies: Cookies): TokenDetails | undefined {
 
 export function setTokenDetails(cookies: Cookies, tokenDetails: TokenDetails) {
 	cookies.set('tokenDetails', encrypt(JSON.stringify(tokenDetails)), {
-		path: '/',
-		httpOnly: false,
-		secure: false
+		path: '/'
 	});
 }
 
@@ -120,15 +118,11 @@ export async function refreshToken(
 
 export async function logout(cookies: Cookies) {
 	cookies.delete('session', {
-		path: '/',
-		httpOnly: false,
-		secure: false
+		path: '/'
 	});
 
 	cookies.delete('idnSession', {
-		path: '/',
-		httpOnly: false,
-		secure: false
+		path: '/'
 	});
 }
 
