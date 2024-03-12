@@ -17,9 +17,11 @@
 		console.log(conditions);
 		for (const condition of conditions || []) {
 			for (const rule of condition.rules) {
-				console.log(rule);
-				const temp = parsedConditionals.get(rule.source) || [];
-				parsedConditionals.set(rule.source, Array.from(new Set([...temp, rule.value])));
+				if (rule.value) {
+					console.log(rule);
+					const temp = parsedConditionals.get(rule.source) || [];
+					parsedConditionals.set(rule.source, Array.from(new Set([...temp, rule.value])));
+				}
 			}
 		}
 
@@ -46,7 +48,7 @@
 				<p>Form Inputs:</p>
 				{#if selectedForm.object?.formInput}
 					{#each selectedForm.object?.formInput as input}
-						{#if conditions.get(input.label)}
+						{#if conditions.get(input.label) && conditions.get(input.label).length > 0}
 							<label class="label" for={input.label}>
 								<span>{input.label}</span>
 								<select class="input" id={input.label} bind:value={inputs[input.label]}>
