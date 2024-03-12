@@ -33,7 +33,7 @@
 </script>
 
 <dialog class="card p-8 dark:text-white" bind:this={dialog}>
-	<div class="flex flex-col gap-4">
+	<div class="flex flex-col gap-4 m-2">
 		{#if selectedForm}
 			<p id="name" class="text-center">
 				Name: {selectedForm.object?.name}
@@ -120,34 +120,34 @@
 			<Progress width="w-[80px]" />
 		</div>
 	{:then forms}
-		<div class="flex flex-row">
+		<div class="flex flex-row flex-wrap">
 			{#each forms as form}
-				<div class="card flex flex-col p-4 gap-4">
+				<div class="card flex flex-col m-2 p-4 gap-2 w-80 relative">
 					{#if form.object}
 						<p id="name" class="text-center">
 							Name: {form.object?.name}
 						</p>
 					{/if}
-					<p>
-						ID: {form.object?.id}
+					<p class="font-bold">
+						ID: <span class="font-normal">{form.object?.id}</span>
 					</p>
-					<p>
-						Description: <br />
-						{form.object?.description}
-					</p>
+					<p class="font-bold">Description:</p>
+					<div class="">{form.object?.description}</div>
 					<div>
-						<p>Form Inputs:</p>
-						{#if form.object?.formInput}
+						<p class="font-bold">Form Inputs:</p>
+						{#if form.object?.formInput && form.object?.formInput.length > 0}
 							{#each form.object?.formInput as input}
-								<p class="">
-									{input.label}
-								</p>
+								<p class="">{input.label}</p>
 							{/each}
+						{:else}
+							<p class="">No Inputs</p>
 						{/if}
 					</div>
+					<div class="h-10">
 
+					</div>
 					<button
-						class="btn variant-filled-primary"
+						class="btn variant-filled-primary card-button"
 						on:click={() => {
 							selectedForm = form;
 							dialog.showModal();
@@ -160,3 +160,11 @@
 		</div>
 	{/await}
 </div>
+
+<style>
+	.card-button {
+		position: absolute;
+		bottom: 10px;
+		width: calc(100% - 35px);
+	}
+</style>
