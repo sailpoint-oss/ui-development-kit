@@ -48,11 +48,11 @@
 				<p>Form Inputs:</p>
 				{#if selectedForm.object?.formInput}
 					{#each selectedForm.object?.formInput as input}
-						{#if conditions.get(input.label) && conditions.get(input.label).length > 0}
+						{#if conditions.get(input.id)}
 							<label class="label" for={input.label}>
 								<span>{input.label}</span>
 								<select class="input" id={input.label} bind:value={inputs[input.label]}>
-									{#each conditions.get(input.label) as condition}
+									{#each conditions.get(input.id) as condition}
 										<option value={condition}>{condition}</option>
 									{/each}
 								</select>
