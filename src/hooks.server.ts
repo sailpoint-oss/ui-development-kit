@@ -34,7 +34,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	if (event.url.pathname.startsWith('/home') || event.url.pathname.startsWith('/api')) {
 		if (!event.locals.session || !event.locals.idnSession) {
 			console.log('No session or idnSession found, redirecting to /');
-			redirect(401, '/');
+			redirect(301, '/');
 		}
 	}
 

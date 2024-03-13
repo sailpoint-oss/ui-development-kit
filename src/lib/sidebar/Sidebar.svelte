@@ -11,7 +11,6 @@
 					{#each section.content as link (link.url)}
 						<a
 							href={link.url}
-							data-sveltekit-preload-data="hover"
 							class="flex items-center w-full h-12 px-3 mt-2 rounded"
 							class:bg-surface-active-token={link.url === $page.url.pathname}
 							class:!text-white={link.url === $page.url.pathname}
