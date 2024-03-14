@@ -33,7 +33,7 @@ export const actions = {
 			return { success: true, transform: data.get('updatedTransform')};
 		} catch (error) {
 			if (error && isAxiosError(error) && error.response) {
-				return fail(error.response.status, {message: error.message})
+				return fail(error.response.status, {message: error.message , transform: data.get('transform')})
 			}
 		}
 	}

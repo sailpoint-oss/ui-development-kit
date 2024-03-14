@@ -4,6 +4,7 @@
 	import { type TransformRead } from 'sailpoint-api-client';
 	import { onMount } from 'svelte';
 	import type { ActionData } from './$types';
+	import { browser } from '$app/environment';
 
 	let selectedTransform = '';
 	let updatedTransform
@@ -14,7 +15,9 @@
 
 	$: console.log(selectedTransform)
 	onMount(async () => {
-		await getTransforms();
+		if (browser) {
+			await getTransforms();
+		}
 	});
 
 	async function getTransforms() {
@@ -28,8 +31,8 @@
 			transforms = await response.json();
 			updatedTransform = ''
 			if (form && form.transform) {
-				updatedTransform = JSON.stringify(JSON.parse(form.transform), undefined, 4)
-				selectedTransform = JSON.stringify(JSON.parse(form.transform))
+				updatedTransform = JSON.stringify(JSON.parse(form.transform.toString()), undefined, 4)
+				selectedTransform = JSON.stringify(JSON.parse(form.transform.toString()))
 			}
 			
 		} else {
