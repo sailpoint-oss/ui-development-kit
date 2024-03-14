@@ -17,9 +17,6 @@ export const actions = {
 	default: async ({ locals, request }) => {
 		const data = await request.formData();
 
-		console.log('default action');
-		console.log('data', data);
-
 		const config = createConfiguration(locals.session!.baseUrl, locals.idnSession!.access_token);
 		const api = new TransformsApi(config);
 		try {
@@ -33,7 +30,7 @@ export const actions = {
 			}
 	
 	
-			return { status: 'success' };
+			return { success: true, transform: data.get('updatedTransform')};
 		} catch (error) {
 			if (error && isAxiosError(error) && error.response) {
 				return fail(error.response.status, {message: error.message})

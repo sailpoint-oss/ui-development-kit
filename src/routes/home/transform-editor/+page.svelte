@@ -3,10 +3,14 @@
 	import Progress from '$lib/Components/Progress.svelte';
 	import { type TransformRead } from 'sailpoint-api-client';
 	import { onMount } from 'svelte';
+	import type { ActionData } from './$types';
 
 	let selectedTransform = '';
 	let updatedTransform
 	let transforms: TransformRead[] = null;
+	export let form: ActionData
+	$: console.log(form)
+	
 
 	$: console.log(selectedTransform)
 	onMount(async () => {
@@ -23,13 +27,17 @@
 		if (response.ok) {
 			transforms = await response.json();
 			updatedTransform = ''
+			if (form && form.transform) {
+				updatedTransform = JSON.stringify(JSON.parse(form.transform), undefined, 4)
+				selectedTransform = JSON.stringify(JSON.parse(form.transform))
+			}
+			
 		} else {
 			console.error('Failed to fetch transforms');
 		}
 	}
 
 	function handleChange() {
-		//console.log(selectedTransform);
 		if(!selectedTransform) return;
 		updatedTransform = JSON.stringify(JSON.parse(selectedTransform), undefined, 4)
 	};
@@ -37,13 +45,21 @@
 </script>
 
 <div class="flex justify-center flex-col align-middle gap-2">
-	<div class="card p-4">
-		<p class="text-2xl text-center">Example Form</p>
-	</div>
+	{#if form && !form.success && form.message}
+		<div class="card p-4 text-red-700">
+			<p class="text-2xl text-center">{form.message}</p>
+		</div>
+	{/if}
+	{#if form && form.success}
+		<div class="card p-4 text-green-600">
+			<p class="text-2xl text-center">Successfully updated transform</p>
+		</div>
+	{/if}
 	<form method="POST" class="card p-4"  use:enhance={() => {
 		transforms = null;
-		return () => {
+		return ({update}) => {
 			getTransforms();
+			update();
 		};
 	}}>
 		<p class="text-2xl text-center">Update Transform</p>
