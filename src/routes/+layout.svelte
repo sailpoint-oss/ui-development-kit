@@ -121,7 +121,7 @@
 					<img class="h-8 w-8" src="/logo.ico" alt="SailPoint TetraSail" />
 				</div>
 			</svelte:fragment>
-			<p class="text-xl lg:!block hidden">UI Development Kit Script</p>
+			<p class="text-xl lg:!block hidden">UI Development Kit</p>
 			<svelte:fragment slot="trail">
 				<LightSwitch />
 				{#if data.tokenDetails}
