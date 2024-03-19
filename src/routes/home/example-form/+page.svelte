@@ -7,8 +7,8 @@
 
 	export let data;
 
-	const selectedSource: Writable<any> = localStorageStore('selectedSource', undefined);
-	const updatedDescription: Writable<string> = localStorageStore('updatedDescription', '');
+	let selectedSource
+	let updatedDescription
 
 	onMount(async () => {
 		const sources = await data.sources;

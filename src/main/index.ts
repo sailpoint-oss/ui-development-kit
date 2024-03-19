@@ -6,11 +6,24 @@ import { start, load } from 'adapter-electron/functions';
 import path from 'node:path';
 import ess from 'electron-squirrel-startup';
 import { session } from 'electron';
+import polka from 'polka';
 
 Object.assign(console, log.functions);
 
 log.info('Hello, log!');
-const port = await start();
+
+if (!isDev) {
+	const { env } = await await import(`file://${path.join(__dirname, '../renderer/env.js')}`);
+	const port = env('PORT', '3000');
+	process.env['ORIGIN'] = `http://localhost:${port}`;
+	const { handler } = await import(`file://${path.join(__dirname, '../renderer/handler.js')}`);
+	const server = polka().use(handler);
+	Object.assign(console, log.functions);
+	server.listen({ path: false, host: 'localhost', port }, () => {
+		log.info(`Server Listening on http://localhost:${port}`);
+	});
+}
+
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (ess) {
@@ -52,7 +65,7 @@ const createWindow = () => {
 
 		// Load the local URL for development or the local
 		// html file for production
-		load(mainWindow, port);
+		mainWindow.loadURL(`http://localhost:3000`);
 
 		if (isDev) mainWindow.webContents.openDevTools();
 
