@@ -1,6 +1,5 @@
 import { getFilters, getLimit, getPage, getSorters } from '$lib/Utils.js';
 import { createConfiguration } from '$lib/sailpoint/sdk.js';
-import { getToken } from '$lib/utils/oauth.js';
 import {
 	SearchApi,
 	SourcesApi,
@@ -10,11 +9,8 @@ import {
 	type Source
 } from 'sailpoint-api-client';
 
-export const load = async ({ cookies, url }) => {
-	const session = JSON.parse(cookies.get('session')!);
-	const idnSession = await getToken(cookies);
-
-	const config = createConfiguration(session.baseUrl, idnSession.access_token);
+export const load = async ({ url, locals }) => {
+	const config = createConfiguration(locals.session!.baseUrl, locals.idnSession!.access_token);
 	const sourceApi = new SourcesApi(config);
 	const searchApi = new SearchApi(config);
 

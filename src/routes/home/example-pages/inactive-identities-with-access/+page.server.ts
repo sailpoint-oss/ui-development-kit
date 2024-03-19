@@ -1,8 +1,7 @@
 import { createConfiguration } from '$lib/sailpoint/sdk.js';
-import { getToken } from '$lib/utils/oauth.js';
 import { SearchApi, type Search, Paginator, type IdentityDocument } from 'sailpoint-api-client';
 
-export const load = async ({ cookies }) => {
+export const load = async ({ locals }) => {
 	const search: Search = {
 		indices: ['identities'],
 		query: {
@@ -11,10 +10,7 @@ export const load = async ({ cookies }) => {
 		sort: ['name']
 	};
 
-	const session = JSON.parse(cookies.get('session')!);
-	const idnSession = await getToken(cookies);
-
-	const config = createConfiguration(session.baseUrl, idnSession.access_token);
+	const config = createConfiguration(locals.session!.baseUrl, locals.idnSession!.access_token);
 	const api = new SearchApi(config);
 	const reportResp = Paginator.paginateSearchApi(api, search, 100, 20000);
 

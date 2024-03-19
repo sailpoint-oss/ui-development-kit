@@ -37,13 +37,6 @@
 							<td>{formatDate(source.created)}</td>
 							<td>{source.owner.name}</td>
 							<td class="flex flex-col justify-center gap-1">
-								<a
-									href={`/home/sources/${source.id}`}
-									class="btn variant-filled-primary text-sm !text-white"
-									data-sveltekit-preload-data="hover"
-								>
-									Open Source
-								</a>
 								<button
 									on:click={() => TriggerCodeModal(source, modalStore)}
 									class="btn variant-filled-primary text-sm !text-white"

@@ -16,15 +16,15 @@
 
 	$: onPageChange = createOnPageChange(
 		{ ...data.params, filters: '', sorters },
-		'/home/reports/list-of-identities'
+		'/home/example-pages/list-of-identities'
 	);
 	$: onAmountChange = createOnAmountChange(
 		{ ...data.params, filters: '', sorters },
-		'/home/reports/list-of-identities'
+		'/home/example-pages/list-of-identities'
 	);
 	$: onGo = createOnGo(
 		{ ...data.params, filters: '', sorters },
-		'/home/reports/list-of-identities'
+		'/home/example-pages/list-of-identities'
 	);
 
 	let sorters = data.params.sorters || '';
