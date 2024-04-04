@@ -21,7 +21,7 @@
 	});
 
 	async function getSources() {
-		const response = await fetch('./example-form-new', {
+		const response = await fetch('./example-form', {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'
