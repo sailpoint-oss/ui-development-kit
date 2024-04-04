@@ -1,66 +1,99 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import Progress from '$lib/Components/Progress.svelte';
+	import { type Source } from 'sailpoint-api-client';
 	import { onMount } from 'svelte';
-	import type { Writable } from 'svelte/store';
-	import { localStorageStore } from '@skeletonlabs/skeleton';
+	import type { ActionData } from './$types';
+	import { browser } from '$app/environment';
 
-	export let data;
+	let selectedSource = '';
+	let updatedSource
+	let sources: Source[] = null;
+	export let form: ActionData
+	$: console.log(form)
+	
 
-	let selectedSource
-	let updatedDescription
-
+	$: console.log(selectedSource)
 	onMount(async () => {
-		const sources = await data.sources;
-		if (sources.length > 0) {
-			$selectedSource = JSON.stringify(sources[0]);
-			$updatedDescription = sources[0].description || '';
+		if (browser) {
+			await getSources();
 		}
 	});
 
-	const handleChange = (e: any) => {
-		$updatedDescription = JSON.parse(e.target.value).description || '';
+	async function getSources() {
+		const response = await fetch('./example-form-new', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
+		if (response.ok) {
+			sources = await response.json();
+			updatedSource = ''
+			if (form && form.source && typeof form.source !== 'undefined') {
+				const source: Source = typeof form.source === 'string' ? JSON.parse(form.source) : form.source;
+				updatedSource = source.description
+				selectedSource = JSON.stringify(source)
+			}
+			
+		} else {
+			console.error('Failed to fetch sources');
+		}
+	}
+
+	function handleChange() {
+		if(!selectedSource) return;
+		updatedSource = JSON.parse(selectedSource).description
 	};
 
-	$: console.log($selectedSource);
 </script>
 
 <div class="flex justify-center flex-col align-middle gap-2">
-	<div class="card p-4">
-		<p class="text-2xl text-center">Example Form</p>
-	</div>
-	<form method="POST" class="card p-4">
-		<p class="text-2xl text-center">Update Source Description</p>
+	{#if form && !form.success && form.message}
+		<div class="card p-4 text-red-700">
+			<p class="text-2xl text-center">{form.message}</p>
+		</div>
+	{/if}
+	{#if form && form.success}
+		<div class="card p-4 text-green-600">
+			<p class="text-2xl text-center">Successfully updated source</p>
+		</div>
+	{/if}
+	<form method="POST" class="card p-4"  use:enhance={() => {
+		sources = null;
+		return ({update}) => {
+			getSources();
+			update();
+		};
+	}}>
+		<p class="text-2xl text-center">Update Source</p>
 		<div class="flex flex-col gap-4">
-			{#await data.sources}
+			{#if sources === null}
 				<div class="flex flex-row justify-center">
 					<Progress width="w-[100px]" />
 				</div>
-			{:then sources}
+			{:else}
 				<label>
 					<span>Sources:</span>
 					<select
+						bind:value={selectedSource}
 						on:change={handleChange}
 						name="source"
-						placeholder="Select a source"
-						bind:value={$selectedSource}
 						class="select"
 					>
-						<option hidden disabled>Select a source</option>
 						{#each sources as source}
-							{@const sourceString = JSON.stringify(source)}
-							<option value={sourceString} selected={$selectedSource === sourceString}>
-								{source.name} - {source.type}
+							<option value={JSON.stringify(source)}>
+								{source.name}
 							</option>
 						{/each}
 					</select>
 				</label>
 
 				<label>
-					<span>Description:</span>
-					<textarea name="updatedDescription" class="textarea" bind:value={$updatedDescription} />
+					<span>Source description:</span>
+					<input  name="updatedSource" class="input" bind:value={updatedSource} />
 				</label>
-			{/await}
+			{/if}
 
 			<button type="submit" class="btn variant-filled">Submit</button>
 		</div>

@@ -15,9 +15,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 	console.log('Handle Session:', event.locals.session);
 
 	if (event.locals.idnSession) {
-		const lastToken = lastCheckedToken(event.cookies);
 		const tokenDetails = getTokenDetails(event.cookies);
-		if (tokenDetails && lastToken && lastToken === event.locals.idnSession.access_token) {
+		if (tokenDetails) {
 			event.locals.tokenDetails = tokenDetails;
 		} else {
 			const tempTokenDetails = await checkToken(
