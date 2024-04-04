@@ -26,11 +26,6 @@ export const navigation = [
 				url: '/home/form-integration',
 				name: 'SailPoint Form Integration',
 				description: 'A form example using the IdentityNow SDK.'
-			},
-			{
-				url: '/home/transform-editor',
-				name: 'Transform Editor',
-				description: 'A transform editor using the IdentityNow SDK.'
 			}
 		]
 	}
