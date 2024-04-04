@@ -174,9 +174,7 @@ export async function getToken(cookies: Cookies): Promise<IdnSession | undefined
 		const newSession = await refreshToken(session.baseUrl, idnSession.refresh_token);
 		if (newSession) {
 			cookies.set('idnSession', encrypt(JSON.stringify(newSession)), {
-				path: '/',
-				httpOnly: false,
-				secure: false
+				path: '/'
 			});
 			return Promise.resolve(newSession);
 		} else {
