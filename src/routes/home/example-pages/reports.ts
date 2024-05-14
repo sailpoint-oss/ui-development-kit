@@ -1,7 +1,7 @@
 export const reports = [
 	{
 		url: '/home/example-pages/missing-managers',
-		name: 'Active Identiites with Missing Managers',
+		name: 'Active Identities with Missing Managers',
 		description: 'This report will show all identities without manager'
 	},
 	{
