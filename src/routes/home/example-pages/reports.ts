@@ -1,5 +1,10 @@
 export const reports = [
 	{
+		url: '/home/example-pages/missing-managers',
+		name: 'Active Identities with Missing Managers',
+		description: 'This report will show all identities without manager'
+	},
+	{
 		url: '/home/example-pages/list-of-identities',
 		name: 'List of Identities',
 		description: 'This report will show all identities in the system'
