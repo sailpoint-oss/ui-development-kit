@@ -2,14 +2,14 @@
   <button mat-icon-button (click)="toggleSidenav()" *ngIf="isSmallScreen" aria-label="Toggle sidenav">
     <mat-icon>menu</mat-icon>
   </button>
-  <img style="height: 70px;"
+  <img style="height: 70px; width: 700px;"
     *ngIf="!isSmallScreen"
     [src]="isDarkTheme ? 'assets/icons/SailPoint-Developer-Community-Inverse-Lockup.png' : 'assets/icons/SailPoint-Developer-Community-Lockup.png'"
     alt="SailPoint Developer Community Logo"
     class="logo"
   />
-  <app-connect class="connect-spacing"></app-connect>
   <span class="spacer"></span>
+  <app-connect class="nav-spacing"></app-connect>
   <button mat-icon-button (click)="toggleTheme()" aria-label="Toggle theme">
     <mat-icon>{{ isDarkTheme ? 'dark_mode' : 'light_mode' }}</mat-icon>
   </button>

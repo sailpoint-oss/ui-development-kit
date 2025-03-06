@@ -25,7 +25,7 @@ export class AppComponent {
   ) {
     this.translate.setDefaultLang('en');
     console.log('APP_CONFIG', APP_CONFIG);
-    this.breakpointObserver.observe([Breakpoints.Small, Breakpoints.XSmall]).subscribe((result) => {
+    this.breakpointObserver.observe([Breakpoints.Medium, Breakpoints.Small, Breakpoints.XSmall]).subscribe((result) => {
       this.isSmallScreen = result.matches;
       this.sidenavOpened = !this.isSmallScreen;
     });
