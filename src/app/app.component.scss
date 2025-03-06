@@ -1,0 +1,81 @@
+:host {
+
+
+  .main-content {
+    margin: 16px;
+    padding: 16px;
+    border: 1px solid #ddd; /* Thin border color */
+    border-radius: 8px; /* Rounded corners */
+    background-color: #fff; /* Optional: background color */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for effect */
+    //background-color: #f0f0f0; /* Light gray background for light mode */
+  }
+
+  // Dark theme styles
+  :host-context(.dark-theme) .main-content {
+    background-color: #2f2f2f; /* Dark gray background for dark mode */
+  }
+
+  mat-toolbar {
+    --mat-toolbar-standard-height: 80px; /* Set your desired height */
+    color: #005cbb;
+    background: #d7e3ff;
+  }
+
+  :host-context(.dark-theme) mat-toolbar {
+    color: #c8ced5;
+    background: #390035;
+  }
+
+}
+
+
+
+.app-container {
+  height: calc(100% - 80px); /* Adjust the height as needed */
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.connect-spacing {
+  margin: 20px; /* Adjust the spacing as needed */
+  position: relative;
+  top: 11px;
+}
+
+
+.disabled {
+  pointer-events: none; /* Prevent clicks */
+  color: rgba(0, 0, 0, 0.38); /* Disabled text color */
+  cursor: default;
+  text-decoration: none;
+}
+
+mat-sidenav {
+  min-width: 100px;
+  max-width: 200px;
+  margin-right: 10px;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-item mat-icon {
+  margin-right: 8px; /* Add spacing between icon and text */
+  font-size: 24px;  /* Ensure consistent icon size */
+  vertical-align: middle;
+}
+
+.sidebar-item div[mat-line] {
+  flex: 1; /* Ensures text aligns properly with the icon */
+}
+
+
+.card-icon {
+  top: 5px;
+  position: relative;
+}

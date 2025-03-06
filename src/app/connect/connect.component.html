@@ -1,0 +1,11 @@
+
+<button mat-raised-button *ngIf="!isConnected" (click)="connectToISC()">
+  <mat-icon>usb</mat-icon>
+  Connect
+</button>
+<button mat-raised-button *ngIf="isConnected" (click)="disconnectFromISC()">
+  <mat-icon>logout</mat-icon>
+  Disconnect
+</button>
+
+

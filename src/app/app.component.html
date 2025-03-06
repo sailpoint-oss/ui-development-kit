@@ -1,0 +1,38 @@
+<mat-toolbar color="secondary" class="mat-elevation-z6">
+  <button mat-icon-button (click)="toggleSidenav()" *ngIf="isSmallScreen" aria-label="Toggle sidenav">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <img style="height: 70px;"
+    *ngIf="!isSmallScreen"
+    [src]="isDarkTheme ? 'assets/icons/SailPoint-Developer-Community-Inverse-Lockup.png' : 'assets/icons/SailPoint-Developer-Community-Lockup.png'"
+    alt="SailPoint Developer Community Logo"
+    class="logo"
+  />
+  <app-connect class="connect-spacing"></app-connect>
+  <span class="spacer"></span>
+  <button mat-icon-button (click)="toggleTheme()" aria-label="Toggle theme">
+    <mat-icon>{{ isDarkTheme ? 'dark_mode' : 'light_mode' }}</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-sidenav-container class="app-container">
+  <mat-sidenav  *ngIf="isConnected" #sidenav [mode]="isSmallScreen ? 'over' : 'side'" [opened]="sidenavOpened"
+    (openedChange)="sidenavOpened = $event">
+    <mat-nav-list>
+      
+      <a mat-list-item routerLink="/home" routerLinkActive="active-link" [class.disabled]="!isConnected"
+        (click)="!isConnected && $event.preventDefault()">
+        <mat-icon class="card-icon">home</mat-icon>
+        Home
+      </a>
+   
+
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

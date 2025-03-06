@@ -1,0 +1,17 @@
+<div style="font-size: larger;" *ngIf="!isConnected" class="card-container">
+  Welcome to the SailPoint UI Development Kit. Please connect to your tenant using the connect button above.
+</div>
+
+<mat-spinner *ngIf="loading"></mat-spinner>
+
+<div *ngIf="!loading">
+  <!-- For connected state -->
+  <div *ngIf="isConnected" class="card-container">
+    <mat-card class="action-card" (click)="listIdentities()">
+      <mat-card-content class="card-content">
+        <mat-icon class="card-icon">backup</mat-icon>
+        <div class="card-text">Get tenant information</div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
