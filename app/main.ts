@@ -1,7 +1,7 @@
 import { app, BrowserWindow, ipcMain, screen } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
-import {  connectToISC,  disconnectFromISC} from './api';
+import {  connectToISC,  disconnectFromISC, getTenants} from './api';
 
 let win: BrowserWindow | null = null;
 const args = process.argv.slice(1),
@@ -96,6 +96,9 @@ try {
   });
   ipcMain.handle('disconnect-from-isc', async () => {
     return await disconnectFromISC();
+  });
+  ipcMain.handle('get-tenants', async () => {
+    return await getTenants();
   });
 
 } catch (e) {

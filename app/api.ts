@@ -16,3 +16,7 @@ export const connectToISC = async (tenantUrl: string, clientId: string, clientSe
     let response = await tenantApi.getTenant();
     return { connected: true, name: response.data.fullName };
 }
+
+export const getTenants = async () => {
+    return [{ tenantUrl: 'test', authUrl: 'test', clientId: 'test', clientSecret: 'test' }]; 
+}

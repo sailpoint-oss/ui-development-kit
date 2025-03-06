@@ -1,4 +1,14 @@
 
+<mat-form-field appearance="fill">
+  <mat-label>Tenant</mat-label>
+  <mat-select [(value)]="selectedTenant" (selectionChange)="updateTenant()">
+    <mat-option value="new">New</mat-option>
+    <mat-option *ngFor="let tenant of tenants" [value]="tenant.name">
+      {{ tenant.name }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
 <button mat-raised-button *ngIf="!isConnected" (click)="connectToISC()">
   <mat-icon>usb</mat-icon>
   Connect

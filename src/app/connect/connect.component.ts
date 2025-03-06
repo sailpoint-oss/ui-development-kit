@@ -15,6 +15,12 @@ declare const window: any;
 interface Connection {
   connected: boolean;
 }
+interface Tenant {
+  tenantUrl: string;
+  authUrl: string;
+  clientId: string;
+  clientSecret: string;
+}
 
 @Component({
   selector: 'app-connect',
@@ -23,20 +29,26 @@ interface Connection {
   templateUrl: './connect.component.html',
   styleUrl: './connect.component.scss'
 })
+
+
+
 export class ConnectComponent implements OnInit, OnDestroy {
   isConnected: boolean = false;
+  tenants: Tenant[] = [];
 
   constructor(private router: Router, private dialog: MatDialog, private connectionService: ConnectionService) {
 
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     if (this.isConnected === false) {
       //redirect to home page
       this.router.navigate(['/home']).catch((error: any) => {
         console.error('Navigation error:', error);
       });
     }
+    this.tenants = <Tenant[]>await window.electronAPI.getTenants();
+
 
   }
 

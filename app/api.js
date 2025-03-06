@@ -9,12 +9,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.connectToISC = exports.disconnectFromISC = void 0;
+exports.getTenants = exports.connectToISC = exports.disconnectFromISC = void 0;
+const sailpoint_api_client_1 = require("sailpoint-api-client");
 const disconnectFromISC = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.disconnectFromISC = disconnectFromISC;
-const connectToISC = (tenant, clientId, clientSecret) => __awaiter(void 0, void 0, void 0, function* () {
-    return { connected: true };
+const connectToISC = (tenantUrl, clientId, clientSecret) => __awaiter(void 0, void 0, void 0, function* () {
+    let config = {
+        clientId: clientId,
+        clientSecret: clientSecret,
+        tokenUrl: `https://${tenantUrl}.api.identitynow.com/oauth2/token`
+    };
+    let apiConfig = new sailpoint_api_client_1.Configuration(config);
+    let tenantApi = new sailpoint_api_client_1.TenantV2024Api(apiConfig);
+    let response = yield tenantApi.getTenant();
+    return { connected: true, name: response.data.fullName };
 });
 exports.connectToISC = connectToISC;
+const getTenants = () => __awaiter(void 0, void 0, void 0, function* () {
+    return [{ tenantUrl: 'test', authUrl: 'test', clientId: 'test', clientSecret: 'test' }];
+});
+exports.getTenants = getTenants;
 //# sourceMappingURL=api.js.map
