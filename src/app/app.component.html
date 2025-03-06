@@ -1,5 +1,5 @@
 <mat-toolbar color="secondary" class="mat-elevation-z6">
-  <button mat-icon-button (click)="toggleSidenav()" *ngIf="isSmallScreen" aria-label="Toggle sidenav">
+  <button mat-icon-button (click)="toggleSidenav()" *ngIf="isSmallScreen && isConnected" aria-label="Toggle sidenav">
     <mat-icon>menu</mat-icon>
   </button>
   <img style="height: 70px; width: 700px;"
