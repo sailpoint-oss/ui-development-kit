@@ -20,6 +20,7 @@ interface Tenant {
   authUrl: string;
   clientId: string;
   clientSecret: string;
+  name: string;
 }
 
 @Component({

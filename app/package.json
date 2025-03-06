@@ -9,6 +9,8 @@
   "main": "main.js",
   "private": true,
   "dependencies": {
+    "js-yaml": "^4.1.0",
+    "keytar": "^7.9.0",
     "sailpoint-api-client": "1.4.14"
   }
 }
