@@ -9,5 +9,6 @@
   "main": "main.js",
   "private": true,
   "dependencies": {
+    "sailpoint-api-client": "1.4.14"
   }
 }
