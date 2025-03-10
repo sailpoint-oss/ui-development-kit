@@ -1,5 +1,5 @@
 
-<mat-form-field appearance="fill">
+<mat-form-field *ngIf="!isConnected" appearance="fill">
   <mat-label>Tenant</mat-label>
   <mat-select [(value)]="selectedTenant" (selectionChange)="updateTenant()">
     <mat-option value="new">New</mat-option>
@@ -8,6 +8,8 @@
     </mat-option>
   </mat-select>
 </mat-form-field>
+
+<span class="tenant-name" *ngIf="isConnected">Connected to {{name}}</span>
 
 <button mat-raised-button *ngIf="!isConnected" (click)="connectToISC()">
   <mat-icon>usb</mat-icon>

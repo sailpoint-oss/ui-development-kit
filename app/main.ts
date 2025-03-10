@@ -91,8 +91,8 @@ try {
   });
 
   // Handle fetching users via IPC
-  ipcMain.handle('connect-to-isc', async (event, tenantUrl: string, clientId: string, clientSecret: string) => {
-    return await connectToISC(tenantUrl, clientId, clientSecret);
+  ipcMain.handle('connect-to-isc', async (event, apiUrl: string, baseUrl: string, clientId: string, clientSecret: string) => {
+    return await connectToISC(apiUrl, baseUrl, clientId, clientSecret);
   });
   ipcMain.handle('disconnect-from-isc', async () => {
     return await disconnectFromISC();

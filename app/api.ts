@@ -10,13 +10,22 @@ interface CLIConfig {
     activeenvironment : string;
     environments: {
       [key: string]: {
-        tenantURL: string;
-        baseURL: string;
+        tenanturl: string;
+        baseurl: string;
         pat: {
           accessToken: string;
         };
       };
     };
+  }
+
+  interface Tenant {
+    active: boolean;
+    apiUrl: string;
+    tenantUrl: string;
+    clientId: string | null;
+    clientSecret: string | null;
+    name: string;
   }
 
   async function getConfig(): Promise<CLIConfig> {
@@ -37,16 +46,23 @@ export const disconnectFromISC = async () => {
 
 }
 
-export const connectToISC = async (tenantUrl: string, clientId: string, clientSecret: string) => {
+export const connectToISC = async (apiUrl: string, baseUrl: string, clientId: string, clientSecret: string) => {
     let config: ConfigurationParameters = {
         clientId: clientId,
         clientSecret: clientSecret,
-        tokenUrl: `https://${tenantUrl}.api.identitynow.com/oauth2/token`
+        tokenUrl: apiUrl + `/oauth/token`,
+        baseurl: apiUrl
     }
-    let apiConfig = new Configuration(config);
-    let tenantApi = new TenantV2024Api(apiConfig);
-    let response = await tenantApi.getTenant();
-    return { connected: true, name: response.data.fullName };
+    try {
+      let apiConfig = new Configuration(config);
+      let tenantApi = new TenantV2024Api(apiConfig);
+      let response = await tenantApi.getTenant();
+      return { connected: true, name: response.data.fullName };
+    } catch (error) {
+      console.error('Error connecting to ISC:', error);
+      return { connected: false, name: undefined };
+    }
+
 }
 
 
@@ -83,29 +99,21 @@ export const getTenants = async () => {
     try {
       const config = await getConfig();
       
-      if (config.authtype !== 'pat') {
-        throw new Error('AuthType is not PAT');
-      }
-  
       const activeEnv = config.activeenvironment;
-      const envConfig = config.environments[activeEnv];
   
-      if (!envConfig) {
-        throw new Error('Active environment not found in config');
+      const tenants: Tenant[] = []
+      for (let environment of Object.keys(config.environments)) {
+        tenants.push({
+            active: environment === activeEnv,
+            name: environment,
+
+            apiUrl: config.environments[environment].baseurl,
+            tenantUrl: config.environments[environment].tenanturl,
+            clientId: await getClientId(environment),
+            clientSecret: await getClientSecret(environment)
+        })
       }
-  
-      const clientId = await getClientId(activeEnv);
-      const clientSecret = await getClientSecret(activeEnv);
-      const accessToken = await getAccessToken(activeEnv);
-  
-      return [{
-        name: activeEnv,
-        tenantUrl: envConfig.tenantURL,
-        authUrl: envConfig.baseURL,
-        clientId,
-        clientSecret,
-        accessToken
-      }];
+      return tenants;
     } catch (error) {
       console.error('Error getting tenants:', error);
       return [];

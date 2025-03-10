@@ -33,16 +33,23 @@ function getConfig() {
 const disconnectFromISC = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.disconnectFromISC = disconnectFromISC;
-const connectToISC = (tenantUrl, clientId, clientSecret) => __awaiter(void 0, void 0, void 0, function* () {
+const connectToISC = (apiUrl, baseUrl, clientId, clientSecret) => __awaiter(void 0, void 0, void 0, function* () {
     let config = {
         clientId: clientId,
         clientSecret: clientSecret,
-        tokenUrl: `https://${tenantUrl}.api.identitynow.com/oauth2/token`
+        tokenUrl: apiUrl + `/oauth/token`,
+        baseurl: apiUrl
     };
-    let apiConfig = new sailpoint_api_client_1.Configuration(config);
-    let tenantApi = new sailpoint_api_client_1.TenantV2024Api(apiConfig);
-    let response = yield tenantApi.getTenant();
-    return { connected: true, name: response.data.fullName };
+    try {
+        let apiConfig = new sailpoint_api_client_1.Configuration(config);
+        let tenantApi = new sailpoint_api_client_1.TenantV2024Api(apiConfig);
+        let response = yield tenantApi.getTenant();
+        return { connected: true, name: response.data.fullName };
+    }
+    catch (error) {
+        console.error('Error connecting to ISC:', error);
+        return { connected: false, name: undefined };
+    }
 });
 exports.connectToISC = connectToISC;
 function getSecureValue(key, environment) {
@@ -80,25 +87,19 @@ function getAccessToken(env) {
 const getTenants = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const config = yield getConfig();
-        if (config.authtype !== 'pat') {
-            throw new Error('AuthType is not PAT');
-        }
         const activeEnv = config.activeenvironment;
-        const envConfig = config.environments[activeEnv];
-        if (!envConfig) {
-            throw new Error('Active environment not found in config');
+        const tenants = [];
+        for (let environment of Object.keys(config.environments)) {
+            tenants.push({
+                active: environment === activeEnv,
+                name: environment,
+                apiUrl: config.environments[environment].baseurl,
+                tenantUrl: config.environments[environment].tenanturl,
+                clientId: yield getClientId(environment),
+                clientSecret: yield getClientSecret(environment)
+            });
         }
-        const clientId = yield getClientId(activeEnv);
-        const clientSecret = yield getClientSecret(activeEnv);
-        const accessToken = yield getAccessToken(activeEnv);
-        return [{
-                name: activeEnv,
-                tenantUrl: envConfig.tenantURL,
-                authUrl: envConfig.baseURL,
-                clientId,
-                clientSecret,
-                accessToken
-            }];
+        return tenants;
     }
     catch (error) {
         console.error('Error getting tenants:', error);

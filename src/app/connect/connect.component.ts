@@ -14,12 +14,14 @@ declare const window: any;
 
 interface Connection {
   connected: boolean;
+  name: string;
 }
 interface Tenant {
+  active: boolean;
+  apiUrl: string;
   tenantUrl: string;
-  authUrl: string;
-  clientId: string;
-  clientSecret: string;
+  clientId: string | null;
+  clientSecret: string | null;
   name: string;
 }
 
@@ -36,6 +38,9 @@ interface Tenant {
 export class ConnectComponent implements OnInit, OnDestroy {
   isConnected: boolean = false;
   tenants: Tenant[] = [];
+  selectedTenant: string = 'New';
+  actualTenant: Tenant | undefined = undefined;
+  name: string = '';
 
   constructor(private router: Router, private dialog: MatDialog, private connectionService: ConnectionService) {
 
@@ -52,6 +57,11 @@ export class ConnectComponent implements OnInit, OnDestroy {
 
 
   }
+
+updateTenant(): void {
+  this.actualTenant = this.tenants.find(tenant => tenant.name === this.selectedTenant);
+  console.log(`Selected tenant:`, this.actualTenant);
+}
 
 
   ngOnDestroy(): void {
@@ -78,11 +88,17 @@ export class ConnectComponent implements OnInit, OnDestroy {
 
 
   async connectToISC() {
+    if (!this.actualTenant) {
+      this.openErrorDialog('No tenant selected', 'Connection Error');
+      return;
+    }
+    console.log(this.actualTenant?.apiUrl)
     try {
-      const connected = <Connection>await window.electronAPI.connectToISC("test", "test", "test");
+      const connected = <Connection>await window.electronAPI.connectToISC(this.actualTenant?.apiUrl, this.actualTenant?.tenantUrl, this.actualTenant?.clientId, this.actualTenant?.clientSecret);
       console.log('Connected to ISC:', connected);
       this.connectionService.setConnectionState(connected.connected);
       this.isConnected = connected.connected;
+      this.name = connected.name;
     } catch (error) {
       console.error('Error connecting to ISC:', error);
     }
