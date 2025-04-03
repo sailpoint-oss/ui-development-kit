@@ -96,7 +96,6 @@ export const getTransforms = async () => {
     transformCode?: string;
     // Add other properties as needed
   }
-
   export const harborPilotTransformChat = async (chat: string): Promise<HarborPilotChatResponse> => {
     let data = JSON.stringify({
       "userMsg": chat,
@@ -109,18 +108,19 @@ export const getTransforms = async () => {
     });
   
     let config = {
-      method: 'post',
-      maxBodyLength: Infinity,
-      url: apiConfig.basePath + '/beta/harbor-pilot/chat',
       headers: { 
         'Content-Type': 'application/json', 
-        'Authorization': await apiConfig.accessToken
+        'Authorization': 'bearer ' + await apiConfig.accessToken
       },
-      data : data
+      maxBodyLength: Infinity
     };
   
     try {
-      const response: AxiosResponse<HarborPilotChatResponse> = await axios.post(config.url, config);
+      const response: AxiosResponse<HarborPilotChatResponse> = await axios.post(
+        'http://localhost:7100/beta/harbor-pilot/chat',
+        data,
+        config
+      );
       return response.data;
     } catch (error) {
       console.error('Error in harbor pilot chat:', error);

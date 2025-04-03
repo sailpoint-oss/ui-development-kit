@@ -5,18 +5,16 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TransformsV2024ApiUpdateTransformRequest, TransformReadV2024} from 'sailpoint-api-client/dist/v2024/api';
 import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
 declare const window: any;
-
-
-
 @Component({
   selector: 'app-transform-generator',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatSelectModule, MatButtonModule, MatInputModule, MatIconModule],
+  imports: [CommonModule, FormsModule, MatSelectModule, MatButtonModule, MatInputModule, MatIconModule, MatProgressSpinnerModule],
   templateUrl: './transform-generator.component.html',
   styleUrls: ['./transform-generator.component.scss']
 })
@@ -25,6 +23,10 @@ export class TransformGeneratorComponent implements OnInit {
   selectedTransform: TransformReadV2024 | null = null;
   transformJson: string = '';
   isNewTransform: boolean = false;
+  harborPilotPrompt: string = '';
+  isLoading: boolean = false;
+  isAiLoading: boolean = false;
+  isSaving: boolean = false;
 
 constructor(private dialog: MatDialog) { }
 
@@ -33,7 +35,14 @@ constructor(private dialog: MatDialog) { }
   }
 
   async loadTransforms() {
-    this.transforms = await window.electronAPI.getTransforms();
+    this.isLoading = true;
+    try {
+      this.transforms = await window.electronAPI.getTransforms();
+    } catch (error) {
+      this.openMessageDialog('Error loading transforms: ' + error, 'Error');
+    } finally {
+      this.isLoading = false;
+    }
   }
 
   onTransformSelect(transform: TransformReadV2024 | 'new') {
@@ -61,6 +70,7 @@ constructor(private dialog: MatDialog) { }
     });
   }
   async saveTransform() {
+    this.isSaving = true;
     try {
       const transformData = JSON.parse(this.transformJson);
       let transform: TransformsV2024ApiUpdateTransformRequest = {
@@ -76,20 +86,38 @@ constructor(private dialog: MatDialog) { }
       this.loadTransforms();
     } catch (error) {
       this.openMessageDialog('Error saving transform: ' + error, 'Error');
+    } finally {
+      this.isSaving = false;
     }
   }
 
   async askHarborPilot() {
-    const prompt = 'What would you like to ask Harbor Pilot?';
-    if (prompt) {
+    this.isAiLoading = true;
+    const transformPrompt: string = `based on the following transform:
+    ${this.transformJson}
+    please provide a new transform that is similar to the one above, but with the following changes:
+    ${this.harborPilotPrompt}
+    Be sure to only return a json object with the full transform and nothing else.
+    Do not include any comments or explanations.
+    `
+
+    if (transformPrompt) {
       try {
-        const response = await window.electronAPI.harborPilotTransformChat(prompt);
+        const response = await window.electronAPI.harborPilotTransformChat(transformPrompt);
+        console.log(response)
         const newTransformJson = response.actions[0].data;
-        this.transformJson = JSON.stringify(JSON.parse(newTransformJson), null, 2);
+        console.log(newTransformJson)
+        this.transformJson = JSON.stringify(newTransformJson, null, 2);
+        this.harborPilotPrompt = ''; // Clear the prompt after sending
       } catch (error) {
         this.openMessageDialog('Error communicating with Harbor Pilot: ' + error, 'Error');
-
+      } finally {
+        this.isAiLoading = false;
       }
+    } else {
+      this.isAiLoading = false;
+      this.openMessageDialog('Please enter a question for Harbor Pilot.', 'Error');
     }
   }
+
 }
