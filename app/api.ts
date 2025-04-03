@@ -1,9 +1,12 @@
-import {Configuration, TenantV2024Api, ConfigurationParameters} from 'sailpoint-api-client';
+import {Configuration, TenantV2024Api, ConfigurationParameters, TransformsV2024Api, TransformsV2024ApiCreateTransformRequest, TransformsV2024ApiUpdateTransformRequest} from 'sailpoint-api-client';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as yaml from 'js-yaml';
 import * as keytar from 'keytar';
 import * as os from 'os';
+import axios, { AxiosResponse } from 'axios';
+
+let apiConfig: Configuration
 
 interface CLIConfig {
     authtype: string;
@@ -46,6 +49,86 @@ export const disconnectFromISC = async () => {
 
 }
 
+export const getTransforms = async () => {
+    try { 
+      let transformsApi = new TransformsV2024Api(apiConfig);
+      let response = await transformsApi.listTransforms();
+      return response.data;
+    } catch (error) {
+      console.error('Error getting transforms:', error);
+      return [];
+    }
+  }
+
+  export const createTransform = async (request: TransformsV2024ApiCreateTransformRequest) => {
+    try { 
+      let transformsApi = new TransformsV2024Api(apiConfig);
+      let transformsV2024ApiCreateTransformRequest: TransformsV2024ApiCreateTransformRequest = {
+        transformV2024: {
+          name: 'My Transform',
+          type:  "accountAttribute",
+          attributes: {}
+        }
+      }
+      let response = await transformsApi.createTransform(request);
+      return response.data;
+    } catch (error) {
+      console.error('Error getting transforms:', error);
+      return [];
+    }
+  }
+
+  export const updateTransform = async (request: TransformsV2024ApiUpdateTransformRequest) => {
+    try { 
+      let transformsApi = new TransformsV2024Api(apiConfig);
+      let response = await transformsApi.updateTransform(request);
+      return response.data;
+    } catch (error) {
+      console.error('Error updating transform:', error);
+      return [];
+    }
+  }
+
+  interface HarborPilotChatResponse {
+    // Define the structure of the response here
+    // For example:
+    message: string;
+    transformCode?: string;
+    // Add other properties as needed
+  }
+
+  export const harborPilotTransformChat = async (chat: string): Promise<HarborPilotChatResponse> => {
+    let data = JSON.stringify({
+      "userMsg": chat,
+      "sessionId": "8f7e6186-72bd-4719-8c6e-95180a770e72",
+      "context": {
+        "tools": [
+          "transform-builder"
+        ]
+      }
+    });
+  
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: apiConfig.basePath + '/beta/harbor-pilot/chat',
+      headers: { 
+        'Content-Type': 'application/json', 
+        'Authorization': await apiConfig.accessToken
+      },
+      data : data
+    };
+  
+    try {
+      const response: AxiosResponse<HarborPilotChatResponse> = await axios.post(config.url, config);
+      return response.data;
+    } catch (error) {
+      console.error('Error in harbor pilot chat:', error);
+      throw error;
+    }
+  }
+
+
 export const connectToISC = async (apiUrl: string, baseUrl: string, clientId: string, clientSecret: string) => {
     let config: ConfigurationParameters = {
         clientId: clientId,
@@ -54,7 +137,7 @@ export const connectToISC = async (apiUrl: string, baseUrl: string, clientId: st
         baseurl: apiUrl
     }
     try {
-      let apiConfig = new Configuration(config);
+      apiConfig = new Configuration(config);
       let tenantApi = new TenantV2024Api(apiConfig);
       let response = await tenantApi.getTenant();
       return { connected: true, name: response.data.fullName };

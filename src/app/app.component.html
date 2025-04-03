@@ -2,7 +2,7 @@
   <button mat-icon-button (click)="toggleSidenav()" *ngIf="isSmallScreen && isConnected" aria-label="Toggle sidenav">
     <mat-icon>menu</mat-icon>
   </button>
-  <img style="height: 70px; width: 700px;"
+  <img style="height: 50px;"
     *ngIf="!isSmallScreen"
     [src]="isDarkTheme ? 'assets/icons/SailPoint-Developer-Community-Inverse-Lockup.png' : 'assets/icons/SailPoint-Developer-Community-Lockup.png'"
     alt="SailPoint Developer Community Logo"
@@ -25,6 +25,12 @@
         <mat-icon class="card-icon">home</mat-icon>
         Home
       </a>
+
+      <a mat-list-item routerLink="/transform-builder" routerLinkActive="active-link" [class.disabled]="!isConnected"
+      (click)="!isConnected && $event.preventDefault()">
+      <mat-icon class="card-icon">home</mat-icon>
+      Transform Builder
+    </a>
    
 
     </mat-nav-list>

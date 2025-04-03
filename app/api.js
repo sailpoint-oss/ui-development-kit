@@ -9,13 +9,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getTenants = exports.connectToISC = exports.disconnectFromISC = void 0;
+exports.getTenants = exports.connectToISC = exports.harborPilotTransformChat = exports.updateTransform = exports.createTransform = exports.getTransforms = exports.disconnectFromISC = void 0;
 const sailpoint_api_client_1 = require("sailpoint-api-client");
 const fs = require("fs");
 const path = require("path");
 const yaml = require("js-yaml");
 const keytar = require("keytar");
 const os = require("os");
+const axios_1 = require("axios");
+let apiConfig;
 function getConfig() {
     return __awaiter(this, void 0, void 0, function* () {
         const homedir = os.homedir();
@@ -33,6 +35,79 @@ function getConfig() {
 const disconnectFromISC = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.disconnectFromISC = disconnectFromISC;
+const getTransforms = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let transformsApi = new sailpoint_api_client_1.TransformsV2024Api(apiConfig);
+        let response = yield transformsApi.listTransforms();
+        return response.data;
+    }
+    catch (error) {
+        console.error('Error getting transforms:', error);
+        return [];
+    }
+});
+exports.getTransforms = getTransforms;
+const createTransform = (request) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let transformsApi = new sailpoint_api_client_1.TransformsV2024Api(apiConfig);
+        let transformsV2024ApiCreateTransformRequest = {
+            transformV2024: {
+                name: 'My Transform',
+                type: "accountAttribute",
+                attributes: {}
+            }
+        };
+        let response = yield transformsApi.createTransform(request);
+        return response.data;
+    }
+    catch (error) {
+        console.error('Error getting transforms:', error);
+        return [];
+    }
+});
+exports.createTransform = createTransform;
+const updateTransform = (request) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let transformsApi = new sailpoint_api_client_1.TransformsV2024Api(apiConfig);
+        let response = yield transformsApi.updateTransform(request);
+        return response.data;
+    }
+    catch (error) {
+        console.error('Error updating transform:', error);
+        return [];
+    }
+});
+exports.updateTransform = updateTransform;
+const harborPilotTransformChat = (chat) => __awaiter(void 0, void 0, void 0, function* () {
+    let data = JSON.stringify({
+        "userMsg": chat,
+        "sessionId": "8f7e6186-72bd-4719-8c6e-95180a770e72",
+        "context": {
+            "tools": [
+                "transform-builder"
+            ]
+        }
+    });
+    let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: apiConfig.basePath + '/beta/harbor-pilot/chat',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': apiConfig.accessToken
+        },
+        data: data
+    };
+    try {
+        const response = yield axios_1.default.post(config.url, config);
+        return response.data;
+    }
+    catch (error) {
+        console.error('Error in harbor pilot chat:', error);
+        throw error;
+    }
+});
+exports.harborPilotTransformChat = harborPilotTransformChat;
 const connectToISC = (apiUrl, baseUrl, clientId, clientSecret) => __awaiter(void 0, void 0, void 0, function* () {
     let config = {
         clientId: clientId,
@@ -41,7 +116,7 @@ const connectToISC = (apiUrl, baseUrl, clientId, clientSecret) => __awaiter(void
         baseurl: apiUrl
     };
     try {
-        let apiConfig = new sailpoint_api_client_1.Configuration(config);
+        apiConfig = new sailpoint_api_client_1.Configuration(config);
         let tenantApi = new sailpoint_api_client_1.TenantV2024Api(apiConfig);
         let response = yield tenantApi.getTenant();
         return { connected: true, name: response.data.fullName };

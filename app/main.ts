@@ -1,7 +1,7 @@
 import { app, BrowserWindow, ipcMain, screen } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
-import {  connectToISC,  disconnectFromISC, getTenants} from './api';
+import {  connectToISC,  createTransform,  disconnectFromISC, getTenants, getTransforms, harborPilotTransformChat, updateTransform} from './api';
 
 let win: BrowserWindow | null = null;
 const args = process.argv.slice(1),
@@ -100,6 +100,24 @@ try {
   ipcMain.handle('get-tenants', async () => {
     return await getTenants();
   });
+
+  ipcMain.handle('get-transforms', async () => {
+    return await getTransforms();
+  });
+  
+  ipcMain.handle('create-transform', async (event, request) => {
+    return await createTransform(request);
+  });
+  
+  ipcMain.handle('update-transform', async (event, request) => {
+    return await updateTransform(request);
+  });
+  
+  ipcMain.handle('harbor-pilot-transform-chat', async (event, chat) => {
+    return await harborPilotTransformChat(chat);
+  });
+
+
 
 } catch (e) {
   console.error('Error during app initialization', e);

@@ -36,6 +36,7 @@ export class ElectronService {
         console.log(`stdout:\n${stdout}`);
       });
 
+
       // Notes :
       // * A NodeJS's dependency imported with 'window.require' MUST BE present in `dependencies` of both `app/package.json`
       // and `package.json (root folder)` in order to make it work here in Electron's Renderer process (src folder)
@@ -52,5 +53,12 @@ export class ElectronService {
 
   get isElectron(): boolean {
     return !!(window && window.process && window.process.type);
+  }
+
+  invoke(channel: string, ...args: any[]): Promise<any> {
+    if (this.isElectron) {
+      return this.ipcRenderer.invoke(channel, ...args);
+    }
+    return Promise.reject('Not running in Electron');
   }
 }

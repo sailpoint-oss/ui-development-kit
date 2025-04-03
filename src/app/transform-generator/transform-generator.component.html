@@ -1,0 +1,21 @@
+<mat-form-field>
+    <mat-label>Select Transform</mat-label>
+    <mat-select (selectionChange)="onTransformSelect($event.value)">
+      <mat-option [value]="'new'">Create New Transform</mat-option>
+      <mat-option *ngFor="let transform of transforms" [value]="transform">
+        {{ transform.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Transform JSON</mat-label>
+    <textarea matInput [(ngModel)]="transformJson" rows="10"></textarea>
+    <button mat-icon-button matSuffix (click)="askHarborPilot()">
+      <mat-icon>chat</mat-icon>
+    </button>
+  </mat-form-field>
+  
+  <button mat-raised-button color="primary" (click)="saveTransform()">
+    {{ isNewTransform ? 'Create' : 'Update' }} Transform
+  </button>
