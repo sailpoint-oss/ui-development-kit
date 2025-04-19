@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { TransformReadV2024, TransformsV2024ApiUpdateTransformRequest } from 'sailpoint-api-client';
+import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
@@ -6,38 +9,40 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { TransformsV2024ApiUpdateTransformRequest, TransformReadV2024} from 'sailpoint-api-client/dist/v2024/api';
-import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
 
 declare const window: any;
+
 @Component({
-  selector: 'app-transform-generator',
+  selector: 'app-hp-transform',
   standalone: true,
   imports: [CommonModule, FormsModule, MatSelectModule, MatButtonModule, MatInputModule, MatIconModule, MatProgressSpinnerModule],
-  templateUrl: './transform-generator.component.html',
-  styleUrls: ['./transform-generator.component.scss']
+  templateUrl: './hp-transform.component.html',
+  styleUrl: './hp-transform.component.scss'
 })
-export class TransformGeneratorComponent implements OnInit {
-  transforms: TransformReadV2024[] = [];
-  selectedTransform: TransformReadV2024 | null = null;
-  transformJson: string = '';
-  isNewTransform: boolean = false;
-  harborPilotPrompt: string = '';
-  isLoading: boolean = false;
-  isAiLoading: boolean = false;
-  isSaving: boolean = false;
 
-constructor(private dialog: MatDialog) { }
+
+export class HpTransformComponent implements OnInit {
+
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit() {
     this.loadTransforms();
   }
 
+  transforms: TransformReadV2024[] = [];
+  isLoading: boolean = false;
   async loadTransforms() {
+    let dummyTransform: TransformReadV2024 = {
+      name: 'Create New Transform',
+      type: 'accountAttribute',
+      attributes: null,
+      id: '',
+      internal: false
+    }
     this.isLoading = true;
     try {
       this.transforms = await window.electronAPI.getTransforms();
+      this.transforms.push(dummyTransform);
     } catch (error) {
       this.openMessageDialog('Error loading transforms: ' + error, 'Error');
     } finally {
@@ -45,22 +50,6 @@ constructor(private dialog: MatDialog) { }
     }
   }
 
-  onTransformSelect(transform: TransformReadV2024 | 'new') {
-    if (transform === 'new') {
-      this.isNewTransform = true;
-      this.transformJson = JSON.stringify({
-        name: '',
-        type: '',
-        attributes: null,
-        id: '',
-        internal: false
-      }, null, 2);
-    } else {
-      this.isNewTransform = false;
-      this.selectedTransform = transform;
-      this.transformJson = JSON.stringify(transform, null, 2);
-    }
-  }
   openMessageDialog(errorMessage: string, title: string): void {
     this.dialog.open(GenericDialogComponent, {
       data: {
@@ -69,6 +58,24 @@ constructor(private dialog: MatDialog) { }
       },
     });
   }
+
+
+  selectedTransform: TransformReadV2024 | null = null;
+  transformJson: string = '';
+  isNewTransform: boolean = false;
+  onTransformSelect(transform: TransformReadV2024) {
+    if (transform.id === '') {
+      this.isNewTransform = true;
+    } else {
+      this.isNewTransform = false;
+    }
+
+    this.selectedTransform = transform;
+    this.transformJson = JSON.stringify(transform, null, 2);
+  }
+
+
+  isSaving: boolean = false;
   async saveTransform() {
     this.isSaving = true;
     try {
@@ -91,6 +98,9 @@ constructor(private dialog: MatDialog) { }
     }
   }
 
+
+  harborPilotPrompt: string = '';
+  isAiLoading: boolean = false;
   async askHarborPilot() {
     this.isAiLoading = true;
     const transformPrompt: string = `based on the following transform:

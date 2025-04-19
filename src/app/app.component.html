@@ -31,6 +31,12 @@
       <mat-icon class="card-icon">home</mat-icon>
       Transform Builder
     </a>
+
+    <a mat-list-item routerLink="/transform-ai" routerLinkActive="active-link" [class.disabled]="!isConnected"
+    (click)="!isConnected && $event.preventDefault()">
+    <mat-icon class="card-icon">home</mat-icon>
+    Transform AI
+  </a>
    
 
     </mat-nav-list>

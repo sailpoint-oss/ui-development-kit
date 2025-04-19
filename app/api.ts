@@ -90,13 +90,43 @@ export const getTransforms = async () => {
   }
 
   interface HarborPilotChatResponse {
-    // Define the structure of the response here
-    // For example:
-    message: string;
-    transformCode?: string;
-    // Add other properties as needed
+    actions: HarborPilotAction[]
   }
+  interface HarborPilotAction {
+    data: any;
+  }
+  let testMode = true
   export const harborPilotTransformChat = async (chat: string): Promise<HarborPilotChatResponse> => {
+    if (testMode) {
+      await new Promise(resolve => setTimeout(resolve, 5000)); // Wait for 5 seconds
+      return {
+        actions: [
+          {
+            data: {
+              "id": "3ad38796-4acc-451d-bf19-72f15c5c02c4",
+              "name": "Test Date Compare",
+              "type": "dateCompare",
+              "attributes": {
+                "firstDate": {
+                  "name": "firstDate",
+                  "type": "accountAttribute",
+                  "attributes": {
+                    "sourceName": "Employees",
+                    "attributeName": "location"
+                  }
+                },
+                "secondDate": "now",
+                "operator": "LT",
+                "positiveCondition": "true",
+                "negativeCondition": "false"
+              },
+              "internal": false
+            }
+          }
+        ]
+      };
+    }
+
     let data = JSON.stringify({
       "userMsg": chat,
       "sessionId": "8f7e6186-72bd-4719-8c6e-95180a770e72",

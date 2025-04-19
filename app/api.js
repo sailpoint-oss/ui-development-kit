@@ -78,7 +78,37 @@ const updateTransform = (request) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.updateTransform = updateTransform;
+let testMode = true;
 const harborPilotTransformChat = (chat) => __awaiter(void 0, void 0, void 0, function* () {
+    if (testMode) {
+        yield new Promise(resolve => setTimeout(resolve, 5000)); // Wait for 5 seconds
+        return {
+            actions: [
+                {
+                    data: {
+                        "id": "3ad38796-4acc-451d-bf19-72f15c5c02c4",
+                        "name": "Test Date Compare",
+                        "type": "dateCompare",
+                        "attributes": {
+                            "firstDate": {
+                                "name": "firstDate",
+                                "type": "accountAttribute",
+                                "attributes": {
+                                    "sourceName": "Employees",
+                                    "attributeName": "location"
+                                }
+                            },
+                            "secondDate": "now",
+                            "operator": "LT",
+                            "positiveCondition": "true",
+                            "negativeCondition": "false"
+                        },
+                        "internal": false
+                    }
+                }
+            ]
+        };
+    }
     let data = JSON.stringify({
         "userMsg": chat,
         "sessionId": "8f7e6186-72bd-4719-8c6e-95180a770e72",
@@ -89,17 +119,14 @@ const harborPilotTransformChat = (chat) => __awaiter(void 0, void 0, void 0, fun
         }
     });
     let config = {
-        method: 'post',
-        maxBodyLength: Infinity,
-        url: apiConfig.basePath + '/beta/harbor-pilot/chat',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': apiConfig.accessToken
+            'Authorization': 'bearer ' + (yield apiConfig.accessToken)
         },
-        data: data
+        maxBodyLength: Infinity
     };
     try {
-        const response = yield axios_1.default.post(config.url, config);
+        const response = yield axios_1.default.post('http://localhost:7100/beta/harbor-pilot/chat', data, config);
         return response.data;
     }
     catch (error) {

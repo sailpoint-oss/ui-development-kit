@@ -4,6 +4,7 @@ import { PageNotFoundComponent } from './shared/components';
 import { TransformGeneratorComponent } from './transform-generator/transform-generator.component';
 
 import { HomeRoutingModule } from './home/home-routing.module';
+import { HpTransformComponent } from './hp-transform/hp-transform.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,10 @@ const routes: Routes = [
   {
     path: 'transform-builder',
     component: TransformGeneratorComponent
+  },
+  {
+    path: 'transform-ai',
+    component: HpTransformComponent
   },
   {
     path: '**',
