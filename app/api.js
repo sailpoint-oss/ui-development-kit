@@ -18,6 +18,7 @@ const keytar = require("keytar");
 const os = require("os");
 const axios_1 = require("axios");
 let apiConfig;
+let testMode = true;
 function getConfig() {
     return __awaiter(this, void 0, void 0, function* () {
         const homedir = os.homedir();
@@ -37,6 +38,17 @@ const disconnectFromISC = () => __awaiter(void 0, void 0, void 0, function* () {
 exports.disconnectFromISC = disconnectFromISC;
 const getTransforms = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        if (testMode) {
+            yield new Promise(resolve => setTimeout(resolve, 1000));
+            const dummyTransform = {
+                name: "sample Transform",
+                type: sailpoint_api_client_1.TransformReadV2024TypeV2024.Lower,
+                attributes: {},
+                id: "id",
+                internal: false
+            };
+            return [dummyTransform];
+        }
         let transformsApi = new sailpoint_api_client_1.TransformsV2024Api(apiConfig);
         let response = yield transformsApi.listTransforms();
         return response.data;
@@ -57,6 +69,17 @@ const createTransform = (request) => __awaiter(void 0, void 0, void 0, function*
                 attributes: {}
             }
         };
+        if (testMode) {
+            yield new Promise(resolve => setTimeout(resolve, 1000));
+            const dummyTransform = {
+                name: "sample Transform",
+                type: sailpoint_api_client_1.TransformReadV2024TypeV2024.Lower,
+                attributes: {},
+                id: "id",
+                internal: false
+            };
+            return dummyTransform;
+        }
         let response = yield transformsApi.createTransform(request);
         return response.data;
     }
@@ -68,6 +91,17 @@ const createTransform = (request) => __awaiter(void 0, void 0, void 0, function*
 exports.createTransform = createTransform;
 const updateTransform = (request) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        if (testMode) {
+            yield new Promise(resolve => setTimeout(resolve, 1000));
+            const dummyTransform = {
+                name: "sample Transform",
+                type: sailpoint_api_client_1.TransformReadV2024TypeV2024.Lower,
+                attributes: {},
+                id: "id",
+                internal: false
+            };
+            return dummyTransform;
+        }
         let transformsApi = new sailpoint_api_client_1.TransformsV2024Api(apiConfig);
         let response = yield transformsApi.updateTransform(request);
         return response.data;
@@ -78,7 +112,6 @@ const updateTransform = (request) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.updateTransform = updateTransform;
-let testMode = true;
 const harborPilotTransformChat = (chat) => __awaiter(void 0, void 0, void 0, function* () {
     if (testMode) {
         yield new Promise(resolve => setTimeout(resolve, 5000)); // Wait for 5 seconds
@@ -136,6 +169,9 @@ const harborPilotTransformChat = (chat) => __awaiter(void 0, void 0, void 0, fun
 });
 exports.harborPilotTransformChat = harborPilotTransformChat;
 const connectToISC = (apiUrl, baseUrl, clientId, clientSecret) => __awaiter(void 0, void 0, void 0, function* () {
+    if (testMode) {
+        return { connected: true, name: "DevDays 2025" };
+    }
     let config = {
         clientId: clientId,
         clientSecret: clientSecret,

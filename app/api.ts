@@ -1,4 +1,4 @@
-import {Configuration, TenantV2024Api, ConfigurationParameters, TransformsV2024Api, TransformsV2024ApiCreateTransformRequest, TransformsV2024ApiUpdateTransformRequest} from 'sailpoint-api-client';
+import {Configuration, TenantV2024Api, ConfigurationParameters, TransformsV2024Api, TransformsV2024ApiCreateTransformRequest, TransformsV2024ApiUpdateTransformRequest, TransformReadV2024, TransformReadV2024TypeV2024} from 'sailpoint-api-client';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as yaml from 'js-yaml';
@@ -7,6 +7,7 @@ import * as os from 'os';
 import axios, { AxiosResponse } from 'axios';
 
 let apiConfig: Configuration
+let testMode = true
 
 interface CLIConfig {
     authtype: string;
@@ -51,6 +52,20 @@ export const disconnectFromISC = async () => {
 
 export const getTransforms = async () => {
     try { 
+
+      if (testMode) {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        const dummyTransform: TransformReadV2024 =  {
+          name: "sample Transform",
+          type: TransformReadV2024TypeV2024.Lower,
+          attributes: {},
+          id: "id",
+          internal: false
+        }
+        return [dummyTransform]
+      }
+
+
       let transformsApi = new TransformsV2024Api(apiConfig);
       let response = await transformsApi.listTransforms();
       return response.data;
@@ -70,6 +85,21 @@ export const getTransforms = async () => {
           attributes: {}
         }
       }
+
+      if (testMode) {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        const dummyTransform: TransformReadV2024 =  {
+          name: "sample Transform",
+          type: TransformReadV2024TypeV2024.Lower,
+          attributes: {},
+          id: "id",
+          internal: false
+        }
+        return dummyTransform
+      }
+
+
+
       let response = await transformsApi.createTransform(request);
       return response.data;
     } catch (error) {
@@ -80,6 +110,17 @@ export const getTransforms = async () => {
 
   export const updateTransform = async (request: TransformsV2024ApiUpdateTransformRequest) => {
     try { 
+      if (testMode) {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        const dummyTransform: TransformReadV2024 =  {
+          name: "sample Transform",
+          type: TransformReadV2024TypeV2024.Lower,
+          attributes: {},
+          id: "id",
+          internal: false
+        }
+        return dummyTransform
+      }
       let transformsApi = new TransformsV2024Api(apiConfig);
       let response = await transformsApi.updateTransform(request);
       return response.data;
@@ -95,7 +136,7 @@ export const getTransforms = async () => {
   interface HarborPilotAction {
     data: any;
   }
-  let testMode = true
+
   export const harborPilotTransformChat = async (chat: string): Promise<HarborPilotChatResponse> => {
     if (testMode) {
       await new Promise(resolve => setTimeout(resolve, 5000)); // Wait for 5 seconds
@@ -160,6 +201,9 @@ export const getTransforms = async () => {
 
 
 export const connectToISC = async (apiUrl: string, baseUrl: string, clientId: string, clientSecret: string) => {
+  if (testMode) {
+    return { connected: true, name: "DevDays 2025" };
+  }
     let config: ConfigurationParameters = {
         clientId: clientId,
         clientSecret: clientSecret,
