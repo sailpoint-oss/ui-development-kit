@@ -5,6 +5,7 @@ import { TransformGeneratorComponent } from './transform-generator/transform-gen
 
 import { HomeRoutingModule } from './home/home-routing.module';
 import { HpTransformComponent } from './hp-transform/hp-transform.component';
+import {Devdays2025Component } from './devdays-2025/devdays-2025.component'
 
 const routes: Routes = [
   {
@@ -19,6 +20,10 @@ const routes: Routes = [
   {
     path: 'transform-ai',
     component: HpTransformComponent
+  },
+  {
+    path: 'devdays-2025',
+    component: Devdays2025Component
   },
   {
     path: '**',

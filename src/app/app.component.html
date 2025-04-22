@@ -37,6 +37,12 @@
     <mat-icon class="card-icon">home</mat-icon>
     Transform AI
   </a>
+
+  <a mat-list-item routerLink="/devdays-2025" routerLinkActive="active-link" [class.disabled]="!isConnected"
+  (click)="!isConnected && $event.preventDefault()">
+  <mat-icon class="card-icon">home</mat-icon>
+  DevDays Transform
+</a>
    
 
     </mat-nav-list>
