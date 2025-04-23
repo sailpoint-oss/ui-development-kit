@@ -37,81 +37,56 @@ function getConfig() {
 const disconnectFromISC = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.disconnectFromISC = disconnectFromISC;
-const getTransforms = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        if (testMode) {
-            yield new Promise(resolve => setTimeout(resolve, 1000));
-            const dummyTransform = {
-                name: "sample Transform",
-                type: sailpoint_api_client_1.TransformReadV2024TypeV2024.Lower,
-                attributes: {},
-                id: "id",
-                internal: false
+// Generic function to handle API calls
+function handleApiCall(apiCall) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const response = yield apiCall();
+            return {
+                data: response.data,
+                status: response.status,
+                statusText: response.statusText,
+                headers: response.headers,
             };
-            return [dummyTransform];
         }
-        let transformsApi = new sailpoint_api_client_1.TransformsV2024Api(apiConfig);
-        let response = yield transformsApi.listTransforms();
-        return response.data;
-    }
-    catch (error) {
-        console.error('Error getting transforms:', error);
-        return [];
-    }
-});
-exports.getTransforms = getTransforms;
-const createTransform = (request) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        let transformsApi = new sailpoint_api_client_1.TransformsV2024Api(apiConfig);
-        let transformsV2024ApiCreateTransformRequest = {
-            transformV2024: {
-                name: 'My Transform',
-                type: "accountAttribute",
-                attributes: {}
-            }
+        catch (error) {
+            console.error('API call error:', error);
+            return generateErrorResponse(error);
+        }
+    });
+}
+// Error response generator
+function generateErrorResponse(error) {
+    var _a, _b;
+    if (error instanceof axios_1.AxiosError) {
+        return {
+            data: [],
+            status: ((_a = error.response) === null || _a === void 0 ? void 0 : _a.status) || 500,
+            statusText: error.message,
+            headers: ((_b = error.response) === null || _b === void 0 ? void 0 : _b.headers) || {},
         };
-        if (testMode) {
-            yield new Promise(resolve => setTimeout(resolve, 1000));
-            const dummyTransform = {
-                name: "sample Transform",
-                type: sailpoint_api_client_1.TransformReadV2024TypeV2024.Lower,
-                attributes: {},
-                id: "id",
-                internal: false
-            };
-            return dummyTransform;
-        }
-        let response = yield transformsApi.createTransform(request);
-        return response.data;
     }
-    catch (error) {
-        console.error('Error getting transforms:', error);
-        return [];
-    }
-});
+    return {
+        data: [],
+        status: 500,
+        statusText: 'Unknown error occurred',
+        headers: {},
+    };
+}
+const getTransforms = () => {
+    const transformsApi = new sailpoint_api_client_1.TransformsV2024Api(apiConfig);
+    return handleApiCall(() => transformsApi.listTransforms());
+};
+exports.getTransforms = getTransforms;
+const createTransform = (request) => {
+    const transformsApi = new sailpoint_api_client_1.TransformsV2024Api(apiConfig);
+    return handleApiCall(() => transformsApi.createTransform(request));
+};
 exports.createTransform = createTransform;
-const updateTransform = (request) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        if (testMode) {
-            yield new Promise(resolve => setTimeout(resolve, 1000));
-            const dummyTransform = {
-                name: "sample Transform",
-                type: sailpoint_api_client_1.TransformReadV2024TypeV2024.Lower,
-                attributes: {},
-                id: "id",
-                internal: false
-            };
-            return dummyTransform;
-        }
-        let transformsApi = new sailpoint_api_client_1.TransformsV2024Api(apiConfig);
-        let response = yield transformsApi.updateTransform(request);
-        return response.data;
-    }
-    catch (error) {
-        console.error('Error updating transform:', error);
-        return [];
-    }
-});
+const updateTransform = (request) => {
+    const transformsApi = new sailpoint_api_client_1.TransformsV2024Api(apiConfig);
+    return handleApiCall(() => transformsApi.updateTransform(request));
+};
 exports.updateTransform = updateTransform;
 const harborPilotTransformChat = (chat) => __awaiter(void 0, void 0, void 0, function* () {
     if (aitestMode) {

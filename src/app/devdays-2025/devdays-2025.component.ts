@@ -10,6 +10,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SailPointSDKService } from '../core/services/electron/sailpoint-sdk.service';
+
 declare const window: any;
 
 @Component({
@@ -30,14 +32,15 @@ export class Devdays2025Component {
     id: '',
     internal: false
   }
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private sdk: SailPointSDKService) { }
   ngOnInit() {
     this.loadTransforms();
   }
   async loadTransforms() {
     this.isLoading = true;
     try {
-      this.transforms = await window.electronAPI.getTransforms();
+      const response = await this.sdk.getTransforms();
+      this.transforms = response.data;
       this.transforms.push(this.dummyTransform);
     } catch (error) {
       this.openMessageDialog('Error loading transforms: ' + error, 'Error');
@@ -82,9 +85,9 @@ export class Devdays2025Component {
         transformV2024: transformData
       }
       if (this.isNewTransform) {
-        await window.electronAPI.createTransform(transform);
+        await this.sdk.createTransform(transform);
       } else {
-        await window.electronAPI.updateTransform(transform);
+        await this.sdk.updateTransform(transform);
       }
       this.openMessageDialog('Transform saved successfully!', 'Success');
       this.loadTransforms();
@@ -110,7 +113,7 @@ export class Devdays2025Component {
     `
     if (transformPrompt) {
       try {
-        const response = await window.electronAPI.harborPilotTransformChat(transformPrompt);
+        const response = await this.sdk.harborPilotTransformChat(transformPrompt);
         console.log(response)
         const newTransformJson = response.actions[0].data;
         this.transformJson = JSON.stringify(newTransformJson, null, 2);
