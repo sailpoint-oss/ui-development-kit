@@ -1,7 +1,8 @@
 import { app, BrowserWindow, ipcMain, screen } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
-import {  connectToISC,  createTransform,  disconnectFromISC, getTenants, getTransforms, harborPilotTransformChat, updateTransform} from './api';
+import {apiConfig,  connectToISC,  disconnectFromISC, getTenants, harborPilotTransformChat} from './api';
+import { getTransforms, createTransform, updateTransform } from './sailpoint-sdk';
 
 let win: BrowserWindow | null = null;
 const args = process.argv.slice(1),
@@ -102,15 +103,15 @@ try {
   });
 
   ipcMain.handle('get-transforms', async () => {
-    return await getTransforms();
+    return await getTransforms(apiConfig);
   });
   
   ipcMain.handle('create-transform', async (event, request) => {
-    return await createTransform(request);
+    return await createTransform(apiConfig, request);
   });
   
   ipcMain.handle('update-transform', async (event, request) => {
-    return await updateTransform(request);
+    return await updateTransform(apiConfig, request);
   });
   
   ipcMain.handle('harbor-pilot-transform-chat', async (event, chat) => {

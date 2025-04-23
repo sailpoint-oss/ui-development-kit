@@ -6,7 +6,7 @@ import * as keytar from 'keytar';
 import * as os from 'os';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
-let apiConfig: Configuration
+export let apiConfig: Configuration
 let testMode = false
 let aitestMode = true
 
@@ -50,63 +50,6 @@ async function getConfig(): Promise<CLIConfig> {
 export const disconnectFromISC = async () => {
 
 }
-
-
-type ApiResponse<T> = {
-  data: T;
-  status: number;
-  statusText: string;
-  headers: Record<string, string>;
-};
-
-async function handleApiCall<T>(
-  apiCall: () => Promise<AxiosResponse<T>>
-): Promise<ApiResponse<T>> {
-  try {
-    const response = await apiCall();
-    return {
-      data: response.data,
-      status: response.status,
-      statusText: response.statusText,
-      headers: response.headers as Record<string, string>,
-    };
-  } catch (error) {
-    console.error('API call error:', error);
-    return generateErrorResponse(error);
-  }
-}
-
-function generateErrorResponse(error: unknown): ApiResponse<any> {
-  if (error instanceof AxiosError) {
-    return {
-      data: [],
-      status: error.response?.status || 500,
-      statusText: error.message,
-      headers: error.response?.headers as Record<string, string> || {},
-    };
-  }
-  return {
-    data: [],
-    status: 500,
-    statusText: 'Unknown error occurred',
-    headers: {},
-  };
-}
-
-export const getTransforms = (): Promise<ApiResponse<TransformReadV2024[]>> => {
-  const transformsApi = new TransformsV2024Api(apiConfig);
-  return handleApiCall(() => transformsApi.listTransforms());
-};
-
-export const createTransform = (request: TransformsV2024ApiCreateTransformRequest): Promise<ApiResponse<TransformReadV2024>> => {
-  const transformsApi = new TransformsV2024Api(apiConfig);
-  return handleApiCall(() => transformsApi.createTransform(request));
-};
-
-export const updateTransform = (request: TransformsV2024ApiUpdateTransformRequest): Promise<ApiResponse<TransformReadV2024>> => {
-  const transformsApi = new TransformsV2024Api(apiConfig);
-  return handleApiCall(() => transformsApi.updateTransform(request));
-};
 
 
 

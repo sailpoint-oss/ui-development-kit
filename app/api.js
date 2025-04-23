@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getTenants = exports.connectToISC = exports.harborPilotTransformChat = exports.updateTransform = exports.createTransform = exports.getTransforms = exports.disconnectFromISC = void 0;
+exports.getTenants = exports.connectToISC = exports.harborPilotTransformChat = exports.disconnectFromISC = exports.apiConfig = void 0;
 const sailpoint_api_client_1 = require("sailpoint-api-client");
 const fs = require("fs");
 const path = require("path");
@@ -17,7 +17,6 @@ const yaml = require("js-yaml");
 const keytar = require("keytar");
 const os = require("os");
 const axios_1 = require("axios");
-let apiConfig;
 let testMode = false;
 let aitestMode = true;
 function getConfig() {
@@ -37,57 +36,6 @@ function getConfig() {
 const disconnectFromISC = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.disconnectFromISC = disconnectFromISC;
-// Generic function to handle API calls
-function handleApiCall(apiCall) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const response = yield apiCall();
-            return {
-                data: response.data,
-                status: response.status,
-                statusText: response.statusText,
-                headers: response.headers,
-            };
-        }
-        catch (error) {
-            console.error('API call error:', error);
-            return generateErrorResponse(error);
-        }
-    });
-}
-// Error response generator
-function generateErrorResponse(error) {
-    var _a, _b;
-    if (error instanceof axios_1.AxiosError) {
-        return {
-            data: [],
-            status: ((_a = error.response) === null || _a === void 0 ? void 0 : _a.status) || 500,
-            statusText: error.message,
-            headers: ((_b = error.response) === null || _b === void 0 ? void 0 : _b.headers) || {},
-        };
-    }
-    return {
-        data: [],
-        status: 500,
-        statusText: 'Unknown error occurred',
-        headers: {},
-    };
-}
-const getTransforms = () => {
-    const transformsApi = new sailpoint_api_client_1.TransformsV2024Api(apiConfig);
-    return handleApiCall(() => transformsApi.listTransforms());
-};
-exports.getTransforms = getTransforms;
-const createTransform = (request) => {
-    const transformsApi = new sailpoint_api_client_1.TransformsV2024Api(apiConfig);
-    return handleApiCall(() => transformsApi.createTransform(request));
-};
-exports.createTransform = createTransform;
-const updateTransform = (request) => {
-    const transformsApi = new sailpoint_api_client_1.TransformsV2024Api(apiConfig);
-    return handleApiCall(() => transformsApi.updateTransform(request));
-};
-exports.updateTransform = updateTransform;
 const harborPilotTransformChat = (chat) => __awaiter(void 0, void 0, void 0, function* () {
     if (aitestMode) {
         yield new Promise(resolve => setTimeout(resolve, 5000)); // Wait for 5 seconds
@@ -144,7 +92,7 @@ const harborPilotTransformChat = (chat) => __awaiter(void 0, void 0, void 0, fun
     let config = {
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'bearer ' + (yield apiConfig.accessToken)
+            'Authorization': 'bearer ' + (yield exports.apiConfig.accessToken)
         },
         maxBodyLength: Infinity
     };
@@ -169,8 +117,8 @@ const connectToISC = (apiUrl, baseUrl, clientId, clientSecret) => __awaiter(void
         baseurl: apiUrl
     };
     try {
-        apiConfig = new sailpoint_api_client_1.Configuration(config);
-        let tenantApi = new sailpoint_api_client_1.TenantV2024Api(apiConfig);
+        exports.apiConfig = new sailpoint_api_client_1.Configuration(config);
+        let tenantApi = new sailpoint_api_client_1.TenantV2024Api(exports.apiConfig);
         let response = yield tenantApi.getTenant();
         return { connected: true, name: response.data.fullName };
     }
