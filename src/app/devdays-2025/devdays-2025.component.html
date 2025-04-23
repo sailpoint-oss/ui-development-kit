@@ -8,11 +8,7 @@
   </mat-form-field>
 
 
-  <mat-form-field appearance="fill" class="full-width">
-    <mat-label>Transform JSON</mat-label>
-    <textarea matInput [(ngModel)]="transformJson" rows="10" [disabled]="isLoading || isSaving"></textarea>
-  </mat-form-field>
-
+  
   <mat-form-field appearance="fill" class="full-width">
     <mat-label>Ask Harbor Pilot</mat-label>
     <input matInput [(ngModel)]="harborPilotPrompt" placeholder="Enter your question here" [disabled]="isAiLoading">
@@ -22,6 +18,13 @@
     </button>
   </mat-form-field>
 
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Transform JSON</mat-label>
+    <textarea matInput [(ngModel)]="transformJson" rows="10" [disabled]="isLoading || isSaving"></textarea>
+  </mat-form-field>
+
+
   <button mat-raised-button color="primary" (click)="saveTransform()" [disabled]="isLoading || isSaving">
     <ng-container *ngIf="!isSaving">
       {{ isNewTransform ? 'Create' : 'Update' }} Transform
@@ -29,4 +32,3 @@
     <mat-spinner diameter="24" *ngIf="isSaving"></mat-spinner>
   </button>
   <mat-spinner *ngIf="isLoading" diameter="48" class="center-spinner"></mat-spinner>
-

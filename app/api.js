@@ -18,7 +18,8 @@ const keytar = require("keytar");
 const os = require("os");
 const axios_1 = require("axios");
 let apiConfig;
-let testMode = true;
+let testMode = false;
+let aitestMode = true;
 function getConfig() {
     return __awaiter(this, void 0, void 0, function* () {
         const homedir = os.homedir();
@@ -113,28 +114,42 @@ const updateTransform = (request) => __awaiter(void 0, void 0, void 0, function*
 });
 exports.updateTransform = updateTransform;
 const harborPilotTransformChat = (chat) => __awaiter(void 0, void 0, void 0, function* () {
-    if (testMode) {
+    if (aitestMode) {
         yield new Promise(resolve => setTimeout(resolve, 5000)); // Wait for 5 seconds
         return {
             actions: [
                 {
                     data: {
-                        "id": "3ad38796-4acc-451d-bf19-72f15c5c02c4",
-                        "name": "Test Date Compare",
-                        "type": "dateCompare",
+                        "id": "1e65870d-70d0-4b03-adbf-5e2e3196560e",
+                        "name": "Uppercase First 3 Characters",
+                        "type": "concat",
                         "attributes": {
-                            "firstDate": {
-                                "name": "firstDate",
-                                "type": "accountAttribute",
-                                "attributes": {
-                                    "sourceName": "Employees",
-                                    "attributeName": "location"
+                            "values": [
+                                {
+                                    "type": "upper",
+                                    "attributes": {
+                                        "input": {
+                                            "type": "substring",
+                                            "attributes": {
+                                                "input": {
+                                                    "type": "tester"
+                                                },
+                                                "begin": 0,
+                                                "end": 3
+                                            }
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "substring",
+                                    "attributes": {
+                                        "input": {
+                                            "type": "tester"
+                                        },
+                                        "begin": 3
+                                    }
                                 }
-                            },
-                            "secondDate": "now",
-                            "operator": "LT",
-                            "positiveCondition": "true",
-                            "negativeCondition": "false"
+                            ]
                         },
                         "internal": false
                     }

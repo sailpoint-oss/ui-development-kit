@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { TransformReadV2024, TransformsV2024ApiUpdateTransformRequest } from 'sailpoint-api-client';
 import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
@@ -10,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 declare const window: any;
+
 @Component({
   selector: 'app-devdays-2025',
   standalone: true,
@@ -52,6 +54,7 @@ export class Devdays2025Component {
     });
   }
 
+
   transformJson: string = '';
   isNewTransform: boolean = false;
   onTransformSelect(transform: TransformReadV2024) {
@@ -64,6 +67,8 @@ export class Devdays2025Component {
     this.selectedTransform = transform;
     this.transformJson = JSON.stringify(transform, null, 2);
   }
+
+
 
 
 
@@ -92,6 +97,7 @@ export class Devdays2025Component {
 
 
 
+
   
   harborPilotPrompt: string = '';
   isAiLoading: boolean = false;
@@ -102,13 +108,11 @@ export class Devdays2025Component {
     please provide a new transform that is similar to the one above, but with the following changes:
     ${this.harborPilotPrompt}
     `
-
     if (transformPrompt) {
       try {
         const response = await window.electronAPI.harborPilotTransformChat(transformPrompt);
         console.log(response)
         const newTransformJson = response.actions[0].data;
-        console.log(newTransformJson)
         this.transformJson = JSON.stringify(newTransformJson, null, 2);
         this.harborPilotPrompt = ''; 
       } catch (error) {
@@ -121,4 +125,6 @@ export class Devdays2025Component {
       this.openMessageDialog('Please enter a question for Harbor Pilot.', 'Error');
     }
   }
+
+
 }

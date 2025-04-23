@@ -26,23 +26,11 @@
         Home
       </a>
 
-      <a mat-list-item routerLink="/transform-builder" routerLinkActive="active-link" [class.disabled]="!isConnected"
+      <a mat-list-item routerLink="/transforms" routerLinkActive="active-link" [class.disabled]="!isConnected"
       (click)="!isConnected && $event.preventDefault()">
       <mat-icon class="card-icon">home</mat-icon>
-      Transform Builder
+      Transforms
     </a>
-
-    <a mat-list-item routerLink="/transform-ai" routerLinkActive="active-link" [class.disabled]="!isConnected"
-    (click)="!isConnected && $event.preventDefault()">
-    <mat-icon class="card-icon">home</mat-icon>
-    Transform AI
-  </a>
-
-  <a mat-list-item routerLink="/devdays-2025" routerLinkActive="active-link" [class.disabled]="!isConnected"
-  (click)="!isConnected && $event.preventDefault()">
-  <mat-icon class="card-icon">home</mat-icon>
-  DevDays Transform
-</a>
    
 
     </mat-nav-list>

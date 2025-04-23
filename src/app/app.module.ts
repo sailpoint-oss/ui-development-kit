@@ -41,8 +41,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import {MatInputModule} from '@angular/material/input';
 import {MatRadioModule} from '@angular/material/radio';
-import { TransformGeneratorComponent } from './transform-generator/transform-generator.component';
-import { HpTransformComponent } from './hp-transform/hp-transform.component';
 
 
 // AoT requires an exported function for factories
@@ -52,7 +50,6 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new Transla
   declarations: [AppComponent,  GenericDialogComponent],
   imports: [
     //components
-    TransformGeneratorComponent,
     
 
     //modules
