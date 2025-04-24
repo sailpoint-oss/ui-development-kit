@@ -70,7 +70,7 @@ jobs:
       run: npm run electron:build
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: built-electron-app
         path: release/sailpoint-ui-development-kit-1.0.0.AppImage
