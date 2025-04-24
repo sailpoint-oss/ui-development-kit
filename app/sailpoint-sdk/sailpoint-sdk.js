@@ -88,7 +88,7 @@ exports.getAccessModelMetadataAttributeValue = getAccessModelMetadataAttributeVa
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const listAccessModelMetadataAttribute = (requestParameters, apiConfig) => {
+const listAccessModelMetadataAttribute = (requestParameters = {}, apiConfig) => {
     const accessmodelmetadatav2025api = new sdk.AccessModelMetadataV2025Api(apiConfig);
     return handleApiCall(() => accessmodelmetadatav2025api.listAccessModelMetadataAttribute(requestParameters));
 };
@@ -722,7 +722,7 @@ exports.getApproval = getApproval;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const getApprovals = (requestParameters, apiConfig) => {
+const getApprovals = (requestParameters = {}, apiConfig) => {
     const approvalsv2025api = new sdk.ApprovalsV2025Api(apiConfig);
     return handleApiCall(() => approvalsv2025api.getApprovals(requestParameters));
 };
@@ -794,7 +794,7 @@ exports.listAccessProfilesForSourceApp = listAccessProfilesForSourceApp;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const listAllSourceApp = (requestParameters, apiConfig) => {
+const listAllSourceApp = (requestParameters = {}, apiConfig) => {
     const appsv2025api = new sdk.AppsV2025Api(apiConfig);
     return handleApiCall(() => appsv2025api.listAllSourceApp(requestParameters));
 };
@@ -818,7 +818,7 @@ exports.listAllUserApps = listAllUserApps;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const listAssignedSourceApp = (requestParameters, apiConfig) => {
+const listAssignedSourceApp = (requestParameters = {}, apiConfig) => {
     const appsv2025api = new sdk.AppsV2025Api(apiConfig);
     return handleApiCall(() => appsv2025api.listAssignedSourceApp(requestParameters));
 };
@@ -842,7 +842,7 @@ exports.listAvailableAccountsForUserApp = listAvailableAccountsForUserApp;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const listAvailableSourceApps = (requestParameters, apiConfig) => {
+const listAvailableSourceApps = (requestParameters = {}, apiConfig) => {
     const appsv2025api = new sdk.AppsV2025Api(apiConfig);
     return handleApiCall(() => appsv2025api.listAvailableSourceApps(requestParameters));
 };
@@ -854,7 +854,7 @@ exports.listAvailableSourceApps = listAvailableSourceApps;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const listOwnedUserApps = (requestParameters, apiConfig) => {
+const listOwnedUserApps = (requestParameters = {}, apiConfig) => {
     const appsv2025api = new sdk.AppsV2025Api(apiConfig);
     return handleApiCall(() => appsv2025api.listOwnedUserApps(requestParameters));
 };
@@ -890,7 +890,7 @@ exports.patchUserApp = patchUserApp;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const updateSourceAppsInBulk = (requestParameters, apiConfig) => {
+const updateSourceAppsInBulk = (requestParameters = {}, apiConfig) => {
     const appsv2025api = new sdk.AppsV2025Api(apiConfig);
     return handleApiCall(() => appsv2025api.updateSourceAppsInBulk(requestParameters));
 };
@@ -914,7 +914,7 @@ exports.getProfileConfig = getProfileConfig;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const getProfileConfigList = (requestParameters, apiConfig) => {
+const getProfileConfigList = (requestParameters = {}, apiConfig) => {
     const authprofilev2025api = new sdk.AuthProfileV2025Api(apiConfig);
     return handleApiCall(() => authprofilev2025api.getProfileConfigList(requestParameters));
 };
@@ -2372,7 +2372,7 @@ exports.getDataSegmentationEnabledForUser = getDataSegmentationEnabledForUser;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const listDataSegments = (requestParameters, apiConfig) => {
+const listDataSegments = (requestParameters = {}, apiConfig) => {
     const datasegmentationv2025api = new sdk.DataSegmentationV2025Api(apiConfig);
     return handleApiCall(() => datasegmentationv2025api.listDataSegments(requestParameters));
 };
@@ -2589,7 +2589,7 @@ exports.listEntitlementParents = listEntitlementParents;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const listEntitlements = (requestParameters, apiConfig) => {
+const listEntitlements = (requestParameters = {}, apiConfig) => {
     const entitlementsv2025api = new sdk.EntitlementsV2025Api(apiConfig);
     return handleApiCall(() => entitlementsv2025api.listEntitlements(requestParameters));
 };
@@ -2837,7 +2837,7 @@ exports.listWorkgroupMembers = listWorkgroupMembers;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const listWorkgroups = (requestParameters, apiConfig) => {
+const listWorkgroups = (requestParameters = {}, apiConfig) => {
     const governancegroupsv2025api = new sdk.GovernanceGroupsV2025Api(apiConfig);
     return handleApiCall(() => governancegroupsv2025api.listWorkgroups(requestParameters));
 };
@@ -2921,7 +2921,7 @@ exports.addAccessRequestRecommendationsViewedItems = addAccessRequestRecommendat
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const getAccessRequestRecommendations = (requestParameters, apiConfig) => {
+const getAccessRequestRecommendations = (requestParameters = {}, apiConfig) => {
     const iaiaccessrequestrecommendationsv2025api = new sdk.IAIAccessRequestRecommendationsV2025Api(apiConfig);
     return handleApiCall(() => iaiaccessrequestrecommendationsv2025api.getAccessRequestRecommendations(requestParameters));
 };
@@ -2933,7 +2933,7 @@ exports.getAccessRequestRecommendations = getAccessRequestRecommendations;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const getAccessRequestRecommendationsConfig = (requestParameters, apiConfig) => {
+const getAccessRequestRecommendationsConfig = (requestParameters = {}, apiConfig) => {
     const iaiaccessrequestrecommendationsv2025api = new sdk.IAIAccessRequestRecommendationsV2025Api(apiConfig);
     return handleApiCall(() => iaiaccessrequestrecommendationsv2025api.getAccessRequestRecommendationsConfig(requestParameters));
 };
@@ -3005,7 +3005,7 @@ exports.createCommonAccess = createCommonAccess;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const getCommonAccess = (requestParameters, apiConfig) => {
+const getCommonAccess = (requestParameters = {}, apiConfig) => {
     const iaicommonaccessv2025api = new sdk.IAICommonAccessV2025Api(apiConfig);
     return handleApiCall(() => iaicommonaccessv2025api.getCommonAccess(requestParameters));
 };
@@ -3029,7 +3029,7 @@ exports.updateCommonAccessStatusInBulk = updateCommonAccessStatusInBulk;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const exportOutliersZip = (requestParameters, apiConfig) => {
+const exportOutliersZip = (requestParameters = {}, apiConfig) => {
     const iaioutliersv2025api = new sdk.IAIOutliersV2025Api(apiConfig);
     return handleApiCall(() => iaioutliersv2025api.exportOutliersZip(requestParameters));
 };
@@ -3041,7 +3041,7 @@ exports.exportOutliersZip = exportOutliersZip;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const getIdentityOutlierSnapshots = (requestParameters, apiConfig) => {
+const getIdentityOutlierSnapshots = (requestParameters = {}, apiConfig) => {
     const iaioutliersv2025api = new sdk.IAIOutliersV2025Api(apiConfig);
     return handleApiCall(() => iaioutliersv2025api.getIdentityOutlierSnapshots(requestParameters));
 };
@@ -3053,7 +3053,7 @@ exports.getIdentityOutlierSnapshots = getIdentityOutlierSnapshots;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const getIdentityOutliers = (requestParameters, apiConfig) => {
+const getIdentityOutliers = (requestParameters = {}, apiConfig) => {
     const iaioutliersv2025api = new sdk.IAIOutliersV2025Api(apiConfig);
     return handleApiCall(() => iaioutliersv2025api.getIdentityOutliers(requestParameters));
 };
@@ -3065,7 +3065,7 @@ exports.getIdentityOutliers = getIdentityOutliers;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const getLatestIdentityOutlierSnapshots = (requestParameters, apiConfig) => {
+const getLatestIdentityOutlierSnapshots = (requestParameters = {}, apiConfig) => {
     const iaioutliersv2025api = new sdk.IAIOutliersV2025Api(apiConfig);
     return handleApiCall(() => iaioutliersv2025api.getLatestIdentityOutlierSnapshots(requestParameters));
 };
@@ -3162,7 +3162,7 @@ exports.getRecommendations = getRecommendations;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const getRecommendationsConfig = (requestParameters, apiConfig) => {
+const getRecommendationsConfig = (requestParameters = {}, apiConfig) => {
     const iairecommendationsv2025api = new sdk.IAIRecommendationsV2025Api(apiConfig);
     return handleApiCall(() => iairecommendationsv2025api.getRecommendationsConfig(requestParameters));
 };
@@ -3258,7 +3258,7 @@ exports.exportRoleMiningPotentialRoleStatus = exportRoleMiningPotentialRoleStatu
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const getAllPotentialRoleSummaries = (requestParameters, apiConfig) => {
+const getAllPotentialRoleSummaries = (requestParameters = {}, apiConfig) => {
     const iairoleminingv2025api = new sdk.IAIRoleMiningV2025Api(apiConfig);
     return handleApiCall(() => iairoleminingv2025api.getAllPotentialRoleSummaries(requestParameters));
 };
@@ -3426,7 +3426,7 @@ exports.getRoleMiningSessions = getRoleMiningSessions;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const getSavedPotentialRoles = (requestParameters, apiConfig) => {
+const getSavedPotentialRoles = (requestParameters = {}, apiConfig) => {
     const iairoleminingv2025api = new sdk.IAIRoleMiningV2025Api(apiConfig);
     return handleApiCall(() => iairoleminingv2025api.getSavedPotentialRoles(requestParameters));
 };
@@ -3570,7 +3570,7 @@ exports.getRoleAssignments = getRoleAssignments;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const listIdentities = (requestParameters, apiConfig) => {
+const listIdentities = (requestParameters = {}, apiConfig) => {
     const identitiesv2025api = new sdk.IdentitiesV2025Api(apiConfig);
     return handleApiCall(() => identitiesv2025api.listIdentities(requestParameters));
 };
@@ -3690,7 +3690,7 @@ exports.getIdentityAttribute = getIdentityAttribute;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const listIdentityAttributes = (requestParameters, apiConfig) => {
+const listIdentityAttributes = (requestParameters = {}, apiConfig) => {
     const identityattributesv2025api = new sdk.IdentityAttributesV2025Api(apiConfig);
     return handleApiCall(() => identityattributesv2025api.listIdentityAttributes(requestParameters));
 };
@@ -3798,7 +3798,7 @@ exports.getIdentityStartDate = getIdentityStartDate;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const listHistoricalIdentities = (requestParameters, apiConfig) => {
+const listHistoricalIdentities = (requestParameters = {}, apiConfig) => {
     const identityhistoryv2025api = new sdk.IdentityHistoryV2025Api(apiConfig);
     return handleApiCall(() => identityhistoryv2025api.listHistoricalIdentities(requestParameters));
 };
@@ -4144,7 +4144,7 @@ exports.getMachineAccount = getMachineAccount;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const listMachineAccounts = (requestParameters, apiConfig) => {
+const listMachineAccounts = (requestParameters = {}, apiConfig) => {
     const machineaccountsv2025api = new sdk.MachineAccountsV2025Api(apiConfig);
     return handleApiCall(() => machineaccountsv2025api.listMachineAccounts(requestParameters));
 };
@@ -4204,7 +4204,7 @@ exports.getMachineIdentity = getMachineIdentity;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const listMachineIdentities = (requestParameters, apiConfig) => {
+const listMachineIdentities = (requestParameters = {}, apiConfig) => {
     const machineidentitiesv2025api = new sdk.MachineIdentitiesV2025Api(apiConfig);
     return handleApiCall(() => machineidentitiesv2025api.listMachineIdentities(requestParameters));
 };
@@ -5055,7 +5055,7 @@ exports.deleteVerifiedFromAddress = deleteVerifiedFromAddress;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const getDkimAttributes = (requestParameters, apiConfig) => {
+const getDkimAttributes = (requestParameters = {}, apiConfig) => {
     const notificationsv2025api = new sdk.NotificationsV2025Api(apiConfig);
     return handleApiCall(() => notificationsv2025api.getDkimAttributes(requestParameters));
 };
@@ -5091,7 +5091,7 @@ exports.getNotificationTemplate = getNotificationTemplate;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const getNotificationsTemplateContext = (requestParameters, apiConfig) => {
+const getNotificationsTemplateContext = (requestParameters = {}, apiConfig) => {
     const notificationsv2025api = new sdk.NotificationsV2025Api(apiConfig);
     return handleApiCall(() => notificationsv2025api.getNotificationsTemplateContext(requestParameters));
 };
@@ -5103,7 +5103,7 @@ exports.getNotificationsTemplateContext = getNotificationsTemplateContext;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const listFromAddresses = (requestParameters, apiConfig) => {
+const listFromAddresses = (requestParameters = {}, apiConfig) => {
     const notificationsv2025api = new sdk.NotificationsV2025Api(apiConfig);
     return handleApiCall(() => notificationsv2025api.listFromAddresses(requestParameters));
 };
@@ -5115,7 +5115,7 @@ exports.listFromAddresses = listFromAddresses;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const listNotificationPreferences = (requestParameters, apiConfig) => {
+const listNotificationPreferences = (requestParameters = {}, apiConfig) => {
     const notificationsv2025api = new sdk.NotificationsV2025Api(apiConfig);
     return handleApiCall(() => notificationsv2025api.listNotificationPreferences(requestParameters));
 };
@@ -5127,7 +5127,7 @@ exports.listNotificationPreferences = listNotificationPreferences;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const listNotificationTemplateDefaults = (requestParameters, apiConfig) => {
+const listNotificationTemplateDefaults = (requestParameters = {}, apiConfig) => {
     const notificationsv2025api = new sdk.NotificationsV2025Api(apiConfig);
     return handleApiCall(() => notificationsv2025api.listNotificationTemplateDefaults(requestParameters));
 };
@@ -5139,7 +5139,7 @@ exports.listNotificationTemplateDefaults = listNotificationTemplateDefaults;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const listNotificationTemplates = (requestParameters, apiConfig) => {
+const listNotificationTemplates = (requestParameters = {}, apiConfig) => {
     const notificationsv2025api = new sdk.NotificationsV2025Api(apiConfig);
     return handleApiCall(() => notificationsv2025api.listNotificationTemplates(requestParameters));
 };
@@ -5235,7 +5235,7 @@ exports.patchOauthClient = patchOauthClient;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const getOrgConfig = (requestParameters, apiConfig) => {
+const getOrgConfig = (requestParameters = {}, apiConfig) => {
     const orgconfigv2025api = new sdk.OrgConfigV2025Api(apiConfig);
     return handleApiCall(() => orgconfigv2025api.getOrgConfig(requestParameters));
 };
@@ -5247,7 +5247,7 @@ exports.getOrgConfig = getOrgConfig;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const getValidTimeZones = (requestParameters, apiConfig) => {
+const getValidTimeZones = (requestParameters = {}, apiConfig) => {
     const orgconfigv2025api = new sdk.OrgConfigV2025Api(apiConfig);
     return handleApiCall(() => orgconfigv2025api.getValidTimeZones(requestParameters));
 };
@@ -5641,7 +5641,7 @@ exports.listRequestableObjects = listRequestableObjects;
  * @deprecated
  * @throws {RequiredError}
  */
-const createRoleInsightRequests = (requestParameters, apiConfig) => {
+const createRoleInsightRequests = (requestParameters = {}, apiConfig) => {
     const roleinsightsv2025api = new sdk.RoleInsightsV2025Api(apiConfig);
     return handleApiCall(() => roleinsightsv2025api.createRoleInsightRequests(requestParameters));
 };
@@ -5689,7 +5689,7 @@ exports.getRoleInsight = getRoleInsight;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const getRoleInsights = (requestParameters, apiConfig) => {
+const getRoleInsights = (requestParameters = {}, apiConfig) => {
     const roleinsightsv2025api = new sdk.RoleInsightsV2025Api(apiConfig);
     return handleApiCall(() => roleinsightsv2025api.getRoleInsights(requestParameters));
 };
@@ -5738,7 +5738,7 @@ exports.getRoleInsightsRequests = getRoleInsightsRequests;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const getRoleInsightsSummary = (requestParameters, apiConfig) => {
+const getRoleInsightsSummary = (requestParameters = {}, apiConfig) => {
     const roleinsightsv2025api = new sdk.RoleInsightsV2025Api(apiConfig);
     return handleApiCall(() => roleinsightsv2025api.getRoleInsightsSummary(requestParameters));
 };
@@ -5977,7 +5977,7 @@ exports.getSIMIntegration = getSIMIntegration;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const getSIMIntegrations = (requestParameters, apiConfig) => {
+const getSIMIntegrations = (requestParameters = {}, apiConfig) => {
     const simintegrationsv2025api = new sdk.SIMIntegrationsV2025Api(apiConfig);
     return handleApiCall(() => simintegrationsv2025api.getSIMIntegrations(requestParameters));
 };
@@ -7017,7 +7017,7 @@ exports.getSourceConnections = getSourceConnections;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const getSourceEntitlementRequestConfig = (requestParameters, apiConfig) => {
+const getSourceEntitlementRequestConfig = (requestParameters = {}, apiConfig) => {
     const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
     return handleApiCall(() => sourcesv2025api.getSourceEntitlementRequestConfig(requestParameters));
 };
@@ -7580,7 +7580,7 @@ exports.getPendingTaskHeaders = getPendingTaskHeaders;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const getPendingTasks = (requestParameters, apiConfig) => {
+const getPendingTasks = (requestParameters = {}, apiConfig) => {
     const taskmanagementv2025api = new sdk.TaskManagementV2025Api(apiConfig);
     return handleApiCall(() => taskmanagementv2025api.getPendingTasks(requestParameters));
 };
@@ -7604,7 +7604,7 @@ exports.getTaskStatus = getTaskStatus;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const getTaskStatusList = (requestParameters, apiConfig) => {
+const getTaskStatusList = (requestParameters = {}, apiConfig) => {
     const taskmanagementv2025api = new sdk.TaskManagementV2025Api(apiConfig);
     return handleApiCall(() => taskmanagementv2025api.getTaskStatusList(requestParameters));
 };
@@ -7639,7 +7639,7 @@ exports.getTenant = getTenant;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const getTenantContext = (requestParameters, apiConfig) => {
+const getTenantContext = (requestParameters = {}, apiConfig) => {
     const tenantcontextv2025api = new sdk.TenantContextV2025Api(apiConfig);
     return handleApiCall(() => tenantcontextv2025api.getTenantContext(requestParameters));
 };
@@ -7771,7 +7771,7 @@ exports.listSubscriptions = listSubscriptions;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const listTriggerInvocationStatus = (requestParameters, apiConfig) => {
+const listTriggerInvocationStatus = (requestParameters = {}, apiConfig) => {
     const triggersv2025api = new sdk.TriggersV2025Api(apiConfig);
     return handleApiCall(() => triggersv2025api.listTriggerInvocationStatus(requestParameters));
 };
@@ -7783,7 +7783,7 @@ exports.listTriggerInvocationStatus = listTriggerInvocationStatus;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const listTriggers = (requestParameters, apiConfig) => {
+const listTriggers = (requestParameters = {}, apiConfig) => {
     const triggersv2025api = new sdk.TriggersV2025Api(apiConfig);
     return handleApiCall(() => triggersv2025api.listTriggers(requestParameters));
 };
@@ -7843,7 +7843,7 @@ exports.updateSubscription = updateSubscription;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const getTenantUiMetadata = (requestParameters, apiConfig) => {
+const getTenantUiMetadata = (requestParameters = {}, apiConfig) => {
     const uimetadatav2025api = new sdk.UIMetadataV2025Api(apiConfig);
     return handleApiCall(() => uimetadatav2025api.getTenantUiMetadata(requestParameters));
 };
@@ -7962,7 +7962,7 @@ exports.getCompletedWorkItems = getCompletedWorkItems;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const getCountCompletedWorkItems = (requestParameters, apiConfig) => {
+const getCountCompletedWorkItems = (requestParameters = {}, apiConfig) => {
     const workitemsv2025api = new sdk.WorkItemsV2025Api(apiConfig);
     return handleApiCall(() => workitemsv2025api.getCountCompletedWorkItems(requestParameters));
 };
@@ -8094,7 +8094,7 @@ exports.getEvaluateReassignmentConfiguration = getEvaluateReassignmentConfigurat
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const getReassignmentConfigTypes = (requestParameters, apiConfig) => {
+const getReassignmentConfigTypes = (requestParameters = {}, apiConfig) => {
     const workreassignmentv2025api = new sdk.WorkReassignmentV2025Api(apiConfig);
     return handleApiCall(() => workreassignmentv2025api.getReassignmentConfigTypes(requestParameters));
 };
@@ -8118,7 +8118,7 @@ exports.getReassignmentConfiguration = getReassignmentConfiguration;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const getTenantConfigConfiguration = (requestParameters, apiConfig) => {
+const getTenantConfigConfiguration = (requestParameters = {}, apiConfig) => {
     const workreassignmentv2025api = new sdk.WorkReassignmentV2025Api(apiConfig);
     return handleApiCall(() => workreassignmentv2025api.getTenantConfigConfiguration(requestParameters));
 };
@@ -8130,7 +8130,7 @@ exports.getTenantConfigConfiguration = getTenantConfigConfiguration;
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-const listReassignmentConfigurations = (requestParameters, apiConfig) => {
+const listReassignmentConfigurations = (requestParameters = {}, apiConfig) => {
     const workreassignmentv2025api = new sdk.WorkReassignmentV2025Api(apiConfig);
     return handleApiCall(() => workreassignmentv2025api.listReassignmentConfigurations(requestParameters));
 };

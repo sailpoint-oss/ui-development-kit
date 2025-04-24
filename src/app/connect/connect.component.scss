@@ -1,5 +1,8 @@
 mat-form-field {
-    margin-right: 10px; /* Space between dropdown and button */
+    margin-right: 10px; 
+    padding-top: 10px;
+    margin-top: auto;
+    margin-bottom: auto;
   }
   
   .mat-form-field-flex {
@@ -9,8 +12,16 @@ mat-form-field {
   button {
     padding: 24px; /* Padding inside button */
     margin-top: auto;
-    margin-bottom: auto;
+    margin-bottom: 12px;
     font-size: large;
+    border-radius: .5rem; /* Rounded corners */
+    color: #ffffff !important;
+    background-color: #cc27b0 !important;
+    
+  }
+
+  button:hover {
+    background-color: rgb(181, 13, 152) !important; /* Darker shade on hover */
   }
 
   .tenant-name {
