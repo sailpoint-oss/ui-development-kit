@@ -20,7 +20,7 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('get-access-model-metadata-attribute-value', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.getAccessModelMetadataAttributeValue(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('list-access-model-metadata-attribute', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('list-access-model-metadata-attribute', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.listAccessModelMetadataAttribute(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('list-access-model-metadata-attribute-value', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -179,7 +179,7 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('get-approval', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.getApproval(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('get-approvals', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('get-approvals', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.getApprovals(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('create-source-app', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -197,22 +197,22 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('list-access-profiles-for-source-app', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.listAccessProfilesForSourceApp(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('list-all-source-app', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('list-all-source-app', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.listAllSourceApp(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('list-all-user-apps', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.listAllUserApps(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('list-assigned-source-app', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('list-assigned-source-app', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.listAssignedSourceApp(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('list-available-accounts-for-user-app', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.listAvailableAccountsForUserApp(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('list-available-source-apps', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('list-available-source-apps', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.listAvailableSourceApps(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('list-owned-user-apps', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('list-owned-user-apps', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.listOwnedUserApps(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('patch-source-app', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -221,13 +221,13 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('patch-user-app', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.patchUserApp(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('update-source-apps-in-bulk', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('update-source-apps-in-bulk', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.updateSourceAppsInBulk(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('get-profile-config', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.getProfileConfig(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('get-profile-config-list', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('get-profile-config-list', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.getProfileConfigList(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('patch-profile-config', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -593,7 +593,7 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('get-data-segmentation-enabled-for-user', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.getDataSegmentationEnabledForUser(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('list-data-segments', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('list-data-segments', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.listDataSegments(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('patch-data-segment', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -647,7 +647,7 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('list-entitlement-parents', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.listEntitlementParents(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('list-entitlements', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('list-entitlements', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.listEntitlements(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('patch-entitlement', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -710,7 +710,7 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('list-workgroup-members', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.listWorkgroupMembers(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('list-workgroups', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('list-workgroups', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.listWorkgroups(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('patch-workgroup', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -731,10 +731,10 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('add-access-request-recommendations-viewed-items', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.addAccessRequestRecommendationsViewedItems(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('get-access-request-recommendations', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('get-access-request-recommendations', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.getAccessRequestRecommendations(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('get-access-request-recommendations-config', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('get-access-request-recommendations-config', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.getAccessRequestRecommendationsConfig(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('get-access-request-recommendations-ignored-items', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -752,22 +752,22 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('create-common-access', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.createCommonAccess(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('get-common-access', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('get-common-access', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.getCommonAccess(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('update-common-access-status-in-bulk', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.updateCommonAccessStatusInBulk(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('export-outliers-zip', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('export-outliers-zip', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.exportOutliersZip(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('get-identity-outlier-snapshots', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('get-identity-outlier-snapshots', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.getIdentityOutlierSnapshots(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('get-identity-outliers', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('get-identity-outliers', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.getIdentityOutliers(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('get-latest-identity-outlier-snapshots', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('get-latest-identity-outlier-snapshots', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.getLatestIdentityOutlierSnapshots(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('get-outlier-contributing-feature-summary', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -791,7 +791,7 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('get-recommendations', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.getRecommendations(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('get-recommendations-config', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('get-recommendations-config', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.getRecommendationsConfig(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('update-recommendations-config', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -815,7 +815,7 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('export-role-mining-potential-role-status', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.exportRoleMiningPotentialRoleStatus(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('get-all-potential-role-summaries', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('get-all-potential-role-summaries', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.getAllPotentialRoleSummaries(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('get-entitlement-distribution-potential-role', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -857,7 +857,7 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('get-role-mining-sessions', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.getRoleMiningSessions(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('get-saved-potential-roles', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('get-saved-potential-roles', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.getSavedPotentialRoles(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('patch-potential-role', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -893,7 +893,7 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('get-role-assignments', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.getRoleAssignments(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('list-identities', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('list-identities', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.listIdentities(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('reset-identity', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -923,7 +923,7 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('get-identity-attribute', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.getIdentityAttribute(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('list-identity-attributes', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('list-identity-attributes', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.listIdentityAttributes(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('put-identity-attribute', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -950,7 +950,7 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('get-identity-start-date', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.getIdentityStartDate(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('list-historical-identities', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('list-historical-identities', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.listHistoricalIdentities(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('list-identity-access-items', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -1037,7 +1037,7 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('get-machine-account', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.getMachineAccount(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('list-machine-accounts', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('list-machine-accounts', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.listMachineAccounts(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('update-machine-account', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -1052,7 +1052,7 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('get-machine-identity', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.getMachineIdentity(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('list-machine-identities', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('list-machine-identities', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.listMachineIdentities(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('update-machine-identity', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -1265,7 +1265,7 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('delete-verified-from-address', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.deleteVerifiedFromAddress(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('get-dkim-attributes', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('get-dkim-attributes', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.getDkimAttributes(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('get-mail-from-attributes', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -1274,19 +1274,19 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('get-notification-template', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.getNotificationTemplate(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('get-notifications-template-context', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('get-notifications-template-context', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.getNotificationsTemplateContext(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('list-from-addresses', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('list-from-addresses', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.listFromAddresses(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('list-notification-preferences', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('list-notification-preferences', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.listNotificationPreferences(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('list-notification-template-defaults', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('list-notification-template-defaults', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.listNotificationTemplateDefaults(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('list-notification-templates', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('list-notification-templates', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.listNotificationTemplates(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('put-mail-from-attributes', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -1310,10 +1310,10 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('patch-oauth-client', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.patchOauthClient(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('get-org-config', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('get-org-config', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.getOrgConfig(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('get-valid-time-zones', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('get-valid-time-zones', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.getValidTimeZones(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('patch-org-config', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -1412,7 +1412,7 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('list-requestable-objects', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.listRequestableObjects(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('create-role-insight-requests', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('create-role-insight-requests', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.createRoleInsightRequests(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('download-role-insights-entitlements-changes', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -1424,7 +1424,7 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('get-role-insight', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.getRoleInsight(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('get-role-insights', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('get-role-insights', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.getRoleInsights(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('get-role-insights-current-entitlements', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -1436,7 +1436,7 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('get-role-insights-requests', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.getRoleInsightsRequests(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('get-role-insights-summary', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('get-role-insights-summary', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.getRoleInsightsSummary(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('create-role', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -1496,7 +1496,7 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('get-sim-integration', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.getSIMIntegration(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('get-sim-integrations', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('get-sim-integrations', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.getSIMIntegrations(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('patch-before-provisioning-rule', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -1757,7 +1757,7 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('get-source-connections', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.getSourceConnections(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('get-source-entitlement-request-config', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('get-source-entitlement-request-config', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.getSourceEntitlementRequestConfig(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('get-source-health', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -1898,13 +1898,13 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('get-pending-task-headers', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.getPendingTaskHeaders(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('get-pending-tasks', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('get-pending-tasks', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.getPendingTasks(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('get-task-status', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.getTaskStatus(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('get-task-status-list', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('get-task-status-list', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.getTaskStatusList(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('update-task-status', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -1913,7 +1913,7 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('get-tenant', (event) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.getTenant(api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('get-tenant-context', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('get-tenant-context', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.getTenantContext(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('patch-tenant-context', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -1946,10 +1946,10 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('list-subscriptions', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.listSubscriptions(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('list-trigger-invocation-status', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('list-trigger-invocation-status', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.listTriggerInvocationStatus(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('list-triggers', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('list-triggers', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.listTriggers(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('patch-subscription', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -1964,7 +1964,7 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('update-subscription', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.updateSubscription(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('get-tenant-ui-metadata', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('get-tenant-ui-metadata', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.getTenantUiMetadata(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('set-tenant-ui-metadata', (event, request) => __awaiter(this, void 0, void 0, function* () {
@@ -1994,7 +1994,7 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('get-completed-work-items', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.getCompletedWorkItems(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('get-count-completed-work-items', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('get-count-completed-work-items', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.getCountCompletedWorkItems(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('get-count-work-items', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
@@ -2027,16 +2027,16 @@ function setupSailPointSDKHandlers() {
     electron_1.ipcMain.handle('get-evaluate-reassignment-configuration', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.getEvaluateReassignmentConfiguration(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('get-reassignment-config-types', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('get-reassignment-config-types', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.getReassignmentConfigTypes(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('get-reassignment-configuration', (event, request) => __awaiter(this, void 0, void 0, function* () {
         return yield sdkWrapper.getReassignmentConfiguration(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('get-tenant-config-configuration', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('get-tenant-config-configuration', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.getTenantConfigConfiguration(request, api_1.apiConfig);
     }));
-    electron_1.ipcMain.handle('list-reassignment-configurations', (event, request) => __awaiter(this, void 0, void 0, function* () {
+    electron_1.ipcMain.handle('list-reassignment-configurations', (event_1, ...args_1) => __awaiter(this, [event_1, ...args_1], void 0, function* (event, request = {}) {
         return yield sdkWrapper.listReassignmentConfigurations(request, api_1.apiConfig);
     }));
     electron_1.ipcMain.handle('put-reassignment-config', (event, request) => __awaiter(this, void 0, void 0, function* () {

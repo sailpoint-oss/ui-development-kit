@@ -36,6 +36,11 @@
       <mat-icon class="card-icon">home</mat-icon>
       Identities
     </a>
+    <a mat-list-item routerLink="/campaigns" routerLinkActive="active-link" [class.disabled]="!isConnected"
+    (click)="!isConnected && $event.preventDefault()">
+    <mat-icon class="card-icon">home</mat-icon>
+    Campaigns
+  </a>
    
 
     </mat-nav-list>

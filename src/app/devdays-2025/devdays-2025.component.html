@@ -1,4 +1,4 @@
-<mat-form-field>
+<mat-form-field appearance="fill">
     <mat-label>Select a Transform</mat-label>
     <mat-select [(value)]="selectedTransform" (selectionChange)="onTransformSelect($event.value)">
       @for (option of transforms; track option) {
@@ -16,13 +16,13 @@
   </mat-form-field>
 
 
-  <button mat-raised-button color="primary" (click)="saveTransform()" [disabled]="isLoading || isSaving">
+  <button id="updateButton" mat-raised-button color="primary" (click)="saveTransform()" [disabled]="isLoading || isSaving">
     <ng-container *ngIf="!isSaving">
       {{ isNewTransform ? 'Create' : 'Update' }} Transform
     </ng-container>
     <mat-spinner diameter="24" *ngIf="isSaving"></mat-spinner>
   </button>
-  <button mat-raised-button color="primary" (click)="deleteTransform()" [disabled]="isLoading || isSaving">
+  <button id="deleteButton" mat-raised-button color="primary" (click)="deleteTransform()" [disabled]="isLoading || isSaving">
     <ng-container *ngIf="!isSaving">
       Delete Transform
     </ng-container>

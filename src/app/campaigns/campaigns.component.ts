@@ -2,45 +2,48 @@ import { Component } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { SailPointSDKService } from '../core/services/electron/sailpoint-sdk.service';
 import { MatDialog } from '@angular/material/dialog';
-import { IdentityV2025 } from 'sailpoint-api-client';
+import { GetCampaign200ResponseV2025 } from 'sailpoint-api-client';
 import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
-  selector: 'app-identities',
+  selector: 'app-campaigns',
   standalone: true,
-  imports: [MatTableModule, CommonModule, MatProgressSpinnerModule],
-  templateUrl: './identities.component.html',
-  styleUrl: './identities.component.scss'
+  imports: [
+    MatTableModule,
+    CommonModule,
+    MatProgressSpinnerModule
+  ],
+  templateUrl: './campaigns.component.html',
+  styleUrl: './campaigns.component.scss'
 })
-export class IdentitiesComponent {
-  identities: IdentityV2025[] = [];
+export class campaignsComponent {
+  campaigns: GetCampaign200ResponseV2025[] = [];
   displayedColumns: string[] = [];
   loading = false;
-  hasDataLoaded = false; // ✅ Track data load state
+  hasDataLoaded = false; // ✅ New flag
 
   constructor(private dialog: MatDialog, private sdk: SailPointSDKService) {}
 
   ngOnInit() {
-    this.loadIdentities();
+    this.loadCampaigns();
   }
 
-  async loadIdentities() {
+  async loadCampaigns() {
     this.loading = true;
     this.hasDataLoaded = false;
-
     try {
-      const response = await this.sdk.listIdentities();
-      this.identities = response.data ?? [];
+      const response = await this.sdk.getActiveCampaigns();
+      this.campaigns = response.data ?? [];
 
-      if (this.identities.length > 0) {
-        this.displayedColumns = Object.keys(this.identities[0]);
+      if (this.campaigns.length > 0) {
+        this.displayedColumns = Object.keys(this.campaigns[0]);
       }
 
       this.hasDataLoaded = true;
     } catch (error) {
-      this.openMessageDialog('Error loading identities: ' + error, 'Error');
+      this.openMessageDialog('Error loading campaigns: ' + error, 'Error');
     } finally {
       this.loading = false;
     }
