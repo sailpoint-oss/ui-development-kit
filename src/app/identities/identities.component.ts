@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { SailPointSDKService } from '../core/services/electron/sailpoint-sdk.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -14,7 +14,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   templateUrl: './identities.component.html',
   styleUrl: './identities.component.scss'
 })
-export class IdentitiesComponent {
+export class IdentitiesComponent implements OnInit {
   identities: IdentityV2025[] = [];
   displayedColumns: string[] = [];
   loading = false;
@@ -23,7 +23,7 @@ export class IdentitiesComponent {
   constructor(private dialog: MatDialog, private sdk: SailPointSDKService) {}
 
   ngOnInit() {
-    this.loadIdentities();
+    void this.loadIdentities();
   }
 
   async loadIdentities() {
@@ -40,7 +40,7 @@ export class IdentitiesComponent {
 
       this.hasDataLoaded = true;
     } catch (error) {
-      this.openMessageDialog('Error loading identities: ' + error, 'Error');
+      this.openMessageDialog('Error loading identities: ' + String(error), 'Error');
     } finally {
       this.loading = false;
     }

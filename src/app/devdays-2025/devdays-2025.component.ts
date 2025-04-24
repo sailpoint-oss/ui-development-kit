@@ -12,8 +12,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SailPointSDKService } from '../core/services/electron/sailpoint-sdk.service';
 
-declare const window: any;
-
 @Component({
   selector: 'app-devdays-2025',
   standalone: true,
@@ -21,7 +19,7 @@ declare const window: any;
   templateUrl: './devdays-2025.component.html',
   styleUrl: './devdays-2025.component.scss'
 })
-export class Devdays2025Component {
+export class Devdays2025Component implements OnInit {
   transforms: TransformReadV2024[] = [];
   selectedTransform: TransformReadV2024 | null = null;
   isLoading: boolean = false;
@@ -34,7 +32,7 @@ export class Devdays2025Component {
   }
   constructor(private dialog: MatDialog, private sdk: SailPointSDKService) { }
   ngOnInit() {
-    this.loadTransforms();
+    void this.loadTransforms();
   }
   async loadTransforms() {
     this.isLoading = true;
@@ -43,7 +41,7 @@ export class Devdays2025Component {
       this.transforms = response.data;
       this.transforms.push(this.dummyTransform);
     } catch (error) {
-      this.openMessageDialog('Error loading transforms: ' + error, 'Error');
+      this.openMessageDialog('Error loading transforms: ' + String(error), 'Error');
     } finally {
       this.isLoading = false;
     }
@@ -80,11 +78,11 @@ export class Devdays2025Component {
     this.isSaving = true;
     try {
       const transformData = JSON.parse(this.transformJson);
-      let transform: TransformsV2025ApiUpdateTransformRequest = {
+      const transform: TransformsV2025ApiUpdateTransformRequest = {
         id: transformData.id,
         transformV2025: transformData
       }
-      let createTransform: TransformsV2025ApiCreateTransformRequest = {
+      const createTransform: TransformsV2025ApiCreateTransformRequest = {
         transformV2025: transformData
       }
       if (this.isNewTransform) {
@@ -93,9 +91,9 @@ export class Devdays2025Component {
         await this.sdk.updateTransform(transform);
       }
       this.openMessageDialog('Transform saved successfully!', 'Success');
-      this.loadTransforms();
+      await this.loadTransforms();
     } catch (error) {
-      this.openMessageDialog('Error saving transform: ' + error, 'Error');
+      this.openMessageDialog('Error saving transform: ' + String(error), 'Error');
     } finally {
       this.isSaving = false;
     }
@@ -110,7 +108,7 @@ export class Devdays2025Component {
         return;
       }
 
-      let transformToDelete: TransformsV2025ApiDeleteTransformRequest = {
+      const transformToDelete: TransformsV2025ApiDeleteTransformRequest = {
         id: transformData.id
       }
       if (!this.isNewTransform) {
@@ -119,9 +117,9 @@ export class Devdays2025Component {
       this.openMessageDialog('Transform deleted successfully!', 'Success');
       this.selectedTransform = null;
       this.transformJson = '';
-      this.loadTransforms();
+      await this.loadTransforms();
     } catch (error) {
-      this.openMessageDialog('Error saving transform: ' + error, 'Error');
+      this.openMessageDialog('Error saving transform: ' + String(error), 'Error');
     } finally {
       this.isSaving = false;
     }

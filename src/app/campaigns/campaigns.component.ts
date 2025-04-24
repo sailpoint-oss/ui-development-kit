@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { SailPointSDKService } from '../core/services/electron/sailpoint-sdk.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -18,7 +18,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   templateUrl: './campaigns.component.html',
   styleUrl: './campaigns.component.scss'
 })
-export class campaignsComponent {
+export class campaignsComponent implements OnInit {
   campaigns: GetCampaign200ResponseV2025[] = [];
   displayedColumns: string[] = [];
   loading = false;
@@ -27,7 +27,7 @@ export class campaignsComponent {
   constructor(private dialog: MatDialog, private sdk: SailPointSDKService) {}
 
   ngOnInit() {
-    this.loadCampaigns();
+     void this.loadCampaigns();
   }
 
   async loadCampaigns() {
@@ -43,7 +43,7 @@ export class campaignsComponent {
 
       this.hasDataLoaded = true;
     } catch (error) {
-      this.openMessageDialog('Error loading campaigns: ' + error, 'Error');
+      this.openMessageDialog('Error loading campaigns: ' + String(error), 'Error');
     } finally {
       this.loading = false;
     }
