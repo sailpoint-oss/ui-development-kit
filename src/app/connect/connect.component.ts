@@ -92,6 +92,11 @@ updateTenant(): void {
       this.openErrorDialog('No tenant selected', 'Connection Error');
       return;
     }
+
+    if (!this.actualTenant.clientId || !this.actualTenant.clientSecret) {
+      this.openErrorDialog('Client ID or Client Secret is missing', 'Connection Error');
+      return;
+    }
     console.log(this.actualTenant?.apiUrl)
     try {
       const connected = <Connection>await window.electronAPI.connectToISC(this.actualTenant?.apiUrl, this.actualTenant?.tenantUrl, this.actualTenant?.clientId, this.actualTenant?.clientSecret);
