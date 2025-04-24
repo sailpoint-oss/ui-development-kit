@@ -8,15 +8,6 @@
   </mat-form-field>
 
 
-  
-  <mat-form-field appearance="fill" class="full-width">
-    <mat-label>Ask Harbor Pilot</mat-label>
-    <input matInput [(ngModel)]="harborPilotPrompt" placeholder="Enter your question here" [disabled]="isAiLoading">
-    <button mat-icon-button matSuffix (click)="askHarborPilot()" [disabled]="isAiLoading">
-      <mat-icon *ngIf="!isAiLoading">send</mat-icon>
-      <mat-spinner diameter="24" *ngIf="isAiLoading"></mat-spinner>
-    </button>
-  </mat-form-field>
 
 
   <mat-form-field appearance="fill" class="full-width">
@@ -28,6 +19,12 @@
   <button mat-raised-button color="primary" (click)="saveTransform()" [disabled]="isLoading || isSaving">
     <ng-container *ngIf="!isSaving">
       {{ isNewTransform ? 'Create' : 'Update' }} Transform
+    </ng-container>
+    <mat-spinner diameter="24" *ngIf="isSaving"></mat-spinner>
+  </button>
+  <button mat-raised-button color="primary" (click)="deleteTransform()" [disabled]="isLoading || isSaving">
+    <ng-container *ngIf="!isSaving">
+      Delete Transform
     </ng-container>
     <mat-spinner diameter="24" *ngIf="isSaving"></mat-spinner>
   </button>

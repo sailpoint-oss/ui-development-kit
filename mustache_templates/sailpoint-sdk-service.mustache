@@ -1,0 +1,30 @@
+import { Injectable } from '@angular/core';
+import { AxiosResponse } from 'axios';
+import * as sdk from 'sailpoint-api-client';
+declare const window: any;
+@Injectable({
+  providedIn: 'root'
+})
+export class SailPointSDKService {
+  private electronAPI: any;
+
+  constructor() {
+    if (window.electronAPI) {
+      this.electronAPI = window.electronAPI;
+    } else {
+      console.error('Electron API is not available');
+    }
+  }
+
+{{#apiInfo}}{{#apis}}
+{{#operations}}
+{{#operation}}
+{{#useSingleRequestParameter}}
+{{nickname}}({{#allParams.0}}requestParameters: sdk.{{classname}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}{{/allParams.0}}): Promise<AxiosResponse<{{#isArray}}Array<{{#returnProperty}}{{^isPrimitiveType}}sdk.{{/isPrimitiveType}}{{/returnProperty}}{{returnBaseType}}>{{/isArray}}{{^isArray}}{{#returnProperty}}{{#isPrimitiveType}}{{returnType}}{{/isPrimitiveType}}{{/returnProperty}}{{#returnProperty}}{{^isPrimitiveType}}sdk.{{returnType}}{{/isPrimitiveType}}{{/returnProperty}}{{/isArray}}{{^returnType}}void{{/returnType}}, any>> {
+    return this.electronAPI.{{nickname}}({{#allParams.0}}requestParameters{{/allParams.0}});
+}
+{{/useSingleRequestParameter}}
+{{/operation}}
+{{/operations}}
+{{/apis}}{{/apiInfo}}
+}

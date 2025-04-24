@@ -1,0 +1,4 @@
+app/sailpoint-sdk/ipc-handlers.ts
+app/sailpoint-sdk/sailpoint-sdk.ts
+app/sailpoint-sdk/sdk-preload.js
+src/app/core/services/electron/sailpoint-sdk.service.ts

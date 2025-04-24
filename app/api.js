@@ -118,6 +118,7 @@ const connectToISC = (apiUrl, baseUrl, clientId, clientSecret) => __awaiter(void
     };
     try {
         exports.apiConfig = new sailpoint_api_client_1.Configuration(config);
+        exports.apiConfig.experimental = true;
         let tenantApi = new sailpoint_api_client_1.TenantV2024Api(exports.apiConfig);
         let response = yield tenantApi.getTenant();
         return { connected: true, name: response.data.fullName };

@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { TransformReadV2024, TransformsV2024ApiUpdateTransformRequest } from 'sailpoint-api-client';
+import { TransformReadV2024, TransformsV2025ApiUpdateTransformRequest, TransformsV2025ApiCreateTransformRequest, TransformsV2025ApiDeleteTransformRequest} from 'sailpoint-api-client';
 import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
@@ -39,7 +39,7 @@ export class Devdays2025Component {
   async loadTransforms() {
     this.isLoading = true;
     try {
-      const response = await this.sdk.getTransforms();
+      const response = await this.sdk.listTransforms();
       this.transforms = response.data;
       this.transforms.push(this.dummyTransform);
     } catch (error) {
@@ -80,12 +80,15 @@ export class Devdays2025Component {
     this.isSaving = true;
     try {
       const transformData = JSON.parse(this.transformJson);
-      let transform: TransformsV2024ApiUpdateTransformRequest = {
+      let transform: TransformsV2025ApiUpdateTransformRequest = {
         id: transformData.id,
-        transformV2024: transformData
+        transformV2025: transformData
+      }
+      let createTransform: TransformsV2025ApiCreateTransformRequest = {
+        transformV2025: transformData
       }
       if (this.isNewTransform) {
-        await this.sdk.createTransform(transform);
+        await this.sdk.createTransform(createTransform);
       } else {
         await this.sdk.updateTransform(transform);
       }
@@ -98,36 +101,36 @@ export class Devdays2025Component {
     }
   }
 
+  async deleteTransform() {
+    this.isSaving = true;
+    try {
+      const transformData = JSON.parse(this.transformJson);
+      if (this.isNewTransform) {
+        this.openMessageDialog('Cannot delete a new transform!', 'Error');
+        return;
+      }
+
+      let transformToDelete: TransformsV2025ApiDeleteTransformRequest = {
+        id: transformData.id
+      }
+      if (!this.isNewTransform) {
+        await this.sdk.deleteTransform(transformToDelete)
+      } 
+      this.openMessageDialog('Transform deleted successfully!', 'Success');
+      this.selectedTransform = null;
+      this.transformJson = '';
+      this.loadTransforms();
+    } catch (error) {
+      this.openMessageDialog('Error saving transform: ' + error, 'Error');
+    } finally {
+      this.isSaving = false;
+    }
+  }
+
 
 
 
   
-  harborPilotPrompt: string = '';
-  isAiLoading: boolean = false;
-  async askHarborPilot() {
-    this.isAiLoading = true;
-    const transformPrompt: string = `based on the following transform:
-    ${this.transformJson}
-    please provide a new transform that is similar to the one above, but with the following changes:
-    ${this.harborPilotPrompt}
-    `
-    if (transformPrompt) {
-      try {
-        const response = await this.sdk.harborPilotTransformChat(transformPrompt);
-        console.log(response)
-        const newTransformJson = response.actions[0].data;
-        this.transformJson = JSON.stringify(newTransformJson, null, 2);
-        this.harborPilotPrompt = ''; 
-      } catch (error) {
-        this.openMessageDialog('Error communicating with Harbor Pilot: ' + error, 'Error');
-      } finally {
-        this.isAiLoading = false;
-      }
-    } else {
-      this.isAiLoading = false;
-      this.openMessageDialog('Please enter a question for Harbor Pilot.', 'Error');
-    }
-  }
 
 
 }

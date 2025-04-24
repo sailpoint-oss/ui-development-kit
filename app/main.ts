@@ -3,7 +3,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import {apiConfig,  connectToISC,  disconnectFromISC, getTenants, harborPilotTransformChat} from './api';
 import { setupSailPointSDKHandlers } from './sailpoint-sdk/ipc-handlers';
-import { getTransforms, createTransform, updateTransform } from './sailpoint-sdk/sailpoint-sdk';
+import { listTransforms, createTransform, updateTransform } from './sailpoint-sdk/sailpoint-sdk';
 
 let win: BrowserWindow | null = null;
 const args = process.argv.slice(1),
@@ -94,6 +94,16 @@ try {
 
   // Handle fetching users via IPC
   ipcMain.handle('connect-to-isc', async (event, apiUrl: string, baseUrl: string, clientId: string, clientSecret: string) => {
+    if (clientId.startsWith("go-keyring-base64:")) {
+      const base64 = clientId.split("go-keyring-base64:")[1];
+      clientId = atob(base64);
+    }
+
+    if (clientSecret.startsWith("go-keyring-base64:")) {
+      const base64 = clientSecret.split("go-keyring-base64:")[1];
+      clientSecret = atob(base64);
+    }
+    
     return await connectToISC(apiUrl, baseUrl, clientId, clientSecret);
   });
   ipcMain.handle('disconnect-from-isc', async () => {

@@ -49,3 +49,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+openapi-generator-cli.jar
+/api-specs

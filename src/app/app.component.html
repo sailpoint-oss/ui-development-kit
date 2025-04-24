@@ -31,6 +31,11 @@
       <mat-icon class="card-icon">home</mat-icon>
       Transforms
     </a>
+    <a mat-list-item routerLink="/identities" routerLinkActive="active-link" [class.disabled]="!isConnected"
+      (click)="!isConnected && $event.preventDefault()">
+      <mat-icon class="card-icon">home</mat-icon>
+      Identities
+    </a>
    
 
     </mat-nav-list>

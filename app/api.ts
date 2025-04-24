@@ -149,6 +149,7 @@ export const connectToISC = async (apiUrl: string, baseUrl: string, clientId: st
   }
   try {
     apiConfig = new Configuration(config);
+    apiConfig.experimental = true;
     let tenantApi = new TenantV2024Api(apiConfig);
     let response = await tenantApi.getTenant();
     return { connected: true, name: response.data.fullName };

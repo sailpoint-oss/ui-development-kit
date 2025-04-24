@@ -1,0 +1,20 @@
+templateDir: ./mustache_templates
+files:
+  electron-sdk-wrapper.mustache:
+    templateType: SupportingFiles
+    destinationFilename: app/sailpoint-sdk/sailpoint-sdk.ts
+  electron-icp-handlers.mustache:
+    templateType: SupportingFiles
+    destinationFilename: app/sailpoint-sdk/ipc-handlers.ts
+  electron-preload.mustache:
+    templateType: SupportingFiles
+    destinationFilename: app/sailpoint-sdk/sdk-preload.js
+  sailpoint-sdk-service.mustache:
+    templateType: SupportingFiles
+    destinationFilename: src/app/core/services/electron/sailpoint-sdk.service.ts
+npmName: sailpoint-sdk
+npmRepository: sailpoint.com
+npmVersion: 1.6.0
+useSingleRequestParameter: true
+apiVersion: v2025
+enumNameSuffix: V2025
