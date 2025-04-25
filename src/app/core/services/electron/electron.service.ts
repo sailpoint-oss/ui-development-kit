@@ -55,10 +55,4 @@ export class ElectronService {
     return !!(window && window.process && window.process.type);
   }
 
-  invoke(channel: string, ...args: any[]): Promise<any> {
-    if (this.isElectron) {
-      return this.ipcRenderer.invoke(channel, ...args);
-    }
-    return Promise.reject('Not running in Electron');
-  }
 }
