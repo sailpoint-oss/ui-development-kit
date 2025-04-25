@@ -1,0 +1,44 @@
+<sqd-designer
+  theme="light"
+  [definition]="definition"
+  [toolboxConfiguration]="toolboxConfiguration"
+  [stepsConfiguration]="stepsConfiguration"
+  [validatorConfiguration]="validatorConfiguration"
+  [controlBar]="true"
+  [areEditorsHidden]="false"
+  [rootEditor]="rootEditorProvider"
+  [stepEditor]="stepEditorProvider"
+  [isToolboxCollapsed]="isToolboxCollapsed"
+  [isEditorCollapsed]="isEditorCollapsed"
+  (onReady)="onDesignerReady($event)"
+  (onDefinitionChanged)="onDefinitionChanged($event)"
+>
+</sqd-designer>
+
+<div class="block">
+	<button mat-raised-button color="primary" (click)="reloadDefinitionClicked()">Reload definition</button>
+	&nbsp;
+	<button mat-raised-button color="primary" (click)="toggleReadonlyClicked()">
+		{{ isReadonly ? 'Enable editing' : 'Disable editing' }}
+	</button>
+	&nbsp;
+	<button mat-raised-button color="primary" (click)="toggleSelectedStepClicked()">
+		{{ selectedStepId ? 'Unselect' : 'Select first' }}
+	</button>
+	&nbsp;
+	<button mat-raised-button color="primary" (click)="toggleToolboxClicked()">
+		{{ isToolboxCollapsed ? 'Show toolbox' : 'Hide toolbox' }}
+	</button>
+	&nbsp;
+	<button mat-raised-button color="primary" (click)="toggleEditorClicked()">
+		{{ isEditorCollapsed ? 'Show editor' : 'Hide editor' }}
+	</button>
+	&nbsp; Is valid: <strong>{{ isValid }}</strong>
+</div>
+
+<div class="block">
+	<mat-form-field class="full-width flex-1s">
+		<textarea matInput cols="120" rows="16" readonly>{{ definitionJSON }}</textarea>
+	</mat-form-field>
+</div>
+

@@ -1,0 +1,95 @@
+<sqd-designer
+	theme="light"
+	[undoStackSize]="10"
+	[definition]="definition"
+	[toolboxConfiguration]="toolboxConfiguration"
+	[stepsConfiguration]="stepsConfiguration"
+	[validatorConfiguration]="validatorConfiguration"
+	[controlBar]="true"
+	[selectedStepId]="selectedStepId"
+	[isReadonly]="isReadonly"
+	[isToolboxCollapsed]="isToolboxCollapsed"
+	[isEditorCollapsed]="isEditorCollapsed"
+	[areEditorsHidden]="false"
+	[rootEditor]="rootEditor"
+	[stepEditor]="stepEditor"
+	(onReady)="onDesignerReady($event)"
+	(onDefinitionChanged)="onDefinitionChanged($event)"
+	(onSelectedStepIdChanged)="onSelectedStepIdChanged($event)"
+	(onIsToolboxCollapsedChanged)="onIsToolboxCollapsedChanged($event)"
+	(onIsEditorCollapsedChanged)="onIsEditorCollapsedChanged($event)"
+>
+</sqd-designer>
+
+<ng-template #rootEditor let-editor>
+	<h6>Root Editor</h6>
+
+	<p>Velocity</p>
+	<mat-form-field class="full-width">
+		<input
+			matInput
+			type="number"
+			[value]="editor.definition.properties.velocity"
+			[readonly]="editor.isReadonly"
+			(input)="updateProperty(editor.definition.properties, 'velocity', $event, editor.context)"
+		/>
+	</mat-form-field>
+</ng-template>
+
+<ng-template #stepEditor let-editor>
+	<h2>Step Editor</h2>
+
+	<mat-tab-group>
+		<mat-tab label="Basic">
+			<h3>Name</h3>
+			<mat-form-field class="full-width">
+				<input
+					matInput
+					type="text"
+					[value]="editor.step.name"
+					[readonly]="editor.isReadonly"
+					(input)="updateName(editor.step, $event, editor.context)"
+				/>
+			</mat-form-field>
+		</mat-tab>
+		<mat-tab label="Details">
+			<h3>Velocity</h3>
+			<mat-form-field class="full-width">
+				<input
+					matInput
+					type="number"
+					[value]="editor.step.properties.velocity"
+					[readonly]="editor.isReadonly"
+					(input)="updateProperty(editor.step.properties, 'velocity', $event, editor.context)"
+				/>
+			</mat-form-field>
+		</mat-tab>
+	</mat-tab-group>
+</ng-template>
+
+<div class="block">
+	<button mat-raised-button color="primary" (click)="reloadDefinitionClicked()">Reload definition</button>
+	&nbsp;
+	<button mat-raised-button color="primary" (click)="toggleReadonlyClicked()">
+		{{ isReadonly ? 'Enable editing' : 'Disable editing' }}
+	</button>
+	&nbsp;
+	<button mat-raised-button color="primary" (click)="toggleSelectedStepClicked()">
+		{{ selectedStepId ? 'Unselect' : 'Select first' }}
+	</button>
+	&nbsp;
+	<button mat-raised-button color="primary" (click)="toggleToolboxClicked()">
+		{{ isToolboxCollapsed ? 'Show toolbox' : 'Hide toolbox' }}
+	</button>
+	&nbsp;
+	<button mat-raised-button color="primary" (click)="toggleEditorClicked()">
+		{{ isEditorCollapsed ? 'Show editor' : 'Hide editor' }}
+	</button>
+	&nbsp; Is valid: <strong>{{ isValid }}</strong>
+</div>
+
+<!-- <div class="block">
+	<mat-form-field class="full-width flex-1s">
+		<textarea matInput cols="120" rows="16" readonly>{{ definitionJSON }}</textarea>
+	</mat-form-field>
+</div> -->

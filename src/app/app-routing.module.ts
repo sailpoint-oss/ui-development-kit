@@ -5,6 +5,8 @@ import { HomeRoutingModule } from './home/home-routing.module';
 import { Devdays2025Component } from './devdays-2025/devdays-2025.component';
 import { IdentitiesComponent } from './identities/identities.component';
 import { campaignsComponent } from './campaigns/campaigns.component';
+import { TransformBuilderComponent } from './transform-builder/transform-builder.component';
+import { BuilderComponent } from './builder/builder.component';
 
 
 const routes: Routes = [
@@ -24,6 +26,14 @@ const routes: Routes = [
   {
     path: 'campaigns',
     component: campaignsComponent
+  },
+  {
+    path: 'transform-builder',
+    component: TransformBuilderComponent
+  },
+  {
+    path: 'builder',
+    component: BuilderComponent
   },
   {
     path: '**',

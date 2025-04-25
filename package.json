@@ -59,6 +59,11 @@
     "axios": "1.7.7",
     "rxjs": "7.8.1",
     "sailpoint-api-client": "1.6.0",
+    "sequential-workflow-designer": "0.29.0",
+    "sequential-workflow-designer-angular": "0.29.0",
+    "sequential-workflow-editor": "0.14.8",
+    "sequential-workflow-editor-model": "0.14.8",
+    "sequential-workflow-model": "0.2.0",
     "tslib": "2.7.0",
     "zone.js": "~0.14.10"
   },
