@@ -1,16 +1,10 @@
 mat-form-field {
     margin-bottom: 20px;
-  }
-
-  ::ng-deep .mat-mdc-form-field.mat-mdc-form-field-appearance-fill .mdc-text-field--filled {
-    --mdc-filled-text-field-container-color: #ffffff !important;
-  }
-  
-  
+  }  
   button {
     margin-top: 20px;
     margin-left: 10px;
-    border-radius: .5rem; /* Rounded corners */
+    border-radius: .25rem; /* Rounded corners */
     color: #ffffff !important;
     
   }
