@@ -1,83 +1,97 @@
 import {
-    Uid,
-    Step,
-    BranchedStep,
-    Sequence,
-    StepEditorContext,
-    Definition,
-  } from 'sequential-workflow-designer';
-  import { createStepModel, createStringValueModel } from 'sequential-workflow-editor-model';
+  Uid,
+  Step,
+  BranchedStep,
+  Sequence,
+  StepEditorContext,
+  Definition,
+} from 'sequential-workflow-designer';
+import {
+  createStepModel,
+  createStringValueModel,
+} from 'sequential-workflow-editor-model';
 import { deserializeToStep, serializeStep } from '../builder.component';
 import { appendBranchEditor, appendNameEditor, appendPropertyTitle, appendTitle, createButton } from '../utils/utils';
 
-export function createStatic(): StaticStep  {
-    return {
-      id: Uid.next(),
-      componentType: 'switch',
-      name: 'Static',
-      type: 'static',
-      properties: {
-        value: ''
-      },
-      branches: {},
-    };
-  }
-
-  export interface StaticStep extends BranchedStep {
-    type: 'static';
-    componentType: 'switch';
+export function createConditional(): ConditionalStep {
+  return {
+    id: Uid.next(),
+    componentType: 'switch',
+    name: 'Conditional',
+    type: 'conditional',
     properties: {
-        value: string;
-    };
-  }
+      expression: '',
+    },
+    branches: {
+      positiveCondition: [],
+      negativeCondition: [],
+    },
+  };
+}
 
-export const StaticModel = createStepModel<StaticStep>('static', 'switch', step => {
-    step.property('value')
+export interface ConditionalStep extends BranchedStep {
+  type: 'conditional';
+  componentType: 'switch';
+  properties: {
+    expression: string;
+  };
+}
+
+export const ConditionalModel = createStepModel<ConditionalStep>(
+  'conditional',
+  'switch',
+  (step) => {
+    step
+      .property('expression')
       .value(
         createStringValueModel({
           minLength: 1,
           multiline: true,
+          pattern: new RegExp('^.+\\s+eq\\s.+$'),
         })
       )
-      .hint('Static values support apache velocity language')
-      .label('Static Value');
-  });
+      .hint(
+        'Conditional expression, e.g. $department eq Science, eq is the only supported operator'
+      )
+      .label('Expression');
+  }
+);
 
-
-
-export function serializeStatic(step: StaticStep): {
-    type: string;
-    attributes: {
-      label: string;
-      value: string;
-      [key: string]: any;
+export function serializeConditional(step: ConditionalStep): {
+  type: string;
+  attributes: {
+    label: string;
+    expression: string;
+    [key: string]: any;
+  };
+} {
+  const attributes: { label: string; expression: string; [key: string]: any } =
+    {
+      label: step.name,
+      expression: step.properties.expression,
     };
-  } {
-    const attributes: { label: string; value: string; [key: string]: any } = {
-        label: step.name,
-        value: step.properties.value,
-    };
 
-    for (const [branchName, sequence] of Object.entries(step.branches)) {
-        if (sequence.length === 1) {
-          attributes[branchName] = serializeStep(sequence[0]);
-        } else {
-          throw new Error(`Branch "${branchName}" must have exactly one step.`);
-        }
-      }
-
-    return {
-      type: step.type,
-      attributes: attributes
-    };
+  for (const [branchName, sequence] of Object.entries(step.branches)) {
+    if (sequence.length === 1) {
+      attributes[branchName] = serializeStep(sequence[0]);
+    } else {
+      throw new Error(`Branch "${branchName}" must have exactly one step.`);
+    }
   }
 
-  export function deserializeStatic(data: any): StaticStep {
+  return {
+    type: step.type,
+    attributes: attributes,
+  };
+}
+
+
+export function deserializeConditional(data: any): ConditionalStep {
     const branches: { [key: string]: Sequence } = {};
     
     const attributes = data.attributes;
     Object.keys(attributes).forEach((key) => {
-      if (key !== 'label' && key !== 'value') {
+      if (key !== 'expression') {
         branches[key] = [deserializeToStep(attributes[key])];
       }
     });
@@ -85,15 +99,15 @@ export function serializeStatic(step: StaticStep): {
   return {
     id: Uid.next(),
     componentType: 'switch',
-    type: 'static',
-    name: data.attributes.label ?? 'Static',
-    properties: { value: data.attributes.value},
+    type: 'conditional',
+    name: data.attributes.label ?? 'Conditional',
+    properties: { expression: data.attributes.expression},
     branches: branches,
   };
 }
 
-export function buildStaticStepEditor(step: StaticStep, context: StepEditorContext, definition: Definition, isReadonly: boolean): HTMLDivElement {
-    const branchedStep = step as unknown as StaticStep;
+export function buildConditionalStepEditor(step: ConditionalStep, context: StepEditorContext, definition: Definition, isReadonly: boolean): HTMLDivElement {
+    const branchedStep = step as unknown as ConditionalStep;
 
     const root = document.createElement('div');
 
@@ -132,7 +146,7 @@ export function buildStaticStepEditor(step: StaticStep, context: StepEditorConte
       appendBranch(name);
     }
 
-    appendTitle(root, 'Static');
+    appendTitle(root, 'Conditional');
     appendNameEditor(root, step, context);
     appendValueEditor(root, step, context);
     appendBranchEditor(root, step, context, 'Variable Name');
@@ -159,23 +173,24 @@ export function buildStaticStepEditor(step: StaticStep, context: StepEditorConte
 
 export function appendValueEditor(
     root: HTMLElement,
-    step: StaticStep,
+    step: ConditionalStep,
     editorContext: StepEditorContext
   ): void {
     const input = document.createElement('textarea');
-    input.value = step.properties.value;
+    input.value = step.properties.expression;
     input.addEventListener(
       'input',
       () => {
-        step.properties.value = input.value;
+        step.properties.expression = input.value;
         editorContext.notifyNameChanged();
       },
       false
     );
   
-    appendPropertyTitle(root, 'Value');
+    appendPropertyTitle(root, 'Expression');
     root.appendChild(input);
   }
-  export function isStaticStep(step: Step): step is StaticStep {
-    return step.type === 'static';
+
+export function isConditionalStep(step: Step): step is ConditionalStep {
+  return step.type === 'conditional';
 }

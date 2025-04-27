@@ -1,22 +1,7 @@
-<sqd-designer
-  theme="light"
-  [definition]="definition"
-  [toolboxConfiguration]="toolboxConfiguration"
-  [stepsConfiguration]="stepsConfiguration"
-  [validatorConfiguration]="validatorConfiguration"
-  [controlBar]="true"
-  [areEditorsHidden]="false"
-  [rootEditor]="rootEditorProvider"
-  [stepEditor]="stepEditorProvider"
-  [isToolboxCollapsed]="isToolboxCollapsed"
-  [isEditorCollapsed]="isEditorCollapsed"
-  (onReady)="onDesignerReady($event)"
-  (onDefinitionChanged)="onDefinitionChanged($event)"
->
-</sqd-designer>
-
-<div class="block">
-	<button mat-raised-button color="primary" (click)="reloadDefinitionClicked()">Reload definition</button>
+<div class="block" style="display: flex; align-items: center;">
+    <h4>{{definition.properties.name}}</h4>
+    &nbsp;
+	<button mat-raised-button color="primary" [routerLink]="['/transforms']">Back to table</button>
 	&nbsp;
 	<button mat-raised-button color="primary" (click)="toggleReadonlyClicked()">
 		{{ isReadonly ? 'Enable editing' : 'Disable editing' }}
@@ -37,8 +22,22 @@
 </div>
 
 <div class="block">
-	<mat-form-field class="full-width flex-1s">
-		<textarea matInput cols="120" rows="16" readonly>{{ definitionJSON }}</textarea>
-	</mat-form-field>
+	<textarea matInput cols="120" rows="16" readonly>{{ definitionJSON }}</textarea>
 </div>
 
+<sqd-designer
+  theme="light"
+  [definition]="definition"
+  [toolboxConfiguration]="toolboxConfiguration"
+  [stepsConfiguration]="stepsConfiguration"
+  [validatorConfiguration]="validatorConfiguration"
+  [controlBar]="true"
+  [areEditorsHidden]="false"
+  [rootEditor]="rootEditorProvider"
+  [stepEditor]="stepEditorProvider"
+  [isToolboxCollapsed]="isToolboxCollapsed"
+  [isEditorCollapsed]="isEditorCollapsed"
+  (onReady)="onDesignerReady($event)"
+  (onDefinitionChanged)="onDefinitionChanged($event)"
+>
+</sqd-designer>

@@ -137,23 +137,23 @@ export function serializeAccountAttribute(step: AccountAttributeStep) {
   };
 }
 
-export function deserializeAccountAttribute(data: any): AccountAttributeStep {
-  return {
-    id: Uid.next(),
-    componentType: 'task',
-    type: 'accountAttribute',
-    name: data.attributes.label,
-    properties: {
-      attributeName: data.attributes.attributeName,
-      sourceName: data.attributes.sourceName,
-      accountSortAttribute: data.attributes.accountSortAttribute,
-      accountSortDescending: data.attributes.accountSortDescending,
-      accountReturnFirstLink: data.attributes.accountReturnFirstLink,
-      accountFilter: data.attributes.accountFilter,
-      accountPropertyFilter: data.attributes.accountPropertyFilter,
-    },
-  };
-}
+export function deserializeAccountAttribute(data: any): AccountAttributeStep {  
+    return {
+      id: Uid.next(),
+      componentType: 'task',
+      type: 'accountAttribute',
+      name: data.attributes.label ?? 'Account Attribute',
+      properties: {
+        attributeName: data.attributes.attributeName ?? '',
+        sourceName: data.attributes.sourceName ?? '',
+        accountSortAttribute: data.attributes.accountSortAttribute ?? '',
+        accountSortDescending: data.attributes.accountSortDescending ?? false,
+        accountReturnFirstLink: data.attributes.accountReturnFirstLink ?? false,
+        accountFilter: data.attributes.accountFilter ?? '',
+        accountPropertyFilter: data.attributes.accountPropertyFilter ?? '',
+      }
+    };
+  }
 
 export function isAccountAttributeStep(
   step: Step

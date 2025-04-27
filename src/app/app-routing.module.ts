@@ -7,6 +7,7 @@ import { IdentitiesComponent } from './identities/identities.component';
 import { campaignsComponent } from './campaigns/campaigns.component';
 import { TransformBuilderComponent } from './transform-builder/transform-builder.component';
 import { BuilderComponent } from './builder/builder.component';
+import { TransformsComponent } from './transforms/transforms.component';
 
 
 const routes: Routes = [
@@ -14,10 +15,6 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
-  },
-  {
-    path: 'transforms',
-    component: Devdays2025Component
   },
   {
     path: 'identities',
@@ -28,8 +25,12 @@ const routes: Routes = [
     component: campaignsComponent
   },
   {
+    path: 'transforms',
+    component: TransformsComponent
+  },
+  {
     path: 'transform-builder',
-    component: TransformBuilderComponent
+    component: BuilderComponent
   },
   {
     path: 'builder',
