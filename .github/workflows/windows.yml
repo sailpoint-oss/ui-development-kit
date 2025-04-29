@@ -50,10 +50,8 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        npm i
-        cd app
-        npm i
-        cd ..
+        npm install
+        npm --prefix ./app install
 
     - name: Check lint
       run: npm run lint
