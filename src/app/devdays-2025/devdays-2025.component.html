@@ -1,4 +1,4 @@
-<mat-form-field appearance="fill">
+<mat-form-field appearance="fill" class="custom-fill-field">
     <mat-label>Select a Transform</mat-label>
     <mat-select [(value)]="selectedTransform" (selectionChange)="onTransformSelect($event.value)">
       @for (option of transforms; track option) {
@@ -10,7 +10,7 @@
 
 
 
-  <mat-form-field appearance="fill" class="full-width">
+  <mat-form-field appearance="fill" class="full-width custom-fill-field">
     <mat-label>Transform JSON</mat-label>
     <textarea matInput [(ngModel)]="transformJson" rows="10" [disabled]="isLoading || isSaving"></textarea>
   </mat-form-field>

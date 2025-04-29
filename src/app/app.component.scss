@@ -3,7 +3,6 @@
   .mat-mdc-form-field.mat-mdc-form-field-appearance-fill .mdc-text-field--filled {
     --mdc-filled-text-field-container-color: #ffffff !important;
   }
-  
 
   mat-sidenav-container {
     background-color: #ffffff; /* Light background for light mode */
@@ -12,7 +11,7 @@
   mat-sidenav {
     background-color: #ffffff;
     box-shadow: 4px 0 6px -2px #415364;
-    border-radius: .5rem; /* Light background for light mode */
+    border-radius: .25rem; /* Light background for light mode */
   }
 
   :host-context(.dark-theme) mat-sidenav {

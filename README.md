@@ -122,6 +122,14 @@ pnpm dev
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+### Building the sailpoint SDK files
+
+To build the SailPoint SDK, download the openapi-generator-cli.jar file (currently 7.11), then run the following commands:
+
+ - fetch the api-specs: `git clone git@github.com:sailpoint-oss/api-specs.git`
+ - run the pre-script: `node .\mustache_templates\prescript.js api-specs/idn/v2025/paths`
+ - run the open api generator: `java -jar openapi-generator-cli.jar generate -i api-specs/idn/sailpoint-api.v2025.yaml -g typescript-axios -o . --global-property skipFormModel=false --config generator-config.yaml --api-name-suffix V2025Api --model-name-suffix V2025`
+
 ### Build the application from source
 
 To build the application from source, first [install dependencies](#installing-dependencies). Then run the `build` script matching your OS platform, using your package manager of choice:

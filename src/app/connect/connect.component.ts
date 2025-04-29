@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -35,7 +35,7 @@ interface Tenant {
 
 
 
-export class ConnectComponent implements OnInit, OnDestroy {
+export class ConnectComponent implements OnInit {
   isConnected: boolean = false;
   tenants: Tenant[] = [];
   selectedTenant: string = 'New';
@@ -46,7 +46,11 @@ export class ConnectComponent implements OnInit, OnDestroy {
 
   }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit() {
+    void this.initializeAsync();
+  }
+
+  private async initializeAsync() {
     if (this.isConnected === false) {
       //redirect to home page
       this.router.navigate(['/home']).catch((error: any) => {
@@ -54,8 +58,6 @@ export class ConnectComponent implements OnInit, OnDestroy {
       });
     }
     this.tenants = <Tenant[]>await window.electronAPI.getTenants();
-
-
   }
 
 updateTenant(): void {
@@ -63,10 +65,6 @@ updateTenant(): void {
   console.log(`Selected tenant:`, this.actualTenant);
 }
 
-
-  ngOnDestroy(): void {
-
-  }
 
   openErrorDialog(errorMessage: string, title: string): void {
     this.dialog.open(GenericDialogComponent, {
