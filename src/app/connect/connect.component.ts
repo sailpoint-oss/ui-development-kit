@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -35,7 +35,7 @@ interface Tenant {
 
 
 
-export class ConnectComponent implements OnInit, OnDestroy {
+export class ConnectComponent implements OnInit {
   isConnected: boolean = false;
   tenants: Tenant[] = [];
   selectedTenant: string = 'New';
@@ -48,10 +48,6 @@ export class ConnectComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     void this.initializeAsync();
-  }
-
-  ngOnDestroy(): void {
-    // No cleanup needed yet, but required because of 'implements OnDestroy'
   }
 
   private async initializeAsync() {
