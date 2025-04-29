@@ -33,10 +33,6 @@ const routes: Routes = [
     component: BuilderComponent
   },
   {
-    path: 'builder',
-    component: BuilderComponent
-  },
-  {
     path: '**',
     component: PageNotFoundComponent
   }

@@ -3,6 +3,8 @@
     <mat-label>Filter</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
   </mat-form-field>
+  <button mat-raised-button color="primary" (click)="onEdit(transform)">Create New</button>
+
   
   <!-- Spinner -->
   <div *ngIf="loading" class="spinner-container">

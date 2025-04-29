@@ -5,7 +5,6 @@ import {
   createStringValueModel,
 } from 'sequential-workflow-editor-model';
 import { deserializeToStep, serializeStep } from '../builder.component';
-import { isDate } from 'util/types';
 
 export function createDateFormat(): DateFormatStep {
   return {
@@ -69,11 +68,8 @@ export function serializeDateFormat(step: DateFormatStep) {
   };
 
   if (step.branches.input.length > 0) {
-    console.log('I got here')
     attributes.input = serializeStep(step.branches.input[0]);
   }
-
-  console.log('serializeDateFormat', attributes.input);
 
   return {
     type: step.type,

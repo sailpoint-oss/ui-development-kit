@@ -9,7 +9,9 @@ import {
 } from 'sequential-workflow-editor-model';
 import {
   BranchedStep,
+  Branches,
   Definition,
+  Properties,
   Sequence,
   Step,
 } from 'sequential-workflow-model';
@@ -21,6 +23,7 @@ import {
   RootEditorProvider,
   Designer,
   StepEditorContext,
+  RootEditorContext,
 } from 'sequential-workflow-designer';
 import { EditorProvider } from 'sequential-workflow-editor';
 import { Uid } from 'sequential-workflow-designer';
@@ -59,7 +62,12 @@ import { TransformReadV2025 } from 'sailpoint-api-client';
 import { buildConditionalStepEditor, ConditionalModel, createConditional, deserializeConditional, isConditionalStep, serializeConditional } from './models/conditional';
 import { createString, deserializeString, isStringStep, StringModel } from './models/string';
 import { createDateCompare, DateCompareModel, deserializeDateCompare, isDateCompareStep, serializeDateCompare } from './models/date-compare';
-import { createDateFormat, DateFormatModel, isDateFormatStep, serializeDateFormat } from './models/date-format';
+import { createDateFormat, DateFormatModel, deserializeDateFormat, isDateFormatStep, serializeDateFormat } from './models/date-format';
+import { createDateMath, DateMathModel, deserializeDateMath, isDateMathStep, serializeDateMath } from './models/date-math';
+import { buildFirstValidStepEditor, deserializeFirstValid, FirstValidModel, isFirstValidStep, serializeFirstValid } from './models/first-valid';
+import { FormsModule } from '@angular/forms';
+import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatIconModule } from '@angular/material/icon';
 
 export interface MyDefinition extends Definition {
   properties: {
@@ -85,6 +93,8 @@ export const definitionModel = createDefinitionModel((model) => {
     ConcatModel,
     ConditionalModel,
     DateFormatModel,
+    DateMathModel,
+    FirstValidModel,
     StaticModel,
     StringModel,
     DateCompareModel
@@ -103,24 +113,22 @@ function createDefinition(): Definition {
 export const serializeStep = (step: Step) => {
   if (isAccountAttributeStep(step)) {
     return serializeAccountAttribute(step);
-  }
-  if (isConcatStep(step)) {
+  } else if (isConcatStep(step)) {
     return serializeConcat(step);
-  }
-  if (isStaticStep(step)) {
+  } else if (isStaticStep(step)) {
     return serializeStatic(step);
-  }
-  if (isStringStep(step)) {
+  } else if (isStringStep(step)) {
     return step.properties.value;
-  }
-  if (isConditionalStep(step)) {
+  } else if (isConditionalStep(step)) {
     return serializeConditional(step);
-  }
-  if (isDateCompareStep(step)) {
+  } else if (isDateCompareStep(step)) {
     return serializeDateCompare(step);
-  }
-  if (isDateFormatStep(step)) {
+  } else if (isDateFormatStep(step)) {
     return serializeDateFormat(step);
+  } else if (isDateMathStep(step)) {
+    return serializeDateMath(step);
+  } else if (isFirstValidStep(step)) {
+    return serializeFirstValid(step);
   }
 
   throw new Error(`Unsupported step type: ${step.type}`);
@@ -149,7 +157,11 @@ export function deserializeToStep(data: any): Step {
   } else if (data.type === 'dateCompare') {
     return deserializeDateCompare(data);
   } else if (data.type === 'dateFormat') {
-    return createDateFormat();
+    return deserializeDateFormat(data);
+  } else if (data.type === 'dateMath') {
+    return deserializeDateMath(data);
+  } else if (data.type === 'firstValid') {
+    return deserializeFirstValid(data);
   }
 
   throw new Error(`Unsupported step type: ${data.type}`);
@@ -164,6 +176,9 @@ export function deserializeToStep(data: any): Step {
     MatInputModule,
     MatButtonModule,
     RouterModule,
+    FormsModule,
+    MatSlideToggleModule,
+    MatIconModule
   ],
   templateUrl: './builder.component.html',
   styleUrl: './builder.component.scss',
@@ -180,6 +195,7 @@ export class BuilderComponent {
   private defaultStepEditorProvider?: StepEditorProvider;
   public transform?: TransformReadV2025;
   public isValid?: boolean;
+  public isReadonly = false;
 
   constructor(private router: Router) {
     const nav = this.router.getCurrentNavigation();
@@ -190,6 +206,7 @@ export class BuilderComponent {
     } else {
       // Deserialize the transform into a definition
       this.definition = createDefinitionFromTransform(this.transform);
+      this.isReadonly = false;
     }
   }
 
@@ -259,8 +276,16 @@ export class BuilderComponent {
         const svg = `
           <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
           <path d="M0 0h24v24H0z" fill="none"/>
-          <path fill="grey" d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+          <path fill="gray" d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
           </svg>`;
+        const encoded = encodeURIComponent(svg.trim());
+        return `data:image/svg+xml,${encoded}`;
+      }
+      if (type === 'dateMath') {
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+        <path d="M0 0h24v24H0zm0 0h24v24H0z" fill="none"/>
+        <path fill="gray" d="M16.05 16.29l2.86-3.07c.38-.39.72-.79 1.04-1.18.32-.39.59-.78.82-1.17.23-.39.41-.78.54-1.17.13-.39.19-.79.19-1.18 0-.53-.09-1.02-.27-1.46-.18-.44-.44-.81-.78-1.11-.34-.31-.77-.54-1.26-.71-.51-.16-1.08-.24-1.72-.24-.69 0-1.31.11-1.85.32-.54.21-1 .51-1.36.88-.37.37-.65.8-.84 1.3-.18.47-.27.97-.28 1.5h2.14c.01-.31.05-.6.13-.87.09-.29.23-.54.4-.75.18-.21.41-.37.68-.49.27-.12.6-.18.96-.18.31 0 .58.05.81.15.23.1.43.25.59.43.16.18.28.4.37.65.08.25.13.52.13.81 0 .22-.03.43-.08.65-.06.22-.15.45-.29.7-.14.25-.32.53-.56.83-.23.3-.52.65-.88 1.03l-4.17 4.55V18H22v-1.71h-5.95zM8 7H6v4H2v2h4v4h2v-4h4v-2H8V7z"/>
+        </svg>`
         const encoded = encodeURIComponent(svg.trim());
         return `data:image/svg+xml,${encoded}`;
       }
@@ -287,6 +312,7 @@ export class BuilderComponent {
           createConditional(),
           createDateCompare(),
           createDateFormat(),
+          createDateMath(),
           createStatic(),
         ],
       },
@@ -316,6 +342,9 @@ export class BuilderComponent {
       if (isConditionalStep(step)) {
         return buildConditionalStepEditor(step, context, definition, isReadonly);
       }
+      if(isFirstValidStep(step)) {
+        return buildFirstValidStepEditor(step, context, definition, isReadonly);
+      }
 
       return this.defaultStepEditorProvider!(
         step,
@@ -331,7 +360,9 @@ export class BuilderComponent {
       root: editorProvider.createRootValidator(),
       step: editorProvider.createStepValidator(),
     };
+
   }
+
 
   public onDesignerReady(designer: Designer) {
     this.designer = designer;
@@ -358,4 +389,62 @@ export class BuilderComponent {
   private updateIsValid() {
     this.isValid = this.designer?.isValid();
   }
+  public toggleReadonlyClicked() {
+    this.isReadonly = !this.isReadonly;
+  }
+
+  objectKeys = Object.keys;
+
+  isBoolean(value: any): boolean {
+    return typeof value === 'boolean';
+  }
+
+  getBranchNames(branches: Record<string, any[]>): string[] {
+    return Object.keys(branches || {});
+  }
+
+  public updateProperty(
+    properties: Properties,
+    name: string,
+    event: Event,
+    context: RootEditorContext | StepEditorContext
+  ) {
+    console.log(event)
+    if (event instanceof MatSlideToggleChange) {
+      properties[name] = event.checked;
+    } else if (event instanceof InputEvent) {
+      properties[name] = (event.target as HTMLInputElement).value;
+    }
+    context.notifyPropertiesChanged();
+  }
+
+  public removeBranch(
+    branches: Branches,
+    index: number,
+    event: Event,
+    context: StepEditorContext
+  ) {
+    console.log('removeBranch', branches, index);
+    this.deleteBranchAtIndex(branches, index);
+    console.log('branches', branches);
+    context.notifyChildrenChanged()
+  }
+
+  public deleteBranchAtIndex<T>(obj: Record<string, T[]>, index: number): void {
+    const keys = Object.keys(obj);
+    if (index < 0 || index >= keys.length) return;
+  
+    const keyToDelete = keys[index];
+    delete obj[keyToDelete];
+  }
+
+  public addBranch(
+    branches: Branches,
+    context: StepEditorContext
+  ) {
+    const index = Object.keys(branches || {}).length + 1
+    branches["New Branch " + index] = [];
+    context.notifyChildrenChanged();
+  }
+  
 }
