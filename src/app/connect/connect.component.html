@@ -1,5 +1,5 @@
 <div>
-<mat-form-field *ngIf="!isConnected" appearance="fill">
+<mat-form-field *ngIf="!isConnected" appearance="fill" class="custom-fill-field">
   <mat-label>Tenant</mat-label>
   <mat-select [(value)]="selectedTenant" (selectionChange)="updateTenant()">
     <mat-option value="new">New</mat-option>
