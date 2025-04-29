@@ -50,6 +50,10 @@ export class ConnectComponent implements OnInit, OnDestroy {
     void this.initializeAsync();
   }
 
+  ngOnDestroy(): void {
+    // No cleanup needed yet, but required because of 'implements OnDestroy'
+  }
+
   private async initializeAsync() {
     if (this.isConnected === false) {
       //redirect to home page
