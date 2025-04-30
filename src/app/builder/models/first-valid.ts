@@ -101,69 +101,6 @@ export function serializeFirstValid(step: FirstValidStep): {
   };
 }
 
-export function buildFirstValidStepEditor(step: FirstValidStep, context: StepEditorContext, definition: Definition, isReadonly: boolean): HTMLDivElement {
-    const branchedStep = step as unknown as FirstValidStep;
-
-    const root = document.createElement('div');
-
-    function deleteBranch(branch: HTMLDivElement, name: string) {
-      root.removeChild(branch);
-      delete branchedStep.branches[name];
-      context.notifyChildrenChanged();
-    }
-
-    function appendBranch(name: string) {
-      const branch = document.createElement('div');
-      branch.className = 'switch-branch';
-
-      const title = document.createElement('h4');
-      title.innerText = name;
-
-      const label = document.createElement('label');
-      label.innerText = 'Action: ';
-
-      branch.appendChild(title);
-      branch.appendChild(label);
-
-      const deleteButton = createButton('Delete variable', () =>
-        deleteBranch(branch, name)
-      );
-      branch.appendChild(deleteButton);
-
-      root.appendChild(branch);
-    }
-
-    function addBranch(name: string) {
-      branchedStep.branches[name] = [];
-      context.notifyChildrenChanged();
-      appendBranch(name);
-    }
-
-    appendTitle(root, 'First Valid');
-    appendNameEditor(root, step, context);
-    appendValueEditor(root, step, context);
-    appendBranchEditor(root, step, context, 'Branch Name');
-
-    const addBranchButton = createButton('Add Branch', () => {
-      const input = document.getElementById(
-        'branch-editor-input'
-      ) as HTMLInputElement;
-      const branchName = input.value;
-      if (branchName) {
-        addBranch(branchName);
-      }
-    });
-
-    appendPropertyTitle(root, 'Branches');
-    root.appendChild(addBranchButton);
-
-    for (const branchName of Object.keys(step.branches)) {
-      appendBranch(branchName);
-    }
-
-    return root;
-}
-
 export function appendValueEditor(
     root: HTMLElement,
     step: FirstValidStep,

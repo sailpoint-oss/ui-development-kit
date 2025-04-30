@@ -13,7 +13,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 export class AppComponent {
   isSmallScreen: boolean = false;
   sidenavOpened = true;
-  isConnected = true;
+  isConnected = false;
   isDarkTheme = false;
 
   constructor(
@@ -39,9 +39,9 @@ export class AppComponent {
       console.log('Run in browser');
     }
 
-    // this.connectionService.isConnected$.subscribe(connection => {
-    //   this.isConnected = connection.connected;
-    // });
+    this.connectionService.isConnected$.subscribe(connection => {
+      this.isConnected = connection.connected;
+    });
 
     const storedTheme = localStorage.getItem('theme');
     if (storedTheme === 'dark') {
