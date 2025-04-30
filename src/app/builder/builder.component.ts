@@ -37,7 +37,6 @@ import {
   deserializeAccountAttribute,
 } from './models/account-attribute';
 import {
-  buildStaticStepEditor,
   createStatic,
   deserializeStatic,
   isStaticStep,
@@ -46,7 +45,6 @@ import {
   StaticStep,
 } from './models/static';
 import {
-  buildConcatStepEditor,
   ConcatModel,
   createConcat,
   deserializeConcat,
@@ -61,16 +59,18 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
 import { TransformReadV2025 } from 'sailpoint-api-client';
-import { buildConditionalStepEditor, ConditionalModel, createConditional, deserializeConditional, isConditionalStep, serializeConditional } from './models/conditional';
+import { ConditionalModel, createConditional, deserializeConditional, isConditionalStep, serializeConditional } from './models/conditional';
 import { createString, deserializeString, isStringStep, StringModel } from './models/string';
 import { createDateCompare, DateCompareModel, deserializeDateCompare, isDateCompareStep, serializeDateCompare } from './models/date-compare';
 import { createDateFormat, DateFormatModel, deserializeDateFormat, isDateFormatStep, serializeDateFormat } from './models/date-format';
 import { createDateMath, DateMathModel, deserializeDateMath, isDateMathStep, serializeDateMath } from './models/date-math';
-import { buildFirstValidStepEditor, deserializeFirstValid, FirstValidModel, isFirstValidStep, serializeFirstValid } from './models/first-valid';
+import { deserializeFirstValid, FirstValidModel, isFirstValidStep, serializeFirstValid } from './models/first-valid';
 import { FormsModule } from '@angular/forms';
 import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { createDecomposeDiacriticalMarks, deserializeDecomposeDiacriticalMarks, isDecomposeDiacriticalMarksStep, serializeDecomposeDiacriticalMarks } from './models/decompose-diacritical-marks';
+import { createE164Phone, deserializeE164Phone, E164PhoneModel, isE164PhoneStep, isoAlpha2Map, serializeE164Phone } from './models/e164-phone';
 
 export interface MyDefinition extends Definition {
   properties: {
@@ -97,6 +97,7 @@ export const definitionModel = createDefinitionModel((model) => {
     ConditionalModel,
     DateFormatModel,
     DateMathModel,
+    E164PhoneModel,
     FirstValidModel,
     StaticModel,
     StringModel,
@@ -132,6 +133,10 @@ export const serializeStep = (step: Step) => {
     return serializeDateMath(step);
   } else if (isFirstValidStep(step)) {
     return serializeFirstValid(step);
+  } else if (isDecomposeDiacriticalMarksStep(step)) {
+    return serializeDecomposeDiacriticalMarks(step);
+  } else if (isE164PhoneStep(step)) {
+    return serializeE164Phone(step);
   }
 
   throw new Error(`Unsupported step type: ${step.type}`);
@@ -165,6 +170,10 @@ export function deserializeToStep(data: any): Step {
     return deserializeDateMath(data);
   } else if (data.type === 'firstValid') {
     return deserializeFirstValid(data);
+  } else if (data.type === 'decomposeDiacriticalMarks') {
+    return deserializeDecomposeDiacriticalMarks(data);
+  } else if (data.type === 'e164phone') {
+    return deserializeE164Phone(data);
   }
 
   throw new Error(`Unsupported step type: ${data.type}`);
@@ -295,9 +304,24 @@ export class BuilderComponent {
         const encoded = encodeURIComponent(svg.trim());
         return `data:image/svg+xml,${encoded}`;
       }
-      // Default fallback icon
-      return null;
+
+      if (type === 'e164phone') {
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/>
+        <path fill="gray" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+        </svg>`
+        const encoded = encodeURIComponent(svg.trim());
+        return `data:image/svg+xml,${encoded}`;
+      }
+
+      // Default fallback icon (draggable)
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+      <path d="M0 0h24v24H0V0z" fill="none"/>
+      <path fill="gray" d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+      </svg>`
+        const encoded = encodeURIComponent(svg.trim());
+      return `data:image/svg+xml,${encoded}`;
     },
+
     canInsertStep: (step, targetSequence, targetIndex) => {
       // console.log('canInsertStep', step, targetSequence, targetIndex);
       // const previousStep = targetSequence[targetIndex - 1];
@@ -319,6 +343,8 @@ export class BuilderComponent {
           createDateCompare(),
           createDateFormat(),
           createDateMath(),
+          createDecomposeDiacriticalMarks(),
+          createE164Phone(),
           createStatic(),
         ],
       },
@@ -339,18 +365,6 @@ export class BuilderComponent {
     this.defaultStepEditorProvider = editorProvider.createStepEditorProvider();
 
     this.stepEditorProvider = (step, context, definition, isReadonly) => {
-      if (isConcatStep(step)) {
-        return buildConcatStepEditor(step, context, definition, isReadonly);
-      }
-      if (isStaticStep(step)) {
-        return buildStaticStepEditor(step, context, definition, isReadonly);
-      }
-      if (isConditionalStep(step)) {
-        return buildConditionalStepEditor(step, context, definition, isReadonly);
-      }
-      if(isFirstValidStep(step)) {
-        return buildFirstValidStepEditor(step, context, definition, isReadonly);
-      }
 
       return this.defaultStepEditorProvider!(
         step,
@@ -443,6 +457,18 @@ export class BuilderComponent {
     const keyToDelete = keys[index];
     delete obj[keyToDelete];
   }
+    public renameBranchAtIndex<T>(obj: Record<string, T[]>, oldKey: string, newKey: string, context: StepEditorContext): void {
+    if (!obj.hasOwnProperty(oldKey) || oldKey === newKey) return;
+
+    if (obj.hasOwnProperty(newKey)) {
+      throw new Error(`Key "${newKey}" already exists.`);
+    }
+  
+    obj[newKey] = obj[oldKey];
+    delete obj[oldKey];
+    
+    context.notifyChildrenChanged();
+  }
 
   public addBranch(
     branches: Branches,
@@ -458,6 +484,19 @@ export class BuilderComponent {
     if (!stepDef?.properties) return null;  
     const propDef = stepDef.properties.find(p => p.path.parts[p.path.parts.length - 1] === key);
     return (propDef?.value?.configuration as ChoiceValueModelConfiguration).choices
+  }
+
+  getChoiceLabel(stepType: string, choice: string): string {
+    if (stepType === 'e164phone') {
+      const label = isoAlpha2Map[choice.toUpperCase()] ?? null;
+      if (label) {
+        return label;
+      } else {
+        return choice;
+      }
+    } else {
+      return choice;
+    }
   }
   
 }

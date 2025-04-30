@@ -39,7 +39,7 @@ export class TransformsComponent {
   
       try {
         const response = await this.sdk.listTransforms();
-        this.transforms = response.data ?? [];
+        this.transforms = response.data.filter( transform => transform.internal !== true) ?? [];
         this.dataSource = new MatTableDataSource(this.transforms);
         this.hasDataLoaded = true;
       } catch (error) {

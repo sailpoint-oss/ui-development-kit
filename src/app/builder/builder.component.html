@@ -52,7 +52,7 @@
 	<mat-form-field class="full-width">
 		<input
 			matInput
-            [(ngModel)]="editor.definition.properties.name"
+      [(ngModel)]="editor.definition.properties.name"
 			[value]="editor.definition.properties.name"
 			[readonly]="editor.isReadonly"
 			(input)="updateProperty(editor.definition.properties, 'name', $event, editor.context)"
@@ -88,7 +88,7 @@
                     <mat-label>{{ key }}</mat-label>
                     <mat-select [(ngModel)]="editor.step.properties[key]" [disabled]="editor.isReadonly"
                       (selectionChange)="updateProperty(editor.step.properties, key, $event.value, editor.context)">
-                      <mat-option *ngFor="let choice of choices" [value]="choice">{{ choice }}</mat-option>
+                      <mat-option *ngFor="let choice of choices" [value]="choice">{{ getChoiceLabel(editor.step.type, choice) }}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </ng-container>
@@ -107,7 +107,7 @@
           <h6>Branches</h6>
             <div *ngFor="let branchName of getBranchNames(editor.step.branches); let i = index" class="branch-row">
               <mat-form-field appearance="outline" class="branch-field">
-                <input matInput [(ngModel)]="branchName" [readonly]="editor.isReadonly" placeholder="Branch Name"/>
+                <input matInput [(ngModel)]="branchName" [readonly]="editor.isReadonly" placeholder="Branch Name" (change)="renameBranchAtIndex(editor.step.branches, branchName, $event.target.value, editor.context)"/>
               </mat-form-field>
               <button mat-icon-button color="warn" (click)="removeBranch(editor.step.branches, i, $event, editor.context)">
                 <mat-icon>delete</mat-icon>
