@@ -1,24 +1,24 @@
-<div class="block" style="display: flex; align-items: center;">
-    <h4>{{definition.properties.name}}</h4>
-    &nbsp;
-	<button mat-raised-button color="primary" [routerLink]="['/transforms']">Back to table</button>
+<div class="info-line"> <h4>{{definition.properties.name}}</h4> 	<span>Is valid: <strong>{{ isValid }}</strong></span></div>
+&nbsp;
+<div class="block topButtonRowContainer">
+	<button class="topButtonRow" mat-raised-button color="primary" [routerLink]="['/transforms']">Back to table</button>
 	&nbsp;
-	<button mat-raised-button color="primary" (click)="toggleReadonlyClicked()">
+	<button class="topButtonRow" mat-raised-button color="primary" (click)="toggleReadonlyClicked()">
 		{{ isReadonly ? 'Enable editing' : 'Disable editing' }}
 	</button>
 	&nbsp;
-	<button mat-raised-button color="primary" (click)="toggleSelectedStepClicked()">
+	<button class="topButtonRow" mat-raised-button color="primary" (click)="toggleSelectedStepClicked()">
 		{{ selectedStepId ? 'Unselect' : 'Select first' }}
 	</button>
 	&nbsp;
-	<button mat-raised-button color="primary" (click)="toggleToolboxClicked()">
+	<button class="topButtonRow" mat-raised-button color="primary" (click)="toggleToolboxClicked()">
 		{{ isToolboxCollapsed ? 'Show toolbox' : 'Hide toolbox' }}
 	</button>
 	&nbsp;
-	<button mat-raised-button color="primary" (click)="toggleEditorClicked()">
+	<button class="topButtonRow" mat-raised-button color="primary" (click)="toggleEditorClicked()">
 		{{ isEditorCollapsed ? 'Show editor' : 'Hide editor' }}
 	</button>
-	&nbsp; Is valid: <strong>{{ isValid }}</strong>
+
 </div>
 
 <div class="block">
