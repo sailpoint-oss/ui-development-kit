@@ -1,4 +1,4 @@
-#new-transform-button {
+#new-transform-button, #edit-transform-button {
     padding-left: 25px;
     margin-left: 25px;
     border-radius: .5rem;
@@ -8,8 +8,12 @@
     background-color: #ffffff;
 }
 
-#new-transform-button:hover {
+#new-transform-button:hover, #edit-transform-button:hover {
     background-color: #0033a1;
     color: #ffffff;
     border: 1px solid #0033a1;
+}
+
+#edit-transform-button {
+    margin-bottom: 0px;
 }

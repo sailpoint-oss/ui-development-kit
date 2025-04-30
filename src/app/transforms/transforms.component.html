@@ -42,7 +42,7 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Actions </th>
       <td mat-cell *matCellDef="let transform">
-        <button mat-raised-button color="primary" (click)="onEdit(transform)">Edit</button>
+        <button id="edit-transform-button" mat-raised-button color="primary" (click)="onEdit(transform)">Edit</button>
       </td>
     </ng-container>
   
