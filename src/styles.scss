@@ -207,7 +207,7 @@ textarea {
 }
 
 /* ✅ Default (Light Mode) */
-.custom-fill-field .mat-mdc-text-field-wrapper {
+.custom-fill-field .mat-mdc-text-field-wrapper, textarea.custom-fill-field{
   background-color: #ffffff !important;
   border-radius: .25rem;
   box-shadow: inset 0 0 0 1px #415364;
@@ -218,7 +218,7 @@ textarea {
 }
 
 /* ✅ Dark Theme Override */
-body.dark-theme .custom-fill-field .mat-mdc-text-field-wrapper {
+body.dark-theme .custom-fill-field .mat-mdc-text-field-wrapper, body.dark-theme textarea.custom-fill-field {
   background-color: #000000 !important;
   box-shadow: inset 0 0 0 1px #415364;
   color: #ffffff;
