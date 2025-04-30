@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { SequentialWorkflowDesignerModule } from 'sequential-workflow-designer-angular';
 import {
+  ChoiceValueModel,
+  ChoiceValueModelConfiguration,
   createDefinitionModel,
   createRootModel,
   createStringValueModel,
@@ -68,6 +70,7 @@ import { buildFirstValidStepEditor, deserializeFirstValid, FirstValidModel, isFi
 import { FormsModule } from '@angular/forms';
 import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 
 export interface MyDefinition extends Definition {
   properties: {
@@ -178,7 +181,8 @@ export function deserializeToStep(data: any): Step {
     RouterModule,
     FormsModule,
     MatSlideToggleModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule
   ],
   templateUrl: './builder.component.html',
   styleUrl: './builder.component.scss',
@@ -196,6 +200,7 @@ export class BuilderComponent {
   public transform?: TransformReadV2025;
   public isValid?: boolean;
   public isReadonly = false;
+  public definitionModel = definitionModel;
 
   constructor(private router: Router) {
     const nav = this.router.getCurrentNavigation();
@@ -207,6 +212,7 @@ export class BuilderComponent {
       // Deserialize the transform into a definition
       this.definition = createDefinitionFromTransform(this.transform);
       this.isReadonly = false;
+      console.log(definitionModel)
     }
   }
 
@@ -445,6 +451,13 @@ export class BuilderComponent {
     const index = Object.keys(branches || {}).length + 1
     branches["New Branch " + index] = [];
     context.notifyChildrenChanged();
+  }
+
+  public getChoicesForProperty(stepType: string, key: string): string[] | null {
+    const stepDef = this.definitionModel.steps[stepType];
+    if (!stepDef?.properties) return null;  
+    const propDef = stepDef.properties.find(p => p.path.parts[p.path.parts.length - 1] === key);
+    return (propDef?.value?.configuration as ChoiceValueModelConfiguration).choices
   }
   
 }
