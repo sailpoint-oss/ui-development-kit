@@ -1,3 +1,45 @@
+.topButtonRow {
+  padding-left: 25px;
+  margin-left: 15px;
+  border-radius: .5rem;
+  margin-bottom: 10px;
+  color: #0033a1;
+  border: 1px solid #0033a1;
+  background-color: #ffffff;
+}
+
+.topButtonRow:hover {
+  background-color: #0033a1;
+  color: #ffffff;
+  border: 1px solid #0033a1;
+}
+
+.topButtonRowContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;            /* vertically center items */
+  margin: 0 auto;                 /* center the whole line on page */        /* optional spacing */
+}
+
+.info-line {
+  display: flex;
+  justify-content: center; /* pushes elements to left & right */
+  align-items: center;            /* vertically center items */
+  width: 100%;
+  max-width: 600px;               /* optional: control width */
+  margin: 0 auto;                 /* center the whole line on page */
+  margin-bottom: -15px;
+}
+
+.info-line h4 {
+  margin-right: 25px;
+}
+
+.info-line span {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
 .sqd-smart-editor {
     padding: 16px;
     background-color: #f9f9f9;

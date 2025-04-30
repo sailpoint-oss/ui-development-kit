@@ -1,9 +1,9 @@
 <!-- Filter -->
-<mat-form-field>
+<mat-form-field appearance="fill" class="custom-fill-field">
     <mat-label>Filter</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
   </mat-form-field>
-  <button mat-raised-button color="primary" (click)="onEdit(transform)">Create New</button>
+  <button id="new-transform-button" mat-raised-button color="primary" (click)="onEdit(transform)">Create New</button>
 
   
   <!-- Spinner -->
