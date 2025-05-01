@@ -1,79 +1,132 @@
-<div class="info-line"> <h4>{{definition.properties.name}}</h4> 	<span>Is valid: <strong>{{ isValid }}</strong></span></div>
+<div class="info-line">
+  <h4>{{ definition.properties.name }}</h4>
+  <span
+    >Is valid: <strong>{{ isValid }}</strong></span
+  >
+</div>
 &nbsp;
 <div class="block topButtonRowContainer">
-	<button class="topButtonRow" mat-raised-button color="primary" [routerLink]="['/transforms']">Back to table</button>
-	&nbsp;
-	<button class="topButtonRow" mat-raised-button color="primary" (click)="toggleReadonlyClicked()">
-		{{ isReadonly ? 'Enable editing' : 'Disable editing' }}
-	</button>
-	&nbsp;
-	<button class="topButtonRow" mat-raised-button color="primary" (click)="toggleSelectedStepClicked()">
-		{{ selectedStepId ? 'Unselect' : 'Select first' }}
-	</button>
-	&nbsp;
-	<button class="topButtonRow" mat-raised-button color="primary" (click)="toggleToolboxClicked()">
-		{{ isToolboxCollapsed ? 'Show toolbox' : 'Hide toolbox' }}
-	</button>
-	&nbsp;
-	<button class="topButtonRow" mat-raised-button color="primary" (click)="toggleEditorClicked()">
-		{{ isEditorCollapsed ? 'Show editor' : 'Hide editor' }}
-	</button>
-
+  <button
+    class="topButtonRow"
+    mat-raised-button
+    color="primary"
+    [routerLink]="['/transforms']"
+  >
+    Back to table
+  </button>
+  &nbsp;
+  <button
+    class="topButtonRow"
+    mat-raised-button
+    color="primary"
+    (click)="toggleReadonlyClicked()"
+  >
+    {{ isReadonly ? "Enable editing" : "Disable editing" }}
+  </button>
+  &nbsp;
+  <button
+    class="topButtonRow"
+    mat-raised-button
+    color="primary"
+    (click)="toggleSelectedStepClicked()"
+  >
+    {{ selectedStepId ? "Unselect" : "Select first" }}
+  </button>
+  &nbsp;
+  <button
+    class="topButtonRow"
+    mat-raised-button
+    color="primary"
+    (click)="toggleToolboxClicked()"
+  >
+    {{ isToolboxCollapsed ? "Show toolbox" : "Hide toolbox" }}
+  </button>
+  &nbsp;
+  <button
+    class="topButtonRow"
+    mat-raised-button
+    color="primary"
+    (click)="toggleEditorClicked()"
+  >
+    {{ isEditorCollapsed ? "Show editor" : "Hide editor" }}
+  </button>
 </div>
 
 <div class="block">
-	<textarea appearance="fill" class="full-width custom-fill-field"f matInput cols="120" rows="16" readonly>{{ definitionJSON }}</textarea>
+  <textarea
+    appearance="fill"
+    class="full-width custom-fill-field"
+    f
+    matInput
+    cols="120"
+    rows="16"
+    readonly
+    >{{ definitionJSON }}</textarea
+  >
 </div>
-
-
-
-
-<sqd-designer
-  theme="{{ isDarkTheme ? 'dark' : 'light' }}"
-  [definition]="definition"
-  [toolboxConfiguration]="toolboxConfiguration"
-  [stepsConfiguration]="stepsConfiguration"
-  [validatorConfiguration]="validatorConfiguration"
-  [controlBar]="true"
-  [isReadonly]="isReadonly"
-  [areEditorsHidden]="false"
-  [rootEditor]="rootEditorProvider"
-  [stepEditor]="stepEditorProvider"
-  [isToolboxCollapsed]="isToolboxCollapsed"
-  [isEditorCollapsed]="isEditorCollapsed"
-  (onReady)="onDesignerReady($event)"
-  (onDefinitionChanged)="onDefinitionChanged($event)"
->
-</sqd-designer>
+<ng-container *ngIf="showDesigner">
+  <sqd-designer
+    [theme]="designerTheme"
+    [definition]="definition"
+    [toolboxConfiguration]="toolboxConfiguration"
+    [stepsConfiguration]="stepsConfiguration"
+    [validatorConfiguration]="validatorConfiguration"
+    [controlBar]="true"
+    [isReadonly]="isReadonly"
+    [areEditorsHidden]="false"
+    [rootEditor]="rootEditorProvider"
+    [stepEditor]="stepEditorProvider"
+    [isToolboxCollapsed]="isToolboxCollapsed"
+    [isEditorCollapsed]="isEditorCollapsed"
+    (onReady)="onDesignerReady($event)"
+    (onDefinitionChanged)="onDefinitionChanged($event)"
+  >
+  </sqd-designer>
+</ng-container>
 
 <ng-template #rootEditorProvider let-editor>
-	<h6>Transform</h6>
+  <h6>Transform</h6>
 
-	<mat-form-field class="full-width">
-		<input
-			matInput
+  <mat-form-field class="full-width">
+    <input
+      matInput
       [(ngModel)]="editor.definition.properties.name"
-			[value]="editor.definition.properties.name"
-			[readonly]="editor.isReadonly"
-			(input)="updateProperty(editor.definition.properties, 'name', $event, editor.context)"
-		/>
-	</mat-form-field>
+      [value]="editor.definition.properties.name"
+      [readonly]="editor.isReadonly"
+      (input)="
+        updateProperty(
+          editor.definition.properties,
+          'name',
+          $event,
+          editor.context
+        )
+      "
+    />
+  </mat-form-field>
 </ng-template>
 
 <ng-template #stepEditorProvider let-editor>
-    <div style="padding: 1rem;">
-        <h6>{{editor.step.name}}</h6>
-    
-        <p>Step Properties</p>
-          <ng-container *ngFor="let key of objectKeys(editor.step.properties)">
-            <div *ngIf="isBoolean(editor.step.properties[key]); else textField" style="display: block; margin-top: 1rem;">
-              <mat-slide-toggle [(ngModel)]="editor.step.properties[key]" name="{{ key }}"
-              [disabled]="editor.isReadonly"
-              (change)="updateProperty(editor.step.properties, key, $event, editor.context)">
-                {{ key }}
-              </mat-slide-toggle>
-            </div>
-            <!-- <ng-template #textField>
+  <div style="padding: 1rem">
+    <h6>{{ editor.step.name }}</h6>
+
+    <p>Step Properties</p>
+    <ng-container *ngFor="let key of objectKeys(editor.step.properties)">
+      <div
+        *ngIf="isBoolean(editor.step.properties[key]); else textField"
+        style="display: block; margin-top: 1rem"
+      >
+        <mat-slide-toggle
+          [(ngModel)]="editor.step.properties[key]"
+          name="{{ key }}"
+          [disabled]="editor.isReadonly"
+          (change)="
+            updateProperty(editor.step.properties, key, $event, editor.context)
+          "
+        >
+          {{ key }}
+        </mat-slide-toggle>
+      </div>
+      <!-- <ng-template #textField>
               <mat-form-field appearance="fill" style="display: block; margin-top: 1rem;">
                 <mat-label>{{ key }}</mat-label>
                 <input matInput [(ngModel)]="editor.step.properties[key]" name="{{ key }}" 
@@ -82,42 +135,105 @@
                 (input)="updateProperty(editor.step.properties, key, $event, editor.context)" >
               </mat-form-field>
             </ng-template> -->
-            <ng-template #textField>
-                <ng-container *ngIf="getChoicesForProperty(editor.step.type, key) as choices; else defaultInput">
-                  <mat-form-field appearance="fill" style="display: block; margin-top: 1rem;">
-                    <mat-label>{{ key }}</mat-label>
-                    <mat-select [(ngModel)]="editor.step.properties[key]" [disabled]="editor.isReadonly"
-                      (selectionChange)="updateProperty(editor.step.properties, key, $event.value, editor.context)">
-                      <mat-option *ngFor="let choice of choices" [value]="choice">{{ getChoiceLabel(editor.step.type, choice) }}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </ng-container>
-              
-                <ng-template #defaultInput>
-                  <mat-form-field appearance="fill" style="display: block; margin-top: 1rem;">
-                    <mat-label>{{ key }}</mat-label>
-                    <input matInput [(ngModel)]="editor.step.properties[key]" name="{{ key }}"
-                      [readonly]="editor.isReadonly"
-                      (input)="updateProperty(editor.step.properties, key, $event, editor.context)" >
-                  </mat-form-field>
-                </ng-template>
-              </ng-template>
-          </ng-container>
-          <div *ngIf="editor?.step?.branches">
-          <h6>Branches</h6>
-            <div *ngFor="let branchName of getBranchNames(editor.step.branches); let i = index" class="branch-row">
-              <mat-form-field appearance="outline" class="branch-field">
-                <input matInput [(ngModel)]="branchName" [readonly]="editor.isReadonly" placeholder="Branch Name" (change)="renameBranchAtIndex(editor.step.branches, branchName, $event.target.value, editor.context)"/>
-              </mat-form-field>
-              <button mat-icon-button color="warn" (click)="removeBranch(editor.step.branches, i, $event, editor.context)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </div>
-        
-            <button mat-stroked-button color="primary" (click)="addBranch(editor.step.branches, editor.context)">
-              <mat-icon>add</mat-icon>
-              Add Branch
-            </button>
-        </div>
+      <ng-template #textField>
+        <ng-container
+          *ngIf="
+            getChoicesForProperty(editor.step.type, key) as choices;
+            else defaultInput
+          "
+        >
+          <mat-form-field
+            appearance="fill"
+            style="display: block; margin-top: 1rem"
+          >
+            <mat-label>{{ key }}</mat-label>
+            <mat-select
+              [(ngModel)]="editor.step.properties[key]"
+              [disabled]="editor.isReadonly"
+              (selectionChange)="
+                updateProperty(
+                  editor.step.properties,
+                  key,
+                  $event.value,
+                  editor.context
+                )
+              "
+            >
+              <mat-option *ngFor="let choice of choices" [value]="choice">{{
+                getChoiceLabel(editor.step.type, choice)
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-container>
+
+        <ng-template #defaultInput>
+          <mat-form-field
+            appearance="fill"
+            style="display: block; margin-top: 1rem"
+          >
+            <mat-label>{{ key }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="editor.step.properties[key]"
+              name="{{ key }}"
+              [readonly]="editor.isReadonly"
+              (input)="
+                updateProperty(
+                  editor.step.properties,
+                  key,
+                  $event,
+                  editor.context
+                )
+              "
+            />
+          </mat-form-field>
+        </ng-template>
+      </ng-template>
+    </ng-container>
+    <div *ngIf="editor?.step?.branches">
+      <h6>Branches</h6>
+      <div
+        *ngFor="
+          let branchName of getBranchNames(editor.step.branches);
+          let i = index
+        "
+        class="branch-row"
+      >
+        <mat-form-field appearance="outline" class="branch-field">
+          <input
+            matInput
+            [(ngModel)]="branchName"
+            [readonly]="editor.isReadonly"
+            placeholder="Branch Name"
+            (change)="
+              renameBranchAtIndex(
+                editor.step.branches,
+                branchName,
+                $event.target.value,
+                editor.context
+              )
+            "
+          />
+        </mat-form-field>
+        <button
+          mat-icon-button
+          color="warn"
+          (click)="
+            removeBranch(editor.step.branches, i, $event, editor.context)
+          "
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
       </div>
-  </ng-template>
+
+      <button
+        mat-stroked-button
+        color="primary"
+        (click)="addBranch(editor.step.branches, editor.context)"
+      >
+        <mat-icon>add</mat-icon>
+        Add Branch
+      </button>
+    </div>
+  </div>
+</ng-template>
