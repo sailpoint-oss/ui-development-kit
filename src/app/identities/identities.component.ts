@@ -8,11 +8,10 @@ import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
-  selector: 'app-identities',
-  standalone: true,
-  imports: [MatTableModule, CommonModule, MatProgressSpinnerModule],
-  templateUrl: './identities.component.html',
-  styleUrl: './identities.component.scss'
+    selector: 'app-identities',
+    imports: [MatTableModule, CommonModule, MatProgressSpinnerModule],
+    templateUrl: './identities.component.html',
+    styleUrl: './identities.component.scss'
 })
 export class IdentitiesComponent implements OnInit {
   identities: IdentityV2025[] = [];

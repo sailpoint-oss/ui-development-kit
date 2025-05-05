@@ -7,9 +7,10 @@ import { GenericDialogComponent } from '../generic-dialog/generic-dialog.compone
 
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss'],
+    standalone: false
 })
 
 export class HomeComponent implements OnInit, OnDestroy {
