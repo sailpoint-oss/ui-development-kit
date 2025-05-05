@@ -1,9 +1,9 @@
 import { app, BrowserWindow, ipcMain, screen } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
-import {apiConfig,  connectToISC,  disconnectFromISC, getTenants, harborPilotTransformChat} from './api';
+import * as url from 'url';
+import {connectToISC,  disconnectFromISC, getTenants, harborPilotTransformChat} from './api';
 import { setupSailPointSDKHandlers } from './sailpoint-sdk/ipc-handlers';
-import { listTransforms, createTransform, updateTransform } from './sailpoint-sdk/sailpoint-sdk';
 
 let win: BrowserWindow | null = null;
 const args = process.argv.slice(1),
@@ -34,27 +34,28 @@ function createWindow(): BrowserWindow {
   if (serve) {
     (async () => {
       try {
-        // const debug = await import('electron-debug');
-        // debug.default();  // electron-debug has a default export
-  
-        // const reloader = await import('electron-reloader');
-        // reloader(module); // Directly call the function since there's no default export
-      } catch (error) {
-        console.error('Error loading debug or reloader modules:', error);
+        require('electron-reloader')(module);
+      } catch (err) {
+        console.error('Failed to enable reloader:', err);
       }
     })();
     win.loadURL('http://localhost:4200');
   } else {
     // Path when running electron executable
     let pathIndex = './index.html';
-
+  
     if (fs.existsSync(path.join(__dirname, '../dist/index.html'))) {
-       // Path when running electron in local folder
+      // Path when running electron in local folder
       pathIndex = '../dist/index.html';
     }
-
-    const url = new URL(path.join('file:', __dirname, pathIndex));
-    win.loadURL(url.href);
+  
+    const indexPath = url.format({
+      pathname: path.join(__dirname, pathIndex),
+      protocol: 'file:',
+      slashes: true,
+    });
+  
+    win.loadURL(indexPath);
   }
 
   // Emitted when the window is closed.

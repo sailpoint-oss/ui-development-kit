@@ -2,8 +2,7 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideRouter } from '@angular/router';
- // adjust if your routes file is elsewhere
+import { provideRouter, withHashLocation } from '@angular/router';
 import { importProvidersFrom } from '@angular/core';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -21,7 +20,7 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideAnimations(),
     provideHttpClient(),
-    provideRouter(appRoutes),
+    provideRouter(appRoutes, withHashLocation()),
     importProvidersFrom(
       TranslateModule.forRoot({
         loader: {
