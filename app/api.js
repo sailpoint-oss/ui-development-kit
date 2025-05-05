@@ -107,6 +107,7 @@ const harborPilotTransformChat = (chat) => __awaiter(void 0, void 0, void 0, fun
 });
 exports.harborPilotTransformChat = harborPilotTransformChat;
 const connectToISC = (apiUrl, baseUrl, clientId, clientSecret) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('Connecting to ISC:');
     if (testMode) {
         return { connected: true, name: "DevDays 2025" };
     }

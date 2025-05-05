@@ -8,15 +8,14 @@ import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
-  selector: 'app-campaigns',
-  standalone: true,
-  imports: [
-    MatTableModule,
-    CommonModule,
-    MatProgressSpinnerModule
-  ],
-  templateUrl: './campaigns.component.html',
-  styleUrl: './campaigns.component.scss'
+    selector: 'app-campaigns',
+    imports: [
+        MatTableModule,
+        CommonModule,
+        MatProgressSpinnerModule
+    ],
+    templateUrl: './campaigns.component.html',
+    styleUrl: './campaigns.component.scss'
 })
 export class campaignsComponent implements OnInit {
   campaigns: GetCampaign200ResponseV2025[] = [];

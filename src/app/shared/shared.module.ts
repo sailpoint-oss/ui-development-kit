@@ -8,8 +8,8 @@ import { WebviewDirective } from './directives/';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [PageNotFoundComponent, WebviewDirective],
-  imports: [CommonModule, TranslateModule, FormsModule],
+  declarations: [],
+  imports: [CommonModule, TranslateModule, FormsModule, WebviewDirective, PageNotFoundComponent],
   exports: [TranslateModule, WebviewDirective, FormsModule]
 })
 export class SharedModule {}
