@@ -4,13 +4,16 @@ import { Devdays2025Component } from './devdays-2025/devdays-2025.component';
 import { IdentitiesComponent } from './identities/identities.component';
 import { campaignsComponent } from './campaigns/campaigns.component';
 
-// Make sure all these components are standalone or imported correctly elsewhere
-
 export const appRoutes: Routes = [
   {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+  },
+  {
+    path: 'home',
+    loadComponent: () =>
+      import('./home/home.component').then((m) => m.HomeComponent)
   },
   {
     path: 'transforms',

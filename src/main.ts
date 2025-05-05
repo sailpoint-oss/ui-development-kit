@@ -10,7 +10,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { CoreModule } from './app/core/core.module';
 import { SharedModule } from './app/shared/shared.module';
-import { HomeModule } from './app/home/home.module';
 import { appRoutes } from './app/app.routes';
 
 
@@ -33,7 +32,6 @@ bootstrapApplication(AppComponent, {
       }),
       CoreModule,
       SharedModule,
-      HomeModule,
 
     )
   ],

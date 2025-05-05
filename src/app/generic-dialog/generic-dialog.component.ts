@@ -5,7 +5,6 @@ import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-generic-dialog',
-  standalone: true,
   imports: [CommonModule, MatDialogModule, MatButtonModule],
   template: `
     <h1 mat-dialog-title>{{ data.title || 'Notification' }}</h1>
