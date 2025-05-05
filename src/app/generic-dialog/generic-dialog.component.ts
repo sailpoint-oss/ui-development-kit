@@ -1,9 +1,13 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-    selector: 'app-generic-dialog',
-    template: `
+  selector: 'app-generic-dialog',
+  standalone: true,
+  imports: [CommonModule, MatDialogModule, MatButtonModule],
+  template: `
     <h1 mat-dialog-title>{{ data.title || 'Notification' }}</h1>
     <div mat-dialog-content>
       <p>{{ data.message }}</p>
@@ -12,7 +16,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
       <button mat-button (click)="onClose()">Close</button>
     </div>
   `,
-    standalone: false
 })
 export class GenericDialogComponent {
   constructor(

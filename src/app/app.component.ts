@@ -18,7 +18,6 @@ import { ConnectComponent } from './connect/connect.component';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
   imports: [
     CommonModule,
     RouterModule,
