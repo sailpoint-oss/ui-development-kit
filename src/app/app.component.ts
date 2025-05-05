@@ -1,15 +1,36 @@
-import { Component, Renderer2  } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { ElectronService } from './core/services';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { APP_CONFIG } from '../environments/environment';
 import { ConnectionService } from './shared/connection.service';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver, Breakpoints, LayoutModule } from '@angular/cdk/layout';
+import { MatListModule } from '@angular/material/list';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { ConnectComponent } from './connect/connect.component';
+
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    standalone: false
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule,
+    TranslateModule,
+    LayoutModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonModule,
+    ConnectComponent,
+  ],
 })
 export class AppComponent {
   isSmallScreen: boolean = false;
@@ -39,6 +60,7 @@ export class AppComponent {
     } else {
       console.log('Run in browser');
     }
+
     this.connectionService.isConnected$.subscribe(connection => {
       this.isConnected = connection.connected;
     });
@@ -49,7 +71,6 @@ export class AppComponent {
       this.renderer.addClass(document.body, 'dark-theme');
     }
   }
-
 
   toggleTheme(): void {
     this.isDarkTheme = !this.isDarkTheme;
@@ -63,8 +84,8 @@ export class AppComponent {
       localStorage.setItem('theme', 'light');
     }
   }
+
   toggleSidenav() {
     this.sidenavOpened = !this.sidenavOpened;
   }
-
 }
