@@ -1,4 +1,4 @@
-import { Uid, Step } from 'sequential-workflow-designer';
+import { Step, Uid } from 'sequential-workflow-designer';
 import {
   createBooleanValueModel,
   createStepModel,

@@ -1,6 +1,6 @@
 import { Uid } from "sequential-workflow-designer";
 import { BranchedStep, Step } from "sequential-workflow-model";
-import { deserializeToStep, serializeStep } from "../builder.component";
+import { deserializeToStep, serializeStep } from "../transform-builder.component";
 
 export function createDecomposeDiacriticalMarks(): DecomposeDiacriticalMarksStep {
     return {

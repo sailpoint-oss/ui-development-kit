@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { PageNotFoundComponent } from './shared/components';
-import { HomeRoutingModule } from './home/home-routing.module';
-import { Devdays2025Component } from './devdays-2025/devdays-2025.component';
-import { IdentitiesComponent } from './identities/identities.component';
+import { RouterModule, Routes } from '@angular/router';
 import { campaignsComponent } from './campaigns/campaigns.component';
+import { HomeRoutingModule } from './home/home-routing.module';
+import { IdentitiesComponent } from './identities/identities.component';
+import { PageNotFoundComponent } from './shared/components';
 import { TransformBuilderComponent } from './transform-builder/transform-builder.component';
-import { BuilderComponent } from './builder/builder.component';
 import { TransformsComponent } from './transforms/transforms.component';
 
 
@@ -30,7 +28,7 @@ const routes: Routes = [
   },
   {
     path: 'transform-builder',
-    component: BuilderComponent
+    component: TransformBuilderComponent
   },
   {
     path: '**',

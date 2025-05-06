@@ -1,17 +1,14 @@
 import {
-  Uid,
-  Step,
-  BranchedStep,
-  Sequence,
-  StepEditorContext,
-  Definition,
+    BranchedStep,
+    Sequence,
+    Step,
+    Uid
 } from 'sequential-workflow-designer';
 import {
-  createStepModel,
-  createStringValueModel,
+    createStepModel,
+    createStringValueModel,
 } from 'sequential-workflow-editor-model';
-import { deserializeToStep, serializeStep } from '../builder.component';
-import { appendBranchEditor, appendNameEditor, appendPropertyTitle, appendTitle, createButton } from '../utils/utils';
+import { deserializeToStep, serializeStep } from '../transform-builder.component';
 
 export function createConditional(): ConditionalStep {
   return {

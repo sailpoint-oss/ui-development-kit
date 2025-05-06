@@ -1,9 +1,9 @@
-import { Component, Renderer2  } from '@angular/core';
-import { ElectronService } from './core/services';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Component, Renderer2 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { APP_CONFIG } from '../environments/environment';
+import { ElectronService } from './core/services';
 import { ConnectionService } from './shared/connection.service';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-root',

@@ -1,18 +1,14 @@
 import {
-    Uid,
-    Step,
     BranchedStep,
     Sequence,
-    StepEditorContext,
-    Definition,
-  } from 'sequential-workflow-designer';
-  import {
-      createChoiceValueModel,
-    createStepModel,
-    createStringValueModel,
-  } from 'sequential-workflow-editor-model';
-  import { deserializeToStep, serializeStep } from '../builder.component';
-  import { appendBranchEditor, appendNameEditor, appendPropertyTitle, appendTitle, createButton } from '../utils/utils';
+    Step,
+    Uid
+} from 'sequential-workflow-designer';
+import {
+    createChoiceValueModel,
+    createStepModel
+} from 'sequential-workflow-editor-model';
+import { deserializeToStep, serializeStep } from '../transform-builder.component';
   
   export function createDateCompare(): DateCompareStep {
     return {
@@ -114,4 +110,11 @@ import {
   
   export function isDateCompareStep(step: Step): step is DateCompareStep {
     return step.type === 'dateCompare';
+  }
+
+  export const operatorMap: Record<string, string> = {
+    "LT": "Less Than",
+    "LTE": "Less Than or Equal To",
+    "GT": "Greater Than",
+    "GTE": "Greater Than or Equal To",
   }

@@ -1,197 +1,241 @@
-import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import {
-  Definition,
   Designer,
   RootEditorContext,
-  Properties,
-  Uid,
-  Step,
+  RootEditorProvider,
   StepEditorContext,
+  StepEditorProvider,
   StepsConfiguration,
   ToolboxConfiguration,
+  Uid,
   ValidatorConfiguration,
-  BranchedStep,
-  StepEditorProvider,
 } from 'sequential-workflow-designer';
 import { SequentialWorkflowDesignerModule } from 'sequential-workflow-designer-angular';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatInputModule } from '@angular/material/input';
+import { EditorProvider } from 'sequential-workflow-editor';
+import {
+  ChoiceValueModelConfiguration,
+  createDefinitionModel,
+  createRootModel,
+  createStringValueModel
+} from 'sequential-workflow-editor-model';
+import {
+  Branches,
+  Definition,
+  Properties,
+  Step
+} from 'sequential-workflow-model';
+import {
+  AccountAttributeModel,
+  createAccountAttribute,
+  deserializeAccountAttribute,
+  isAccountAttributeStep,
+  serializeAccountAttribute,
+} from './models/account-attribute';
+import {
+  ConcatModel,
+  createConcat,
+  deserializeConcat,
+  isConcatStep,
+  serializeConcat,
+} from './models/concat';
+import {
+  createStatic,
+  deserializeStatic,
+  isStaticStep,
+  serializeStatic,
+  StaticModel
+} from './models/static';
+
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { MatFormField } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { Router, RouterModule } from '@angular/router';
+import { TransformReadV2025 } from 'sailpoint-api-client';
+import { ConditionalModel, createConditional, deserializeConditional, isConditionalStep, serializeConditional } from './models/conditional';
+import { createDateCompare, DateCompareModel, deserializeDateCompare, isDateCompareStep, operatorMap, serializeDateCompare } from './models/date-compare';
+import { createDateFormat, DateFormatModel, deserializeDateFormat, isDateFormatStep, serializeDateFormat } from './models/date-format';
+import { createDateMath, DateMathModel, deserializeDateMath, isDateMathStep, serializeDateMath } from './models/date-math';
+import { createDecomposeDiacriticalMarks, deserializeDecomposeDiacriticalMarks, isDecomposeDiacriticalMarksStep, serializeDecomposeDiacriticalMarks } from './models/decompose-diacritical-marks';
+import { createE164Phone, deserializeE164Phone, E164PhoneModel, isE164PhoneStep, isoAlpha2Map, serializeE164Phone } from './models/e164-phone';
+import { createFirstValid, deserializeFirstValid, FirstValidModel, isFirstValidStep, serializeFirstValid } from './models/first-valid';
+import { createGenerateRandomString, deserializeGenerateRandomString, isGenerateRandomStringStep, serializeGenerateRandomString } from './models/generate-random-string';
+import { createGetEndOfString, deserializeGetEndOfString, isGetEndOfStringStep, serializeGetEndOfString } from './models/get-end-of-string';
+import { createGetReferenceIdentityAttribute, deserializeGetReferenceIdentityAttribute, isGetReferenceIdentityAttributeStep, serializeGetReferenceIdentityAttribute } from './models/get-reference-identity-attribute';
+import { createString, deserializeString, isStringStep, StringModel } from './models/string';
 
-
-
-function createAccountAttribute(): Step  {
-  return {
-    id: Uid.next(),
-    componentType: 'task',
-    name: 'Account Attribute',
-    type: 'account-attribute',
-    properties: {
-      accountAttribute: 'first_name',
-      sourceName: 'Employees',
-      accountSortAttribute: '',
-      accountSortDescending: false,
-      accountReturnFirstLink: false,
-      accountFilter: '',
-      accountPropertyFilter: ''
-    },
-  };
-}
-export interface AccountAttributeStep extends Step {
-  type: 'accountAttribute';
-  componentType: 'task';
+export interface MyDefinition extends Definition {
   properties: {
-    attributeName: string;
-    sourceName: string;
-    accountSortAttribute: string;
-    accountSortDescending: boolean;
-    accountReturnFirstLink: boolean;
-    accountFilter: string;
-    accountPropertyFilter: string;
+    name: string;
   };
 }
 
-import { createStepModel, createStringValueModel, VariableDefinitions } from 'sequential-workflow-editor-model';
-
-export const AccountAttributeStepModel = createStepModel<AccountAttributeStep>('accountAttribute', 'task', step => {
-  step.property('attributeName')
+export const rootModel = createRootModel<MyDefinition>((root) => {
+  root
+    .property('name')
     .value(
       createStringValueModel({
-        minLength: 1
+        defaultValue: 'lorem ipsum',
       })
     )
-    .label('Account Attribute Name');
-  step.property('sourceName')
-    .value(
-      createStringValueModel({
-        minLength: 1
-      })
-    )
-    .label('Source Name');
+    .label('Transform Name');
 });
 
-function createStatic(): Step  {
-  return {
-    id: Uid.next(),
-    componentType: 'task',
-    name: 'Static',
-    type: 'static',
-    properties: {
-      value: ''
-    },
-  };
-}
-
-function createConcatenation(): BranchedStep  {
-  return {
-    id: Uid.next(),
-    componentType: 'switch',
-    name: 'Concatenation',
-    type: 'concat',
-    properties: { },
-    branches: {
-      responseOne: [], 
-      responseTwo: [],
-    },
-  };
-}
-
-function createFirstValid(): BranchedStep  {
-  return {
-    id: Uid.next(),
-    componentType: 'switch',
-    name: 'First Valid',
-    type: 'first-valid',
-    properties: { },
-    branches: {
-      responseOne: [], 
-      responseTwo: [],
-      responseThree: [],
-    },
-  };
-}
-
-// function createIf(): BranchedStep {
-//   return {
-//     id: Uid.next(),
-//     componentType: 'switch',
-//     name: 'If',
-//     type: 'if',
-//     properties: { velocity: 10 },
-//     branches: {
-//       true: [],
-//       false: [],
-//     },
-//   };
-// }
+export const definitionModel = createDefinitionModel((model) => {
+  model.root(rootModel);
+  model.steps([
+    AccountAttributeModel,
+    ConcatModel,
+    ConditionalModel,
+    DateFormatModel,
+    DateMathModel,
+    E164PhoneModel,
+    FirstValidModel,
+    StaticModel,
+    StringModel,
+    DateCompareModel
+  ]);
+});
 
 function createDefinition(): Definition {
   return {
     properties: {
-      velocity: 0,
+      name: 'Transform Name',
     },
-    sequence: [createAccountAttribute(), createFirstValid()],
+    sequence: [createAccountAttribute()],
   };
 }
 
-import { createDefinitionModel } from 'sequential-workflow-editor-model';
-import { EditorProvider } from 'sequential-workflow-editor';
-import { createRootModel, createVariableDefinitionsValueModel } from 'sequential-workflow-editor-model';
+export const serializeStep = (step: Step) => {
+  if (isAccountAttributeStep(step)) {
+    return serializeAccountAttribute(step);
+  } else if (isConcatStep(step)) {
+    return serializeConcat(step);
+  } else if (isStaticStep(step)) {
+    return serializeStatic(step);
+  } else if (isStringStep(step)) {
+    return step.properties.value;
+  } else if (isConditionalStep(step)) {
+    return serializeConditional(step);
+  } else if (isDateCompareStep(step)) {
+    return serializeDateCompare(step);
+  } else if (isDateFormatStep(step)) {
+    return serializeDateFormat(step);
+  } else if (isDateMathStep(step)) {
+    return serializeDateMath(step);
+  } else if (isFirstValidStep(step)) {
+    return serializeFirstValid(step);
+  } else if (isDecomposeDiacriticalMarksStep(step)) {
+    return serializeDecomposeDiacriticalMarks(step);
+  } else if (isE164PhoneStep(step)) {
+    return serializeE164Phone(step);
+  } else if (isGenerateRandomStringStep(step)) {
+    return serializeGenerateRandomString(step);
+  } else if (isGetEndOfStringStep(step)) {
+    return serializeGetEndOfString(step);
+  } else if (isGetReferenceIdentityAttributeStep(step)) {
+    return serializeGetReferenceIdentityAttribute(step);
+  }
+  throw new Error(`Unsupported step type: ${step.type}`);
+};
 
-export const rootModel = createRootModel<MyDefinition>(root => {
-  root.property('inputs')
-    .value(
-      createVariableDefinitionsValueModel({})
-    );
-});
-
-export interface MyDefinition extends Definition {
-  properties: {
-    inputs: VariableDefinitions;
+export function createDefinitionFromTransform(data: any): Definition {
+  return {
+    properties: {
+      name: data.name,
+    },
+    sequence: [deserializeToStep(data)],
   };
 }
 
-export const definitionModel = createDefinitionModel((model) => { 
-  model.root(rootModel)
-  model.steps([AccountAttributeStepModel])
- });
-
+export function deserializeToStep(data: any): Step {
+  if (typeof data === 'string') {
+    return deserializeString(data);
+  } else if (data.type === 'accountAttribute') {
+    return deserializeAccountAttribute(data);
+  } else if (data.type === 'concat') {
+    return deserializeConcat(data);
+  } else if (data.type === 'static') {
+    return deserializeStatic(data);
+  } else if (data.type === 'conditional') {
+    return deserializeConditional(data);
+  } else if (data.type === 'dateCompare') {
+    return deserializeDateCompare(data);
+  } else if (data.type === 'dateFormat') {
+    return deserializeDateFormat(data);
+  } else if (data.type === 'dateMath') {
+    return deserializeDateMath(data);
+  } else if (data.type === 'firstValid') {
+    return deserializeFirstValid(data);
+  } else if (data.type === 'decomposeDiacriticalMarks') {
+    return deserializeDecomposeDiacriticalMarks(data);
+  } else if (data.type === 'e164phone') {
+    return deserializeE164Phone(data);
+  } else if (data.type === 'generateRandomString') {
+    return deserializeGenerateRandomString(data);
+  } else if (data.type === 'getEndOfString') {
+    return deserializeGetEndOfString(data);
+  } else if (data.type === 'getReferenceIdentityAttribute') {
+    return deserializeGetReferenceIdentityAttribute(data);
+  }
+ 
+  throw new Error(`Unsupported step type: ${data.type}`);
+}
 @Component({
-  selector: 'app-transform-builder',
+  selector: 'app-builder',
   standalone: true,
   imports: [
     SequentialWorkflowDesignerModule,
-    MatTabsModule,
+    CommonModule,
+    MatFormField,
     MatInputModule,
     MatButtonModule,
+    RouterModule,
+    FormsModule,
+    MatSlideToggleModule,
+    MatIconModule,
+    MatSelectModule
   ],
   templateUrl: './transform-builder.component.html',
   styleUrl: './transform-builder.component.scss',
 })
-export class TransformBuilderComponent implements OnInit {
+export class TransformBuilderComponent {
   private designer?: Designer;
-
-  public definition: Definition = createDefinition();
+  public validatorConfiguration?: ValidatorConfiguration;
+  public stepEditorProvider?: StepEditorProvider;
+  public rootEditorProvider?: RootEditorProvider;
+  public definition: Definition;
   public definitionJSON?: string;
-  public selectedStepId: string | null = null;
-  public isReadonly = false;
   public isToolboxCollapsed = false;
   public isEditorCollapsed = false;
+  private defaultStepEditorProvider?: StepEditorProvider;
+  public transform?: TransformReadV2025;
   public isValid?: boolean;
-  public stepEditorProvider?: StepEditorProvider;
+  public isReadonly = false;
+  public definitionModel = definitionModel;
 
+  constructor(private router: Router, private dialog: MatDialog) {
+    const nav = this.router.getCurrentNavigation();
+    this.transform = nav?.extras?.state?.transform;
 
-  public readonly toolboxConfiguration: ToolboxConfiguration = {
-    groups: [
-      {
-        name: 'Transforms',
-        steps: [createAccountAttribute(), createConcatenation(), createFirstValid(), createStatic()],
-      },
-    ],
-  };
+    if (!this.transform) {
+      this.definition = createDefinition();
+    } else {
+      // Deserialize the transform into a definition
+      this.definition = createDefinitionFromTransform(this.transform);
+      this.isReadonly = false;
+      console.log(definitionModel)
+    }
+  }
+
   public readonly stepsConfiguration: StepsConfiguration = {
     iconUrlProvider: (componentType, type) => {
-      if (type === 'account-attribute') {
+      if (type === 'accountAttribute') {
         const svg = `
           <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24" fill="gray">
             <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/>
@@ -208,7 +252,7 @@ export class TransformBuilderComponent implements OnInit {
         return `data:image/svg+xml,${encoded}`;
       }
 
-      if (type === 'first-valid') {
+      if (type === 'firstValid') {
         const svg = `
           <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" fill="gray">
           <path d="M0 0h24v24H0z" fill="none"/><path d="M22 11V3h-7v3H9V3H2v8h7V8h2v10h4v3h7v-8h-7v3h-2V8h2v3z"/>
@@ -226,86 +270,145 @@ export class TransformBuilderComponent implements OnInit {
         return `data:image/svg+xml,${encoded}`;
       }
 
+      if (type === 'conditional') {
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" fill="gray"><g><rect fill="none" height="24" width="24" x="0"/></g><g><g><g><path d="M9.01,14H2v2h7.01v3L13,15l-3.99-4V14z M14.99,13v-3H22V8h-7.01V5L11,9L14.99,13z"/></g></g></g></svg>`;
+        const encoded = encodeURIComponent(svg.trim());
+        return `data:image/svg+xml,${encoded}`;
+      }
 
-  
-      // Default fallback icon
-      return null;
-    }
+      if(type === 'string') {
+        const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" fill="gray"><g><rect fill="none" height="24" width="24"/></g><g><g><g>
+        // <path d="M2.5,4v3h5v12h3V7h5V4H2.5z M21.5,9h-9v3h3v7h3v-7h3V9z"/></g></g></g>
+        // </svg>`;
+      const encoded = encodeURIComponent(svg.trim());
+      return `data:image/svg+xml,${encoded}`;
+      }
+
+      if (type === 'dateCompare') {
+        const svg = `
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+          <path d="M0 0h24v24H0z" fill="none"/>
+          <path fill="gray" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/>
+          </svg>`;
+        const encoded = encodeURIComponent(svg.trim());
+        return `data:image/svg+xml,${encoded}`;
+      }
+
+      if (type === 'dateFormat') {
+        const svg = `
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+          <path d="M0 0h24v24H0z" fill="none"/>
+          <path fill="gray" d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+          </svg>`;
+        const encoded = encodeURIComponent(svg.trim());
+        return `data:image/svg+xml,${encoded}`;
+      }
+      if (type === 'dateMath') {
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+        <path d="M0 0h24v24H0zm0 0h24v24H0z" fill="none"/>
+        <path fill="gray" d="M16.05 16.29l2.86-3.07c.38-.39.72-.79 1.04-1.18.32-.39.59-.78.82-1.17.23-.39.41-.78.54-1.17.13-.39.19-.79.19-1.18 0-.53-.09-1.02-.27-1.46-.18-.44-.44-.81-.78-1.11-.34-.31-.77-.54-1.26-.71-.51-.16-1.08-.24-1.72-.24-.69 0-1.31.11-1.85.32-.54.21-1 .51-1.36.88-.37.37-.65.8-.84 1.3-.18.47-.27.97-.28 1.5h2.14c.01-.31.05-.6.13-.87.09-.29.23-.54.4-.75.18-.21.41-.37.68-.49.27-.12.6-.18.96-.18.31 0 .58.05.81.15.23.1.43.25.59.43.16.18.28.4.37.65.08.25.13.52.13.81 0 .22-.03.43-.08.65-.06.22-.15.45-.29.7-.14.25-.32.53-.56.83-.23.3-.52.65-.88 1.03l-4.17 4.55V18H22v-1.71h-5.95zM8 7H6v4H2v2h4v4h2v-4h4v-2H8V7z"/>
+        </svg>`
+        const encoded = encodeURIComponent(svg.trim());
+        return `data:image/svg+xml,${encoded}`;
+      }
+
+      if (type === 'e164phone') {
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/>
+        <path fill="gray" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+        </svg>`
+        const encoded = encodeURIComponent(svg.trim());
+        return `data:image/svg+xml,${encoded}`;
+      }
+
+      // Default fallback icon (draggable)
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+      <path d="M0 0h24v24H0V0z" fill="none"/>
+      <path fill="gray" d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+      </svg>`
+        const encoded = encodeURIComponent(svg.trim());
+      return `data:image/svg+xml,${encoded}`;
+    },
+
+    canInsertStep: (step, targetSequence, targetIndex) => {
+      // console.log('canInsertStep', step, targetSequence, targetIndex);
+      // const previousStep = targetSequence[targetIndex - 1];
+      // if (previousStep && previousStep.type === 'accountAttribute') {
+      //   return false;
+      // }
+      return true;
+    },
   };
 
-  // public readonly validatorConfiguration: ValidatorConfiguration = {
-  //   step: (step: Step) =>
-  //     !!step.name && Number(step.properties['velocity']) >= 0,
-  //   root: (definition: Definition) =>
-  //     Number(definition.properties['velocity']) >= 0,
-  // };
+  public readonly toolboxConfiguration: ToolboxConfiguration = {
+    groups: [
+      {
+        name: 'Transforms',
+        steps: [
+          createAccountAttribute(),
+          createConcat(),
+          createConditional(),
+          createDateCompare(),
+          createDateFormat(),
+          createDateMath(),
+          createDecomposeDiacriticalMarks(),
+          createE164Phone(),
+          createFirstValid(),
+          createGenerateRandomString(),
+          createGetEndOfString(),
+          createGetReferenceIdentityAttribute(),
+          createStatic(),
+        ],
+      },
+      {
+        name: 'Primitives',
+        steps: [createString()],
+      },
+    ],
+  };
 
   public ngOnInit() {
     this.updateDefinitionJSON();
 
     const editorProvider = EditorProvider.create(definitionModel, {
-      uidGenerator: Uid.next
+      uidGenerator: Uid.next,
     });
 
-    this.stepEditorProvider = editorProvider.createStepEditorProvider();
+    this.defaultStepEditorProvider = editorProvider.createStepEditorProvider();
+
+    this.stepEditorProvider = (step, context, definition, isReadonly) => {
+
+      return this.defaultStepEditorProvider!(
+        step,
+        context,
+        definition,
+        isReadonly
+      );
+    };
+
+    this.rootEditorProvider = editorProvider.createRootEditorProvider();
+
+    this.validatorConfiguration = {
+      root: editorProvider.createRootValidator(),
+      step: editorProvider.createStepValidator(),
+    };
 
   }
+
 
   public onDesignerReady(designer: Designer) {
     this.designer = designer;
     this.updateIsValid();
-    console.log('designer ready', this.designer);
   }
 
   public onDefinitionChanged(definition: Definition) {
     this.definition = definition;
-    this.updateIsValid();
-    this.updateDefinitionJSON();
-    console.log('definition has changed');
-  }
-
-  public onSelectedStepIdChanged(stepId: string | null) {
-    this.selectedStepId = stepId;
-  }
-
-  public onIsToolboxCollapsedChanged(isCollapsed: boolean) {
-    this.isToolboxCollapsed = isCollapsed;
-  }
-
-  public onIsEditorCollapsedChanged(isCollapsed: boolean) {
-    this.isEditorCollapsed = isCollapsed;
-  }
-
-  public updateName(step: Step, event: Event, context: StepEditorContext) {
-    step.name = (event.target as HTMLInputElement).value;
-    context.notifyNameChanged();
-  }
-
-  public updateProperty(
-    properties: Properties,
-    name: string,
-    event: Event,
-    context: RootEditorContext | StepEditorContext
-  ) {
-    properties[name] = (event.target as HTMLInputElement).value;
-    context.notifyPropertiesChanged();
-  }
-
-  public reloadDefinitionClicked() {
-    this.definition = createDefinition();
     this.updateDefinitionJSON();
   }
 
-  public toggleReadonlyClicked() {
-    this.isReadonly = !this.isReadonly;
-  }
-
-  public toggleSelectedStepClicked() {
-    if (this.selectedStepId) {
-      this.selectedStepId = null;
-    } else if (this.definition.sequence.length > 0) {
-      this.selectedStepId = this.definition.sequence[0].id;
-    }
+  private updateDefinitionJSON() {
+    const transformedResult = serializeStep(this.definition.sequence[0]);
+    this.definitionJSON = JSON.stringify(transformedResult, null, 2);
   }
 
   public toggleToolboxClicked() {
@@ -315,12 +418,95 @@ export class TransformBuilderComponent implements OnInit {
   public toggleEditorClicked() {
     this.isEditorCollapsed = !this.isEditorCollapsed;
   }
-
-  private updateDefinitionJSON() {
-    this.definitionJSON = JSON.stringify(this.definition, null, 2);
-  }
-
   private updateIsValid() {
     this.isValid = this.designer?.isValid();
   }
+  public toggleReadonlyClicked() {
+    this.isReadonly = !this.isReadonly;
+  }
+
+  objectKeys = Object.keys;
+
+  isBoolean(value: any): boolean {
+    return typeof value === 'boolean';
+  }
+
+  getBranchNames(branches: Record<string, any[]>): string[] {
+    return Object.keys(branches || {});
+  }
+
+  public updateProperty(
+    properties: Properties,
+    name: string,
+    event: Event,
+    context: RootEditorContext | StepEditorContext
+  ) {
+    console.log(event)
+    if (event instanceof MatSlideToggleChange) {
+      properties[name] = event.checked;
+    } else if (event instanceof InputEvent) {
+      properties[name] = (event.target as HTMLInputElement).value;
+    }
+    context.notifyPropertiesChanged();
+  }
+
+  public removeBranch(
+    branches: Branches,
+    index: number,
+    event: Event,
+    context: StepEditorContext
+  ) {
+    console.log('removeBranch', branches, index);
+    this.deleteBranchAtIndex(branches, index);
+    console.log('branches', branches);
+    context.notifyChildrenChanged()
+  }
+
+  public deleteBranchAtIndex<T>(obj: Record<string, T[]>, index: number): void {
+    const keys = Object.keys(obj);
+    if (index < 0 || index >= keys.length) return;
+  
+    const keyToDelete = keys[index];
+    delete obj[keyToDelete];
+  }
+    public renameBranchAtIndex<T>(obj: Record<string, T[]>, oldKey: string, newKey: string, context: StepEditorContext): void {
+    if (!obj.hasOwnProperty(oldKey) || oldKey === newKey) return;
+
+    if (obj.hasOwnProperty(newKey)) {
+      throw new Error(`Key "${newKey}" already exists.`);
+    }
+  
+    obj[newKey] = obj[oldKey];
+    delete obj[oldKey];
+    
+    context.notifyChildrenChanged();
+  }
+
+  public addBranch(
+    branches: Branches,
+    context: StepEditorContext
+  ) {
+    const index = Object.keys(branches || {}).length + 1
+    branches["New Branch " + index] = [];
+    context.notifyChildrenChanged();
+  }
+
+  public getChoicesForProperty(stepType: string, key: string): string[] | null {
+    const stepDef = this.definitionModel.steps[stepType];
+    if (!stepDef?.properties) return null;  
+    const propDef = stepDef.properties.find(p => p.path.parts[p.path.parts.length - 1] === key);
+    return (propDef?.value?.configuration as ChoiceValueModelConfiguration).choices
+  }
+
+
+  stepTypeMap: Record<string, Record<string, string>> = {
+    e164phone: isoAlpha2Map,
+    dateCompare: operatorMap
+  }
+  
+  public getChoiceLabel(stepType: string, choice: string): string {
+    const lookup = this.stepTypeMap[stepType]
+    return lookup?.[choice.toUpperCase()] ?? choice
+  }
+    
 }

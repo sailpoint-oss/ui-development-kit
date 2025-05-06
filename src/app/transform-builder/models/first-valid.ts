@@ -1,14 +1,13 @@
 import {
-    Uid,
-    Step,
     BranchedStep,
     Sequence,
+    Step,
     StepEditorContext,
-    Definition,
-  } from 'sequential-workflow-designer';
-  import { createBooleanValueModel, createStepModel } from 'sequential-workflow-editor-model';
-import { deserializeToStep, serializeStep } from '../builder.component';
-import { appendBranchEditor, appendNameEditor, appendPropertyTitle, appendTitle, createButton } from '../utils/utils';
+    Uid
+} from 'sequential-workflow-designer';
+import { createBooleanValueModel, createStepModel } from 'sequential-workflow-editor-model';
+import { deserializeToStep, serializeStep } from '../transform-builder.component';
+import { appendPropertyTitle } from '../utils/utils';
 
 export function createFirstValid(): FirstValidStep  {
     return {
@@ -136,8 +135,8 @@ export function appendValueEditor(
   }
   
 
-  import { MatSlideToggle } from '@angular/material/slide-toggle';
   import { ViewContainerRef } from '@angular/core';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
   
   export function appendToggleEditor(
     root: HTMLElement,

@@ -1,10 +1,9 @@
-import { Uid, Step, BranchedStep } from 'sequential-workflow-designer';
+import { BranchedStep, Step, Uid } from 'sequential-workflow-designer';
 import {
-  createBooleanValueModel,
-  createStepModel,
-  createStringValueModel,
+    createStepModel,
+    createStringValueModel
 } from 'sequential-workflow-editor-model';
-import { deserializeToStep, serializeStep } from '../builder.component';
+import { deserializeToStep, serializeStep } from '../transform-builder.component';
 
 export function createDateFormat(): DateFormatStep {
   return {

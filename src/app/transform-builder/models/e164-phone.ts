@@ -1,7 +1,7 @@
 import { Uid } from "sequential-workflow-designer";
-import { BranchedStep, Step } from "sequential-workflow-model";
-import { deserializeToStep, serializeStep } from "../builder.component";
 import { createChoiceValueModel, createStepModel } from "sequential-workflow-editor-model";
+import { BranchedStep, Step } from "sequential-workflow-model";
+import { deserializeToStep, serializeStep } from "../transform-builder.component";
 
 export function createE164Phone(): E164PhoneStep {
     return {
