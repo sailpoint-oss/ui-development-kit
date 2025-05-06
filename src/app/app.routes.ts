@@ -1,18 +1,24 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { campaignsComponent } from './campaigns/campaigns.component';
-import { HomeRoutingModule } from './home/home-routing.module';
 import { IdentitiesComponent } from './identities/identities.component';
 import { PageNotFoundComponent } from './shared/components';
 import { TransformBuilderComponent } from './transform-builder/transform-builder.component';
 import { TransformsComponent } from './transforms/transforms.component';
 
-
-const routes: Routes = [
+export const appRoutes: Routes = [
   {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+  },
+  {
+    path: 'home',
+    loadComponent: () =>
+      import('./home/home.component').then((m) => m.HomeComponent)
+  },
+  {
+    path: 'transforms',
+    component: TransformsComponent
   },
   {
     path: 'identities',
@@ -23,10 +29,6 @@ const routes: Routes = [
     component: campaignsComponent
   },
   {
-    path: 'transforms',
-    component: TransformsComponent
-  },
-  {
     path: 'transform-builder',
     component: TransformBuilderComponent
   },
@@ -35,12 +37,3 @@ const routes: Routes = [
     component: PageNotFoundComponent
   }
 ];
-
-@NgModule({
-  imports: [
-    RouterModule.forRoot(routes, {}),
-    HomeRoutingModule
-  ],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }

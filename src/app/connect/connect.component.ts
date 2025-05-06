@@ -26,11 +26,10 @@ interface Tenant {
 }
 
 @Component({
-  selector: 'app-connect',
-  standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatSelectModule, MatButtonModule, MatIconModule],
-  templateUrl: './connect.component.html',
-  styleUrl: './connect.component.scss'
+    selector: 'app-connect',
+    imports: [CommonModule, MatFormFieldModule, MatSelectModule, MatButtonModule, MatIconModule],
+    templateUrl: './connect.component.html',
+    styleUrl: './connect.component.scss'
 })
 
 

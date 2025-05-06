@@ -13,11 +13,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SailPointSDKService } from '../core/services/electron/sailpoint-sdk.service';
 
 @Component({
-  selector: 'app-devdays-2025',
-  standalone: true,
-  imports: [CommonModule, FormsModule, MatSelectModule, MatButtonModule, MatInputModule, MatIconModule, MatProgressSpinnerModule],
-  templateUrl: './devdays-2025.component.html',
-  styleUrl: './devdays-2025.component.scss'
+    selector: 'app-devdays-2025',
+    imports: [CommonModule, FormsModule, MatSelectModule, MatButtonModule, MatInputModule, MatIconModule, MatProgressSpinnerModule],
+    templateUrl: './devdays-2025.component.html',
+    styleUrl: './devdays-2025.component.scss'
 })
 export class Devdays2025Component implements OnInit {
   transforms: TransformReadV2024[] = [];

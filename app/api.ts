@@ -138,6 +138,7 @@ export const harborPilotTransformChat = async (chat: string): Promise<HarborPilo
 
 
 export const connectToISC = async (apiUrl: string, baseUrl: string, clientId: string, clientSecret: string) => {
+  console.log('Connecting to ISC:');
   if (testMode) {
     return { connected: true, name: "DevDays 2025" };
   }
