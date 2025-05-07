@@ -1,6 +1,6 @@
 import {
-    Step,
-    Uid
+  Step,
+  Uid
 } from 'sequential-workflow-designer';
 
 export function createGetReferenceIdentityAttribute(): GetReferenceIdentityAttributeStep  {
@@ -28,9 +28,9 @@ export function createGetReferenceIdentityAttribute(): GetReferenceIdentityAttri
 
   export function serializeGetReferenceIdentityAttribute(step: GetReferenceIdentityAttributeStep) {
     return {
+      name: step.name,
       type: "rule",
       attributes: {
-        label: step.name,
         name: "Cloud Services Deployment Utility",
         operation: "getReferenceIdentityAttribute",
         uid: step.properties.uid,
@@ -44,7 +44,7 @@ export function createGetReferenceIdentityAttribute(): GetReferenceIdentityAttri
         id: Uid.next(),
         componentType: 'task',
         type: 'getReferenceIdentityAttribute',
-        name: data.attributes.label ?? 'Get Reference Identity Attribute',
+        name: data.name ?? 'Get Reference Identity Attribute',
         properties: {
             uid: data.attributes.uid,
             attributeName: data.attributes.attributeName,

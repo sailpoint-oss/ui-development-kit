@@ -1,12 +1,12 @@
 import {
-    BranchedStep,
-    Sequence,
-    Step,
-    Uid
+  BranchedStep,
+  Sequence,
+  Step,
+  Uid
 } from 'sequential-workflow-designer';
 import {
-    createChoiceValueModel,
-    createStepModel
+  createChoiceValueModel,
+  createStepModel
 } from 'sequential-workflow-editor-model';
 import { deserializeToStep, serializeStep } from '../transform-builder.component';
   
@@ -60,16 +60,15 @@ import { deserializeToStep, serializeStep } from '../transform-builder.component
   );
   
   export function serializeDateCompare(step: DateCompareStep): {
+    name: string;
     type: string;
     attributes: {
-      label: string;
       operator: string;
       [key: string]: any;
     };
   } {
-    const attributes: { label: string; operator: string; [key: string]: any } =
+    const attributes: { operator: string; [key: string]: any } =
       {
-        label: step.name,
         operator: step.properties.operator,
       };
   
@@ -82,6 +81,7 @@ import { deserializeToStep, serializeStep } from '../transform-builder.component
     }
   
     return {
+      name: step.name,
       type: step.type,
       attributes: attributes,
     };
@@ -102,7 +102,7 @@ import { deserializeToStep, serializeStep } from '../transform-builder.component
       id: Uid.next(),
       componentType: 'switch',
       type: 'dateCompare',
-      name: data.attributes.label ?? `Date Compare`,
+      name: data.name ?? `Date Compare`,
       properties: { operator: data.attributes.operator},
       branches: branches,
     };
@@ -117,4 +117,14 @@ import { deserializeToStep, serializeStep } from '../transform-builder.component
     "LTE": "Less Than or Equal To",
     "GT": "Greater Than",
     "GTE": "Greater Than or Equal To",
+  }
+
+  export function getDateCompareIcon(): string {
+      const svg = `
+      <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+      <path d="M0 0h24v24H0z" fill="none"/>
+      <path fill="gray" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/>
+      </svg>`;
+    const encoded = encodeURIComponent(svg.trim());
+    return `data:image/svg+xml,${encoded}`;
   }

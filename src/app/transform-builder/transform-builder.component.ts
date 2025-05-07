@@ -26,22 +26,26 @@ import {
   Step
 } from 'sequential-workflow-model';
 import {
-  AccountAttributeModel,
   createAccountAttribute,
+  createAccountAttributeModel,
   deserializeAccountAttribute,
+  getAccountAttributeIcon,
+  getAvailableSources,
   isAccountAttributeStep,
-  serializeAccountAttribute,
+  serializeAccountAttribute
 } from './models/account-attribute';
 import {
   ConcatModel,
   createConcat,
   deserializeConcat,
+  getConcatIcon,
   isConcatStep,
-  serializeConcat,
+  serializeConcat
 } from './models/concat';
 import {
   createStatic,
   deserializeStatic,
+  getStaticIcon,
   isStaticStep,
   serializeStatic,
   StaticModel
@@ -57,17 +61,41 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Router, RouterModule } from '@angular/router';
 import { TransformReadV2025 } from 'sailpoint-api-client';
-import { ConditionalModel, createConditional, deserializeConditional, isConditionalStep, serializeConditional } from './models/conditional';
-import { createDateCompare, DateCompareModel, deserializeDateCompare, isDateCompareStep, operatorMap, serializeDateCompare } from './models/date-compare';
-import { createDateFormat, DateFormatModel, deserializeDateFormat, isDateFormatStep, serializeDateFormat } from './models/date-format';
-import { createDateMath, DateMathModel, deserializeDateMath, isDateMathStep, serializeDateMath } from './models/date-math';
+import { SailPointSDKService } from '../core/services/electron/sailpoint-sdk.service';
+import { ConditionalModel, createConditional, deserializeConditional, getConditionalIcon, isConditionalStep, serializeConditional } from './models/conditional';
+import { createDateCompare, DateCompareModel, deserializeDateCompare, getDateCompareIcon, isDateCompareStep, operatorMap, serializeDateCompare } from './models/date-compare';
+import { createDateFormat, DateFormatModel, deserializeDateFormat, getDateFormatIcon, isDateFormatStep, serializeDateFormat } from './models/date-format';
+import { createDateMath, DateMathModel, deserializeDateMath, getDateMathIcon, isDateMathStep, serializeDateMath } from './models/date-math';
 import { createDecomposeDiacriticalMarks, deserializeDecomposeDiacriticalMarks, isDecomposeDiacriticalMarksStep, serializeDecomposeDiacriticalMarks } from './models/decompose-diacritical-marks';
-import { createE164Phone, deserializeE164Phone, E164PhoneModel, isE164PhoneStep, isoAlpha2Map, serializeE164Phone } from './models/e164-phone';
-import { createFirstValid, deserializeFirstValid, FirstValidModel, isFirstValidStep, serializeFirstValid } from './models/first-valid';
+import { createE164Phone, deserializeE164Phone, E164PhoneModel, getE164PhoneIcon, isE164PhoneStep, isoAlpha2Map, serializeE164Phone } from './models/e164-phone';
+import { createFirstValid, deserializeFirstValid, FirstValidModel, getFirstValidIcon, isFirstValidStep, serializeFirstValid } from './models/first-valid';
 import { createGenerateRandomString, deserializeGenerateRandomString, isGenerateRandomStringStep, serializeGenerateRandomString } from './models/generate-random-string';
 import { createGetEndOfString, deserializeGetEndOfString, isGetEndOfStringStep, serializeGetEndOfString } from './models/get-end-of-string';
 import { createGetReferenceIdentityAttribute, deserializeGetReferenceIdentityAttribute, isGetReferenceIdentityAttributeStep, serializeGetReferenceIdentityAttribute } from './models/get-reference-identity-attribute';
+import { createIdentityAttribute, deserializeIdentityAttribute, getIdentityAttributeIcon, IdentityAttributeModel, isIdentityAttributeStep, serializeIdentityAttribute } from './models/identity-attribute';
+import { createIndexOf, deserializeIndexOf, IndexOfModel, isIndexOfStep, serializeIndexOf } from './models/index-of';
+import { createISO3166, deserializeISO3166, isISO3166Step, iso3166Map, ISO3166Model, serializeISO3166 } from './models/iso-3166';
+import { createLastIndexOf, deserializeLastIndexOf, isLastIndexOfStep, LastIndexOfModel, serializeLastIndexOf } from './models/last-index-of';
+import { createLeftPad, deserializeLeftPad, getLeftPadIcon, isLeftPadStep, LeftPadModel, serializeLeftPad } from './models/left-pad';
+import { createLookup, deserializeLookup, getLookupIcon, isLookupStep, serializeLookup } from './models/lookup';
+import { createLower, deserializeLower, getLowerIcon, isLowerStep, serializeLower } from './models/lower';
+import { createNameNormalizer, deserializeNameNormalizer, isNameNormalizerStep, serializeNameNormalizer } from './models/name-normalizer';
+import { createRandomAlphaNumeric, deserializeRandomAlphaNumeric, getRandomAlphaNumericIcon, isRandomAlphaNumericStep, RandomAlphaNumericModel, serializeRandomAlphaNumeric } from './models/random-alphanumeric';
+import { createRandomNumeric, deserializeRandomNumeric, isRandomNumericStep, RandomNumericModel, serializeRandomNumeric } from './models/random-numeric';
+import { createReference, createReferenceStepModel, deserializeReference, getAvailableTransforms, getReferenceIcon, isReferenceStep, serializeReference } from './models/reference';
+import { createReplace, deserializeReplace, getReplaceIcon, isReplaceStep, serializeReplace } from './models/replace';
+import { createReplaceAll, deserializeReplaceAll, getReplaceAllIcon, isReplaceAllStep, serializeReplaceAll } from './models/replace-all';
+import { createRFC5646, deserializeRFC5646, isRFC5646Step, serializeRFC5646 } from './models/rfc-5646';
+import { createRightPad, deserializeRightPad, getRightPadIcon, isRightPadStep, serializeRightPad } from './models/right-pad';
+import { createRule, createRuleStepModel, deserializeRule, getAvailableRules, isRuleStep, serializeRule } from './models/rule';
+import { createSplit, deserializeSplit, getSplitIcon, isSplitStep, serializeSplit, SplitModel } from './models/split';
 import { createString, deserializeString, isStringStep, StringModel } from './models/string';
+import { createSubString, deserializeSubString, getSubStringIcon, isSubStringStep, serializeSubString, SubStringModel } from './models/substring';
+import { createTrim, deserializeTrim, getTrimIcon, isTrimStep, serializeTrim } from './models/trim';
+import { createUpper, deserializeUpper, getUpperIcon, isUpperStep, serializeUpper } from './models/upper';
+import { createUUID, deserializeUUID, getUUIDIcon, isUUIDStep, serializeUUID } from './models/uuid';
+import { MapEditorDialogComponent } from './utils/map-editor-dialog.component';
+
 
 export interface MyDefinition extends Definition {
   properties: {
@@ -84,22 +112,6 @@ export const rootModel = createRootModel<MyDefinition>((root) => {
       })
     )
     .label('Transform Name');
-});
-
-export const definitionModel = createDefinitionModel((model) => {
-  model.root(rootModel);
-  model.steps([
-    AccountAttributeModel,
-    ConcatModel,
-    ConditionalModel,
-    DateFormatModel,
-    DateMathModel,
-    E164PhoneModel,
-    FirstValidModel,
-    StaticModel,
-    StringModel,
-    DateCompareModel
-  ]);
 });
 
 function createDefinition(): Definition {
@@ -140,6 +152,48 @@ export const serializeStep = (step: Step) => {
     return serializeGetEndOfString(step);
   } else if (isGetReferenceIdentityAttributeStep(step)) {
     return serializeGetReferenceIdentityAttribute(step);
+  } else if (isIdentityAttributeStep(step)) {
+    return serializeIdentityAttribute(step);
+  } else if (isIndexOfStep(step)) {
+    return serializeIndexOf(step);
+  } else if (isISO3166Step(step)) {
+    return serializeISO3166(step);
+  } else if (isLastIndexOfStep(step)) {
+    return serializeLastIndexOf(step);
+  } else if (isLeftPadStep(step)) {
+    return serializeLeftPad(step);
+  } else if (isLookupStep(step)) {
+    return serializeLookup(step);
+  } else if (isLowerStep(step)) {
+    return serializeLower(step);
+  } else if (isNameNormalizerStep(step)) {
+    return serializeNameNormalizer(step);
+  } else if (isRandomAlphaNumericStep(step)) {
+    return serializeRandomAlphaNumeric(step);
+  } else if (isRandomNumericStep(step)) {
+    return serializeRandomNumeric(step);
+  } else if (isReferenceStep(step)) {
+    return serializeReference(step);
+  } else if (isReplaceAllStep(step)) {
+    return serializeReplaceAll(step);
+  } else if (isReplaceStep(step)) {
+    return serializeReplace(step);
+  } else if (isRFC5646Step(step)) {
+    return serializeRFC5646(step);
+  } else if (isRightPadStep(step)) {
+    return serializeRightPad(step);
+  } else if (isRuleStep(step)){
+    return serializeRule(step);
+  } else if (isSplitStep(step)) {
+    return serializeSplit(step);
+  } else if (isSubStringStep(step)) {
+    return serializeSubString(step);
+  } else if (isTrimStep(step)) {
+    return serializeTrim(step);
+  } else if (isUpperStep(step)) {
+    return serializeUpper(step);
+  } else if (isUUIDStep(step)) {
+    return serializeUUID(step);
   }
   throw new Error(`Unsupported step type: ${step.type}`);
 };
@@ -153,37 +207,55 @@ export function createDefinitionFromTransform(data: any): Definition {
   };
 }
 
+type Deserializer = (data: any) => Step;
+
+const deserializers: Record<string, Deserializer> = {
+  accountAttribute: deserializeAccountAttribute,
+  concat: deserializeConcat,
+  static: deserializeStatic,
+  conditional: deserializeConditional,
+  dateCompare: deserializeDateCompare,
+  dateFormat: deserializeDateFormat,
+  dateMath: deserializeDateMath,
+  firstValid: deserializeFirstValid,
+  decomposeDiacriticalMarks: deserializeDecomposeDiacriticalMarks,
+  e164phone: deserializeE164Phone,
+  generateRandomString: deserializeGenerateRandomString,
+  getEndOfString: deserializeGetEndOfString,
+  getReferenceIdentityAttribute: deserializeGetReferenceIdentityAttribute,
+  identityAttribute: deserializeIdentityAttribute,
+  indexOf: deserializeIndexOf,
+  iso3166: deserializeISO3166,
+  lastIndexOf: deserializeLastIndexOf,
+  leftPad: deserializeLeftPad,
+  lookup: deserializeLookup,
+  lower: deserializeLower,
+  nameNormailizer: deserializeNameNormalizer,
+  randomAlphaNumeric: deserializeRandomAlphaNumeric,
+  randomNumeric: deserializeRandomNumeric,
+  reference: deserializeReference,
+  replaceAll: deserializeReplaceAll,
+  replace: deserializeReplace,
+  rfc5646: deserializeRFC5646,
+  rightPad: deserializeRightPad,
+  rule: deserializeRule,
+  split: deserializeSplit,
+  substring: deserializeSubString,
+  trim: deserializeTrim,
+  upper: deserializeUpper,
+  uuid: deserializeUUID
+};
+
 export function deserializeToStep(data: any): Step {
   if (typeof data === 'string') {
     return deserializeString(data);
-  } else if (data.type === 'accountAttribute') {
-    return deserializeAccountAttribute(data);
-  } else if (data.type === 'concat') {
-    return deserializeConcat(data);
-  } else if (data.type === 'static') {
-    return deserializeStatic(data);
-  } else if (data.type === 'conditional') {
-    return deserializeConditional(data);
-  } else if (data.type === 'dateCompare') {
-    return deserializeDateCompare(data);
-  } else if (data.type === 'dateFormat') {
-    return deserializeDateFormat(data);
-  } else if (data.type === 'dateMath') {
-    return deserializeDateMath(data);
-  } else if (data.type === 'firstValid') {
-    return deserializeFirstValid(data);
-  } else if (data.type === 'decomposeDiacriticalMarks') {
-    return deserializeDecomposeDiacriticalMarks(data);
-  } else if (data.type === 'e164phone') {
-    return deserializeE164Phone(data);
-  } else if (data.type === 'generateRandomString') {
-    return deserializeGenerateRandomString(data);
-  } else if (data.type === 'getEndOfString') {
-    return deserializeGetEndOfString(data);
-  } else if (data.type === 'getReferenceIdentityAttribute') {
-    return deserializeGetReferenceIdentityAttribute(data);
   }
- 
+
+  const deserializer = deserializers[data.type];
+  if (deserializer) {
+    return deserializer(data);
+  }
+
   throw new Error(`Unsupported step type: ${data.type}`);
 }
 @Component({
@@ -217,9 +289,9 @@ export class TransformBuilderComponent {
   public transform?: TransformReadV2025;
   public isValid?: boolean;
   public isReadonly = false;
-  public definitionModel = definitionModel;
+  public definitionModel;
 
-  constructor(private router: Router, private dialog: MatDialog) {
+  constructor(private router: Router, private dialog: MatDialog, private sdk: SailPointSDKService) {
     const nav = this.router.getCurrentNavigation();
     this.transform = nav?.extras?.state?.transform;
 
@@ -229,105 +301,89 @@ export class TransformBuilderComponent {
       // Deserialize the transform into a definition
       this.definition = createDefinitionFromTransform(this.transform);
       this.isReadonly = false;
-      console.log(definitionModel)
     }
+
+    this.definitionModel = createDefinitionModel(async (model) => {
+      model.root(rootModel);
+      model.steps([
+        createAccountAttributeModel(await getAvailableSources(this.sdk)),
+        ConcatModel,
+        ConditionalModel,
+        DateFormatModel,
+        DateMathModel,
+        E164PhoneModel,
+        FirstValidModel,
+        StaticModel,
+        StringModel,
+        DateCompareModel,
+        IdentityAttributeModel,
+        IndexOfModel,
+        ISO3166Model,
+        LastIndexOfModel,
+        LeftPadModel,
+        RandomAlphaNumericModel,
+        RandomNumericModel,
+        createReferenceStepModel(await getAvailableTransforms(this.sdk)),
+        createRuleStepModel(await getAvailableRules(this.sdk)),
+        SplitModel,
+        SubStringModel
+      ]);
+    });
+
+    console.log('definition', this.definitionModel);
   }
 
-  public readonly stepsConfiguration: StepsConfiguration = {
-    iconUrlProvider: (componentType, type) => {
-      if (type === 'accountAttribute') {
-        const svg = `
-          <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24" fill="gray">
-            <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/>
-          </svg>`;
-        const encoded = encodeURIComponent(svg.trim());
-        return `data:image/svg+xml,${encoded}`;
-      }
-      if (type === 'concat') {
-        const svg = `
-          <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" fill="gray"><g><rect fill="none" height="24" width="24"/></g><g>
-            <path d="M14,10H3v2h11V10z M14,6H3v2h11V6z M18,14v-4h-2v4h-4v2h4v4h2v-4h4v-2H18z M3,16h7v-2H3V16z"/></g>
-          </svg>`;
-        const encoded = encodeURIComponent(svg.trim());
-        return `data:image/svg+xml,${encoded}`;
-      }
+  getStringIcon(): string {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" fill="gray"><g><rect fill="none" height="24" width="24"/></g><g><g><g>
+    <!-- Your actual path here -->
+    </g></g></g></svg>`;
+    return `data:image/svg+xml,${encodeURIComponent(svg.trim())}`;
+  }
 
-      if (type === 'firstValid') {
-        const svg = `
-          <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" fill="gray">
-          <path d="M0 0h24v24H0z" fill="none"/><path d="M22 11V3h-7v3H9V3H2v8h7V8h2v10h4v3h7v-8h-7v3h-2V8h2v3z"/>
-          </svg>`;
-        const encoded = encodeURIComponent(svg.trim());
-        return `data:image/svg+xml,${encoded}`;
-      }
-
-      if (type === 'static') {
-        const svg = `
-          <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" fill="gray"><g><rect fill="none" height="24" width="24"/></g><g><g><g>
-          // <path d="M2.5,4v3h5v12h3V7h5V4H2.5z M21.5,9h-9v3h3v7h3v-7h3V9z"/></g></g></g>
-          // </svg>`;
-        const encoded = encodeURIComponent(svg.trim());
-        return `data:image/svg+xml,${encoded}`;
-      }
-
-      if (type === 'conditional') {
-        const svg = `<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" fill="gray"><g><rect fill="none" height="24" width="24" x="0"/></g><g><g><g><path d="M9.01,14H2v2h7.01v3L13,15l-3.99-4V14z M14.99,13v-3H22V8h-7.01V5L11,9L14.99,13z"/></g></g></g></svg>`;
-        const encoded = encodeURIComponent(svg.trim());
-        return `data:image/svg+xml,${encoded}`;
-      }
-
-      if(type === 'string') {
-        const svg = `
-        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" fill="gray"><g><rect fill="none" height="24" width="24"/></g><g><g><g>
-        // <path d="M2.5,4v3h5v12h3V7h5V4H2.5z M21.5,9h-9v3h3v7h3v-7h3V9z"/></g></g></g>
-        // </svg>`;
-      const encoded = encodeURIComponent(svg.trim());
-      return `data:image/svg+xml,${encoded}`;
-      }
-
-      if (type === 'dateCompare') {
-        const svg = `
-          <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
-          <path d="M0 0h24v24H0z" fill="none"/>
-          <path fill="gray" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/>
-          </svg>`;
-        const encoded = encodeURIComponent(svg.trim());
-        return `data:image/svg+xml,${encoded}`;
-      }
-
-      if (type === 'dateFormat') {
-        const svg = `
-          <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
-          <path d="M0 0h24v24H0z" fill="none"/>
-          <path fill="gray" d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
-          </svg>`;
-        const encoded = encodeURIComponent(svg.trim());
-        return `data:image/svg+xml,${encoded}`;
-      }
-      if (type === 'dateMath') {
-        const svg = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
-        <path d="M0 0h24v24H0zm0 0h24v24H0z" fill="none"/>
-        <path fill="gray" d="M16.05 16.29l2.86-3.07c.38-.39.72-.79 1.04-1.18.32-.39.59-.78.82-1.17.23-.39.41-.78.54-1.17.13-.39.19-.79.19-1.18 0-.53-.09-1.02-.27-1.46-.18-.44-.44-.81-.78-1.11-.34-.31-.77-.54-1.26-.71-.51-.16-1.08-.24-1.72-.24-.69 0-1.31.11-1.85.32-.54.21-1 .51-1.36.88-.37.37-.65.8-.84 1.3-.18.47-.27.97-.28 1.5h2.14c.01-.31.05-.6.13-.87.09-.29.23-.54.4-.75.18-.21.41-.37.68-.49.27-.12.6-.18.96-.18.31 0 .58.05.81.15.23.1.43.25.59.43.16.18.28.4.37.65.08.25.13.52.13.81 0 .22-.03.43-.08.65-.06.22-.15.45-.29.7-.14.25-.32.53-.56.83-.23.3-.52.65-.88 1.03l-4.17 4.55V18H22v-1.71h-5.95zM8 7H6v4H2v2h4v4h2v-4h4v-2H8V7z"/>
-        </svg>`
-        const encoded = encodeURIComponent(svg.trim());
-        return `data:image/svg+xml,${encoded}`;
-      }
-
-      if (type === 'e164phone') {
-        const svg = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/>
-        <path fill="gray" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-        </svg>`
-        const encoded = encodeURIComponent(svg.trim());
-        return `data:image/svg+xml,${encoded}`;
-      }
-
-      // Default fallback icon (draggable)
-      const svg = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+  getDefaultFallbackIcon(): string {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
       <path d="M0 0h24v24H0V0z" fill="none"/>
       <path fill="gray" d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
-      </svg>`
-        const encoded = encodeURIComponent(svg.trim());
-      return `data:image/svg+xml,${encoded}`;
+    </svg>`;
+    return `data:image/svg+xml,${encodeURIComponent(svg.trim())}`;
+  }
+  
+  public readonly stepsConfiguration: StepsConfiguration = {
+    iconUrlProvider: (componentType, type) => {
+      const iconMap: Record<string, () => string> = {
+        accountAttribute: getAccountAttributeIcon,
+        concat: getConcatIcon,
+        firstValid: getFirstValidIcon,
+        static: getStaticIcon,
+        conditional: getConditionalIcon,
+        dateCompare: getDateCompareIcon,
+        dateFormat: getDateFormatIcon,
+        dateMath: getDateMathIcon,
+        e164phone: getE164PhoneIcon,
+        identityAttribute: getIdentityAttributeIcon,
+        lookup: getLookupIcon,
+        leftPad: getLeftPadIcon,
+        randomAlphaNumeric: getRandomAlphaNumericIcon,
+        randomNumeric: getRandomAlphaNumericIcon,
+        reference: getReferenceIcon,
+        replaceAll: getReplaceAllIcon,
+        replace: getReplaceIcon,
+        rightPad: getRightPadIcon,
+        split: getSplitIcon,
+        substring: getSubStringIcon,
+        trim: getTrimIcon,
+        lower: getLowerIcon,
+        upper: getUpperIcon,
+        uuid: getUUIDIcon,
+        string: this.getStringIcon,
+      };
+  
+      const iconFn = iconMap[type];
+      if (iconFn) {
+        return iconFn();
+      }
+  
+      return this.getDefaultFallbackIcon();
     },
 
     canInsertStep: (step, targetSequence, targetIndex) => {
@@ -357,7 +413,28 @@ export class TransformBuilderComponent {
           createGenerateRandomString(),
           createGetEndOfString(),
           createGetReferenceIdentityAttribute(),
+          createIdentityAttribute(),
+          createIndexOf(),
+          createISO3166(),
+          createLastIndexOf(),
+          createLeftPad(),
+          createLookup(),
+          createLower(),
+          createNameNormalizer(),
+          createRandomAlphaNumeric(),
+          createRandomNumeric(),
+          createReference(),
+          createReplaceAll(),
+          createReplace(),
+          createRFC5646(),
+          createRightPad(),
+          createRule(),
+          createSplit(),
           createStatic(),
+          createSubString(),
+          createTrim(),
+          createUpper(),
+          createUUID()
         ],
       },
       {
@@ -370,7 +447,7 @@ export class TransformBuilderComponent {
   public ngOnInit() {
     this.updateDefinitionJSON();
 
-    const editorProvider = EditorProvider.create(definitionModel, {
+    const editorProvider = EditorProvider.create(this.definitionModel, {
       uidGenerator: Uid.next,
     });
 
@@ -429,6 +506,32 @@ export class TransformBuilderComponent {
 
   isBoolean(value: any): boolean {
     return typeof value === 'boolean';
+  }
+
+  isMap(value: any): boolean {
+    return value && typeof value === 'object' && !Array.isArray(value);
+  }
+
+  editMap(properties: Properties, name: string, context: StepEditorContext): void {
+    const currentMap = properties[name];
+
+    const mapObject = currentMap instanceof Map
+    ? Object.fromEntries(currentMap)
+    : currentMap;
+
+    const dialogRef = this.dialog.open(MapEditorDialogComponent, {
+      width: '800px',
+      height: '600px',
+      maxWidth: 'none',
+      data: { map: mapObject }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        properties[name] = new Map<string, string>(Object.entries(result));
+        context.notifyPropertiesChanged();
+      }
+    });
   }
 
   getBranchNames(branches: Record<string, any[]>): string[] {
@@ -501,12 +604,20 @@ export class TransformBuilderComponent {
 
   stepTypeMap: Record<string, Record<string, string>> = {
     e164phone: isoAlpha2Map,
-    dateCompare: operatorMap
+    dateCompare: operatorMap,
+    iso3166: iso3166Map
   }
   
   public getChoiceLabel(stepType: string, choice: string): string {
     const lookup = this.stepTypeMap[stepType]
     return lookup?.[choice.toUpperCase()] ?? choice
   }
-    
+
+  public branchingEnabled(step: Step): boolean {
+    if (isConcatStep(step) || isStaticStep(step) || isConditionalStep(step) || isFirstValidStep(step)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

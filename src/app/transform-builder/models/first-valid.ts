@@ -1,9 +1,9 @@
 import {
-    BranchedStep,
-    Sequence,
-    Step,
-    StepEditorContext,
-    Uid
+  BranchedStep,
+  Sequence,
+  Step,
+  StepEditorContext,
+  Uid
 } from 'sequential-workflow-designer';
 import { createBooleanValueModel, createStepModel } from 'sequential-workflow-editor-model';
 import { deserializeToStep, serializeStep } from '../transform-builder.component';
@@ -45,15 +45,13 @@ export const FirstValidModel = createStepModel<FirstValidStep>('firstValid', 'sw
 
 
 export function serializeFirstValid(step: FirstValidStep): {
+    name: string;
     type: string;
     attributes: {
-      label: string;
       [key: string]: any;
     };
   } {
-    const attributes: { label: string; [key: string]: any } = {
-        label: step.name,
-    };
+    const attributes: { [key: string]: any } = {};
 
     if (step.properties.ignoreErrors === true) {
         attributes.ignoreErrors = step.properties.ignoreErrors;
@@ -69,6 +67,7 @@ export function serializeFirstValid(step: FirstValidStep): {
       }
 
     return {
+      name: step.name,
       type: step.type,
       attributes: attributes
     };
@@ -84,7 +83,7 @@ export function serializeFirstValid(step: FirstValidStep): {
     }
 
     data.attributes.values.forEach((element: any, index: number) => {
-        const key = element.label ?? `Variable${index}`;
+        const key = element.name ?? `Variable${index}`;
         console.log(`iterating over: ` + element)
         branches[key] = [deserializeToStep(element)];
       });
@@ -165,4 +164,13 @@ import { MatSlideToggle } from '@angular/material/slide-toggle';
 
   export function isFirstValidStep(step: Step): step is FirstValidStep {
     return step.type === 'firstValid';
+}
+
+export function getFirstValidIcon(): string {
+  const svg = `
+  <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" fill="gray">
+  <path d="M0 0h24v24H0z" fill="none"/><path d="M22 11V3h-7v3H9V3H2v8h7V8h2v10h4v3h7v-8h-7v3h-2V8h2v3z"/>
+  </svg>`;
+const encoded = encodeURIComponent(svg.trim());
+return `data:image/svg+xml,${encoded}`;
 }

@@ -1,7 +1,7 @@
 import {
-    BranchedStep,
-    Step,
-    Uid
+  BranchedStep,
+  Step,
+  Uid
 } from 'sequential-workflow-designer';
 import { serializeStep } from '../transform-builder.component';
 
@@ -32,7 +32,6 @@ export function createGetEndOfString(): GetEndOfStringStep  {
   export function serializeGetEndOfString(step: GetEndOfStringStep) {
 
       const attributes: Record<string, any> = {
-        label: step.name,
         name: "Cloud Services Deployment Utility",
         operation: "getEndOfString",
         numChars: step.properties.numChars,
@@ -43,6 +42,7 @@ export function createGetEndOfString(): GetEndOfStringStep  {
       }
     
       return {
+        name: step.name,
         type: "rule",
         attributes: attributes,
       };
@@ -53,7 +53,7 @@ export function createGetEndOfString(): GetEndOfStringStep  {
         id: Uid.next(),
         componentType: 'switch',
         type: 'getEndOfString',
-        name: data.attributes.label ?? 'Get End of String',
+        name: data.name ?? 'Get End of String',
         properties: {
             numChars: data.attributes.numChars,
         },

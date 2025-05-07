@@ -1,6 +1,6 @@
 import {
-    Step,
-    Uid
+  Step,
+  Uid
 } from 'sequential-workflow-designer';
 
 export function createGenerateRandomString(): GenerateRandomStringStep  {
@@ -31,9 +31,9 @@ export function createGenerateRandomString(): GenerateRandomStringStep  {
   export function serializeGenerateRandomString(step: GenerateRandomStringStep) {
 
     return {
+      name: step.name,
       type: "rule",
       attributes: {
-        label: step.name,
         name: "Cloud Services Deployment Utility",
         operation: "generateRandomString",
         includeNumbers: step.properties.includeNumbers,
@@ -48,7 +48,7 @@ export function createGenerateRandomString(): GenerateRandomStringStep  {
         id: Uid.next(),
         componentType: 'task',
         type: 'generateRandomString',
-        name: data.attributes.label ?? 'Generate Random String',
+        name: data.name ?? 'Generate Random String',
         properties: {
           includeNumbers: data.attributes.includeNumbers,
           includeSpecialChars: data.attributes.includeSpecialChars,

@@ -72,7 +72,6 @@ export const E164PhoneModel = createStepModel<E164PhoneStep>(
         // const match = step.properties.defaultRegion.match(/\(([^)]+)\)/);
         // const code = match ? match[1] : null;
       const attributes: Record<string, any> = {
-        label: step.name,
         defaultRegion: step.properties.defaultRegion,
       };
   
@@ -81,6 +80,7 @@ export const E164PhoneModel = createStepModel<E164PhoneStep>(
         }
     
       return {
+        name: step.name,
         type: step.type,
         attributes: attributes,
       };
@@ -90,7 +90,7 @@ export function deserializeE164Phone(data: any): E164PhoneStep {
       const step: E164PhoneStep = {
         id: Uid.next(),
         componentType: 'switch',
-        name: data.attributes?.label ?? 'E.164 Phone',
+        name: data.name ?? 'E.164 Phone',
         type: 'e164phone',
         properties: {
             defaultRegion: data.attributes?.defaultRegion ?? 'US',
@@ -359,3 +359,10 @@ export const isoAlpha2Map: Record<string, string> = {
       }
       
   
+      export function getE164PhoneIcon(): string {
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/>
+        <path fill="gray" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+        </svg>`
+        const encoded = encodeURIComponent(svg.trim());
+        return `data:image/svg+xml,${encoded}`;
+      }

@@ -1,8 +1,8 @@
 import {
-    BranchedStep,
-    Sequence,
-    Step,
-    Uid
+  BranchedStep,
+  Sequence,
+  Step,
+  Uid
 } from 'sequential-workflow-designer';
 import { createStepModel, createStringValueModel } from 'sequential-workflow-editor-model';
 import { deserializeToStep, serializeStep } from '../transform-builder.component';
@@ -43,15 +43,14 @@ export const StaticModel = createStepModel<StaticStep>('static', 'switch', step 
 
 
 export function serializeStatic(step: StaticStep): {
+    name: string;
     type: string;
     attributes: {
-      label: string;
       value: string;
       [key: string]: any;
     };
   } {
-    const attributes: { label: string; value: string; [key: string]: any } = {
-        label: step.name,
+    const attributes: { value: string; [key: string]: any } = {
         value: step.properties.value,
     };
 
@@ -62,6 +61,7 @@ export function serializeStatic(step: StaticStep): {
       }
 
     return {
+      name: step.name,
       type: step.type,
       attributes: attributes
     };
@@ -72,7 +72,7 @@ export function serializeStatic(step: StaticStep): {
     
     const attributes = data.attributes;
     Object.keys(attributes).forEach((key) => {
-      if (key !== 'label' && key !== 'value') {
+      if (key !== 'value') {
         branches[key] = [deserializeToStep(attributes[key])];
       }
     });
@@ -81,7 +81,7 @@ export function serializeStatic(step: StaticStep): {
     id: Uid.next(),
     componentType: 'switch',
     type: 'static',
-    name: data.attributes.label ?? 'Static',
+    name: data.name ?? 'Static',
     properties: { value: data.attributes.value},
     branches: branches,
   };
@@ -89,4 +89,14 @@ export function serializeStatic(step: StaticStep): {
 
 export function isStaticStep(step: Step): step is StaticStep {
   return step.type === 'static';
+}
+
+
+export function getStaticIcon(): string {
+  const svg = `
+  <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" fill="gray"><g><rect fill="none" height="24" width="24"/></g><g><g><g>
+  // <path d="M2.5,4v3h5v12h3V7h5V4H2.5z M21.5,9h-9v3h3v7h3v-7h3V9z"/></g></g></g>
+  // </svg>`;
+const encoded = encodeURIComponent(svg.trim());
+return `data:image/svg+xml,${encoded}`;
 }

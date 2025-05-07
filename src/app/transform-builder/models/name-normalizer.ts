@@ -2,12 +2,12 @@ import { Uid } from "sequential-workflow-designer";
 import { BranchedStep, Step } from "sequential-workflow-model";
 import { deserializeToStep, serializeStep } from "../transform-builder.component";
 
-export function createDecomposeDiacriticalMarks(): DecomposeDiacriticalMarksStep {
+export function createNameNormalizer(): NameNormalizerStep {
     return {
       id: Uid.next(),
       componentType: 'switch',
-      name: 'Decompose Diacritical Marks',
-      type: 'decomposeDiacriticalMarks',
+      name: 'Name Normalizer',
+      type: 'NameNormalizer',
       properties: {},
       branches: {
         input: [],
@@ -15,15 +15,15 @@ export function createDecomposeDiacriticalMarks(): DecomposeDiacriticalMarksStep
     };
   }
 
-export interface DecomposeDiacriticalMarksStep extends BranchedStep {
-    type: 'decomposeDiacriticalMarks';
+export interface NameNormalizerStep extends BranchedStep {
+    type: 'NameNormalizer';
     componentType: 'switch';
     properties: {};
 }
 
 
 
-  export function serializeDecomposeDiacriticalMarks(step: DecomposeDiacriticalMarksStep) {
+  export function serializeNameNormalizer(step: NameNormalizerStep) {
     const attributes: Record<string, any> = {};
 
      if (step.branches.input.length > 0) {
@@ -37,12 +37,12 @@ export interface DecomposeDiacriticalMarksStep extends BranchedStep {
     };
   }
 
-  export function deserializeDecomposeDiacriticalMarks(data: any): DecomposeDiacriticalMarksStep {
-    const step: DecomposeDiacriticalMarksStep = {
+  export function deserializeNameNormalizer(data: any): NameNormalizerStep {
+    const step: NameNormalizerStep = {
       id: Uid.next(),
       componentType: 'switch',
-      name: data.name ?? 'Decompose Diacritical Marks',
-      type: 'decomposeDiacriticalMarks',
+      name: data.name ?? 'Name Normalizer',
+      type: 'NameNormalizer',
       properties: {},
       branches: {
         input: [],
@@ -57,6 +57,6 @@ export interface DecomposeDiacriticalMarksStep extends BranchedStep {
 
   }
 
-  export function isDecomposeDiacriticalMarksStep(step: Step): step is DecomposeDiacriticalMarksStep {
-    return step.type === 'decomposeDiacriticalMarks';
+  export function isNameNormalizerStep(step: Step): step is NameNormalizerStep {
+    return step.type === 'NameNormalizer';
   }
