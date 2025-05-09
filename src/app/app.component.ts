@@ -34,7 +34,7 @@ import { ConnectionService } from './shared/connection.service';
 export class AppComponent {
   isSmallScreen: boolean = false;
   sidenavOpened = true;
-  isConnected = false;
+  isConnected = true;
   isDarkTheme = false;
 
   constructor(
@@ -60,9 +60,9 @@ export class AppComponent {
       console.log('Run in browser');
     }
 
-    this.connectionService.isConnected$.subscribe(connection => {
-      this.isConnected = connection.connected;
-    });
+    // this.connectionService.isConnected$.subscribe(connection => {
+    //   this.isConnected = connection.connected;
+    // });
 
     const storedTheme = localStorage.getItem('theme');
     if (storedTheme === 'dark') {

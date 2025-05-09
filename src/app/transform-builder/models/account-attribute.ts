@@ -14,8 +14,8 @@ export function createAccountAttribute(): AccountAttributeStep {
     name: 'Account Attribute',
     type: 'accountAttribute',
     properties: {
-      attributeName: 'first_name',
-      sourceName: 'Employees',
+      attributeName: '',
+      sourceName: '',
       accountSortAttribute: '',
       accountSortDescending: false,
       accountReturnFirstLink: false,

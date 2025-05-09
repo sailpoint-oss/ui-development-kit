@@ -95,6 +95,7 @@ import { createTrim, deserializeTrim, getTrimIcon, isTrimStep, serializeTrim } f
 import { createUpper, deserializeUpper, getUpperIcon, isUpperStep, serializeUpper } from './models/upper';
 import { createUUID, deserializeUUID, getUUIDIcon, isUUIDStep, serializeUUID } from './models/uuid';
 import { MapEditorDialogComponent } from './utils/map-editor-dialog.component';
+import { TransformPreviewComponent } from './utils/transform-preview.component';
 
 
 export interface MyDefinition extends Definition {
@@ -531,6 +532,18 @@ export class TransformBuilderComponent {
         properties[name] = new Map<string, string>(Object.entries(result));
         context.notifyPropertiesChanged();
       }
+    });
+  }
+
+  togglePreview(): void {
+    const dialogRef = this.dialog.open(TransformPreviewComponent, {
+      width: '70%',
+      height: '75%',
+      maxWidth: 'none',
+      data: { sdkService: this.sdk, transformDefinition: this.definitionJSON }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
     });
   }
 
