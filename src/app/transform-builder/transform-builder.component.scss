@@ -1,0 +1,116 @@
+.topButtonRow {
+  padding-left: 25px;
+  margin-left: 15px;
+  border-radius: .5rem;
+  margin-bottom: 10px;
+  color: #0033a1;
+  border: 1px solid #0033a1;
+  background-color: #ffffff;
+}
+
+.topButtonRow:hover {
+  background-color: #0033a1;
+  color: #ffffff;
+  border: 1px solid #0033a1;
+}
+
+.topButtonRowContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;            /* vertically center items */
+  margin: 0 auto;                 /* center the whole line on page */        /* optional spacing */
+}
+
+.info-line {
+  display: flex;
+  justify-content: center; /* pushes elements to left & right */
+  align-items: center;            /* vertically center items */
+  width: 100%;
+  max-width: 600px;               /* optional: control width */
+  margin: 0 auto;                 /* center the whole line on page */
+  margin-bottom: -15px;
+}
+
+.info-line h4 {
+  margin-right: 25px;
+}
+
+.info-line span {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.sqd-smart-editor {
+    padding: 16px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    border: 1px solid #ddd;
+  }
+  
+  .sqd-editor {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .swe-editor {
+    background-color: #fff;
+    padding: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+  
+  .swe-editor-header {
+    margin-bottom: 12px;
+    border-bottom: 1px solid #eee;
+  
+    .swe-editor-header-title {
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin: 0;
+      padding-bottom: 4px;
+    }
+  }
+  
+  .swe-property {
+    margin-bottom: 16px;
+  
+    .swe-property-header-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 4px;
+      color: #333;
+    }
+  
+    .swe-value-editor-container {
+      .swe-row {
+        display: flex;
+        align-items: center;
+      }
+  
+      .swe-col-1 {
+        flex: 1;
+  
+        .swe-input {
+          width: 100%;
+          padding: 6px 10px;
+          font-size: 0.95rem;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+  
+          &:focus {
+            outline: none;
+            border-color: #888;
+          }
+        }
+      }
+  
+      .swe-validation-error {
+        margin-top: 4px;
+        color: #d32f2f;
+        font-size: 0.8rem;
+      }
+    }
+  }
+  
