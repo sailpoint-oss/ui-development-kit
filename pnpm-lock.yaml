@@ -31,7 +31,7 @@ importers:
         version: 19.2.10
       '@angular/material':
         specifier: 19.2.15
-        version: 19.2.15(ma5nq3nmz577q2tr6bzpu6wxqa)
+        version: 19.2.15(d43593024dec699991b20813be787f2c)
       '@angular/platform-browser':
         specifier: 19.2.10
         version: 19.2.10(@angular/animations@19.2.10(@angular/common@19.2.10(@angular/core@19.2.10(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@19.2.10(rxjs@7.8.2)(zone.js@0.15.0)))(@angular/common@19.2.10(@angular/core@19.2.10(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@19.2.10(rxjs@7.8.2)(zone.js@0.15.0))
@@ -71,7 +71,7 @@ importers:
         version: 19.0.1(@angular/compiler-cli@19.2.10(@angular/compiler@19.2.10)(typescript@5.8.3))(@angular/compiler@19.2.10)(@types/node@22.15.17)(chokidar@4.0.3)(jest-environment-jsdom@29.7.0)(jest@29.7.0(@types/node@22.15.17)(ts-node@10.9.2(@types/node@22.15.17)(typescript@5.8.3)))(jiti@1.21.7)(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.17)(jiti@1.21.7)(less@4.2.2)(sass@1.85.0)(terser@5.39.0))
       '@angular-builders/jest':
         specifier: 19.0.1
-        version: 19.0.1(tdhg2cga7dy5ukruichx7522mq)
+        version: 19.0.1(64f541e21886637d228b6454fe65f5a7)
       '@angular-devkit/build-angular':
         specifier: 19.2.11
         version: 19.2.11(@angular/compiler-cli@19.2.10(@angular/compiler@19.2.10)(typescript@5.8.3))(@angular/compiler@19.2.10)(@types/node@22.15.17)(chokidar@4.0.3)(jest-environment-jsdom@29.7.0)(jest@29.7.0(@types/node@22.15.17)(ts-node@10.9.2(@types/node@22.15.17)(typescript@5.8.3)))(jiti@1.21.7)(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.17)(jiti@1.21.7)(less@4.2.2)(sass@1.85.0)(terser@5.39.0))
@@ -7730,7 +7730,7 @@ snapshots:
       - webpack-cli
       - yaml
 
-  '@angular-builders/jest@19.0.1(tdhg2cga7dy5ukruichx7522mq)':
+  '@angular-builders/jest@19.0.1(64f541e21886637d228b6454fe65f5a7)':
     dependencies:
       '@angular-builders/common': 3.0.1(@types/node@22.15.17)(chokidar@4.0.3)(typescript@5.8.3)
       '@angular-devkit/architect': 0.1902.11(chokidar@4.0.3)
@@ -8068,7 +8068,7 @@ snapshots:
 
   '@angular/language-service@19.2.10': {}
 
-  '@angular/material@19.2.15(ma5nq3nmz577q2tr6bzpu6wxqa)':
+  '@angular/material@19.2.15(d43593024dec699991b20813be787f2c)':
     dependencies:
       '@angular/cdk': 19.2.15(@angular/common@19.2.10(@angular/core@19.2.10(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@19.2.10(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2)
       '@angular/common': 19.2.10(@angular/core@19.2.10(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2)
