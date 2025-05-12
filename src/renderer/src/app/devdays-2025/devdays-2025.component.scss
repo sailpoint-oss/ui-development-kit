@@ -1,0 +1,27 @@
+mat-form-field {
+  margin-bottom: 20px;
+}
+button {
+  margin-top: 20px;
+  margin-left: 10px;
+  border-radius: 0.25rem; /* Rounded corners */
+  color: #ffffff !important;
+}
+
+#updateButton {
+  background-color: #0033a1 !important;
+}
+
+#deleteButton {
+  background-color: red !important;
+}
+.full-width {
+  width: 100%;
+}
+
+.center-spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

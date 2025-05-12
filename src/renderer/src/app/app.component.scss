@@ -1,0 +1,98 @@
+:host {
+  .mat-mdc-form-field.mat-mdc-form-field-appearance-fill
+    .mdc-text-field--filled {
+    --mdc-filled-text-field-container-color: #ffffff !important;
+  }
+
+  mat-sidenav-container {
+    background-color: #ffffff; /* Light background for light mode */
+  }
+
+  mat-sidenav {
+    background-color: #ffffff;
+    box-shadow: 4px 0 6px -2px #415364;
+    border-radius: 0.25rem; /* Light background for light mode */
+  }
+
+  :host-context(.dark-theme) mat-sidenav {
+    background-color: #000000; /* Dark background for dark mode */
+    box-shadow: 4px 0 6px -2px #415364;
+  }
+
+  :host-context(.dark-theme) mat-sidenav-container {
+    background-color: #000000; /* Dark background for dark mode */
+  }
+
+  .main-content {
+    margin: 16px auto;
+    padding: 16px;
+    border-radius: 8px; /* Rounded corners */
+    background-color: #fff; /* Optional: background color */
+    width: max-content;
+  }
+
+  // Dark theme styles
+  :host-context(.dark-theme) .main-content {
+    background-color: #000000; /* Dark gray background for dark mode */
+  }
+
+  mat-toolbar {
+    --mat-toolbar-standard-height: 80px; /* Set your desired height */
+    color: #0033a1;
+    background: #ffffff;
+    box-shadow: 0 4px 6px -1px #415364;
+  }
+
+  :host-context(.dark-theme) mat-toolbar {
+    color: #ffffff;
+    background: #000000; /* Dark background for dark mode */
+    box-shadow: 0 4px 6px -1px #415364;
+  }
+}
+
+.app-container {
+  height: calc(100% - 80px); /* Adjust the height as needed */
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.nav-spacing {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 10px;
+}
+
+.disabled {
+  pointer-events: none; /* Prevent clicks */
+  color: rgba(0, 0, 0, 0.38); /* Disabled text color */
+  cursor: default;
+  text-decoration: none;
+}
+
+mat-sidenav {
+  min-width: 100px;
+  max-width: 200px;
+  margin-right: 10px;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-item mat-icon {
+  margin-right: 8px; /* Add spacing between icon and text */
+  font-size: 24px; /* Ensure consistent icon size */
+  vertical-align: middle;
+}
+
+.sidebar-item div[mat-line] {
+  flex: 1; /* Ensures text aligns properly with the icon */
+}
+
+.card-icon {
+  top: 5px;
+  position: relative;
+}

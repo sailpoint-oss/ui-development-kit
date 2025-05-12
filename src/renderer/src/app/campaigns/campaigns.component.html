@@ -1,0 +1,28 @@
+<!-- Spinner -->
+<div *ngIf="loading" class="spinner-container">
+  <mat-spinner diameter="75"></mat-spinner>
+</div>
+
+<!-- Table -->
+<table
+  mat-table
+  [dataSource]="campaigns"
+  class="mat-elevation-z8"
+  *ngIf="!loading && campaigns.length"
+>
+  <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+    <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
+    <td mat-cell *matCellDef="let campaign">{{ campaign[column] }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<!-- Empty State Message -->
+<div
+  *ngIf="!loading && hasDataLoaded && campaigns.length === 0"
+  class="empty-message"
+>
+  No active campaigns found.
+</div>

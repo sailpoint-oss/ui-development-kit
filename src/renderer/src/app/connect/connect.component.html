@@ -1,0 +1,26 @@
+<div>
+  <mat-form-field
+    *ngIf="!isConnected"
+    appearance="fill"
+    class="custom-fill-field"
+  >
+    <mat-label>Tenant</mat-label>
+    <mat-select [(value)]="selectedTenant" (selectionChange)="updateTenant()">
+      <mat-option value="new">New</mat-option>
+      <mat-option *ngFor="let tenant of tenants" [value]="tenant.name">
+        {{ tenant.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <span class="tenant-name" *ngIf="isConnected">Connected to {{ name }}</span>
+
+  <button mat-raised-button *ngIf="!isConnected" (click)="connectToISC()">
+    <mat-icon>usb</mat-icon>
+    Connect
+  </button>
+  <button mat-raised-button *ngIf="isConnected" (click)="disconnectFromISC()">
+    <mat-icon>logout</mat-icon>
+    Disconnect
+  </button>
+</div>

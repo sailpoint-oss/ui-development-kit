@@ -1,0 +1,90 @@
+<mat-toolbar color="secondary" class="mat-elevation-z6 toolbar-with-border">
+  <button
+    mat-icon-button
+    (click)="toggleSidenav()"
+    *ngIf="isSmallScreen && isConnected"
+    aria-label="Toggle sidenav"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+  <img
+    style="height: 50px"
+    *ngIf="!isSmallScreen"
+    [src]="
+      isDarkTheme
+        ? 'assets/icons/SailPoint-Developer-Community-Inverse-Lockup.png'
+        : 'assets/icons/SailPoint-Developer-Community-Lockup.png'
+    "
+    alt="SailPoint Developer Community Logo"
+    class="logo"
+  />
+  <span class="spacer"></span>
+  <app-connect class="nav-spacing"></app-connect>
+  <button mat-icon-button (click)="toggleTheme()" aria-label="Toggle theme">
+    <mat-icon>{{ isDarkTheme ? "dark_mode" : "light_mode" }}</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-sidenav-container class="app-container">
+  <mat-sidenav
+    *ngIf="isConnected"
+    #sidenav
+    [mode]="isSmallScreen ? 'over' : 'side'"
+    [opened]="sidenavOpened"
+    (openedChange)="sidenavOpened = $event"
+  >
+    <mat-nav-list>
+      <a
+        mat-list-item
+        class="sidebar-link"
+        routerLink="/home"
+        routerLinkActive="active-link"
+        [class.disabled]="!isConnected"
+        (click)="!isConnected && $event.preventDefault()"
+      >
+        <mat-icon class="card-icon">home</mat-icon>
+        Home
+      </a>
+
+      <a
+        mat-list-item
+        class="sidebar-link"
+        routerLink="/transforms"
+        routerLinkActive="active-link"
+        [class.disabled]="!isConnected"
+        (click)="!isConnected && $event.preventDefault()"
+      >
+        <mat-icon class="card-icon">home</mat-icon>
+        Transforms
+      </a>
+      <a
+        mat-list-item
+        class="sidebar-link"
+        routerLink="/identities"
+        routerLinkActive="active-link"
+        [class.disabled]="!isConnected"
+        (click)="!isConnected && $event.preventDefault()"
+      >
+        <mat-icon class="card-icon">home</mat-icon>
+        Identities
+      </a>
+      <a
+        mat-list-item
+        class="sidebar-link"
+        routerLink="/campaigns"
+        routerLinkActive="active-link"
+        [class.disabled]="!isConnected"
+        (click)="!isConnected && $event.preventDefault()"
+      >
+        <mat-icon class="card-icon">home</mat-icon>
+        Campaigns
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
