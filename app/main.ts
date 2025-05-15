@@ -2,7 +2,7 @@ import { app, BrowserWindow, ipcMain, screen } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as url from 'url';
-import {connectToISC,  disconnectFromISC, getTenants, harborPilotTransformChat} from './api';
+import {connectToISC,  disconnectFromISC, getTenants, harborPilotTransformChat, getUUID, OAuthLogin} from './api';
 import { setupSailPointSDKHandlers } from './sailpoint-sdk/ipc-handlers';
 
 let win: BrowserWindow | null = null;
@@ -93,6 +93,13 @@ try {
     }
   });
 
+  ipcMain.handle('oauth-login', async (event, tenant?: string, baseAPIUrl?: string) => {
+    if (!tenant || !baseAPIUrl) {
+      throw new Error('Tenant and baseAPIUrl are required');
+    }
+    return await OAuthLogin({tenant, baseAPIUrl});
+  });
+
   // Handle fetching users via IPC
   ipcMain.handle('connect-to-isc', async (event, apiUrl: string, baseUrl: string, clientId: string, clientSecret: string) => {
     if (clientId.startsWith("go-keyring-base64:")) {
@@ -107,9 +114,11 @@ try {
     
     return await connectToISC(apiUrl, baseUrl, clientId, clientSecret);
   });
+
   ipcMain.handle('disconnect-from-isc', async () => {
     return await disconnectFromISC();
   });
+
   ipcMain.handle('get-tenants', async () => {
     return await getTenants();
   });
