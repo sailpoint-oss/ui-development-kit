@@ -3,6 +3,7 @@ import {
   Step,
   Uid
 } from 'sequential-workflow-designer';
+import { createStepModel } from 'sequential-workflow-editor-model';
 import { serializeStep } from '../transform-builder.component';
 
 export function createGetEndOfString(): GetEndOfStringStep  {
@@ -27,6 +28,13 @@ export function createGetEndOfString(): GetEndOfStringStep  {
         numChars: number;
     };
   }
+
+  export const GetEndOfStringModel = createStepModel<GetEndOfStringStep>(
+    'getEndOfString',
+    'switch',
+    (step) => {
+    }
+  );
 
 
   export function serializeGetEndOfString(step: GetEndOfStringStep) {

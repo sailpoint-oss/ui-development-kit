@@ -18,7 +18,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { finalize, from, Subject, takeUntil } from 'rxjs';
-import { IdentityDocumentsV2025, IdentityProfilesV2025ApiGenerateIdentityPreviewRequest, IdentityProfileV2025 } from 'sailpoint-api-client';
+import { IdentityDocumentsV2025, IdentityProfilesV2025ApiGenerateIdentityPreviewRequest, IdentityProfileV2025, TransformsV2025ApiCreateTransformRequest } from 'sailpoint-api-client';
 import { SailPointSDKService } from '../../core/services/electron/sailpoint-sdk.service';
 import { IdentitySearchComponent } from './identity-search.component';
 import { IdentityService } from './identity-service';
@@ -182,7 +182,7 @@ export class TransformPreviewComponent implements OnInit {
     this.codeExpanded = !this.codeExpanded;
   }
 
-  executeTransform(): void {
+  async executeTransform(): Promise<void> {
     if (this.transformForm.invalid) {
       this.transformForm.markAllAsTouched();
       this.snackBar.open('Please fill all required fields', 'Dismiss', { duration: 3000 });
@@ -193,14 +193,25 @@ export class TransformPreviewComponent implements OnInit {
       this.snackBar.open('Please select at least one identity', 'Dismiss', { duration: 3000 });
       return;
     }
-        
+    
+    // Create transform to be used in the reference
+    const transformDefinition = JSON.parse(this.transformCode);
+    transformDefinition.name = transformDefinition.name + 'Preview';
+    
+    const createTransformRequest: TransformsV2025ApiCreateTransformRequest = {
+      transformV2025: transformDefinition      
+    };
+    
+    const transformCreateResponse = await this.sdk.createTransform(createTransformRequest);
+    if (transformCreateResponse.status >= 400) {
+      this.snackBar.open('Error creating transform', 'Dismiss', { duration: 5000 });
+      return;
+    }
+    
     this.executingTransform = true;
-    
     this.transformResults = [];
-
     
-    this.selectedIdentities.forEach(async identity => {
-  
+    const previewPromises = this.selectedIdentities.map(async identity => {
       const request: IdentityProfilesV2025ApiGenerateIdentityPreviewRequest = {
         identityPreviewRequestV2025: {
           identityId: identity.id,
@@ -212,51 +223,59 @@ export class TransformPreviewComponent implements OnInit {
                 transformDefinition: {
                   type: "reference",
                   attributes: {
-                    id: JSON.parse(this.transformCode).name
+                    id: transformDefinition.name
                   }
                 }
               }
             ]
           }
         }
-      }
-
-      const response = await this.sdk.generateIdentityPreview(request)
-
+      };
+    
+      const response = await this.sdk.generateIdentityPreview(request);
+    
       if (response.status >= 400) {
-        this.transformResults.push(
-          {
+        this.transformResults.push({
+          identityName: identity.name,
+          result: 'Error',
+          success: false,
+          error: response.statusText || 'An error occurred while generating the preview',
+        });
+      } else {
+        const emailAttr = response.data.previewAttributes?.find(attr => attr.name === 'email');
+        if (emailAttr?.errorMessages?.length) {
+          this.transformResults.push({
             identityName: identity.name,
             result: 'Error',
             success: false,
-            error: response.statusText || 'An error occurred while generating the preview',
-          }
-        ) 
-      } else {
-        if (response.data.previewAttributes) {
-
-          if (response.data.previewAttributes.find(attr => attr.name === 'email')?.errorMessages) {
-            this.transformResults.push({
-              identityName: identity.name,
-              result: 'Error',
-              success: false,
-              error: response.data.previewAttributes.find(attr => attr.name === 'email')?.errorMessages?.[0]?.text ?? 'Error message not available',
-            })
-          } else {
-            this.transformResults.push({
-              identityName: identity.name,
-              result: response.data.previewAttributes.find(attr => attr.name === 'email')?.value || 'No result',
-              success: true,
-              error: null,
-            })
-          }
+            error: emailAttr.errorMessages[0]?.text ?? 'Error message not available',
+          });
+        } else {
+          this.transformResults.push({
+            identityName: identity.name,
+            result: emailAttr?.value || 'No result',
+            success: true,
+            error: null,
+          });
         }
       }
-    })
-
+    });
+    
+    // Wait for all previews to complete
+    await Promise.all(previewPromises);
+    
+    // Now it's safe to delete the transform
+    const deleteTransformResponse = await this.sdk.deleteTransform({ id: transformCreateResponse.data.id });
+    
+    if (deleteTransformResponse.status >= 400) {
+      this.snackBar.open('Error deleting transform', 'Dismiss', { duration: 5000 });
+      return;
+    }
+    
     console.log('Transform results:', this.transformResults);
-
+    
     this.executingTransform = false;
+    
        
     // this.transformService.executeTransform(this.selectedIdentities, this.transformCode)
     //   .pipe(

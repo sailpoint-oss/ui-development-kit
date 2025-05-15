@@ -1,35 +1,3 @@
-<div class="info-line"> <h2>{{definition.properties.name}}</h2> 	<span>Is valid: <strong>{{ isValid }}</strong></span></div>
-&nbsp;
-<div class="block topButtonRowContainer">
-	<button class="topButtonRow" mat-raised-button color="primary" [routerLink]="['/transforms']">Back to table</button>
-	&nbsp;
-	<button class="topButtonRow" mat-raised-button color="primary" (click)="toggleReadonlyClicked()">
-		{{ isReadonly ? 'Enable editing' : 'Disable editing' }}
-	</button>
-	&nbsp;
-	<button class="topButtonRow" mat-raised-button color="primary" (click)="toggleSelectedStepClicked()">
-		{{ selectedStepId ? 'Unselect' : 'Select first' }}
-	</button>
-	&nbsp;
-	<button class="topButtonRow" mat-raised-button color="primary" (click)="toggleToolboxClicked()">
-		{{ isToolboxCollapsed ? 'Show toolbox' : 'Hide toolbox' }}
-	</button>
-	&nbsp;
-	<button class="topButtonRow" mat-raised-button color="primary" (click)="toggleEditorClicked()">
-		{{ isEditorCollapsed ? 'Show editor' : 'Hide editor' }}
-	</button>
-  <button class="topButtonRow" mat-raised-button color="primary" (click)="togglePreview()">
-		Preview Transform
-	</button>
-</div>
-<!-- 
-<div class="block">
-	<textarea appearance="fill" class="full-width custom-fill-field"f matInput cols="120" rows="16" readonly>{{ definitionJSON }}</textarea>
-</div> -->
-
-
-
-
 <sqd-designer
   theme="dark"
   [definition]="definition"
@@ -37,31 +5,36 @@
   [stepsConfiguration]="stepsConfiguration"
   [validatorConfiguration]="validatorConfiguration"
   [controlBar]="true"
-  [isReadonly]="isReadonly"
   [areEditorsHidden]="false"
   [rootEditor]="rootEditorProvider"
   [stepEditor]="stepEditorProvider"
   [isToolboxCollapsed]="isToolboxCollapsed"
   [isEditorCollapsed]="isEditorCollapsed"
-  [undoStackSize]="5"
   (onReady)="onDesignerReady($event)"
   (onDefinitionChanged)="onDefinitionChanged($event)"
 >
 </sqd-designer>
 
-<ng-template #rootEditorProvider let-editor>
-	<h3>Transform</h3>
-
-	<mat-form-field class="full-width">
-		<input
-			matInput
-      [(ngModel)]="editor.definition.properties.name"
-			[value]="editor.definition.properties.name"
-			[readonly]="editor.isReadonly"
-			(input)="updateProperty(editor.definition.properties, 'name', $event, editor.context)"
-		/>
-	</mat-form-field>
-</ng-template>
+<div class="block">
+	<button mat-raised-button color="primary" (click)="reloadDefinitionClicked()">Reload definition</button>
+	&nbsp;
+	<button mat-raised-button color="primary" (click)="toggleReadonlyClicked()">
+		{{ isReadonly ? 'Enable editing' : 'Disable editing' }}
+	</button>
+	&nbsp;
+	<button mat-raised-button color="primary" (click)="toggleSelectedStepClicked()">
+		{{ selectedStepId ? 'Unselect' : 'Select first' }}
+	</button>
+	&nbsp;
+	<button mat-raised-button color="primary" (click)="toggleToolboxClicked()">
+		{{ isToolboxCollapsed ? 'Show toolbox' : 'Hide toolbox' }}
+	</button>
+	&nbsp;
+	<button mat-raised-button color="primary" (click)="toggleEditorClicked()">
+		{{ isEditorCollapsed ? 'Show editor' : 'Hide editor' }}
+	</button>
+	&nbsp; Is valid: <strong>{{ isValid }}</strong>
+</div>
 
 <ng-template #stepEditorProvider let-editor>
     <div style="padding: 1rem;">
@@ -133,3 +106,9 @@
         </div>
       </div>
   </ng-template>
+
+<div class="block">
+	<mat-form-field class="full-width flex-1s">
+		<textarea matInput cols="120" rows="16" readonly>{{ definitionJSON }}</textarea>
+	</mat-form-field>
+</div>

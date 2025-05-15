@@ -1,4 +1,5 @@
 import { Uid } from "sequential-workflow-designer";
+import { createStepModel } from "sequential-workflow-editor-model";
 import { BranchedStep, Step } from "sequential-workflow-model";
 import { deserializeToStep, serializeStep } from "../transform-builder.component";
 
@@ -14,6 +15,14 @@ export function createDecomposeDiacriticalMarks(): DecomposeDiacriticalMarksStep
       },
     };
   }
+
+
+  export const DecomposeDiacriticalMarksModel = createStepModel<DecomposeDiacriticalMarksStep>(
+    'decomposeDiacriticalMarks',
+    'switch',
+    (step) => {
+    }
+  );
 
 export interface DecomposeDiacriticalMarksStep extends BranchedStep {
     type: 'decomposeDiacriticalMarks';

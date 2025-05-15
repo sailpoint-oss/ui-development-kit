@@ -2,6 +2,7 @@ import {
   Step,
   Uid
 } from 'sequential-workflow-designer';
+import { createStepModel } from 'sequential-workflow-editor-model';
 
 export function createGenerateRandomString(): GenerateRandomStringStep  {
     return {
@@ -27,6 +28,12 @@ export function createGenerateRandomString(): GenerateRandomStringStep  {
     };
   }
 
+  export const GenerateRandomStringModel = createStepModel<GenerateRandomStringStep>(
+    'generateRandomString',
+    'task',
+    (step) => {
+    }
+  );
 
   export function serializeGenerateRandomString(step: GenerateRandomStringStep) {
 

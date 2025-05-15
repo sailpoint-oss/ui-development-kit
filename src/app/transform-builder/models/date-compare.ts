@@ -75,8 +75,6 @@ import { deserializeToStep, serializeStep } from '../transform-builder.component
     for (const [branchName, sequence] of Object.entries(step.branches)) {
       if (sequence.length === 1) {
         attributes[branchName] = serializeStep(sequence[0]);
-      } else {
-        throw new Error(`Branch "${branchName}" must have exactly one step.`);
       }
     }
   

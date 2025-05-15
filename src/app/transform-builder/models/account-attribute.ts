@@ -2,8 +2,10 @@ import { Step, Uid } from 'sequential-workflow-designer';
 import {
   createBooleanValueModel,
   createChoiceValueModel,
+  createNullableVariableValueModel,
   createStepModel,
   createStringValueModel,
+  NullableVariable,
 } from 'sequential-workflow-editor-model';
 import { SailPointSDKService } from '../../core/services/electron/sailpoint-sdk.service';
 
@@ -16,11 +18,11 @@ export function createAccountAttribute(): AccountAttributeStep {
     properties: {
       attributeName: '',
       sourceName: '',
-      accountSortAttribute: '',
+      accountSortAttribute: null,
       accountSortDescending: false,
       accountReturnFirstLink: false,
-      accountFilter: '',
-      accountPropertyFilter: '',
+      accountFilter: null,
+      accountPropertyFilter: null,
     },
   };
 }
@@ -31,11 +33,11 @@ export interface AccountAttributeStep extends Step {
   properties: {
     attributeName: string;
     sourceName: string;
-    accountSortAttribute?: string;
+    accountSortAttribute?: NullableVariable;
     accountSortDescending?: boolean;
     accountReturnFirstLink?: boolean;
-    accountFilter?: string;
-    accountPropertyFilter?: string;
+    accountFilter?: NullableVariable;
+    accountPropertyFilter?: NullableVariable;
   };
 }
 
@@ -62,8 +64,9 @@ return createStepModel<AccountAttributeStep>(
     step
       .property('accountSortAttribute')
       .value(
-        createStringValueModel({
-          multiline: true,
+        createNullableVariableValueModel({
+          valueType: 'string',
+          isRequired: false
         })
       )
       .label('Account Sort Attribute');
@@ -89,8 +92,9 @@ return createStepModel<AccountAttributeStep>(
     step
       .property('accountFilter')
       .value(
-        createStringValueModel({
-          multiline: true,
+        createNullableVariableValueModel({
+          valueType: 'string',
+          isRequired: false
         })
       )
       .label('Account Filter');
@@ -98,8 +102,9 @@ return createStepModel<AccountAttributeStep>(
     step
       .property('accountPropertyFilter')
       .value(
-        createStringValueModel({
-          multiline: true,
+        createNullableVariableValueModel({
+          valueType: 'string',
+          isRequired: false
         })
       )
       .label('Account Property Filter');
@@ -133,10 +138,10 @@ export function serializeAccountAttribute(step: AccountAttributeStep) {
     attributes.accountSortDescending = accountSortDescending;
   if (accountReturnFirstLink !== false)
     attributes.accountReturnFirstLink = accountReturnFirstLink;
-  if (accountSortAttribute !== '')
+  if (accountSortAttribute != null)
     attributes.accountSortAttribute = accountSortAttribute;
-  if (accountFilter !== '') attributes.accountFilter = accountFilter;
-  if (accountPropertyFilter !== '')
+  if (accountFilter !== null) attributes.accountFilter = accountFilter;
+  if (accountPropertyFilter !== null)
     attributes.accountPropertyFilter = accountPropertyFilter;
 
   return {
@@ -155,11 +160,11 @@ export function deserializeAccountAttribute(data: any): AccountAttributeStep {
       properties: {
         attributeName: data.attributes.attributeName ?? '',
         sourceName: data.attributes.sourceName ?? '',
-        accountSortAttribute: data.attributes.accountSortAttribute ?? '',
+        accountSortAttribute: data.attributes.accountSortAttribute ?? null,
         accountSortDescending: data.attributes.accountSortDescending ?? false,
         accountReturnFirstLink: data.attributes.accountReturnFirstLink ?? false,
-        accountFilter: data.attributes.accountFilter ?? '',
-        accountPropertyFilter: data.attributes.accountPropertyFilter ?? '',
+        accountFilter: data.attributes.accountFilter ?? null,
+        accountPropertyFilter: data.attributes.accountPropertyFilter ?? null,
       }
     };
   }

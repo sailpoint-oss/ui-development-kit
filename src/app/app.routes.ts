@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { BuilderComponent } from './builder/builder.component';
 import { campaignsComponent } from './campaigns/campaigns.component';
 import { IdentitiesComponent } from './identities/identities.component';
 import { PageNotFoundComponent } from './shared/components';
@@ -31,6 +32,10 @@ export const appRoutes: Routes = [
   {
     path: 'transform-builder',
     component: TransformBuilderComponent
+  },
+  {
+    path: 'builder',
+    component: BuilderComponent
   },
   {
     path: '**',

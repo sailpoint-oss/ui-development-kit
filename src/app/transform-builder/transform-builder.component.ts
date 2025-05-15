@@ -17,7 +17,8 @@ import {
   ChoiceValueModelConfiguration,
   createDefinitionModel,
   createRootModel,
-  createStringValueModel
+  createStringValueModel,
+  DefinitionModel
 } from 'sequential-workflow-editor-model';
 import {
   Branches,
@@ -35,7 +36,6 @@ import {
   serializeAccountAttribute
 } from './models/account-attribute';
 import {
-  ConcatModel,
   createConcat,
   deserializeConcat,
   getConcatIcon,
@@ -61,17 +61,18 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Router, RouterModule } from '@angular/router';
 import { TransformReadV2025 } from 'sailpoint-api-client';
+import { definitionModel } from '../builder/builder.component';
 import { SailPointSDKService } from '../core/services/electron/sailpoint-sdk.service';
 import { ConditionalModel, createConditional, deserializeConditional, getConditionalIcon, isConditionalStep, serializeConditional } from './models/conditional';
 import { createDateCompare, DateCompareModel, deserializeDateCompare, getDateCompareIcon, isDateCompareStep, operatorMap, serializeDateCompare } from './models/date-compare';
 import { createDateFormat, DateFormatModel, deserializeDateFormat, getDateFormatIcon, isDateFormatStep, serializeDateFormat } from './models/date-format';
 import { createDateMath, DateMathModel, deserializeDateMath, getDateMathIcon, isDateMathStep, serializeDateMath } from './models/date-math';
-import { createDecomposeDiacriticalMarks, deserializeDecomposeDiacriticalMarks, isDecomposeDiacriticalMarksStep, serializeDecomposeDiacriticalMarks } from './models/decompose-diacritical-marks';
+import { createDecomposeDiacriticalMarks, DecomposeDiacriticalMarksModel, deserializeDecomposeDiacriticalMarks, isDecomposeDiacriticalMarksStep, serializeDecomposeDiacriticalMarks } from './models/decompose-diacritical-marks';
 import { createE164Phone, deserializeE164Phone, E164PhoneModel, getE164PhoneIcon, isE164PhoneStep, isoAlpha2Map, serializeE164Phone } from './models/e164-phone';
 import { createFirstValid, deserializeFirstValid, FirstValidModel, getFirstValidIcon, isFirstValidStep, serializeFirstValid } from './models/first-valid';
-import { createGenerateRandomString, deserializeGenerateRandomString, isGenerateRandomStringStep, serializeGenerateRandomString } from './models/generate-random-string';
-import { createGetEndOfString, deserializeGetEndOfString, isGetEndOfStringStep, serializeGetEndOfString } from './models/get-end-of-string';
-import { createGetReferenceIdentityAttribute, deserializeGetReferenceIdentityAttribute, isGetReferenceIdentityAttributeStep, serializeGetReferenceIdentityAttribute } from './models/get-reference-identity-attribute';
+import { createGenerateRandomString, deserializeGenerateRandomString, GenerateRandomStringModel, isGenerateRandomStringStep, serializeGenerateRandomString } from './models/generate-random-string';
+import { createGetEndOfString, deserializeGetEndOfString, GetEndOfStringModel, isGetEndOfStringStep, serializeGetEndOfString } from './models/get-end-of-string';
+import { createGetReferenceIdentityAttribute, deserializeGetReferenceIdentityAttribute, GetReferenceIdentityAttributeModel, isGetReferenceIdentityAttributeStep, serializeGetReferenceIdentityAttribute } from './models/get-reference-identity-attribute';
 import { createIdentityAttribute, deserializeIdentityAttribute, getIdentityAttributeIcon, IdentityAttributeModel, isIdentityAttributeStep, serializeIdentityAttribute } from './models/identity-attribute';
 import { createIndexOf, deserializeIndexOf, IndexOfModel, isIndexOfStep, serializeIndexOf } from './models/index-of';
 import { createISO3166, deserializeISO3166, isISO3166Step, iso3166Map, ISO3166Model, serializeISO3166 } from './models/iso-3166';
@@ -122,6 +123,38 @@ function createDefinition(): Definition {
     },
     sequence: [createAccountAttribute()],
   };
+}
+
+function createMyDefinitionModel(configuration: { sources: string[], transforms: string[], rules: string[] }): DefinitionModel<Definition> {
+  return createDefinitionModel(model => {
+    model.root(rootModel)
+    model.steps([
+            createAccountAttributeModel(configuration.sources),
+            ConditionalModel,
+            DateCompareModel,
+            DateFormatModel,
+            DateMathModel,
+            DecomposeDiacriticalMarksModel,
+            E164PhoneModel,
+            FirstValidModel,
+            GenerateRandomStringModel,
+            GetEndOfStringModel,
+            GetReferenceIdentityAttributeModel,
+            IdentityAttributeModel,
+            IndexOfModel,
+            ISO3166Model,
+            LastIndexOfModel,
+            LeftPadModel,
+            RandomAlphaNumericModel,
+            RandomNumericModel,
+            createReferenceStepModel(configuration.transforms),
+            createRuleStepModel(configuration.rules),
+            StaticModel,
+            StringModel,
+            SplitModel,
+            SubStringModel
+    ]);
+  });
 }
 
 export const serializeStep = (step: Step) => {
@@ -290,7 +323,7 @@ export class TransformBuilderComponent {
   public transform?: TransformReadV2025;
   public isValid?: boolean;
   public isReadonly = false;
-  public definitionModel;
+  public definitionModel?: DefinitionModel<Definition>;
 
   constructor(private router: Router, private dialog: MatDialog, private sdk: SailPointSDKService) {
     const nav = this.router.getCurrentNavigation();
@@ -303,42 +336,15 @@ export class TransformBuilderComponent {
       this.definition = createDefinitionFromTransform(this.transform);
       this.isReadonly = false;
     }
-
-    this.definitionModel = createDefinitionModel(async (model) => {
-      model.root(rootModel);
-      model.steps([
-        createAccountAttributeModel(await getAvailableSources(this.sdk)),
-        ConcatModel,
-        ConditionalModel,
-        DateFormatModel,
-        DateMathModel,
-        E164PhoneModel,
-        FirstValidModel,
-        StaticModel,
-        StringModel,
-        DateCompareModel,
-        IdentityAttributeModel,
-        IndexOfModel,
-        ISO3166Model,
-        LastIndexOfModel,
-        LeftPadModel,
-        RandomAlphaNumericModel,
-        RandomNumericModel,
-        createReferenceStepModel(await getAvailableTransforms(this.sdk)),
-        createRuleStepModel(await getAvailableRules(this.sdk)),
-        SplitModel,
-        SubStringModel
-      ]);
-    });
-
-    console.log('definition', this.definitionModel);
   }
 
   getStringIcon(): string {
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" fill="gray"><g><rect fill="none" height="24" width="24"/></g><g><g><g>
-    <!-- Your actual path here -->
-    </g></g></g></svg>`;
-    return `data:image/svg+xml,${encodeURIComponent(svg.trim())}`;
+    const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" fill="gray"><g><rect fill="none" height="24" width="24"/></g><g><g><g>
+    // <path d="M2.5,4v3h5v12h3V7h5V4H2.5z M21.5,9h-9v3h3v7h3v-7h3V9z"/></g></g></g>
+    // </svg>`;
+  const encoded = encodeURIComponent(svg.trim());
+  return `data:image/svg+xml,${encoded}`;
   }
 
   getDefaultFallbackIcon(): string {
@@ -387,14 +393,14 @@ export class TransformBuilderComponent {
       return this.getDefaultFallbackIcon();
     },
 
-    canInsertStep: (step, targetSequence, targetIndex) => {
-      // console.log('canInsertStep', step, targetSequence, targetIndex);
-      // const previousStep = targetSequence[targetIndex - 1];
-      // if (previousStep && previousStep.type === 'accountAttribute') {
-      //   return false;
-      // }
-      return true;
-    },
+    // canInsertStep: (step, targetSequence, targetIndex) => {
+    //   // console.log('canInsertStep', step, targetSequence, targetIndex);
+    //   // const previousStep = targetSequence[targetIndex - 1];
+    //   // if (previousStep && previousStep.type === 'accountAttribute') {
+    //   //   return false;
+    //   // }
+    //   return true;
+    // },
   };
 
   public readonly toolboxConfiguration: ToolboxConfiguration = {
@@ -445,34 +451,42 @@ export class TransformBuilderComponent {
     ],
   };
 
-  public ngOnInit() {
+  public async ngOnInit() {
     this.updateDefinitionJSON();
+    const [sources, transforms, rules] = await Promise.all([
+          getAvailableSources(this.sdk),
+          getAvailableTransforms(this.sdk),
+          getAvailableRules(this.sdk)
+    ]);
 
-    const editorProvider = EditorProvider.create(this.definitionModel, {
+    const model = createMyDefinitionModel({ sources, transforms, rules });
+
+    if (!model) {
+      throw new Error('Failed to create DefinitionModel.');
+    }
+  
+    this.definitionModel = model;
+    
+
+    if (!this.definitionModel) {
+      throw new Error('DefinitionModel is not initialized.');
+    }
+
+    const editorProvider = EditorProvider.create(definitionModel, {
       uidGenerator: Uid.next,
     });
 
-    this.defaultStepEditorProvider = editorProvider.createStepEditorProvider();
-
-    this.stepEditorProvider = (step, context, definition, isReadonly) => {
-
-      return this.defaultStepEditorProvider!(
-        step,
-        context,
-        definition,
-        isReadonly
-      );
-    };
-
     this.rootEditorProvider = editorProvider.createRootEditorProvider();
+    this.stepEditorProvider = editorProvider.createStepEditorProvider();
 
     this.validatorConfiguration = {
       root: editorProvider.createRootValidator(),
       step: editorProvider.createStepValidator(),
     };
 
-  }
+    console.log('validatorConfiguration', this.validatorConfiguration);
 
+  }
 
   public onDesignerReady(designer: Designer) {
     this.designer = designer;
@@ -499,6 +513,7 @@ export class TransformBuilderComponent {
   private updateIsValid() {
     this.isValid = this.designer?.isValid();
   }
+
   public toggleReadonlyClicked() {
     this.isReadonly = !this.isReadonly;
   }
@@ -608,6 +623,8 @@ export class TransformBuilderComponent {
   }
 
   public getChoicesForProperty(stepType: string, key: string): string[] | null {
+    if (!this.definitionModel) return null;
+
     const stepDef = this.definitionModel.steps[stepType];
     if (!stepDef?.properties) return null;  
     const propDef = stepDef.properties.find(p => p.path.parts[p.path.parts.length - 1] === key);
@@ -633,4 +650,36 @@ export class TransformBuilderComponent {
       return false;
     }
   }
+
+  isRequired(stepName: string, key: string): boolean {
+    if (!this.definitionModel) return false;
+
+    const stepDef = this.definitionModel.steps[stepName];
+    if (!stepDef?.properties) return false;
+    const propDef = stepDef.properties.find(p => p.path.parts[p.path.parts.length - 1] === key);
+    if (!propDef) return false;
+    const config = propDef.value?.configuration;
+    if (!config) return false;
+
+    // NullableVariableValueModelConfiguration
+    if ('isRequired' in config && typeof config.isRequired === 'boolean') {
+      return config.isRequired;
+    }
+  
+    // StringValueModelConfiguration
+    if ('minLength' in config && typeof config.minLength === 'number') {
+      return config.minLength >= 1;
+    }
+  
+    if ('choices' in config && Array.isArray(config.choices)) {
+      return config.choices.length > 1;
+    }
+
+
+    // const stepDef = this.definitionModel.steps[stepName];
+    // console.log('stepDef', stepDef);
+
+    return false;
+  }
+  
 }
