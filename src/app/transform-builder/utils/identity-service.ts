@@ -45,10 +45,12 @@ export class IdentityService {
     };
 
   
-    return from(sdkService.searchPost(request) || Promise.resolve([])).pipe(
+    const searchPromise = sdkService.searchPost?.(request) ?? Promise.resolve([]);
+
+    return from(searchPromise).pipe(
       catchError(err => {
         console.error('Search request failed:', err);
-        return of([]); // Fail gracefully
+        return of([]);
       }),
       switchMap(response => {
         if ('data' in response) {
@@ -57,7 +59,7 @@ export class IdentityService {
           return of([]);
         }
       })
-    );
+    );    
   }
   
 
@@ -135,7 +137,7 @@ export class IdentityService {
     const storedIdentities = localStorage.getItem('selectedIdentities');
     if (storedIdentities) {
       try {
-        const identities = JSON.parse(storedIdentities);
+        const identities:IdentityDocumentsV2025[] = JSON.parse(storedIdentities);
          console.log('Loaded identities from local storage:', identities);
         this.selectedIdentitiesSubject.next(identities);
       } catch (e) {

@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { TransformReadV2025 } from 'sailpoint-api-client';
 import { SailPointSDKService } from '../core/services/electron/sailpoint-sdk.service';
-import { MatDialog } from '@angular/material/dialog';
 import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { CommonModule } from '@angular/common';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { Router } from '@angular/router';
 
 
 
@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
   templateUrl: './transforms.component.html',
   styleUrl: './transforms.component.scss'
 })
-export class TransformsComponent {
+export class TransformsComponent implements OnInit {
     transforms: TransformReadV2025[] = [];
     dataSource: MatTableDataSource<TransformReadV2025> = new MatTableDataSource();
     displayedColumns: string[] = ['id', 'name', 'type', 'internal', 'actions'];
@@ -30,20 +30,23 @@ export class TransformsComponent {
 
   
     ngOnInit() {
-      this.loadIdentities();
+      this.loadTransforms().catch(err => {
+        console.error('Failed to load transforms:', err);
+      });
     }
   
-    async loadIdentities() {
+    private async loadTransforms(): Promise<void> {
       this.loading = true;
       this.hasDataLoaded = false;
   
       try {
         const response = await this.sdk.listTransforms();
-        this.transforms = response.data.filter( transform => transform.internal !== true) ?? [];
+        this.transforms = response.data.filter(transform => transform.internal !== true) ?? [];
         this.dataSource = new MatTableDataSource(this.transforms);
         this.hasDataLoaded = true;
-      } catch (error) {
-        this.openMessageDialog('Error loading transforms: ' + error, 'Error');
+      } catch (error: unknown) {
+        const message = error instanceof Error ? error.message : String(error);
+        this.openMessageDialog(`Error loading transforms: ${message}`, 'Error');
       } finally {
         this.loading = false;
       }
@@ -64,8 +67,8 @@ export class TransformsComponent {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  onEdit(transform: any) {
-    this.router.navigate(['/transform-builder'], { state: { transform } });
+  async onEdit(transform: any) {
+    await this.router.navigate(['/transform-builder'], { state: { transform } })
   }
 
 }

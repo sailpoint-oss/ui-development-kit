@@ -70,7 +70,7 @@ export function serializeStatic(step: StaticStep): {
   export function deserializeStatic(data: any): StaticStep {
     const branches: { [key: string]: Sequence } = {};
     
-    const attributes = data.attributes;
+    const attributes = data.attributes as Record<string, unknown>;
     Object.keys(attributes).forEach((key) => {
       if (key !== 'value') {
         branches[key] = [deserializeToStep(attributes[key])];

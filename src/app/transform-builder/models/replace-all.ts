@@ -72,13 +72,21 @@ export function serializeReplaceAll(step: ReplaceAllStep) {
 }
 
 export function deserializeReplaceAll(data: any): ReplaceAllStep {
+
+  const rawTable = data.attributes.table;
+  const table = new Map<string, string>(
+  rawTable && typeof rawTable === 'object'
+    ? Object.entries(rawTable as { [key: string]: string })
+    : []
+  );
+
   const step: ReplaceAllStep = {
     id: Uid.next(),
     componentType: 'switch',
     name: data.name ?? 'ReplaceAll',
     type: 'replaceAll',
     properties: {
-        table: new Map<string, string>(Object.entries(data.attributes.table)),
+        table: table,
     },
     branches: {
       input: [],

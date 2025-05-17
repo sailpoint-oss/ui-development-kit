@@ -1,7 +1,4 @@
-import { Step, Uid } from 'sequential-workflow-designer';
-import {
-    createStepModel
-} from 'sequential-workflow-editor-model';
+import { Properties, Step, Uid } from 'sequential-workflow-designer';
 
 export function createUUID(): UUIDStep {
   return {
@@ -17,11 +14,8 @@ export function createUUID(): UUIDStep {
 export interface UUIDStep extends Step {
   type: 'uuid';
   componentType: 'task';
-  properties: {
-  };
+  properties: Properties;
 }
-
-export const UUIDModel = createStepModel<UUIDStep>('uuid', 'task', step => {});
 
 export function serializeUUID(step: UUIDStep){
     return {

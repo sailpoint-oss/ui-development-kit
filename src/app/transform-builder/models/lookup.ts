@@ -24,37 +24,6 @@ export interface LookupStep extends BranchedStep {
   };
 }
 
-// export const LookupModel = createStepModel<LookupStep>(
-//     'leftPad',
-//     'switch',
-//     (step) => {
-//       step
-//         .property('padding')
-//         .value(
-//             createStringValueModel({
-//                 minLength: 1,
-//               })
-//         )
-//         .hint(
-//           'This string value represents the character the transform will pad the incoming data to to get to the desired length.'
-//         )
-//         .label('Padding Character');
-
-//     step
-//         .property('length')
-//         .value(
-//             createNumberValueModel({
-//                 min: 1,
-//                 max: 50000,
-//               })
-//         )
-//         .hint(
-//           "This is an integer value for the final output string's desired length."
-//         )
-//         .label('Total Length');
-//     }
-//   );
-
 export function serializeLookup(step: LookupStep) {
   const attributes: Record<string, any> = {
     table: Object.fromEntries(step.properties.table)
@@ -72,13 +41,21 @@ export function serializeLookup(step: LookupStep) {
 }
 
 export function deserializeLookup(data: any): LookupStep {
+
+  const rawTable = data.attributes.table;
+  const table = new Map<string, string>(
+  rawTable && typeof rawTable === 'object'
+    ? Object.entries(rawTable as { [key: string]: string })
+    : []
+  );
+
   const step: LookupStep = {
     id: Uid.next(),
     componentType: 'switch',
     name: data.name ?? 'Lookup',
     type: 'lookup',
     properties: {
-        table: new Map<string, string>(Object.entries(data.attributes.table)),
+        table: table,
     },
     branches: {
       input: [],

@@ -1,4 +1,4 @@
-import { BranchedStep, Step, Uid } from 'sequential-workflow-designer';
+import { BranchedStep, Properties, Step, Uid } from 'sequential-workflow-designer';
 import { deserializeToStep, serializeStep } from '../transform-builder.component';
 
 export function createLower(): LowerStep {
@@ -17,7 +17,7 @@ export function createLower(): LowerStep {
 export interface LowerStep extends BranchedStep {
   type: 'lower';
   componentType: 'switch';
-  properties: {};
+  properties: Properties;
 }
 
 export function serializeLower(step: LowerStep) {

@@ -1,6 +1,5 @@
 import { StepEditorContext } from "sequential-workflow-designer";
 import { BranchedStep, Step } from "sequential-workflow-model";
-import { StaticStep } from "../models/static";
 
 export function createButton(
     text: string,

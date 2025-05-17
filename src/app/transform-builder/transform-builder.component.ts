@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   Designer,
   RootEditorContext,
@@ -36,6 +36,7 @@ import {
   serializeAccountAttribute
 } from './models/account-attribute';
 import {
+  ConcatModel,
   createConcat,
   deserializeConcat,
   getConcatIcon,
@@ -61,13 +62,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Router, RouterModule } from '@angular/router';
 import { TransformReadV2025 } from 'sailpoint-api-client';
-import { definitionModel } from '../builder/builder.component';
 import { SailPointSDKService } from '../core/services/electron/sailpoint-sdk.service';
 import { ConditionalModel, createConditional, deserializeConditional, getConditionalIcon, isConditionalStep, serializeConditional } from './models/conditional';
 import { createDateCompare, DateCompareModel, deserializeDateCompare, getDateCompareIcon, isDateCompareStep, operatorMap, serializeDateCompare } from './models/date-compare';
-import { createDateFormat, DateFormatModel, deserializeDateFormat, getDateFormatIcon, isDateFormatStep, serializeDateFormat } from './models/date-format';
+import { createDateFormat, DateFormatMap, DateFormatModel, deserializeDateFormat, getDateFormatIcon, isDateFormatStep, serializeDateFormat } from './models/date-format';
 import { createDateMath, DateMathModel, deserializeDateMath, getDateMathIcon, isDateMathStep, serializeDateMath } from './models/date-math';
-import { createDecomposeDiacriticalMarks, DecomposeDiacriticalMarksModel, deserializeDecomposeDiacriticalMarks, isDecomposeDiacriticalMarksStep, serializeDecomposeDiacriticalMarks } from './models/decompose-diacritical-marks';
+import { createDecomposeDiacriticalMarks, deserializeDecomposeDiacriticalMarks, isDecomposeDiacriticalMarksStep, serializeDecomposeDiacriticalMarks } from './models/decompose-diacritical-marks';
 import { createE164Phone, deserializeE164Phone, E164PhoneModel, getE164PhoneIcon, isE164PhoneStep, isoAlpha2Map, serializeE164Phone } from './models/e164-phone';
 import { createFirstValid, deserializeFirstValid, FirstValidModel, getFirstValidIcon, isFirstValidStep, serializeFirstValid } from './models/first-valid';
 import { createGenerateRandomString, deserializeGenerateRandomString, GenerateRandomStringModel, isGenerateRandomStringStep, serializeGenerateRandomString } from './models/generate-random-string';
@@ -90,14 +90,13 @@ import { createRFC5646, deserializeRFC5646, isRFC5646Step, serializeRFC5646 } fr
 import { createRightPad, deserializeRightPad, getRightPadIcon, isRightPadStep, serializeRightPad } from './models/right-pad';
 import { createRule, createRuleStepModel, deserializeRule, getAvailableRules, isRuleStep, serializeRule } from './models/rule';
 import { createSplit, deserializeSplit, getSplitIcon, isSplitStep, serializeSplit, SplitModel } from './models/split';
-import { createString, deserializeString, isStringStep, StringModel } from './models/string';
+import { createString, deserializeString, getStringIcon, isStringStep, StringModel } from './models/string';
 import { createSubString, deserializeSubString, getSubStringIcon, isSubStringStep, serializeSubString, SubStringModel } from './models/substring';
 import { createTrim, deserializeTrim, getTrimIcon, isTrimStep, serializeTrim } from './models/trim';
 import { createUpper, deserializeUpper, getUpperIcon, isUpperStep, serializeUpper } from './models/upper';
 import { createUUID, deserializeUUID, getUUIDIcon, isUUIDStep, serializeUUID } from './models/uuid';
 import { MapEditorDialogComponent } from './utils/map-editor-dialog.component';
 import { TransformPreviewComponent } from './utils/transform-preview.component';
-
 
 export interface MyDefinition extends Definition {
   properties: {
@@ -130,11 +129,11 @@ function createMyDefinitionModel(configuration: { sources: string[], transforms:
     model.root(rootModel)
     model.steps([
             createAccountAttributeModel(configuration.sources),
+            ConcatModel,
             ConditionalModel,
             DateCompareModel,
             DateFormatModel,
             DateMathModel,
-            DecomposeDiacriticalMarksModel,
             E164PhoneModel,
             FirstValidModel,
             GenerateRandomStringModel,
@@ -310,7 +309,7 @@ export function deserializeToStep(data: any): Step {
   templateUrl: './transform-builder.component.html',
   styleUrl: './transform-builder.component.scss',
 })
-export class TransformBuilderComponent {
+export class TransformBuilderComponent implements OnInit {
   private designer?: Designer;
   public validatorConfiguration?: ValidatorConfiguration;
   public stepEditorProvider?: StepEditorProvider;
@@ -324,6 +323,7 @@ export class TransformBuilderComponent {
   public isValid?: boolean;
   public isReadonly = false;
   public definitionModel?: DefinitionModel<Definition>;
+  public isReady = false;
 
   constructor(private router: Router, private dialog: MatDialog, private sdk: SailPointSDKService) {
     const nav = this.router.getCurrentNavigation();
@@ -336,15 +336,6 @@ export class TransformBuilderComponent {
       this.definition = createDefinitionFromTransform(this.transform);
       this.isReadonly = false;
     }
-  }
-
-  getStringIcon(): string {
-    const svg = `
-    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" fill="gray"><g><rect fill="none" height="24" width="24"/></g><g><g><g>
-    // <path d="M2.5,4v3h5v12h3V7h5V4H2.5z M21.5,9h-9v3h3v7h3v-7h3V9z"/></g></g></g>
-    // </svg>`;
-  const encoded = encodeURIComponent(svg.trim());
-  return `data:image/svg+xml,${encoded}`;
   }
 
   getDefaultFallbackIcon(): string {
@@ -382,7 +373,7 @@ export class TransformBuilderComponent {
         lower: getLowerIcon,
         upper: getUpperIcon,
         uuid: getUUIDIcon,
-        string: this.getStringIcon,
+        string: getStringIcon,
       };
   
       const iconFn = iconMap[type];
@@ -450,43 +441,46 @@ export class TransformBuilderComponent {
       },
     ],
   };
-
-  public async ngOnInit() {
+  
+  public ngOnInit(): void {
     this.updateDefinitionJSON();
-    const [sources, transforms, rules] = await Promise.all([
+  
+    void (async () => {
+      try {
+        const [sources, transforms, rules] = await Promise.all([
           getAvailableSources(this.sdk),
           getAvailableTransforms(this.sdk),
-          getAvailableRules(this.sdk)
-    ]);
-
-    const model = createMyDefinitionModel({ sources, transforms, rules });
-
-    if (!model) {
-      throw new Error('Failed to create DefinitionModel.');
-    }
+          getAvailableRules(this.sdk),
+        ]);
   
-    this.definitionModel = model;
-    
-
-    if (!this.definitionModel) {
-      throw new Error('DefinitionModel is not initialized.');
-    }
-
-    const editorProvider = EditorProvider.create(definitionModel, {
-      uidGenerator: Uid.next,
-    });
-
-    this.rootEditorProvider = editorProvider.createRootEditorProvider();
-    this.stepEditorProvider = editorProvider.createStepEditorProvider();
-
-    this.validatorConfiguration = {
-      root: editorProvider.createRootValidator(),
-      step: editorProvider.createStepValidator(),
-    };
-
-    console.log('validatorConfiguration', this.validatorConfiguration);
-
+        const model = createMyDefinitionModel({ sources, transforms, rules });
+  
+        if (!model) {
+          throw new Error('Failed to create DefinitionModel.');
+        }
+  
+        this.definitionModel = model;
+  
+        const editorProvider = EditorProvider.create(this.definitionModel, {
+          uidGenerator: () => Uid.next(),
+        });
+  
+        this.rootEditorProvider = editorProvider.createRootEditorProvider();
+        this.stepEditorProvider = editorProvider.createStepEditorProvider();
+  
+        this.validatorConfiguration = {
+          root: editorProvider.createRootValidator(),
+          step: editorProvider.createStepValidator(),
+        };
+  
+        this.isReady = true;
+      } catch (error) {
+        console.error('Failed during ngOnInit async setup:', error);
+      }
+    })();
   }
+  
+  
 
   public onDesignerReady(designer: Designer) {
     this.designer = designer;
@@ -524,8 +518,8 @@ export class TransformBuilderComponent {
     return typeof value === 'boolean';
   }
 
-  isMap(value: any): boolean {
-    return value && typeof value === 'object' && !Array.isArray(value);
+  isMap(value: unknown): value is Record<string, unknown> {
+    return typeof value === 'object' && value !== null && !Array.isArray(value);
   }
 
   editMap(properties: Properties, name: string, context: StepEditorContext): void {
@@ -543,23 +537,33 @@ export class TransformBuilderComponent {
     });
   
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        properties[name] = new Map<string, string>(Object.entries(result));
+      if (this.isStringRecord(result)) {
+        properties[name] = new Map(Object.entries(result));
         context.notifyPropertiesChanged();
       }
     });
+    
+  }
+
+  isStringRecord(value: unknown): value is Record<string, string> {
+    return (
+      typeof value === 'object' &&
+      value !== null &&
+      !Array.isArray(value) &&
+      Object.values(value).every(v => typeof v === 'string')
+    );
   }
 
   togglePreview(): void {
-    const dialogRef = this.dialog.open(TransformPreviewComponent, {
+    this.dialog.open(TransformPreviewComponent, {
       width: '70%',
       height: '75%',
       maxWidth: 'none',
       data: { sdkService: this.sdk, transformDefinition: this.definitionJSON }
     });
   
-    dialogRef.afterClosed().subscribe(result => {
-    });
+    // dialogRef.afterClosed().subscribe(result => {
+    // });
   }
 
   getBranchNames(branches: Record<string, any[]>): string[] {
@@ -600,18 +604,25 @@ export class TransformBuilderComponent {
     const keyToDelete = keys[index];
     delete obj[keyToDelete];
   }
-    public renameBranchAtIndex<T>(obj: Record<string, T[]>, oldKey: string, newKey: string, context: StepEditorContext): void {
-    if (!obj.hasOwnProperty(oldKey) || oldKey === newKey) return;
 
-    if (obj.hasOwnProperty(newKey)) {
-      throw new Error(`Key "${newKey}" already exists.`);
-    }
-  
-    obj[newKey] = obj[oldKey];
-    delete obj[oldKey];
-    
-    context.notifyChildrenChanged();
+
+public renameBranchAtIndex<T>(
+  obj: Record<string, T[]>,
+  oldKey: string,
+  newKey: string,
+  context: StepEditorContext
+): void {
+  if (!Object.prototype.hasOwnProperty.call(obj, oldKey) || oldKey === newKey) return;
+
+  if (Object.prototype.hasOwnProperty.call(obj, newKey)) {
+    throw new Error(`Key "${newKey}" already exists.`);
   }
+
+  obj[newKey] = obj[oldKey];
+  delete obj[oldKey];
+
+  context.notifyChildrenChanged();
+}
 
   public addBranch(
     branches: Branches,
@@ -635,7 +646,8 @@ export class TransformBuilderComponent {
   stepTypeMap: Record<string, Record<string, string>> = {
     e164phone: isoAlpha2Map,
     dateCompare: operatorMap,
-    iso3166: iso3166Map
+    iso3166: iso3166Map,
+    dateFormat: DateFormatMap
   }
   
   public getChoiceLabel(stepType: string, choice: string): string {

@@ -2,7 +2,7 @@ import {
   Step,
   Uid
 } from 'sequential-workflow-designer';
-import { createStepModel } from 'sequential-workflow-editor-model';
+import { createStepModel, createStringValueModel } from 'sequential-workflow-editor-model';
 
 export function createGetReferenceIdentityAttribute(): GetReferenceIdentityAttributeStep  {
     return {
@@ -30,6 +30,24 @@ export function createGetReferenceIdentityAttribute(): GetReferenceIdentityAttri
     'getReferenceIdentityAttribute',
     'task',
     (step) => {
+
+      step
+        .property('uid')
+        .value(
+          createStringValueModel({
+            minLength: 1,
+          })
+        )
+        .label('Reference Identity UID');
+
+      step
+        .property('attributeName')
+        .value(
+          createStringValueModel({
+            minLength: 1,
+          })
+        )
+        .label('Attribute Name');
     }
   );
   

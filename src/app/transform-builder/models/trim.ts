@@ -1,4 +1,4 @@
-import { BranchedStep, Step, Uid } from 'sequential-workflow-designer';
+import { BranchedStep, Properties, Step, Uid } from 'sequential-workflow-designer';
 import { deserializeToStep, serializeStep } from '../transform-builder.component';
 
 export function createTrim(): TrimStep {
@@ -17,7 +17,7 @@ export function createTrim(): TrimStep {
 export interface TrimStep extends BranchedStep {
   type: 'trim';
   componentType: 'switch';
-  properties: {};
+  properties: Properties;
 }
 
 export function serializeTrim(step: TrimStep) {

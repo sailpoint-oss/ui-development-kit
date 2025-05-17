@@ -1,5 +1,6 @@
 import { BranchedStep, Step, Uid } from 'sequential-workflow-designer';
 import {
+  createChoiceValueModel,
   createStepModel,
   createStringValueModel
 } from 'sequential-workflow-editor-model';
@@ -37,9 +38,16 @@ export const DateFormatModel = createStepModel<DateFormatStep>(
       step
         .property('inputFormat')
         .value(
-            createStringValueModel({
-                minLength: 1,
-              })
+          createChoiceValueModel({
+            choices: [
+              'ISO8601',
+              'LDAP',
+              'PEOPLE_SOFT',
+              'EPOCH_TIME_JAVA',
+              'EPOCH_TIME_WIN32',
+              'CUSTOM'
+            ],
+          })
         )
         .hint(
           'This string value indicates either the explicit SimpleDateFormat or the built-in named format of the incoming data.'
@@ -111,4 +119,13 @@ export function getDateFormatIcon(): string {
   </svg>`;
 const encoded = encodeURIComponent(svg.trim());
 return `data:image/svg+xml,${encoded}`;
+}
+
+export const DateFormatMap: Record<string, string> = {
+  "ISO8601": "ISO8601",
+  "LDAP": "LDAP",
+  "PEOPLE_SOFT": "PeopleSoft",
+  "EPOCH_TIME_JAVA": "Epoch Time (Java)",
+  "EPOCH_TIME_WIN32": "Epoch Time (Win32)",
+  "CUSTOM": "CUSTOM SimpleDateFormat",
 }

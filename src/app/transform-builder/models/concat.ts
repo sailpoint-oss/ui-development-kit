@@ -1,5 +1,6 @@
 import {
   BranchedStep,
+  Properties,
   Sequence,
   Step,
   Uid
@@ -26,7 +27,7 @@ export function createConcat(): ConcatStep {
 export interface ConcatStep extends BranchedStep {
   type: 'concat';
   componentType: 'switch';
-  properties: {};
+  properties: Properties;
 }
 
 export const ConcatModel = createStepModel<ConcatStep>(
@@ -44,7 +45,7 @@ export function serializeConcat(step: ConcatStep): {
 } {
   const arrayOfValues = [];
 
-  for (const [_, sequence] of Object.entries(step.branches)) {
+  for (const [, sequence] of Object.entries(step.branches)) {
     for (const step of sequence) {
       arrayOfValues.push(serializeStep(step));
     }

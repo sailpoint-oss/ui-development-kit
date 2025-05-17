@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -48,7 +48,7 @@ import { IdentityService } from './identity-service';
   ],
   standalone: true
 })
-export class IdentitySearchComponent implements OnInit, OnDestroy {
+export class IdentitySearchComponent implements OnInit, OnChanges, OnDestroy {
   @Input() profileId: string | null = null;
   @Input()
     sdkService!: SailPointSDKService;
@@ -184,7 +184,7 @@ export class IdentitySearchComponent implements OnInit, OnDestroy {
    * Handle selection change events
    */
   onSelectionChange(event: MatSelectionListChange): void {
-    const selectedIds = event.source.selectedOptions.selected.map(option => option.value);
+    const selectedIds = event.source.selectedOptions.selected.map(option => option.value as string);
     this.selectedIdentities = this.identities.filter(identity => selectedIds.includes(identity.id));
     this.identityService.updateSelectedIdentities(this.selectedIdentities);
     this.identitiesSelected.emit(this.selectedIdentities);

@@ -89,7 +89,7 @@ import { deserializeToStep, serializeStep } from '../transform-builder.component
   export function deserializeDateCompare(data: any): DateCompareStep {
       const branches: { [key: string]: Sequence } = {};
       
-      const attributes = data.attributes;
+      const attributes = data.attributes as Record<string, unknown>;
       Object.keys(attributes).forEach((key) => {
         if (key !== 'operator') {
           branches[key] = [deserializeToStep(attributes[key])];

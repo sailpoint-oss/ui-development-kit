@@ -1,7 +1,7 @@
-import { BranchedStep, Step, Uid } from 'sequential-workflow-designer';
+import { BranchedStep, Properties, Step, Uid } from 'sequential-workflow-designer';
 import {
-    deserializeToStep,
-    serializeStep,
+  deserializeToStep,
+  serializeStep,
 } from '../transform-builder.component';
 
 export function createRFC5646(): RFC5646Step {
@@ -20,7 +20,7 @@ export function createRFC5646(): RFC5646Step {
 export interface RFC5646Step extends BranchedStep {
   type: 'rfc5646';
   componentType: 'switch';
-  properties: {};
+  properties: Properties;
 }
 
 export function serializeRFC5646(step: RFC5646Step) {

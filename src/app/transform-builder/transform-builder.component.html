@@ -30,8 +30,8 @@
 
 
 
-<sqd-designer
-  theme="dark"
+<sqd-designer *ngIf="isReady"
+  theme="light"
   [definition]="definition"
   [toolboxConfiguration]="toolboxConfiguration"
   [stepsConfiguration]="stepsConfiguration"
@@ -98,6 +98,18 @@
                 </mat-error>
               </mat-form-field>
             </ng-container>
+
+            <div *ngIf="key === 'inputFormat' && editor.step.properties[key] === 'CUSTOM'">
+              <mat-form-field appearance="fill" style="display: block; margin-top: 1rem;">
+                <mat-label>Custom Input Format</mat-label>
+                <input matInput [(ngModel)]="customInputDate"
+                       [readonly]="editor.isReadonly"
+                       [required]="true">
+                       </mat-form-field>
+                       <div class="preview" *ngIf="preview">
+                        <strong>Preview:</strong> {{ preview }}
+                      </div>
+            </div>
         
             <ng-template #defaultInput>
               <mat-form-field appearance="fill" style="display: block; margin-top: 1rem;">

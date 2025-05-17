@@ -17,7 +17,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { TransformResult } from './transform-preview.component';
 
 @Component({
-  selector: 'transform-results',
+  selector: 'app-transform-results',
   templateUrl: './transform-results.component.html',
   styleUrls: ['./transform-results.component.scss'],
   imports: [
@@ -80,56 +80,6 @@ export class TransformResultsComponent implements OnInit, OnChanges {
    */
   togglePanel(identityName: string): void {
     this.expandedPanels[identityName] = !this.expandedPanels[identityName];
-  }
-
-  /**
-   * Get property pairs for display in table
-   */
-//   getPropertyPairs(result: TransformResult): { property: string, original: any, transformed: any }[] {
-//     const allProperties = new Set([
-//       ...Object.keys(result.originalData || {}),
-//       ...Object.keys(result.transformedData || {})
-//     ]);
-    
-//     return Array.from(allProperties).map(property => ({
-//       property,
-//       original: result.originalData?.[property],
-//       transformed: result.transformedData?.[property]
-//     }));
-//   }
-
-  /**
-   * Check if a value has been changed in the transform
-   */
-  isValueChanged(original: any, transformed: any): boolean {
-    if (original === transformed) return false;
-    
-    // Deep comparison for objects
-    if (typeof original === 'object' && typeof transformed === 'object') {
-      // Handle null cases
-      if (original === null || transformed === null) return original !== transformed;
-      
-      if (Array.isArray(original) && Array.isArray(transformed)) {
-        if (original.length !== transformed.length) return true;
-        for (let i = 0; i < original.length; i++) {
-          if (this.isValueChanged(original[i], transformed[i])) return true;
-        }
-        return false;
-      }
-      
-      const keys1 = Object.keys(original);
-      const keys2 = Object.keys(transformed);
-      
-      if (keys1.length !== keys2.length) return true;
-      
-      for (const key of keys1) {
-        if (this.isValueChanged(original[key], transformed[key])) return true;
-      }
-      
-      return false;
-    }
-    
-    return true;
   }
 
   /**

@@ -1,8 +1,8 @@
 import { SPConfigV2025ApiExportSpConfigRequest, SPConfigV2025ApiGetSpConfigExportRequest, SPConfigV2025ApiGetSpConfigExportStatusRequest } from 'sailpoint-api-client';
 import { Step, Uid } from 'sequential-workflow-designer';
 import {
-    createChoiceValueModel,
-    createStepModel
+  createChoiceValueModel,
+  createStepModel
 } from 'sequential-workflow-editor-model';
 import { SailPointSDKService } from '../../core/services/electron/sailpoint-sdk.service';
 
@@ -39,60 +39,55 @@ export function createRuleStepModel(rules: string[]) {
 }
 
 export async function getAvailableRules(sdk: SailPointSDKService): Promise<string[]> {
-    const request: SPConfigV2025ApiExportSpConfigRequest = {
-        exportPayloadV2025: {
-            description: 'Export rules',
-            includeTypes: ['RULE'],
-            objectOptions: {}
-        }
+  const request: SPConfigV2025ApiExportSpConfigRequest = {
+    exportPayloadV2025: {
+      description: 'Export rules',
+      includeTypes: ['RULE'],
+      objectOptions: {}
     }
-    const job = await sdk.exportSpConfig(request)
+  };
+  
+  const job = await sdk.exportSpConfig(request);
 
-    if (job.status !== 202) {
-        console.error('Error fetching rules:', job.data);
-    }
+  if (job.status !== 202) {
+    console.error('Error fetching rules:', job.data);
+    return [];
+  }
 
-    while (true) {
-        console.log('Waiting for job to complete...');
-        try {
-            const request: SPConfigV2025ApiGetSpConfigExportStatusRequest = {
-                id: job.data.jobId
+  while (true) {
+    console.log('Waiting for job to complete...');
+    
+    const statusRequest: SPConfigV2025ApiGetSpConfigExportStatusRequest = {
+      id: job.data.jobId
+    };
+    const { data: response } = await sdk.getSpConfigExportStatus(statusRequest);
+
+    if (response.status === 'NOT_STARTED' || response.status === 'IN_PROGRESS') {
+      await new Promise(resolve => setTimeout(resolve, 3000));
+    } else {
+      switch (response.status) {
+        case 'COMPLETE': {
+          const downloadRequest: SPConfigV2025ApiGetSpConfigExportRequest = {
+            id: job.data.jobId
+          };
+          const { data: exportData } = await sdk.getSpConfigExport(downloadRequest);
+          const rules = [];
+
+          for (const obj of exportData.objects ?? []) {
+            if (obj.object?.type === 'Transform') {
+              rules.push(obj.self?.name);
             }
-            const { data: response } = await sdk.getSpConfigExportStatus(request);
-            
-            if (response.status === 'NOT_STARTED' || response.status === 'IN_PROGRESS') {
-              await setTimeout(() => {}, 3000); // wait for 3 second
-            } else {
-              switch (response.status) {
-                case 'COMPLETE': {
-                    const downloadRequest: SPConfigV2025ApiGetSpConfigExportRequest = {
-                        id: job.data.jobId,
-                    }
-
-                const rules = [];
-                  const { data: exportData } = await sdk.getSpConfigExport(downloadRequest);
-                  
-                    if(exportData && exportData.objects?.length !== 0) {
-
-                        for (const obj of exportData.objects ?? []) {
-                            // Process each object as needed
-                            if(obj.object?.type === 'Transform') {
-                                rules.push(obj.self?.name)
-                            }
-                        }
-                    return rules.filter((rule): rule is string => rule !== undefined);
-                    }
-                    break;
-                }
-                default:
-                  throw new Error(`Unhandled status: ${response.status}`);
-              }
-            }
-          } catch (err) {
-            throw err;
           }
+
+          return rules.filter((rule): rule is string => rule !== undefined);
+        }
+        default:
+          throw new Error(`Unhandled status: ${response.status}`);
+      }
     }
+  }
 }
+
 
 export function serializeRule(step: RuleStep){
     return {

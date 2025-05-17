@@ -1,5 +1,5 @@
 import { Uid } from "sequential-workflow-designer";
-import { BranchedStep, Step } from "sequential-workflow-model";
+import { BranchedStep, Properties, Step } from "sequential-workflow-model";
 import { deserializeToStep, serializeStep } from "../transform-builder.component";
 
 export function createNameNormalizer(): NameNormalizerStep {
@@ -18,7 +18,7 @@ export function createNameNormalizer(): NameNormalizerStep {
 export interface NameNormalizerStep extends BranchedStep {
     type: 'NameNormalizer';
     componentType: 'switch';
-    properties: {};
+    properties: Properties;
 }
 
 

@@ -2,7 +2,7 @@ import {
   Step,
   Uid
 } from 'sequential-workflow-designer';
-import { createStepModel } from 'sequential-workflow-editor-model';
+import { createNumberValueModel, createStepModel } from 'sequential-workflow-editor-model';
 
 export function createGenerateRandomString(): GenerateRandomStringStep  {
     return {
@@ -32,6 +32,10 @@ export function createGenerateRandomString(): GenerateRandomStringStep  {
     'generateRandomString',
     'task',
     (step) => {
+      step.property('length').value(createNumberValueModel({
+        min: 1,
+        max: 450
+      }))
     }
   );
 

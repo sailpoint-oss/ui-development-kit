@@ -24,6 +24,14 @@
     ],
     "useDefineForClassFields": false
   },
+  "include": [
+    "src/**/*.d.ts",
+    "src/**/*.ts",
+    "src/**/*.html",
+    "src/**/*.css",
+    "src/**/*.scss",
+    "src/**/*.json"
+  ],
   "exclude": [
     "node_modules"
   ],

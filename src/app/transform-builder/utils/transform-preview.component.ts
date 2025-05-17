@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -32,7 +32,7 @@ export type TransformResult = {
 }
 
 @Component({
-  selector: 'preview-stepper',
+  selector: 'app-preview-stepper',
   templateUrl: './transform-preview.component.html',
   styleUrl: './transform-preview.component.scss',
   standalone: true,
@@ -88,10 +88,27 @@ export class TransformPreviewComponent implements OnInit {
     this.sdk = data.sdkService;
     this.transformCode = data.transformDefinition;
     this.transformForm = this.fb.group({
-      profileId: [null, Validators.required],
+      profileId: [null, (control: AbstractControl<any, any>) => Validators.required(control)],
     });
+    
 
-    this.transformName = JSON.parse(data.transformDefinition).name || 'Transform';
+    if (typeof data.transformDefinition === 'string') {
+      const parsed = JSON.parse(data.transformDefinition);
+    
+      if (
+        parsed &&
+        typeof parsed === 'object' &&
+        'name' in parsed
+      ) {
+        this.transformName = (parsed as { name: string }).name;
+      } else {
+        this.transformName = 'Transform';
+      }
+    } else {
+      this.transformName = 'Transform';
+    }
+    
+
   }
 
   ngOnInit(): void {
@@ -115,10 +132,10 @@ export class TransformPreviewComponent implements OnInit {
   private _formBuilder = inject(FormBuilder);
 
   firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
+    firstCtrl: [null, (control: AbstractControl<any, any>) => Validators.required(control)],
   });
   secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
+    secondCtrl: [null, (control: AbstractControl<any, any>) => Validators.required(control)],
   });
 
 

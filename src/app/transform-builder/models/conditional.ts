@@ -86,7 +86,7 @@ export function serializeConditional(step: ConditionalStep): {
 export function deserializeConditional(data: any): ConditionalStep {
     const branches: { [key: string]: Sequence } = {};
     
-    const attributes = data.attributes;
+    const attributes = data.attributes as Record<string, unknown>
     Object.keys(attributes).forEach((key) => {
       if (key !== 'expression') {
         branches[key] = [deserializeToStep(attributes[key])];
