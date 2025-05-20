@@ -167,11 +167,43 @@ function parseJwt(token: string): any {
 }
 
 // Helper function to decrypt token info
-async function decryptTokenInfo(tokenInfo: string, encryptionKey: string): Promise<string> {
-  // Implement decryption logic here
-  // This is a placeholder - you'll need to implement the actual decryption
-  // based on your encryption method
-  return tokenInfo;
+async function decryptTokenInfo(encryptedToken: string, encryptionKey: string): Promise<string> {
+  try {
+    // Split the IV and encrypted data
+    const parts = encryptedToken.split(':');
+    if (parts.length !== 2) {
+      throw new Error('invalid encrypted token format');
+    }
+
+    // Convert hex-encoded IV and encrypted data to Buffer
+    const iv = Buffer.from(parts[0], 'hex');
+    const encryptedData = Buffer.from(parts[1], 'hex');
+
+    // Convert hex-encoded encryption key to Buffer
+    const key = Buffer.from(encryptionKey, 'hex');
+
+    // Create decipher
+    const crypto = require('crypto');
+    const decipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
+
+    // Decrypt the data
+    let decrypted = Buffer.concat([
+      decipher.update(encryptedData),
+      decipher.final()
+    ]);
+
+    // Remove PKCS7 padding
+    const paddingLen = decrypted[decrypted.length - 1];
+    if (paddingLen > 16 || paddingLen === 0) {
+      throw new Error('invalid padding size');
+    }
+    decrypted = decrypted.subarray(0, decrypted.length - paddingLen);
+
+    return decrypted.toString('utf8');
+  } catch (error) {
+    console.error('Decryption error:', error);
+    throw error;
+  }
 }
 
 interface HarborPilotChatResponse {
