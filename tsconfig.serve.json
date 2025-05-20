@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "sourceMap": true,
-    "outDir": "./dist/js",
+    "outDir": "./electron-dist",
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,

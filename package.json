@@ -22,7 +22,7 @@
     "mac",
     "linux"
   ],
-  "main": "dist/js/main.js",
+  "main": "electron-dist/main.js",
   "private": true,
   "scripts": {
     "ng": "ng",

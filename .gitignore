@@ -6,6 +6,7 @@
 /out-tsc
 /app-builds
 /release
+/electron-dist
 main.js
 src/**/*.js
 *.js.map
