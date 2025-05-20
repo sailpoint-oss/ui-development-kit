@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
     "sourceMap": true,
+    "outDir": "./dist/js",
+    "allowJs": true,
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
@@ -18,7 +20,7 @@
     ]
   },
   "files": [
-    "app/main.ts"
+    "app/main.ts", "app/preload.js", "app/sailpoint-sdk/sdk-preload.js"
   ],
   "exclude": [
     "node_modules",
