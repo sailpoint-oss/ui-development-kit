@@ -12,6 +12,10 @@
     {
       "from": "../dist",
       "filter": ["**/*"]
+    },
+    {
+      "from": "../electron-dist",
+      "filter": ["**/*"]
     }
   ],
   "buildDependenciesFromSource": false,
