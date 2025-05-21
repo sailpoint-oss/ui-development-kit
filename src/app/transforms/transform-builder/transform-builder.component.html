@@ -1,6 +1,5 @@
-<div class="info-line"> <h2>{{definition.properties.name}}</h2> 	<span>Is valid: <strong>{{ isValid }}</strong></span></div>
-&nbsp;
-<div class="block topButtonRowContainer">
+<!-- <div class="info-line"> <h2>{{definition.properties.name}}</h2> 	<span>Is valid: <strong>{{ isValid }}</strong></span></div> -->
+<!-- <div class="block topButtonRowContainer">
 	<button class="topButtonRow" mat-raised-button color="primary" [routerLink]="['/transforms']">Back to table</button>
 	&nbsp;
 	<button class="topButtonRow" mat-raised-button color="primary" (click)="toggleReadonlyClicked()">
@@ -21,14 +20,19 @@
   <button class="topButtonRow" mat-raised-button color="primary" (click)="togglePreview()">
 		Preview Transform
 	</button>
-</div>
+</div> -->
 <!-- 
 <div class="block">
 	<textarea appearance="fill" class="full-width custom-fill-field"f matInput cols="120" rows="16" readonly>{{ definitionJSON }}</textarea>
 </div> -->
 
+  <button class="preview-buttion" mat-raised-button color="primary" (click)="togglePreview()">
+		Preview Transform
+  </button>
 
-
+<div *ngIf="!isReady" class="spinner-container">
+  <mat-spinner diameter="75"></mat-spinner>
+</div>
 
 <sqd-designer *ngIf="isReady"
   theme="light"

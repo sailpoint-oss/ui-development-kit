@@ -7,7 +7,7 @@ import {
   createStringValueModel,
   NullableVariable,
 } from 'sequential-workflow-editor-model';
-import { SailPointSDKService } from '../../core/services/electron/sailpoint-sdk.service';
+import { SailPointSDKService } from '../../../core/services/electron/sailpoint-sdk.service';
 
 export function createAccountAttribute(): AccountAttributeStep {
   return {

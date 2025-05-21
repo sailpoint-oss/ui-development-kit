@@ -1,9 +1,11 @@
 <!-- Filter -->
+ <div *ngIf="!editing" class="transforms-container">
+  <!-- Filter Input -->
 <mat-form-field appearance="fill" class="custom-fill-field">
     <mat-label>Filter</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
   </mat-form-field>
-  <button id="new-transform-button" mat-raised-button color="primary" (click)="onEdit(transform)">Create New</button>
+  <button id="new-transform-button" mat-raised-button color="primary" (click)="onEdit(undefined)">Create New</button>
 
   
   <!-- Spinner -->
@@ -61,4 +63,10 @@
   <div *ngIf="!loading && hasDataLoaded && transforms.length === 0" class="empty-message">
     No Transforms found.
   </div>
-  
+
+</div>
+
+<div *ngIf="editing" class="transform-builder-container">
+  <button mat-button class="back-button" (click)="editing = false">Back</button>
+  <app-transform-builder [transform]="transform"></app-transform-builder>
+</div>

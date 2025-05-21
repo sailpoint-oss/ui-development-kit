@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import {
   Designer,
   RootEditorContext,
@@ -58,11 +58,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatFormField } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Router, RouterModule } from '@angular/router';
 import { TransformReadV2025 } from 'sailpoint-api-client';
-import { SailPointSDKService } from '../core/services/electron/sailpoint-sdk.service';
+import { SailPointSDKService } from '../../core/services/electron/sailpoint-sdk.service';
 import { ConditionalModel, createConditional, deserializeConditional, getConditionalIcon, isConditionalStep, serializeConditional } from './models/conditional';
 import { createDateCompare, DateCompareModel, deserializeDateCompare, getDateCompareIcon, isDateCompareStep, operatorMap, serializeDateCompare } from './models/date-compare';
 import { createDateFormat, DateFormatMap, DateFormatModel, deserializeDateFormat, getDateFormatIcon, isDateFormatStep, serializeDateFormat } from './models/date-format';
@@ -292,7 +293,7 @@ export function deserializeToStep(data: any): Step {
   throw new Error(`Unsupported step type: ${data.type}`);
 }
 @Component({
-  selector: 'app-builder',
+  selector: 'app-transform-builder',
   standalone: true,
   imports: [
     SequentialWorkflowDesignerModule,
@@ -304,39 +305,31 @@ export function deserializeToStep(data: any): Step {
     FormsModule,
     MatSlideToggleModule,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './transform-builder.component.html',
   styleUrl: './transform-builder.component.scss',
+  encapsulation: ViewEncapsulation.None
 })
 export class TransformBuilderComponent implements OnInit {
+  @Input() transform?: TransformReadV2025;
+
   private designer?: Designer;
   public validatorConfiguration?: ValidatorConfiguration;
   public stepEditorProvider?: StepEditorProvider;
   public rootEditorProvider?: RootEditorProvider;
-  public definition: Definition;
+  public definition?: Definition;
   public definitionJSON?: string;
   public isToolboxCollapsed = false;
   public isEditorCollapsed = false;
   private defaultStepEditorProvider?: StepEditorProvider;
-  public transform?: TransformReadV2025;
   public isValid?: boolean;
   public isReadonly = false;
   public definitionModel?: DefinitionModel<Definition>;
   public isReady = false;
 
-  constructor(private router: Router, private dialog: MatDialog, private sdk: SailPointSDKService) {
-    const nav = this.router.getCurrentNavigation();
-    this.transform = nav?.extras?.state?.transform;
-
-    if (!this.transform) {
-      this.definition = createDefinition();
-    } else {
-      // Deserialize the transform into a definition
-      this.definition = createDefinitionFromTransform(this.transform);
-      this.isReadonly = false;
-    }
-  }
+  constructor(private router: Router, private dialog: MatDialog, private sdk: SailPointSDKService) {}
 
   getDefaultFallbackIcon(): string {
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
@@ -385,12 +378,23 @@ export class TransformBuilderComponent implements OnInit {
     },
 
     // canInsertStep: (step, targetSequence, targetIndex) => {
-    //   // console.log('canInsertStep', step, targetSequence, targetIndex);
-    //   // const previousStep = targetSequence[targetIndex - 1];
-    //   // if (previousStep && previousStep.type === 'accountAttribute') {
-    //   //   return false;
-    //   // }
-    //   return true;
+    //   console.log('canInsertStep', step, targetSequence, targetIndex);
+    //   // return true;
+
+    //   if (step.componentType !== 'task') return true;
+
+    //   const prev = targetSequence[targetIndex - 1];
+    //   const next = targetSequence[targetIndex + 1];
+    
+    //   const hasAdjacentTask =
+    //     (prev && prev.componentType === 'task') ||
+    //     (next && next.componentType === 'task');
+
+    //   console.log('hasAdjacentTask', hasAdjacentTask);
+    //   if(prev) console.log(`prevComponent`, prev.componentType);
+    //   if(next) console.log(`nextComponent`, next.componentType);
+    
+    //   return !hasAdjacentTask;
     // },
   };
 
@@ -443,6 +447,14 @@ export class TransformBuilderComponent implements OnInit {
   };
   
   public ngOnInit(): void {
+
+    if (!this.transform) {
+      this.definition = createDefinition();
+    } else {
+      this.definition = createDefinitionFromTransform(this.transform);
+      this.isReadonly = false;
+    }
+
     this.updateDefinitionJSON();
   
     void (async () => {
@@ -493,7 +505,7 @@ export class TransformBuilderComponent implements OnInit {
   }
 
   private updateDefinitionJSON() {
-    const transformedResult = serializeStep(this.definition.sequence[0]);
+    const transformedResult = this.definition?.sequence?.[0] ? serializeStep(this.definition.sequence[0]) : undefined;
     this.definitionJSON = JSON.stringify(transformedResult, null, 2);
   }
 
@@ -510,6 +522,11 @@ export class TransformBuilderComponent implements OnInit {
 
   public toggleReadonlyClicked() {
     this.isReadonly = !this.isReadonly;
+  }
+
+  public onSelectedStepIdChanged(selectedStepId: string | null) {
+    console.log('onSelectedStepIdChanged', selectedStepId);
+    this.isEditorCollapsed = false;
   }
 
   objectKeys = Object.keys;

@@ -38,10 +38,7 @@
             ],
             "styles": [
               "@angular/material/prebuilt-themes/magenta-violet.css",
-              "src/styles.scss",
-              "./node_modules/sequential-workflow-designer/css/designer.css",
-              "./node_modules/sequential-workflow-designer/css/designer-light.css",
-              "./node_modules/sequential-workflow-designer/css/designer-dark.css"
+              "src/styles.scss"
             ],
             "scripts": [],
             "customWebpackConfig": {

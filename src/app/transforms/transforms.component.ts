@@ -9,13 +9,14 @@ import { Router } from '@angular/router';
 import { TransformReadV2025 } from 'sailpoint-api-client';
 import { SailPointSDKService } from '../core/services/electron/sailpoint-sdk.service';
 import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
+import { TransformBuilderComponent } from './transform-builder/transform-builder.component';
 
 
 
 @Component({
   selector: 'app-transforms',
   standalone: true,
-  imports: [MatTableModule, CommonModule, MatProgressSpinnerModule, MatInputModule, MatButtonModule],
+  imports: [MatTableModule, CommonModule, MatProgressSpinnerModule, MatInputModule, MatButtonModule, TransformBuilderComponent],
   templateUrl: './transforms.component.html',
   styleUrl: './transforms.component.scss'
 })
@@ -25,6 +26,8 @@ export class TransformsComponent implements OnInit {
     displayedColumns: string[] = ['id', 'name', 'type', 'internal', 'actions'];
     loading = false;
     hasDataLoaded = false; // ✅ Track data load state
+    transform: TransformReadV2025 | undefined;
+    editing = false;
   
     constructor(private dialog: MatDialog, private sdk: SailPointSDKService, private router: Router) {}
 
@@ -67,8 +70,14 @@ export class TransformsComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  async onEdit(transform: any) {
-    await this.router.navigate(['/transform-builder'], { state: { transform } })
+  // async onEdit(transform: any) {
+  //   await this.router.navigate(['/transform-builder'], { state: { transform } })
+  // }
+
+  onEdit(transform?: TransformReadV2025): void {
+    this.transform = transform;
+    this.editing = true;
   }
+  
 
 }

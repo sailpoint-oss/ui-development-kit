@@ -47,6 +47,7 @@ export const DateFormatModel = createStepModel<DateFormatStep>(
               'EPOCH_TIME_WIN32',
               'CUSTOM'
             ],
+            defaultValue: 'ISO8601',
           })
         )
         .hint(

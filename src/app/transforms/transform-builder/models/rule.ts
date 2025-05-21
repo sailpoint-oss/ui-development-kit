@@ -4,7 +4,7 @@ import {
   createChoiceValueModel,
   createStepModel
 } from 'sequential-workflow-editor-model';
-import { SailPointSDKService } from '../../core/services/electron/sailpoint-sdk.service';
+import { SailPointSDKService } from '../../../core/services/electron/sailpoint-sdk.service';
 
 
 export function createRule(): RuleStep {

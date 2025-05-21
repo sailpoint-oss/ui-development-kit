@@ -71,7 +71,7 @@ export function deserializeConcat(data: any): ConcatStep {
     id: Uid.next(),
     componentType: 'switch',
     type: 'concat',
-    name: data.name ?? 'Concatenate',
+    name: data.name ? `Concatenate (${data.name})` : 'Concatenate',
     properties: {},
     branches: branches,
   };

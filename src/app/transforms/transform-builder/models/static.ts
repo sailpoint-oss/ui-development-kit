@@ -81,7 +81,7 @@ export function serializeStatic(step: StaticStep): {
     id: Uid.next(),
     componentType: 'switch',
     type: 'static',
-    name: data.name ?? 'Static',
+    name: data.name ? `Static (${data.name})` : 'Static',
     properties: { value: data.attributes.value},
     branches: branches,
   };

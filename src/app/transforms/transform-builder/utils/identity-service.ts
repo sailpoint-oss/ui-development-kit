@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, from, Observable, of, switchMap } from 'rxjs';
 import { IdentityDocumentsV2025, SearchV2025ApiSearchPostRequest } from 'sailpoint-api-client';
-import { SailPointSDKService } from '../../core/services/electron/sailpoint-sdk.service';
+import { SailPointSDKService } from '../../../core/services/electron/sailpoint-sdk.service';
 
 
 @Injectable({
