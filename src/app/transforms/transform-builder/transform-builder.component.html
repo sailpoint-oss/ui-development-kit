@@ -30,6 +30,10 @@
 		Preview Transform
   </button>
 
+  <mat-card appearance="outlined" class="transform-name">
+    <mat-card-content>{{definition.properties.name}}</mat-card-content>
+  </mat-card>
+
 <div *ngIf="!isReady" class="spinner-container">
   <mat-spinner diameter="75"></mat-spinner>
 </div>
