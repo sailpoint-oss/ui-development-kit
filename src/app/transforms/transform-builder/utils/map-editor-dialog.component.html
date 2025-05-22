@@ -1,0 +1,44 @@
+<div style="padding: 5px;">
+<h1 mat-dialog-title>Edit Table</h1>
+
+<div mat-dialog-content>
+  <table mat-table [dataSource]="rows" class="mat-elevation-z8" style="width: 100%;">
+    <ng-container matColumnDef="key">
+      <th mat-header-cell *matHeaderCellDef>Key</th>
+      <td mat-cell *matCellDef="let row; let i = index">
+        <mat-form-field appearance="fill" style="width: 100%;">
+        <input matInput [(ngModel)]="rows[i].key">
+        </mat-form-field>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="value">
+      <th mat-header-cell *matHeaderCellDef>Value</th>
+      <td mat-cell *matCellDef="let row; let i = index">
+        <mat-form-field appearance="fill" style="width: 100%;">
+        <input matInput [(ngModel)]="rows[i].value">
+        </mat-form-field>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let row; let i = index">
+        <button mat-icon-button color="warn" (click)="removeRow(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['key', 'value', 'actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['key', 'value', 'actions']"></tr>
+  </table>
+
+  <button mat-button (click)="addRow()" style="margin-top: 1rem;">Add Row</button>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-flat-button color="primary" (click)="save()">Save</button>
+</div>
+</div>

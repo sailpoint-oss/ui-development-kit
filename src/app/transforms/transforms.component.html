@@ -1,0 +1,72 @@
+<!-- Filter -->
+ <div *ngIf="!editing" class="transforms-container">
+  <!-- Filter Input -->
+<mat-form-field appearance="fill" class="custom-fill-field">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+  </mat-form-field>
+  <button id="new-transform-button" mat-raised-button color="primary" (click)="onEdit(undefined)">Create New</button>
+
+  
+  <!-- Spinner -->
+  <div *ngIf="loading" class="spinner-container">
+    <mat-spinner diameter="75"></mat-spinner>
+  </div>
+  
+  <!-- Table -->
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="!loading && transforms.length" width="100%">
+  
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let transform"> {{ transform.id }} </td>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let transform"> {{ transform.name }} </td>
+    </ng-container>
+  
+    <!-- Type Column -->
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef> Type </th>
+      <td mat-cell *matCellDef="let transform"> {{ transform.type }} </td>
+    </ng-container>
+  
+    <!-- Internal Column -->
+    <ng-container matColumnDef="internal">
+      <th mat-header-cell *matHeaderCellDef> Internal </th>
+      <td mat-cell *matCellDef="let transform"> {{ transform.internal }} </td>
+    </ng-container>
+  
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let transform">
+        <button id="edit-transform-button" mat-raised-button color="primary" (click)="onEdit(transform)">Edit</button>
+      </td>
+    </ng-container>
+  
+    <!-- Header and Rows -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+    <!-- No Data Row -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="5">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  
+  </table>
+  
+  <!-- Empty State -->
+  <div *ngIf="!loading && hasDataLoaded && transforms.length === 0" class="empty-message">
+    No Transforms found.
+  </div>
+
+</div>
+
+<div *ngIf="editing" class="transform-builder-container">
+  <button mat-button class="back-button" (click)="editing = false">Back</button>
+  <app-transform-builder [transform]="transform"></app-transform-builder>
+</div>

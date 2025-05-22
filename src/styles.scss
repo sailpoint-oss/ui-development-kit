@@ -87,8 +87,21 @@ html, body {
 html, body { height: 100%; }
 body { margin: 0;  font-family: 'Poppins'; }
 
+.block {
+	text-align: center;
+	margin: 10px;
+}
+
+.full-width {
+	width: 100%;
+}
+textarea {
+	font-size: 9pt !important;
+	line-height: 1.2em !important;
+}
+
 /* ✅ Default (Light Mode) */
-.custom-fill-field .mat-mdc-text-field-wrapper {
+.custom-fill-field .mat-mdc-text-field-wrapper, textarea.custom-fill-field{
   background-color: #ffffff !important;
   border-radius: .25rem;
   box-shadow: inset 0 0 0 1px #415364;
@@ -99,7 +112,7 @@ body { margin: 0;  font-family: 'Poppins'; }
 }
 
 /* ✅ Dark Theme Override */
-body.dark-theme .custom-fill-field .mat-mdc-text-field-wrapper {
+body.dark-theme .custom-fill-field .mat-mdc-text-field-wrapper, body.dark-theme textarea.custom-fill-field {
   background-color: #000000 !important;
   box-shadow: inset 0 0 0 1px #415364;
   color: #ffffff;
@@ -157,4 +170,8 @@ body.dark-theme .sidebar-link.active-link,
 body.dark-theme .sidebar-link.mdc-list-item--activated {
   background-color: #00000075;
   color: #0071cE;
+}
+
+.mat-mdc-table {
+  padding-right: 3% !important;
 }
