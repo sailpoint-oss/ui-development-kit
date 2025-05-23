@@ -8,7 +8,7 @@ files:
     destinationFilename: app/sailpoint-sdk/ipc-handlers.ts
   electron-preload.mustache:
     templateType: SupportingFiles
-    destinationFilename: app/sailpoint-sdk/sdk-preload.js
+    destinationFilename: app/sailpoint-sdk/sdk-preload.ts
   sailpoint-sdk-service.mustache:
     templateType: SupportingFiles
     destinationFilename: src/app/core/services/electron/sailpoint-sdk.service.ts

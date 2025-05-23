@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "sourceMap": true,
+    "outDir": "./electron-dist",
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
@@ -18,7 +19,7 @@
     ]
   },
   "files": [
-    "app/main.ts"
+    "app/main.ts", "app/preload.ts", "app/sailpoint-sdk/sdk-preload.ts"
   ],
   "exclude": [
     "node_modules",
