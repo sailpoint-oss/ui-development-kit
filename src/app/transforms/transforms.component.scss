@@ -26,7 +26,17 @@
     position: absolute;
     top: 16px;
     left: 16px;
-    z-index: 1000; /* Ensure it appears above the builder */
-    background: white; /* Optional: to improve contrast */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Optional: visual separation */
+    z-index: 1000; 
+    color:#0071ce;
+    background: #ffffff; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); 
+    border-radius: .5rem;
+    font-weight: normal;
+    font-family: 'Poppins' !important;
+  }
+
+  .back-button:hover {
+    background-color: #0071ce;
+    color: #ffffff;
+    border: 1px solid #0071ce;
   }
