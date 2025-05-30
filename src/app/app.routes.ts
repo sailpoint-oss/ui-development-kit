@@ -3,6 +3,7 @@ import { PageNotFoundComponent } from './shared/components';
 import { Devdays2025Component } from './devdays-2025/devdays-2025.component';
 import { IdentitiesComponent } from './identities/identities.component';
 import { campaignsComponent } from './campaigns/campaigns.component';
+import { SailPointImportsComponent } from './sailpoint-imports/sailpoint-imports.component';
 
 export const appRoutes: Routes = [
   {
@@ -26,6 +27,10 @@ export const appRoutes: Routes = [
   {
     path: 'campaigns',
     component: campaignsComponent
+  },
+  {
+    path: 'component',
+    component: SailPointImportsComponent
   },
   {
     path: '**',
