@@ -29,7 +29,7 @@
     "start": "npm-run-all -p electron:serve ng:serve",
     "ng:serve": "ng serve -c web",
     "build": "npm run build:components && npm run electron:serve-tsc && ng build --base-href ./",
-    "build:components": "tsc -p ui-development-kit-components/tsconfig.json",
+    "build:components": "cd ui-development-kit-components && ng build sailpoint-components",
     "build:dev": "npm run build -- -c dev",
     "build:prod": "npm run build:components && npm run build -- -c production",
     "web:build": "npm run build -- -c web-production",

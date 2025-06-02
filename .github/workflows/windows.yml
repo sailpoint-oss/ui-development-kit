@@ -64,13 +64,6 @@ jobs:
     - name: Build Component Library
       run: npm run build:components
 
-    - name: Link Component Library
-      run: |
-        cd dist/ui-development-kit-components
-        npm link
-        cd ../..
-        npm link sailpoint-components
-        
     - name: Run headless unit test
       run: npm run test
 
