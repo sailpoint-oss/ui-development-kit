@@ -1,0 +1,121 @@
+<div class="environment-config-container">
+  <div class="header">
+    <button mat-icon-button (click)="goBack()" class="back-button">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h2>Environment Configuration</h2>
+  </div>
+
+  <div class="config-form">
+    <!-- Environment Selection -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Environment</mat-label>
+      <mat-select [(value)]="selectedEnvironment" (selectionChange)="onEnvironmentSelect()">
+        <mat-option value="new">Create New Environment</mat-option>
+        <mat-option *ngFor="let env of environments" [value]="env.name">
+          {{ env.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div *ngIf="selectedEnvironment" class="config-details">
+      <h3>{{ isUpdateMode ? 'Update Environment' : 'Create New Environment' }}</h3>
+      
+      <!-- Tenant Name -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Tenant Name</mat-label>
+        <input matInput 
+               [(ngModel)]="config.tenantName" 
+               (ngModelChange)="onTenantNameChange()"
+               [disabled]="isUpdateMode"
+               placeholder="Enter tenant name (e.g., mycompany)">
+        <mat-hint>The tenant name from your IdentityNow URL</mat-hint>
+      </mat-form-field>
+
+      <!-- Tenant URL -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Tenant URL</mat-label>
+        <input matInput 
+               [(ngModel)]="config.tenantUrl" 
+               placeholder="https://mycompany.identitynow.com">
+        <mat-hint>The full URL to your IdentityNow tenant</mat-hint>
+      </mat-form-field>
+
+      <!-- Base URL -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Base URL</mat-label>
+        <input matInput 
+               [(ngModel)]="config.baseUrl" 
+               placeholder="https://mycompany.api.identitynow.com">
+        <mat-hint>The API base URL for your tenant</mat-hint>
+      </mat-form-field>
+
+      <!-- Authentication Type -->
+      <div class="auth-type-section">
+        <h4>Authentication Type</h4>
+        <mat-radio-group [(ngModel)]="config.authType">
+          <mat-radio-button value="pat">Personal Access Token (PAT)</mat-radio-button>
+          <mat-radio-button value="oauth">OAuth</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <!-- PAT Configuration -->
+      <div *ngIf="config.authType === 'pat'" class="pat-config">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Client ID</mat-label>
+          <input matInput 
+                 [(ngModel)]="config.clientId" 
+                 type="password"
+                 placeholder="Enter your PAT Client ID">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Client Secret</mat-label>
+          <input matInput 
+                 [(ngModel)]="config.clientSecret" 
+                 type="password"
+                 placeholder="Enter your PAT Client Secret">
+        </mat-form-field>
+      </div>
+
+      <!-- OAuth Configuration -->
+      <div *ngIf="config.authType === 'oauth'" class="oauth-config">
+        <p class="oauth-info">
+          OAuth authentication will open a browser window for you to authenticate with SailPoint.
+        </p>
+        <button mat-raised-button 
+                color="accent" 
+                (click)="testOAuthConnection()"
+                [disabled]="!config.tenantName || !config.baseUrl">
+          <mat-icon>login</mat-icon>
+          Test OAuth Connection
+        </button>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button mat-raised-button 
+                color="primary" 
+                (click)="saveEnvironment()"
+                [disabled]="!config.tenantName">
+          <mat-icon>save</mat-icon>
+          {{ isUpdateMode ? 'Update Environment' : 'Create Environment' }}
+        </button>
+
+        <button mat-raised-button 
+                color="warn" 
+                (click)="deleteEnvironment()"
+                *ngIf="isUpdateMode && selectedEnvironment !== 'new'">
+          <mat-icon>delete</mat-icon>
+          Delete Environment
+        </button>
+
+        <button mat-raised-button 
+                (click)="resetConfig()">
+          <mat-icon>refresh</mat-icon>
+          Reset
+        </button>
+      </div>
+    </div>
+  </div>
+</div> 

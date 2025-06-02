@@ -2,7 +2,7 @@ import { app, BrowserWindow, ipcMain, screen } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as url from 'url';
-import {connectToISC,  disconnectFromISC, getTenants, harborPilotTransformChat, getUUID, OAuthLogin} from './api';
+import {connectToISC,  disconnectFromISC, getTenants, harborPilotTransformChat, OAuthLogin, createOrUpdateEnvironment, deleteEnvironment, setActiveEnvironment} from './api';
 import { setupSailPointSDKHandlers } from './sailpoint-sdk/ipc-handlers';
 
 let win: BrowserWindow | null = null;
@@ -129,7 +129,17 @@ try {
     return await harborPilotTransformChat(chat);
   });
 
+  ipcMain.handle('create-or-update-environment', async (event, config) => {
+    return await createOrUpdateEnvironment(config);
+  });
 
+  ipcMain.handle('delete-environment', async (event, environmentName: string) => {
+    return await deleteEnvironment(environmentName);
+  });
+
+  ipcMain.handle('set-active-environment', async (event, environmentName: string) => {
+    return await setActiveEnvironment(environmentName);
+  });
 
 } catch (e) {
   console.error('Error during app initialization', e);

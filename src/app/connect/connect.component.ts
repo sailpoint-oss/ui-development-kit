@@ -114,4 +114,10 @@ updateTenant(): void {
       console.error('Navigation error:', error);
     });
   }
+
+  openEnvironmentConfig() {
+    this.router.navigate(['/environment-config']).catch((error: any) => {
+      console.error('Navigation error:', error);
+    });
+  }
 }

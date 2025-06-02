@@ -28,6 +28,11 @@ export const appRoutes: Routes = [
     component: campaignsComponent
   },
   {
+    path: 'environment-config',
+    loadComponent: () =>
+      import('./environment-config/environment-config.component').then((m) => m.EnvironmentConfigComponent)
+  },
+  {
     path: '**',
     component: PageNotFoundComponent
   }

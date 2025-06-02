@@ -375,3 +375,209 @@ export const getTenants = async () => {
     return [];
   }
 };
+
+interface EnvironmentConfigRequest {
+  environmentName: string;
+  tenantUrl: string;
+  baseUrl: string;
+  authType: 'oauth' | 'pat';
+  clientId?: string;
+  clientSecret?: string;
+  update: boolean;
+}
+
+interface ConfigUpdateResult {
+  success: boolean;
+  error?: string;
+}
+
+async function setSecureValue(
+  key: string,
+  environment: string,
+  value: string,
+): Promise<void> {
+  try {
+    await keytar.setPassword(key, environment, value);
+  } catch (error) {
+    console.error(`Error setting secure value for ${key}:`, error);
+    throw error;
+  }
+}
+
+async function deleteSecureValue(
+  key: string,
+  environment: string,
+): Promise<void> {
+  try {
+    await keytar.deletePassword(key, environment);
+  } catch (error) {
+    console.error(`Error deleting secure value for ${key}:`, error);
+    // Don't throw error for delete operations as the key might not exist
+  }
+}
+
+export const createOrUpdateEnvironment = async (
+  config: EnvironmentConfigRequest,
+): Promise<ConfigUpdateResult> => {
+  try {
+    const homedir = os.homedir();
+    const configPath = path.join(homedir, '.sailpoint', 'config.yaml');
+    const configDir = path.dirname(configPath);
+
+    // Ensure the .sailpoint directory exists
+    if (!fs.existsSync(configDir)) {
+      fs.mkdirSync(configDir, { recursive: true });
+    }
+
+    let existingConfig: CLIConfig;
+    
+    // Read existing config or create new one
+    try {
+      const configFile = fs.readFileSync(configPath, 'utf8');
+      existingConfig = yaml.load(configFile) as CLIConfig;
+    } catch (error) {
+      // Create new config if file doesn't exist
+      existingConfig = {
+        authtype: 'pat',
+        activeenvironment: '',
+        environments: {}
+      };
+    }
+
+    // Check if environment already exists and update flag is not set
+    if (existingConfig.environments[config.environmentName] && !config.update) {
+      return {
+        success: false,
+        error: `Environment '${config.environmentName}' already exists. Use update mode to modify it.`
+      };
+    }
+
+    // Create or update environment configuration
+    existingConfig.environments[config.environmentName] = {
+      tenanturl: config.tenantUrl,
+      baseurl: config.baseUrl,
+      pat: {
+        accessToken: '' // This will be populated during authentication
+      }
+    };
+
+    // Set auth type
+    existingConfig.authtype = config.authType;
+
+    // Set as active environment
+    existingConfig.activeenvironment = config.environmentName;
+
+    // Save credentials securely if provided
+    if (config.authType === 'pat' && config.clientId && config.clientSecret) {
+      await setSecureValue('environments.pat.clientid', config.environmentName, config.clientId);
+      await setSecureValue('environments.pat.clientsecret', config.environmentName, config.clientSecret);
+    }
+
+    // Write config file
+    const yamlStr = yaml.dump(existingConfig);
+    fs.writeFileSync(configPath, yamlStr, 'utf8');
+
+    return { success: true };
+  } catch (error) {
+    console.error('Error creating/updating environment:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error occurred'
+    };
+  }
+};
+
+export const deleteEnvironment = async (
+  environmentName: string,
+): Promise<ConfigUpdateResult> => {
+  try {
+    const homedir = os.homedir();
+    const configPath = path.join(homedir, '.sailpoint', 'config.yaml');
+
+    if (!fs.existsSync(configPath)) {
+      return {
+        success: false,
+        error: 'Configuration file not found'
+      };
+    }
+
+    const configFile = fs.readFileSync(configPath, 'utf8');
+    const existingConfig = yaml.load(configFile) as CLIConfig;
+
+    // Check if environment exists
+    if (!existingConfig.environments[environmentName]) {
+      return {
+        success: false,
+        error: `Environment '${environmentName}' does not exist`
+      };
+    }
+
+    // Remove environment from config
+    delete existingConfig.environments[environmentName];
+
+    // If this was the active environment, clear it or set to another one
+    if (existingConfig.activeenvironment === environmentName) {
+      const remainingEnvs = Object.keys(existingConfig.environments);
+      existingConfig.activeenvironment = remainingEnvs.length > 0 ? remainingEnvs[0] : '';
+    }
+
+    // Delete stored credentials
+    await deleteSecureValue('environments.pat.clientid', environmentName);
+    await deleteSecureValue('environments.pat.clientsecret', environmentName);
+    await deleteSecureValue('environments.pat.accesstoken', environmentName);
+
+    // Write updated config file
+    const yamlStr = yaml.dump(existingConfig);
+    fs.writeFileSync(configPath, yamlStr, 'utf8');
+
+    return { success: true };
+  } catch (error) {
+    console.error('Error deleting environment:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error occurred'
+    };
+  }
+};
+
+export const setActiveEnvironment = async (
+  environmentName: string,
+): Promise<ConfigUpdateResult> => {
+  try {
+    const homedir = os.homedir();
+    const configPath = path.join(homedir, '.sailpoint', 'config.yaml');
+
+    if (!fs.existsSync(configPath)) {
+      return {
+        success: false,
+        error: 'Configuration file not found'
+      };
+    }
+
+    const configFile = fs.readFileSync(configPath, 'utf8');
+    const existingConfig = yaml.load(configFile) as CLIConfig;
+
+    // Check if environment exists
+    if (!existingConfig.environments[environmentName]) {
+      return {
+        success: false,
+        error: `Environment '${environmentName}' does not exist`
+      };
+    }
+
+    // Set as active environment
+    existingConfig.activeenvironment = environmentName;
+
+    // Write updated config file
+    const yamlStr = yaml.dump(existingConfig);
+    fs.writeFileSync(configPath, yamlStr, 'utf8');
+
+    return { success: true };
+  } catch (error) {
+    console.error('Error setting active environment:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error occurred'
+    };
+  }
+};

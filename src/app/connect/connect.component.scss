@@ -27,3 +27,21 @@ mat-form-field {
   .tenant-name {
     margin-right: 15px;
   }
+
+  .config-button {
+    margin-left: 10px;
+    padding: 12px !important;
+    background-color: #666 !important;
+    color: white !important;
+    border-radius: 50%;
+
+    &:hover {
+      background-color: #555 !important;
+    }
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+  }

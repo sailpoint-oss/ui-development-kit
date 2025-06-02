@@ -19,5 +19,10 @@
   <mat-icon>logout</mat-icon>
   Disconnect
 </button>
+
+<button mat-icon-button *ngIf="!isConnected" (click)="openEnvironmentConfig()" 
+        title="Configure Environments" class="config-button">
+  <mat-icon>settings</mat-icon>
+</button>
 </div>
 
