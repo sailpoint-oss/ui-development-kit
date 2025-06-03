@@ -52,10 +52,14 @@ jobs:
       run: |
         npm i && npm i -D cli-truncate iconv-corefoundation
         npm --prefix ./app install
+        npm --prefix ./ui-development-kit-components install
 
     - name: Check lint
       run: npm run lint
 
+    - name: Build Component Library
+      run: npm run build:components
+      
     - name: Build the app
       run: npm run electron:build
 

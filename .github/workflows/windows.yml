@@ -54,9 +54,15 @@ jobs:
         cd app
         npm i
         cd ..
+        cd ui-development-kit-components
+        npm i
+        cd ..
 
     - name: Check lint
       run: npm run lint
+
+    - name: Build Component Library
+      run: npm run build:components
 
     - name: Run headless unit test
       run: npm run test

@@ -54,9 +54,13 @@ jobs:
       run: |
         npm install
         npm --prefix ./app install
+        npm --prefix ./ui-development-kit-components install
 
     - name: Check lint
       run: npm run lint
+
+    - name: Build Component Library
+      run: npm run build:components
 
     - name: Run headless unit test
       uses: GabrielBB/xvfb-action@v1
@@ -67,7 +71,7 @@ jobs:
       uses: GabrielBB/xvfb-action@v1
       with:
         run: npm run e2e
-
+      
     - name: Build the app
       run: npm run electron:build
 
