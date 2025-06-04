@@ -38,6 +38,11 @@
         <mat-icon class="card-icon">home</mat-icon>
         Campaigns
       </a>
+      <a mat-list-item class="sidebar-link" routerLink="/component" routerLinkActive="active-link" [class.disabled]="!isConnected"
+    (click)="!isConnected && $event.preventDefault()">
+    <mat-icon class="card-icon">home</mat-icon>
+    Component
+  </a>
 
       <hr class="nav-divider">
 
@@ -45,7 +50,6 @@
         <mat-icon class="card-icon">settings</mat-icon>
         Environment Config
       </a>
-
 
     </mat-nav-list>
   </mat-sidenav>

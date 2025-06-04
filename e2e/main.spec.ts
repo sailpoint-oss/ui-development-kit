@@ -8,7 +8,7 @@ test.describe('Check Home Page', () => {
   let context: BrowserContext;
 
   test.beforeAll( async () => {
-    app = await electron.launch({ args: [PATH.join(__dirname, '../app/main.js'), PATH.join(__dirname, '../app/package.json')] });
+    app = await electron.launch({ args: [PATH.join(__dirname, '../electron-dist/main.js'), PATH.join(__dirname, '../app/package.json')] });
     context = app.context();
     await context.tracing.start({ screenshots: true, snapshots: true });
     firstWindow = await app.firstWindow();

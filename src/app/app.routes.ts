@@ -4,6 +4,9 @@ import { Devdays2025Component } from './devdays-2025/devdays-2025.component';
 import { IdentitiesComponent } from './identities/identities.component';
 import { campaignsComponent } from './campaigns/campaigns.component';
 
+import { SailPointImportsComponent } from './sailpoint-imports/sailpoint-imports.component';
+import {EnvironmentConfigComponent} from './environment-config/environment-config.component';
+
 export const appRoutes: Routes = [
   {
     path: '',
@@ -28,9 +31,13 @@ export const appRoutes: Routes = [
     component: campaignsComponent
   },
   {
+
+    path: 'component',
+    component: SailPointImportsComponent
+  },
+  {
     path: 'environment-config',
-    loadComponent: () =>
-      import('./environment-config/environment-config.component').then((m) => m.EnvironmentConfigComponent)
+    component: EnvironmentConfigComponent
   },
   {
     path: '**',
