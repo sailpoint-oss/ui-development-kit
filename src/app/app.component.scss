@@ -102,3 +102,13 @@ mat-sidenav {
   position: relative;
 }
 
+.nav-divider {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 8px 16px;
+}
+
+:host-context(.dark-theme) .nav-divider {
+  border-top-color: #333;
+}
+
