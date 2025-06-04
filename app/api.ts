@@ -2,18 +2,14 @@ import {
   Configuration,
   TenantV2024Api,
   ConfigurationParameters,
-  TransformsV2024Api,
-  TransformsV2024ApiCreateTransformRequest,
-  TransformsV2024ApiUpdateTransformRequest,
-  TransformReadV2024,
-  TransformReadV2024TypeV2024,
 } from 'sailpoint-api-client';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as yaml from 'js-yaml';
 import * as keytar from 'keytar';
 import * as os from 'os';
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import { shell } from 'electron';
+import axios, { AxiosResponse } from 'axios';
 
 export let apiConfig: Configuration;
 let testMode = false;
@@ -40,6 +36,7 @@ interface Tenant {
   clientId: string | null;
   clientSecret: string | null;
   name: string;
+  authType: string; // Global authentication type
 }
 
 async function getConfig(): Promise<CLIConfig> {
@@ -55,7 +52,7 @@ async function getConfig(): Promise<CLIConfig> {
   }
 }
 
-export const disconnectFromISC = async () => {};
+export const disconnectFromISC = async () => { };
 
 interface TokenSet {
   accessToken: string;
@@ -78,14 +75,14 @@ interface TokenResponse {
 }
 
 interface RefreshResponse {
-  accessToken: string;
-  refreshToken: string;
+  access_token: string;
+  refresh_token: string;
 }
 
-export const OAuthLogin = async ({tenant, baseAPIUrl}: {tenant: string, baseAPIUrl: string}): Promise<TokenSet> => {
+export const OAuthLogin = async ({ tenant, baseAPIUrl }: { tenant: string, baseAPIUrl: string }): Promise<TokenSet> => {
   // Step 1: Request UUID, encryption key, and Auth URL from Auth-Lambda
   const authLambdaURL = 'https://nug87yusrg.execute-api.us-east-1.amazonaws.com/Prod/sailapps/uuid';
-  
+
   try {
     const response = await fetch(authLambdaURL, {
       method: 'POST',
@@ -105,12 +102,14 @@ export const OAuthLogin = async ({tenant, baseAPIUrl}: {tenant: string, baseAPIU
     // Step 2: Present Auth URL to user
     console.log('Attempting to open browser for authentication');
     try {
-      // Using the 'open' package to open the browser
-      const open = require('open');
-      await open(authResponse.authURL);
+      // Using Electron's shell.openExternal to open the browser
+      await shell.openExternal(authResponse.authURL);
+      console.log('Successfully opened OAuth URL in default browser');
+
     } catch (err) {
-      console.warn('Cannot open automatically, Please manually open OAuth login page below');
-      console.log(authResponse.authURL);
+      console.warn('Cannot open browser automatically. Please manually open OAuth login page below');
+      console.log('OAuth URL:', authResponse.authURL);
+      // Continue with the flow even if browser opening fails
     }
 
     // Step 3: Poll Auth-Lambda for token using UUID
@@ -121,22 +120,36 @@ export const OAuthLogin = async ({tenant, baseAPIUrl}: {tenant: string, baseAPIU
     while (Date.now() - startTime < timeout) {
       try {
         const tokenResponse = await fetch(`${authLambdaURL}/${authResponse.id}`);
-        
+
         if (tokenResponse.ok) {
           const tokenData: TokenResponse = await tokenResponse.json();
-          
+
           // Decrypt the token info using the encryption key
           const decryptedTokenInfo = await decryptTokenInfo(tokenData.tokenInfo, authResponse.encryptionKey);
+          console.log('Decrypted token info:', decryptedTokenInfo);
+          
           const response: RefreshResponse = JSON.parse(decryptedTokenInfo);
+          console.log('Parsed response:', response);
+
+          // Validate that we have the required tokens
+          if (!response.access_token) {
+            console.error('Missing accessToken in response');
+            throw new Error('OAuth response missing access token');
+          }
+
+          if (!response.refresh_token) {
+            console.error('Missing refreshToken in response');
+            throw new Error('OAuth response missing refresh token');
+          }
 
           // Parse tokens to get expiry
-          const accessTokenClaims = parseJwt(response.accessToken);
-          const refreshTokenClaims = parseJwt(response.refreshToken);
+          const accessTokenClaims = parseJwt(response.access_token);
+          const refreshTokenClaims = parseJwt(response.refresh_token);
 
           return {
-            accessToken: response.accessToken,
+            accessToken: response.access_token,
             accessExpiry: new Date(accessTokenClaims.exp * 1000),
-            refreshToken: response.refreshToken,
+            refreshToken: response.refresh_token,
             refreshExpiry: new Date(refreshTokenClaims.exp * 1000),
           };
         }
@@ -157,7 +170,16 @@ export const OAuthLogin = async ({tenant, baseAPIUrl}: {tenant: string, baseAPIU
 
 // Helper function to parse JWT without verification
 function parseJwt(token: string): any {
-  const base64Url = token.split('.')[1];
+  if (!token) {
+    throw new Error('Token is undefined or empty');
+  }
+
+  const parts = token.split('.');
+  if (parts.length !== 3) {
+    throw new Error('Invalid JWT format - token should have 3 parts');
+  }
+
+  const base64Url = parts[1];
   const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
   const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
     return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
@@ -185,6 +207,7 @@ async function decryptTokenInfo(encryptedToken: string, encryptionKey: string): 
     // Create decipher
     const crypto = require('crypto');
     const decipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
+    decipher.setAutoPadding(false); // We'll handle padding manually
 
     // Decrypt the data
     let decrypted = Buffer.concat([
@@ -193,11 +216,24 @@ async function decryptTokenInfo(encryptedToken: string, encryptionKey: string): 
     ]);
 
     // Remove PKCS7 padding
-    const paddingLen = decrypted[decrypted.length - 1];
-    if (paddingLen > 16 || paddingLen === 0) {
-      throw new Error('invalid padding size');
+    if (decrypted.length > 0) {
+      const paddingLen = decrypted[decrypted.length - 1];
+      // PKCS7 padding: padding length should be between 1 and block size (16 for AES)
+      if (paddingLen > 0 && paddingLen <= 16 && paddingLen <= decrypted.length) {
+        // Verify all padding bytes are the same
+        let validPadding = true;
+        for (let i = decrypted.length - paddingLen; i < decrypted.length; i++) {
+          if (decrypted[i] !== paddingLen) {
+            validPadding = false;
+            break;
+          }
+        }
+        
+        if (validPadding) {
+          decrypted = decrypted.subarray(0, decrypted.length - paddingLen);
+        }
+      }
     }
-    decrypted = decrypted.subarray(0, decrypted.length - paddingLen);
 
     return decrypted.toString('utf8');
   } catch (error) {
@@ -317,6 +353,33 @@ export const connectToISC = async (
   }
 };
 
+export const connectToISCWithOAuth = async (
+  apiUrl: string,
+  baseUrl: string,
+  accessToken: string,
+): Promise<{ connected: boolean; name: string | undefined }> => {
+  console.log('Connecting to ISC with OAuth:');
+  if (testMode) {
+    return { connected: true, name: 'DevDays 2025' };
+  }
+  
+  let config: ConfigurationParameters = {
+    accessToken: accessToken,
+    baseurl: apiUrl,
+  };
+  
+  try {
+    apiConfig = new Configuration(config);
+    apiConfig.experimental = true;
+    let tenantApi = new TenantV2024Api(apiConfig);
+    let response = await tenantApi.getTenant();
+    return { connected: true, name: response.data.fullName };
+  } catch (error) {
+    console.error('Error connecting to ISC with OAuth:', error);
+    return { connected: false, name: undefined };
+  }
+};
+
 async function getSecureValue(
   key: string,
   environment: string,
@@ -362,11 +425,11 @@ export const getTenants = async () => {
       tenants.push({
         active: environment === activeEnv,
         name: environment,
-
         apiUrl: config.environments[environment].baseurl,
         tenantUrl: config.environments[environment].tenanturl,
         clientId: await getClientId(environment),
         clientSecret: await getClientSecret(environment),
+        authType: config.authtype,
       });
     }
     return tenants;
@@ -430,7 +493,7 @@ export const createOrUpdateEnvironment = async (
     }
 
     let existingConfig: CLIConfig;
-    
+
     // Read existing config or create new one
     try {
       const configFile = fs.readFileSync(configPath, 'utf8');
@@ -579,5 +642,15 @@ export const setActiveEnvironment = async (
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error occurred'
     };
+  }
+};
+
+export const getGlobalAuthType = async (): Promise<string> => {
+  try {
+    const config = await getConfig();
+    return config.authtype || 'pat';
+  } catch (error) {
+    console.error('Error getting global auth type:', error);
+    return 'pat'; // Default to PAT if error
   }
 };

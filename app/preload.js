@@ -3,6 +3,7 @@ const sdkPreload = require('./sailpoint-sdk/sdk-preload');
 
 contextBridge.exposeInMainWorld('electronAPI', {
   connectToISC: (apiUrl, baseUrl, clientId, clientSecret) => ipcRenderer.invoke('connect-to-isc', apiUrl, baseUrl, clientId, clientSecret),
+  connectToISCWithOAuth: (apiUrl, baseUrl, accessToken) => ipcRenderer.invoke('connect-to-isc-oauth', apiUrl, baseUrl, accessToken),
   disconnectFromISC: () => ipcRenderer.invoke('disconnect-from-isc'),
   getTenants: () => ipcRenderer.invoke('get-tenants'),
   harborPilotTransformChat: (chat) => ipcRenderer.invoke('harbor-pilot-transform-chat', chat),
@@ -10,5 +11,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   createOrUpdateEnvironment: (config) => ipcRenderer.invoke('create-or-update-environment', config),
   deleteEnvironment: (environmentName) => ipcRenderer.invoke('delete-environment', environmentName),
   setActiveEnvironment: (environmentName) => ipcRenderer.invoke('set-active-environment', environmentName),
+  getGlobalAuthType: () => ipcRenderer.invoke('get-global-auth-type'),
   ...sdkPreload
 });

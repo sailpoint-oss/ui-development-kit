@@ -53,6 +53,10 @@
       <!-- Authentication Type -->
       <div class="auth-type-section">
         <h4>Authentication Type</h4>
+        <p class="auth-type-info">
+          <mat-icon style="font-size: 16px; vertical-align: middle;">info</mat-icon>
+          <em>This setting applies globally to all environments. Changing it will affect all future authentications.</em>
+        </p>
         <mat-radio-group [(ngModel)]="config.authType">
           <mat-radio-button value="pat">Personal Access Token (PAT)</mat-radio-button>
           <mat-radio-button value="oauth">OAuth</mat-radio-button>
@@ -81,14 +85,20 @@
       <!-- OAuth Configuration -->
       <div *ngIf="config.authType === 'oauth'" class="oauth-config">
         <p class="oauth-info">
-          OAuth authentication will open a browser window for you to authenticate with SailPoint.
+          OAuth authentication will open your default browser for you to authenticate with SailPoint.
+          After successful authentication, you can close the browser and return to this application.
         </p>
+        <p class="oauth-fallback-info">
+          <mat-icon style="font-size: 16px; vertical-align: middle;">info</mat-icon>
+          <em>If the browser doesn't open automatically, check the console for the authentication URL to open manually.</em>
+        </p>
+
         <button mat-raised-button 
                 color="accent" 
                 (click)="testOAuthConnection()"
                 [disabled]="!config.tenantName || !config.baseUrl">
-          <mat-icon>login</mat-icon>
-          Test OAuth Connection
+          <mat-icon>launch</mat-icon>
+          Test OAuth Authentication
         </button>
       </div>
 

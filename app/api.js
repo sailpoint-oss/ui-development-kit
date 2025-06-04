@@ -9,13 +9,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setActiveEnvironment = exports.deleteEnvironment = exports.createOrUpdateEnvironment = exports.getTenants = exports.connectToISC = exports.harborPilotTransformChat = exports.OAuthLogin = exports.disconnectFromISC = exports.apiConfig = void 0;
+exports.getGlobalAuthType = exports.setActiveEnvironment = exports.deleteEnvironment = exports.createOrUpdateEnvironment = exports.getTenants = exports.connectToISCWithOAuth = exports.connectToISC = exports.harborPilotTransformChat = exports.OAuthLogin = exports.disconnectFromISC = exports.apiConfig = void 0;
 const sailpoint_api_client_1 = require("sailpoint-api-client");
 const fs = require("fs");
 const path = require("path");
 const yaml = require("js-yaml");
 const keytar = require("keytar");
 const os = require("os");
+const electron_1 = require("electron");
 const axios_1 = require("axios");
 let testMode = false;
 let aitestMode = true;
@@ -54,13 +55,14 @@ const OAuthLogin = (_a) => __awaiter(void 0, [_a], void 0, function* ({ tenant, 
         // Step 2: Present Auth URL to user
         console.log('Attempting to open browser for authentication');
         try {
-            // Using the 'open' package to open the browser
-            const open = require('open');
-            yield open(authResponse.authURL);
+            // Using Electron's shell.openExternal to open the browser
+            yield electron_1.shell.openExternal(authResponse.authURL);
+            console.log('Successfully opened OAuth URL in default browser');
         }
         catch (err) {
-            console.warn('Cannot open automatically, Please manually open OAuth login page below');
-            console.log(authResponse.authURL);
+            console.warn('Cannot open browser automatically. Please manually open OAuth login page below');
+            console.log('OAuth URL:', authResponse.authURL);
+            // Continue with the flow even if browser opening fails
         }
         // Step 3: Poll Auth-Lambda for token using UUID
         const pollInterval = 2000; // 2 seconds
@@ -73,14 +75,25 @@ const OAuthLogin = (_a) => __awaiter(void 0, [_a], void 0, function* ({ tenant, 
                     const tokenData = yield tokenResponse.json();
                     // Decrypt the token info using the encryption key
                     const decryptedTokenInfo = yield decryptTokenInfo(tokenData.tokenInfo, authResponse.encryptionKey);
+                    console.log('Decrypted token info:', decryptedTokenInfo);
                     const response = JSON.parse(decryptedTokenInfo);
+                    console.log('Parsed response:', response);
+                    // Validate that we have the required tokens
+                    if (!response.access_token) {
+                        console.error('Missing accessToken in response');
+                        throw new Error('OAuth response missing access token');
+                    }
+                    if (!response.refresh_token) {
+                        console.error('Missing refreshToken in response');
+                        throw new Error('OAuth response missing refresh token');
+                    }
                     // Parse tokens to get expiry
-                    const accessTokenClaims = parseJwt(response.accessToken);
-                    const refreshTokenClaims = parseJwt(response.refreshToken);
+                    const accessTokenClaims = parseJwt(response.access_token);
+                    const refreshTokenClaims = parseJwt(response.refresh_token);
                     return {
-                        accessToken: response.accessToken,
+                        accessToken: response.access_token,
                         accessExpiry: new Date(accessTokenClaims.exp * 1000),
-                        refreshToken: response.refreshToken,
+                        refreshToken: response.refresh_token,
                         refreshExpiry: new Date(refreshTokenClaims.exp * 1000),
                     };
                 }
@@ -101,7 +114,14 @@ const OAuthLogin = (_a) => __awaiter(void 0, [_a], void 0, function* ({ tenant, 
 exports.OAuthLogin = OAuthLogin;
 // Helper function to parse JWT without verification
 function parseJwt(token) {
-    const base64Url = token.split('.')[1];
+    if (!token) {
+        throw new Error('Token is undefined or empty');
+    }
+    const parts = token.split('.');
+    if (parts.length !== 3) {
+        throw new Error('Invalid JWT format - token should have 3 parts');
+    }
+    const base64Url = parts[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
     const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
@@ -125,17 +145,30 @@ function decryptTokenInfo(encryptedToken, encryptionKey) {
             // Create decipher
             const crypto = require('crypto');
             const decipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
+            decipher.setAutoPadding(false); // We'll handle padding manually
             // Decrypt the data
             let decrypted = Buffer.concat([
                 decipher.update(encryptedData),
                 decipher.final()
             ]);
             // Remove PKCS7 padding
-            const paddingLen = decrypted[decrypted.length - 1];
-            if (paddingLen > 16 || paddingLen === 0) {
-                throw new Error('invalid padding size');
+            if (decrypted.length > 0) {
+                const paddingLen = decrypted[decrypted.length - 1];
+                // PKCS7 padding: padding length should be between 1 and block size (16 for AES)
+                if (paddingLen > 0 && paddingLen <= 16 && paddingLen <= decrypted.length) {
+                    // Verify all padding bytes are the same
+                    let validPadding = true;
+                    for (let i = decrypted.length - paddingLen; i < decrypted.length; i++) {
+                        if (decrypted[i] !== paddingLen) {
+                            validPadding = false;
+                            break;
+                        }
+                    }
+                    if (validPadding) {
+                        decrypted = decrypted.subarray(0, decrypted.length - paddingLen);
+                    }
+                }
             }
-            decrypted = decrypted.subarray(0, decrypted.length - paddingLen);
             return decrypted.toString('utf8');
         }
         catch (error) {
@@ -236,6 +269,28 @@ const connectToISC = (apiUrl, baseUrl, clientId, clientSecret) => __awaiter(void
     }
 });
 exports.connectToISC = connectToISC;
+const connectToISCWithOAuth = (apiUrl, baseUrl, accessToken) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('Connecting to ISC with OAuth:');
+    if (testMode) {
+        return { connected: true, name: 'DevDays 2025' };
+    }
+    let config = {
+        accessToken: accessToken,
+        baseurl: apiUrl,
+    };
+    try {
+        exports.apiConfig = new sailpoint_api_client_1.Configuration(config);
+        exports.apiConfig.experimental = true;
+        let tenantApi = new sailpoint_api_client_1.TenantV2024Api(exports.apiConfig);
+        let response = yield tenantApi.getTenant();
+        return { connected: true, name: response.data.fullName };
+    }
+    catch (error) {
+        console.error('Error connecting to ISC with OAuth:', error);
+        return { connected: false, name: undefined };
+    }
+});
+exports.connectToISCWithOAuth = connectToISCWithOAuth;
 function getSecureValue(key, environment) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -281,6 +336,7 @@ const getTenants = () => __awaiter(void 0, void 0, void 0, function* () {
                 tenantUrl: config.environments[environment].tenanturl,
                 clientId: yield getClientId(environment),
                 clientSecret: yield getClientSecret(environment),
+                authType: config.authtype,
             });
         }
         return tenants;
@@ -453,4 +509,15 @@ const setActiveEnvironment = (environmentName) => __awaiter(void 0, void 0, void
     }
 });
 exports.setActiveEnvironment = setActiveEnvironment;
+const getGlobalAuthType = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const config = yield getConfig();
+        return config.authtype || 'pat';
+    }
+    catch (error) {
+        console.error('Error getting global auth type:', error);
+        return 'pat'; // Default to PAT if error
+    }
+});
+exports.getGlobalAuthType = getGlobalAuthType;
 //# sourceMappingURL=api.js.map

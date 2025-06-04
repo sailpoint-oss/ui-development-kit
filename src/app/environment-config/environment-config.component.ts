@@ -9,8 +9,9 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router } from '@angular/router';
-import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
+import { GenericDialogComponent, DialogData } from '../generic-dialog/generic-dialog.component';
 
 declare const window: any;
 
@@ -21,6 +22,7 @@ interface Tenant {
   clientId: string | null;
   clientSecret: string | null;
   name: string;
+  authType: string; // Global authentication type
 }
 
 interface EnvironmentConfig {
@@ -45,7 +47,8 @@ interface EnvironmentConfig {
     MatRadioModule,
     MatIconModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './environment-config.component.html',
   styleUrls: ['./environment-config.component.scss']
@@ -68,8 +71,10 @@ export class EnvironmentConfigComponent implements OnInit {
     private snackBar: MatSnackBar
   ) {}
 
-  ngOnInit() {
-    this.loadEnvironments();
+  async ngOnInit() {
+    await this.loadEnvironments();
+    // Initialize config with current global auth type
+    await this.resetConfig();
   }
 
   async loadEnvironments() {
@@ -81,10 +86,10 @@ export class EnvironmentConfigComponent implements OnInit {
     }
   }
 
-  onEnvironmentSelect() {
+  async onEnvironmentSelect() {
     if (this.selectedEnvironment === 'new') {
       this.isUpdateMode = false;
-      this.resetConfig();
+      await this.resetConfig();
     } else {
       this.isUpdateMode = true;
       const environment = this.environments.find(env => env.name === this.selectedEnvironment);
@@ -93,7 +98,7 @@ export class EnvironmentConfigComponent implements OnInit {
           tenantName: environment.name,
           tenantUrl: environment.tenantUrl,
           baseUrl: environment.apiUrl,
-          authType: 'pat', // Default to PAT, could be enhanced to detect actual auth type
+          authType: environment.authType as 'oauth' | 'pat', // Use the global auth type
           clientId: environment.clientId || '',
           clientSecret: environment.clientSecret || ''
         };
@@ -101,12 +106,15 @@ export class EnvironmentConfigComponent implements OnInit {
     }
   }
 
-  resetConfig() {
+  async resetConfig() {
+    // Get the current global auth type
+    const currentAuthType = await window.electronAPI.getGlobalAuthType();
+    
     this.config = {
       tenantName: '',
       tenantUrl: '',
       baseUrl: '',
-      authType: 'pat'
+      authType: currentAuthType as 'oauth' | 'pat'
     };
   }
 
@@ -137,7 +145,7 @@ export class EnvironmentConfigComponent implements OnInit {
       if (result.success) {
         this.showSuccess(this.isUpdateMode ? 'Environment updated successfully!' : 'Environment created successfully!');
         this.loadEnvironments(); // Refresh the list
-        this.resetConfig();
+        await this.resetConfig();
         this.selectedEnvironment = '';
         this.isUpdateMode = false;
       } else {
@@ -189,14 +197,52 @@ export class EnvironmentConfigComponent implements OnInit {
       return;
     }
 
+    // Open OAuth modal dialog
+    const dialogData: DialogData = {
+      title: 'OAuth Test',
+      message: 'Testing OAuth authentication...',
+      showSpinner: true,
+      showCancel: true,
+      disableClose: false
+    };
+
+    const dialogRef = this.dialog.open(GenericDialogComponent, {
+      data: dialogData,
+      width: '400px',
+      disableClose: false
+    });
+
     try {
+      console.log('Testing OAuth for:', this.config.tenantName);
+      dialogData.message = 'Opening authentication page in your browser...';
+      
       const result = await window.electronAPI.oauthLogin(this.config.tenantName, this.config.baseUrl);
+      
       if (result) {
-        this.showSuccess('OAuth authentication successful!');
+        dialogData.title = 'OAuth Test Successful';
+        dialogData.message = 'OAuth authentication completed successfully! You can now save this environment.';
+        dialogData.showSpinner = false;
+        dialogData.showCancel = false;
+        
+        // Auto-close dialog after 3 seconds
+        setTimeout(() => {
+          dialogRef.close();
+        }, 3000);
+        
+        this.showSuccess('OAuth authentication completed successfully! You can now save this environment.');
+      } else {
+        dialogData.title = 'OAuth Test Failed';
+        dialogData.message = 'OAuth authentication failed. Please check your configuration and try again.';
+        dialogData.showSpinner = false;
+        dialogData.showCancel = true;
       }
     } catch (error) {
       console.error('Error testing OAuth connection:', error);
-      this.showError('OAuth authentication failed');
+      
+      dialogData.title = 'OAuth Test Error';
+      dialogData.message = 'OAuth authentication failed. Please check your configuration and try again.';
+      dialogData.showSpinner = false;
+      dialogData.showCancel = true;
     }
   }
 
