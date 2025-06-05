@@ -6,7 +6,19 @@
     [src]="isDarkTheme ? 'assets/icons/SailPoint-Developer-Community-Inverse-Lockup.png' : 'assets/icons/SailPoint-Developer-Community-Lockup.png'"
     alt="SailPoint Developer Community Logo" class="logo" />
   <span class="spacer"></span>
-  <app-connect class="nav-spacing"></app-connect>
+  
+  <!-- Connection Status Display -->
+  <div *ngIf="isConnected" class="connection-status-navbar">
+    <mat-icon class="connected-icon">check_circle</mat-icon>
+    <span class="connection-text">Connected</span>
+  </div>
+  
+  <!-- Disconnect Button -->
+  <button *ngIf="isConnected" mat-icon-button (click)="disconnectFromISC()" 
+          aria-label="Disconnect from tenant" title="Disconnect">
+    <mat-icon>logout</mat-icon>
+  </button>
+  
   <button mat-icon-button (click)="toggleTheme()" aria-label="Toggle theme">
     <mat-icon>{{ isDarkTheme ? 'dark_mode' : 'light_mode' }}</mat-icon>
   </button>
@@ -44,12 +56,7 @@
     Component
   </a>
 
-      <hr class="nav-divider">
 
-      <a mat-list-item class="sidebar-link" routerLink="/environment-config" routerLinkActive="active-link">
-        <mat-icon class="card-icon">settings</mat-icon>
-        Environment Config
-      </a>
 
     </mat-nav-list>
   </mat-sidenav>
