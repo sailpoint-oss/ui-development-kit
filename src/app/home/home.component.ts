@@ -212,7 +212,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.log(`Successfully set ${environmentName} as active environment`);
       } else {
         console.error('Failed to set active environment:', result.error);
-        this.openErrorDialog(result.error || 'Failed to set active environment', 'Environment Error');
+        this.openErrorDialog(String(result.error || 'Failed to set active environment'), 'Environment Error');
       }
     } catch (error) {
       console.error('Error setting active environment:', error);
