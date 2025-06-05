@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   imports: [],
   template: `
     <p>
-      sailpoint-components works!
+      sailpoint-components works! Now!
     </p>
   `,
   styles: ``

@@ -4,3 +4,4 @@
 
 export * from './lib/sailpoint-components.service';
 export * from './lib/sailpoint-components.component';
+export * from './lib/sailpoint-sdk.service';
