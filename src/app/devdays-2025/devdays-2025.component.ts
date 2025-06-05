@@ -10,8 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { SailPointSDKService } from '../core/services/electron/sailpoint-sdk.service';
-
+import { SailPointSDKService } from 'sailpoint-components';
 @Component({
     selector: 'app-devdays-2025',
     imports: [CommonModule, FormsModule, MatSelectModule, MatButtonModule, MatInputModule, MatIconModule, MatProgressSpinnerModule],
