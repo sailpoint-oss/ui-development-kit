@@ -282,7 +282,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.log('OAuth successful, connecting with access token...');
         dialogData.message = 'Authentication successful! Connecting to SailPoint...';
         
-        const connected = await window.electronAPI.connectToISCWithOAuth(
+        const connected = <Connection>await window.electronAPI.connectToISCWithOAuth(
           this.actualTenant.apiUrl,
           this.actualTenant.tenantUrl,
           oauthResult.accessToken
@@ -291,12 +291,12 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.log('Connected to ISC with OAuth:', connected);
         this.connectionService.setConnectionState(Boolean(connected.connected));
         this.isConnected = Boolean(connected.connected);
-        this.name = String(connected.name || this.actualTenant.name);
+        this.name = connected.name || this.actualTenant.name;
         
         if (connected.connected) {
           // Update dialog to show success
           dialogData.title = 'Connection Successful';
-          dialogData.message = `Successfully connected to ${String(connected.name)} using OAuth!`;
+          dialogData.message = `Successfully connected to ${connected.name} using OAuth!`;
           dialogData.showSpinner = false;
           dialogData.showCancel = false;
           
@@ -351,10 +351,10 @@ export class HomeComponent implements OnInit, OnDestroy {
               console.log('Connected to ISC:', connected);
         this.connectionService.setConnectionState(Boolean(connected.connected));
         this.isConnected = Boolean(connected.connected);
-        this.name = String(connected.name);
+        this.name = connected.name;
       
       if (connected.connected) {
-        this.openMessageDialog(`Successfully connected to ${String(connected.name)}`, 'Connection Successful');
+        this.openMessageDialog(`Successfully connected to ${connected.name}`, 'Connection Successful');
       } else {
         this.openErrorDialog('Failed to establish connection with PAT credentials', 'Connection Failed');
       }
