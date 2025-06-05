@@ -289,14 +289,14 @@ export class HomeComponent implements OnInit, OnDestroy {
         );
         
         console.log('Connected to ISC with OAuth:', connected);
-        this.connectionService.setConnectionState(connected.connected);
-        this.isConnected = connected.connected;
+        this.connectionService.setConnectionState(Boolean(connected.connected));
+        this.isConnected = Boolean(connected.connected);
         this.name = String(connected.name || this.actualTenant.name);
         
         if (connected.connected) {
           // Update dialog to show success
           dialogData.title = 'Connection Successful';
-          dialogData.message = `Successfully connected to ${connected.name} using OAuth!`;
+          dialogData.message = `Successfully connected to ${String(connected.name)} using OAuth!`;
           dialogData.showSpinner = false;
           dialogData.showCancel = false;
           
@@ -354,7 +354,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.name = String(connected.name);
       
       if (connected.connected) {
-        this.openMessageDialog(`Successfully connected to ${connected.name}`, 'Connection Successful');
+        this.openMessageDialog(`Successfully connected to ${String(connected.name)}`, 'Connection Successful');
       } else {
         this.openErrorDialog('Failed to establish connection with PAT credentials', 'Connection Failed');
       }
