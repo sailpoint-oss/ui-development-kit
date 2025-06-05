@@ -1,12 +1,190 @@
-<div style="font-size: larger;" *ngIf="!isConnected" class="card-container">
-  Welcome to the SailPoint UI Development Kit. Please connect to your tenant using the connect button above.
+<!-- Not Connected State - Show Environment Management and Connection -->
+<div *ngIf="!isConnected" class="home-container">
+  <!-- Welcome Section -->
+  <div class="welcome-section">
+    <h1>Welcome to the SailPoint UI Development Kit</h1>
+    <p>Select an environment and connect to your SailPoint tenant to get started.</p>
+  </div>
+
+  <!-- Unified Environment Management and Connection Section -->
+  <mat-card class="environment-card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>cloud</mat-icon>
+        Environment & Connection
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <!-- Environment Selection -->
+      <div class="environment-section">
+        <mat-form-field appearance="outline" class="environment-select">
+          <mat-label>Select Environment</mat-label>
+          <mat-select [(value)]="selectedTenant" (selectionChange)="updateTenant()">
+            <mat-option value="new">+ Create New Environment</mat-option>
+            <mat-option *ngFor="let tenant of tenants" [value]="tenant.name">
+              {{ tenant.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-icon-button 
+                (click)="refreshTenants()" 
+                title="Refresh Environments" 
+                class="action-button">
+          <mat-icon>refresh</mat-icon>
+        </button>
+
+        <button mat-icon-button 
+                (click)="toggleEnvironmentDetails()" 
+                title="Configure Environment" 
+                class="action-button">
+          <mat-icon>{{ showEnvironmentDetails ? 'expand_less' : 'settings' }}</mat-icon>
+        </button>
+      </div>
+
+      <!-- Environment Details/Configuration -->
+      <div *ngIf="showEnvironmentDetails || selectedTenant === 'new'" class="environment-details">
+        <form class="config-form">
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Environment Name</mat-label>
+              <input matInput [(ngModel)]="config.tenantName" name="tenantName" 
+                     (input)="onTenantNameChange()" [disabled]="selectedTenant !== 'new'" required>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Tenant URL</mat-label>
+              <input matInput [(ngModel)]="config.tenantUrl" name="tenantUrl" 
+                     placeholder="https://your-tenant.identitynow.com" required>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>API Base URL</mat-label>
+              <input matInput [(ngModel)]="config.baseUrl" name="baseUrl" 
+                     (input)="onBaseUrlChange()"
+                     placeholder="https://your-tenant.api.identitynow.com" required>
+            </mat-form-field>
+          </div>
+
+          <!-- PAT Fields -->
+          <div *ngIf="globalAuthMethod === 'pat'" class="pat-section">
+            <div class="form-row">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Client ID</mat-label>
+                <input matInput [(ngModel)]="config.clientId" name="clientId" required>
+              </mat-form-field>
+            </div>
+
+            <div class="form-row">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Client Secret</mat-label>
+                <input matInput type="password" [(ngModel)]="config.clientSecret" name="clientSecret" required>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- OAuth Info -->
+          <div *ngIf="globalAuthMethod === 'oauth'" class="oauth-section">
+            <p class="oauth-info">
+              <mat-icon>info</mat-icon>
+              OAuth authentication will open your browser for secure login.
+            </p>
+            
+            <!-- OAuth Validation Status -->
+            <div class="oauth-validation" *ngIf="config.baseUrl">
+              <div class="validation-indicator" [ngClass]="{
+                'validation-unknown': oauthValidationStatus === 'unknown',
+                'validation-testing': oauthValidationStatus === 'testing',
+                'validation-valid': oauthValidationStatus === 'valid',
+                'validation-invalid': oauthValidationStatus === 'invalid'
+              }">
+                <mat-icon *ngIf="oauthValidationStatus === 'testing'">sync</mat-icon>
+                <mat-icon *ngIf="oauthValidationStatus === 'valid'">check_circle</mat-icon>
+                <mat-icon *ngIf="oauthValidationStatus === 'invalid'">error</mat-icon>
+                <mat-icon *ngIf="oauthValidationStatus === 'unknown'">help_outline</mat-icon>
+                <span>
+                  <ng-container [ngSwitch]="oauthValidationStatus">
+                    <span *ngSwitchCase="'testing'">Testing OAuth endpoint...</span>
+                    <span *ngSwitchCase="'valid'">OAuth endpoint is reachable</span>
+                    <span *ngSwitchCase="'invalid'">OAuth endpoint is not reachable</span>
+                    <span *ngSwitchDefault>OAuth endpoint not tested</span>
+                  </ng-container>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Save Environment Button -->
+          <div class="form-actions" *ngIf="showEnvironmentDetails || selectedTenant === 'new'">
+            <button mat-raised-button color="accent" type="button" (click)="saveEnvironment()" class="save-button">
+              <mat-icon>save</mat-icon>
+              {{ selectedTenant === 'new' ? 'Create Environment' : 'Update Environment' }}
+            </button>
+
+            <button mat-stroked-button type="button" (click)="resetConfig()" class="reset-button">
+              <mat-icon>refresh</mat-icon>
+              Reset
+            </button>
+
+            <button mat-stroked-button color="warn" type="button" 
+                    (click)="deleteEnvironment()" 
+                    *ngIf="selectedTenant !== 'new'" 
+                    class="delete-button">
+              <mat-icon>delete</mat-icon>
+              Delete Environment
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Auth Method and Connection Section -->
+      <div *ngIf="selectedTenant !== 'new'" class="connection-section">
+        <!-- Auth Method Selector -->
+        <div class="auth-method-section">
+          <mat-form-field appearance="outline" class="auth-method-select">
+            <mat-label>Authentication Method</mat-label>
+            <mat-select [(value)]="globalAuthMethod" (selectionChange)="onGlobalAuthMethodChange()">
+              <mat-option value="pat">
+                <mat-icon>vpn_key</mat-icon>
+                Personal Access Token (PAT)
+              </mat-option>
+              <mat-option value="oauth">
+                <mat-icon>verified_user</mat-icon>
+                OAuth Browser Authentication
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <!-- Connection Button -->
+        <div class="connection-action">
+          <button mat-raised-button 
+                  color="primary"
+                  (click)="connectToISC()" 
+                  class="connect-button">
+            <mat-icon>{{ globalAuthMethod === 'oauth' ? 'launch' : 'usb' }}</mat-icon>
+            {{ globalAuthMethod === 'oauth' ? 'Connect with OAuth' : 'Connect with PAT' }}
+          </button>
+        </div>
+        </div>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
 </div>
 
-<mat-spinner *ngIf="loading"></mat-spinner>
+<!-- Connected State -->
+<div *ngIf="isConnected" class="connected-container">
+  <div class="connection-status">
+    <mat-icon class="connected-icon">check_circle</mat-icon>
+    <h2>Connected to {{ name }}</h2>
+  </div>
 
-<div *ngIf="!loading">
-  <!-- For connected state -->
-  <div *ngIf="isConnected" class="card-container">
+  <mat-spinner *ngIf="loading"></mat-spinner>
+
+  <div *ngIf="!loading" class="card-container">
     <mat-card class="action-card" (click)="listIdentities()">
       <mat-card-content class="card-content">
         <mat-icon class="card-icon">backup</mat-icon>

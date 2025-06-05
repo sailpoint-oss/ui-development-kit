@@ -5,7 +5,6 @@ import { IdentitiesComponent } from './identities/identities.component';
 import { campaignsComponent } from './campaigns/campaigns.component';
 
 import { SailPointImportsComponent } from './sailpoint-imports/sailpoint-imports.component';
-import {EnvironmentConfigComponent} from './environment-config/environment-config.component';
 
 export const appRoutes: Routes = [
   {
@@ -35,10 +34,7 @@ export const appRoutes: Routes = [
     path: 'component',
     component: SailPointImportsComponent
   },
-  {
-    path: 'environment-config',
-    component: EnvironmentConfigComponent
-  },
+
   {
     path: '**',
     component: PageNotFoundComponent
