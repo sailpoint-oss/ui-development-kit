@@ -109,7 +109,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     // Add visibility change listener to refresh tenants when returning to the app
     document.addEventListener('visibilitychange', () => {
       if (!document.hidden) {
-        this.refreshTenants();
+        void this.refreshTenants();
       }
     });
   }
@@ -291,7 +291,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.log('Connected to ISC with OAuth:', connected);
         this.connectionService.setConnectionState(connected.connected);
         this.isConnected = connected.connected;
-        this.name = connected.name || this.actualTenant.name;
+        this.name = String(connected.name || this.actualTenant.name);
         
         if (connected.connected) {
           // Update dialog to show success
@@ -348,10 +348,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.actualTenant.clientSecret
       );
       
-      console.log('Connected to ISC:', connected);
-      this.connectionService.setConnectionState(connected.connected);
-      this.isConnected = connected.connected;
-      this.name = connected.name;
+              console.log('Connected to ISC:', connected);
+        this.connectionService.setConnectionState(Boolean(connected.connected));
+        this.isConnected = Boolean(connected.connected);
+        this.name = String(connected.name);
       
       if (connected.connected) {
         this.openMessageDialog(`Successfully connected to ${connected.name}`, 'Connection Successful');
@@ -408,7 +408,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.loadEnvironmentForEditing(this.actualTenant);
       } else if (this.selectedTenant === 'new') {
         // Reset to default config for new environment
-        this.resetConfig();
+        void this.resetConfig();
       }
     }
   }
@@ -429,7 +429,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     
     // Auto-validate OAuth if using OAuth method
     if (this.globalAuthMethod === 'oauth' && this.config.baseUrl) {
-      this.validateOAuthEndpoint();
+      void this.validateOAuthEndpoint();
     }
   }
 
@@ -454,7 +454,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       
       // Trigger OAuth validation if using OAuth
       if (this.globalAuthMethod === 'oauth') {
-        this.validateOAuthEndpoint();
+        void this.validateOAuthEndpoint();
       }
     }
   }
@@ -468,7 +468,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       // Debounce the validation to avoid too many requests while typing
       setTimeout(() => {
         if (this.config.baseUrl) {
-          this.validateOAuthEndpoint();
+          void this.validateOAuthEndpoint();
         }
       }, 1000);
     }
@@ -503,7 +503,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         await this.resetConfig();
         this.showEnvironmentDetails = false;
       } else {
-        this.showError(result.error || 'Failed to save environment');
+        this.showError(String(result.error || 'Failed to save environment'));
       }
     } catch (error) {
       console.error('Error saving environment:', error);
@@ -511,7 +511,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  async deleteEnvironment() {
+  deleteEnvironment() {
     if (!this.actualTenant || this.selectedTenant === 'new') {
       return;
     }
@@ -519,29 +519,31 @@ export class HomeComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(GenericDialogComponent, {
       data: {
         title: 'Confirm Deletion',
-        message: `Are you sure you want to delete the environment "${this.actualTenant.name}"? This action cannot be undone.`,
+        message: `Are you sure you want to delete the environment "${String(this.actualTenant.name)}"? This action cannot be undone.`,
         showCancel: true
       }
     });
 
-    dialogRef.afterClosed().subscribe(async (result) => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        try {
-          const deleteResult = await window.electronAPI.deleteEnvironment(this.actualTenant!.name);
-          if (deleteResult.success) {
-            this.showSuccess('Environment deleted successfully!');
-            await this.loadTenants();
-            await this.resetConfig();
-            this.selectedTenant = 'new';
-            this.actualTenant = undefined;
-            this.showEnvironmentDetails = false;
-          } else {
-            this.showError(deleteResult.error || 'Failed to delete environment');
+        void (async () => {
+          try {
+            const deleteResult = await window.electronAPI.deleteEnvironment(this.actualTenant!.name);
+            if (deleteResult.success) {
+              this.showSuccess('Environment deleted successfully!');
+              await this.loadTenants();
+              await this.resetConfig();
+              this.selectedTenant = 'new';
+              this.actualTenant = undefined;
+              this.showEnvironmentDetails = false;
+            } else {
+              this.showError(String(deleteResult.error || 'Failed to delete environment'));
+            }
+          } catch (error) {
+            console.error('Error deleting environment:', error);
+            this.showError('Failed to delete environment');
           }
-        } catch (error) {
-          console.error('Error deleting environment:', error);
-          this.showError('Failed to delete environment');
-        }
+        })();
       }
     });
   }
@@ -598,7 +600,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       disableClose: true
     };
 
-    const dialogRef = this.dialog.open(GenericDialogComponent, {
+    this.dialog.open(GenericDialogComponent, {
       data: dialogData,
       width: '400px',
       disableClose: true
