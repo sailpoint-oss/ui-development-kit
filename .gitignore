@@ -10,7 +10,7 @@
 main.js
 src/**/*.js
 *.js.map
-/out
+out
 
 # dependencies
 node_modules
