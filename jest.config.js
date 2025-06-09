@@ -12,4 +12,7 @@ module.exports = {
     ],
     '^.+\\.js$': 'babel-jest',
   },
+  forceExit: true,
+  detectOpenHandles: true,
+  maxWorkers: 1
 };
