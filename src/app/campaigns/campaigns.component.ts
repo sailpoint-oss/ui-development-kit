@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
-import { SailPointSDKService } from '../core/services/electron/sailpoint-sdk.service';
+import { SailPointSDKService } from 'sailpoint-components';
 import { MatDialog } from '@angular/material/dialog';
 import { GetCampaign200ResponseV2025 } from 'sailpoint-api-client';
 import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';

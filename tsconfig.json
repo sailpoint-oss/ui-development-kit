@@ -22,7 +22,13 @@
       "es2018",
       "dom"
     ],
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "baseUrl": "./",
+    "paths": {
+      "sailpoint-components": [
+        "projects/sailpoint-components/src/public-api",
+      ],
+    }
   },
   "exclude": [
     "node_modules"

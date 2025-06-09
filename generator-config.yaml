@@ -11,7 +11,7 @@ files:
     destinationFilename: app/sailpoint-sdk/sdk-preload.ts
   sailpoint-sdk-service.mustache:
     templateType: SupportingFiles
-    destinationFilename: src/app/core/services/electron/sailpoint-sdk.service.ts
+    destinationFilename: /projects/sailpoint-components/src/lib/sailpoint-sdk.service.ts
 npmName: sailpoint-sdk
 npmRepository: sailpoint.com
 npmVersion: 1.6.0
