@@ -9,10 +9,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { APP_CONFIG } from '../environments/environment';
-import { ConnectComponent } from './connect/connect.component';
 import { ElectronService } from './core/services';
 import { ConnectionService } from './shared/connection.service';
+import { Router } from '@angular/router';
 
+declare const window: any;
 
 @Component({
   selector: 'app-root',
@@ -28,7 +29,6 @@ import { ConnectionService } from './shared/connection.service';
     MatListModule,
     MatIconModule,
     MatButtonModule,
-    ConnectComponent,
   ],
 })
 export class AppComponent {
@@ -42,7 +42,8 @@ export class AppComponent {
     private translate: TranslateService,
     private connectionService: ConnectionService,
     private renderer: Renderer2,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private router: Router
   ) {
     this.translate.setDefaultLang('en');
     console.log('APP_CONFIG', APP_CONFIG);
@@ -86,5 +87,13 @@ export class AppComponent {
 
   toggleSidenav() {
     this.sidenavOpened = !this.sidenavOpened;
+  }
+
+  async disconnectFromISC() {
+    await window.electronAPI.disconnectFromISC();
+    this.connectionService.setConnectionState(false);
+    this.router.navigate(['/home']).catch((error: any) => {
+      console.error('Navigation error:', error);
+    });
   }
 }

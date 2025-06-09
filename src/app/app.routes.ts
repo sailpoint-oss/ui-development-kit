@@ -5,6 +5,8 @@ import { PageNotFoundComponent } from './shared/components';
 import { TransformBuilderComponent } from './transforms/transform-builder/transform-builder.component';
 import { TransformsComponent } from './transforms/transforms.component';
 
+import { SailPointImportsComponent } from './sailpoint-imports/sailpoint-imports.component';
+
 export const appRoutes: Routes = [
   {
     path: '',
@@ -32,6 +34,11 @@ export const appRoutes: Routes = [
     path: 'transform-builder',
     component: TransformBuilderComponent
   },
+  {
+    path: 'component',
+    component: SailPointImportsComponent
+  },
+
   {
     path: '**',
     component: PageNotFoundComponent

@@ -1,21 +1,257 @@
-.card-container {
+.home-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  
+  .welcome-section {
+    text-align: center;
+    margin-bottom: 30px;
+    
+    h1 {
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+    
+    p {
+      color: var(--text-secondary);
+      font-size: 16px;
+    }
+  }
+  
+  .environment-card {
+    margin-bottom: 20px;
+    
+    mat-card-header {
+      display: flex;
+      align-items: center;
+      
+      mat-card-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        
+        mat-icon {
+          color: var(--primary-color);
+        }
+      }
+    }
+    
+    mat-card-content {
+      padding-top: 16px;
+    }
+  }
+  
+  .environment-section {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    
+    .environment-select {
+      flex: 1;
+    }
+    
+    .action-button {
+      margin-top: -8px; // Align with form field
+    }
   }
   
-  .action-card {
-    margin: 10px;
-    flex: 1 1 calc(30% - 20px);
-    min-width: 200px;
-    max-width: 300px;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+  .environment-details {
+    background-color: var(--surface-variant);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    
+    .config-form {
+      .form-row {
+        margin-bottom: 16px;
+        
+        .full-width {
+          width: 100%;
+        }
+      }
+      
+      .pat-section {
+        margin-top: 16px;
+      }
+      
+      .oauth-section {
+        margin-top: 16px;
+        
+        .oauth-info {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-bottom: 12px;
+          color: var(--text-secondary);
+          font-size: 14px;
+          
+          mat-icon {
+            color: var(--info-color);
+          }
+        }
+        
+        .oauth-validation {
+          margin-top: 12px;
+          
+          .validation-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            
+            mat-icon {
+              font-size: 18px;
+              width: 18px;
+              height: 18px;
+            }
+            
+            &.validation-unknown {
+              background-color: rgba(158, 158, 158, 0.1);
+              color: #9e9e9e;
+              
+              mat-icon {
+                color: #9e9e9e;
+              }
+            }
+            
+            &.validation-testing {
+              background-color: rgba(33, 150, 243, 0.1);
+              color: #2196f3;
+              
+              mat-icon {
+                color: #2196f3;
+                animation: spin 1s linear infinite;
+              }
+            }
+            
+            &.validation-valid {
+              background-color: rgba(76, 175, 80, 0.1);
+              color: #4caf50;
+              
+              mat-icon {
+                color: #4caf50;
+              }
+            }
+            
+            &.validation-invalid {
+              background-color: rgba(244, 67, 54, 0.1);
+              color: #f44336;
+              
+              mat-icon {
+                color: #f44336;
+              }
+            }
+          }
+        }
+      }
+      
+      .form-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 24px;
+        
+        button {
+          min-width: 120px;
+          
+          mat-icon {
+            margin-right: 8px;
+          }
+        }
+        
+        .save-button {
+          order: 1;
+        }
+        
+        .reset-button {
+          order: 2;
+        }
+        
+        .delete-button {
+          order: 3;
+          margin-left: auto;
+        }
+      }
+    }
   }
   
-  .action-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+  .connection-section {
+    .auth-method-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      
+      .auth-method-select {
+        width: 300px;
+      }
+    }
+    
+    .connection-action {
+      display: flex;
+      align-items: center;
+      justify-content: end;
+      gap: 16px;
+      flex-wrap: wrap;
+      
+      .connect-button {
+        min-width: 200px;
+        
+        mat-icon {
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+}
+
+.connected-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  
+  .connection-status {
+    text-align: center;
+    margin-bottom: 30px;
+    
+    .connected-icon {
+      color: var(--success-color);
+      font-size: 48px;
+      width: 48px;
+      height: 48px;
+      margin-bottom: 16px;
+    }
+    
+    h2 {
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+  }
+  
+  mat-spinner {
+    margin: 0 auto;
+  }
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.action-card {
+  min-width: 200px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
   
   .card-content {
@@ -23,14 +259,79 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    padding: 20px;
+    
+    .card-icon {
+      font-size: 48px;
+      width: 48px;
+      height: 48px;
+      color: var(--primary-color);
+      margin-bottom: 12px;
+    }
+    
+    .card-text {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
   }
-  
-  .card-icon {
+}
 
-    margin-bottom: 10px;
+// Responsive design
+@media (max-width: 768px) {
+  .home-container, .connected-container {
+    padding: 16px;
+    
+    .config-form .form-actions {
+      flex-direction: column;
+      
+      .delete-button {
+        margin-left: 0;
+        order: 3;
+      }
+    }
   }
   
-  .card-text {
-    font-size: 16px;
+  .environment-section {
+    flex-direction: column;
+    align-items: stretch;
+    
+    .action-button {
+      margin-top: 8px;
+      align-self: center;
+    }
   }
+}
+
+// CSS variables for theming
+:host {
+  --primary-color: #1976d2;
+  --success-color: #4caf50;
+  --info-color: #2196f3;
+  --text-primary: rgba(0, 0, 0, 0.87);
+  --text-secondary: rgba(0, 0, 0, 0.6);
+  --surface-variant: rgba(0, 0, 0, 0.04);
+}
+
+:host-context(.dark-theme) {
+  --text-primary: rgba(255, 255, 255, 0.87);
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --surface-variant: rgba(255, 255, 255, 0.08);
+}
+
+// Keyframe animations
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+// Global snackbar styles
+::ng-deep .error-snackbar {
+  background-color: #f44336 !important;
+  color: white !important;
+}
+
+::ng-deep .success-snackbar {
+  background-color: #4caf50 !important;
+  color: white !important;
+}
   

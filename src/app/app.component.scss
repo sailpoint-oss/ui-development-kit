@@ -65,6 +65,32 @@
 button {
     font-family: 'Poppins' !important;
 }
+.connection-status-navbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 16px;
+  padding: 8px 12px;
+  background-color: rgba(76, 175, 80, 0.1);
+  border-radius: 16px;
+  
+  .connected-icon {
+    color: #4caf50;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+  
+  .connection-text {
+    color: #4caf50;
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
+
+:host-context(.dark-theme) .connection-status-navbar {
+  background-color: rgba(76, 175, 80, 0.2);
+}
 
 .app-container {
   height: calc(100% - 80px); /* Adjust the height as needed */
@@ -80,6 +106,8 @@ button {
   margin-bottom: auto;
   margin-right: 10px;
 }
+
+
 
 
 .disabled {
@@ -136,5 +164,14 @@ mat-sidenav {
 
 .mat-calendar-body-overview .mat-calendar-body-cell-content:hover {
   background-color: rgba(0, 113, 206, 0.08) !important;
+}
+.nav-divider {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 8px 16px;
+}
+
+:host-context(.dark-theme) .nav-divider {
+  border-top-color: #333;
 }
 

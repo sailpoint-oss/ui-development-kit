@@ -18,7 +18,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { Observable, Subject, of } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, switchMap, takeUntil } from 'rxjs/operators';
 import { IdentityDocumentsV2025 } from 'sailpoint-api-client';
-import { SailPointSDKService } from '../../../core/services/electron/sailpoint-sdk.service';
+import { SailPointSDKService } from 'sailpoint-components';
 import { IdentityService } from './identity-service';
 
 

@@ -19,7 +19,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { finalize, from, Subject, takeUntil } from 'rxjs';
 import { IdentityDocumentsV2025, IdentityProfilesV2025ApiGenerateIdentityPreviewRequest, IdentityProfileV2025, TransformsV2025ApiCreateTransformRequest } from 'sailpoint-api-client';
-import { SailPointSDKService } from '../../../core/services/electron/sailpoint-sdk.service';
+import { SailPointSDKService } from 'sailpoint-components';
 import { IdentitySearchComponent } from './identity-search.component';
 import { IdentityService } from './identity-service';
 import { TransformResultsComponent } from './transform-results.component';
