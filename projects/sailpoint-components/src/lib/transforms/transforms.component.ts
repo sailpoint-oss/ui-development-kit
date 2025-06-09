@@ -8,7 +8,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { TransformReadV2025 } from 'sailpoint-api-client';
 import { SailPointSDKService } from 'sailpoint-components';
-import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
+import { GenericDialogComponent } from '../../../../../src/app/generic-dialog/generic-dialog.component';
 import { TransformBuilderComponent } from './transform-builder/transform-builder.component';
 
 
