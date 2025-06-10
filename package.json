@@ -62,11 +62,6 @@
     "keytar": "7.9.0",
     "rxjs": "7.8.2",
     "sailpoint-api-client": "1.6.1",
-    "sequential-workflow-designer": "0.29.0",
-    "sequential-workflow-designer-angular": "0.29.0",
-    "sequential-workflow-editor": "0.14.8",
-    "sequential-workflow-editor-model": "0.14.8",
-    "sequential-workflow-model": "0.2.0",
     "tslib": "2.8.1",
     "zone.js": "~0.15.0"
   },

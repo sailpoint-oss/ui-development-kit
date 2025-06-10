@@ -4,7 +4,7 @@ import {
   createChoiceValueModel,
   createStepModel
 } from 'sequential-workflow-editor-model';
-import { SailPointSDKService } from 'sailpoint-components';
+import { SailPointSDKService } from '../../../sailpoint-sdk.service';
 
 
 export function createRule(): RuleStep {

@@ -3,7 +3,7 @@ import { MatTableModule } from '@angular/material/table';
 import { SailPointSDKService } from 'sailpoint-components';
 import { MatDialog } from '@angular/material/dialog';
 import { IdentityV2025 } from 'sailpoint-api-client';
-import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
+import { GenericDialogComponent } from '../../../projects/sailpoint-components/src/lib/generic-dialog/generic-dialog.component';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 

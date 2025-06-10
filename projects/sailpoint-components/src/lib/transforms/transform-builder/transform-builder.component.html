@@ -138,7 +138,7 @@
             <div *ngFor="let branchName of getBranchNames(editor.step.branches); let i = index" class="branch-row">
               <div *ngIf="branchName !== 'input'">
               <mat-form-field appearance="outline" class="branch-field">
-                <input matInput [(ngModel)]="branchName" [readonly]="editor.isReadonly" placeholder="Branch Name" (change)="renameBranchAtIndex(editor.step.branches, branchName, $event.target.value, editor.context)"/>
+                <input matInput [value]="branchName" [readonly]="editor.isReadonly" placeholder="Branch Name" (change)="renameBranchAtIndex(editor.step.branches, branchName, $event.target.value, editor.context)"/>
               </mat-form-field>
               <button mat-icon-button color="warn" (click)="removeBranch(editor.step.branches, i, $event, editor.context)">
                 <mat-icon>delete</mat-icon>

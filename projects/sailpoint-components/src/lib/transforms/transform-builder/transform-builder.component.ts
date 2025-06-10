@@ -53,6 +53,7 @@ import {
 } from './models/static';
 
 import { FormsModule } from '@angular/forms';
+import { MatCard, MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormField } from '@angular/material/form-field';
@@ -63,7 +64,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Router, RouterModule } from '@angular/router';
 import { TransformReadV2025 } from 'sailpoint-api-client';
-import { SailPointSDKService } from 'sailpoint-components';
+import { SailPointSDKService } from '../../sailpoint-sdk.service';
 import { ConditionalModel, createConditional, deserializeConditional, getConditionalIcon, isConditionalStep, serializeConditional } from './models/conditional';
 import { createDateCompare, DateCompareModel, deserializeDateCompare, getDateCompareIcon, isDateCompareStep, operatorMap, serializeDateCompare } from './models/date-compare';
 import { createDateFormat, DateFormatMap, DateFormatModel, deserializeDateFormat, getDateFormatIcon, isDateFormatStep, serializeDateFormat } from './models/date-format';
@@ -306,6 +307,7 @@ export function deserializeToStep(data: any): Step {
     MatSlideToggleModule,
     MatIconModule,
     MatSelectModule,
+    MatCardModule,
     MatProgressSpinnerModule
   ],
   templateUrl: './transform-builder.component.html',

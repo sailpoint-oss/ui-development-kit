@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ConnectionService } from '../shared/connection.service';
 import { Subscription } from 'rxjs';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { GenericDialogComponent, DialogData } from '../generic-dialog/generic-dialog.component';
+import { GenericDialogComponent, DialogData } from '../../../projects/sailpoint-components/src/lib/generic-dialog/generic-dialog.component';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
