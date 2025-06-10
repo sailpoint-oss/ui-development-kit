@@ -319,4 +319,8 @@ export class TransformPreviewComponent implements OnInit {
     this.transformResults = [];
     localStorage.removeItem('selectedProfileId');
   }
+
+  onTransformCodeChange(): void {
+    // handle transform code changes if needed
+  }
 }

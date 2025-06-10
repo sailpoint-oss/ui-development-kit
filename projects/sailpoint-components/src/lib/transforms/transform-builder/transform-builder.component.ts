@@ -327,6 +327,8 @@ export class TransformBuilderComponent implements OnInit {
   public isEditorCollapsed = false;
   private defaultStepEditorProvider?: StepEditorProvider;
   public isValid?: boolean;
+  public customInputDate?: string;
+  public preview?: string
   public isReadonly = false;
   public definitionModel?: DefinitionModel<Definition>;
   public isReady = false;
@@ -592,7 +594,7 @@ export class TransformBuilderComponent implements OnInit {
   public updateProperty(
     properties: Properties,
     name: string,
-    event: Event,
+    event: Event | MatSlideToggleChange,
     context: RootEditorContext | StepEditorContext
   ) {
     console.log(event)
