@@ -54,9 +54,6 @@ jobs:
         cd app
         npm i
         cd ..
-        cd projects/sailpoint-components
-        npm i
-        cd ../..
 
     - name: Check lint
       run: npm run lint

@@ -9,7 +9,7 @@
     "inlineSources": true,
     "types": [],
     "lib": ["es2019", "dom"],
-    "skipLibCheck": true,
+    "skipLibCheck": true
   },
   "exclude": [
     "**/*.spec.ts"

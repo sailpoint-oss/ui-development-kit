@@ -23,6 +23,7 @@
       "dom"
     ],
     "useDefineForClassFields": false,
+    "skipLibCheck": true,
     "baseUrl": "./",
     "paths": {
       "sailpoint-components": [
