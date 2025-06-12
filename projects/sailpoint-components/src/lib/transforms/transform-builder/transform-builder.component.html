@@ -77,13 +77,35 @@
     
         <p>Attributes</p>
         <ng-container *ngFor="let key of objectKeys(editor.step.properties)">
-          <div *ngIf="isBoolean(editor.step.properties[key]); else fieldCheck" style="display: block; margin-top: 1rem;">
+          <div *ngIf="isBoolean(editor.step.properties[key]); else numberCheck" style="display: block; margin-top: 1rem;">
             <mat-slide-toggle [(ngModel)]="editor.step.properties[key]" name="{{ key }}"
                               [disabled]="editor.isReadonly"
                               (change)="updateProperty(editor.step.properties, key, $event, editor.context)">
               {{ key }}
             </mat-slide-toggle>
           </div>
+
+          <!-- Number handling -->
+          <ng-template #numberCheck>
+            <div *ngIf="isNumber(editor.step.properties[key]); else fieldCheck" style="display: block; margin-top: 1rem;">
+              <mat-form-field appearance="fill">
+                <mat-label>{{ key }}</mat-label>
+                <input matInput 
+                       type="number" 
+                       [(ngModel)]="editor.step.properties[key]" 
+                       name="{{ key }}"
+                       [readonly]="editor.isReadonly"
+                       [required]="isRequired(editor.step.type, key)"
+                       (input)="updateNumberProperty(editor.step.properties, key, $event, editor.context)">
+                <mat-error *ngIf="editor.step.properties[key] === null || editor.step.properties[key] === undefined">
+                  {{ key }} is required
+                </mat-error>
+                <!-- <mat-error *ngIf="hasNumberValidationError(editor.step.type, key, editor.step.properties[key])">
+                  {{ getNumberValidationError(editor.step.type, key, editor.step.properties[key]) }}
+                </mat-error> -->
+              </mat-form-field>
+            </div>
+          </ng-template>
         
           <ng-template #fieldCheck>
             <div *ngIf="isMap(editor.step.properties[key]); else textField" style="display: block; margin-top: 1rem;">

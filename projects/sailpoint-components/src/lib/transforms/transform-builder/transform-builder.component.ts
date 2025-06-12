@@ -100,6 +100,29 @@ import { createUUID, deserializeUUID, getUUIDIcon, isUUIDStep, serializeUUID } f
 import { MapEditorDialogComponent } from './utils/map-editor-dialog.component';
 import { TransformPreviewComponent } from './utils/transform-preview.component';
 
+interface StepDefinition {
+  id: string;
+  name: string;
+  type: string;
+  componentType: string;
+  properties: Record<string, any>;
+  sequence?: StepDefinition[];
+  branches?: Record<string, StepDefinition[]>;
+}
+
+interface WorkflowDefinition {
+  properties: Record<string, any>;
+  sequence: StepDefinition[];
+}
+
+// Result type for enhanced search with path information
+interface StepSearchResult {
+  step: StepDefinition;
+  path: (string | number)[];
+  sequence: StepDefinition[];
+  index: number;
+}
+
 export interface MyDefinition extends Definition {
   properties: {
     name: string;
@@ -381,25 +404,43 @@ export class TransformBuilderComponent implements OnInit {
       return this.getDefaultFallbackIcon();
     },
 
-    // canInsertStep: (step, targetSequence, targetIndex) => {
-    //   console.log('canInsertStep', step, targetSequence, targetIndex);
-    //   // return true;
-
-    //   if (step.componentType !== 'task') return true;
-
-    //   const prev = targetSequence[targetIndex - 1];
-    //   const next = targetSequence[targetIndex + 1];
-    
-    //   const hasAdjacentTask =
-    //     (prev && prev.componentType === 'task') ||
-    //     (next && next.componentType === 'task');
-
-    //   console.log('hasAdjacentTask', hasAdjacentTask);
-    //   if(prev) console.log(`prevComponent`, prev.componentType);
-    //   if(next) console.log(`nextComponent`, next.componentType);
-    
-    //   return !hasAdjacentTask;
-    // },
+    canInsertStep: (step, targetSequence, targetIndex) => {
+      const stepType = step.type;
+      
+      // Check the step that would be directly above (previous)
+      if (targetIndex > 0) {
+        const previousStep = targetSequence[targetIndex - 1];
+        if (previousStep.type === stepType) {
+          return false; // Same type directly above
+        }
+      }
+      
+      // Check the step that would be directly below (next)
+      if (targetIndex < targetSequence.length) {
+        const nextStep = targetSequence[targetIndex];
+        if (nextStep.type === stepType) {
+          return false; // Same type directly below
+        }
+      }
+      
+      return true; // Allow insertion
+    },
+    // Optional: Also prevent moving existing steps to invalid positions
+    canMoveStep: (sourceSequence, step, targetSequence, targetIndex) => {
+      // Reuse the same logic for move operations
+      const stepType = step.type;
+      
+      // Check adjacent positions in target sequence
+      const previousStep = targetIndex > 0 ? targetSequence[targetIndex - 1] : null;
+      const nextStep = targetIndex < targetSequence.length ? targetSequence[targetIndex] : null;
+      
+      if ((previousStep && previousStep.type === stepType) || 
+          (nextStep && nextStep.type === stepType)) {
+        return false;
+      }
+      
+      return true;
+    }
   };
 
   public readonly toolboxConfiguration: ToolboxConfiguration = {
@@ -539,6 +580,10 @@ export class TransformBuilderComponent implements OnInit {
     return typeof value === 'boolean';
   }
 
+  isNumber(value: any): boolean {
+    return typeof value === 'number' || (!isNaN(value) && !isNaN(parseFloat(value)));
+  }
+
   isMap(value: unknown): value is Record<string, unknown> {
     return typeof value === 'object' && value !== null && !Array.isArray(value);
   }
@@ -576,15 +621,82 @@ export class TransformBuilderComponent implements OnInit {
   }
 
   togglePreview(): void {
+
+  const selectedStepId = this.designer?.getSelectedStepId();
+  const definition = this.designer?.getDefinition();
+  
+  let serializedTransform: string | undefined;
+
+    if (selectedStepId) {
+    // Serialize selected step
+    if (!definition) {
+      alert('Definition not found');
+      return;
+    }
+    const selectedStep = this.findStepById(definition, selectedStepId);
+    
+    if (!selectedStep) {
+      alert('Selected step not found');
+      return;
+    }
+
+    
+    serializedTransform = JSON.stringify(serializeStep(selectedStep), null, 2);
+
+  } else {
+    // Serialize whole definition
+    if (definition?.sequence[0]) {
+      serializedTransform = JSON.stringify(serializeStep(definition.sequence[0]), null, 2);
+    } else {
+      serializedTransform = undefined;
+    }
+  }
+
+
+
+
     this.dialog.open(TransformPreviewComponent, {
       width: '70%',
       height: '75%',
       maxWidth: 'none',
-      data: { sdkService: this.sdk, transformDefinition: this.definitionJSON }
+      data: { sdkService: this.sdk, transformDefinition: serializedTransform }
     });
   
     // dialogRef.afterClosed().subscribe(result => {
     // });
+  }
+
+  // Basic findStepById function
+  findStepById(definition: Definition, stepId: string): StepDefinition | null {
+    function searchInSequence(sequence: StepDefinition[]): StepDefinition | null {
+      for (const step of sequence) {
+        // Direct match
+        if (step.id === stepId) {
+          return step;
+        }
+        
+        // Search in nested sequence
+        if (step.sequence && Array.isArray(step.sequence)) {
+          const found = searchInSequence(step.sequence);
+          if (found) return found;
+        }
+        
+        // Search in branches
+        if (step.branches && typeof step.branches === 'object') {
+          for (const branchKey in step.branches) {
+            const branch = step.branches[branchKey];
+            if (Array.isArray(branch)) {
+              const found = searchInSequence(branch);
+              if (found) return found;
+            }
+          }
+        }
+      }
+      
+      return null;
+    }
+    
+    return searchInSequence(definition.sequence);
   }
 
   getBranchNames(branches: Record<string, any[]>): string[] {
