@@ -96,7 +96,7 @@
                        name="{{ key }}"
                        [readonly]="editor.isReadonly"
                        [required]="isRequired(editor.step.type, key)"
-                       (input)="updateNumberProperty(editor.step.properties, key, $event, editor.context)">
+                       (input)="updateProperty(editor.step.properties, key, $event, editor.context)">
                 <mat-error *ngIf="editor.step.properties[key] === null || editor.step.properties[key] === undefined">
                   {{ key }} is required
                 </mat-error>
