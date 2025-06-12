@@ -8,7 +8,8 @@
     "declarationMap": true,
     "inlineSources": true,
     "types": [],
-    "paths": {}
+    "lib": ["es2019", "dom"],
+    "skipLibCheck": true
   },
   "exclude": [
     "**/*.spec.ts"

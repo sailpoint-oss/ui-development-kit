@@ -1,3 +1,12 @@
+@font-face {
+  font-family: 'Poppins';
+  src: url('../assets/fonts/poppins/Poppins-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+
 :host {
 
   .mat-mdc-form-field.mat-mdc-form-field-appearance-fill .mdc-text-field--filled {
@@ -9,6 +18,7 @@
   }
 
   mat-sidenav {
+    font-family: 'Poppins' !important;
     background-color: #ffffff;
     box-shadow: 4px 0 6px -2px #415364;
     border-radius: .25rem; /* Light background for light mode */
@@ -24,11 +34,12 @@
   }
 
   .main-content {
-    margin: 16px auto; 
+    margin: 16px; 
     padding: 16px;
     border-radius: 8px; /* Rounded corners */
     background-color: #fff; /* Optional: background color */
-    width: max-content;
+    width: 95%;
+    font-family: 'Poppins' !important;
   }
 
   // Dark theme styles
@@ -51,6 +62,9 @@
 
 }
 
+button {
+    font-family: 'Poppins' !important;
+}
 .connection-status-navbar {
   display: flex;
   align-items: center;
@@ -80,6 +94,7 @@
 
 .app-container {
   height: calc(100% - 80px); /* Adjust the height as needed */
+  font-family: 'Poppins' !important;
 }
 
 .spacer {
@@ -129,6 +144,27 @@ mat-sidenav {
   position: relative;
 }
 
+/// STEP PER ICONS ///
+.mat-horizontal-stepper-header .mat-step-icon,
+.mat-vertical-stepper-header .mat-step-icon {
+  background-color: #0071ce !important;      /* override selected & edit states */
+  color: #ffffff !important;                 /* override icon foreground */
+}
+
+.mat-horizontal-stepper-header .mat-step-icon.mat-active,
+.mat-vertical-stepper-header .mat-step-icon.mat-active {
+  background-color: #005bb5 !important;      /* darker for active if you like */
+}
+
+/// DATEPICKER SELECTED CELL ///
+.mat-calendar-body-selected .mat-calendar-body-cell-content {
+  background-color: #0071ce !important;      /* newly selected date background */
+  color: #ffffff !important;                 /* selected date text */
+}
+
+.mat-calendar-body-overview .mat-calendar-body-cell-content:hover {
+  background-color: rgba(0, 113, 206, 0.08) !important;
+}
 .nav-divider {
   border: none;
   border-top: 1px solid #e0e0e0;

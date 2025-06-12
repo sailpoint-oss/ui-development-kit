@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { TransformReadV2024, TransformsV2025ApiUpdateTransformRequest, TransformsV2025ApiCreateTransformRequest, TransformsV2025ApiDeleteTransformRequest} from 'sailpoint-api-client';
-import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
+import { GenericDialogComponent } from '../../../projects/sailpoint-components/src/lib/generic-dialog/generic-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';

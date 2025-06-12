@@ -1,0 +1,65 @@
+.identity-search-container {
+    margin-bottom: 20px;
+    
+    .full-width {
+      width: 100%;
+    }
+    
+    .search-field {
+      margin-bottom: 15px;
+    }
+    
+    .loading-indicator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 20px 0;
+      
+      span {
+        color: rgba(0, 0, 0, 0.6);
+      }
+    }
+    
+    .error-message {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 20px 0;
+      color: #f44336;
+    }
+    
+    .no-results {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 30px 0;
+      color: rgba(0, 0, 0, 0.6);
+      
+      mat-icon {
+        font-size: 24px;
+        height: 24px;
+        width: 24px;
+      }
+    }
+    
+    .identity-item {
+      display: flex;
+      flex-direction: column;
+      
+      .identity-name {
+        font-weight: 500;
+      }
+      
+      .identity-id {
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.6);
+      }
+    }
+    
+    mat-selection-list {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+  }
+  

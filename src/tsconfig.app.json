@@ -12,7 +12,8 @@
     "polyfills.ts"
   ],
   "include": [
-    "**/*.d.ts"
+    "**/*.d.ts",
+    "**/*.ts"
   ],
   "exclude": [
     "**/*.spec.ts"

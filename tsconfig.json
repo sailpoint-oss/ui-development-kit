@@ -23,13 +23,22 @@
       "dom"
     ],
     "useDefineForClassFields": false,
+    "skipLibCheck": true,
     "baseUrl": "./",
     "paths": {
       "sailpoint-components": [
-        "projects/sailpoint-components/src/public-api",
-      ],
+        "projects/sailpoint-components/src/public-api"
+      ]
     }
   },
+  "include": [
+    "src/**/*.d.ts",
+    "src/**/*.ts",
+    "src/**/*.html",
+    "src/**/*.css",
+    "src/**/*.scss",
+    "src/**/*.json"
+  ],
   "exclude": [
     "node_modules"
   ],

@@ -1,16 +1,16 @@
-import { Component, Renderer2 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { ElectronService } from './core/services';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { APP_CONFIG } from '../environments/environment';
-import { ConnectionService } from './shared/connection.service';
 import { BreakpointObserver, Breakpoints, LayoutModule } from '@angular/cdk/layout';
-import { MatListModule } from '@angular/material/list';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
+import { Component, Renderer2 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { RouterModule } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { APP_CONFIG } from '../environments/environment';
+import { ElectronService } from './core/services';
+import { ConnectionService } from './shared/connection.service';
 import { Router } from '@angular/router';
 
 declare const window: any;
@@ -34,7 +34,7 @@ declare const window: any;
 export class AppComponent {
   isSmallScreen: boolean = false;
   sidenavOpened = true;
-  isConnected = false;
+  isConnected = true;
   isDarkTheme = false;
 
   constructor(
@@ -61,9 +61,9 @@ export class AppComponent {
       console.log('Run in browser');
     }
 
-    this.connectionService.isConnected$.subscribe(connection => {
-      this.isConnected = connection.connected;
-    });
+    // this.connectionService.isConnected$.subscribe(connection => {
+    //   this.isConnected = connection.connected;
+    // });
 
     const storedTheme = localStorage.getItem('theme');
     if (storedTheme === 'dark') {

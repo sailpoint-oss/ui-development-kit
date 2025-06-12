@@ -1,0 +1,324 @@
+@import "sequential-workflow-designer/css/designer.css";
+@import "sequential-workflow-designer/css/designer-light.css";
+@import "sequential-workflow-designer/css/designer-dark.css";
+
+.section-title {
+  color: #0033a1 !important;
+}
+
+.mat-mdc-card-title {
+  font-family: 'Poppins' !important;
+  color: #415364 !important;
+}
+
+html {
+
+  --mat-stepper-header-label-text-color: #415364 !important;
+  --mat-stepper-header-optional-label-text-color: #415364 !important;
+  --mat-stepper-header-selected-state-label-text-color: #415364 !important;
+  --mat-stepper-header-icon-background-color: #415364 !important;
+
+  --mat-sidenav-container-text-color: #415364 !important;
+
+  --mat-expansion-header-description-color: #415364 !important;
+  --mat-expansion-header-indicator-color: #415364 !important;
+
+  --mat-datepicker-toggle-active-state-icon-color: #415364 !important;
+  --mat-datepicker-toggle-icon-color: #415364 !important;
+  --mat-datepicker-calendar-period-button-text-color: #415364 !important;
+  --mat-datepicker-calendar-period-button-icon-color: #415364 !important;
+  --mat-datepicker-calendar-navigation-button-icon-color: #415364 !important;
+
+  --mat-select-placeholder-text-color: #415364 !important;
+
+  --mat-form-field-leading-icon-color: #415364 !important;
+  --mat-form-field-trailing-icon-color: #415364 !important;
+
+  --mdc-outlined-text-field-label-text-color: #415364 !important;
+  --mdc-outlined-text-field-input-text-placeholder-color: #415364 !important;
+
+  --mdc-filled-text-field-label-text-color: #415364 !important;
+  --mdc-filled-text-field-hover-label-text-color: #415364 !important;
+
+  --mdc-list-list-item-supporting-text-color: #415364 !important;
+  --mdc-list-list-item-leading-icon-color: #415364 !important;
+  --mdc-list-list-item-trailing-supporting-text-color: #415364 !important;
+  --mdc-list-list-item-trailing-icon-color: #415364 !important;
+
+  --mat-menu-item-icon-color: #415364 !important;
+
+  --mdc-chip-focus-outline-color: #415364 !important;
+  --mdc-chip-hover-state-layer-color: #415364 !important;
+  --mdc-chip-label-text-color: #415364 !important;
+  --mdc-chip-with-icon-icon-color: #415364 !important;
+  --mdc-chip-with-trailing-icon-trailing-icon-color: #415364 !important;
+
+  --mat-optgroup-label-text-color: #415364 !important;
+
+  /* Stepper */
+  --mat-stepper-header-selected-state-icon-background-color: #0071ce !important;
+  --mat-stepper-header-edit-state-icon-background-color: #0071ce !important;
+  
+
+  /* Datepicker */
+  --mat-datepicker-calendar-date-selected-state-background-color: #0071ce !important;
+  --mat-datepicker-calendar-date-today-selected-state-outline-color: #0071ce !important;
+  --mat-datepicker-calendar-date-today-outline-color: #0071ce !important;
+  --mat-datepicker-calendar-date-preview-state-outline-color: #0071ce !important;
+
+  /* Circular progress */
+  --mdc-circular-progress-active-indicator-color: #0071ce !important;
+
+  /* Outlined buttons */
+  --mat-outlined-button-state-layer-color: #0071ce !important;
+
+  /* Protected buttons */
+  --mat-protected-button-state-layer-color: #0071ce !important;
+
+  /* Text buttons */
+  --mat-text-button-state-layer-color: #0071ce !important;
+
+  /* MDC outlined button label */
+  --mdc-outlined-button-label-text-color: #0071ce !important;
+
+  /* MDC filled button */
+  --mdc-filled-button-container-color: #0071ce !important;
+
+  /* MDC protected button label */
+  --mdc-protected-button-label-text-color: #0071ce !important;
+
+  /* MDC text button label */
+  --mdc-text-button-label-text-color: #0071ce !important;
+
+  /* MDC checkbox icons & layers */
+  --mdc-checkbox-selected-pressed-icon-color: #0071ce !important;
+  --mdc-checkbox-selected-focus-icon-color: #0071ce !important;
+  --mdc-checkbox-selected-hover-icon-color: #0071ce !important;
+  --mdc-checkbox-selected-icon-color: #0071ce !important;
+  --mdc-checkbox-selected-focus-state-layer-color: #0071ce !important;
+  --mdc-checkbox-selected-hover-state-layer-color: #0071ce !important;
+
+  /* Tab header indicator */
+  --mat-tab-header-active-focus-indicator-color: #0071ce !important;
+  --mat-tab-header-active-hover-indicator-color: #0071ce !important;
+  --mdc-tab-indicator-active-indicator-color: #0071ce !important;
+
+  /* List item selected trailing icon */
+  --mdc-list-list-item-selected-trailing-icon-color: #0071ce !important;
+
+  /* Slider */
+  --mat-slider-ripple-color: #0071ce !important;
+  --mdc-slider-handle-color: #0071ce !important;
+  --mdc-slider-focus-handle-color: #0071ce !important;
+  --mdc-slider-hover-handle-color: #0071ce !important;
+  --mdc-slider-active-track-color: #0071ce !important;
+  --mdc-slider-label-container-color: #0071ce !important;
+
+  /* Radio */
+  --mat-radio-checked-ripple-color: #0071ce !important;
+  --mdc-radio-selected-focus-icon-color: #0071ce !important;
+  --mdc-radio-selected-hover-icon-color: #0071ce !important;
+  --mdc-radio-selected-icon-color: #0071ce !important;
+  --mdc-radio-selected-pressed-icon-color: #0071ce !important;
+
+  /* Switch */
+  --mdc-switch-selected-focus-state-layer-color: #0071ce !important;
+  --mdc-switch-selected-hover-state-layer-color: #0071ce !important;
+  --mdc-switch-selected-pressed-state-layer-color: #0071ce !important;
+  --mdc-switch-selected-focus-track-color: #0071ce !important;
+  --mdc-switch-selected-hover-track-color: #0071ce !important;
+  --mdc-switch-selected-pressed-track-color: #0071ce !important;
+  --mdc-switch-selected-track-color: #0071ce !important;
+
+  /* Form-field select arrow */
+  --mat-form-field-focus-select-arrow-color: #0071ce !important;
+
+    /* Filled text field */
+  --mdc-filled-text-field-caret-color: #0071ce !important;
+  --mdc-filled-text-field-focus-active-indicator-color: #0071ce !important;
+  --mdc-filled-text-field-focus-label-text-color: #0071ce !important;
+  --mdc-outlined-text-field-caret-color: #0071ce !important;
+  --mdc-outlined-text-field-focus-outline-color: #0071ce !important;
+  --mdc-outlined-text-field-focus-label-text-color: #0071ce !important;
+
+  /* Linear progress */
+  --mdc-linear-progress-active-indicator-color: #0071ce !important;
+
+  /* Minimal pseudo-checkbox */
+  --mat-minimal-pseudo-checkbox-selected-checkmark-color: #0071ce !important;
+
+  /* Full pseudo-checkbox */
+  --mat-full-pseudo-checkbox-selected-icon-color: #0071ce !important;
+
+  --mdc-checkbox-unselected-pressed-state-layer-color: #0071ce !important;
+  --mat-select-focused-arrow-color: #0071ce !important;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('../../../assets/fonts/poppins/Poppins-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+  ::ng-deep mat-spinner circle {
+    stroke: #0033a1 !important; 
+    fill: #0033a1 !important;
+  }
+
+  .sqd-theme-light .sqd-step-switch > .sqd-label-primary > .sqd-label-rect {
+    fill: #0033a1 !important; 
+  }
+
+  .sqd-theme-light .sqd-step-switch > .sqd-label-secondary > .sqd-label-rect {
+    fill: #0071ce !important; 
+  }
+
+  .spinner-container {
+    display: flex;
+    justify-content: center;  // horizontal centering
+    align-items: center;      // vertical centering  
+    border: none;
+    height: 75vh;          // takes full viewport height (adjust as needed)
+  }
+
+
+  .sqd-theme-light .sqd-step-task .sqd-step-task-rect.sqd-selected {
+    stroke: #0071ce !important;
+  }
+
+.sqd-designer-angular {
+	height: 92vh;
+}
+
+.sqd-layout-desktop .sqd-smart-editor-toggle {
+  right: 325px;
+}
+
+.sqd-editor-angular {
+  padding: 10px;
+}
+
+.sqd-layout-desktop .sqd-smart-editor {
+  position: relative;
+  width: 325px;
+}
+
+.sqd-toolbox {
+  margin-top: 55px;
+  width: 243px;
+  font-family: 'Poppins' !important;
+}
+
+.main-content {
+  margin: 0px !important; 
+  padding: 0px !important;
+  border-radius: 8px; /* Rounded corners */
+  background-color: #ffffff; /* Optional: background color */
+  width: 100% !important;
+  font-family: 'Poppins' !important;
+}
+
+.preview-button {
+  position: absolute;
+  top: 16px;
+  left: 90px;
+  z-index: 1000;
+  color:#0071ce !important;
+  background: #ffffff !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2); 
+  border-radius: .5rem;
+  font-family: 'Poppins' !important;
+}
+
+.preview-button:hover {
+  background-color: #0071ce !important;
+  color: #ffffff !important;
+  border: 1px solid #0071ce !important;
+}
+
+.transform-name {
+  position: absolute;
+  padding: 10px;
+  top: 16px;
+  left: 40%;
+  width: fit-content;
+  z-index: 1000; 
+  background: #ffffff !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2); 
+  border-radius: .5rem;
+  font-family: 'Poppins' !important;
+  color:#415364 !important;
+}
+
+.mdc-text-field {
+  background-color: #ffffff !important;
+  border-radius: .5rem !important;
+  border: 1px solid #415364 !important;
+  text-decoration: none !important;
+  font-family: 'Poppins' !important;
+  color:#415364 !important;
+}
+
+.sqd-toolbox-group-title {
+  color:#415364 !important;
+  background-color: #ffffff !important;
+  font-size: larger;
+  font-weight: 600px;
+  font-family: 'Poppins' !important;
+  text-decoration: underline !important;
+}
+
+.sqd-root-start-stop-circle {
+  fill: #0033a1 !important;
+}
+
+.mdc-switch--unselected .mdc-switch__track::before, .mdc-switch--unselected .mdc-switch__track::after {
+  background-color: #ffffff !important;
+  font-family: 'Poppins' !important;
+  border-color: #415364 !important;
+  border-width: 1px !important;
+}
+
+.mdc-switch--selected .mdc-switch__track::before, .mdc-switch--selected .mdc-switch__track::after {
+  background-color: #0033a1 !important;
+  font-family: 'Poppins' !important;
+  border-color: #415364 !important;
+  border-width: 1px !important;
+}
+
+.mdc-switch--unselected .mdc-switch__icon {
+  fill: #ffffff !important;
+}
+
+.mdc-switch--selected .mdc-switch__icon {
+  fill: #0033a1 !important;
+}
+
+.mdc-text-field--focused {
+  border: 1px solid #0071ce !important;
+}
+
+.sqd-toolbox-body {
+  text-decoration: none !important;
+  font-family: 'Poppins' !important;
+}
+
+.sqd-toolbox-filter-input {
+  background-color: #ffffff !important;
+  border-radius: .5rem !important;
+  border: 1px solid #415364 !important;
+  text-decoration: none !important;
+  font-family: 'Poppins' !important;
+}
+
+.mdc-line-ripple::before, .mdc-line-ripple::after {
+  border-bottom: none !important;
+}
+
+
+
+.mat-mdc-card {
+  position: absolute !important;
+}

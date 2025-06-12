@@ -3,5 +3,12 @@
   "dest": "../../dist/sailpoint-components",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "allowedNonPeerDependencies": [
+    "sequential-workflow-designer",
+    "sequential-workflow-designer-angular",
+    "sequential-workflow-editor",
+    "sequential-workflow-editor-model",
+    "sequential-workflow-model"
+  ]
 }

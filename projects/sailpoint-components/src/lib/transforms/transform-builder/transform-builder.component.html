@@ -1,0 +1,177 @@
+<!-- <div class="info-line"> <h2>{{definition.properties.name}}</h2> 	<span>Is valid: <strong>{{ isValid }}</strong></span></div> -->
+<!-- <div class="block topButtonRowContainer">
+	<button class="topButtonRow" mat-raised-button color="primary" [routerLink]="['/transforms']">Back to table</button>
+	&nbsp;
+	<button class="topButtonRow" mat-raised-button color="primary" (click)="toggleReadonlyClicked()">
+		{{ isReadonly ? 'Enable editing' : 'Disable editing' }}
+	</button>
+	&nbsp;
+	<button class="topButtonRow" mat-raised-button color="primary" (click)="toggleSelectedStepClicked()">
+		{{ selectedStepId ? 'Unselect' : 'Select first' }}
+	</button>
+	&nbsp;
+	<button class="topButtonRow" mat-raised-button color="primary" (click)="toggleToolboxClicked()">
+		{{ isToolboxCollapsed ? 'Show toolbox' : 'Hide toolbox' }}
+	</button>
+	&nbsp;
+	<button class="topButtonRow" mat-raised-button color="primary" (click)="toggleEditorClicked()">
+		{{ isEditorCollapsed ? 'Show editor' : 'Hide editor' }}
+	</button>
+  <button class="topButtonRow" mat-raised-button color="primary" (click)="togglePreview()">
+		Preview Transform
+	</button>
+</div> -->
+<!-- 
+<div class="block">
+	<textarea appearance="fill" class="full-width custom-fill-field"f matInput cols="120" rows="16" readonly>{{ definitionJSON }}</textarea>
+</div> -->
+
+  <button class="preview-button" mat-raised-button color="primary" (click)="togglePreview()">
+		Preview Transform
+  </button>
+
+  <mat-card appearance="outlined" class="transform-name">
+    <mat-card-content>{{definition?.properties?.name}}</mat-card-content>
+  </mat-card>
+
+<div *ngIf="!isReady" class="spinner-container">
+  <mat-spinner diameter="75"></mat-spinner>
+</div>
+
+<sqd-designer *ngIf="isReady"
+  theme="light"
+  [definition]="definition"
+  [toolboxConfiguration]="toolboxConfiguration"
+  [stepsConfiguration]="stepsConfiguration"
+  [validatorConfiguration]="validatorConfiguration"
+  [controlBar]="true"
+  [isReadonly]="isReadonly"
+  [areEditorsHidden]="false"
+  [rootEditor]="rootEditorProvider"
+  [stepEditor]="stepEditorProvider"
+  [isToolboxCollapsed]="isToolboxCollapsed"
+  [isEditorCollapsed]="isEditorCollapsed"
+  [undoStackSize]="5"
+  (onReady)="onDesignerReady($event)"
+  (onDefinitionChanged)="onDefinitionChanged($event)"
+>
+</sqd-designer>
+
+<ng-template #rootEditorProvider let-editor>
+	<h3>Transform</h3>
+
+	<mat-form-field class="full-width">
+		<input
+			matInput
+      [(ngModel)]="editor.definition.properties.name"
+			[value]="editor.definition.properties.name"
+			[readonly]="editor.isReadonly"
+			(input)="updateProperty(editor.definition.properties, 'name', $event, editor.context)"
+		/>
+	</mat-form-field>
+</ng-template>
+
+<ng-template #stepEditorProvider let-editor>
+    <div style="padding: 1rem;">
+        <h3>{{editor.step.name}}</h3>
+    
+        <p>Attributes</p>
+        <ng-container *ngFor="let key of objectKeys(editor.step.properties)">
+          <div *ngIf="isBoolean(editor.step.properties[key]); else numberCheck" style="display: block; margin-top: 1rem;">
+            <mat-slide-toggle [(ngModel)]="editor.step.properties[key]" name="{{ key }}"
+                              [disabled]="editor.isReadonly"
+                              (change)="updateProperty(editor.step.properties, key, $event, editor.context)">
+              {{ key }}
+            </mat-slide-toggle>
+          </div>
+
+          <!-- Number handling -->
+          <ng-template #numberCheck>
+            <div *ngIf="isNumber(editor.step.properties[key]); else fieldCheck" style="display: block; margin-top: 1rem;">
+              <mat-form-field appearance="fill">
+                <mat-label>{{ key }}</mat-label>
+                <input matInput 
+                       type="number" 
+                       [(ngModel)]="editor.step.properties[key]" 
+                       name="{{ key }}"
+                       [readonly]="editor.isReadonly"
+                       [required]="isRequired(editor.step.type, key)"
+                       (input)="updateProperty(editor.step.properties, key, $event, editor.context)">
+                <mat-error *ngIf="editor.step.properties[key] === null || editor.step.properties[key] === undefined">
+                  {{ key }} is required
+                </mat-error>
+                <!-- <mat-error *ngIf="hasNumberValidationError(editor.step.type, key, editor.step.properties[key])">
+                  {{ getNumberValidationError(editor.step.type, key, editor.step.properties[key]) }}
+                </mat-error> -->
+              </mat-form-field>
+            </div>
+          </ng-template>
+        
+          <ng-template #fieldCheck>
+            <div *ngIf="isMap(editor.step.properties[key]); else textField" style="display: block; margin-top: 1rem;">
+              <button mat-raised-button color="primary" (click)="editMap(editor.step.properties, key, editor.context)">
+                Edit {{ key }}
+              </button>
+            </div>
+          </ng-template>
+        
+          <ng-template #textField>
+            <ng-container *ngIf="getChoicesForProperty(editor.step.type, key) as choices; else defaultInput">
+              <mat-form-field appearance="fill" style="display: block; margin-top: 1rem;">
+                <mat-label>{{ key }}</mat-label>
+                <mat-select [(ngModel)]="editor.step.properties[key]" [disabled]="editor.isReadonly" [required]="isRequired(editor.step.type, key)" name="{{ key }}"
+                            (selectionChange)="updateProperty(editor.step.properties, key, $event.value, editor.context)">
+                  <mat-option *ngFor="let choice of choices" [value]="choice">{{ getChoiceLabel(editor.step.type, choice) }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="editor.step.properties[key] === ''">
+                  {{ key }} is required
+                </mat-error>
+              </mat-form-field>
+            </ng-container>
+
+            <div *ngIf="key === 'inputFormat' && editor.step.properties[key] === 'CUSTOM'">
+              <mat-form-field appearance="fill" style="display: block; margin-top: 1rem;">
+                <mat-label>Custom Input Format</mat-label>
+                <input matInput [(ngModel)]="customInputDate"
+                       [readonly]="editor.isReadonly"
+                       [required]="true">
+                       </mat-form-field>
+                       <div class="preview" *ngIf="preview">
+                        <strong>Preview:</strong> {{ preview }}
+                      </div>
+            </div>
+        
+            <ng-template #defaultInput>
+              <mat-form-field appearance="fill" style="display: block; margin-top: 1rem;">
+                <mat-label>{{ key }}</mat-label>
+                <input matInput [(ngModel)]="editor.step.properties[key]" name="{{ key }}"
+                       [readonly]="editor.isReadonly"
+                       [required]="isRequired(editor.step.type, key)"
+                       (input)="updateProperty(editor.step.properties, key, $event, editor.context)">
+                       <mat-error *ngIf="editor.step.properties[key] === ''">
+                        {{ key }} is required
+                      </mat-error>
+              </mat-form-field>
+            </ng-template>
+          </ng-template>
+        </ng-container>
+        
+          <div *ngIf="editor?.step?.branches">
+            <div *ngFor="let branchName of getBranchNames(editor.step.branches); let i = index" class="branch-row">
+              <div *ngIf="branchName !== 'input'">
+              <mat-form-field appearance="outline" class="branch-field">
+                <input matInput [value]="branchName" [readonly]="editor.isReadonly" placeholder="Branch Name" (change)="renameBranchAtIndex(editor.step.branches, branchName, $any($event.target).value, editor.context)"/>
+              </mat-form-field>
+              <button mat-icon-button color="warn" (click)="removeBranch(editor.step.branches, i, $event, editor.context)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+            </div>
+        
+            <button mat-stroked-button color="primary" (click)="addBranch(editor.step.branches, editor.context)" *ngIf="branchingEnabled(editor.step)">
+              <mat-icon>add</mat-icon>
+              Add Branch
+            </button>
+        </div>
+      </div>
+  </ng-template>
