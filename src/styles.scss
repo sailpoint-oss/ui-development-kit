@@ -3,6 +3,12 @@
 
 @include mat.core();
 
+@import "tailwindcss";
+
+.mdc-notched-outline__notch {
+  border-right: 0px !important;
+}
+
 body.dark-theme {
   --theme-primary: #54c0e8;
   --theme-secondary: #0071ce;
