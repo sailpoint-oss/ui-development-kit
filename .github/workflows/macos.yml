@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: macos-latest-xlarge
+    runs-on: macos-14
     strategy:
       matrix:
         node-version: [24]
@@ -48,17 +48,17 @@ jobs:
       - name: Run Lint (with increased memory)
         run: npm run lint
         env:
-          NODE_OPTIONS: "--max-old-space-size=16384"
+          NODE_OPTIONS: "--max-old-space-size=8192"
 
       - name: Build Component Library
         run: npm run build:components
         env:
-          NODE_OPTIONS: "--max-old-space-size=16384"
+          NODE_OPTIONS: "--max-old-space-size=8192"
 
       - name: Build the App
         run: npm run electron:build
         env:
-          NODE_OPTIONS: "--max-old-space-size=16384"
+          NODE_OPTIONS: "--max-old-space-size=8192"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
