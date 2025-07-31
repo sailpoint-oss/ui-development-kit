@@ -1,69 +1,67 @@
-# This is a basic workflow to help you get started with Actions
 name: 'MacOS Build'
 
-# Controls when the action will run.
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
-
-  # Allows you to run this workflow manually from the Actions tab
+    branches: [main]
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 permissions:
   contents: read
 
 jobs:
   build:
+    runs-on: macos-latest-xlarge
     strategy:
       matrix:
         node-version: [24]
 
-    # The type of runner that the job will run on
-    runs-on: macos-14
-
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Cache node modules
-      uses: actions/cache@v4
-      env:
-        cache-name: cache-node-modules
-      with:
-        # npm cache files are stored in `~/.npm` on Linux/macOS
-        path: ~/.npm
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
+      - name: Cache node modules
+        uses: actions/cache@v4
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Install Dependencies
-      run: |
-        npm i && npm i -D cli-truncate iconv-corefoundation
-        npm --prefix ./app install
+      - name: Install Dependencies
+        run: |
+          npm i && npm i -D cli-truncate iconv-corefoundation
+          npm --prefix ./app install
 
-    - name: Install Angular CLI Globally
-      run: npm install -g @angular/cli
+      - name: Install Angular CLI Globally
+        run: npm install -g @angular/cli
 
-    - name: Build Component Library
-      run: npm run build:components
-      
-    - name: Build the app
-      run: npm run electron:build
+      - name: Run Lint (with increased memory)
+        run: npm run lint
+        env:
+          NODE_OPTIONS: "--max-old-space-size=16384"
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: built-electron-app
-        path: release/sailpoint-ui-development-kit-1.0.0-arm64.dmg
+      - name: Build Component Library
+        run: npm run build:components
+        env:
+          NODE_OPTIONS: "--max-old-space-size=16384"
+
+      - name: Build the App
+        run: npm run electron:build
+        env:
+          NODE_OPTIONS: "--max-old-space-size=16384"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-electron-app
+          path: release/sailpoint-ui-development-kit-1.0.0-arm64.dmg
