@@ -29,11 +29,19 @@ jobs:
         with:
           node-version: '24'
 
+      - name: Ensure jq is available
+        shell: bash
+        run: |
+          if ! command -v jq >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y jq
+          fi
+
       - name: Read version from package.json
         id: vars
         shell: bash
         run: |
-          VERSION=$(node -p "require('./package.json').version")
+          VERSION=$(jq -r '.version' package.json)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "tag=v$VERSION" >> $GITHUB_OUTPUT
           if [[ "$VERSION" == *-* ]]; then echo "prerelease=true" >> $GITHUB_OUTPUT; else echo "prerelease=false" >> $GITHUB_OUTPUT; fi
@@ -47,6 +55,23 @@ jobs:
             echo "exists=true" >> $GITHUB_OUTPUT
           else
             echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Sync app/package.json version to root version
+        if: steps.check_tag.outputs.exists == 'false'
+        shell: bash
+        run: |
+          tmpfile=$(mktemp)
+          jq --arg v "${{ steps.vars.outputs.version }}" '.version=$v' app/package.json > "$tmpfile"
+          mv "$tmpfile" app/package.json
+          if ! git diff --quiet -- app/package.json; then
+            git config user.name "github-actions"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add app/package.json
+            git commit -m "chore(release): sync app/package.json version to ${{ steps.vars.outputs.version }}"
+            git push
+          else
+            echo "app/package.json already in sync"
           fi
 
       - name: Create tag
