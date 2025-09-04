@@ -5,7 +5,7 @@
     "name": "Developer Relations",
     "email": "developer-relations@sailpoint.com"
   },
-  "version": "1.0.2",
+  "version": "1.0.8",
   "main": "main.js",
   "private": true,
   "dependencies": {
