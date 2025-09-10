@@ -24,4 +24,25 @@ export class SailPointSDKService {
 {{/operation}}
 {{/operations}}
 {{/apis}}{{/apiInfo}}
+
+genericGet(requestParameters: sdk.DefaultApiGenericGetRequest): Promise<AxiosResponse<any, any>> {
+    return this.electronAPI.genericGet(requestParameters) as Promise<AxiosResponse<any, any>>;
+}
+
+genericPost(requestParameters: sdk.DefaultApiGenericPostRequest): Promise<AxiosResponse<any, any>> {
+    return this.electronAPI.genericPost(requestParameters) as Promise<AxiosResponse<any, any>>;
+}
+
+genericPut(requestParameters: sdk.DefaultApiGenericPutRequest): Promise<AxiosResponse<any, any>> {
+    return this.electronAPI.genericPut(requestParameters) as Promise<AxiosResponse<any, any>>;
+}
+
+genericPatch(requestParameters: sdk.DefaultApiGenericPatchRequest): Promise<AxiosResponse<any, any>> {
+    return this.electronAPI.genericPatch(requestParameters) as Promise<AxiosResponse<any, any>>;
+}
+
+genericDelete(requestParameters: sdk.DefaultApiGenericDeleteRequest): Promise<AxiosResponse<any, any>> {
+    return this.electronAPI.genericDelete(requestParameters) as Promise<AxiosResponse<any, any>>;
+}
+
 }

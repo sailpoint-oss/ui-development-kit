@@ -78,3 +78,28 @@ export const {{nickname}} = ({{#allParams.0}}requestParameters: sdk.{{classname}
 {{/operation}}
 {{/operations}}
 {{/apis}}{{/apiInfo}}
+
+export const genericGet = (requestParameters: sdk.DefaultApiGenericGetRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const axiosInstance = new sdk.DefaultApi(apiConfig);
+    return handleApiCall(() => axiosInstance.genericGet(requestParameters));
+}
+
+export const genericPost = (requestParameters: sdk.DefaultApiGenericPostRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const axiosInstance = new sdk.DefaultApi(apiConfig);
+    return handleApiCall(() => axiosInstance.genericPost(requestParameters));
+}
+
+export const genericPut = (requestParameters: sdk.DefaultApiGenericPutRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const axiosInstance = new sdk.DefaultApi(apiConfig);
+    return handleApiCall(() => axiosInstance.genericPut(requestParameters));
+}
+
+export const genericPatch = (requestParameters: sdk.DefaultApiGenericPatchRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const axiosInstance = new sdk.DefaultApi(apiConfig);
+    return handleApiCall(() => axiosInstance.genericPatch(requestParameters));
+}
+
+export const genericDelete = (requestParameters: sdk.DefaultApiGenericDeleteRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const axiosInstance = new sdk.DefaultApi(apiConfig);
+    return handleApiCall(() => axiosInstance.genericDelete(requestParameters));
+}

@@ -102,8 +102,16 @@ export class ConfigService {
       icon: 'dashboard',
       description: 'Manage accounts in SailPoint.',
       enabled: false,
-    }
-  ];
+    },
+        {
+            name: 'auth-viewer',
+            displayName: 'Auth Viewer',
+            route: '/auth-viewer',
+            icon: 'dashboard',
+            description: 'Manage auth viewer in SailPoint.',
+            enabled: false
+        }
+    ];
 
   // Default theme configurations
   private defaultLightTheme: ThemeConfig = {

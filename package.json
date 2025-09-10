@@ -81,7 +81,7 @@
     "lodash-es": "4.17.21",
     "prismjs": "1.30.0",
     "rxjs": "7.8.2",
-    "sailpoint-api-client": "1.6.8",
+    "sailpoint-api-client": "1.6.9",
     "sequential-workflow-designer": "0.29.0",
     "sequential-workflow-designer-angular": "0.29.0",
     "sequential-workflow-editor": "0.14.8",

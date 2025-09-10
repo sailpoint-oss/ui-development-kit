@@ -111,7 +111,7 @@ getEntitlementDetailsForIdentity(requestParameters: sdk.AccessRequestsV2025ApiGe
 listAccessRequestStatus(requestParameters: sdk.AccessRequestsV2025ApiListAccessRequestStatusRequest = {}): Promise<AxiosResponse<Array<sdk.RequestedItemStatusV2025>, any>> {
     return this.electronAPI.listAccessRequestStatus(requestParameters) as Promise<AxiosResponse<Array<sdk.RequestedItemStatusV2025>, any>>;
 }
-listAdministratorsAccessRequestStatus(requestParameters: sdk.AccessRequestsV2025ApiListAdministratorsAccessRequestStatusRequest = {}): Promise<AxiosResponse<Array<sdk.AccessRequestAdminItemStatusV2025>, any>> {
+listAdministratorsAccessRequestStatus(requestParameters: sdk.AccessRequestsV2025ApiListAdministratorsAccessRequestStatusRequest): Promise<AxiosResponse<Array<sdk.AccessRequestAdminItemStatusV2025>, any>> {
     return this.electronAPI.listAdministratorsAccessRequestStatus(requestParameters) as Promise<AxiosResponse<Array<sdk.AccessRequestAdminItemStatusV2025>, any>>;
 }
 loadAccountSelections(requestParameters: sdk.AccessRequestsV2025ApiLoadAccountSelectionsRequest): Promise<AxiosResponse<sdk.AccountsSelectionResponseV2025, any>> {
@@ -195,11 +195,26 @@ sendManualDiscoverApplicationsCsvTemplate(requestParameters: sdk.ApplicationDisc
     return this.electronAPI.sendManualDiscoverApplicationsCsvTemplate(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
 
+approveApproval(requestParameters: sdk.ApprovalsV2025ApiApproveApprovalRequest): Promise<AxiosResponse<sdk.ApprovalV2025, any>> {
+    return this.electronAPI.approveApproval(requestParameters) as Promise<AxiosResponse<sdk.ApprovalV2025, any>>;
+}
 getApproval(requestParameters: sdk.ApprovalsV2025ApiGetApprovalRequest): Promise<AxiosResponse<sdk.ApprovalV2025, any>> {
     return this.electronAPI.getApproval(requestParameters) as Promise<AxiosResponse<sdk.ApprovalV2025, any>>;
 }
 getApprovals(requestParameters: sdk.ApprovalsV2025ApiGetApprovalsRequest = {}): Promise<AxiosResponse<Array<sdk.ApprovalV2025>, any>> {
     return this.electronAPI.getApprovals(requestParameters) as Promise<AxiosResponse<Array<sdk.ApprovalV2025>, any>>;
+}
+rejectApproval(requestParameters: sdk.ApprovalsV2025ApiRejectApprovalRequest): Promise<AxiosResponse<void, any>> {
+    return this.electronAPI.rejectApproval(requestParameters) as Promise<AxiosResponse<void, any>>;
+}
+updateApprovalsAttributes(requestParameters: sdk.ApprovalsV2025ApiUpdateApprovalsAttributesRequest): Promise<AxiosResponse<sdk.ApprovalV2025, any>> {
+    return this.electronAPI.updateApprovalsAttributes(requestParameters) as Promise<AxiosResponse<sdk.ApprovalV2025, any>>;
+}
+updateApprovalsComments(requestParameters: sdk.ApprovalsV2025ApiUpdateApprovalsCommentsRequest): Promise<AxiosResponse<sdk.ApprovalV2025, any>> {
+    return this.electronAPI.updateApprovalsComments(requestParameters) as Promise<AxiosResponse<sdk.ApprovalV2025, any>>;
+}
+updateApprovalsReassign(requestParameters: sdk.ApprovalsV2025ApiUpdateApprovalsReassignRequest): Promise<AxiosResponse<void, any>> {
+    return this.electronAPI.updateApprovalsReassign(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
 
 createSourceApp(requestParameters: sdk.AppsV2025ApiCreateSourceAppRequest): Promise<AxiosResponse<sdk.SourceAppV2025, any>> {
@@ -1080,6 +1095,25 @@ updateIdentityProfile(requestParameters: sdk.IdentityProfilesV2025ApiUpdateIdent
     return this.electronAPI.updateIdentityProfile(requestParameters) as Promise<AxiosResponse<sdk.IdentityProfileV2025, any>>;
 }
 
+createLauncher(requestParameters: sdk.LaunchersV2025ApiCreateLauncherRequest): Promise<AxiosResponse<sdk.LauncherV2025, any>> {
+    return this.electronAPI.createLauncher(requestParameters) as Promise<AxiosResponse<sdk.LauncherV2025, any>>;
+}
+deleteLauncher(requestParameters: sdk.LaunchersV2025ApiDeleteLauncherRequest): Promise<AxiosResponse<void, any>> {
+    return this.electronAPI.deleteLauncher(requestParameters) as Promise<AxiosResponse<void, any>>;
+}
+getLauncher(requestParameters: sdk.LaunchersV2025ApiGetLauncherRequest): Promise<AxiosResponse<sdk.LauncherV2025, any>> {
+    return this.electronAPI.getLauncher(requestParameters) as Promise<AxiosResponse<sdk.LauncherV2025, any>>;
+}
+getLaunchers(requestParameters: sdk.LaunchersV2025ApiGetLaunchersRequest = {}): Promise<AxiosResponse<sdk.GetLaunchers200ResponseV2025, any>> {
+    return this.electronAPI.getLaunchers(requestParameters) as Promise<AxiosResponse<sdk.GetLaunchers200ResponseV2025, any>>;
+}
+putLauncher(requestParameters: sdk.LaunchersV2025ApiPutLauncherRequest): Promise<AxiosResponse<sdk.LauncherV2025, any>> {
+    return this.electronAPI.putLauncher(requestParameters) as Promise<AxiosResponse<sdk.LauncherV2025, any>>;
+}
+startLauncher(requestParameters: sdk.LaunchersV2025ApiStartLauncherRequest): Promise<AxiosResponse<sdk.StartLauncher200ResponseV2025, any>> {
+    return this.electronAPI.startLauncher(requestParameters) as Promise<AxiosResponse<sdk.StartLauncher200ResponseV2025, any>>;
+}
+
 createLifecycleState(requestParameters: sdk.LifecycleStatesV2025ApiCreateLifecycleStateRequest): Promise<AxiosResponse<sdk.LifecycleStateV2025, any>> {
     return this.electronAPI.createLifecycleState(requestParameters) as Promise<AxiosResponse<sdk.LifecycleStateV2025, any>>;
 }
@@ -1176,20 +1210,26 @@ setMachineClassificationConfig(requestParameters: sdk.MachineClassificationConfi
     return this.electronAPI.setMachineClassificationConfig(requestParameters) as Promise<AxiosResponse<sdk.MachineClassificationConfigV2025, any>>;
 }
 
-createMachineIdentity(requestParameters: sdk.MachineIdentitiesV2025ApiCreateMachineIdentityRequest): Promise<AxiosResponse<sdk.MachineIdentityV2025, any>> {
-    return this.electronAPI.createMachineIdentity(requestParameters) as Promise<AxiosResponse<sdk.MachineIdentityV2025, any>>;
+createMachineIdentity(requestParameters: sdk.MachineIdentitiesV2025ApiCreateMachineIdentityRequest): Promise<AxiosResponse<sdk.MachineIdentityResponseV2025, any>> {
+    return this.electronAPI.createMachineIdentity(requestParameters) as Promise<AxiosResponse<sdk.MachineIdentityResponseV2025, any>>;
 }
 deleteMachineIdentity(requestParameters: sdk.MachineIdentitiesV2025ApiDeleteMachineIdentityRequest): Promise<AxiosResponse<void, any>> {
     return this.electronAPI.deleteMachineIdentity(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-getMachineIdentity(requestParameters: sdk.MachineIdentitiesV2025ApiGetMachineIdentityRequest): Promise<AxiosResponse<sdk.MachineIdentityV2025, any>> {
-    return this.electronAPI.getMachineIdentity(requestParameters) as Promise<AxiosResponse<sdk.MachineIdentityV2025, any>>;
+getMachineIdentity(requestParameters: sdk.MachineIdentitiesV2025ApiGetMachineIdentityRequest): Promise<AxiosResponse<sdk.MachineIdentityResponseV2025, any>> {
+    return this.electronAPI.getMachineIdentity(requestParameters) as Promise<AxiosResponse<sdk.MachineIdentityResponseV2025, any>>;
 }
-listMachineIdentities(requestParameters: sdk.MachineIdentitiesV2025ApiListMachineIdentitiesRequest = {}): Promise<AxiosResponse<Array<sdk.MachineIdentityV2025>, any>> {
-    return this.electronAPI.listMachineIdentities(requestParameters) as Promise<AxiosResponse<Array<sdk.MachineIdentityV2025>, any>>;
+listMachineIdentities(requestParameters: sdk.MachineIdentitiesV2025ApiListMachineIdentitiesRequest = {}): Promise<AxiosResponse<Array<sdk.MachineIdentityResponseV2025>, any>> {
+    return this.electronAPI.listMachineIdentities(requestParameters) as Promise<AxiosResponse<Array<sdk.MachineIdentityResponseV2025>, any>>;
 }
-updateMachineIdentity(requestParameters: sdk.MachineIdentitiesV2025ApiUpdateMachineIdentityRequest): Promise<AxiosResponse<sdk.MachineIdentityV2025, any>> {
-    return this.electronAPI.updateMachineIdentity(requestParameters) as Promise<AxiosResponse<sdk.MachineIdentityV2025, any>>;
+listMachineIdentityUserEntitlements(requestParameters: sdk.MachineIdentitiesV2025ApiListMachineIdentityUserEntitlementsRequest = {}): Promise<AxiosResponse<Array<sdk.MachineIdentityUserEntitlementResponseV2025>, any>> {
+    return this.electronAPI.listMachineIdentityUserEntitlements(requestParameters) as Promise<AxiosResponse<Array<sdk.MachineIdentityUserEntitlementResponseV2025>, any>>;
+}
+startMachineIdentityAggregation(requestParameters: sdk.MachineIdentitiesV2025ApiStartMachineIdentityAggregationRequest): Promise<AxiosResponse<sdk.MachineIdentityAggregationResponseV2025, any>> {
+    return this.electronAPI.startMachineIdentityAggregation(requestParameters) as Promise<AxiosResponse<sdk.MachineIdentityAggregationResponseV2025, any>>;
+}
+updateMachineIdentity(requestParameters: sdk.MachineIdentitiesV2025ApiUpdateMachineIdentityRequest): Promise<AxiosResponse<sdk.MachineIdentityResponseV2025, any>> {
+    return this.electronAPI.updateMachineIdentity(requestParameters) as Promise<AxiosResponse<sdk.MachineIdentityResponseV2025, any>>;
 }
 
 createManagedClient(requestParameters: sdk.ManagedClientsV2025ApiCreateManagedClientRequest): Promise<AxiosResponse<sdk.ManagedClientV2025, any>> {
@@ -1200,6 +1240,9 @@ deleteManagedClient(requestParameters: sdk.ManagedClientsV2025ApiDeleteManagedCl
 }
 getManagedClient(requestParameters: sdk.ManagedClientsV2025ApiGetManagedClientRequest): Promise<AxiosResponse<sdk.ManagedClientV2025, any>> {
     return this.electronAPI.getManagedClient(requestParameters) as Promise<AxiosResponse<sdk.ManagedClientV2025, any>>;
+}
+getManagedClientHealthIndicators(requestParameters: sdk.ManagedClientsV2025ApiGetManagedClientHealthIndicatorsRequest): Promise<AxiosResponse<sdk.ManagedClientHealthIndicatorsV2025, any>> {
+    return this.electronAPI.getManagedClientHealthIndicators(requestParameters) as Promise<AxiosResponse<sdk.ManagedClientHealthIndicatorsV2025, any>>;
 }
 getManagedClientStatus(requestParameters: sdk.ManagedClientsV2025ApiGetManagedClientStatusRequest): Promise<AxiosResponse<sdk.ManagedClientStatusV2025, any>> {
     return this.electronAPI.getManagedClientStatus(requestParameters) as Promise<AxiosResponse<sdk.ManagedClientStatusV2025, any>>;
@@ -1260,6 +1303,9 @@ createSourcesWithinMultiHost(requestParameters: sdk.MultiHostIntegrationV2025Api
 }
 deleteMultiHost(requestParameters: sdk.MultiHostIntegrationV2025ApiDeleteMultiHostRequest): Promise<AxiosResponse<void, any>> {
     return this.electronAPI.deleteMultiHost(requestParameters) as Promise<AxiosResponse<void, any>>;
+}
+deleteMultiHostSources(requestParameters: sdk.MultiHostIntegrationV2025ApiDeleteMultiHostSourcesRequest): Promise<AxiosResponse<void, any>> {
+    return this.electronAPI.deleteMultiHostSources(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
 getAcctAggregationGroups(requestParameters: sdk.MultiHostIntegrationV2025ApiGetAcctAggregationGroupsRequest): Promise<AxiosResponse<Array<sdk.MultiHostIntegrationsAggScheduleUpdateV2025>, any>> {
     return this.electronAPI.getAcctAggregationGroups(requestParameters) as Promise<AxiosResponse<Array<sdk.MultiHostIntegrationsAggScheduleUpdateV2025>, any>>;
@@ -2066,6 +2112,19 @@ setTagsToManyObjects(requestParameters: sdk.TaggedObjectsV2025ApiSetTagsToManyOb
     return this.electronAPI.setTagsToManyObjects(requestParameters) as Promise<AxiosResponse<Array<sdk.BulkTaggedObjectResponseV2025>, any>>;
 }
 
+createTag(requestParameters: sdk.TagsV2025ApiCreateTagRequest): Promise<AxiosResponse<sdk.TagV2025, any>> {
+    return this.electronAPI.createTag(requestParameters) as Promise<AxiosResponse<sdk.TagV2025, any>>;
+}
+deleteTagById(requestParameters: sdk.TagsV2025ApiDeleteTagByIdRequest): Promise<AxiosResponse<void, any>> {
+    return this.electronAPI.deleteTagById(requestParameters) as Promise<AxiosResponse<void, any>>;
+}
+getTagById(requestParameters: sdk.TagsV2025ApiGetTagByIdRequest): Promise<AxiosResponse<sdk.TagV2025, any>> {
+    return this.electronAPI.getTagById(requestParameters) as Promise<AxiosResponse<sdk.TagV2025, any>>;
+}
+listTags(requestParameters: sdk.TagsV2025ApiListTagsRequest = {}): Promise<AxiosResponse<Array<sdk.TagV2025>, any>> {
+    return this.electronAPI.listTags(requestParameters) as Promise<AxiosResponse<Array<sdk.TagV2025>, any>>;
+}
+
 getPendingTaskHeaders(requestParameters: sdk.TaskManagementV2025ApiGetPendingTaskHeadersRequest = {}): Promise<AxiosResponse<void, any>> {
     return this.electronAPI.getPendingTaskHeaders(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
@@ -2249,6 +2308,9 @@ getWorkflowExecution(requestParameters: sdk.WorkflowsV2025ApiGetWorkflowExecutio
 getWorkflowExecutionHistory(requestParameters: sdk.WorkflowsV2025ApiGetWorkflowExecutionHistoryRequest): Promise<AxiosResponse<Array<sdk.WorkflowExecutionEventV2025>, any>> {
     return this.electronAPI.getWorkflowExecutionHistory(requestParameters) as Promise<AxiosResponse<Array<sdk.WorkflowExecutionEventV2025>, any>>;
 }
+getWorkflowExecutionHistoryV2(requestParameters: sdk.WorkflowsV2025ApiGetWorkflowExecutionHistoryV2Request): Promise<AxiosResponse<sdk.WorkflowExecutionHistoryV2025, any>> {
+    return this.electronAPI.getWorkflowExecutionHistoryV2(requestParameters) as Promise<AxiosResponse<sdk.WorkflowExecutionHistoryV2025, any>>;
+}
 getWorkflowExecutions(requestParameters: sdk.WorkflowsV2025ApiGetWorkflowExecutionsRequest): Promise<AxiosResponse<Array<sdk.WorkflowExecutionV2025>, any>> {
     return this.electronAPI.getWorkflowExecutions(requestParameters) as Promise<AxiosResponse<Array<sdk.WorkflowExecutionV2025>, any>>;
 }
@@ -2278,6 +2340,27 @@ testExternalExecuteWorkflow(requestParameters: sdk.WorkflowsV2025ApiTestExternal
 }
 testWorkflow(requestParameters: sdk.WorkflowsV2025ApiTestWorkflowRequest): Promise<AxiosResponse<sdk.TestWorkflow200ResponseV2025, any>> {
     return this.electronAPI.testWorkflow(requestParameters) as Promise<AxiosResponse<sdk.TestWorkflow200ResponseV2025, any>>;
+}
+
+
+genericGet(requestParameters: sdk.DefaultApiGenericGetRequest): Promise<AxiosResponse<any, any>> {
+    return this.electronAPI.genericGet(requestParameters) as Promise<AxiosResponse<any, any>>;
+}
+
+genericPost(requestParameters: sdk.DefaultApiGenericPostRequest): Promise<AxiosResponse<any, any>> {
+    return this.electronAPI.genericPost(requestParameters) as Promise<AxiosResponse<any, any>>;
+}
+
+genericPut(requestParameters: sdk.DefaultApiGenericPutRequest): Promise<AxiosResponse<any, any>> {
+    return this.electronAPI.genericPut(requestParameters) as Promise<AxiosResponse<any, any>>;
+}
+
+genericPatch(requestParameters: sdk.DefaultApiGenericPatchRequest): Promise<AxiosResponse<any, any>> {
+    return this.electronAPI.genericPatch(requestParameters) as Promise<AxiosResponse<any, any>>;
+}
+
+genericDelete(requestParameters: sdk.DefaultApiGenericDeleteRequest): Promise<AxiosResponse<any, any>> {
+    return this.electronAPI.genericDelete(requestParameters) as Promise<AxiosResponse<any, any>>;
 }
 
 }

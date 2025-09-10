@@ -410,7 +410,7 @@ export const listAccessRequestStatus = (requestParameters: sdk.AccessRequestsV20
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-export const listAdministratorsAccessRequestStatus = (requestParameters: sdk.AccessRequestsV2025ApiListAdministratorsAccessRequestStatusRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AccessRequestAdminItemStatusV2025>>> => {
+export const listAdministratorsAccessRequestStatus = (requestParameters: sdk.AccessRequestsV2025ApiListAdministratorsAccessRequestStatusRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AccessRequestAdminItemStatusV2025>>> => {
     const accessrequestsv2025api = new sdk.AccessRequestsV2025Api(apiConfig);
     return handleApiCall(() => accessrequestsv2025api.listAdministratorsAccessRequestStatus(requestParameters));
 }
@@ -695,7 +695,18 @@ export const sendManualDiscoverApplicationsCsvTemplate = (requestParameters: sdk
 }
 
 /**
- * Retrieve a single approval for a given approval ID. This endpoint is for generic approvals, different than the access-request-approval endpoint and does not include access-request-approvals.
+ * Currently this endpoint only supports Entitlement Description Approvals. Approves a specified approval request on behalf of the caller. This endpoint is for generic approvals, unlike the access-request-approval endpoint, and does not include access-request-approvals. The approval request must be in a state that allows it to be approved. If called by an admin and the admin is not listed as an approver, the approval request will be reassigned from a random approver to the admin user.
+ * @summary Post Approvals Approve
+ * @param {ApprovalsV2025ApiApproveApprovalRequest} requestParameters Request parameters.
+ * @param {*} [axiosOptions] Override http request option.
+ * @throws {RequiredError}
+ */
+export const approveApproval = (requestParameters: sdk.ApprovalsV2025ApiApproveApprovalRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ApprovalV2025>> => {
+    const approvalsv2025api = new sdk.ApprovalsV2025Api(apiConfig);
+    return handleApiCall(() => approvalsv2025api.approveApproval(requestParameters));
+}
+/**
+ * Currently this endpoint only supports Entitlement Description Approvals. Retrieve a single approval for a given approval ID. This endpoint is for generic approvals, different than the access-request-approval endpoint and does not include access-request-approvals.
  * @summary Get an approval
  * @param {ApprovalsV2025ApiGetApprovalRequest} requestParameters Request parameters.
  * @param {*} [axiosOptions] Override http request option.
@@ -706,7 +717,7 @@ export const getApproval = (requestParameters: sdk.ApprovalsV2025ApiGetApprovalR
     return handleApiCall(() => approvalsv2025api.getApproval(requestParameters));
 }
 /**
- * Retrieve a list of approvals, which can be filtered by requester ID, status, or reference type. \"Mine\" query parameter can be used and it will return all approvals for the current approver. This endpoint is for generic approvals, different than the access-request-approval endpoint and does not include access-request-approvals.  Absence of all query parameters will will default to mine=true.
+ * Currently this endpoint only supports Entitlement Description Approvals. Get a list of approvals. This endpoint is for generic approvals, unlike the access-request-approval endpoint, and does not include access-request-approvals.  Absence of all query parameters for non admins will will default to mine=true. Absence of all query parameters for admins will return all approvals in the org.
  * @summary Get approvals
  * @param {ApprovalsV2025ApiGetApprovalsRequest} requestParameters Request parameters.
  * @param {*} [axiosOptions] Override http request option.
@@ -715,6 +726,50 @@ export const getApproval = (requestParameters: sdk.ApprovalsV2025ApiGetApprovalR
 export const getApprovals = (requestParameters: sdk.ApprovalsV2025ApiGetApprovalsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ApprovalV2025>>> => {
     const approvalsv2025api = new sdk.ApprovalsV2025Api(apiConfig);
     return handleApiCall(() => approvalsv2025api.getApprovals(requestParameters));
+}
+/**
+ * Currently this endpoint only supports Entitlement Description Approvals. Rejects a specified approval request on behalf of the caller. If called by an admin and the admin is not listed as an approver, the approval request will be reassigned from a random approver to the admin user.
+ * @summary Post Approvals Reject
+ * @param {ApprovalsV2025ApiRejectApprovalRequest} requestParameters Request parameters.
+ * @param {*} [axiosOptions] Override http request option.
+ * @throws {RequiredError}
+ */
+export const rejectApproval = (requestParameters: sdk.ApprovalsV2025ApiRejectApprovalRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const approvalsv2025api = new sdk.ApprovalsV2025Api(apiConfig);
+    return handleApiCall(() => approvalsv2025api.rejectApproval(requestParameters));
+}
+/**
+ * Currently this endpoint only supports Entitlement Description Approvals. Allows for the edit/addition/removal of the key/value pair additional attributes map for an existing approval request.
+ * @summary Post Approvals Attributes
+ * @param {ApprovalsV2025ApiUpdateApprovalsAttributesRequest} requestParameters Request parameters.
+ * @param {*} [axiosOptions] Override http request option.
+ * @throws {RequiredError}
+ */
+export const updateApprovalsAttributes = (requestParameters: sdk.ApprovalsV2025ApiUpdateApprovalsAttributesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ApprovalV2025>> => {
+    const approvalsv2025api = new sdk.ApprovalsV2025Api(apiConfig);
+    return handleApiCall(() => approvalsv2025api.updateApprovalsAttributes(requestParameters));
+}
+/**
+ * Currently this endpoint only supports Entitlement Description Approvals. Adds comments to a specified approval request.
+ * @summary Post Approvals Comments
+ * @param {ApprovalsV2025ApiUpdateApprovalsCommentsRequest} requestParameters Request parameters.
+ * @param {*} [axiosOptions] Override http request option.
+ * @throws {RequiredError}
+ */
+export const updateApprovalsComments = (requestParameters: sdk.ApprovalsV2025ApiUpdateApprovalsCommentsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ApprovalV2025>> => {
+    const approvalsv2025api = new sdk.ApprovalsV2025Api(apiConfig);
+    return handleApiCall(() => approvalsv2025api.updateApprovalsComments(requestParameters));
+}
+/**
+ * Currently this endpoint only supports Entitlement Description Approvals. Reassigns an approval request to another identity resulting in that identity being added as an authorized approver.
+ * @summary Post Approvals Reassign
+ * @param {ApprovalsV2025ApiUpdateApprovalsReassignRequest} requestParameters Request parameters.
+ * @param {*} [axiosOptions] Override http request option.
+ * @throws {RequiredError}
+ */
+export const updateApprovalsReassign = (requestParameters: sdk.ApprovalsV2025ApiUpdateApprovalsReassignRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const approvalsv2025api = new sdk.ApprovalsV2025Api(apiConfig);
+    return handleApiCall(() => approvalsv2025api.updateApprovalsReassign(requestParameters));
 }
 
 /**
@@ -3844,6 +3899,73 @@ export const updateIdentityProfile = (requestParameters: sdk.IdentityProfilesV20
 }
 
 /**
+ * Create a Launcher with given information
+ * @summary Create launcher
+ * @param {LaunchersV2025ApiCreateLauncherRequest} requestParameters Request parameters.
+ * @param {*} [axiosOptions] Override http request option.
+ * @throws {RequiredError}
+ */
+export const createLauncher = (requestParameters: sdk.LaunchersV2025ApiCreateLauncherRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.LauncherV2025>> => {
+    const launchersv2025api = new sdk.LaunchersV2025Api(apiConfig);
+    return handleApiCall(() => launchersv2025api.createLauncher(requestParameters));
+}
+/**
+ * Delete the given Launcher ID
+ * @summary Delete launcher
+ * @param {LaunchersV2025ApiDeleteLauncherRequest} requestParameters Request parameters.
+ * @param {*} [axiosOptions] Override http request option.
+ * @throws {RequiredError}
+ */
+export const deleteLauncher = (requestParameters: sdk.LaunchersV2025ApiDeleteLauncherRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const launchersv2025api = new sdk.LaunchersV2025Api(apiConfig);
+    return handleApiCall(() => launchersv2025api.deleteLauncher(requestParameters));
+}
+/**
+ * Get details for the given Launcher ID
+ * @summary Get launcher by id
+ * @param {LaunchersV2025ApiGetLauncherRequest} requestParameters Request parameters.
+ * @param {*} [axiosOptions] Override http request option.
+ * @throws {RequiredError}
+ */
+export const getLauncher = (requestParameters: sdk.LaunchersV2025ApiGetLauncherRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.LauncherV2025>> => {
+    const launchersv2025api = new sdk.LaunchersV2025Api(apiConfig);
+    return handleApiCall(() => launchersv2025api.getLauncher(requestParameters));
+}
+/**
+ * Return a list of Launchers for the authenticated tenant
+ * @summary List all launchers for tenant
+ * @param {LaunchersV2025ApiGetLaunchersRequest} requestParameters Request parameters.
+ * @param {*} [axiosOptions] Override http request option.
+ * @throws {RequiredError}
+ */
+export const getLaunchers = (requestParameters: sdk.LaunchersV2025ApiGetLaunchersRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetLaunchers200ResponseV2025>> => {
+    const launchersv2025api = new sdk.LaunchersV2025Api(apiConfig);
+    return handleApiCall(() => launchersv2025api.getLaunchers(requestParameters));
+}
+/**
+ * Replace the given Launcher ID with given payload
+ * @summary Replace launcher
+ * @param {LaunchersV2025ApiPutLauncherRequest} requestParameters Request parameters.
+ * @param {*} [axiosOptions] Override http request option.
+ * @throws {RequiredError}
+ */
+export const putLauncher = (requestParameters: sdk.LaunchersV2025ApiPutLauncherRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.LauncherV2025>> => {
+    const launchersv2025api = new sdk.LaunchersV2025Api(apiConfig);
+    return handleApiCall(() => launchersv2025api.putLauncher(requestParameters));
+}
+/**
+ * Launch the given Launcher ID
+ * @summary Launch a launcher
+ * @param {LaunchersV2025ApiStartLauncherRequest} requestParameters Request parameters.
+ * @param {*} [axiosOptions] Override http request option.
+ * @throws {RequiredError}
+ */
+export const startLauncher = (requestParameters: sdk.LaunchersV2025ApiStartLauncherRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.StartLauncher200ResponseV2025>> => {
+    const launchersv2025api = new sdk.LaunchersV2025Api(apiConfig);
+    return handleApiCall(() => launchersv2025api.startLauncher(requestParameters));
+}
+
+/**
  * Use this endpoint to create a lifecycle state.
  * @summary Create lifecycle state
  * @param {LifecycleStatesV2025ApiCreateLifecycleStateRequest} requestParameters Request parameters.
@@ -4184,7 +4306,7 @@ export const setMachineClassificationConfig = (requestParameters: sdk.MachineCla
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-export const createMachineIdentity = (requestParameters: sdk.MachineIdentitiesV2025ApiCreateMachineIdentityRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.MachineIdentityV2025>> => {
+export const createMachineIdentity = (requestParameters: sdk.MachineIdentitiesV2025ApiCreateMachineIdentityRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.MachineIdentityResponseV2025>> => {
     const machineidentitiesv2025api = new sdk.MachineIdentitiesV2025Api(apiConfig);
     return handleApiCall(() => machineidentitiesv2025api.createMachineIdentity(requestParameters));
 }
@@ -4206,7 +4328,7 @@ export const deleteMachineIdentity = (requestParameters: sdk.MachineIdentitiesV2
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-export const getMachineIdentity = (requestParameters: sdk.MachineIdentitiesV2025ApiGetMachineIdentityRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.MachineIdentityV2025>> => {
+export const getMachineIdentity = (requestParameters: sdk.MachineIdentitiesV2025ApiGetMachineIdentityRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.MachineIdentityResponseV2025>> => {
     const machineidentitiesv2025api = new sdk.MachineIdentitiesV2025Api(apiConfig);
     return handleApiCall(() => machineidentitiesv2025api.getMachineIdentity(requestParameters));
 }
@@ -4217,9 +4339,31 @@ export const getMachineIdentity = (requestParameters: sdk.MachineIdentitiesV2025
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-export const listMachineIdentities = (requestParameters: sdk.MachineIdentitiesV2025ApiListMachineIdentitiesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.MachineIdentityV2025>>> => {
+export const listMachineIdentities = (requestParameters: sdk.MachineIdentitiesV2025ApiListMachineIdentitiesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.MachineIdentityResponseV2025>>> => {
     const machineidentitiesv2025api = new sdk.MachineIdentitiesV2025Api(apiConfig);
     return handleApiCall(() => machineidentitiesv2025api.listMachineIdentities(requestParameters));
+}
+/**
+ * This API returns a list of user entitlements associated with machine identities.
+ * @summary List machine identity\'s user entitlements
+ * @param {MachineIdentitiesV2025ApiListMachineIdentityUserEntitlementsRequest} requestParameters Request parameters.
+ * @param {*} [axiosOptions] Override http request option.
+ * @throws {RequiredError}
+ */
+export const listMachineIdentityUserEntitlements = (requestParameters: sdk.MachineIdentitiesV2025ApiListMachineIdentityUserEntitlementsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.MachineIdentityUserEntitlementResponseV2025>>> => {
+    const machineidentitiesv2025api = new sdk.MachineIdentitiesV2025Api(apiConfig);
+    return handleApiCall(() => machineidentitiesv2025api.listMachineIdentityUserEntitlements(requestParameters));
+}
+/**
+ * Use this API to aggregate machine identities (AI Agents).
+ * @summary Start Machine Identity (AI Agent) Aggregation
+ * @param {MachineIdentitiesV2025ApiStartMachineIdentityAggregationRequest} requestParameters Request parameters.
+ * @param {*} [axiosOptions] Override http request option.
+ * @throws {RequiredError}
+ */
+export const startMachineIdentityAggregation = (requestParameters: sdk.MachineIdentitiesV2025ApiStartMachineIdentityAggregationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.MachineIdentityAggregationResponseV2025>> => {
+    const machineidentitiesv2025api = new sdk.MachineIdentitiesV2025Api(apiConfig);
+    return handleApiCall(() => machineidentitiesv2025api.startMachineIdentityAggregation(requestParameters));
 }
 /**
  * Use this API to update machine identity details. 
@@ -4228,7 +4372,7 @@ export const listMachineIdentities = (requestParameters: sdk.MachineIdentitiesV2
  * @param {*} [axiosOptions] Override http request option.
  * @throws {RequiredError}
  */
-export const updateMachineIdentity = (requestParameters: sdk.MachineIdentitiesV2025ApiUpdateMachineIdentityRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.MachineIdentityV2025>> => {
+export const updateMachineIdentity = (requestParameters: sdk.MachineIdentitiesV2025ApiUpdateMachineIdentityRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.MachineIdentityResponseV2025>> => {
     const machineidentitiesv2025api = new sdk.MachineIdentitiesV2025Api(apiConfig);
     return handleApiCall(() => machineidentitiesv2025api.updateMachineIdentity(requestParameters));
 }
@@ -4265,6 +4409,17 @@ export const deleteManagedClient = (requestParameters: sdk.ManagedClientsV2025Ap
 export const getManagedClient = (requestParameters: sdk.ManagedClientsV2025ApiGetManagedClientRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ManagedClientV2025>> => {
     const managedclientsv2025api = new sdk.ManagedClientsV2025Api(apiConfig);
     return handleApiCall(() => managedclientsv2025api.getManagedClient(requestParameters));
+}
+/**
+ * Get a managed client\'s health indicators, using its ID.
+ * @summary Get managed client health indicators
+ * @param {ManagedClientsV2025ApiGetManagedClientHealthIndicatorsRequest} requestParameters Request parameters.
+ * @param {*} [axiosOptions] Override http request option.
+ * @throws {RequiredError}
+ */
+export const getManagedClientHealthIndicators = (requestParameters: sdk.ManagedClientsV2025ApiGetManagedClientHealthIndicatorsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ManagedClientHealthIndicatorsV2025>> => {
+    const managedclientsv2025api = new sdk.ManagedClientsV2025Api(apiConfig);
+    return handleApiCall(() => managedclientsv2025api.getManagedClientHealthIndicators(requestParameters));
 }
 /**
  * Get a managed client\'s status, using its ID.
@@ -4477,6 +4632,17 @@ export const createSourcesWithinMultiHost = (requestParameters: sdk.MultiHostInt
 export const deleteMultiHost = (requestParameters: sdk.MultiHostIntegrationV2025ApiDeleteMultiHostRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
     const multihostintegrationv2025api = new sdk.MultiHostIntegrationV2025Api(apiConfig);
     return handleApiCall(() => multihostintegrationv2025api.deleteMultiHost(requestParameters));
+}
+/**
+ * This endpoint performs bulk sources delete within Multi-Host Integration via a list of supplied IDs.  The following rights are required to access this endpoint: idn:multihosts:delete, idn:sources:delete
+ * @summary Delete sources within multi-host integration
+ * @param {MultiHostIntegrationV2025ApiDeleteMultiHostSourcesRequest} requestParameters Request parameters.
+ * @param {*} [axiosOptions] Override http request option.
+ * @throws {RequiredError}
+ */
+export const deleteMultiHostSources = (requestParameters: sdk.MultiHostIntegrationV2025ApiDeleteMultiHostSourcesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const multihostintegrationv2025api = new sdk.MultiHostIntegrationV2025Api(apiConfig);
+    return handleApiCall(() => multihostintegrationv2025api.deleteMultiHostSources(requestParameters));
 }
 /**
  * This API will return array of account aggregation groups within provided Multi-Host Integration ID. A token with Org Admin or Multi-Host Admin authority is required to access this endpoint.
@@ -7340,6 +7506,51 @@ export const setTagsToManyObjects = (requestParameters: sdk.TaggedObjectsV2025Ap
 }
 
 /**
+ * This API creates new tag.  A token with API, ORG_ADMIN, CERT_ADMIN, REPORT_ADMIN, ROLE_ADMIN, ROLE_SUBADMIN, SOURCE_ADMIN, or SOURCE_SUBADMIN authority is required to call this API.
+ * @summary Create tag
+ * @param {TagsV2025ApiCreateTagRequest} requestParameters Request parameters.
+ * @param {*} [axiosOptions] Override http request option.
+ * @throws {RequiredError}
+ */
+export const createTag = (requestParameters: sdk.TagsV2025ApiCreateTagRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TagV2025>> => {
+    const tagsv2025api = new sdk.TagsV2025Api(apiConfig);
+    return handleApiCall(() => tagsv2025api.createTag(requestParameters));
+}
+/**
+ * This API deletes a tag by specified id.  A token with API, ORG_ADMIN, CERT_ADMIN, REPORT_ADMIN, ROLE_ADMIN, ROLE_SUBADMIN, SOURCE_ADMIN, or SOURCE_SUBADMIN authority is required to call this API.
+ * @summary Delete tag
+ * @param {TagsV2025ApiDeleteTagByIdRequest} requestParameters Request parameters.
+ * @param {*} [axiosOptions] Override http request option.
+ * @throws {RequiredError}
+ */
+export const deleteTagById = (requestParameters: sdk.TagsV2025ApiDeleteTagByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const tagsv2025api = new sdk.TagsV2025Api(apiConfig);
+    return handleApiCall(() => tagsv2025api.deleteTagById(requestParameters));
+}
+/**
+ * Returns a tag by its id.  A token with API, ORG_ADMIN, CERT_ADMIN, REPORT_ADMIN, ROLE_ADMIN, ROLE_SUBADMIN, SOURCE_ADMIN, or SOURCE_SUBADMIN authority is required to call this API.
+ * @summary Get tag by id
+ * @param {TagsV2025ApiGetTagByIdRequest} requestParameters Request parameters.
+ * @param {*} [axiosOptions] Override http request option.
+ * @throws {RequiredError}
+ */
+export const getTagById = (requestParameters: sdk.TagsV2025ApiGetTagByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TagV2025>> => {
+    const tagsv2025api = new sdk.TagsV2025Api(apiConfig);
+    return handleApiCall(() => tagsv2025api.getTagById(requestParameters));
+}
+/**
+ * This API returns a list of tags.  A token with API, ORG_ADMIN, CERT_ADMIN, REPORT_ADMIN, ROLE_ADMIN, ROLE_SUBADMIN, SOURCE_ADMIN, or SOURCE_SUBADMIN authority is required to call this API.
+ * @summary List tags
+ * @param {TagsV2025ApiListTagsRequest} requestParameters Request parameters.
+ * @param {*} [axiosOptions] Override http request option.
+ * @throws {RequiredError}
+ */
+export const listTags = (requestParameters: sdk.TagsV2025ApiListTagsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.TagV2025>>> => {
+    const tagsv2025api = new sdk.TagsV2025Api(apiConfig);
+    return handleApiCall(() => tagsv2025api.listTags(requestParameters));
+}
+
+/**
  * Responds with headers only for list of task statuses for pending tasks.
  * @summary Retrieve pending task list headers
  * @param {TaskManagementV2025ApiGetPendingTaskHeadersRequest} requestParameters Request parameters.
@@ -7985,6 +8196,17 @@ export const getWorkflowExecutionHistory = (requestParameters: sdk.WorkflowsV202
     return handleApiCall(() => workflowsv2025api.getWorkflowExecutionHistory(requestParameters));
 }
 /**
+ * Gets a workflow execution history, trigger input, and workflow definition of a single workflow execution.  Workflow executions are available for up to 90 days before being archived.  If you attempt to access a workflow execution that has been archived, you will receive a 404 Not Found.
+ * @summary Get updated workflow execution history
+ * @param {WorkflowsV2025ApiGetWorkflowExecutionHistoryV2Request} requestParameters Request parameters.
+ * @param {*} [axiosOptions] Override http request option.
+ * @throws {RequiredError}
+ */
+export const getWorkflowExecutionHistoryV2 = (requestParameters: sdk.WorkflowsV2025ApiGetWorkflowExecutionHistoryV2Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.WorkflowExecutionHistoryV2025>> => {
+    const workflowsv2025api = new sdk.WorkflowsV2025Api(apiConfig);
+    return handleApiCall(() => workflowsv2025api.getWorkflowExecutionHistoryV2(requestParameters));
+}
+/**
  * Use this API to list a specified workflow\'s executions. Workflow executions are available for up to 90 days before being archived. By default, you can get a maximum of 250 executions. To get executions past the first 250 records, you can do the following: 1. Use the [Get Workflows](https://developer.sailpoint.com/idn/api/beta/list-workflows) endpoint to get your workflows. 2. Get your workflow ID from the response. 3. You can then do either of the following:    - Filter to find relevant workflow executions.   For example, you can filter for failed workflow executions: `GET /workflows/:workflowID/executions?filters=status eq \"Failed\"`    - Paginate through results with the `offset` parameter.   For example, you can page through 50 executions per page and use that as a way to get to the records past the first 250.   Refer to [Paginating Results](https://developer.sailpoint.com/idn/api/standard-collection-parameters#paginating-results) for more information about the query parameters you can use to achieve pagination.
  * @summary List workflow executions
  * @param {WorkflowsV2025ApiGetWorkflowExecutionsRequest} requestParameters Request parameters.
@@ -8091,4 +8313,30 @@ export const testExternalExecuteWorkflow = (requestParameters: sdk.WorkflowsV202
 export const testWorkflow = (requestParameters: sdk.WorkflowsV2025ApiTestWorkflowRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TestWorkflow200ResponseV2025>> => {
     const workflowsv2025api = new sdk.WorkflowsV2025Api(apiConfig);
     return handleApiCall(() => workflowsv2025api.testWorkflow(requestParameters));
+}
+
+
+export const genericGet = (requestParameters: sdk.DefaultApiGenericGetRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const axiosInstance = new sdk.DefaultApi(apiConfig);
+    return handleApiCall(() => axiosInstance.genericGet(requestParameters));
+}
+
+export const genericPost = (requestParameters: sdk.DefaultApiGenericPostRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const axiosInstance = new sdk.DefaultApi(apiConfig);
+    return handleApiCall(() => axiosInstance.genericPost(requestParameters));
+}
+
+export const genericPut = (requestParameters: sdk.DefaultApiGenericPutRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const axiosInstance = new sdk.DefaultApi(apiConfig);
+    return handleApiCall(() => axiosInstance.genericPut(requestParameters));
+}
+
+export const genericPatch = (requestParameters: sdk.DefaultApiGenericPatchRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const axiosInstance = new sdk.DefaultApi(apiConfig);
+    return handleApiCall(() => axiosInstance.genericPatch(requestParameters));
+}
+
+export const genericDelete = (requestParameters: sdk.DefaultApiGenericDeleteRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const axiosInstance = new sdk.DefaultApi(apiConfig);
+    return handleApiCall(() => axiosInstance.genericDelete(requestParameters));
 }

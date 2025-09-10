@@ -17,4 +17,24 @@ ipcMain.handle('{{#lambda.kebabcase}}{{nickname}}{{/lambda.kebabcase}}', async (
 {{/operations}}
 {{/apis}}{{/apiInfo}}
 
+ipcMain.handle('generic-get', async(event, request: sdk.DefaultApiGenericGetRequest) => {
+    return await sdkWrapper.genericGet(request, apiConfig);
+});
+
+ipcMain.handle('generic-post', async(event, request: sdk.DefaultApiGenericPostRequest) => {
+    return await sdkWrapper.genericPost(request, apiConfig);
+});
+
+ipcMain.handle('generic-put', async(event, request: sdk.DefaultApiGenericPutRequest) => {
+    return await sdkWrapper.genericPut(request, apiConfig);
+});
+
+ipcMain.handle('generic-patch', async(event, request: sdk.DefaultApiGenericPatchRequest) => {
+    return await sdkWrapper.genericPatch(request, apiConfig);
+});
+
+ipcMain.handle('generic-delete', async(event, request: sdk.DefaultApiGenericDeleteRequest) => {
+    return await sdkWrapper.genericDelete(request, apiConfig);
+});
+
 }

@@ -155,6 +155,11 @@
         <mat-icon class="card-icon">dashboard</mat-icon>
         Accounts
       </a>
+      <a *ngIf="isComponentEnabled('auth-viewer')" mat-list-item class="sidebar-link" routerLink="/auth-viewer" routerLinkActive="active-link"
+        [class.disabled]="!isConnected" (click)="onNavItemClick($event)">
+        <mat-icon class="card-icon">dashboard</mat-icon>
+        Auth Viewer
+      </a>
 
       
     </mat-nav-list>

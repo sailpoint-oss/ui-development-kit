@@ -1,0 +1,66 @@
+<div class="auth-viewer-container">
+  <mat-toolbar color="primary">
+    <mat-icon>dashboard</mat-icon>
+    <span class="toolbar-title">{{ title }}</span>
+  </mat-toolbar>
+
+  <div class="content">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ title }} Management</mat-card-title>
+        <mat-card-subtitle>Manage your auth viewer</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p>Welcome to the Auth Viewer component!</p>
+        <p>
+          This is a generated component. You can customize it according to your
+          needs.
+        </p>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-raised-button color="primary">
+          <mat-icon>add</mat-icon>
+          Add Auth Viewer
+        </button>
+        <button mat-button>
+          <mat-icon>refresh</mat-icon>
+          Refresh
+        </button>
+      </mat-card-actions>
+
+      <h4>Filterable Grouped Select</h4>
+      <mat-form-field>
+        <mat-label>Authorization Objects</mat-label>
+        <input
+          type="text"
+          matInput
+          [formControl]="pokemonControl"
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete
+          #auto="matAutocomplete"
+          [displayWith]="displayFn"
+          autoActiveFirstOption
+        >
+          @for (group of filteredPokemonGroups$ | async; track group.name) {
+          <mat-optgroup [label]="group.name">
+            @for (pokemon of group.pokemon; track pokemon.value) {
+            <mat-option [value]="pokemon">
+              {{ pokemon.viewValue }}
+            </mat-option>
+            }
+          </mat-optgroup>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <!-- Display selected value -->
+      <div *ngIf="pokemonControl.value">
+        <p><strong>Selected:</strong> {{ pokemonControl.value.viewValue }}</p>
+        <p><strong>Value:</strong> {{ pokemonControl.value.value }}</p>
+      </div>
+    </mat-card>
+  </div>
+</div>
