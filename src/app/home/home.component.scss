@@ -79,6 +79,27 @@
       color: var(--text-secondary);
       font-size: 16px;
     }
+
+    .web-mode-indicator {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 12px;
+      background-color: rgba(25, 118, 210, 0.1);
+      border-radius: 16px;
+      margin-top: 12px;
+      
+      mat-icon {
+        margin-right: 6px;
+        font-size: 18px;
+        height: 18px;
+        width: 18px;
+      }
+      
+      span {
+        font-weight: 500;
+        color: var(--primary-color);
+      }
+    }
   }
   
   .environment-card {
@@ -210,6 +231,7 @@
             }
           }
         }
+
       }
       
       .form-actions {
@@ -252,6 +274,7 @@
         width: 300px;
       }
     }
+
     
     .connection-action {
       display: flex;
@@ -278,34 +301,6 @@
         }
       }
     }
-  }
-}
-
-.connected-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  
-  .connection-status {
-    text-align: center;
-    margin-bottom: 30px;
-    
-    .connected-icon {
-      color: var(--success-color);
-      font-size: 48px;
-      width: 48px;
-      height: 48px;
-      margin-bottom: 16px;
-    }
-    
-    h2 {
-      color: var(--text-primary);
-      margin-bottom: 16px;
-    }
-  }
-  
-  mat-spinner {
-    margin: 0 auto;
   }
 }
 
@@ -373,6 +368,7 @@
       align-self: center;
     }
   }
+
   
   // Dashboard responsive adjustments
   .dashboard-page {
@@ -458,4 +454,3 @@
   background-color: #4caf50 !important;
   color: white !important;
 }
-  

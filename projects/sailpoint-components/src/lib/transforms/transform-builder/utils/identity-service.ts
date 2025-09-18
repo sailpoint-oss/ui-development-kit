@@ -29,7 +29,7 @@ export class IdentityService {
     let queryString = `identityProfile.id:${profileId}`;
 
     if (searchQuery?.trim()) {
-        const escaped = searchQuery.replace(/"/g, '\\"'); // escape quotes if necessary
+        const escaped = searchQuery.replace(/\\/g, '\\\\').replace(/"/g, '\\"'); // escape quotes if necessary
         queryString += ` AND (name:*${escaped}*)`;
     }
 

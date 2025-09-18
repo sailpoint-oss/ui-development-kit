@@ -20,6 +20,13 @@ export class ElectronApiFactoryService {
     }
   }
   
+  /**
+   * Check if running in Electron environment
+   */
+  public get isElectron(): boolean {
+    return this.electronService.isElectron;
+  }
+  
   constructor(
     private electronService: ElectronService,
     private webApiService: WebApiService

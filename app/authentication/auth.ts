@@ -3,10 +3,12 @@ import {
   TenantV2024Api,
   ConfigurationParameters,
 } from 'sailpoint-api-client';
-import { getConfig, setConfig } from './config';
-import { getStoredOAuthTokens, OAuthLogin, refreshOAuthToken, validateOAuthTokens } from './oauth';
+import { getConfig, setConfig,  getConfigEnvironment, setActiveEnvironementInConfig, getSecureValue} from './config';
+import { getStoredOAuthTokens, OAuthLogin, refreshOAuthToken, validateOAuthTokens, storeOAuthTokens, authLambdaTokenURL, consumePrivateKey} from './oauth';
 import { getStoredPATTokens, refreshPATToken, validatePATToken } from './pat';
-import { TokenSet } from './types';
+import { decryptToken } from "./crypto";
+import { TokenSet, TokenResponse } from './types';
+import { ref } from 'process';
 
 export function formatErrorAsString(error: unknown): string {
   if (error instanceof Error) {
@@ -16,6 +18,8 @@ export function formatErrorAsString(error: unknown): string {
 }
 
 export let apiConfig: Configuration;
+let activeEnvironment: string | null = null;
+let refreshActive = false;
 
 export const disconnectFromISC = () => {
   try {
@@ -70,22 +74,13 @@ export function parseJwt(token: string): AuthPayload {
  * @param request - The login request
  * @returns Promise resolving to the login result
  */
-export const unifiedLogin = async (environment: string): Promise<{ success: boolean, error?: string }> => {
+export const unifiedLogin = async (environment: string): Promise<{ success: boolean, error?: string, uuid?: string, authUrl?: string }> => {
 
-  const authType = getGlobalAuthType();
-  console.log(`Starting ${authType} login for environment: ${environment}`);
 
   try {
+    activeEnvironment = environment;
     // First, ensure the environment exists in config
-    const config = getConfig();
-    if (!config.environments[environment]) {
-      return {
-        success: false,
-        error: `Environment '${environment}' not found in configuration`
-      };
-    }
-
-    const { tenanturl, baseurl } = config.environments[environment];
+    const { tenanturl, baseurl, authtype } = getConfigEnvironment(environment);
 
     // Check for existing tokens and attempt refresh if needed
     const tokenStatus = validateTokens(environment);
@@ -97,14 +92,14 @@ export const unifiedLogin = async (environment: string): Promise<{ success: bool
       };
     }
 
-    if (tokenStatus.authType === authType) {
+    if (tokenStatus.authtype === authtype) {
       if (tokenStatus.isValid) {
-        console.log(`Using existing valid ${tokenStatus.authType} tokens for environment: ${environment}`);
+        console.log(`Using existing valid ${tokenStatus.authtype} tokens for environment: ${environment}`);
 
         // Test the connection with existing tokens
         let storedTokens;
 
-        switch (tokenStatus.authType) {
+        switch (tokenStatus.authtype) {
           case 'oauth':
             storedTokens = getStoredOAuthTokens(environment);
             break;
@@ -116,7 +111,7 @@ export const unifiedLogin = async (environment: string): Promise<{ success: bool
           default:
             return {
               success: false,
-              error: 'Unsupported auth type: ' + tokenStatus.authType
+              error: 'Unsupported auth type: ' + tokenStatus.authtype
             }
         }
 
@@ -129,7 +124,7 @@ export const unifiedLogin = async (environment: string): Promise<{ success: bool
 
         let connectionResult;
 
-        switch (tokenStatus.authType) {
+        switch (tokenStatus.authtype) {
           case 'oauth':
             connectionResult = await connectToISCWithToken(
               baseurl,
@@ -152,7 +147,7 @@ export const unifiedLogin = async (environment: string): Promise<{ success: bool
         } else {
           return {
             success: false,
-            error: `Failed to connect to ISC with environment: ${environment} and auth type: ${tokenStatus.authType}`
+            error: `Failed to connect to ISC with environment: ${environment} and auth type: ${tokenStatus.authtype}`
           };
         }
 
@@ -160,7 +155,7 @@ export const unifiedLogin = async (environment: string): Promise<{ success: bool
         // Attempt to refresh tokens using cached refresh token
         console.log(`Attempting to refresh expired tokens for environment: ${environment}`);
         try {
-          const refreshResult = await refreshTokens(environment);
+          const refreshResult = await refreshTokens();
 
           if (!refreshResult.success) {
             return {
@@ -170,7 +165,7 @@ export const unifiedLogin = async (environment: string): Promise<{ success: bool
           }
 
           let connectionResult;
-          switch (tokenStatus.authType) {
+          switch (tokenStatus.authtype) {
             case 'oauth':
               const oauthTokens = getStoredOAuthTokens(environment);
               if (!oauthTokens || !oauthTokens.accessToken) {
@@ -201,25 +196,21 @@ export const unifiedLogin = async (environment: string): Promise<{ success: bool
           } else {
             return {
               success: false,
-              error: 'Failed to connect to ISC with environment: ' + environment + ' and auth type: ' + tokenStatus.authType
+              error: 'Failed to connect to ISC with environment: ' + environment + ' and auth type: ' + tokenStatus.authtype
             };
           }
         } catch (refreshError) {
           console.log('Token refresh failed, will start new authentication flow:', refreshError);
         }
       }
-    } else if (tokenStatus.isValid && tokenStatus.authType !== authType) {
-      console.log(`Found valid ${tokenStatus.authType} tokens but user requested ${authType} authentication. Proceeding with new ${authType} authentication.`);
+    } else if (tokenStatus.isValid && tokenStatus.authtype !== authtype) {
+      console.log(`Authentication type has changed, proceeding with new login`);
     }
 
     // Update global auth type to match the requested flow
-    config.authtype = authType;
-    config.activeenvironment = environment;
+    setActiveEnvironementInConfig(environment);
 
-    // Save the updated config
-    setConfig(config);
-
-    if (authType === 'oauth') {
+    if (authtype === 'oauth') {
       // OAuth flow
       if (!tenanturl) {
         return {
@@ -237,13 +228,22 @@ export const unifiedLogin = async (environment: string): Promise<{ success: bool
         });
 
         if (!loginResult.success) {
-
           return {
             success: false,
             error: formatErrorAsString(loginResult.error)
           };
         }
 
+        // Return UUID and authUrl for frontend polling
+        if (loginResult.uuid) {
+          return {
+            success: true,
+            uuid: loginResult.uuid,
+            authUrl: loginResult.authUrl
+          };
+        }
+
+        // Fallback to old behavior (shouldn't happen with new implementation)
         const oauthTokens = getStoredOAuthTokens(environment);
         if (!oauthTokens) {
           return {
@@ -263,7 +263,7 @@ export const unifiedLogin = async (environment: string): Promise<{ success: bool
           error: formatErrorAsString(connectionResult.error)
         };
       } catch (oauthError) {
-        console.error('OAuth login failed:', oauthError);
+        console.error('OAuth login failed:');
         return {
           success: false,
           error: oauthError instanceof Error ? oauthError.message : 'OAuth login failed'
@@ -312,32 +312,65 @@ export const unifiedLogin = async (environment: string): Promise<{ success: bool
  * @param environment - The environment name to refresh tokens for
  * @returns Promise resolving to the new token set
  */
-export const refreshTokens = async (environment: string): Promise<{ success: boolean, error?: string }> => {
+export const refreshTokens = async (): Promise<{ success: boolean, error?: string }> => {
+  while (refreshActive) {
+    console.log('Refresh already in progress, waiting...');
+    await new Promise(resolve => setTimeout(resolve, 500));
+  }
+
+  const tokenDetails = getCurrentTokenDetails(activeEnvironment || '');
+  if (tokenDetails.tokenDetails?.expiry && (new Date(tokenDetails.tokenDetails.expiry) > new Date())) {
+    return { success: true };
+  }
+
+  refreshActive = true;
+  const environment = activeEnvironment || '';
   try {
-    const authType = getGlobalAuthType();
-    switch (authType) {
+    const config = getConfig();
+    if (!config.environments[environment]) {
+      refreshActive = false;
+      return {
+        success: false,
+        error: `Environment '${environment}' not found in configuration`
+      };
+    }
+    const { tenanturl, baseurl, authtype } = config.environments[environment];
+
+    switch (authtype) {
       case 'oauth': {
         const storedTokens = getStoredOAuthTokens(environment);
         if (!storedTokens || !storedTokens.refreshToken) {
+          refreshActive = false;
           return { success: false, error: 'No refresh token available for OAuth refresh' };
         }
 
         if (checkTokenExpired(storedTokens.refreshToken)) {
+          refreshActive = false;
           return { success: false, error: 'Refresh token has expired' };
         }
 
         await refreshOAuthToken(environment);
+        await connectToISCWithToken(baseurl, getStoredOAuthTokens(environment)!.accessToken);
+        refreshActive = false;
         return { success: true, error: undefined };
       }
 
       case 'pat':
         await refreshPATToken(environment);
+        await connectToISCWithPAT(
+          baseurl,
+          getStoredPATTokens(environment)!.clientId,
+          getStoredPATTokens(environment)!.clientSecret,
+        );
+        refreshActive = false;
         return { success: true, error: undefined };
 
       default:
-        return { success: false, error: 'Unsupported auth type: ' + authType };
+        refreshActive = false;
+        return { success: false, error: 'Unsupported auth type: ' + authtype };
     }
   } catch (error) {
+    refreshActive = false;
     console.error('Error refreshing tokens:', error);
     return { success: false, error: 'Error refreshing tokens: ' + error };
   }
@@ -394,47 +427,15 @@ export const connectToISCWithToken = async (
   }
 };
 
-export const getGlobalAuthType = (): "oauth" | "pat" => {
-  try {
-    const config = getConfig();
-
-    // OAuth is the default as it requires the least variables to work
-    return (config.authtype as "oauth" | "pat" | undefined) || 'oauth';
-  } catch (error) {
-    console.error('Error getting global auth type:', error);
-    return 'oauth'; // Default to OAuth if error
-  }
-};
-
-export const setGlobalAuthType = (authType: "oauth" | "pat") => {
-  try {
-    const config = getConfig();
-
-    // Update the global auth type
-    config.authtype = authType;
-
-    // Write updated config file
-    setConfig(config);
-
-    return { success: true };
-  } catch (error) {
-    console.error('Error setting global auth type:', error);
-    return {
-      success: false,
-      error: formatErrorAsString(error)
-    };
-  }
-};
-
 export type AccessTokenStatus = {
-  authType: string;
+  authtype: string;
   accessTokenIsValid: boolean;
   expiry?: Date;
   needsRefresh: boolean;
 }
 
 export type RefreshTokenStatus = {
-  authType: "oauth";
+  authtype: "oauth";
   refreshTokenIsValid: boolean;
   expiry?: Date;
   needsRefresh: boolean;
@@ -457,7 +458,8 @@ export function getTokenDetails(token: string): TokenDetails {
 
 export function getCurrentTokenDetails(environment: string): { tokenDetails: TokenDetails | undefined, error?: string } {
   try {
-    switch (getGlobalAuthType()) {
+    const { tenanturl, baseurl, authtype } = getConfigEnvironment(environment);
+    switch (authtype) {
       case 'oauth':
         const oauthTokens = getStoredOAuthTokens(environment);
         if (!oauthTokens) {
@@ -487,7 +489,7 @@ export function getCurrentTokenDetails(environment: string): { tokenDetails: Tok
       default:
         return {
           tokenDetails: undefined,
-          error: 'Unsupported auth type: ' + getGlobalAuthType()
+          error: 'Unsupported auth type: ' + authtype
         };
     }
   } catch (error) {
@@ -506,13 +508,14 @@ export function getCurrentTokenDetails(environment: string): { tokenDetails: Tok
  * @param environment - The environment name to check access token status for
  * @returns Access token status information
  */
-export async function checkAccessTokenStatus(environment: string): Promise<AccessTokenStatus> {
+export async function checkAccessTokenStatus(): Promise<AccessTokenStatus> {
+  const environment = activeEnvironment || '';
   try {
-    const authType = getGlobalAuthType();
+    const { tenanturl, baseurl, authtype } = getConfigEnvironment(environment);
 
     let storedTokens: TokenSet | undefined;
 
-    switch (authType) {
+    switch (authtype) {
       case 'oauth':
         storedTokens = getStoredOAuthTokens(environment);
         break;
@@ -522,7 +525,7 @@ export async function checkAccessTokenStatus(environment: string): Promise<Acces
       default:
         return {
           accessTokenIsValid: false,
-          authType,
+          authtype,
           needsRefresh: false
         };
     }
@@ -530,7 +533,7 @@ export async function checkAccessTokenStatus(environment: string): Promise<Acces
     if (!storedTokens) {
       return {
         accessTokenIsValid: false,
-        authType,
+        authtype,
         needsRefresh: false
       };
     }
@@ -542,17 +545,17 @@ export async function checkAccessTokenStatus(environment: string): Promise<Acces
     if (expiry < now) {
       return {
         accessTokenIsValid: false,
-        authType,
+        authtype,
         needsRefresh: true,
         expiry
       };
     }
 
-    const tokenTest = await testAccessToken(environment, authType);
+    const tokenTest = await testAccessToken(environment, authtype);
 
     return {
       accessTokenIsValid: tokenTest.isValid,
-      authType,
+      authtype,
       needsRefresh: tokenTest.needsRefresh,
       expiry
     };
@@ -561,70 +564,18 @@ export async function checkAccessTokenStatus(environment: string): Promise<Acces
     console.error('Error checking token status:', error);
     return {
       accessTokenIsValid: false,
-      authType: 'unknown',
+      authtype: 'unknown',
       needsRefresh: false
     };
   }
 };
 
-/**
- * Checks the refresh token status for a given environment
- * @param environment - The environment name to check refresh token status for
- * @returns Refresh token status information
- */
-export function checkRefreshTokenStatus(environment: string): RefreshTokenStatus {
-  try {
-    const storedTokens = getStoredOAuthTokens(environment);
 
-    if (!storedTokens) {
-      return {
-        refreshTokenIsValid: false,
-        authType: 'oauth',
-        needsRefresh: false
-      };
-    }
-
-    if (!storedTokens.refreshToken) {
-      return {
-        refreshTokenIsValid: false,
-        authType: 'oauth',
-        needsRefresh: false
-      };
-    }
-
-    const parsedToken = parseJwt(storedTokens.refreshToken);
-    const expiry = new Date(parsedToken.exp * 1000);
-    const now = new Date();
-
-    if (expiry < now) {
-      return {
-        refreshTokenIsValid: false,
-        authType: 'oauth',
-        needsRefresh: true
-      };
-    }
-
-    return {
-      refreshTokenIsValid: true,
-      authType: 'oauth',
-      needsRefresh: false
-    };
-
-  } catch (error) {
-    console.error('Error checking refresh token status:', error);
-    return {
-      refreshTokenIsValid: false,
-      authType: 'oauth',
-      needsRefresh: false
-    };
-  }
-}
-
-export async function testAccessToken(environment: string, authType: string): Promise<{ isValid: boolean, needsRefresh: boolean, error?: string }> {
+export async function testAccessToken(environment: string, authtype: string): Promise<{ isValid: boolean, needsRefresh: boolean, error?: string }> {
 
   let accessToken;
 
-  switch (authType) {
+  switch (authtype) {
     case 'oauth':
       const oauthTokens = getStoredOAuthTokens(environment);
       if (!oauthTokens) {
@@ -648,7 +599,7 @@ export async function testAccessToken(environment: string, authType: string): Pr
       break;
 
     default:
-      return { isValid: false, needsRefresh: false, error: 'Unsupported auth type: ' + authType };
+      return { isValid: false, needsRefresh: false, error: 'Unsupported auth type: ' + authtype };
   }
 
   // Test the token against the API to see if it's still valid
@@ -704,20 +655,21 @@ export function checkTokenExpired(token: string) {
   return expiry < now;
 }
 
-export function validateTokens(environment: string) {
+export function validateTokens(environment: string): { isValid: boolean, needsRefresh: boolean, authtype: string } | undefined {
   try {
-    switch (getGlobalAuthType()) {
+    const { tenanturl, baseurl, authtype } = getConfigEnvironment(environment);
+    switch (authtype) {
       case 'oauth':
         const oauthValidation = validateOAuthTokens(environment);
         return {
           ...oauthValidation,
-          authType: 'oauth'
+          authtype: 'oauth'
         };
       case 'pat':
         const patValidation = validatePATToken(environment);
         return {
           ...patValidation,
-          authType: 'pat'
+          authtype: 'pat'
         };
       default:
         break;
@@ -727,7 +679,70 @@ export function validateTokens(environment: string) {
     return {
       isValid: false,
       needsRefresh: false,
-      authType: 'unknown'
+      authtype: 'unknown'
     };
   }
 }
+
+
+/**
+ * Checks if the OAuth code flow is complete for a given UUID
+ * @param uuid - The UUID from the initial OAuth login
+ * @param environment - The environment name
+ * @returns Promise resolving to completion status and token storage result
+ */
+export async function checkOauthCodeFlowComplete (uuid: string, environment: string): Promise<{ isComplete: boolean, success?: boolean, error?: string }> {
+    try {
+      const { tenanturl, baseurl, authtype } = getConfigEnvironment(environment);
+        const tokenResponse = await fetch(`${authLambdaTokenURL}/${uuid}`);
+
+        if (tokenResponse.ok) {
+            const tokenData: TokenResponse = await tokenResponse.json();
+
+            // Step 5: Get and consume the private key from memory
+            const privateKey = consumePrivateKey();
+            if (!privateKey) {
+                throw new Error('Private key not found in memory');
+            }
+
+            // Step 6: Decrypt the token info using the private key
+            const decryptedToken = decryptToken(tokenData.tokenInfo, privateKey);
+            console.log('Decrypted token info');
+
+            // Validate that we have the required tokens
+            if (!decryptedToken.access_token) {
+                console.error('Missing accessToken in response');
+                return { isComplete: true, success: false, error: 'OAuth response missing access token' };
+            }
+
+            if (!decryptedToken.refresh_token) {
+                console.error('Missing refreshToken in response');
+                return { isComplete: true, success: false, error: 'OAuth response missing refresh token' };
+            }
+
+            // Step 7: Parse and store the tokens
+            const accessTokenClaims = parseJwt(decryptedToken.access_token);
+            const refreshTokenClaims = parseJwt(decryptedToken.refresh_token);
+
+            const tokenSet = {
+                accessToken: decryptedToken.access_token,
+                accessExpiry: new Date(accessTokenClaims.exp * 1000),
+                refreshToken: decryptedToken.refresh_token,
+                refreshExpiry: new Date(refreshTokenClaims.exp * 1000),
+            };
+
+            storeOAuthTokens(environment, tokenSet);
+            connectToISCWithToken(baseurl, tokenSet.accessToken);
+            return { isComplete: true, success: true };
+        } else if (tokenResponse.status === 404 || tokenResponse.status === 400) {
+            // Token not ready yet, continue polling (backend returns 400 when token not found)
+            return { isComplete: false };
+        } else {
+            // Some other error occurred
+            return { isComplete: true, success: false, error: `Token endpoint returned status: ${tokenResponse.status}` };
+        }
+    } catch (error) {
+        console.error('Error checking OAuth code flow completion:', error);
+        return { isComplete: true, success: false, error: `Error checking OAuth completion: ${error}` };
+    }
+};

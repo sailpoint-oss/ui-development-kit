@@ -11,6 +11,13 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import * as Prism from 'prismjs';
 import 'prismjs/components/prism-json';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCardModule } from '@angular/material/card';
+
+interface UsageNode {
+  name: string;
+  children?: UsageNode[];
+}
 
 export interface DialogData {
   title?: string;
@@ -21,6 +28,8 @@ export interface DialogData {
   confirmText?: string;
   cancelText?: string;
   isConfirmation?: boolean;
+
+  treeData?: UsageNode[];
 }
 
 @Component({
@@ -32,6 +41,8 @@ export interface DialogData {
     MatProgressSpinnerModule,
     MatIconModule,
     MatTooltipModule,
+    MatExpansionModule,
+    MatCardModule
   ],
   template: `
     <h1 mat-dialog-title>
@@ -64,8 +75,25 @@ export interface DialogData {
         Please complete the authentication in your browser window and return
         here.
       </p>
-    </div>
+    <mat-accordion *ngIf="data.treeData?.length" class="usage-accordion">
+        <mat-expansion-panel *ngFor="let root of data.treeData">
+          <mat-expansion-panel-header>
+            <mat-panel-title>{{ root.name }}</mat-panel-title>
+          </mat-expansion-panel-header>
 
+          <div class="entry-cards">
+            <mat-card *ngFor="let entry of root.children" class="entry-card mat-elevation-z2">
+              <mat-card-header>
+                <mat-card-title>{{ entry.name }}</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <div *ngFor="let leaf of entry.children" class="leaf-item">{{ leaf.name }}</div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
     <div mat-dialog-actions align="end">
       <!-- Confirmation Dialog Buttons -->
       <ng-container *ngIf="data.isConfirmation">
@@ -76,7 +104,6 @@ export interface DialogData {
           {{ data.confirmText || 'Confirm' }}
         </button>
       </ng-container>
-
       <!-- Standard Dialog Button -->
       <button
         id="closeButton"
@@ -95,6 +122,14 @@ export interface DialogData {
   `,
   styles: [
     `
+    .mat-dialog-container,
+    .mat-mdc-dialog-container,
+    .mat-dialog-container *,
+    .mat-mdc-dialog-container * {
+      font-family: "Poppins", sans-serif !important;
+      text-transform: none !important;
+      letter-spacing: normal !important;
+    }
       :host {
         display: block;
       }
@@ -106,11 +141,7 @@ export interface DialogData {
       .mat-mdc-icon-button .mat-mdc-button-persistent-ripple {
         border-radius: 0.5rem !important;
       }
-      
-      .mat-mdc-dialog-content {
-        max-height: none !important;
-        overflow: visible !important;
-      }
+     
 
       .dark-theme #closeButton {
         color: var(--theme-primary) !important;;
@@ -141,6 +172,7 @@ export interface DialogData {
         min-width: 300px;
         padding: 20px 0;
         position: relative;
+        padding-bottom: 64px;
         box-sizing: border-box;
       }
 
@@ -162,7 +194,6 @@ export interface DialogData {
         padding: 16px;
         overflow-x: auto;
         border-radius: 4px;
-        font-family: 'Fira Code', monospace;
         white-space: pre-wrap;
         word-wrap: break-word;
         max-width: 100%;
@@ -207,7 +238,6 @@ export interface DialogData {
         display: block;
         padding: 0;
         background: none;
-        font-family: inherit;
         font-size: 14px;
         line-height: 1.4;
       }
@@ -246,6 +276,45 @@ export interface DialogData {
       #copyButton {
         border: none !important;
       }
+    .entry-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .entry-card {
+      flex: 0 1 auto;             
+      width: auto;                 
+      min-width: 180px;           
+      max-width: calc(100% - 32px);
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .entry-card:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+
+    .mat-card-title {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 600;
+    }
+
+    mat-card-content {
+      padding: 8px 16px;
+      white-space: normal;
+    }
+
+    .leaf-item {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 4px 0;
+    }
     `,
   ],
   encapsulation: ViewEncapsulation.None,
@@ -254,7 +323,7 @@ export class GenericDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<GenericDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) {}
+  ) { }
 
   get isUnsavedChangesPrompt(): boolean {
     return (
@@ -324,8 +393,6 @@ export class GenericDialogComponent {
   copyToClipboard(): void {
     const textToCopy = this.formattedMessage;
     void window.navigator.clipboard.writeText(textToCopy).then(() => {
-      // Optional: show some feedback
-      console.log('Copied to clipboard');
     });
   }
 

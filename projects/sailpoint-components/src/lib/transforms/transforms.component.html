@@ -8,19 +8,9 @@
     <!-- Filter Input -->
     <mat-form-field appearance="fill" class="custom-fill-field">
       <mat-label>Filter</mat-label>
-      <input
-        matInput
-        (keyup)="applyFilter($event)"
-        placeholder="Ex. ium"
-        #input
-      />
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input />
     </mat-form-field>
-    <button
-      id="new-transform-button"
-      mat-raised-button
-      color="primary"
-      (click)="onEdit(undefined)"
-    >
+    <button id="new-transform-button" mat-raised-button color="primary" (click)="onEdit(undefined)">
       Create New
     </button>
     <!-- <button id="new-transform-button" mat-raised-button color="primary" (click)="onEdit(undefined)">Import Transform</button> -->
@@ -31,13 +21,8 @@
     </div>
 
     <!-- Table -->
-    <table
-      mat-table
-      [dataSource]="dataSource"
-      class="mat-elevation-z8"
-      *ngIf="!loading && transforms.length"
-      width="100%"
-    >
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="!loading && transforms.length"
+      width="100%">
       <!-- ID Column -->
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>ID</th>
@@ -66,21 +51,16 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let transform">
-          <button
-            id="edit-transform-button"
-            mat-raised-button
-            color="primary"
-            (click)="onEdit(transform)"
-          >
+          <button id="edit-transform-button" mat-raised-button color="primary" (click)="onEdit(transform)">
             Edit
           </button>
-          <button
-            id="delete-transform-button"
-            mat-raised-button
-            color="primary"
-            (click)="onDelete(transform)"
-          >
+          <button id="delete-transform-button" mat-raised-button color="primary" [disabled]="scanning"
+            (click)="onDelete(transform)">
             Delete
+          </button>
+          <button id="safe-delete-transform-button" mat-raised-button color="warn" [disabled]="scanning"
+            (click)="onSafeDelete(transform)">
+            Safe Delete
           </button>
         </td>
       </ng-container>
@@ -98,12 +78,19 @@
     </table>
 
     <!-- Empty State -->
-    <div
-      *ngIf="!loading && hasDataLoaded && transforms.length === 0"
-      class="empty-message"
-    >
+    <div *ngIf="!loading && hasDataLoaded && transforms.length === 0" class="empty-message">
       No Transforms found.
     </div>
+
+    <ng-template #scanProgressDialog>
+      <h2 mat-dialog-title>Scanning usages…</h2>
+
+      <mat-dialog-content class="scan-progress" style="min-width: 420px">
+        <p>{{ currentPhase }}: {{ grandProgress }} / {{ grandTotal }}</p>
+        <mat-progress-bar mode="determinate" [value]="grandTotal ? (grandProgress / grandTotal) * 100 : 0">
+        </mat-progress-bar>
+      </mat-dialog-content>
+    </ng-template>
   </div>
 </div>
 

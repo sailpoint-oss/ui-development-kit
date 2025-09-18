@@ -25,6 +25,11 @@
   border-radius: 0.5rem;
 }
 
+#safe-delete-transform-button {
+  margin-left: 25px;
+  border-radius: 0.5rem;
+}
+
 .transform-builder-container {
   position: relative;
 }
@@ -38,4 +43,16 @@
   border-radius: 0.5rem;
   font-weight: normal;
   font-family: "Poppins" !important;
+}
+
+.cdk-overlay-container,
+.cdk-overlay-container * {
+  font-family: "Poppins", sans-serif !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+}
+
+.cdk-overlay-container pre,
+.cdk-overlay-container code {
+  font-family: "Poppins", sans-serif !important;
 }

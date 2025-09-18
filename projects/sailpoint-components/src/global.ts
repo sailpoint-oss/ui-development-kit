@@ -1,4 +1,3 @@
-import { PATTokenSet } from "src/global";
 
 export type AuthMethods = "oauth" | "pat";
 
@@ -6,7 +5,7 @@ export type UpdateEnvironmentRequest = {
   environmentName: string;
   tenantUrl: string;
   baseUrl: string;
-  authType: AuthMethods;
+  authtype: AuthMethods;
   clientId?: string;
   clientSecret?: string;
 }
@@ -18,7 +17,7 @@ export type Tenant = {
   tenantUrl: string;
   clientId?: string;
   clientSecret?: string;
-  authType: AuthMethods;
+  authtype: AuthMethods;
   tenantName: string;
 }
 
@@ -30,14 +29,14 @@ export type TokenSet = {
 }
 
 export type AccessTokenStatus = {
-  authType: AuthMethods;
+  authtype: AuthMethods;
   accessTokenIsValid: boolean;
   expiry?: Date;
   needsRefresh: boolean;
 }
 
 export type RefreshTokenStatus = {
-  authType: "oauth";
+  authtype: "oauth";
   refreshTokenIsValid: boolean;
   expiry?: Date;
   needsRefresh: boolean;
@@ -66,26 +65,21 @@ declare global {
   interface Window {
     electronAPI: {
       // Unified authentication and connection
-      unifiedLogin: (environment: string) => Promise<{ success: boolean, error?: string }>;
+      unifiedLogin: (environment: string) => Promise<{ success: boolean, error?: string, uuid?: string, authUrl?: string }>;
       disconnectFromISC: () => Promise<void>;
-      checkAccessTokenStatus: (environment: string) => Promise<AccessTokenStatus>;
-      checkRefreshTokenStatus: (environment: string) => Promise<RefreshTokenStatus>;
+      checkAccessTokenStatus: () => Promise<AccessTokenStatus>;
       getCurrentTokenDetails: (environment: string) => Promise<{ tokenDetails: TokenDetails | undefined, error?: string }>;
       
       // Token management
-      refreshTokens: (environment: string) => Promise<{ success: boolean, error?: string }>;
-      getStoredOAuthTokens: (environment: string) => Promise<TokenSet | undefined>;
-      getStoredPATTokens: (environment: string) => Promise<PATTokenSet | undefined>;
+      refreshTokens: () => Promise<{ success: boolean, error?: string }>;
       validateTokens: (environment: string) => Promise<{ isValid: boolean, needsRefresh: boolean, error?: string }>;
-      storeClientCredentials: (environment: string, clientId: string, clientSecret: string) => Promise<void>;
-      
+      checkOauthCodeFlowComplete: (uuid: string, environment: string) => Promise<{ isComplete: boolean, success?: boolean, error?: string }>;
+
       // Environment management
       getTenants: () => Promise<Tenant[]>;
       updateEnvironment: (config: UpdateEnvironmentRequest) => Promise<{ success: boolean, error?: string }>;
       deleteEnvironment: (environment: string) => Promise<{ success: boolean, error?: string }>;
       setActiveEnvironment: (environment: string) => Promise<{ success: boolean, error?: string }>;
-      getGlobalAuthType: () => Promise<AuthMethods>;
-      setGlobalAuthType: (authType: AuthMethods) => Promise<void>;
       
       // Config file management
       readConfig: () => Promise<any>;

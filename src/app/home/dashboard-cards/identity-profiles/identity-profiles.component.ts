@@ -5,7 +5,6 @@ import { IdentityProfile } from 'sailpoint-api-client';
 import { SailPointSDKService } from 'sailpoint-components';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ElectronApiFactoryService } from 'sailpoint-components';
 
 @Component({
   selector: 'app-identity-profiles',
@@ -14,12 +13,12 @@ import { ElectronApiFactoryService } from 'sailpoint-components';
   styleUrl: './identity-profiles.component.scss'
 })
 export class IdentityProfilesComponent implements OnInit {
-  sdk: SailPointSDKService;
+
   identityProfiles: AxiosResponse<Array<IdentityProfile>, any> | undefined;
   loading = true;
 
-  constructor(private electronApiFactory: ElectronApiFactoryService) {
-    this.sdk = new SailPointSDKService(this.electronApiFactory);
+  constructor(private sdk: SailPointSDKService) {
+
   }
 
   ngOnInit() {

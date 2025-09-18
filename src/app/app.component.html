@@ -25,24 +25,11 @@
     
     <!-- Session Status Info -->
     <div *ngIf="sessionStatus || currentEnvironment" class="session-info">
-      <span class="session-type">{{ (sessionStatus?.authType || currentEnvironment?.authType || 'UNKNOWN') }}</span>
-      <span class="session-expiry" [ngClass]="{
-        'expiry-warning': sessionStatusDisplay !== 'Valid' && sessionStatusDisplay !== 'Checking...' && !sessionStatusDisplay.includes('Expired'),
-        'expiry-expired': sessionStatusDisplay === 'Expired' || sessionStatusDisplay === 'Invalid'
-      }">
-        {{ sessionStatusDisplay }}
-      </span>
+      <span class="session-type">{{ (sessionStatus?.authtype || currentEnvironment?.authtype || 'UNKNOWN') }}</span>
     </div>
   </div>  
   <!-- Session Actions -->
   <div *ngIf="isConnected" class="session-actions">
-    <button mat-icon-button 
-            (click)="manualRefreshSession()" 
-            [disabled]="isRefreshing"
-            title="Refresh Session"
-            class="refresh-button">
-      <mat-icon [class.spinning]="isRefreshing">{{ isRefreshing ? 'sync' : 'refresh' }}</mat-icon>
-    </button>
     
     <button mat-icon-button 
             (click)="disconnectFromISC()" 

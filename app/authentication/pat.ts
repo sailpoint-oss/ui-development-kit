@@ -32,21 +32,6 @@ export function deletePATTokens(environment: string): void {
     }
 }
 
-/**
- * Stores client credentials for a given environment
- * @param environment - The environment name to store credentials for
- * @param clientId - The client ID to store
- * @param clientSecret - The client secret to store
- */ 
-export function storeClientCredentials(environment: string, clientId: string, clientSecret: string): void {
-    try {
-        setSecureValue('environments.pat.clientid', environment, clientId);
-        setSecureValue('environments.pat.clientsecret', environment, clientSecret);
-    } catch (error) {
-        console.error('Error storing client credentials:', error);
-        throw error;
-    }
-}
 
 /**
  * Deletes client credentials for a given environment

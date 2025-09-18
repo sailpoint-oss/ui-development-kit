@@ -4,42 +4,56 @@ import { getConfig, getSecureValue, setSecureValue } from "./config";
 import { LambdaUUIDResponse, RefreshResponse, TokenResponse, TokenSet, EncryptedTokenData } from "./types";
 import { generateKeyPair, decryptToken } from "./crypto";
 
-const AuthLambdaBaseURL = 'https://nug87yusrg.execute-api.us-east-1.amazonaws.com/Prod/sailapps'
-const authLambdaAuthURL = `${AuthLambdaBaseURL}/auth`
-const authLambdaTokenURL = `${AuthLambdaBaseURL}/auth/token`
-const authLambdaRefreshURL = `${AuthLambdaBaseURL}/auth/refresh`
+// In-memory storage for current OAuth keypair
+let currentOAuthKeyPair: {
+    privateKey: string;
+    publicKey: string;
+    publicKeyBase64: string;
+} | null = null;
+
+export const AuthLambdaBaseURL = 'https://nug87yusrg.execute-api.us-east-1.amazonaws.com/Prod/sailapps'
+export const authLambdaAuthURL = `${AuthLambdaBaseURL}/auth`
+export const authLambdaTokenURL = `${AuthLambdaBaseURL}/auth/token`
+export const authLambdaRefreshURL = `${AuthLambdaBaseURL}/auth/refresh`
 
 
 /**
- * Retrieves and securely stores RSA key pair for OAuth authentication
- * @param environment - The environment name to store keys for
+ * Generates a fresh RSA key pair for OAuth authentication and stores it in memory
  * @returns Promise resolving to the public key in Base64 format
  */
-async function getOrCreateKeyPair(environment: string): Promise<string> {
+async function generateFreshKeyPair(): Promise<string> {
     try {
-        // Try to retrieve existing keys
-        const privateKey = getSecureValue('environments.oauth.privateKey', environment);
-        const publicKey = getSecureValue('environments.oauth.publicKey', environment);
-        
-        // If we have both keys, return the public key
-        if (privateKey && publicKey) {
-            console.log('Using existing RSA keys for environment:', environment);
-            return publicKey;
-        }
-        
-        // Otherwise generate new keys
-        console.log('Generating new RSA keys for environment:', environment);
+        console.log('Generating fresh RSA keys for OAuth authentication');
         const keyPair = generateKeyPair(2048);
         
-        // Store the keys securely
-        setSecureValue('environments.oauth.privateKey', environment, keyPair.privateKey);
-        setSecureValue('environments.oauth.publicKey', environment, keyPair.publicKeyBase64);
+        // Store the keys in memory
+        currentOAuthKeyPair = {
+            privateKey: keyPair.privateKey,
+            publicKey: keyPair.publicKey,
+            publicKeyBase64: keyPair.publicKeyBase64
+        };
         
         return keyPair.publicKeyBase64;
     } catch (error) {
-        console.error('Error getting or creating key pair:', error);
+        console.error('Error generating fresh key pair:', error);
         throw error;
     }
+}
+
+/**
+ * Retrieves and clears the private key from memory
+ * @returns The private key in PEM format or undefined if not found
+ */
+export function consumePrivateKey(): string | undefined {
+    const privateKey = currentOAuthKeyPair?.privateKey;
+    
+    // Clear the keypair from memory after use
+    if (currentOAuthKeyPair) {
+        console.log('Clearing OAuth keypair from memory after use');
+        currentOAuthKeyPair = null;
+    }
+    
+    return privateKey;
 }
 
 /**
@@ -144,12 +158,12 @@ export function validateOAuthTokens(environment: string) {
  * @param tenant - The tenant name
  * @param baseAPIUrl - The base API URL
  * @param environment - The environment name
- * @returns Promise resolving to the token set
+ * @returns Promise resolving to the UUID and auth URL for polling
  */
-export const OAuthLogin = async ({ tenant, baseAPIUrl, environment }: { tenant: string, baseAPIUrl: string, environment: string }): Promise<{ success: boolean, error: string }> => {
+export const OAuthLogin = async ({ tenant, baseAPIUrl, environment }: { tenant: string, baseAPIUrl: string, environment: string }): Promise<{ success: boolean, error?: string, uuid?: string, authUrl?: string }> => {
     try {
-        // Step 1: Get or create RSA key pair and get public key
-        const publicKeyBase64 = await getOrCreateKeyPair(environment);
+        // Step 1: Generate fresh RSA key pair for this authentication session
+        const publicKeyBase64 = await generateFreshKeyPair();
         
         // Step 2: Initiate authentication flow with the public key
         const authResponse = await fetch(authLambdaAuthURL, {
@@ -190,67 +204,14 @@ export const OAuthLogin = async ({ tenant, baseAPIUrl, environment }: { tenant: 
             // Continue with the flow even if browser opening fails
         }
 
-        // Step 4: Poll Auth-Lambda for token using UUID
-        const pollInterval = 2000; // 2 seconds
-        const timeout = 5 * 60 * 1000; // 5 minutes
-        const startTime = Date.now();
-
-        while (Date.now() - startTime < timeout) {
-            try {
-                const tokenResponse = await fetch(`${authLambdaTokenURL}/${authData.id}`);
-
-                if (tokenResponse.ok) {
-                    const tokenData: TokenResponse = await tokenResponse.json();
-
-                    // Step 5: Get the private key for decryption
-                    const privateKey = getSecureValue('environments.oauth.privateKey', environment);
-                    if (!privateKey) {
-                        throw new Error('Private key not found for environment');
-                    }
-
-                    // Step 6: Decrypt the token info using the private key
-                    const decryptedToken = decryptToken(tokenData.tokenInfo, privateKey);
-                    console.log('Decrypted token info');
-
-                    // Validate that we have the required tokens
-                    if (!decryptedToken.access_token) {
-                        console.error('Missing accessToken in response');
-                        return { success: false, error: 'OAuth response missing access token' };
-                    }
-
-                    if (!decryptedToken.refresh_token) {
-                        console.error('Missing refreshToken in response');
-                        return { success: false, error: 'OAuth response missing refresh token' };
-                    }
-
-                    // Step 7: Parse and store the tokens
-                    const accessTokenClaims = parseJwt(decryptedToken.access_token);
-                    const refreshTokenClaims = parseJwt(decryptedToken.refresh_token);
-
-                    const tokenSet = {
-                        accessToken: decryptedToken.access_token,
-                        accessExpiry: new Date(accessTokenClaims.exp * 1000),
-                        refreshToken: decryptedToken.refresh_token,
-                        refreshExpiry: new Date(refreshTokenClaims.exp * 1000),
-                    };
-
-                    storeOAuthTokens(environment, tokenSet);
-                    return { success: true, error: '' };
-                }
-            } catch (err) {
-                console.error('Error polling for token:', err);
-            }
-
-            // We are polling the API every 2 seconds, to continue the exchange after the user has logged in
-            await new Promise(resolve => setTimeout(resolve, pollInterval));
-        }
-
-        return { success: false, error: 'Authentication timed out after 5 minutes' };
+        // Return the UUID and auth URL immediately for the frontend to start polling
+        return { success: true, uuid: authData.id, authUrl: authData.authURL };
     } catch (error) {
         console.error('OAuth login error:', error);
         return { success: false, error: 'OAuth login failed: ' + error };
     }
 };
+
 
 /**
  * Refreshes OAuth tokens for a given environment using the provided refresh token

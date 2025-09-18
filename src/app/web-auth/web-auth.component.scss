@@ -1,0 +1,153 @@
+.web-auth-container {
+  margin-bottom: 20px;
+}
+
+.auth-card {
+  .card-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    
+    mat-icon {
+      color: var(--primary-color);
+    }
+  }
+}
+
+.web-mode-indicator {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  background-color: rgba(25, 118, 210, 0.1);
+  border-radius: 16px;
+  margin-bottom: 16px;
+  
+  mat-icon {
+    margin-right: 6px;
+    font-size: 18px;
+    height: 18px;
+    width: 18px;
+  }
+  
+  span {
+    font-weight: 500;
+    color: var(--primary-color);
+  }
+}
+
+.auth-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 0;
+  
+  .info-text {
+    margin-bottom: 20px;
+    text-align: center;
+    color: var(--text-secondary);
+  }
+  
+  .error-message {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: rgba(244, 67, 54, 0.1);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    
+    mat-icon {
+      color: #f44336;
+    }
+    
+    span {
+      color: #f44336;
+      font-size: 14px;
+    }
+  }
+  
+  .auth-button {
+    min-width: 240px;
+    
+    .button-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      mat-icon, .button-spinner {
+        margin-right: 8px;
+      }
+    }
+  }
+  
+  &.authenticated {
+    .success-message {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background-color: rgba(76, 175, 80, 0.1);
+      border-radius: 4px;
+      margin-bottom: 16px;
+      width: 100%;
+      justify-content: center;
+      
+      mat-icon {
+        color: #4caf50;
+      }
+      
+      span {
+        font-weight: 500;
+      }
+    }
+    
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      
+      mat-icon {
+        color: var(--primary-color);
+      }
+      
+      span {
+        font-weight: 500;
+      }
+    }
+    
+    .logout-button {
+      min-width: 120px;
+      
+      .button-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        mat-icon, .button-spinner {
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+}
+
+// Variables
+:host {
+  --primary-color: #1976d2;
+  --success-color: #4caf50;
+  --error-color: #f44336;
+  --text-primary: rgba(0, 0, 0, 0.87);
+  --text-secondary: rgba(0, 0, 0, 0.6);
+}
+
+// Dark theme support
+:host-context(.dark-theme) {
+  --text-primary: rgba(255, 255, 255, 0.87);
+  --text-secondary: rgba(255, 255, 255, 0.6);
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

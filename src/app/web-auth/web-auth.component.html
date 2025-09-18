@@ -1,0 +1,70 @@
+<div class="web-auth-container">
+  <mat-card class="auth-card">
+    <mat-card-header>
+      <mat-card-title>
+        <div class="card-title">
+          <mat-icon>cloud</mat-icon>
+          <span>Web Authentication</span>
+        </div>
+      </mat-card-title>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <div class="web-mode-indicator">
+        <mat-icon color="primary">cloud</mat-icon>
+        <span>Web Mode</span>
+      </div>
+      
+      <!-- Not Authenticated State -->
+      <div *ngIf="!isAuthenticated" class="auth-content">
+        <p class="info-text">
+          Authentication is required to use the SailPoint UI Development Kit in web mode.
+        </p>
+        
+        <div *ngIf="errorMessage" class="error-message">
+          <mat-icon>error</mat-icon>
+          <span>{{ errorMessage }}</span>
+        </div>
+        
+        <button 
+          mat-raised-button 
+          color="primary" 
+          class="auth-button" 
+          (click)="authenticate()" 
+          [disabled]="isLoading">
+          <div class="button-content">
+            <mat-icon *ngIf="!isLoading">login</mat-icon>
+            <mat-spinner *ngIf="isLoading" diameter="20" class="button-spinner"></mat-spinner>
+            <span>Authenticate with SailPoint</span>
+          </div>
+        </button>
+      </div>
+      
+      <!-- Authenticated State -->
+      <div *ngIf="isAuthenticated" class="auth-content authenticated">
+        <div class="success-message">
+          <mat-icon color="primary">check_circle</mat-icon>
+          <span>Successfully authenticated</span>
+        </div>
+        
+        <div class="user-info" *ngIf="username">
+          <mat-icon>account_circle</mat-icon>
+          <span>{{ username }}</span>
+        </div>
+        
+        <button 
+          mat-raised-button 
+          color="warn" 
+          class="logout-button" 
+          (click)="logout()" 
+          [disabled]="isLoading">
+          <div class="button-content">
+            <mat-icon *ngIf="!isLoading">logout</mat-icon>
+            <mat-spinner *ngIf="isLoading" diameter="20" class="button-spinner"></mat-spinner>
+            <span>Logout</span>
+          </div>
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

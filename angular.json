@@ -124,7 +124,8 @@
               "buildTarget": "angular-electron:build:production"
             },
             "web": {
-              "buildTarget": "angular-electron:build:web"
+              "buildTarget": "angular-electron:build:web",
+              "proxyConfig": "proxy.conf.json"
             },
             "web-production": {
               "buildTarget": "angular-electron:build:web-production"

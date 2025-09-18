@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { AxiosResponse } from 'axios';
 import * as sdk from 'sailpoint-api-client';
 import { ElectronApiFactoryService } from './services/electron-api-factory.service';
@@ -9,15 +10,45 @@ import { ElectronApiFactoryService } from './services/electron-api-factory.servi
 export class SailPointSDKService {
   private electronAPI: any;
 
-  constructor(private apiFactory: ElectronApiFactoryService) {
+  constructor(private apiFactory: ElectronApiFactoryService, private router: Router) {
     this.electronAPI = this.apiFactory.getApi();
+  }
+
+  private async checkSessionBeforeCall(): Promise<void> {
+    try {
+      const sessionStatus = await this.electronAPI.checkAccessTokenStatus();
+      if (sessionStatus && sessionStatus.expiry) {
+        const now = new Date();
+        const expiryDate = new Date(sessionStatus.expiry);
+        
+        if (now >= expiryDate) {
+          console.log('Session expired during SDK call - notifying electron');
+          const refreshState = await this.electronAPI.refreshTokens();
+          if (!refreshState.success) {
+            console.error('Token refresh failed:', refreshState.error);
+            this.router.navigate(['/home']).catch((error) => {
+                console.error('Navigation error:', error);
+              });
+          }
+        }
+      } else {
+        console.log('No valid session - navigating to home');
+        this.router.navigate(['/home']).catch((error) => {
+            console.error('Navigation error:', error);
+          });
+      }
+    } catch (error) {
+      console.error('Error checking session status:', error);
+      throw error;
+    }
   }
 
 {{#apiInfo}}{{#apis}}
 {{#operations}}
 {{#operation}}
 {{#useSingleRequestParameter}}
-{{nickname}}({{#allParams.0}}requestParameters: sdk.{{classname}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}{{/allParams.0}}): Promise<AxiosResponse<{{#isArray}}Array<{{#returnProperty}}{{^isPrimitiveType}}sdk.{{/isPrimitiveType}}{{/returnProperty}}{{returnBaseType}}>{{/isArray}}{{^isArray}}{{#returnProperty}}{{#isPrimitiveType}}{{returnType}}{{/isPrimitiveType}}{{/returnProperty}}{{#returnProperty}}{{^isPrimitiveType}}sdk.{{returnType}}{{/isPrimitiveType}}{{/returnProperty}}{{/isArray}}{{^returnType}}void{{/returnType}}, any>> {
+async {{nickname}}({{#allParams.0}}requestParameters: sdk.{{classname}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}{{/allParams.0}}): Promise<AxiosResponse<{{#isArray}}Array<{{#returnProperty}}{{^isPrimitiveType}}sdk.{{/isPrimitiveType}}{{/returnProperty}}{{returnBaseType}}>{{/isArray}}{{^isArray}}{{#returnProperty}}{{#isPrimitiveType}}{{returnType}}{{/isPrimitiveType}}{{/returnProperty}}{{#returnProperty}}{{^isPrimitiveType}}sdk.{{returnType}}{{/isPrimitiveType}}{{/returnProperty}}{{/isArray}}{{^returnType}}void{{/returnType}}, any>> {
+    await this.checkSessionBeforeCall();
     return this.electronAPI.{{nickname}}({{#allParams.0}}requestParameters{{/allParams.0}}) as Promise<AxiosResponse<{{#isArray}}Array<{{#returnProperty}}{{^isPrimitiveType}}sdk.{{/isPrimitiveType}}{{/returnProperty}}{{returnBaseType}}>{{/isArray}}{{^isArray}}{{#returnProperty}}{{#isPrimitiveType}}{{returnType}}{{/isPrimitiveType}}{{/returnProperty}}{{#returnProperty}}{{^isPrimitiveType}}sdk.{{returnType}}{{/isPrimitiveType}}{{/returnProperty}}{{/isArray}}{{^returnType}}void{{/returnType}}, any>>;
 }
 {{/useSingleRequestParameter}}
@@ -25,24 +56,28 @@ export class SailPointSDKService {
 {{/operations}}
 {{/apis}}{{/apiInfo}}
 
-genericGet(requestParameters: sdk.DefaultApiGenericGetRequest): Promise<AxiosResponse<any, any>> {
+async genericGet(requestParameters: sdk.DefaultApiGenericGetRequest): Promise<AxiosResponse<any, any>> {
+    await this.checkSessionBeforeCall();
     return this.electronAPI.genericGet(requestParameters) as Promise<AxiosResponse<any, any>>;
 }
 
-genericPost(requestParameters: sdk.DefaultApiGenericPostRequest): Promise<AxiosResponse<any, any>> {
+async genericPost(requestParameters: sdk.DefaultApiGenericPostRequest): Promise<AxiosResponse<any, any>> {
+    await this.checkSessionBeforeCall();
     return this.electronAPI.genericPost(requestParameters) as Promise<AxiosResponse<any, any>>;
 }
 
-genericPut(requestParameters: sdk.DefaultApiGenericPutRequest): Promise<AxiosResponse<any, any>> {
+async genericPut(requestParameters: sdk.DefaultApiGenericPutRequest): Promise<AxiosResponse<any, any>> {
+    await this.checkSessionBeforeCall();
     return this.electronAPI.genericPut(requestParameters) as Promise<AxiosResponse<any, any>>;
 }
 
-genericPatch(requestParameters: sdk.DefaultApiGenericPatchRequest): Promise<AxiosResponse<any, any>> {
+async genericPatch(requestParameters: sdk.DefaultApiGenericPatchRequest): Promise<AxiosResponse<any, any>> {
+    await this.checkSessionBeforeCall();
     return this.electronAPI.genericPatch(requestParameters) as Promise<AxiosResponse<any, any>>;
 }
 
-genericDelete(requestParameters: sdk.DefaultApiGenericDeleteRequest): Promise<AxiosResponse<any, any>> {
+async genericDelete(requestParameters: sdk.DefaultApiGenericDeleteRequest): Promise<AxiosResponse<any, any>> {
+    await this.checkSessionBeforeCall();
     return this.electronAPI.genericDelete(requestParameters) as Promise<AxiosResponse<any, any>>;
 }
-
 }

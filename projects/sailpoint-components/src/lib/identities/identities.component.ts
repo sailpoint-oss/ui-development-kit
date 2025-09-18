@@ -178,7 +178,7 @@ export class IdentitiesComponent implements OnInit {
       // Build search query
       let queryString = ``;
       if (query.trim()) {
-        const escaped = query.replace(/"/g, '\\"');
+        const escaped = query.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
         queryString += `(name:*${escaped}*) OR (alias:*${escaped}*) OR (emailAddress:*${escaped}*) OR (lifecycleState:*${escaped}*)`;
       }
 

@@ -1,13 +1,21 @@
 <!-- Not Connected State - Show Environment Management and Connection -->
-<div *ngIf="!state.isConnected" class="home-container">
+<div *ngIf="!state.isConnected && !state.loading" class="home-container">
   <!-- Welcome Section -->
   <div class="welcome-section">
     <h1>Welcome to the SailPoint UI Development Kit</h1>
     <p>Select an environment and connect to your SailPoint tenant to get started.</p>
+    <div *ngIf="state.isWebMode" class="web-mode-indicator">
+      <mat-icon color="primary">cloud</mat-icon>
+      <span>Web Mode</span>
+    </div>
   </div>
+  
+  <!-- Web Authentication Component (shown only in web mode) -->
+  <app-web-auth *ngIf="state.isWebMode" (authEvent)="handleAuthEvent($event)"></app-web-auth>
 
   <!-- Unified Environment Management and Connection Section -->
-  <mat-card class="environment-card">
+  <!-- Hide this section in web mode since we use the simplified web-auth component -->
+  <mat-card *ngIf="!state.isWebMode" class="environment-card">
     <mat-card-header>
       <mat-card-title>
         <mat-icon>cloud</mat-icon>
@@ -27,10 +35,6 @@
           </mat-select>
         </mat-form-field>
 
-        <button mat-icon-button (click)="loadTenants()" title="Refresh Environments" class="action-button">
-          <mat-icon>refresh</mat-icon>
-        </button>
-
         <button mat-icon-button (click)="toggleEnvironmentDetails()" title="Configure Environment"
           class="action-button">
           <mat-icon>{{ state.showEnvironmentDetails ? 'expand_less' : 'settings' }}</mat-icon>
@@ -43,7 +47,7 @@
           <div class="form-row">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Environment Name</mat-label>
-              <input matInput [(ngModel)]="state.config.environmentName" name="environmentName"
+              <input matInput [(ngModel)]="state.actualTenant.name" name="environmentName"
                 placeholder="My Development Environment" [disabled]="state.selectedTenant !== 'new'" required>
               <mat-hint>A friendly name for this environment configuration</mat-hint>
             </mat-form-field>
@@ -52,7 +56,7 @@
           <div class="form-row" *ngIf="state.selectedTenant === 'new'">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Tenant Name (for URL generation)</mat-label>
-              <input matInput [(ngModel)]="state.config.tempTenantName" name="tempTenantName"
+              <input matInput [(ngModel)]="state.actualTenant.tenantName" name="tempTenantName"
                 (input)="onTenantNameChange()" placeholder="your-tenant-name" required>
               <mat-hint>Your SailPoint tenant identifier - used only to auto-generate URLs below</mat-hint>
             </mat-form-field>
@@ -61,7 +65,7 @@
           <div class="form-row">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Tenant URL</mat-label>
-              <input matInput [(ngModel)]="state.config.tenantUrl" name="tenantUrl"
+              <input matInput [(ngModel)]="state.actualTenant.tenantUrl" name="tenantUrl"
                 placeholder="https://your-tenant.identitynow.com" required>
             </mat-form-field>
           </div>
@@ -69,7 +73,7 @@
           <div class="form-row">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>API Base URL</mat-label>
-              <input matInput [(ngModel)]="state.config.baseUrl" name="baseUrl" (input)="onBaseUrlChange()"
+              <input matInput [(ngModel)]="state.actualTenant.apiUrl" name="baseUrl" (input)="onBaseUrlChange()"
                 placeholder="https://your-tenant.api.identitynow.com" required>
             </mat-form-field>
           </div>
@@ -78,7 +82,7 @@
           <div class="form-row">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Authentication Method</mat-label>
-              <mat-select [(value)]="state.config.authType" (selectionChange)="onConfigAuthTypeChange()">
+              <mat-select [(value)]="state.actualTenant.authtype">
                 <mat-option value="pat">
                   <mat-icon>vpn_key</mat-icon>
                   Personal Access Token (PAT)
@@ -93,31 +97,31 @@
           </div>
 
           <!-- PAT Fields -->
-          <div *ngIf="state.config.authType === 'pat'" class="pat-section">
+          <div *ngIf="state.actualTenant.authtype === 'pat'" class="pat-section">
             <div class="form-row">
               <mat-form-field appearance="outline" class="full-width">
                 <mat-label>Client ID</mat-label>
-                <input matInput [(ngModel)]="state.config.clientId" name="clientId" required>
+                <input matInput [(ngModel)]="state.actualTenant.clientId" name="clientId" required>
               </mat-form-field>
             </div>
 
             <div class="form-row">
               <mat-form-field appearance="outline" class="full-width">
                 <mat-label>Client Secret</mat-label>
-                <input matInput type="password" [(ngModel)]="state.config.clientSecret" name="clientSecret" required>
+                <input matInput type="password" [(ngModel)]="state.actualTenant.clientSecret" name="clientSecret" required>
               </mat-form-field>
             </div>
           </div>
 
           <!-- OAuth Info -->
-          <div *ngIf="state.config.authType === 'oauth'" class="oauth-section">
+          <div *ngIf="state.actualTenant.authtype === 'oauth'" class="oauth-section">
             <p class="oauth-info">
               <mat-icon>info</mat-icon>
               OAuth authentication will open your browser for secure login.
             </p>
 
             <!-- OAuth Validation Status -->
-            <div class="oauth-validation" *ngIf="state.config.baseUrl">
+            <div class="oauth-validation" *ngIf="state.actualTenant.apiUrl">
               <div class="validation-indicator" [ngClass]="{
                 'validation-unknown': state.oauthValidationStatus === 'unknown',
                 'validation-testing': state.oauthValidationStatus === 'testing',
@@ -138,6 +142,7 @@
                 </span>
               </div>
             </div>
+            
           </div>
 
           <!-- Save Environment Button -->
@@ -145,11 +150,6 @@
             <button mat-raised-button color="accent" type="button" (click)="saveEnvironment()" class="save-button">
               <mat-icon>save</mat-icon>
               {{ state.selectedTenant === 'new' ? 'Create Environment' : 'Update Environment' }}
-            </button>
-
-            <button mat-stroked-button type="button" (click)="resetConfig()" class="reset-button">
-              <mat-icon>refresh</mat-icon>
-              Reset
             </button>
 
             <button mat-stroked-button color="warn" type="button" (click)="deleteEnvironment()"
@@ -165,29 +165,16 @@
       <div *ngIf="state.selectedTenant !== 'new'" class="connection-section">
         <!-- Auth Method Selector -->
         <div class="auth-method-section">
-          <mat-form-field appearance="outline" class="auth-method-select">
-            <mat-label>Authentication Method</mat-label>
-            <mat-select [(value)]="state.globalAuthMethod" (selectionChange)="onGlobalAuthMethodChange()">
-              <mat-option value="pat">
-                <mat-icon>vpn_key</mat-icon>
-                Personal Access Token (PAT)
-              </mat-option>
-              <mat-option value="oauth">
-                <mat-icon>verified_user</mat-icon>
-                OAuth Browser Authentication
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
           <!-- Connection Button -->
           <div class="connection-action">
             <button mat-raised-button 
                     color="primary"
                     (click)="connectToISC()" 
                     class="connect-button"
-                    [disabled]="state.loading">
+                    [disabled]="authenticating">
               <div class="button-content">
-                <mat-icon *ngIf="!state.loading">login</mat-icon>
-                <mat-spinner *ngIf="state.loading" diameter="20" class="button-spinner"></mat-spinner>
+                <mat-icon *ngIf="!authenticating">login</mat-icon>
+                <mat-spinner *ngIf="authenticating" diameter="20" class="button-spinner"></mat-spinner>
                 <span>Connect to Environment</span>
               </div>
             </button>
