@@ -5,62 +5,269 @@
   </mat-toolbar>
 
   <div class="content">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>{{ title }} Management</mat-card-title>
-        <mat-card-subtitle>Manage your auth viewer</mat-card-subtitle>
-      </mat-card-header>
-
+    <mat-card class="main-card">
       <mat-card-content>
-        <p>Welcome to the Auth Viewer component!</p>
-        <p>
-          This is a generated component. You can customize it according to your
-          needs.
-        </p>
-      </mat-card-content>
+        <div class="dropdown-section">
+          <mat-form-field appearance="outline" class="auth-dropdown">
+            <mat-label>Select Authorization Type</mat-label>
+            <input
+              type="text"
+              matInput
+              [formControl]="authorizationTypeControl"
+              [matAutocomplete]="auto"
+            />
+            <mat-autocomplete
+              #auto="matAutocomplete"
+              [displayWith]="displayFn"
+              autoActiveFirstOption
+            >
+              @for (group of filteredAuthorizationTypeGroups$ | async; track
+              $index) {
+              <mat-optgroup [label]="group.name">
+                @for (item of group.items; track $index) {
+                <mat-option [value]="item">
+                  {{ getDisplayValue(item) }}
+                </mat-option>
+                }
+              </mat-optgroup>
+              }
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
 
-      <mat-card-actions>
-        <button mat-raised-button color="primary">
-          <mat-icon>add</mat-icon>
-          Add Auth Viewer
-        </button>
-        <button mat-button>
-          <mat-icon>refresh</mat-icon>
-          Refresh
-        </button>
-      </mat-card-actions>
 
-      <h4>Filterable Grouped Select</h4>
-      <mat-form-field>
-        <mat-label>Authorization Objects</mat-label>
-        <input
-          type="text"
-          matInput
-          [formControl]="pokemonControl"
-          [matAutocomplete]="auto"
-        />
-        <mat-autocomplete
-          #auto="matAutocomplete"
-          [displayWith]="displayFn"
-          autoActiveFirstOption
-        >
-          @for (group of filteredPokemonGroups$ | async; track group.name) {
-          <mat-optgroup [label]="group.name">
-            @for (pokemon of group.pokemon; track pokemon.value) {
-            <mat-option [value]="pokemon">
-              {{ pokemon.viewValue }}
-            </mat-option>
-            }
-          </mat-optgroup>
-          }
-        </mat-autocomplete>
-      </mat-form-field>
-
-      <!-- Display selected value -->
-      <div *ngIf="pokemonControl.value">
-        <p><strong>Selected:</strong> {{ pokemonControl.value.viewValue }}</p>
-        <p><strong>Value:</strong> {{ pokemonControl.value.value }}</p>
-      </div>
-    </mat-card>
-  </div>
+<div *ngIf="authorizationTypeControl.value" class="details-section">
+  <mat-card class="detail-card">
+    <mat-card-header>
+      <mat-card-title>
+        <ng-container *ngIf="selectedItemType === 'relatedRightSet'">
+          {{ selectedRightSet?.rightSet?.name }} 
+          ({{ selectedRightSet?.rightSet?.id }}) - RightSet
+        </ng-container>
+        <ng-container *ngIf="selectedItemType !== 'relatedRightSet'">
+          {{ authorizationTypeControl.value.viewValue || authorizationTypeControl.value.name }}
+          ({{ authorizationTypeControl.value.id }}) - {{authorizationTypeControl.value.authType}}
+        </ng-container>
+      </mat-card-title>
+      <mat-card-subtitle>Details</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      
+      <!-- Handle RelatedRightSet -->
+      <ng-container *ngIf="selectedItemType === 'relatedRightSet' && selectedRightSet">
+        <div class="rightset-details">
+          <p *ngIf="selectedRightSet.rightSet?.description">
+            <strong>Description:</strong> {{ selectedRightSet.rightSet.description }}
+          </p>
+          <p *ngIf="selectedRightSet.rightSet?.category">
+            <strong>Category:</strong> {{ selectedRightSet.rightSet.category }}
+          </p>
+          <p *ngIf="selectedRightSet.rightSet?.translatedName">
+            <strong>Translated Name:</strong> {{ selectedRightSet.rightSet.translatedName }}
+          </p>
+          <p *ngIf="selectedRightSet.rightSet?.translatedDescription">
+            <strong>Translated Description:</strong> {{ selectedRightSet.rightSet.translatedDescription }}
+          </p>
+          <p *ngIf="selectedRightSet.rightSet?.parentId">
+            <strong>Parent ID:</strong> {{ selectedRightSet.rightSet.parentId }}
+          </p>
+          <p>
+            <strong>UI Assignable:</strong> {{ selectedRightSet.rightSet?.uiAssignable ? "Yes" : "No" }}
+          </p>
+          
+          <!-- Use accordion for all expandable sections -->
+          <mat-accordion multi>
+            <!-- Rights Panel -->
+            <mat-expansion-panel *ngIf="selectedRightSet.rightSet?.rights?.length">
+              <mat-expansion-panel-header>
+                <mat-panel-title>Rights ({{ selectedRightSet.rightSet.rights.length }})</mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-list>
+                <mat-list-item *ngFor="let right of selectedRightSet.rightSet.rights">
+                  {{ right }}
+                </mat-list-item>
+              </mat-list>
+            </mat-expansion-panel>
+            
+            <!-- Right Set IDs Panel -->
+            <mat-expansion-panel *ngIf="selectedRightSet.rightSet?.rightSetIds?.length">
+              <mat-expansion-panel-header>
+                <mat-panel-title>Right Set IDs ({{ selectedRightSet.rightSet.rightSetIds.length }})</mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-list>
+                <mat-list-item *ngFor="let id of selectedRightSet.rightSet.rightSetIds">
+                  {{ id }}
+                </mat-list-item>
+              </mat-list>
+            </mat-expansion-panel>
+            
+            <!-- UI Assignable Child Right Set IDs Panel -->
+            <mat-expansion-panel *ngIf="selectedRightSet.rightSet?.uiAssignableChildRightSetIds?.length">
+              <mat-expansion-panel-header>
+                <mat-panel-title>UI Assignable Child Right Set IDs ({{ selectedRightSet.rightSet.uiAssignableChildRightSetIds.length }})</mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-list>
+                <mat-list-item *ngFor="let id of selectedRightSet.rightSet.uiAssignableChildRightSetIds">
+                  {{ id }}
+                </mat-list-item>
+              </mat-list>
+            </mat-expansion-panel>
+            
+            <!-- Related Scopes Panel -->
+            <mat-expansion-panel *ngIf="selectedRightSet.scopes?.length">
+              <mat-expansion-panel-header>
+                <mat-panel-title>Related Scopes ({{ selectedRightSet.scopes.length }})</mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="related-items">
+                <mat-card *ngFor="let scopeId of selectedRightSet.scopes" class="related-item-card">
+                  <mat-card-header>
+                    <mat-card-title>{{ getScopeById(scopeId)?.name || scopeId }}</mat-card-title>
+                    <mat-card-subtitle>{{ getScopeById(scopeId)?.id }}</mat-card-subtitle>
+                  </mat-card-header>
+                  <mat-card-content *ngIf="getScopeById(scopeId)?.description">
+                    <p>{{ getScopeById(scopeId)?.description }}</p>
+                    <p *ngIf="getScopeById(scopeId)?.order !== undefined">
+                      <strong>Order:</strong> {{ getScopeById(scopeId)?.order }}
+                    </p>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+            </mat-expansion-panel>
+            
+            <!-- Related User Levels Panel -->
+            <mat-expansion-panel *ngIf="selectedRightSet.userLevels?.length">
+              <mat-expansion-panel-header>
+                <mat-panel-title>Related User Levels ({{ selectedRightSet.userLevels.length }})</mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="related-items">
+                <mat-card *ngFor="let ulId of selectedRightSet.userLevels" class="related-item-card">
+                  <mat-card-header>
+                    <mat-card-title>{{ getUserLevelById(ulId)?.name || ulId }}</mat-card-title>
+                    <mat-card-subtitle>{{ getUserLevelById(ulId)?.id }}</mat-card-subtitle>
+                  </mat-card-header>
+                  <mat-card-content *ngIf="getUserLevelById(ulId)?.description">
+                    <p>{{ getUserLevelById(ulId)?.description }}</p>
+                    <div class="user-level-details">
+                      <p *ngIf="getUserLevelById(ulId)?.custom !== undefined">
+                        <strong>Custom:</strong> {{ getUserLevelById(ulId)?.custom ? "Yes" : "No" }}
+                      </p>
+                      <p *ngIf="getUserLevelById(ulId)?.adminAssignable !== undefined">
+                        <strong>Admin Assignable:</strong> {{ getUserLevelById(ulId)?.adminAssignable ? "Yes" : "No" }}
+                      </p>
+                      <p *ngIf="getUserLevelById(ulId)?.legacyGroup">
+                        <strong>Legacy Group:</strong> {{ getUserLevelById(ulId)?.legacyGroup }}
+                      </p>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </ng-container>
+      
+      <!-- Handle other item types (Scopes, User Levels) - keeping existing structure -->
+      <ng-container *ngIf="selectedItemType !== 'relatedRightSet'">
+        <ng-container *ngIf="authorizationTypeControl.value.description">
+          <p>
+            <strong>Description:</strong>
+            {{ authorizationTypeControl.value.description }}
+          </p>
+        </ng-container>
+        <ng-container *ngIf="authorizationTypeControl.value.order !== undefined">
+          <p>
+            <strong>Order:</strong>
+            {{ authorizationTypeControl.value.order }}
+          </p>
+        </ng-container>
+        
+        <!-- Display rightSets for Scopes and User Levels -->
+        <ng-container *ngIf="authorizationTypeControl.value.rightSets">
+          <h4>Right Sets</h4>
+          <mat-accordion>
+            <mat-expansion-panel *ngFor="let rs of authorizationTypeControl.value.rightSets">
+              <mat-expansion-panel-header>
+                <mat-panel-title>{{ rs.name }} ({{ rs.id }})</mat-panel-title>
+                <mat-panel-description *ngIf="rs.description">{{
+                  rs.description
+                }}</mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="rightset-details">
+                <p *ngIf="rs.category">
+                  <strong>Category:</strong> {{ rs.category }}
+                </p>
+                <p *ngIf="rs.translatedName">
+                  <strong>Translated Name:</strong>
+                  {{ rs.translatedName }}
+                </p>
+                <p *ngIf="rs.translatedDescription">
+                  <strong>Translated Description:</strong>
+                  {{ rs.translatedDescription }}
+                </p>
+                <p *ngIf="rs.parentId">
+                  <strong>Parent ID:</strong> {{ rs.parentId }}
+                </p>
+                <p>
+                  <strong>UI Assignable:</strong>
+                  {{ rs.uiAssignable ? "Yes" : "No" }}
+                </p>
+                <div *ngIf="rs.rights?.length">
+                  <strong>Rights:</strong>
+                  <mat-list>
+                    <mat-list-item *ngFor="let right of rs.rights">{{
+                      right
+                    }}</mat-list-item>
+                  </mat-list>
+                </div>
+                <div *ngIf="rs.rightSetIds?.length">
+                  <strong>Right Set IDs:</strong>
+                  <mat-list>
+                    <mat-list-item *ngFor="let id of rs.rightSetIds">{{
+                      id
+                    }}</mat-list-item>
+                  </mat-list>
+                </div>
+                <div *ngIf="rs.uiAssignableChildRightSetIds?.length">
+                  <strong>UI Assignable Child Right Set IDs:</strong>
+                  <mat-list>
+                    <mat-list-item *ngFor="let id of rs.uiAssignableChildRightSetIds">{{ id }}</mat-list-item>
+                  </mat-list>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </ng-container>
+        
+        <!-- Other properties and User Level specific properties remain the same -->
+        <ng-container *ngIf="authorizationTypeControl.value.value">
+          <p>
+            <strong>Value:</strong>
+            {{ authorizationTypeControl.value.value }}
+          </p>
+        </ng-container>
+        
+        <ng-container *ngIf="selectedItemType === 'userLevel'">
+          <p *ngIf="authorizationTypeControl.value.custom !== undefined">
+            <strong>Custom:</strong> {{ authorizationTypeControl.value.custom ? "Yes" : "No" }}
+          </p>
+          <p *ngIf="authorizationTypeControl.value.adminAssignable !== undefined">
+            <strong>Admin Assignable:</strong> {{ authorizationTypeControl.value.adminAssignable ? "Yes" : "No" }}
+          </p>
+          <p *ngIf="authorizationTypeControl.value.legacyGroup">
+            <strong>Legacy Group:</strong> {{ authorizationTypeControl.value.legacyGroup }}
+          </p>
+          <p *ngIf="authorizationTypeControl.value.translatedName">
+            <strong>Translated Name:</strong> {{ authorizationTypeControl.value.translatedName }}
+          </p>
+          <p *ngIf="authorizationTypeControl.value.translatedGrant">
+            <strong>Translated Grant:</strong> {{ authorizationTypeControl.value.translatedGrant }}
+          </p>
+          <p *ngIf="authorizationTypeControl.value.translatedRemove">
+            <strong>Translated Remove:</strong> {{ authorizationTypeControl.value.translatedRemove }}
+          </p>
+        </ng-container>
+      </ng-container>
+      
+    </mat-card-content>
+  </mat-card>
 </div>
