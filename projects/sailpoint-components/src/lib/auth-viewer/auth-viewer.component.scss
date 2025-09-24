@@ -1,5 +1,3 @@
-
-
 .auth-viewer-container {
   height: 100vh;
   width: 100vw;
@@ -40,7 +38,16 @@
 
 .auth-dropdown {
   width: 100%;
-  max-width: 400px;
+  min-width: 400px;
+  max-width: 700px;
+}
+
+.auth-viewer-container ::ng-deep .mat-autocomplete-panel {
+  min-width: 500px !important;
+  max-width: 900px !important;
+  width: 100% !important;
+  max-height: 500px !important;
+  font-size: 1.1rem;
 }
 
 .details-section {
@@ -89,4 +96,9 @@ mat-card-actions button {
 
 .rightset-details {
   padding: 16px 0;
+}
+
+::ng-deep .large-autocomplete {
+  max-height: 500px !important;
+  overflow-y: auto !important;
 }

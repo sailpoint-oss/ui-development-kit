@@ -70,12 +70,22 @@ type AuthorizationTypeGroupItem =
   | AuthorizationType
   | ScopeAuthorizationType
   | UserLevelAuthType
-  | RelatedRightSet;
+  | RelatedRightSet
+  | RightAuthType;
 
 interface AuthorizationTypeGroup {
   name: string;
   disabled?: boolean;
   items: AuthorizationTypeGroupItem[];
+}
+
+// New type for unique rights and their relationships
+interface RightAuthType {
+  id: string;
+  authType: string;
+  rightSetIds: string[];
+  scopeIds: string[];
+  userLevelIds: string[];
 }
 
 @Component({
@@ -107,16 +117,24 @@ export class AuthViewerComponent implements OnInit {
   userLevels: UserLevelAuthType[] = [];
   scopes: ScopeAuthorizationType[] = [];
   uniqueRightSets: RelatedRightSet[] = [];
+  rights: RightAuthType[] = [];
+
 
   constructor(private sdk: SailPointSDKService) {}
 
   async ngOnInit() {
     await Promise.all([this.loadAuthInfo(), this.loadScopeInfo()]);
     this.buildUniqueRightSets();
+      this.buildRightAuthTypes();
     // Add related right sets as a group to authorizationTypeGroups
     this.authorizationTypeGroups.push({
       name: 'Right Sets',
       items: this.uniqueRightSets,
+    });
+
+    this.authorizationTypeGroups.push({
+      name: 'Rights',
+      items: this.rights,
     });
 
     this.authorizationTypeGroupsSubject.next(this.authorizationTypeGroups);
@@ -252,6 +270,42 @@ export class AuthViewerComponent implements OnInit {
       this.uniqueRightSets
     );
   }
+    /**
+     * Build unique rights and their relationships to rightSets, scopes, and userLevels
+     */
+    buildRightAuthTypes() {
+      const rightMap: Map<string, RightAuthType> = new Map();
+
+      // From scopes
+      for (const scope of this.scopes) {
+        for (const rs of scope.rightSets) {
+          for (const right of rs.rights) {
+            if (!rightMap.has(right)) {
+              rightMap.set(right, { id: right, authType: "Right", rightSetIds: [], scopeIds: [], userLevelIds: [] });
+            }
+            const entry = rightMap.get(right)!;
+            if (!entry.scopeIds.includes(scope.id)) entry.scopeIds.push(scope.id);
+            if (!entry.rightSetIds.includes(rs.id)) entry.rightSetIds.push(rs.id);
+          }
+        }
+      }
+
+      // From user levels
+      for (const ul of this.userLevels) {
+        for (const rs of ul.rightSets) {
+          for (const right of rs.rights) {
+            if (!rightMap.has(right)) {
+              rightMap.set(right, { id: right, authType: "Right", rightSetIds: [], scopeIds: [], userLevelIds: [] });
+            }
+            const entry = rightMap.get(right)!;
+            if (!entry.userLevelIds.includes(ul.id)) entry.userLevelIds.push(ul.id);
+            if (!entry.rightSetIds.includes(rs.id)) entry.rightSetIds.push(rs.id);
+          }
+        }
+      }
+
+      this.rights = Array.from(rightMap.values());
+    }
 
   authorizationTypeControl = new FormControl();
 
@@ -368,6 +422,11 @@ export class AuthViewerComponent implements OnInit {
     return this.userLevels.find((ul) => ul.id === id);
   }
 
+  getRightSetById(id: string): RightSet | undefined {
+    const related = this.uniqueRightSets.find((rs) => rs.rightSet.id === id);
+    return related ? related.rightSet : undefined;
+  }
+
   get selectedItemType(): 'relatedRightSet' | 'scope' | 'userLevel' | 'other' {
     const value = this.authorizationTypeControl.value;
     if (!value || typeof value !== 'object') {
@@ -389,5 +448,9 @@ export class AuthViewerComponent implements OnInit {
   get selectedRightSet(): RelatedRightSet | null {
     const value = this.authorizationTypeControl.value;
     return this.selectedItemType === 'relatedRightSet' ? value : null;
+  }
+
+  toString(obj: any): string {
+    return JSON.stringify(obj, null, 2);
   }
 }
