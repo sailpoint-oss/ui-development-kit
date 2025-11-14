@@ -78,7 +78,7 @@
     "d3": "7.9.0",
     "electron-context-menu": "4.1.0",
     "electron-is-dev": "3.0.1",
-    "js-yaml": "4.1.0",
+    "js-yaml": "4.1.1",
     "jsonpointer": "5.0.1",
     "keytar": "7.9.0",
     "lodash-es": "4.17.21",
