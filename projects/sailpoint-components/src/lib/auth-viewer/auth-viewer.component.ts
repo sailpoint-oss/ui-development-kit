@@ -17,6 +17,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BehaviorSubject, combineLatest, map, startWith } from 'rxjs';
 import { DefaultApiGenericGetRequest } from 'sailpoint-api-client';
 import { SailPointSDKService } from '../sailpoint-sdk.service';
+import { ElectronApiFactoryService } from '../services';
 
 interface AuthorizationType {
   value: string;
@@ -120,12 +121,15 @@ export class AuthViewerComponent implements OnInit {
   rights: RightAuthType[] = [];
 
 
-  constructor(private sdk: SailPointSDKService) {}
+  constructor(private sdk: SailPointSDKService, private electronService: ElectronApiFactoryService,) {}
 
   async ngOnInit() {
+    const details = await this.electronService.getApi().getCurrentTokenDetails("devrel")
+    console.log('Token Details:', details);
+
     await Promise.all([this.loadAuthInfo(), this.loadScopeInfo()]);
     this.buildUniqueRightSets();
-      this.buildRightAuthTypes();
+    this.buildRightAuthTypes();
     // Add related right sets as a group to authorizationTypeGroups
     this.authorizationTypeGroups.push({
       name: 'Right Sets',
@@ -167,7 +171,7 @@ export class AuthViewerComponent implements OnInit {
                   rights: rs.rights || [],
                   rightSetIds: rs.rightSetIds || [],
                   uiAssignableChildRightSetIds:
-                    rs.uiAssignableChildRightSetIds || [],
+                  rs.uiAssignableChildRightSetIds || [],
                   uiAssignable: rs.uiAssignable,
                   translatedName: rs.translatedName,
                   translatedDescription: rs.translatedDescription,
@@ -425,6 +429,17 @@ export class AuthViewerComponent implements OnInit {
   getRightSetById(id: string): RightSet | undefined {
     const related = this.uniqueRightSets.find((rs) => rs.rightSet.id === id);
     return related ? related.rightSet : undefined;
+  }
+
+  /**
+   * For a given scope, find user levels that share at least one rightSet
+   */
+  getUserLevelsForScope(scope: ScopeAuthorizationType): UserLevelAuthType[] {
+    console.log('Finding user levels for scope:', scope.id);
+    const scopeRightSetIds = scope.rightSets.map(rs => rs.id);
+    return this.userLevels.filter(ul =>
+      ul.rightSets.some(rs => scopeRightSetIds.includes(rs.id))
+    );
   }
 
   get selectedItemType(): 'relatedRightSet' | 'scope' | 'userLevel' | 'other' {

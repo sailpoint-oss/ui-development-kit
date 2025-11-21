@@ -621,6 +621,17 @@
                     {{ authorizationTypeControl.value.translatedRemove }}
                   </p>
                 </ng-container>
+                <ng-container *ngIf="selectedItemType === 'scope'">
+                   <strong>User Levels sharing rightSets with this scope:</strong>
+                    <mat-list>
+                      <mat-list-item *ngFor="let ul of getUserLevelsForScope(authorizationTypeControl.value)">
+                        {{ ul.name }} ({{ ul.id }} {{ ul.legacyGroup }})
+                      </mat-list-item>
+                      <mat-list-item *ngIf="getUserLevelsForScope(authorizationTypeControl.value).length === 0">
+                        <em>No user levels share rightSets with this scope.</em>
+                      </mat-list-item>
+                    </mat-list>
+                  </ng-container>
               </ng-container>
             </mat-card-content>
           </mat-card>
