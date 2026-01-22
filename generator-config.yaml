@@ -9,6 +9,9 @@ files:
   electron-preload.mustache:
     templateType: SupportingFiles
     destinationFilename: app/sailpoint-sdk/sdk-preload.ts
+  web-sdk-wrapper.mustache:
+    templateType: SupportingFiles
+    destinationFilename: server/sailpoint-sdk-web.ts
   sailpoint-sdk-service.mustache:
     templateType: SupportingFiles
     destinationFilename: projects/sailpoint-components/src/lib/sailpoint-sdk.service.ts

@@ -1,5 +1,5 @@
 import { getTokenDetails, parseJwt } from "./auth";
-import { deleteSecureValue, getConfig, getSecureValue, setSecureValue } from "./config";
+import { deleteSecureValue, getConfig, getConfigEnvironment, getSecureValue, setSecureValue } from "./config";
 
 /**
  * Stores PAT tokens securely for a given environment
@@ -116,9 +116,8 @@ export const refreshPATToken = async (environment: string): Promise<void> => {
             throw new Error('No stored PAT tokens found for environment');
         }
   
-      const config = getConfig();
-      const envConfig = config.environments[environment];
-      if (!envConfig) {
+      const envConfig = getConfigEnvironment(environment);
+      if (!envConfig.baseurl) {
         throw new Error('Environment configuration not found');
       }
   
@@ -126,32 +125,33 @@ export const refreshPATToken = async (environment: string): Promise<void> => {
       const tokenUrl = `${apiUrl}/oauth/token`;
       const authHeader = Buffer.from(`${storedTokens.clientId}:${storedTokens.clientSecret}`).toString('base64');
   
-      const response = await fetch(tokenUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Authorization': `Basic ${authHeader}`,
-        },
-        body: 'grant_type=client_credentials',
-      });
   
-      if (!response.ok) {
-        throw new Error(`Token refresh failed: ${response.status} ${response.statusText}`);
-      }
+        const response = await fetch(tokenUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': `Basic ${authHeader}`,
+          },
+          body: 'grant_type=client_credentials',
+        });
   
-      const tokenData = await response.json();
-  
-      const accessTokenClaims = parseJwt(tokenData.access_token);
-      const expiry = new Date(accessTokenClaims.exp * 1000);
-  
-      const tokenSet = {
-        accessToken: tokenData.access_token,
-        accessExpiry: expiry,
-      };
-  
-      storePATTokens(environment, tokenSet);
-  
-      console.log('PAT token refreshed successfully');
+        if (!response.ok) {
+          throw new Error(`Token refresh failed: ${response.status} ${response.statusText}`);
+        }
+    
+        const tokenData = await response.json();
+    
+        const accessTokenClaims = parseJwt(tokenData.access_token);
+        const expiry = new Date(accessTokenClaims.exp * 1000);
+    
+        const tokenSet = {
+          accessToken: tokenData.access_token,
+          accessExpiry: expiry,
+        };
+    
+        storePATTokens(environment, tokenSet);
+    
+        console.log('PAT token refreshed successfully');
     } catch (error) {
       console.error('Error refreshing PAT token:', error);
       throw error;

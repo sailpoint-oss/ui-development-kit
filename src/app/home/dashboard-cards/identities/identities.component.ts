@@ -29,6 +29,7 @@ export class IdentitiesComponent implements OnInit {
       const identities = await this.sdk.listIdentities({
         count: true
       });
+      console.log(identities)
       this.identities = identities;
     } catch (error) {
       console.error('Error loading identities:', error);

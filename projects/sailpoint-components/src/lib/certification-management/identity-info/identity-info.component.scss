@@ -1,0 +1,222 @@
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.loading-content {
+  width: 200px;
+  height: 200px;
+}
+
+.identity-info-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.identity-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  padding: 24px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.identity-avatar {
+  flex-shrink: 0;
+}
+
+.identity-details {
+  flex: 1;
+}
+
+.identity-name {
+  margin: 0 0 8px 0;
+  font-size: 28px;
+  font-weight: 600;
+  color: #1f2937;
+  line-height: 1.2;
+}
+
+.identity-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.identity-id {
+  font-size: 14px;
+  color: #6b7280;
+  font-family: 'Courier New', monospace;
+  background-color: #f3f4f6;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.identity-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.contact-item nz-icon {
+  color: #9ca3af;
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.identity-content {
+  margin-top: 24px;
+}
+
+.status-section {
+  margin-bottom: 20px;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.timeline-section {
+  margin-top: 16px;
+}
+
+.attributes-section {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.attribute-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.attribute-item:last-child {
+  border-bottom: none;
+}
+
+.attribute-label {
+  font-weight: 500;
+  color: #374151;
+  font-size: 14px;
+  flex: 1;
+}
+
+.attribute-value {
+  color: #6b7280;
+  font-size: 14px;
+  text-align: right;
+  flex: 1;
+  word-break: break-word;
+}
+
+/* Dark theme overrides */
+:host {
+  :host-context(.dark-theme) .identity-header {
+    background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+  }
+  
+  :host-context(.dark-theme) .identity-name {
+    color: #ffffff;
+  }
+  
+  :host-context(.dark-theme) .identity-id {
+    color: #d1d5db;
+    background-color: #374151;
+  }
+  
+  :host-context(.dark-theme) .contact-item {
+    color: #d1d5db;
+  }
+  
+  :host-context(.dark-theme) .contact-item nz-icon {
+    color: #9ca3af;
+  }
+  
+  :host-context(.dark-theme) .attribute-label {
+    color: #e5e7eb;
+  }
+  
+  :host-context(.dark-theme) .attribute-value {
+    color: #d1d5db;
+  }
+  
+  :host-context(.dark-theme) .attribute-item {
+    border-bottom-color: #374151;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .identity-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+  
+  .header-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+  
+  .identity-name {
+    font-size: 24px;
+  }
+  
+  .identity-meta {
+    justify-content: center;
+  }
+  
+  .header-actions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .identity-info-container {
+    padding: 12px;
+  }
+  
+  .identity-header {
+    padding: 16px;
+  }
+  
+  .identity-name {
+    font-size: 20px;
+  }
+  
+  .identity-contact {
+    align-items: center;
+  }
+}

@@ -1,0 +1,550 @@
+<mat-card class="w-full">
+  <mat-card-header>
+    <mat-card-title>{{ breadcrumbLabel || getCurrentBreadcrumbLabel() }}</mat-card-title>
+    <mat-card-subtitle>Detailed information for certification</mat-card-subtitle>
+  </mat-card-header>
+  
+  <div class="header-status-indicators" *ngIf="certificationDetails?.certification">
+    <div class="status-indicator" [ngClass]="getStatusClass()">
+      <div class="status-dot"></div>
+      <span class="status-text">{{ getStatusText() }}</span>
+    </div>
+    <div class="phase-indicator" [ngClass]="getPhaseClass()">
+      <div class="phase-dot"></div>
+      <span class="phase-text">{{ certificationDetails?.certification?.phase || 'N/A' }}</span>
+    </div>
+  </div>
+  
+  <!-- Staged Certification Notice -->
+  <div class="staged-notice" *ngIf="isCertificationStaged()">
+    <mat-icon color="warn">info</mat-icon>
+    <span>This certification is in STAGED phase. Decision changes are disabled.</span>
+  </div>
+  
+  <mat-card-content class="w-full">
+    <div *ngIf="loading" class="spinner-container">
+      <mat-spinner diameter="75"></mat-spinner>
+    </div>
+    
+    <div *ngIf="error" class="error-message">
+      <mat-icon color="warn">error</mat-icon>
+      <p>{{ error }}</p>
+      <button mat-button color="primary" (click)="loadCertificationDetails()">
+        <mat-icon>refresh</mat-icon>
+        Retry
+      </button>
+    </div>
+    
+    <div *ngIf="!loading && !error && certificationDetails" class="certification-detail">
+
+      <!-- Campaign Information -->
+      <div class="detail-section" *ngIf="certificationDetails.certification.campaign">
+        <h3>Campaign Information</h3>
+        <div class="detail-grid">
+          <div class="detail-item">
+            <strong>Campaign Name:</strong>
+            <span>{{ certificationDetails.certification.campaign.name || 'N/A' }}</span>
+          </div>
+          <div class="detail-item">
+            <strong>Campaign Type:</strong>
+            <span>{{ certificationDetails.certification.campaign.campaignType || 'N/A' }}</span>
+          </div>
+          <div class="detail-item">
+            <strong>Campaign Description:</strong>
+            <span>{{ certificationDetails.certification.campaign.description || 'N/A' }}</span>
+          </div>
+          <div class="detail-item" *ngIf="certificationDetails.campaign">
+            <strong>Total Certifications:</strong>
+            <span>{{ certificationDetails.campaign.totalCertifications || 'N/A' }}</span>
+          </div>
+          <div class="detail-item" *ngIf="certificationDetails.campaign">
+            <strong>Completed Certifications:</strong>
+            <span>{{ certificationDetails.campaign.completedCertifications || 'N/A' }}</span>
+          </div>
+          <div class="detail-item" *ngIf="certificationDetails.campaign">
+            <strong>Comment Requirement:</strong>
+            <span>{{ getCommentRequirementText(certificationDetails.campaign.mandatoryCommentRequirement) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comment Requirement Information Bar -->
+      <div class="comment-requirement-bar" *ngIf="certificationDetails.campaign && requiresComment(certificationDetails.campaign.mandatoryCommentRequirement)">
+        <mat-icon color="primary">info</mat-icon>
+        <span>{{ getCommentRequirementMessage(certificationDetails.campaign.mandatoryCommentRequirement) }}</span>
+      </div>
+
+      <!-- Progress Information -->
+      <div class="detail-section">
+        <h3>Progress Information</h3>
+        <div class="progress-grid">
+          <!-- Identities Progress -->
+          <div class="progress-item">
+            <div class="stat-label">Identities Completed</div>
+            <div class="stat-value">
+              {{ certificationDetails.certification.identitiesCompleted || 0 }} / {{ certificationDetails.certification?.identitiesTotal || 0 }}
+            </div>
+            <mat-progress-bar 
+              mode="determinate" 
+              [value]="getIdentitiesProgressPercent()"
+              [color]="getIdentitiesProgressPercent() === 100 ? 'primary' : 'accent'">
+            </mat-progress-bar>
+            <span class="progress-percent">{{ getIdentitiesProgressPercent() }}%</span>
+          </div>
+
+          <!-- Decisions Progress -->
+          <div class="progress-item">
+            <div class="stat-label">Decisions Made</div>
+            <div class="stat-value">
+              {{ certificationDetails.certification?.decisionsMade || 0 }} / {{ certificationDetails.certification?.decisionsTotal || 0 }}
+            </div>
+            <mat-progress-bar 
+              mode="determinate" 
+              [value]="getDecisionsProgressPercent()"
+              [color]="getDecisionsProgressPercent() === 100 ? 'primary' : 'accent'">
+            </mat-progress-bar>
+            <span class="progress-percent">{{ getDecisionsProgressPercent() }}%</span>
+          </div>
+
+          <!-- Due Date Countdown or Overdue Status -->
+          <div class="progress-item" *ngIf="deadline > 0">
+            <div *ngIf="!isOverdue && !certificationDetails?.certification?.completed">
+              <div class="stat-label">Time Remaining</div>
+              <div class="stat-value">{{ formatDate(certificationDetails.certification?.due) }}</div>
+            </div>
+            <div *ngIf="isOverdue || (certificationDetails?.certification?.completed && isCompletedAndOverdue())" 
+                 [class]="certificationDetails?.certification?.completed ? 'completed-status' : 'overdue-status'">
+              <div *ngIf="!certificationDetails?.certification?.completed" class="overdue-stat">
+                <div class="stat-label">Status</div>
+                <div class="stat-value" style="color: #ff4d4f">OVERDUE</div>
+                <div class="stat-label">Days Overdue</div>
+                <div class="stat-value" style="color: #ff4d4f">{{ getDaysOverdue() }}</div>
+              </div>
+              <div *ngIf="certificationDetails?.certification?.completed" class="completed-stat">
+                <div class="stat-label">Status</div>
+                <div class="stat-value" style="color: #52c41a">Finished</div>
+                <div *ngIf="isCompletedAndOverdue()" class="stat-label">
+                  <div class="stat-value" style="color: #52c41a">Well Done! 🎉</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Timeline Information -->
+          <div class="timeline-section">
+            <h4>Certification Timeline</h4>
+            <div class="timeline">
+              <div class="timeline-item">
+                <mat-icon class="timeline-icon" style="color: #1890ff">schedule</mat-icon>
+                <div class="timeline-content">
+                  <strong>Created:</strong> {{ formatDate(certificationDetails.certification.created) }}
+                </div>
+              </div>
+              
+              <div class="timeline-item" *ngIf="certificationDetails.certification.signed">
+                <mat-icon class="timeline-icon" style="color: #52c41a">check_circle</mat-icon>
+                <div class="timeline-content">
+                  <strong>Signed:</strong> {{ formatDate(certificationDetails.certification.signed) }}
+                </div>
+              </div>
+              
+              <div class="timeline-item" *ngIf="!certificationDetails.certification.signed">
+                <mat-icon class="timeline-icon" style="color: #d9d9d9">access_time</mat-icon>
+                <div class="timeline-content">
+                  <strong>Signed:</strong> <em>Pending</em>
+                </div>
+              </div>
+              
+              <div class="timeline-item">
+                <mat-icon class="timeline-icon" 
+                  [style.color]="isOverdue ? (certificationDetails.certification?.completed ? '#52c41a' : '#ff4d4f') : '#faad14'">
+                  event
+                </mat-icon>
+                <div class="timeline-content">
+                  <strong>Due:</strong> {{ formatDate(certificationDetails.certification?.due) }}
+                  <span *ngIf="isOverdue && !certificationDetails.certification?.completed" class="overdue-text"> ({{ getDaysOverdue() }} days overdue)</span>
+                  <span *ngIf="isOverdue && certificationDetails.certification?.completed" class="completed-late-text"> (Completed! Great job! 🎉)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reviewer Information -->
+      <div class="detail-section" *ngIf="certificationDetails.reviewers.length > 0 || hasReassignment()">
+        <h3>Reviewers</h3>
+        <div class="reviewers-list">
+          <div *ngFor="let reviewer of certificationDetails.reviewers" class="reviewer-item">
+            <div class="reviewer-info">
+              <strong>{{ reviewer.name || 'N/A' }}</strong>
+              <span *ngIf="reviewer.email">({{ reviewer.email }})</span>
+            </div>
+            <div class="reviewer-actions" *ngIf="reviewer.id">
+              <button 
+                mat-raised-button 
+                (click)="viewIdentity(reviewer.id, reviewer.name)"
+                class="view-identity-btn">
+                <mat-icon>person</mat-icon>
+                View Identity
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Reassignment Information -->
+        <div *ngIf="hasReassignment()" class="reassignment-section">
+          <h4>Reassignment History</h4>
+          <div class="reassignment-item">
+            <div class="reassignment-header">
+              <mat-icon class="reassignment-icon">swap_horiz</mat-icon>
+              <div class="reassignment-details">
+                <div class="reassignment-from">
+                  <strong>Reassigned from:</strong>
+                  <span>{{ getReassignmentFromName() }}</span>
+                  <span *ngIf="getReassignmentFromEmail()">({{ getReassignmentFromEmail() }})</span>
+                </div>
+                <div class="reassignment-timestamp">
+                  <mat-icon class="timestamp-icon">schedule</mat-icon>
+                  <span>{{ formatDate(getReassignmentCreated()) }}</span>
+                </div>
+                <div *ngIf="getReassignmentComment()" class="reassignment-comment">
+                  <mat-icon class="comment-icon">comment</mat-icon>
+                  <span>{{ getReassignmentComment() }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Access Review Items -->
+      <div class="detail-section" *ngIf="certificationDetails.accessReviewItems.length > 0">
+        <div class="section-header">
+          <h3>Access Review Items</h3>
+        </div>
+        
+        <div class="section-controls">
+          <div class="bulk-action-controls" *ngIf="!certificationDetails.certification.completed">
+            <button 
+              mat-raised-button 
+              (click)="toggleBulkActionMode()"
+              [disabled]="isCertificationStaged() || bulkActionLoading"
+              [matTooltip]="isCertificationStaged() ? 'Bulk actions are disabled for STAGED certifications' : ''"
+              matTooltipPosition="above"
+              class="bulk-action-toggle">
+              <mat-icon>{{ bulkActionMode ? 'close' : 'check_box' }}</mat-icon>
+              {{ bulkActionMode ? 'Exit Bulk Mode' : 'Bulk Actions' }}
+            </button>
+            
+            <div class="bulk-action-panel" *ngIf="bulkActionMode">
+              <mat-form-field class="bulk-decision-select">
+                <mat-label>Select decision</mat-label>
+                <mat-select [(ngModel)]="bulkActionDecision">
+                  <mat-option value="APPROVE">APPROVE</mat-option>
+                  <mat-option value="REVOKE">REVOKE</mat-option>
+                </mat-select>
+              </mat-form-field>
+              
+              <button 
+                mat-raised-button 
+                color="primary"
+                [disabled]="isBulkActionDisabled()"
+                (click)="applyBulkDecision()"
+                class="bulk-apply-btn">
+                <mat-spinner *ngIf="bulkActionLoading" diameter="20"></mat-spinner>
+                <span *ngIf="!bulkActionLoading">Apply to {{ setOfCheckedId.size }} items</span>
+              </button>
+              
+              <span class="selected-count" *ngIf="setOfCheckedId.size > 0">
+                Selected {{ setOfCheckedId.size }} items
+              </span>
+            </div>
+          </div>
+          
+          <div class="section-actions">
+            <button 
+              mat-raised-button 
+              (click)="downloadAccessReviewItemsCSV()"
+              [disabled]="!certificationDetails.accessReviewItems || certificationDetails.accessReviewItems.length === 0"
+              matTooltip="Download all access review items as CSV"
+              matTooltipPosition="above"
+              class="download-csv-btn">
+              <mat-icon>download</mat-icon>
+              Download CSV
+            </button>
+            
+            <button 
+              *ngIf="shouldShowLoadCSVButton()"
+              mat-raised-button
+              [matTooltip]="getLoadCSVTooltip()"
+              matTooltipPosition="above"
+              class="load-csv-btn"
+              (click)="fileInput.click()">
+              <mat-icon>upload</mat-icon>
+              Load CSV
+            </button>
+            <input #fileInput type="file" accept=".csv" style="display: none" (change)="loadCSV($event)">
+          </div>
+        </div>
+        
+        <div class="table-container">
+          <table mat-table [dataSource]="certificationDetails.accessReviewItems" class="access-review-table w-full">
+            
+            <!-- Bulk Selection Column -->
+            <ng-container matColumnDef="select" *ngIf="bulkActionMode">
+              <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox
+                  [checked]="checked"
+                  [indeterminate]="indeterminate"
+                  (change)="onAllChecked($event.checked)">
+                </mat-checkbox>
+              </th>
+              <td mat-cell *matCellDef="let item">
+                <mat-checkbox
+                  [checked]="setOfCheckedId.has(item.id)"
+                  [disabled]="isItemDisabledForBulkSelection(item)"
+                  (change)="onItemChecked(item.id, $event.checked)">
+                </mat-checkbox>
+              </td>
+            </ng-container>
+
+            <!-- Identity Column -->
+            <ng-container matColumnDef="identity">
+              <th mat-header-cell *matHeaderCellDef>Identity</th>
+              <td mat-cell *matCellDef="let item">{{ item.identitySummary?.name || 'N/A' }}</td>
+            </ng-container>
+
+            <!-- Access Type Column -->
+            <ng-container matColumnDef="accessType">
+              <th mat-header-cell *matHeaderCellDef>Access Type</th>
+              <td mat-cell *matCellDef="let item">
+                <span *ngIf="item.accessSummary?.entitlement">Entitlement</span>
+                <span *ngIf="item.accessSummary?.accessProfile">Access Profile</span>
+                <span *ngIf="item.accessSummary?.role">Role</span>
+              </td>
+            </ng-container>
+
+            <!-- Access Name Column -->
+            <ng-container matColumnDef="accessName">
+              <th mat-header-cell *matHeaderCellDef>Access Name</th>
+              <td mat-cell *matCellDef="let item">
+                {{ item.accessSummary?.entitlement?.name || item.accessSummary?.accessProfile?.name || item.accessSummary?.role?.name || 'N/A' }}
+              </td>
+            </ng-container>
+
+            <!-- Comments Column -->
+            <ng-container matColumnDef="comments">
+              <th mat-header-cell *matHeaderCellDef>Comments</th>
+              <td mat-cell *matCellDef="let item">
+                <span *ngIf="item.completed">
+                  <span *ngIf="getCurrentComment(item.id)" 
+                        [matTooltip]="getCurrentComment(item.id)"
+                        matTooltipPosition="above">
+                    <mat-icon>message</mat-icon>
+                    {{ getCurrentComment(item.id) | slice:0:30 }}{{ (getCurrentComment(item.id) || '').length > 30 ? '...' : '' }}
+                  </span>
+                  <span *ngIf="!getCurrentComment(item.id)">-</span>
+                </span>
+                <mat-form-field *ngIf="!item.completed" class="comment-field">
+                  <textarea matInput
+                            rows="2"
+                            [(ngModel)]="commentInputs[item.id]"
+                            (ngModelChange)="onCommentChange($event, item.id)"
+                            placeholder="Add comment...">
+                  </textarea>
+                </mat-form-field>
+              </td>
+            </ng-container>
+
+            <!-- Decision Column -->
+            <ng-container matColumnDef="decision">
+              <th mat-header-cell *matHeaderCellDef>Decision</th>
+              <td mat-cell *matCellDef="let item">
+                <div *ngIf="item.completed" [class]="getDecisionDisplayClass(item)">
+                  {{ getDecisionDisplayValue(item) }}
+                  <mat-icon matTooltip="Completed - Read Only">lock</mat-icon>
+                </div>
+                <mat-form-field *ngIf="!item.completed" class="decision-field">
+                  <mat-select
+                    [disabled]="isDecisionSelectDisabled(item)"
+                    [ngModel]="getCurrentDecision(item.id)"
+                    (ngModelChange)="onDecisionChange($event, item.id)"
+                    placeholder="Select decision">
+                    <mat-option value="APPROVE">APPROVE</mat-option>
+                    <mat-option value="REVOKE">REVOKE</mat-option>
+                    <mat-option value="PENDING">PENDING</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let item">
+                <button mat-icon-button
+                        class="picture-action-button"
+                        (click)="viewIdentity(item.identitySummary.identityId, item.identitySummary.name)"
+                        [disabled]="!item.identitySummary?.identityId"
+                        matTooltip="View Identity">
+                  <mat-icon>person</mat-icon>
+                </button>
+                <button mat-icon-button
+                        class="picture-action-button"
+                        (click)="viewAccessDetail(item)"
+                        matTooltip="View Access">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="getAccessReviewColumns()"></tr>
+            <tr mat-row *matRowDef="let row; columns: getAccessReviewColumns();"></tr>
+          </table>
+          
+          <div class="table-footer">
+            <span>Total {{ certificationDetails.accessReviewItems.length }} items</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Errors (if any) -->
+      <div class="detail-section" *ngIf="certificationDetails.errors && certificationDetails.errors.length > 0">
+        <h3>Errors</h3>
+        <div class="error-list">
+          <div *ngFor="let error of certificationDetails.errors" class="error-item">
+            <mat-icon color="warn">warning</mat-icon>
+            <span>{{ error }}</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="detail-actions">
+        <div class="left-actions">
+          <button mat-button color="primary" (click)="onBack()">
+            <mat-icon>arrow_back</mat-icon>
+            Back to List
+          </button>
+          <button 
+            mat-button 
+            color="accent" 
+            (click)="loadCertificationDetails()">
+            <mat-icon>refresh</mat-icon>
+            Refresh
+          </button>
+        </div>
+        
+        <div class="right-actions">
+          <button 
+            mat-button 
+            color="warn" 
+            (click)="clearAllDecisionChanges()"
+            [disabled]="!hasPendingChanges()"
+            class="clear-changes-btn">
+            <mat-icon>clear</mat-icon>
+            Clear Changes
+          </button>
+          <button 
+            mat-button 
+            color="accent" 
+            (click)="saveDecisionChanges()"
+            [disabled]="!hasPendingChanges() || saveChangesLoading"
+            class="save-changes-btn">
+            <mat-icon *ngIf="!saveChangesLoading">save</mat-icon>
+            <mat-spinner *ngIf="saveChangesLoading" diameter="16"></mat-spinner>
+            {{ saveChangesLoading ? 'Saving...' : 'Save Changes (' + decisionChanges.size + ')' }}
+          </button>
+          <button 
+            mat-button 
+            color="primary" 
+            (click)="signOffCertification()"
+            [disabled]="loading"
+            class="sign-off-btn"
+            *ngIf="shouldShowSignOffButton()">
+            <mat-icon>check_circle</mat-icon>
+            Sign-Off
+          </button>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<!-- Bulk Comment Modal Overlay -->
+<div class="modal-overlay" *ngIf="bulkCommentModalVisible" (click)="onBulkCommentCancel()">
+  <mat-card class="modal-card" (click)="$event.stopPropagation()">
+    <mat-card-header>
+      <mat-card-title>Add Comment for Bulk Decision</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>You are about to apply <strong>{{ bulkActionDecision }}</strong> to {{ setOfCheckedId.size }} items.</p>
+      <p *ngIf="isCommentRequiredForDecision(bulkActionDecision)" class="comment-required-text">
+        <mat-icon color="warn">warning</mat-icon>
+        A comment is required for this decision.
+      </p>
+      <mat-form-field class="w-full">
+        <mat-label>Comment</mat-label>
+        <textarea
+          matInput
+          rows="4"
+          [(ngModel)]="bulkCommentText"
+          placeholder="Enter your comment here...">
+        </textarea>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-button (click)="onBulkCommentCancel()">Cancel</button>
+      <button 
+        mat-raised-button 
+        color="primary"
+        (click)="onBulkCommentConfirm()"
+        [disabled]="isCommentRequiredForDecision(bulkActionDecision) && !bulkCommentText.trim()">
+        Apply Decision
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<!-- Comment Validation Modal Overlay -->
+<div class="modal-overlay" *ngIf="commentValidationModalVisible" (click)="onCommentValidationModalClose()">
+  <mat-card class="modal-card" (click)="$event.stopPropagation()">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon color="warn">warning</mat-icon>
+        Missing Required Comments
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>The following items require comments but are missing them:</p>
+      
+      <div class="missing-comments-list">
+        <div *ngFor="let item of missingCommentItems" class="missing-comment-item">
+          <div class="item-header">
+            <strong>{{ item.identityName }}</strong>
+            <mat-chip [class]="'decision-' + item.decision.toLowerCase()">
+              {{ item.decision }}
+            </mat-chip>
+          </div>
+          <div class="item-details">
+            <div class="detail-row">
+              <span class="label">Access Type:</span>
+              <span class="value">{{ item.accessType }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="label">Access Name:</span>
+              <span class="value">{{ item.accessName }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-button (click)="onCommentValidationModalClose()">Close</button>
+      <button mat-raised-button color="primary" (click)="onCommentValidationModalClose()">
+        Add Comments
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

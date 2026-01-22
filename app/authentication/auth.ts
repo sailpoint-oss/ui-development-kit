@@ -9,6 +9,7 @@ import { getStoredPATTokens, refreshPATToken, validatePATToken } from './pat';
 import { decryptToken } from "./crypto";
 import { TokenSet, TokenResponse } from './types';
 import { ref } from 'process';
+import { existsSync } from 'fs';
 
 export function formatErrorAsString(error: unknown): string {
   if (error instanceof Error) {
@@ -76,11 +77,24 @@ export function parseJwt(token: string): AuthPayload {
  */
 export const unifiedLogin = async (environment: string): Promise<{ success: boolean, error?: string, uuid?: string, authUrl?: string }> => {
 
-
   try {
     activeEnvironment = environment;
     // First, ensure the environment exists in config
-    const { tenanturl, baseurl, authtype } = getConfigEnvironment(environment);
+    const envConfig = getConfigEnvironment(environment);
+    const { tenanturl, baseurl, authtype, bypassTLS, caCertPath } = envConfig;
+
+    // Configure TLS settings for this environment at the start of any authentication flow
+    if (caCertPath && existsSync(caCertPath)) {
+      console.log(`Using custom CA certificate for environment: ${environment} - ${caCertPath}`);
+      process.env.NODE_EXTRA_CA_CERTS = caCertPath;
+    } else if (bypassTLS) {
+      console.log(`TLS bypass enabled for environment: ${environment}`);
+      process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+    } else {
+      // Ensure default behavior
+      delete process.env.NODE_TLS_REJECT_UNAUTHORIZED;
+      delete process.env.NODE_EXTRA_CA_CERTS;
+    }
 
     // Check for existing tokens and attempt refresh if needed
     const tokenStatus = validateTokens(environment);

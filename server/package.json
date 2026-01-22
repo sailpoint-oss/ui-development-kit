@@ -7,11 +7,15 @@
     "start": "ts-node web-api.ts",
     "build": "tsc",
     "dev": "nodemon --exec ts-node web-api.ts",
-    "serve": "node dist/web-api.js"
+    "serve": "node dist/web-api.js",
+    "lambda:build": "npm run build && npm install --production"
   },
   "author": "SailPoint",
   "license": "MIT",
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.902.0",
+    "@aws-sdk/lib-dynamodb": "^3.902.0",
+    "@vendia/serverless-express": "^4.12.6",
     "axios": "^1.12.0",
     "body-parser": "^1.20.3",
     "cookie-parser": "^1.4.7",
@@ -21,7 +25,9 @@
     "express": "^4.18.2",
     "express-rate-limit": "^8.1.0",
     "express-session": "1.18.2",
-    "multer": "2.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "multer": "2.0.2",
+    "sailpoint-api-client": "^1.6.9"
   },
   "devDependencies": {
     "@types/body-parser": "1.19.5",
@@ -29,6 +35,7 @@
     "@types/cors": "2.8.17",
     "@types/express": "4.17.21",
     "@types/express-session": "1.18.0",
+    "@types/jsonwebtoken": "^9.0.3",
     "@types/multer": "1.4.11",
     "@types/node": "22.15.3",
     "nodemon": "3.1.4",

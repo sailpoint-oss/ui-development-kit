@@ -21,6 +21,8 @@ export type Tenant = {
   clientSecret: string | null;
   authtype: "oauth" | "pat";
   tenantName: string;
+  bypassTLS?: boolean;
+  caCertPath?: string;
 }
 
 export const getTenants = (): Tenant[] => {
@@ -52,6 +54,8 @@ export const getTenants = (): Tenant[] => {
         clientSecret: storedPATTokens?.clientSecret || null,
         authtype: envConfig.authtype,
         tenantName: environment,
+        bypassTLS: envConfig.bypassTLS || false,
+        caCertPath: envConfig.caCertPath || '',
       });
     }
     return tenants;
@@ -82,23 +86,25 @@ export interface CLIConfig {
       tenanturl: string;
       baseurl: string;
       authtype: "oauth" | "pat";
+      bypassTLS?: boolean;
+      caCertPath?: string;
     };
   };
 }
 
-export function getConfigEnvironment(environment: string): { tenanturl, baseurl, authtype } {
+export function getConfigEnvironment(environment: string): { tenanturl: string, baseurl: string, authtype: string, bypassTLS?: boolean, caCertPath?: string } {
   try {
-    
+    const config = getConfig();
+    if (!config.environments[environment]) {
+      return { tenanturl: '', baseurl: '', authtype: 'undefined', bypassTLS: false, caCertPath: '' };
+    }
+
+    const { tenanturl, baseurl, authtype, bypassTLS, caCertPath } = config.environments[environment];
+    return { tenanturl, baseurl, authtype, bypassTLS, caCertPath };
   } catch (error) {
-    
+    console.error('Error getting config environment:', error);
+    return { tenanturl: '', baseurl: '', authtype: 'undefined', bypassTLS: false, caCertPath: '' };
   }
-      const config = getConfig();
-      if (!config.environments[environment]) {
-        return { tenanturl: '', baseurl: '', authtype: 'undefined' };
-      }
-  
-      const { tenanturl, baseurl, authtype } = config.environments[environment];
-      return { tenanturl, baseurl, authtype };
 }
 
 export function getConfig(): CLIConfig {
@@ -145,6 +151,8 @@ export interface UpdateEnvironmentRequest {
   authtype: 'oauth' | 'pat';
   clientId?: string;
   clientSecret?: string;
+  bypassTLS?: boolean;
+  caCertPath?: string;
 }
 // This function will update the environment or create one if it doesn't exist
 export const updateEnvironment = (
@@ -175,6 +183,8 @@ export const updateEnvironment = (
       tenanturl: configureRequest.tenantUrl,
       baseurl: configureRequest.baseUrl,
       authtype: configureRequest.authtype,
+      bypassTLS: configureRequest.bypassTLS || false,
+      caCertPath: configureRequest.caCertPath || '',
     }
 
     // Save credentials securely if provided

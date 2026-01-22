@@ -1,0 +1,165 @@
+import * as sdk from 'sailpoint-api-client';
+import { AxiosResponse } from 'axios';
+
+/* tslint:disable */
+/* eslint-disable */
+{{>licenseInfo}}
+
+type ApiResponse<T> = {
+  data: T;
+  status: number;
+  statusText: string;
+  headers: Record<string, string>;
+};
+
+async function handleApiCall<T>(
+  apiCall: () => Promise<AxiosResponse<T>>
+): Promise<ApiResponse<T>> {
+  try {
+    const response = await apiCall();
+    return {
+      data: response.data,
+      status: response.status,
+      statusText: response.statusText,
+      headers: response.headers as Record<string, string>,
+    };
+  } catch (error) {
+    console.error('API call error:', error);
+    return generateErrorResponse(error);
+  }
+}
+
+function generateErrorResponse(error: unknown): ApiResponse<any> {
+  if (error instanceof Error) {
+    return {
+      data: [],
+      status: 500,
+      statusText: error.message,
+      headers: {},
+    };
+  }
+  return {
+    data: [],
+    status: 500,
+    statusText: 'Unknown error occurred',
+    headers: {},
+  };
+}
+
+/**
+ * Create SDK configuration using access token
+ */
+export function createSdkConfiguration(accessToken: string, basePath: string): sdk.Configuration {
+  return new sdk.Configuration({
+    accessToken: accessToken,
+    baseurl: basePath
+  });
+}
+
+/**
+ * Object containing all SDK functions for web API calls
+ */
+const sdkFunctionsObject: { [key: string]: (params: any, config: sdk.Configuration) => Promise<ApiResponse<any>> } = {
+{{#apiInfo}}{{#apis}}
+{{#operations}}
+{{#operation}}
+  // {{&notes}}
+  {{nickname}}: ({{#useSingleRequestParameter}}{{#allParams.0}}requestParameters: sdk.{{classname}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}, {{/allParams.0}}{{/useSingleRequestParameter}}{{^useSingleRequestParameter}}params: any, {{/useSingleRequestParameter}}apiConfig: sdk.Configuration): Promise<ApiResponse<{{#isArray}}Array<{{#returnProperty}}{{^isPrimitiveType}}sdk.{{/isPrimitiveType}}{{/returnProperty}}{{returnBaseType}}>{{/isArray}}{{^isArray}}{{#returnProperty}}{{#isPrimitiveType}}{{returnType}}{{/isPrimitiveType}}{{/returnProperty}}{{#returnProperty}}{{^isPrimitiveType}}sdk.{{returnType}}{{/isPrimitiveType}}{{/returnProperty}}{{/isArray}}{{^returnType}}void{{/returnType}}>> => {
+    const {{#lambda.lowercase}}{{classname}}{{/lambda.lowercase}} = new sdk.{{classname}}(apiConfig);
+    return handleApiCall(() => {{#lambda.lowercase}}{{classname}}{{/lambda.lowercase}}.{{nickname}}({{#useSingleRequestParameter}}{{#allParams.0}}requestParameters{{/allParams.0}}{{/useSingleRequestParameter}}{{^useSingleRequestParameter}}params{{/useSingleRequestParameter}}));
+  },
+{{/operation}}
+{{/operations}}
+{{/apis}}{{/apiInfo}}
+
+  // Generic REST operations
+  genericGet: (requestParameters: sdk.DefaultApiGenericGetRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const axiosInstance = new sdk.DefaultApi(apiConfig);
+    return handleApiCall(() => axiosInstance.genericGet(requestParameters));
+  },
+
+  genericPost: (requestParameters: sdk.DefaultApiGenericPostRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const axiosInstance = new sdk.DefaultApi(apiConfig);
+    return handleApiCall(() => axiosInstance.genericPost(requestParameters));
+  },
+
+  genericPut: (requestParameters: sdk.DefaultApiGenericPutRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const axiosInstance = new sdk.DefaultApi(apiConfig);
+    return handleApiCall(() => axiosInstance.genericPut(requestParameters));
+  },
+
+  genericPatch: (requestParameters: sdk.DefaultApiGenericPatchRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const axiosInstance = new sdk.DefaultApi(apiConfig);
+    return handleApiCall(() => axiosInstance.genericPatch(requestParameters));
+  },
+
+  genericDelete: (requestParameters: sdk.DefaultApiGenericDeleteRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const axiosInstance = new sdk.DefaultApi(apiConfig);
+    return handleApiCall(() => axiosInstance.genericDelete(requestParameters));
+  }
+};
+
+/**
+ * Secure Map of all SDK functions for safe method lookup
+ * This prevents prototype pollution and unauthorized method access
+ */
+const sdkFunctions = new Map<string, (params: any, config: sdk.Configuration) => Promise<ApiResponse<any>>>();
+
+// Populate the Map with all SDK functions
+Object.entries(sdkFunctionsObject).forEach(([key, value]) => {
+  sdkFunctions.set(key, value);
+});
+
+/**
+ * Execute an SDK method by name with parameters
+ * Uses secure Map lookup to prevent prototype pollution attacks
+ */
+export async function executeSdkMethod(
+  methodName: string, 
+  params: any, 
+  accessToken: string, 
+  basePath: string
+): Promise<ApiResponse<any>> {
+  // SECURITY: Use Map.has() to safely check if the method exists
+  // This prevents prototype pollution attacks and unauthorized method access
+  if (!sdkFunctions.has(methodName)) {
+    return {
+      data: null,
+      status: 404,
+      statusText: `SDK method '${methodName}' not found`,
+      headers: {}
+    };
+  }
+
+  // SECURITY: Use Map.get() for safe method retrieval
+  const sdkFunction = sdkFunctions.get(methodName);
+  
+  // Additional type safety check
+  if (typeof sdkFunction !== 'function') {
+    return {
+      data: null,
+      status: 500,
+      statusText: `SDK method '${methodName}' is not a valid function`,
+      headers: {}
+    };
+  }
+
+  const config = createSdkConfiguration(accessToken, basePath);
+  
+  // Check the function signature to determine how to call it
+  // Some functions take (params, config), others take just (config)
+  const functionLength = sdkFunction.length;
+  
+  let result: ApiResponse<any>;
+  if (functionLength === 1) {
+    // Function only takes config parameter: (config: Configuration)
+    console.log('Calling SDK function with config only');
+    result = await (sdkFunction as (config: sdk.Configuration) => Promise<ApiResponse<any>>)(config);
+  } else {
+    // Function takes params and config: (params: any, config: Configuration)
+    console.log('Calling SDK function with params and config');
+    result = await sdkFunction(params, config);
+  }
+  
+  return result;
+}

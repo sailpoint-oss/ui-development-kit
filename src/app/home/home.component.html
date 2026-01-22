@@ -3,11 +3,7 @@
   <!-- Welcome Section -->
   <div class="welcome-section">
     <h1>Welcome to the SailPoint UI Development Kit</h1>
-    <p>Select an environment and connect to your SailPoint tenant to get started.</p>
-    <div *ngIf="state.isWebMode" class="web-mode-indicator">
-      <mat-icon color="primary">cloud</mat-icon>
-      <span>Web Mode</span>
-    </div>
+      <p *ngIf="!state.isWebMode">Select an environment and connect to your SailPoint tenant to get started.</p>
   </div>
   
   <!-- Web Authentication Component (shown only in web mode) -->
@@ -94,6 +90,41 @@
               </mat-select>
               <mat-hint>Choose how to authenticate with this environment</mat-hint>
             </mat-form-field>
+          </div>
+
+          <!-- CA Certificate Path -->
+          <div class="form-row">
+            <div class="ca-cert-input-group">
+              <mat-form-field appearance="outline" class="ca-cert-input">
+                <mat-label>Custom CA Certificate Path (Optional)</mat-label>
+                <input matInput [(ngModel)]="state.actualTenant.caCertPath" 
+                       name="caCertPath" placeholder="/path/to/cert.pem"
+                       (input)="onCaCertPathChange()">
+                <mat-hint>Path to CA certificate file</mat-hint>
+              </mat-form-field>
+              <button mat-stroked-button type="button" (click)="browseCaCertFile()" 
+                      class="browse-button" *ngIf="!state.isWebMode"
+                      matTooltip="Browse for certificate file">
+                <mat-icon>folder_open</mat-icon>
+                Browse
+              </button>
+            </div>
+          </div>
+          <div class="ca-cert-hint" *ngIf="state.actualTenant.caCertPath">
+            <mat-icon class="info-icon" color="primary">info</mat-icon>
+            <span>Using custom CA certificate allows for TLS connection even behind corporate proxy networks that inspect traffic</span>
+          </div>
+
+          <!-- TLS Bypass Option -->
+          <div class="form-row">
+            <mat-checkbox [(ngModel)]="state.actualTenant.bypassTLS" name="bypassTLS" color="warn"
+                          (change)="onTlsBypassChange()">
+              Bypass TLS Certificate Validation
+            </mat-checkbox>
+            <div class="tls-bypass-hint" *ngIf="state.actualTenant.bypassTLS">
+              <mat-icon class="warning-icon" color="warn">warning</mat-icon>
+              <span>This will disable SSL certificate validation for this environment. Only use for debugging or test purposes. DO NOT USE FOR PRODUCTION.</span>
+            </div>
           </div>
 
           <!-- PAT Fields -->

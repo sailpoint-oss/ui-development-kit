@@ -1,0 +1,1210 @@
+<!-- Back to Summary button when viewing an identity -->
+<div *ngIf="selected" class="back-nav">
+  <button mat-stroked-button (click)="backToSummary()" color="primary">
+    <mat-icon>arrow_back</mat-icon>&nbsp;Back to Summary
+  </button>
+  <button mat-raised-button (click)="startBulkTransfer()" [disabled]="loading" color="accent" style="margin-left: 16px;">
+    <mat-icon>swap_horiz</mat-icon>&nbsp;Bulk Transfer
+  </button>
+</div>
+
+<div class="content">
+
+
+  <mat-card *ngIf="error" class="error-message">
+    <mat-icon color="warn">error</mat-icon>
+    <span>{{ error }}</span>
+  </mat-card>
+
+  <div *ngIf="loading || loadingSummary" class="spinner-container">
+    <mat-spinner diameter="64"></mat-spinner>
+  </div>
+
+  <ng-container *ngIf="!loading && !selected">
+    <!-- Ownership Summary Table -->
+    <mat-card class="mat-elevation-z2 ownership-summary-card" *ngIf="!loadingSummary">
+      <mat-card-title>
+        <div class="title-section">
+          <div class="title-left">
+            <mat-icon>people</mat-icon>
+            Ownership Summary
+          </div>
+          <div class="header-buttons">
+            <button *ngIf="showTopOwners" mat-stroked-button (click)="loadNonActive()" [disabled]="loadingSummary">
+              <mat-icon>visibility_off</mat-icon>&nbsp;Load non-active identities
+            </button>
+            <button *ngIf="!showTopOwners" mat-stroked-button (click)="loadTopOwners()" [disabled]="loadingSummary">
+              <mat-icon>visibility</mat-icon>&nbsp;Back to top owners
+            </button>
+            <button mat-raised-button color="accent" (click)="showAnalytics()" [disabled]="loadingSummary">
+              <mat-icon>analytics</mat-icon>&nbsp;Analytics
+            </button>
+          </div>
+        </div>
+      </mat-card-title>
+      <mat-card-content>
+        <!-- Search Bar with Type-ahead -->
+        <mat-form-field appearance="outline" class="search-field">
+          <mat-label>Search identities</mat-label>
+          <input matInput [(ngModel)]="searchTerm" (input)="onSearchChange()"
+                 placeholder="Type to search identities..."
+                 [disabled]="loadingSummary">
+          <mat-icon matSuffix *ngIf="!isSearching">search</mat-icon>
+          <mat-spinner matSuffix diameter="20" *ngIf="isSearching"></mat-spinner>
+        </mat-form-field>
+
+        <!-- Loading Progress for Non-Active Identities -->
+        <div *ngIf="loadingSummary && !showTopOwners" class="loading-progress">
+          <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+          <div class="loading-text">
+            <mat-icon>hourglass_empty</mat-icon>
+            Loading non-active identities with ownership data...
+          </div>
+        </div>
+
+        <!-- Ownership Summary Table -->
+        <table mat-table [dataSource]="ownershipData" matSort
+               matSortActive="totalCount" matSortDirection="desc"
+               (matSortChange)="sortOwnershipData($event)"
+               class="mat-elevation-z4 ownership-table"
+               *ngIf="!loadingSummary">
+
+          <!-- Identity Name Column -->
+          <ng-container matColumnDef="displayName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Identity </th>
+            <td mat-cell *matCellDef="let row">{{ row.displayName }}</td>
+          </ng-container>
+
+          <!-- Job Title Column -->
+          <ng-container matColumnDef="jobTitle">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Job Title </th>
+            <td mat-cell *matCellDef="let row">{{ row.jobTitle || '—' }}</td>
+          </ng-container>
+
+          <!-- Department Column -->
+          <ng-container matColumnDef="department">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
+            <td mat-cell *matCellDef="let row">{{ row.department || '—' }}</td>
+          </ng-container>
+
+          <!-- Lifecycle State Column -->
+          <ng-container matColumnDef="lifecycleState">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Lifecycle State </th>
+            <td mat-cell *matCellDef="let row">{{ row.lifecycleState || '—' }}</td>
+          </ng-container>
+
+          <!-- Roles Count Column -->
+          <ng-container matColumnDef="rolesCount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Roles </th>
+            <td mat-cell *matCellDef="let row" class="count-cell">{{ row.rolesCount }}</td>
+          </ng-container>
+
+          <!-- Access Profiles Count Column -->
+          <ng-container matColumnDef="accessProfilesCount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Access Profiles </th>
+            <td mat-cell *matCellDef="let row" class="count-cell">{{ row.accessProfilesCount }}</td>
+          </ng-container>
+
+          <!-- Entitlements Count Column -->
+          <ng-container matColumnDef="entitlementsCount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Entitlements </th>
+            <td mat-cell *matCellDef="let row" class="count-cell">{{ row.entitlementsCount }}</td>
+          </ng-container>
+
+          <!-- Total Count Column -->
+          <ng-container matColumnDef="totalCount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>
+            <td mat-cell *matCellDef="let row" class="count-cell total-count">{{ row.totalCount }}</td>
+          </ng-container>
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let row" class="actions-cell">
+              <div class="action-buttons">
+                <button mat-stroked-button color="primary" (click)="exploreFromSummary(row)" class="action-btn">
+                  <mat-icon>account_tree</mat-icon>&nbsp;Explore
+                </button>
+                <button mat-stroked-button color="accent" (click)="transferOwnership(row)" class="action-btn">
+                  <mat-icon>swap_horiz</mat-icon>&nbsp;Transfer
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="ownershipColumns"></tr>
+          <tr mat-row *matRowDef="let r; columns: ownershipColumns;"></tr>
+        </table>
+
+        <!-- Status Text - moved to bottom -->
+        <div class="table-status-bottom" *ngIf="!loadingSummary">
+          <span *ngIf="showTopOwners && ownershipData.data.length > 0">
+            Showing top {{ ownershipData.data.length }} identities by ownership count
+          </span>
+          <span *ngIf="!showTopOwners && !searchTerm && ownershipData.data.length > 0">
+            Showing {{ ownershipData.data.length }} non-active identities with ownership
+          </span>
+          <span *ngIf="!showTopOwners && searchTerm && ownershipData.data.length > 0">
+            Found {{ ownershipData.data.length }} identities matching "{{ searchTerm }}"
+          </span>
+          <span *ngIf="!showTopOwners && searchTerm && ownershipData.data.length === 0">
+            No identities found matching "{{ searchTerm }}"
+          </span>
+          <span *ngIf="!showTopOwners && !searchTerm && ownershipData.data.length === 0">
+            No non-active identities with ownership found
+          </span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Analytics Dashboard -->
+    <mat-card class="mat-elevation-z2 analytics-dashboard" *ngIf="showAnalyticsDashboard">
+      <mat-card-title>
+        <div class="title-section">
+          <div class="title-left">
+            <mat-icon>analytics</mat-icon>
+            Identity & Access Analytics
+          </div>
+          <div class="header-buttons">
+            <button mat-stroked-button (click)="hideAnalytics()">
+              <mat-icon>close</mat-icon>&nbsp;Close
+            </button>
+          </div>
+        </div>
+      </mat-card-title>
+      <mat-card-content>
+        <div class="analytics-grid">
+          <!-- Most Requested Objects Row -->
+          <div class="analytics-section">
+            <h3><mat-icon>trending_up</mat-icon> Most Requested Objects</h3>
+            <div class="metrics-row">
+              <div class="metric-card">
+                <mat-icon class="metric-icon role-icon">security</mat-icon>
+                <div class="metric-content">
+                  <div class="metric-label">Most Requested Role</div>
+                  <div class="metric-value">{{ analyticsData.mostRequestedRole.name }}</div>
+                  <div class="metric-subtitle">{{ analyticsData.mostRequestedRole.requests }} requests this month</div>
+                </div>
+              </div>
+              <div class="metric-card">
+                <mat-icon class="metric-icon ap-icon">account_box</mat-icon>
+                <div class="metric-content">
+                  <div class="metric-label">Most Requested Access Profile</div>
+                  <div class="metric-value">{{ analyticsData.mostRequestedAccessProfile.name }}</div>
+                  <div class="metric-subtitle">{{ analyticsData.mostRequestedAccessProfile.requests }} requests this month</div>
+                </div>
+              </div>
+              <div class="metric-card">
+                <mat-icon class="metric-icon ent-icon">vpn_key</mat-icon>
+                <div class="metric-content">
+                  <div class="metric-label">Most Requested Entitlement</div>
+                  <div class="metric-value">{{ analyticsData.mostRequestedEntitlement.name }}</div>
+                  <div class="metric-subtitle">{{ analyticsData.mostRequestedEntitlement.requests }} requests this month</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ownership & Lifecycle Metrics -->
+          <div class="analytics-section">
+            <h3><mat-icon>people_alt</mat-icon> Ownership & Lifecycle Metrics</h3>
+            <div class="metrics-row">
+              <div class="metric-card">
+                <mat-icon class="metric-icon warning-icon">warning</mat-icon>
+                <div class="metric-content">
+                  <div class="metric-label">Inactive Identities with Ownership</div>
+                  <div class="metric-value">{{ analyticsData.inactiveOwnersCount }}</div>
+                  <div class="metric-subtitle">Identities requiring ownership transfer</div>
+                </div>
+              </div>
+              <div class="metric-card">
+                <mat-icon class="metric-icon time-icon">schedule</mat-icon>
+                <div class="metric-content">
+                  <div class="metric-label">Oldest Pending Access Request</div>
+                  <div class="metric-value">{{ analyticsData.oldestRequest.days }} days</div>
+                  <div class="metric-subtitle">{{ analyticsData.oldestRequest.requestType }}</div>
+                </div>
+              </div>
+              <div class="metric-card">
+                <mat-icon class="metric-icon speed-icon">speed</mat-icon>
+                <div class="metric-content">
+                  <div class="metric-label">Average Approval Time</div>
+                  <div class="metric-value">{{ analyticsData.averageApprovalTime }} days</div>
+                  <div class="metric-subtitle">Mean time to approval</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Request Volume Metrics -->
+          <div class="analytics-section">
+            <h3><mat-icon>bar_chart</mat-icon> Request Volume</h3>
+            <div class="metrics-row">
+              <div class="metric-card wide">
+                <mat-icon class="metric-icon volume-icon">assessment</mat-icon>
+                <div class="metric-content">
+                  <div class="metric-label">Access Requests This Month</div>
+                  <div class="metric-value">{{ analyticsData.monthlyRequests.total }}</div>
+                  <div class="metric-details">
+                    <div class="request-breakdown">
+                      <span>Approved: {{ analyticsData.monthlyRequests.approved }}</span>
+                      <span>Pending: {{ analyticsData.monthlyRequests.pending }}</span>
+                      <span>Rejected: {{ analyticsData.monthlyRequests.rejected }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="metric-card">
+                <mat-icon class="metric-icon trend-icon">trending_up</mat-icon>
+                <div class="metric-content">
+                  <div class="metric-label">Monthly Growth</div>
+                  <div class="metric-value">+{{ analyticsData.monthlyGrowth }}%</div>
+                  <div class="metric-subtitle">vs. last month</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <table mat-table [dataSource]="identities" class="mat-elevation-z8" *ngIf="identities.length">
+      <!-- Identity column -->
+      <ng-container matColumnDef="displayName">
+        <th mat-header-cell *matHeaderCellDef> Identity </th>
+        <td mat-cell *matCellDef="let row">{{ row.displayName }}</td>
+      </ng-container>
+
+      <!-- Lifecycle/state column -->
+      <ng-container matColumnDef="lifecycleState">
+        <th mat-header-cell *matHeaderCellDef> Lifecycle State </th>
+        <td mat-cell *matCellDef="let row">{{ row.lifecycleState || '—' }}</td>
+      </ng-container>
+
+      <!-- Actions column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-button color="primary" (click)="explore(row)">
+            <mat-icon>account_tree</mat-icon>&nbsp;Explore ownership
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let r; columns: displayedColumns;"></tr>
+    </table>
+  </ng-container>
+
+  <!-- Card Layout Area -->
+  <div *ngIf="selected">
+    <mat-card class="mat-elevation-z2 selected-card">
+      <mat-card-content>
+
+        <!-- Interactive Card Layout -->
+        <div class="card-layout-container" [class.with-transfer-panel]="showTransferPanel">
+
+          <!-- Identity Owner Card -->
+          <div class="card-column identity-column">
+            <div class="column-header">
+              <mat-icon>person</mat-icon>
+              <span>Identity Owner</span>
+            </div>
+            <div class="card-items-container">
+              <div class="card-item identity-card active" [attr.data-id]="selected.id">
+                <div class="card-content">
+                  <div class="card-title">{{ getSelectedDisplayName() }}</div>
+                  <div class="card-stats">
+                    <span class="stat-item">{{ roleCount }} Roles</span>
+                    <span class="stat-item">{{ apCount }} Access Profiles</span>
+                    <span class="stat-item">{{ entCount }} Entitlements</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Roles Column -->
+          <div class="card-column roles-column">
+            <div class="column-header">
+              <mat-icon>security</mat-icon>
+              <span>Roles ({{ roleCount }})</span>
+            </div>
+            <div class="card-items-container">
+              <div class="card-item role-card"
+                   *ngFor="let role of ownedRoles; trackBy: trackByRoleId"
+                   [class.selected]="selectedRole?.id === role.id"
+                   [class.highlighted]="highlightedRoleId === role.id"
+                   (click)="selectRole(role)"
+                   (mouseenter)="highlightRole(role.id)"
+                   (mouseleave)="clearHighlight()"
+                   [attr.data-id]="role.id">
+                <div class="card-content">
+                  <div class="card-title">{{ role.name }}</div>
+                  <div class="card-subtitle" *ngIf="role.description">{{ role.description }}</div>
+                  <div class="card-composition" *ngIf="getRoleCompositionSummary(role)">
+                    {{ getRoleCompositionSummary(role) }}
+                  </div>
+                </div>
+                <div class="card-indicator" [class.active]="selectedRole?.id === role.id"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Access Profiles Column -->
+          <div class="card-column access-profiles-column">
+            <div class="column-header">
+              <mat-icon>account_box</mat-icon>
+              <span>Access Profiles ({{ apCount }})</span>
+            </div>
+            <div class="card-items-container">
+              <div class="card-item ap-card"
+                   *ngFor="let ap of ownedAccessProfiles; trackBy: trackByApId"
+                   [class.selected]="selectedAccessProfile?.id === ap.id"
+                   [class.highlighted]="highlightedApId === ap.id"
+                   [class.from-role]="highlightedRoleComposition && isApInRole(ap.id)"
+                   (click)="selectAccessProfile(ap)"
+                   (mouseenter)="highlightAccessProfile(ap.id)"
+                   (mouseleave)="clearHighlight()"
+                   [attr.data-id]="ap.id">
+                <div class="card-content">
+                  <div class="card-title">{{ ap.name }}</div>
+                  <div class="card-subtitle" *ngIf="ap.description">{{ ap.description }}</div>
+                </div>
+                <div class="card-indicator" [class.active]="selectedAccessProfile?.id === ap.id"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Entitlements Column -->
+          <div class="card-column entitlements-column">
+            <div class="column-header">
+              <mat-icon>vpn_key</mat-icon>
+              <span>Entitlements ({{ entCount }})</span>
+            </div>
+            <div class="card-items-container">
+              <div class="card-item ent-card"
+                   *ngFor="let ent of ownedEntitlements; trackBy: trackByEntId"
+                   [class.selected]="selectedEntitlement?.id === ent.id"
+                   [class.highlighted]="highlightedEntId === ent.id"
+                   [class.from-role]="highlightedRoleComposition && isEntInRole(ent.id)"
+                   [class.from-ap]="highlightedApEntitlements && isEntInAp(ent.id)"
+                   (click)="selectEntitlement(ent)"
+                   (mouseenter)="highlightEntitlement(ent.id)"
+                   (mouseleave)="clearHighlight()"
+                   [attr.data-id]="ent.id">
+                <div class="card-content">
+                  <div class="card-title">{{ ent.name || ent.value }}</div>
+                  <div class="card-subtitle" *ngIf="ent.description">{{ ent.description }}</div>
+                </div>
+                <div class="card-indicator" [class.active]="selectedEntitlement?.id === ent.id"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- Side Panel Overlay for Details -->
+        <div class="side-panel-overlay"
+             [class.open]="showSidePanel || showTransferPanel"
+             (click)="showTransferPanel ? cancelTransfer() : closeSidePanel()">
+          <div class="side-panel"
+               (click)="$event.stopPropagation()"
+               [class.slide-in]="showSidePanel || showTransferPanel">
+
+            <!-- Panel Header -->
+            <div class="side-panel-header">
+              <div class="panel-title">
+                <mat-icon *ngIf="showTransferPanel">swap_horiz</mat-icon>
+                <mat-icon *ngIf="!showTransferPanel && selectedRole">security</mat-icon>
+                <mat-icon *ngIf="!showTransferPanel && selectedAccessProfile">account_box</mat-icon>
+                <mat-icon *ngIf="!showTransferPanel && selectedEntitlement">vpn_key</mat-icon>
+                <span>{{ showTransferPanel ? 'Transfer Objects' : getPanelTitle() }}</span>
+              </div>
+              <button mat-icon-button (click)="showTransferPanel ? cancelTransfer() : closeSidePanel()" class="close-btn">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+
+            <!-- Panel Content -->
+            <div class="side-panel-content">
+
+              <!-- Transfer Panel Content -->
+              <div *ngIf="showTransferPanel" class="transfer-panel-content">
+
+                <!-- Transfer Status Messages -->
+                <div *ngIf="transferSuccess" class="transfer-status success">
+                  <mat-icon>check_circle</mat-icon>
+                  <span>{{ transferSuccessMessage }}</span>
+                </div>
+
+                <div *ngIf="transferError" class="transfer-status error">
+                  <mat-icon>error</mat-icon>
+                  <span>{{ transferError }}</span>
+                </div>
+
+                <div *ngIf="transferInProgress" class="transfer-status progress">
+                  <mat-spinner diameter="20"></mat-spinner>
+                  <span>Transferring ownership...</span>
+                </div>
+
+                <!-- Selected Objects Summary -->
+                <div class="transfer-section">
+                  <h3>Selected Objects ({{ getSelectedCount() }})</h3>
+                  <div class="selected-objects-summary">
+                    <ng-container *ngIf="getAllOwnedObjectsByType().roles.length > 0">
+                      <div class="object-type-section">
+                        <div class="object-type-header">
+                          <mat-icon>security</mat-icon>
+                          <span>Roles ({{ getSelectedObjectsByType().roles.length }} of {{ getAllOwnedObjectsByType().roles.length }})</span>
+                        </div>
+                        <div class="object-list">
+                          <div *ngFor="let role of getAllOwnedObjectsByType().roles"
+                               class="object-item clickable"
+                               [class.selected]="isObjectSelected(role, 'role')"
+                               (click)="toggleObjectSelection(role, 'role')">
+                            <mat-icon class="selection-indicator">
+                              {{ isObjectSelected(role, 'role') ? 'check_box' : 'check_box_outline_blank' }}
+                            </mat-icon>
+                            <span class="object-name">{{ role.name }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="getAllOwnedObjectsByType().accessProfiles.length > 0">
+                      <div class="object-type-section">
+                        <div class="object-type-header">
+                          <mat-icon>account_box</mat-icon>
+                          <span>Access Profiles ({{ getSelectedObjectsByType().accessProfiles.length }} of {{ getAllOwnedObjectsByType().accessProfiles.length }})</span>
+                        </div>
+                        <div class="object-list">
+                          <div *ngFor="let ap of getAllOwnedObjectsByType().accessProfiles"
+                               class="object-item clickable"
+                               [class.selected]="isObjectSelected(ap, 'ap')"
+                               (click)="toggleObjectSelection(ap, 'ap')">
+                            <mat-icon class="selection-indicator">
+                              {{ isObjectSelected(ap, 'ap') ? 'check_box' : 'check_box_outline_blank' }}
+                            </mat-icon>
+                            <span class="object-name">{{ ap.name }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="getAllOwnedObjectsByType().entitlements.length > 0">
+                      <div class="object-type-section">
+                        <div class="object-type-header">
+                          <mat-icon>vpn_key</mat-icon>
+                          <span>Entitlements ({{ getSelectedObjectsByType().entitlements.length }} of {{ getAllOwnedObjectsByType().entitlements.length }})</span>
+                        </div>
+                        <div class="object-list">
+                          <div *ngFor="let ent of getAllOwnedObjectsByType().entitlements"
+                               class="object-item clickable"
+                               [class.selected]="isObjectSelected(ent, 'ent')"
+                               (click)="toggleObjectSelection(ent, 'ent')">
+                            <mat-icon class="selection-indicator">
+                              {{ isObjectSelected(ent, 'ent') ? 'check_box' : 'check_box_outline_blank' }}
+                            </mat-icon>
+                            <span class="object-name">{{ ent.name || ent.value }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+
+                <!-- Transfer Mode Selection (only show if more than 1 object) -->
+                <div class="transfer-section" *ngIf="getSelectedCount() > 1">
+                  <h3>Transfer Mode</h3>
+                  <mat-radio-group [(ngModel)]="transferMode" (change)="setTransferMode($event.value)">
+                    <mat-radio-button value="same" class="transfer-mode-option">
+                      <strong>Same Owner</strong>
+                      <div class="mode-description">Transfer all objects to the same new owner</div>
+                    </mat-radio-button>
+                    <mat-radio-button value="different" class="transfer-mode-option">
+                      <strong>Different Owners</strong>
+                      <div class="mode-description">Assign each object to a different owner</div>
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+
+                <!-- Same Owner Mode -->
+                <div *ngIf="transferMode === 'same'" class="transfer-section">
+                  <h3>New Owner</h3>
+                  <mat-form-field appearance="outline" class="owner-search-field">
+                    <mat-label>Search for new owner</mat-label>
+                    <input matInput
+                           [(ngModel)]="ownerSearchTerm"
+                           (input)="searchOwners()"
+                           placeholder="Type name or email..."
+                           [value]="singleNewOwner?.displayName || singleNewOwner?.name || ownerSearchTerm">
+                    <mat-icon matSuffix *ngIf="!searchingOwners">search</mat-icon>
+                    <mat-spinner matSuffix diameter="20" *ngIf="searchingOwners"></mat-spinner>
+                  </mat-form-field>
+
+                  <!-- Owner Search Results -->
+                  <div *ngIf="ownerSearchResults.length > 0" class="owner-search-results">
+                    <div *ngFor="let owner of ownerSearchResults"
+                         class="owner-result-item"
+                         (click)="selectSingleOwner(owner)">
+                      <div class="owner-name">{{ owner.displayName || owner.name }}</div>
+                      <div class="owner-details" *ngIf="owner.lifecycleState">{{ owner.lifecycleState }}</div>
+                    </div>
+                  </div>
+
+                  <!-- Selected Owner Display -->
+                  <div *ngIf="singleNewOwner" class="selected-owner">
+                    <mat-icon>person</mat-icon>
+                    <span>{{ singleNewOwner.displayName || singleNewOwner.name }}</span>
+                    <button mat-icon-button (click)="singleNewOwner = undefined; ownerSearchTerm = ''">
+                      <mat-icon>clear</mat-icon>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Different Owners Mode -->
+                <div *ngIf="transferMode === 'different'" class="transfer-section">
+                  <h3>Assign Owners</h3>
+                  <p class="mode-description">Use the assignment wizard to assign different owners to each selected object.</p>
+                  <button mat-raised-button color="accent" (click)="openOwnerAssignmentModal()" class="assignment-wizard-btn">
+                    <mat-icon>assignment_ind</mat-icon>
+                    Open Assignment Wizard ({{ getSelectedCount() }} objects)
+                  </button>
+                </div>
+
+                <!-- Access Request Handling (shown after transfer) -->
+                <div *ngIf="showAccessRequestHandling" class="transfer-section">
+                  <h3>Access Request Management</h3>
+                  <p class="section-description">The ownership transfer is complete. Please review pending access requests and approver settings:</p>
+
+                  <!-- Pending Access Requests Summary -->
+                  <div *ngIf="pendingAccessRequests.length > 0" class="access-requests-summary">
+                    <h4><mat-icon>pending_actions</mat-icon> Pending Access Requests ({{ pendingAccessRequests.length }})</h4>
+                    <p>Found {{ pendingAccessRequests.length }} pending access request(s) for the transferred objects.</p>
+                  </div>
+
+                  <!-- Approver Information -->
+                  <div *ngIf="currentApprovers.size > 0" class="approver-info">
+                    <h4><mat-icon>approval</mat-icon> Approver Status</h4>
+                    <div *ngFor="let approverEntry of currentApprovers | keyvalue" class="approver-item">
+                      <div class="object-info">
+                        <strong>{{ approverEntry.value.object.name }}</strong>
+                        <span class="object-type">({{ approverEntry.value.objectType }})</span>
+                      </div>
+
+                      <div *ngIf="approverEntry.value.isOwnerApprover" class="owner-approver">
+                        <mat-icon class="status-icon success">check_circle</mat-icon>
+                        <span>Previous owner was the approver - requests will be automatically reassigned to the new owner</span>
+                      </div>
+
+                      <div *ngIf="!approverEntry.value.isOwnerApprover && approverEntry.value.approvers.length > 0" class="other-approvers">
+                        <mat-icon class="status-icon warning">info</mat-icon>
+                        <span>Current approver(s):</span>
+                        <ul class="approver-list">
+                          <li *ngFor="let approver of approverEntry.value.approvers">
+                            {{ approver.name }} <span class="approver-type">({{ approver.type }})</span>
+                          </li>
+                        </ul>
+                        <div class="approver-choice">
+                          <mat-radio-group [(ngModel)]="maintainApprovers">
+                            <mat-radio-button [value]="true">Keep current approver(s)</mat-radio-button>
+                            <mat-radio-button [value]="false">Change approver to new owner</mat-radio-button>
+                          </mat-radio-group>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Access Request Actions -->
+                  <div class="access-request-actions">
+                    <button mat-raised-button color="primary" (click)="reassignAccessRequests()">
+                      <mat-icon>assignment_ind</mat-icon>
+                      Process Access Requests
+                    </button>
+                    <button mat-stroked-button (click)="skipAccessRequestHandling()">
+                      Skip
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Transfer Actions -->
+                <div *ngIf="!showAccessRequestHandling" class="transfer-actions">
+                  <button mat-raised-button
+                          color="primary"
+                          [disabled]="!isTransferReady()"
+                          (click)="executeTransfer()">
+                    <mat-icon>swap_horiz</mat-icon>
+                    Execute Transfer
+                  </button>
+                  <button mat-stroked-button (click)="cancelTransfer()">
+                    {{ transferSuccess ? 'Close' : 'Cancel' }}
+                  </button>
+                </div>
+
+              </div>
+
+              <!-- Role Details -->
+              <div *ngIf="!showTransferPanel && selectedRole" class="detail-section">
+
+                <div *ngIf="roleComposition && (roleComposition.accessProfiles?.length > 0 || roleComposition.entitlements?.length > 0)" class="detail-group">
+                  <h4>Role Composition</h4>
+
+                  <div *ngIf="roleComposition.accessProfiles?.length > 0" class="composition-section">
+                    <h5><mat-icon>account_box</mat-icon> Access Profiles ({{ roleComposition.accessProfiles.length }})</h5>
+                    <ul class="composition-list">
+                      <li *ngFor="let ap of getSortedAccessProfiles(roleComposition.accessProfiles)" class="composition-item">
+                        <div class="access-profile-header" (click)="toggleAccessProfileExpansion(ap.id)">
+                          <strong class="clickable-ap-name">{{ ap.name }}</strong>
+                          <mat-icon class="expand-icon" [class.expanded]="isAccessProfileExpanded(ap.id)">
+                            {{ isAccessProfileExpanded(ap.id) ? 'expand_less' : 'expand_more' }}
+                          </mat-icon>
+                        </div>
+                        <div *ngIf="ap.source?.name || ap.sourceName || ap.applicationName" class="ap-source-name">
+                          Source: {{ ap.source?.name || ap.sourceName || ap.applicationName || 'Unknown' }}
+                        </div>
+                        <span *ngIf="ap.description" class="item-description">{{ ap.description }}</span>
+
+                        <!-- Expandable entitlements section -->
+                        <div *ngIf="isAccessProfileExpanded(ap.id)" class="expanded-entitlements">
+                          <div class="entitlements-header">
+                            <mat-icon>vpn_key</mat-icon>
+                            <span>Entitlements ({{ getAccessProfileEntitlements(ap.id).length }})</span>
+                          </div>
+                          <ul class="entitlements-list" *ngIf="getAccessProfileEntitlements(ap.id).length > 0">
+                            <li *ngFor="let ent of getAccessProfileEntitlements(ap.id)" class="entitlement-item">
+                              <div class="entitlement-name">{{ ent.name || ent.value }}</div>
+                              <div class="entitlement-source" *ngIf="ent.source?.name || ent.sourceName">
+                                Source: {{ ent.source?.name || ent.sourceName }}
+                              </div>
+                              <div class="entitlement-description" *ngIf="ent.description">{{ ent.description }}</div>
+                            </li>
+                          </ul>
+                          <p *ngIf="getAccessProfileEntitlements(ap.id).length === 0" class="no-entitlements">
+                            No entitlements found
+                          </p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div *ngIf="roleComposition.entitlements?.length > 0" class="composition-section">
+                    <h5><mat-icon>vpn_key</mat-icon> Entitlements ({{ roleComposition.entitlements.length }})</h5>
+                    <ul class="composition-list">
+                      <li *ngFor="let ent of roleComposition.entitlements" class="composition-item">
+                        <strong>{{ ent.name }}</strong>
+                        <span *ngIf="ent.description" class="item-description">{{ ent.description }}</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="detail-group">
+                  <h4>Details</h4>
+                  <ul class="detail-list">
+                    <li *ngIf="selectedRole.description">Description: {{ selectedRole.description }}</li>
+                    <li>Requestable: {{ selectedRole.requestable ? 'True' : 'False' }}</li>
+                    <li>Access Requests: {{ selectedRole.accessRequestConfig ? 'Configured' : 'Not Configured' }}</li>
+                    <li>Role Type: {{ getRoleType(selectedRole) }}</li>
+                    <li class="membership-criteria">
+                      <strong>Membership Criteria:</strong>
+                      <div class="criteria-content">{{ getMembershipCriteria(selectedRole) }}</div>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Transfer Button for Role -->
+                <div class="detail-actions">
+                  <button mat-raised-button color="primary" (click)="transferSingleItem(selectedRole, 'role')">
+                    <mat-icon>swap_horiz</mat-icon>
+                    Transfer Ownership
+                  </button>
+                </div>
+              </div>
+
+              <!-- Access Profile Details -->
+              <div *ngIf="!showTransferPanel && selectedAccessProfile" class="detail-section">
+                <p *ngIf="selectedAccessProfile.description" class="description">{{ selectedAccessProfile.description }}</p>
+
+                <div class="detail-group">
+                  <h4>Access Profile Details</h4>
+                  <ul class="detail-list">
+                    <li>Source: {{ selectedAccessProfile.source?.name || 'Unknown' }}</li>
+                    <li>Type: {{ selectedAccessProfile.type || 'Standard' }}</li>
+                    <li *ngIf="selectedAccessProfile.requestable !== undefined">
+                      {{ selectedAccessProfile.requestable ? '✅ Requestable' : '❌ Not requestable' }}
+                    </li>
+                  </ul>
+                </div>
+
+                <div *ngIf="accessProfileEntitlements && accessProfileEntitlements.length > 0" class="detail-group">
+                  <h4>Entitlements ({{ accessProfileEntitlements.length }})</h4>
+                  <ul class="composition-list">
+                    <li *ngFor="let ent of accessProfileEntitlements" class="composition-item">
+                      <strong>{{ ent.name || ent.value }}</strong>
+                      <span *ngIf="ent.description" class="item-description">{{ ent.description }}</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Transfer Button for Access Profile -->
+                <div class="detail-actions">
+                  <button mat-raised-button color="primary" (click)="transferSingleItem(selectedAccessProfile, 'ap')">
+                    <mat-icon>swap_horiz</mat-icon>
+                    Transfer Ownership
+                  </button>
+                </div>
+              </div>
+
+              <!-- Entitlement Details -->
+              <div *ngIf="!showTransferPanel && selectedEntitlement" class="detail-section">
+                <p *ngIf="selectedEntitlement.description" class="description">{{ selectedEntitlement.description }}</p>
+
+                <div class="detail-group">
+                  <h4>Entitlement Details</h4>
+                  <ul class="detail-list">
+                    <li>Source: {{ selectedEntitlement.source?.name || selectedEntitlement.sourceName || selectedEntitlement.source || 'Unknown' }}</li>
+                    <li>Type: {{ selectedEntitlement.type || 'Permission' }}</li>
+                    <li *ngIf="selectedEntitlement.privileged !== undefined">
+                      {{ selectedEntitlement.privileged ? '⚠️ Privileged' : '✅ Standard' }}
+                    </li>
+                    <li *ngIf="selectedEntitlement.value">Value: {{ selectedEntitlement.value }}</li>
+                  </ul>
+                </div>
+
+                <!-- Transfer Button for Entitlement -->
+                <div class="detail-actions">
+                  <button mat-raised-button color="primary" (click)="transferSingleItem(selectedEntitlement, 'ent')">
+                    <mat-icon>swap_horiz</mat-icon>
+                    Transfer Ownership
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Drawer for Details (Option 2) -->
+        <div class="bottom-drawer-overlay"
+             [class.open]="showBottomDrawer">
+          <div class="bottom-drawer"
+               [class.slide-up]="showBottomDrawer">
+
+            <!-- Drawer Handle/Header -->
+            <div class="drawer-header">
+              <div class="drawer-handle"></div>
+              <button mat-icon-button (click)="closeBottomDrawer()" class="close-btn">
+                <mat-icon>close</mat-icon>
+              </button>
+              <div class="drawer-title">
+                <mat-icon *ngIf="selectedRole">security</mat-icon>
+                <mat-icon *ngIf="selectedAccessProfile">account_box</mat-icon>
+                <mat-icon *ngIf="selectedEntitlement">vpn_key</mat-icon>
+                <span>{{ getDrawerTitle() }}</span>
+              </div>
+            </div>
+
+            <!-- Drawer Content -->
+            <div class="drawer-content">
+
+              <!-- Role Details -->
+              <div *ngIf="selectedRole" class="detail-section">
+                <p *ngIf="selectedRole.description" class="description">{{ selectedRole.description }}</p>
+
+                <div class="detail-group">
+                  <h4>Configuration</h4>
+                  <ul class="detail-list">
+                    <li *ngFor="let info of getRoleConfigInfo()">{{ info }}</li>
+                  </ul>
+                </div>
+
+                <div *ngIf="roleComposition && (roleComposition.accessProfiles?.length > 0 || roleComposition.entitlements?.length > 0)" class="detail-group">
+                  <h4>Role Composition</h4>
+
+                  <div *ngIf="roleComposition.accessProfiles?.length > 0" class="composition-section">
+                    <h5><mat-icon>account_box</mat-icon> Access Profiles ({{ roleComposition.accessProfiles.length }})</h5>
+                    <ul class="composition-list">
+                      <li *ngFor="let ap of roleComposition.accessProfiles" class="composition-item">
+                        <strong>{{ ap.name }}</strong>
+                        <span *ngIf="ap.description" class="item-description">{{ ap.description }}</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div *ngIf="roleComposition.entitlements?.length > 0" class="composition-section">
+                    <h5><mat-icon>vpn_key</mat-icon> Entitlements ({{ roleComposition.entitlements.length }})</h5>
+                    <ul class="composition-list">
+                      <li *ngFor="let ent of roleComposition.entitlements" class="composition-item">
+                        <strong>{{ ent.name }}</strong>
+                        <span *ngIf="ent.description" class="item-description">{{ ent.description }}</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Access Profile Details -->
+              <div *ngIf="!showTransferPanel && selectedAccessProfile" class="detail-section">
+                <p *ngIf="selectedAccessProfile.description" class="description">{{ selectedAccessProfile.description }}</p>
+
+                <div class="detail-group">
+                  <h4>Access Profile Details</h4>
+                  <ul class="detail-list">
+                    <li>Source: {{ selectedAccessProfile.source?.name || 'Unknown' }}</li>
+                    <li>Type: {{ selectedAccessProfile.type || 'Standard' }}</li>
+                    <li *ngIf="selectedAccessProfile.requestable !== undefined">
+                      {{ selectedAccessProfile.requestable ? '✅ Requestable' : '❌ Not requestable' }}
+                    </li>
+                  </ul>
+                </div>
+
+                <div *ngIf="accessProfileEntitlements && accessProfileEntitlements.length > 0" class="detail-group">
+                  <h4>Entitlements ({{ accessProfileEntitlements.length }})</h4>
+                  <ul class="composition-list">
+                    <li *ngFor="let ent of accessProfileEntitlements" class="composition-item">
+                      <strong>{{ ent.name || ent.value }}</strong>
+                      <span *ngIf="ent.description" class="item-description">{{ ent.description }}</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Transfer Button for Access Profile -->
+                <div class="detail-actions">
+                  <button mat-raised-button color="primary" (click)="transferSingleItem(selectedAccessProfile, 'ap')">
+                    <mat-icon>swap_horiz</mat-icon>
+                    Transfer Ownership
+                  </button>
+                </div>
+              </div>
+
+              <!-- Entitlement Details -->
+              <div *ngIf="!showTransferPanel && selectedEntitlement" class="detail-section">
+                <p *ngIf="selectedEntitlement.description" class="description">{{ selectedEntitlement.description }}</p>
+
+                <div class="detail-group">
+                  <h4>Entitlement Details</h4>
+                  <ul class="detail-list">
+                    <li>Source: {{ selectedEntitlement.source?.name || selectedEntitlement.sourceName || selectedEntitlement.source || 'Unknown' }}</li>
+                    <li>Type: {{ selectedEntitlement.type || 'Permission' }}</li>
+                    <li *ngIf="selectedEntitlement.privileged !== undefined">
+                      {{ selectedEntitlement.privileged ? '⚠️ Privileged' : '✅ Standard' }}
+                    </li>
+                    <li *ngIf="selectedEntitlement.value">Value: {{ selectedEntitlement.value }}</li>
+                  </ul>
+                </div>
+
+                <!-- Transfer Button for Entitlement -->
+                <div class="detail-actions">
+                  <button mat-raised-button color="primary" (click)="transferSingleItem(selectedEntitlement, 'ent')">
+                    <mat-icon>swap_horiz</mat-icon>
+                    Transfer Ownership
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal Dialog for Details (Option 3) -->
+        <div class="modal-overlay"
+             [class.open]="showModal"
+             (click)="closeModal()">
+          <div class="modal-dialog"
+               (click)="$event.stopPropagation()"
+               [class.fade-in]="showModal">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <div class="modal-title">
+                <mat-icon *ngIf="selectedRole">security</mat-icon>
+                <mat-icon *ngIf="selectedAccessProfile">account_box</mat-icon>
+                <mat-icon *ngIf="selectedEntitlement">vpn_key</mat-icon>
+                <span>{{ getModalTitle() }}</span>
+              </div>
+              <button mat-icon-button (click)="closeModal()" class="close-btn">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="modal-body">
+
+              <!-- Role Details -->
+              <div *ngIf="selectedRole" class="detail-section">
+                <p *ngIf="selectedRole.description" class="description">{{ selectedRole.description }}</p>
+
+                <div class="detail-group">
+                  <h4>Configuration</h4>
+                  <ul class="detail-list">
+                    <li *ngFor="let info of getRoleConfigInfo()">{{ info }}</li>
+                  </ul>
+                </div>
+
+                <div *ngIf="roleComposition && (roleComposition.accessProfiles?.length > 0 || roleComposition.entitlements?.length > 0)" class="detail-group">
+                  <h4>Role Composition</h4>
+
+                  <div *ngIf="roleComposition.accessProfiles?.length > 0" class="composition-section">
+                    <h5><mat-icon>account_box</mat-icon> Access Profiles ({{ roleComposition.accessProfiles.length }})</h5>
+                    <ul class="composition-list">
+                      <li *ngFor="let ap of roleComposition.accessProfiles" class="composition-item">
+                        <strong>{{ ap.name }}</strong>
+                        <span *ngIf="ap.description" class="item-description">{{ ap.description }}</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div *ngIf="roleComposition.entitlements?.length > 0" class="composition-section">
+                    <h5><mat-icon>vpn_key</mat-icon> Entitlements ({{ roleComposition.entitlements.length }})</h5>
+                    <ul class="composition-list">
+                      <li *ngFor="let ent of roleComposition.entitlements" class="composition-item">
+                        <strong>{{ ent.name }}</strong>
+                        <span *ngIf="ent.description" class="item-description">{{ ent.description }}</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Access Profile Details -->
+              <div *ngIf="!showTransferPanel && selectedAccessProfile" class="detail-section">
+                <p *ngIf="selectedAccessProfile.description" class="description">{{ selectedAccessProfile.description }}</p>
+
+                <div class="detail-group">
+                  <h4>Access Profile Details</h4>
+                  <ul class="detail-list">
+                    <li>Source: {{ selectedAccessProfile.source?.name || 'Unknown' }}</li>
+                    <li>Type: {{ selectedAccessProfile.type || 'Standard' }}</li>
+                    <li *ngIf="selectedAccessProfile.requestable !== undefined">
+                      {{ selectedAccessProfile.requestable ? '✅ Requestable' : '❌ Not requestable' }}
+                    </li>
+                  </ul>
+                </div>
+
+                <div *ngIf="accessProfileEntitlements && accessProfileEntitlements.length > 0" class="detail-group">
+                  <h4>Entitlements ({{ accessProfileEntitlements.length }})</h4>
+                  <ul class="composition-list">
+                    <li *ngFor="let ent of accessProfileEntitlements" class="composition-item">
+                      <strong>{{ ent.name || ent.value }}</strong>
+                      <span *ngIf="ent.description" class="item-description">{{ ent.description }}</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Transfer Button for Access Profile -->
+                <div class="detail-actions">
+                  <button mat-raised-button color="primary" (click)="transferSingleItem(selectedAccessProfile, 'ap')">
+                    <mat-icon>swap_horiz</mat-icon>
+                    Transfer Ownership
+                  </button>
+                </div>
+              </div>
+
+              <!-- Entitlement Details -->
+              <div *ngIf="!showTransferPanel && selectedEntitlement" class="detail-section">
+                <p *ngIf="selectedEntitlement.description" class="description">{{ selectedEntitlement.description }}</p>
+
+                <div class="detail-group">
+                  <h4>Entitlement Details</h4>
+                  <ul class="detail-list">
+                    <li>Source: {{ selectedEntitlement.source?.name || selectedEntitlement.sourceName || selectedEntitlement.source || 'Unknown' }}</li>
+                    <li>Type: {{ selectedEntitlement.type || 'Permission' }}</li>
+                    <li *ngIf="selectedEntitlement.privileged !== undefined">
+                      {{ selectedEntitlement.privileged ? '⚠️ Privileged' : '✅ Standard' }}
+                    </li>
+                    <li *ngIf="selectedEntitlement.value">Value: {{ selectedEntitlement.value }}</li>
+                  </ul>
+                </div>
+
+                <!-- Transfer Button for Entitlement -->
+                <div class="detail-actions">
+                  <button mat-raised-button color="primary" (click)="transferSingleItem(selectedEntitlement, 'ent')">
+                    <mat-icon>swap_horiz</mat-icon>
+                    Transfer Ownership
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+              <button mat-stroked-button (click)="closeModal()">Close</button>
+            </div>
+
+          </div>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<!-- Owner Assignment Modal -->
+<div class="modal-backdrop" *ngIf="showOwnerAssignmentModal" (click)="closeOwnerAssignmentModal()">
+  <div class="assignment-modal" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2><mat-icon>assignment_ind</mat-icon> Assign Different Owners</h2>
+      <button mat-icon-button (click)="closeOwnerAssignmentModal()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <div class="modal-content">
+      <p class="instruction-text">
+        Assign different owners to each selected object. You can search for owners and assign them individually.
+      </p>
+
+      <!-- Owner Search -->
+      <div class="owner-search-section">
+        <mat-form-field appearance="outline" class="search-field">
+          <mat-label>Search for owners</mat-label>
+          <input matInput
+                 [(ngModel)]="modalOwnerSearchTerm"
+                 (input)="searchModalOwners()"
+                 placeholder="Type name or email...">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+
+        <!-- Search Results -->
+        <div *ngIf="modalOwnerSearchResults.length > 0" class="search-results">
+          <div class="results-header">
+            <span>Available Owners ({{ modalOwnerSearchResults.length }})</span>
+          </div>
+          <div class="owner-chips">
+            <mat-chip-listbox>
+              <mat-chip-option *ngFor="let owner of modalOwnerSearchResults"
+                               [value]="owner"
+                               (click)="selectOwnerForAssignment(owner)">
+                <mat-icon>person</mat-icon>
+                {{ owner.displayName || owner.name }}
+              </mat-chip-option>
+            </mat-chip-listbox>
+          </div>
+        </div>
+      </div>
+
+      <!-- Object Assignment List -->
+      <div class="assignment-list">
+        <div class="assignment-header">
+          <span>Objects to Assign ({{ getSelectedCount() }})</span>
+          <button mat-button color="primary" (click)="assignSelectedOwnerToAll()"
+                  [disabled]="!selectedOwnerForAssignment">
+            Assign Selected Owner to All
+          </button>
+        </div>
+
+
+        <!-- Roles -->
+        <div *ngIf="getSelectedObjectsForModal().roles.length > 0" class="object-group">
+          <h4><mat-icon>security</mat-icon> Roles ({{ getSelectedObjectsForModal().roles.length }})</h4>
+          <div class="assignment-items">
+            <div *ngFor="let role of getSelectedObjectsForModal().roles" class="assignment-item">
+              <div class="object-info">
+                <span class="object-name">{{ role.name }}</span>
+                <span class="object-type">Role</span>
+              </div>
+              <div class="owner-assignment">
+                <mat-chip *ngIf="getAssignedOwner('role:' + role.id)">
+                  {{ getAssignedOwner('role:' + role.id)?.displayName || getAssignedOwner('role:' + role.id)?.name }}
+                  <mat-icon matChipRemove (click)="removeOwnerAssignment('role:' + role.id)">cancel</mat-icon>
+                </mat-chip>
+                <button *ngIf="!getAssignedOwner('role:' + role.id)"
+                        mat-stroked-button
+                        (click)="assignOwnerToObject('role:' + role.id)"
+                        [disabled]="!selectedOwnerForAssignment">
+                  Assign Owner
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Access Profiles -->
+        <div *ngIf="getSelectedObjectsForModal().accessProfiles.length > 0" class="object-group">
+          <h4><mat-icon>account_box</mat-icon> Access Profiles ({{ getSelectedObjectsForModal().accessProfiles.length }})</h4>
+          <div class="assignment-items">
+            <div *ngFor="let ap of getSelectedObjectsForModal().accessProfiles" class="assignment-item">
+              <div class="object-info">
+                <span class="object-name">{{ ap.name }}</span>
+                <span class="object-type">Access Profile</span>
+              </div>
+              <div class="owner-assignment">
+                <mat-chip *ngIf="getAssignedOwner('ap:' + ap.id)">
+                  {{ getAssignedOwner('ap:' + ap.id)?.displayName || getAssignedOwner('ap:' + ap.id)?.name }}
+                  <mat-icon matChipRemove (click)="removeOwnerAssignment('ap:' + ap.id)">cancel</mat-icon>
+                </mat-chip>
+                <button *ngIf="!getAssignedOwner('ap:' + ap.id)"
+                        mat-stroked-button
+                        (click)="assignOwnerToObject('ap:' + ap.id)"
+                        [disabled]="!selectedOwnerForAssignment">
+                  Assign Owner
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Entitlements -->
+        <div *ngIf="getSelectedObjectsForModal().entitlements.length > 0" class="object-group">
+          <h4><mat-icon>vpn_key</mat-icon> Entitlements ({{ getSelectedObjectsForModal().entitlements.length }})</h4>
+          <div class="assignment-items">
+            <div *ngFor="let ent of getSelectedObjectsForModal().entitlements" class="assignment-item">
+              <div class="object-info">
+                <span class="object-name">{{ ent.name || ent.value }}</span>
+                <span class="object-type">Entitlement</span>
+              </div>
+              <div class="owner-assignment">
+                <mat-chip *ngIf="getAssignedOwner('ent:' + ent.id)">
+                  {{ getAssignedOwner('ent:' + ent.id)?.displayName || getAssignedOwner('ent:' + ent.id)?.name }}
+                  <mat-icon matChipRemove (click)="removeOwnerAssignment('ent:' + ent.id)">cancel</mat-icon>
+                </mat-chip>
+                <button *ngIf="!getAssignedOwner('ent:' + ent.id)"
+                        mat-stroked-button
+                        (click)="assignOwnerToObject('ent:' + ent.id)"
+                        [disabled]="!selectedOwnerForAssignment">
+                  Assign Owner
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination Controls - Moved to bottom above buttons -->
+    <div *ngIf="getSelectedObjectsForModal().hasMore" class="pagination-controls">
+      <div class="pagination-info">
+        <mat-icon>info</mat-icon>
+        <span>Showing page {{ getSelectedObjectsForModal().currentPage + 1 }} of {{ getSelectedObjectsForModal().totalPages }}
+              ({{ getSelectedObjectsForModal().totalCount }} total objects)</span>
+      </div>
+      <div class="pagination-buttons">
+        <button mat-icon-button
+                [disabled]="getSelectedObjectsForModal().currentPage === 0"
+                (click)="previousTransferPage()"
+                matTooltip="Previous page">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <span class="page-indicator">
+          Page {{ getSelectedObjectsForModal().currentPage + 1 }} of {{ getSelectedObjectsForModal().totalPages }}
+        </span>
+        <button mat-icon-button
+                [disabled]="getSelectedObjectsForModal().currentPage >= getSelectedObjectsForModal().totalPages - 1"
+                (click)="nextTransferPage()"
+                matTooltip="Next page">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button mat-button (click)="closeOwnerAssignmentModal()">Cancel</button>
+      <button mat-raised-button color="primary"
+              (click)="saveOwnerAssignments()"
+              [disabled]="!allObjectsAssigned()">
+        Save Assignments
+      </button>
+    </div>
+  </div>
+</div>

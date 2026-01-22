@@ -1,4 +1,6 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { provideRouter, Routes } from '@angular/router';
@@ -28,6 +30,8 @@ describe('AppComponent', () => {
     void TestBed.configureTestingModule({
       declarations: [],
       providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
         provideRouter(routes),
         { provide: ConnectionService, useValue: mockConnectionService }, // Mock ConnectionService
       ],

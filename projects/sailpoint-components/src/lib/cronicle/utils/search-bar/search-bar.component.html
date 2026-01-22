@@ -1,0 +1,10 @@
+<mat-form-field appearance="fill" class="custom-fill-field">
+  <mat-label>{{ placeholder }}</mat-label>
+  <input
+    matInput
+    type="text"
+    [(ngModel)]="searchQuery"
+    (ngModelChange)="onSearch($event)"
+    placeholder="Search..."
+  />
+</mat-form-field>

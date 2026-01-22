@@ -4,21 +4,17 @@
       <mat-card-title>
         <div class="card-title">
           <mat-icon>cloud</mat-icon>
-          <span>Web Authentication</span>
+          <span>Authentication</span>
         </div>
       </mat-card-title>
     </mat-card-header>
     
     <mat-card-content>
-      <div class="web-mode-indicator">
-        <mat-icon color="primary">cloud</mat-icon>
-        <span>Web Mode</span>
-      </div>
       
       <!-- Not Authenticated State -->
       <div *ngIf="!isAuthenticated" class="auth-content">
         <p class="info-text">
-          Authentication is required to use the SailPoint UI Development Kit in web mode.
+          Authentication is required to use the SailPoint UI Development Kit.
         </p>
         
         <div *ngIf="errorMessage" class="error-message">

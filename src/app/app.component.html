@@ -137,6 +137,19 @@
         <mat-icon class="card-icon">settings</mat-icon>
         Component Selector
       </a>
+      <!-- Certification Management -->
+      <a 
+        *ngIf="isComponentEnabled('certification-management')" 
+        mat-list-item class="sidebar-link" 
+        routerLink="/certification-management" 
+        routerLinkActive="active-link"
+        [class.disabled]="!isConnected"
+        (click)="onNavItemClick($event)"
+      >
+        <mat-icon class="card-icon">rate_review</mat-icon>
+        Certification Management
+      </a>
+      <!-- Accounts -->
       <a *ngIf="isComponentEnabled('accounts')" mat-list-item class="sidebar-link" routerLink="/accounts" routerLinkActive="active-link"
         [class.disabled]="!isConnected" (click)="onNavItemClick($event)">
         <mat-icon class="card-icon">dashboard</mat-icon>
@@ -147,8 +160,16 @@
         <mat-icon class="card-icon">dashboard</mat-icon>
         Auth Viewer
       </a>
-
-      
+      <a *ngIf="isComponentEnabled('cronicle')" mat-list-item class="sidebar-link" routerLink="/cronicle" routerLinkActive="active-link"
+        [class.disabled]="!isConnected" (click)="onNavItemClick($event)">
+        <mat-icon class="card-icon">dashboard</mat-icon>
+        Cronicle
+      </a>
+      <a *ngIf="isComponentEnabled('owner-graph')" mat-list-item class="sidebar-link" routerLink="/owner-graph" routerLinkActive="active-link"
+      [class.disabled]="!isConnected" (click)="onNavItemClick($event)">
+      <mat-icon class="card-icon">dashboard</mat-icon>
+      Owner Graph
+      </a>
     </mat-nav-list>
   </mat-sidenav>
 

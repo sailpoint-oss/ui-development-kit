@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  ui-dev-kit:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sailpoint-ui-dev-kit
+    ports:
+      - "3000:3000"
+    environment:
+      # Server Configuration
+      NODE_ENV: production
+      PORT: 3000
+      
+      # Session & JWT
+      JWT_SECRET: ${JWT_SECRET:-your-jwt-secret-change-in-production}
+      SESSION_SECRET: ${SESSION_SECRET:-your-session-secret-change-in-production}
+      
+      # SailPoint OAuth Configuration
+      TENANT_URL: ${TENANT_URL}
+      CLIENT_ID: ${CLIENT_ID}
+      CLIENT_SECRET: ${CLIENT_SECRET}
+      REDIRECT_URI: ${REDIRECT_URI:-http://localhost:3000/oauth/callback}
+      OAUTH_SCOPES: ${OAUTH_SCOPES:-sp:scopes:all}
+      
+      # Optional: Website URL for CORS
+      WEBSITE_URL: ${WEBSITE_URL:-http://localhost:3000}
+    volumes:
+      # Persist uploads directory
+      - uploads-data:/app/uploads
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/api/config', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  uploads-data:
+    driver: local
+

@@ -1,0 +1,278 @@
+# SAM template for SailPoint UI Development Kit
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  sailpoint-ui-development-kit - Angular app with Node.js serverless backend
+
+Transform:
+- AWS::Serverless-2016-10-31
+
+Parameters:
+  Environment:
+    Type: String
+    Default: dev
+    AllowedValues:
+      - dev
+      - stage
+      - prod
+    Description: Environment for the deployment
+  JWTSecret:
+    Type: String
+    Description: Secret key for JWT token signing
+    NoEcho: true
+  TenantUrl:
+    Type: String
+    Description: SailPoint tenant URL
+  ClientId:
+    Type: String
+    Description: OAuth client ID
+  ClientSecret:
+    Type: String
+    Description: OAuth client secret
+    NoEcho: true
+  RedirectUri:
+    Type: String
+    Description: OAuth redirect URI
+    Default: http://localhost:4200/oauth/callback
+  OAuthScopes:
+    Type: String
+    Description: OAuth scopes to request
+    Default: sp:scopes:all
+  WebsiteUrl:
+    Type: String
+    Description: CloudFront URL for the Angular app
+    Default: http://localhost:4200
+
+Resources:
+  # API Gateway for the backend services
+  UiDevKitApiGateway:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      StageName: !Ref Environment
+      CorsConfiguration:
+        AllowMethods: 
+          - "OPTIONS"
+          - "GET"
+          - "POST"
+          - "PUT"
+          - "PATCH" 
+          - "DELETE"
+        AllowHeaders:
+          - "Content-Type"
+          - "Authorization"
+          - "x-csrf-token"
+          - "x-session-id"
+        AllowOrigins:
+          - "https://www.example.com"
+        AllowCredentials: false
+      DefaultRouteSettings:
+        DetailedMetricsEnabled: true
+        ThrottlingBurstLimit: 100
+        ThrottlingRateLimit: 50
+
+  # Lambda function for the web API backend
+  UiDevKitBackendFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: server/
+      Handler: lambda-handler.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Timeout: 30
+      Description: Backend API for SailPoint UI Development Kit
+      Policies:
+        - Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Action:
+                - "dynamodb:GetItem"
+                - "dynamodb:PutItem"
+                - "dynamodb:DeleteItem"
+              Resource: !GetAtt SessionsTable.Arn
+      Environment:
+        Variables:
+          NODE_ENV: !Ref Environment
+          DYNAMO_TABLE_NAME: !Ref SessionsTable
+          JWT_SECRET: !Ref JWTSecret
+          SESSION_SECRET: !Ref JWTSecret
+          TENANT_URL: !Ref TenantUrl
+          CLIENT_ID: !Ref ClientId
+          CLIENT_SECRET: !Ref ClientSecret
+          REDIRECT_URI: !Ref RedirectUri
+          OAUTH_SCOPES: !Ref OAuthScopes
+          WEBSITE_URL: !Ref WebsiteUrl
+      Events:
+        # Catch-all API routes
+        ApiProxy:
+          Type: HttpApi
+          Properties:
+            Path: /api/{proxy+}
+            Method: ANY
+            ApiId: !Ref UiDevKitApiGateway
+        ApiRoot:
+          Type: HttpApi
+          Properties:
+            Path: /api
+            Method: ANY
+            ApiId: !Ref UiDevKitApiGateway
+        # OAuth callback route
+        OAuthCallback:
+          Type: HttpApi
+          Properties:
+            Path: /oauth/callback
+            Method: GET
+            ApiId: !Ref UiDevKitApiGateway
+
+  # DynamoDB table for session storage in Lambda
+  SessionsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub "${AWS::StackName}-sessions"
+      AttributeDefinitions:
+        - AttributeName: pk
+          AttributeType: S
+        - AttributeName: sk
+          AttributeType: S
+      KeySchema:
+        - AttributeName: pk
+          KeyType: HASH
+        - AttributeName: sk
+          KeyType: RANGE
+      BillingMode: PAY_PER_REQUEST
+      TimeToLiveSpecification:
+        AttributeName: ttl
+        Enabled: true
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+
+  UiDevKitWebSiteBucket:
+      Type: "AWS::S3::Bucket"
+      Properties:
+        BucketEncryption:
+          ServerSideEncryptionConfiguration:
+            - BucketKeyEnabled: true
+        WebsiteConfiguration:
+          IndexDocument: index.html
+          ErrorDocument: index.html
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: false
+          BlockPublicPolicy: false
+          IgnorePublicAcls: false
+          RestrictPublicBuckets: false
+
+  # S3 Bucket Policy for CloudFront access
+  UiDevKitWebSiteBucketPolicy:
+    Type: "AWS::S3::BucketPolicy"
+    Properties:
+      Bucket: !Ref UiDevKitWebSiteBucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Id: "PolicyForCloudFrontPrivateContent"
+        Statement:
+        - Sid: "AllowCloudFrontServicePrincipal"
+          Effect: "Allow"
+          Principal:
+            Service: "cloudfront.amazonaws.com"
+          Action: "s3:GetObject"
+          Resource: !Join [ "", [ "arn:aws:s3:::", !Ref UiDevKitWebSiteBucket, "/*" ] ]
+          Condition:
+            StringEquals:
+              "AWS:SourceArn": !Join [ "", [ "arn:aws:cloudfront::", !Ref "AWS::AccountId", ":distribution/", !Ref UiDevKitCloudFrontDistribution ] ]
+        - Sid: "PublicReadGetObject"
+          Effect: "Allow"
+          Principal: "*"
+          Action:
+            - "s3:GetObject"
+          Resource: !Join [ "", [ "arn:aws:s3:::", !Ref UiDevKitWebSiteBucket, "/*" ] ]
+
+  # Origin Access Control for CloudFront
+  CloudFrontOriginAccessControl:
+    Type: "AWS::CloudFront::OriginAccessControl"
+    Properties:
+      OriginAccessControlConfig:
+        Name: !Sub "${AWS::StackName}-OAC"
+        OriginAccessControlOriginType: "s3"
+        SigningBehavior: "always"
+        SigningProtocol: "sigv4"
+
+  # CloudFront Distribution for the web app
+  UiDevKitCloudFrontDistribution:
+    Type: "AWS::CloudFront::Distribution"
+    Properties:
+      DistributionConfig:
+        Origins:
+        - DomainName: !Join ["", [!Ref UiDevKitWebSiteBucket, ".s3-website-", !Ref "AWS::Region", ".amazonaws.com"]]
+          Id: "UiDevKitWebS3Origin"
+          CustomOriginConfig:
+            OriginProtocolPolicy: "http-only"
+        Enabled: true
+        DefaultRootObject: "index.html"
+        HttpVersion: "http2"
+        DefaultCacheBehavior:
+          AllowedMethods:
+          - "DELETE"
+          - "GET"
+          - "HEAD"
+          - "OPTIONS"
+          - "PATCH"
+          - "POST"
+          - "PUT"
+          CachedMethods:
+          - "GET"
+          - "HEAD"
+          TargetOriginId: "UiDevKitWebS3Origin"
+          ForwardedValues:
+            QueryString: false
+            Cookies:
+              Forward: "none"
+          ViewerProtocolPolicy: "allow-all"
+          MinTTL: 0
+          DefaultTTL: 3600
+          MaxTTL: 86400
+        PriceClass: "PriceClass_200"
+        Restrictions:
+          GeoRestriction:
+            RestrictionType: "whitelist"
+            Locations:
+            - "US"
+            - "CA"
+            - "GB"
+            - "DE"
+        ViewerCertificate:
+          CloudFrontDefaultCertificate: true
+  CloudFrontOriginAccessControl:
+    Type: "AWS::CloudFront::OriginAccessControl"
+    Properties:
+      OriginAccessControlConfig:
+        Name: !Sub "${AWS::StackName}-OAC"
+        OriginAccessControlOriginType: "s3"
+        SigningBehavior: "always"
+        SigningProtocol: "sigv4"
+
+Outputs:
+  WebsiteURL:
+    Description: "CloudFront Distribution URL for the UI Development Kit"
+    Value: !Sub "https://${UiDevKitCloudFrontDistribution.DomainName}"
+    
+  ApiGatewayURL:
+    Description: "API Gateway endpoint URL"
+    Value: !Sub "https://${UiDevKitApiGateway}.execute-api.${AWS::Region}.amazonaws.com/${Environment}/api"
+    
+  S3BucketName:
+    Description: "S3 Bucket for hosting web frontend"
+    Value: !Ref UiDevKitWebSiteBucket
+    
+  CloudFrontDistributionId:
+    Description: "CloudFront Distribution ID"
+    Value: !Ref UiDevKitCloudFrontDistribution
+    
+  ApiGatewayId:
+    Description: "API Gateway ID"
+    Value: !Ref UiDevKitApiGateway
+
+  DynamoTableName:
+    Description: "DynamoDB table name for session storage"
+    Value: !Ref SessionsTable
+    Export:
+      Name: !Sub "${AWS::StackName}-SessionsTable"

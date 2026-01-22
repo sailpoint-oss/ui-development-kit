@@ -2,3 +2,4 @@ app/sailpoint-sdk/ipc-handlers.ts
 app/sailpoint-sdk/sailpoint-sdk.ts
 app/sailpoint-sdk/sdk-preload.ts
 projects/sailpoint-components/src/lib/sailpoint-sdk.service.ts
+server/sailpoint-sdk-web.ts

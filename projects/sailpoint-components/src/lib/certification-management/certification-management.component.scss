@@ -1,0 +1,782 @@
+.certification-management-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.toolbar-title {
+  margin-left: 16px;
+}
+
+.table-controls-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 8px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.content {
+  padding: 16px 0 0 0;
+  flex: 1;
+}
+
+.content:first-of-type {
+  margin-bottom: 16px;
+}
+
+mat-card {
+  width: 100%;
+  margin: 0;
+  border-radius: 12px;
+}
+
+mat-card-content {
+  padding: 24px;
+}
+
+mat-card-actions {
+  display: flex;
+  gap: 8px;
+  padding: 16px;
+}
+
+mat-card-actions button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.certification-table {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.certification-table th {
+  font-weight: 600;
+  background-color: #f5f5f5;
+}
+
+.certification-table td {
+  padding: 12px 16px;
+}
+
+.status-completed {
+  color: #4caf50;
+  font-weight: 500;
+}
+
+.status-pending {
+  color: #ff9800;
+  font-weight: 500;
+}
+
+.no-data-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: #666;
+}
+
+.no-data-message mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.no-data-message p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.chat-fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000; /* stay above content */
+}
+
+/* Floating Action Button styles */
+.floating-action-button {
+  position: fixed !important;
+  bottom: 24px !important;
+  right: 24px !important;
+  z-index: 1000 !important;
+}
+
+/* Breadcrumb styles */
+nz-breadcrumb {
+  display: flex !important;
+  align-items: center !important;
+  margin-bottom: 8px !important;
+}
+
+nz-breadcrumb a {
+  color: #1890ff !important;
+  text-decoration: none !important;
+  transition: color 0.3s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  line-height: 1 !important;
+  vertical-align: middle !important;
+}
+
+nz-breadcrumb a:hover {
+  color: #40a9ff !important;
+  text-decoration: underline !important;
+}
+
+nz-breadcrumb a.active {
+  color: #096dd9 !important;
+  font-weight: 600 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  line-height: 1 !important;
+}
+
+/* Detail view styles */
+.certification-detail {
+  padding: 20px 0;
+}
+
+.certification-detail p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.detail-actions {
+  margin-top: 30px;
+  display: flex;
+  gap: 10px;
+}
+
+.detail-actions button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+:host {
+  /* Dark mode overrides */
+  
+  :host-context(.dark-theme) .certification-table th {
+    background-color: #2c2c2c;
+    color: #ffffff;
+  }
+  
+  :host-context(.dark-theme) .certification-table td {
+    color: #ffffff;
+    border-color: #404040;
+  }
+  
+  :host-context(.dark-theme) .no-data-message {
+    color: #cccccc;
+  }
+  
+  :host-context(.dark-theme) .no-data-message mat-icon {
+    color: #cccccc;
+  }
+  
+  :host-context(.dark-theme) .certification-detail p {
+    color: #ffffff;
+  }
+  
+  :host-context(.dark-theme) nz-breadcrumb a {
+    color: #54c0e8 !important;
+  }
+  
+  :host-context(.dark-theme) nz-breadcrumb a:hover {
+    color: #7dd3f0 !important;
+  }
+  
+  :host-context(.dark-theme) nz-breadcrumb a.active {
+    color: #54c0e8 !important;
+  }
+  
+  /* ng-zorro table dark theme overrides */
+  :host-context(.dark-theme) .ant-table-thead > tr > th {
+    background-color: #2c2c2c !important;
+    color: #ffffff !important;
+    border-color: #404040 !important;
+  }
+  
+  :host-context(.dark-theme) .ant-table-tbody > tr > td {
+    background-color: #1e1e1e !important;
+    color: #ffffff !important;
+    border-color: #404040 !important;
+  }
+  
+  :host-context(.dark-theme) .ant-table-tbody > tr:hover > td {
+    background-color: #2c2c2c !important;
+  }
+  
+  :host-context(.dark-theme) .ant-table {
+    background-color: #1e1e1e !important;
+  }
+  
+  :host-context(.dark-theme) .ant-pagination {
+    color: #ffffff !important;
+  }
+  
+  :host-context(.dark-theme) .ant-pagination .ant-pagination-item {
+    background-color: #2c2c2c !important;
+    border-color: #404040 !important;
+  }
+  
+  :host-context(.dark-theme) .ant-pagination .ant-pagination-item a {
+    color: #ffffff !important;
+  }
+  
+  :host-context(.dark-theme) .ant-pagination .ant-pagination-item-active {
+    background-color: #54c0e8 !important;
+    border-color: #54c0e8 !important;
+  }
+  
+  :host-context(.dark-theme) .ant-pagination .ant-pagination-item-active a {
+    color: #ffffff !important;
+  }
+  
+  /* Dark theme mat-card styling */
+  :host-context(.dark-theme) mat-card {
+    background-color: #1e1e1e !important;
+    border-radius: 12px !important;
+    border: 1px solid #404040 !important;
+  }
+
+}
+
+.search-box {
+  padding: 8px;
+}
+
+.search-box input {
+  width: 188px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.search-box button {
+  width: 90px;
+}
+
+.search-button {
+  margin-right: 8px;
+}
+
+// Column visibility controls
+.column-controls {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+// Column dropdown now uses ant-table-filter-dropdown class for consistent styling
+
+.column-dropdown-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.column-list {
+  padding: 4px 0;
+}
+
+// Reduce divider spacing
+.column-dropdown nz-divider {
+  margin: 4px 0 !important;
+}
+
+.column-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 14px;
+  margin: 0 !important;
+  color: inherit;
+  
+  &:hover {
+    background-color: rgba(128, 128, 128, 0.2); // translucent gray works on both
+  }
+  
+  // Ensure consistent checkbox alignment
+  nz-checkbox {
+    margin-right: 8px !important;
+    margin-left: 0 !important;
+  }
+  
+  // Override any default label margins
+  &::before {
+    display: none !important;
+  }
+}
+
+/* Works for all themes */
+:host {
+  /* Easiest: make the pagination list flex and use gap */
+  ::ng-deep nz-pagination.ant-pagination > ul {
+    display: inline-flex !important; /* keep it inline with table footer */
+    gap: 2px !important;             /* <-- your desired spacing */
+    padding: 0;                       /* ensure no extra left padding */
+  }
+
+  /* Fallback for engines that ignore gap: add margins on li */
+  ::ng-deep nz-pagination.ant-pagination > ul > li {
+    margin-right: 2px !important;
+  }
+  ::ng-deep nz-pagination.ant-pagination > ul > li:last-child {
+    margin-right: 0 !important;
+  }
+
+  /* Optional: keep the size changer a bit away from the page buttons */
+  ::ng-deep nz-pagination.ant-pagination > ul > li.ant-pagination-options {
+    margin-left: 6px !important;
+  }
+}
+
+/* Floating Action Button Styling */
+.floating-action-button {
+  position: fixed !important;
+  bottom: 24px !important;
+  right: 24px !important;
+  width: 56px !important;
+  height: 56px !important;
+  border-radius: 50% !important;
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 
+              0 6px 10px 0 rgba(0, 0, 0, 0.14), 
+              0 1px 18px 0 rgba(0, 0, 0, 0.12) !important;
+  z-index: 1000 !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  border: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 24px !important;
+  line-height: 1 !important;
+  
+  &:hover {
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 
+                0 8px 10px 1px rgba(0, 0, 0, 0.14), 
+                0 3px 14px 2px rgba(0, 0, 0, 0.12) !important;
+    transform: translateY(-2px) !important;
+  }
+  
+  &:active {
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 
+                0 4px 5px 0 rgba(0, 0, 0, 0.14), 
+                0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
+    transform: translateY(0) !important;
+  }
+  
+  &:disabled {
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 
+                0 6px 10px 0 rgba(0, 0, 0, 0.14), 
+                0 1px 18px 0 rgba(0, 0, 0, 0.12) !important;
+  }
+  
+  span[nz-icon] {
+    font-size: 24px !important;
+    line-height: 1 !important;
+  }
+}
+
+/* Campaign Summary Styles */
+.campaign-summary-section {
+  margin-bottom: 24px;
+}
+
+.campaign-carousel {
+  position: relative;
+  
+  ::ng-deep .ant-carousel {
+    .slick-list {
+      margin-bottom: 0;
+      overflow: hidden;
+    }
+    
+    .slick-track {
+      display: flex;
+      align-items: stretch;
+    }
+    
+    .slick-slide {
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      
+      > div {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    
+    .slick-dots {
+      position: relative;
+      bottom: auto;
+      margin-top: 72px;
+      margin-bottom: 0;
+      
+      li {
+        margin: 0 4px;
+        
+        button {
+          background: rgba(255, 255, 255, 0.5);
+          border-radius: 50%;
+          width: 8px;
+          height: 8px;
+          border: none;
+        }
+        
+        &.slick-active button {
+          background: #1890ff;
+        }
+      }
+    }
+  }
+}
+
+.campaign-slide {
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  margin: 0;
+  min-height: auto;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  left: 0;
+  transform: none;
+}
+
+.campaign-description {
+  color: var(--theme-primary-text);
+  opacity: 0.8;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0 0 16px 0;
+  font-style: italic;
+}
+
+.statistics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.stat-group {
+  background-color: var(--theme-background);
+  border-radius: 8px;
+  padding: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  transition: all 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .stat-group-title {
+    margin: 0 0 12px 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--theme-primary);
+    text-align: center;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  }
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-around;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.stat-item {
+  flex: 1;
+  text-align: center;
+  min-width: 0;
+  
+  .stat-label {
+    font-size: 11px;
+    color: var(--theme-primary-text);
+    opacity: 0.7;
+    margin-bottom: 4px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .stat-value {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--theme-primary-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+// Dark theme support
+body.dark-theme {
+  .stat-group {
+    border-color: rgba(255, 255, 255, 0.12);
+    
+    &:hover {
+      box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+    }
+    
+    .stat-group-title {
+      border-bottom-color: rgba(255, 255, 255, 0.12);
+    }
+  }
+}
+
+
+// Campaign Carousel Styles
+.campaign-carousel {
+  .carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 16px;
+    padding: 12px;
+    background-color: rgba(0, 0, 0, 0.04);
+    border-radius: 8px;
+  }
+
+  .carousel-indicators {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: var(--theme-primary-text);
+      opacity: 0.3;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        opacity: 0.6;
+        transform: scale(1.2);
+      }
+
+      &.active {
+        width: 32px;
+        border-radius: 6px;
+        background-color: var(--theme-primary);
+        opacity: 1;
+      }
+    }
+
+    .indicator-text {
+      margin-left: 8px;
+      font-size: 14px;
+      color: var(--theme-primary-text);
+      font-weight: 500;
+    }
+  }
+
+  .campaign-card {
+    margin-top: 0;
+    animation: fadeIn 0.3s ease-in;
+
+    .campaign-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 16px 8px 16px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      margin-bottom: 16px;
+
+      .campaign-name {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 500;
+        color: var(--theme-primary-text);
+        flex: 1;
+      }
+
+      mat-chip {
+        margin-left: 16px;
+        font-weight: 500;
+        
+        // Use theme colors with proper contrast
+        --mdc-chip-label-text-color: var(--theme-primary) !important;
+        --mdc-chip-elevated-container-color: var(--theme-background) !important;
+        border: 1px solid var(--theme-primary) !important;
+      }
+    }
+
+    mat-card-content {
+      padding-top: 0;
+    }
+  }
+}
+
+// General chip styling
+mat-chip {
+  --mdc-chip-label-text-color: var(--theme-primary) !important;
+  --mdc-chip-elevated-container-color: var(--theme-background) !important;
+  border: 1px solid var(--theme-primary) !important;
+}
+
+// Dark theme support
+body.dark-theme {
+  .campaign-carousel {
+    .carousel-controls {
+      background-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .campaign-card .campaign-header {
+      border-bottom-color: rgba(255, 255, 255, 0.12);
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Breadcrumb Navigation Styles
+.breadcrumb-nav {
+  .breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 12px 16px;
+    margin: 0;
+    list-style: none;
+    background-color: rgba(0, 0, 0, 0.04);
+    border-radius: 4px;
+    align-items: center;
+
+    .breadcrumb-item {
+      display: flex;
+      align-items: center;
+      
+      a {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        color: var(--theme-primary);
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        padding: 4px 8px;
+        border-radius: 4px;
+
+        &:hover:not(.disabled) {
+          background-color: rgba(0, 113, 206, 0.1);
+          text-decoration: underline;
+        }
+
+        &.active,
+        &.disabled {
+          color: var(--theme-primary-text);
+          cursor: default;
+          pointer-events: none;
+          font-weight: 500;
+        }
+
+        .breadcrumb-icon {
+          font-size: 18px;
+          width: 18px;
+          height: 18px;
+        }
+      }
+
+      .separator {
+        margin: 0 8px;
+        color: var(--theme-primary-text);
+        opacity: 0.6;
+        user-select: none;
+      }
+
+      &:last-child {
+        .separator {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+// Dark theme support
+body.dark-theme {
+  .breadcrumb-nav .breadcrumb {
+    background-color: rgba(255, 255, 255, 0.08);
+
+    .breadcrumb-item a:hover:not(.disabled) {
+      background-color: rgba(84, 192, 232, 0.15);
+    }
+  }
+}
+
+// Table styles with horizontal scrolling
+.table-wrapper {
+  width: 100%;
+  
+  .table-container {
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+  }
+  
+  .certification-table {
+    min-width: 100%;
+    
+    th, td {
+      white-space: nowrap;
+      padding: 12px 16px;
+    }
+  }
+}

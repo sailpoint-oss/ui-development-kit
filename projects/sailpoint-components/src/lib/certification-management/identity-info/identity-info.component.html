@@ -1,0 +1,172 @@
+<!-- Loading State -->
+<div *ngIf="loading" class="loading-container">
+  <mat-spinner diameter="75"></mat-spinner>
+  <p>Loading identity information...</p>
+</div>
+
+<!-- Error State -->
+<mat-card *ngIf="error && !loading" class="error-card">
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon color="warn">error</mat-icon>
+      Error Loading Identity
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p>{{ error }}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="loadIdentity()">
+      <mat-icon>refresh</mat-icon>
+      Retry
+    </button>
+  </mat-card-actions>
+</mat-card>
+
+<!-- Main Content -->
+<div *ngIf="!loading && !error && identity" class="identity-info-container">
+  <!-- Header Section -->
+  <div class="identity-header">
+    <div class="header-content">
+      <div class="identity-avatar">
+        <mat-icon class="large-avatar">person</mat-icon>
+      </div>
+      <div class="identity-details">
+        <h1 class="identity-name">{{ getAttributeValue('displayName') || identity.name }}</h1>
+        <div class="identity-meta">
+          <mat-chip>
+            {{ identity.identityStatus }}
+          </mat-chip>
+          <mat-chip>
+            {{ identity.processingState }}
+          </mat-chip>
+          <span class="identity-id">ID: {{ identity.id }}</span>
+        </div>
+        <div class="identity-contact">
+          <span *ngIf="identity.emailAddress" class="contact-item">
+            <mat-icon>mail</mat-icon>
+            {{ identity.emailAddress }}
+          </span>
+          <span *ngIf="identity.alias" class="contact-item">
+            <mat-icon>person</mat-icon>
+            {{ identity.alias }}
+          </span>
+          <span *ngIf="identity.managerRef?.name" class="contact-item">
+            <mat-icon>people</mat-icon>
+            Manager: {{ identity.managerRef?.name || 'N/A' }}
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Action Buttons -->
+    <div class="header-actions">
+      <button mat-raised-button (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Back
+      </button>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- Identity Information Grid -->
+  <div class="identity-content">
+    <div class="info-grid">
+      <!-- Basic Information -->
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Basic Information</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-list>
+            <mat-list-item>
+              <strong>First Name:</strong> <span>{{ getAttributeValue('firstname') }}</span>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+              <strong>Last Name:</strong> <span>{{ getAttributeValue('lastname') }}</span>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+              <strong>Display Name:</strong> <span>{{ getAttributeValue('displayName') }}</span>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+              <strong>UID:</strong> <span>{{ getAttributeValue('uid') }}</span>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+              <strong>Identification Number:</strong> <span>{{ getAttributeValue('identificationNumber') }}</span>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+              <strong>Manager:</strong> <span>{{ identity.managerRef?.name || 'N/A' }}</span>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+              <strong>Is Manager:</strong> <span>{{ identity.isManager ? 'Yes' : 'No' }}</span>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+              <strong>Cloud Status:</strong> <span>{{ getAttributeValue('cloudStatus') }}</span>
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Status & Timeline -->
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Status & Timeline</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="status-section">
+            <mat-chip>
+              {{ identity.identityStatus }}
+            </mat-chip>
+          </div>
+          
+          <div class="timeline">
+            <div class="timeline-item">
+              <mat-icon style="color: #1890ff">schedule</mat-icon>
+              <div><strong>Created:</strong> {{ formatDate(identity.created) }}</div>
+            </div>
+            <div class="timeline-item">
+              <mat-icon style="color: #52c41a">update</mat-icon>
+              <div><strong>Last Modified:</strong> {{ formatDate(identity.modified) }}</div>
+            </div>
+            <div class="timeline-item">
+              <mat-icon style="color: #faad14">refresh</mat-icon>
+              <div><strong>Last Refresh:</strong> {{ formatDate(identity.lastRefresh) }}</div>
+            </div>
+            <div class="timeline-item">
+              <mat-icon style="color: #722ed1">info</mat-icon>
+              <div><strong>Lifecycle State:</strong> {{ identity.lifecycleState?.stateName || 'N/A' }}</div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Additional Attributes -->
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Additional Attributes</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="attributes-section">
+            <div *ngIf="identity?.attributes && getAttributeKeys().length > 0; else noAttributes">
+              <div class="attribute-item" *ngFor="let attr of getAttributeKeys()">
+                <div class="attribute-label">{{ attr }}</div>
+                <div class="attribute-value">{{ getAttributeValue(attr) }}</div>
+              </div>
+            </div>
+            <ng-template #noAttributes>
+              <p>No additional attributes available</p>
+            </ng-template>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

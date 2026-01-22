@@ -9,7 +9,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   disconnectFromISC: () => ipcMain.invoke('disconnect-from-isc'),
   checkAccessTokenStatus: () => ipcMain.invoke('check-access-token-status'),
   getCurrentTokenDetails: (environment: string) => ipcMain.invoke('get-current-token-details', environment),
-  
   // Token management
   refreshTokens: () => ipcMain.invoke('refresh-tokens'),
   validateTokens: (environment: string) => ipcMain.invoke('validate-tokens', environment),
@@ -24,6 +23,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
   // config file management
   readConfig: () => ipcMain.invoke('read-config'),
   writeConfig: (config: any) => ipcMain.invoke('write-config', config),
+  
+  // file browser
+  browseForFile: () => ipcMain.invoke('browse-for-file'),
 
   // SDK functions
   ...sdkPreloader,

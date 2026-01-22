@@ -1,0 +1,587 @@
+.access-detail-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+// Header Section
+.access-detail-header {
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 24px;
+  margin-bottom: 32px;
+
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+
+    .access-info {
+      flex: 1;
+
+      .access-type-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #f6f8fa;
+        border: 1px solid #d0d7de;
+        border-radius: 6px;
+        padding: 4px 12px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #656d76;
+        margin-bottom: 12px;
+
+        .anticon {
+          font-size: 14px;
+        }
+      }
+
+      .access-name {
+        font-size: 28px;
+        font-weight: 600;
+        color: #1f2328;
+        margin: 0 0 12px 0;
+        line-height: 1.2;
+      }
+
+      .access-meta {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+
+        .access-id {
+          font-size: 14px;
+          color: #656d76;
+          font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+        }
+
+        .decision-badge {
+          padding: 4px 8px;
+          border-radius: 4px;
+          font-size: 12px;
+          font-weight: 500;
+          text-transform: uppercase;
+
+          &.badge-success {
+            background: #d1fae5;
+            color: #065f46;
+          }
+
+          &.badge-danger {
+            background: #fee2e2;
+            color: #991b1b;
+          }
+
+          &.badge-warning {
+            background: #fef3c7;
+            color: #92400e;
+          }
+
+          &.badge-secondary {
+            background: #f3f4f6;
+            color: #374151;
+          }
+        }
+      }
+    }
+
+    .header-actions {
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        border: 1px solid #d0d7de;
+        border-radius: 6px;
+        background: #fff;
+        color: #24292f;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: #f6f8fa;
+          border-color: #8c959f;
+        }
+
+        .anticon {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+// Section Styles
+.review-info-section,
+.entitlement-section,
+.access-profile-section,
+.role-section {
+  margin-bottom: 32px;
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #1f2328;
+    margin: 0 0 20px 0;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #f0f0f0;
+
+    .anticon {
+      font-size: 18px;
+      color: #0969da;
+    }
+  }
+
+  .subsection-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f2328;
+    margin: 24px 0 16px 0;
+    padding-left: 8px;
+    border-left: 3px solid #0969da;
+  }
+}
+
+// Info Grid Layout
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.review-info,
+.entitlement-details,
+.access-profile-details,
+.role-details {
+  .info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #656d76;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    span {
+      font-size: 14px;
+      color: #1f2328;
+      word-break: break-word;
+    }
+
+    .comments {
+      background: #f6f8fa;
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid #d0d7de;
+      font-style: italic;
+    }
+  }
+}
+
+// Owner and Account Sections
+.owner-section,
+.account-section,
+.data-access-section {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+
+  .owner-info,
+  .account-info,
+  .data-access-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+  }
+}
+
+// Status Badges
+.status-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+
+  &.badge-success {
+    background: #d1fae5;
+    color: #065f46;
+  }
+
+  &.badge-danger {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+
+  &.badge-warning {
+    background: #fef3c7;
+    color: #92400e;
+  }
+
+  &.badge-info {
+    background: #dbeafe;
+    color: #1e40af;
+  }
+
+  &.badge-secondary {
+    background: #f3f4f6;
+    color: #374151;
+  }
+
+  &.badge-primary {
+    background: #dbeafe;
+    color: #1e40af;
+  }
+}
+
+// Special Elements
+.attribute-value {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  background: #f6f8fa;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid #d0d7de;
+  font-size: 13px;
+}
+
+.impact-score {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  &.impact-high {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+
+  &.impact-medium {
+    background: #fef3c7;
+    color: #92400e;
+  }
+
+  &.impact-low {
+    background: #d1fae5;
+    color: #065f46;
+  }
+}
+
+.policy-list,
+.category-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.policy-badge,
+.category-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  background: #e7f3ff;
+  color: #0969da;
+  border: 1px solid #b6e3ff;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+// No Data State
+.no-data-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  text-align: center;
+
+  .no-data-content {
+    .anticon {
+      font-size: 48px;
+      color: #d0d7de;
+      margin-bottom: 16px;
+    }
+
+    h3 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #1f2328;
+      margin: 0 0 8px 0;
+    }
+
+    p {
+      font-size: 14px;
+      color: #656d76;
+      margin: 0 0 24px 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: #0969da;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background: #0860ca;
+      }
+
+      .anticon {
+        font-size: 14px;
+        color: #fff;
+        margin: 0;
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .access-detail-container {
+    padding: 16px;
+  }
+
+  .access-detail-header {
+    .header-content {
+      flex-direction: column;
+      gap: 16px;
+
+      .access-info {
+        .access-name {
+          font-size: 24px;
+        }
+
+        .access-meta {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 8px;
+        }
+      }
+    }
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .owner-info,
+  .account-info,
+  .data-access-info {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Dark theme support
+:host-context(.dark-theme) {
+  .access-detail-container {
+    background: #1f1f1f;
+    color: #e6edf3;
+    border: 1px solid #303030;
+  }
+
+  .access-detail-header {
+    border-bottom-color: #303030;
+
+    .access-type-badge {
+      background: #262626;
+      border-color: #434343;
+      color: #8c8c8c;
+    }
+
+    .access-info .access-name {
+      color: #ffffff !important;
+    }
+
+    .access-id {
+      color: #8c8c8c;
+    }
+
+    .decision-badge {
+      &.badge-success {
+        background: #162312;
+        color: #73d13d;
+      }
+
+      &.badge-danger {
+        background: #2a1215;
+        color: #ff7875;
+      }
+
+      &.badge-warning {
+        background: #2b1d11;
+        color: #ffa940;
+      }
+
+      &.badge-secondary {
+        background: #262626;
+        color: #8c8c8c;
+      }
+    }
+
+    .btn {
+      background: #262626;
+      border-color: #434343;
+      color: #d9d9d9;
+
+      &:hover {
+        background: #303030;
+        border-color: #595959;
+      }
+    }
+  }
+
+  .section-title {
+    color: #ffffff;
+    border-bottom-color: #303030;
+
+    .anticon {
+      color: #177ddc;
+    }
+  }
+
+  .subsection-title {
+    color: #ffffff;
+    border-left-color: #177ddc;
+  }
+
+  .review-info,
+  .entitlement-details,
+  .access-profile-details,
+  .role-details {
+    .info-item {
+      label {
+        color: #8c8c8c;
+      }
+
+      span {
+        color: #d9d9d9;
+      }
+
+      .comments {
+        background: #262626;
+        border-color: #434343;
+        color: #d9d9d9;
+      }
+    }
+  }
+
+  .owner-section,
+  .account-section,
+  .data-access-section {
+    background: #262626;
+    border-color: #303030;
+  }
+
+  .status-badge {
+    &.badge-success {
+      background: #162312;
+      color: #73d13d;
+    }
+
+    &.badge-danger {
+      background: #2a1215;
+      color: #ff7875;
+    }
+
+    &.badge-warning {
+      background: #2b1d11;
+      color: #ffa940;
+    }
+
+    &.badge-info {
+      background: #111b26;
+      color: #40a9ff;
+    }
+
+    &.badge-secondary {
+      background: #262626;
+      color: #8c8c8c;
+    }
+
+    &.badge-primary {
+      background: #111b26;
+      color: #40a9ff;
+    }
+  }
+
+  .attribute-value {
+    background: #262626;
+    border-color: #434343;
+    color: #d9d9d9;
+  }
+
+  .impact-score {
+    &.impact-high {
+      background: #2a1215;
+      color: #ff7875;
+    }
+
+    &.impact-medium {
+      background: #2b1d11;
+      color: #ffa940;
+    }
+
+    &.impact-low {
+      background: #162312;
+      color: #73d13d;
+    }
+  }
+
+  .policy-badge,
+  .category-badge {
+    background: #111b26;
+    color: #40a9ff;
+    border-color: #177ddc;
+  }
+
+  .no-data-state {
+    .no-data-content {
+      .anticon {
+        color: #595959;
+      }
+
+      h3 {
+        color: #ffffff;
+      }
+
+      p {
+        color: #8c8c8c;
+      }
+
+      .btn {
+        background: #177ddc;
+        color: #ffffff;
+
+        &:hover {
+          background: #0958d9;
+        }
+      }
+    }
+  }
+}

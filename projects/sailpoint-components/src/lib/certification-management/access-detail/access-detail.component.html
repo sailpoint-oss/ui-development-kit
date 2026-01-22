@@ -1,0 +1,329 @@
+<div class="access-detail-container" *ngIf="accessReviewItem">
+  <!-- Header Section -->
+  <div class="access-detail-header">
+    <div class="header-content">
+      <div class="access-info">
+        <div class="access-type-badge">
+          <mat-icon>{{ getAccessTypeIcon() }}</mat-icon>
+          <span>{{ getAccessTypeDisplay() }}</span>
+        </div>
+        <h2 class="access-name">{{ accessReviewItem.accessSummary.access.name }}</h2>
+        <div class="access-meta">
+          <span class="access-id">ID: {{ accessReviewItem.accessSummary.access.id }}</span>
+          <span class="decision-badge" [class]="getDecisionBadgeClass()">
+            {{ accessReviewItem.decision || 'PENDING' }}
+          </span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-outline-secondary" (click)="goBack()">
+          <mat-icon>arrow_back</mat-icon>
+          Back
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Review Information Section -->
+  <div class="review-info-section">
+    <h3 class="section-title">
+      <mat-icon>description</mat-icon>
+      Review Information
+    </h3>
+    <div class="review-info">
+      <div class="info-item">
+        <label>Review ID:</label>
+        <span>{{ accessReviewItem.id }}</span>
+      </div>
+      <div class="info-item">
+        <label>Completed:</label>
+        <span class="status-badge" [class]="accessReviewItem.completed ? 'badge-success' : 'badge-warning'">
+          {{ accessReviewItem.completed ? 'Yes' : 'No' }}
+        </span>
+      </div>
+      <div class="info-item">
+        <label>New Access:</label>
+        <span class="status-badge" [class]="accessReviewItem.newAccess ? 'badge-info' : 'badge-secondary'">
+          {{ accessReviewItem.newAccess ? 'Yes' : 'No' }}
+        </span>
+      </div>
+      <div class="info-item" *ngIf="accessReviewItem.comments">
+        <label>Comments:</label>
+        <span class="comments">{{ accessReviewItem.comments }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Entitlement Details Section -->
+  <div class="entitlement-section" *ngIf="hasEntitlement()">
+    <h3 class="section-title">
+      <mat-icon>vpn_key</mat-icon>
+      Entitlement Details
+    </h3>
+    <div class="entitlement-details">
+      <div class="detail-grid">
+        <div class="detail-item">
+          <label>Name:</label>
+          <span>{{ accessReviewItem.accessSummary.entitlement?.name }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Description:</label>
+          <span>{{ accessReviewItem.accessSummary.entitlement?.description }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Privileged:</label>
+          <span class="status-badge" [class]="getPrivilegeBadgeClass(accessReviewItem.accessSummary.entitlement?.privileged || false)">
+            {{ accessReviewItem.accessSummary.entitlement?.privileged ? 'Yes' : 'No' }}
+          </span>
+        </div>
+        <div class="detail-item">
+          <label>Revocable:</label>
+          <span class="status-badge" [class]="accessReviewItem.accessSummary.entitlement?.revocable ? 'badge-success' : 'badge-danger'">
+            {{ accessReviewItem.accessSummary.entitlement?.revocable ? 'Yes' : 'No' }}
+          </span>
+        </div>
+        <div class="detail-item">
+          <label>Cloud Governed:</label>
+          <span class="status-badge" [class]="getCloudGovernedBadgeClass(accessReviewItem.accessSummary.entitlement?.cloudGoverned || false)">
+            {{ accessReviewItem.accessSummary.entitlement?.cloudGoverned ? 'Yes' : 'No' }}
+          </span>
+        </div>
+        <div class="detail-item">
+          <label>Attribute Name:</label>
+          <span>{{ accessReviewItem.accessSummary.entitlement?.attributeName }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Attribute Value:</label>
+          <span class="attribute-value">{{ accessReviewItem.accessSummary.entitlement?.attributeValue }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Source:</label>
+          <span>{{ accessReviewItem.accessSummary.entitlement?.sourceName }} ({{ accessReviewItem.accessSummary.entitlement?.sourceType }})</span>
+        </div>
+      </div>
+
+      <!-- Owner Information -->
+      <div class="owner-section" *ngIf="accessReviewItem.accessSummary.entitlement?.owner">
+        <h4 class="subsection-title">Owner</h4>
+        <div class="owner-info">
+          <div class="info-item">
+            <label>Name:</label>
+            <span>{{ accessReviewItem.accessSummary.entitlement?.owner?.name || 'N/A' }}</span>
+          </div>
+          <div class="info-item">
+            <label>Email:</label>
+            <span>{{ accessReviewItem.accessSummary.entitlement?.owner?.email || 'N/A' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Account Information -->
+      <div class="account-section" *ngIf="accessReviewItem.accessSummary.entitlement?.account as account">
+        <h4 class="subsection-title">Account Information</h4>
+        <div class="account-info">
+          <div class="info-item">
+            <label>Identity Name:</label>
+            <span>{{ accessReviewItem.identitySummary.name }}</span>
+          </div>
+          <div class="info-item">
+            <label>Identity ID:</label>
+            <span>{{ accessReviewItem.identitySummary.identityId }}</span>
+          </div>
+          <div class="info-item">
+            <label>Native Identity:</label>
+            <span>{{ account.nativeIdentity }}</span>
+          </div>
+          <div class="info-item">
+            <label>Status:</label>
+            <span class="status-badge" [class]="account.disabled ? 'badge-danger' : 'badge-success'">
+              {{ account.disabled ? 'Disabled' : 'Active' }}
+            </span>
+          </div>
+          <div class="info-item">
+            <label>Locked:</label>
+            <span class="status-badge" [class]="account.locked ? 'badge-warning' : 'badge-success'">
+              {{ account.locked ? 'Yes' : 'No' }}
+            </span>
+          </div>
+          <div class="info-item">
+            <label>Created:</label>
+            <span>{{ formatDate(account.created || '') }}</span>
+          </div>
+          <div class="info-item">
+            <label>Modified:</label>
+            <span>{{ formatDate(account.modified || '') }}</span>
+          </div>
+          <div class="info-item" *ngIf="account.activityInsights as activityInsights">
+            <label>Usage Days:</label>
+            <span>{{ activityInsights?.usageDays }} days</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Access Information -->
+      <div class="data-access-section" *ngIf="accessReviewItem.accessSummary.entitlement?.dataAccess as dataAccess">
+        <h4 class="subsection-title">Data Access</h4>
+        <div class="data-access-info">
+          <div class="info-item">
+            <label>Impact Score:</label>
+            <span class="impact-score" [class]="'impact-' + ((dataAccess.impactScore?.value || '') | lowercase)">
+              {{ dataAccess.impactScore?.value }}
+            </span>
+          </div>
+          <div class="info-item" *ngIf="dataAccess.policies?.length">
+            <label>Policies:</label>
+            <div class="policy-list">
+              <span class="policy-badge" *ngFor="let policy of dataAccess.policies">
+                {{ policy.value }}
+              </span>
+            </div>
+          </div>
+          <div class="info-item" *ngIf="dataAccess.categories?.length">
+            <label>Categories:</label>
+            <div class="category-list">
+              <span class="category-badge" *ngFor="let category of dataAccess.categories">
+                {{ category.value }} ({{ category.matchCount }})
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+      <!-- Access Profile Details Section -->
+      <div class="access-profile-section" *ngIf="hasAccessProfile()">
+        <h3 class="section-title">
+          <mat-icon>person</mat-icon>
+          Access Profile Details
+        </h3>
+    <div class="access-profile-details">
+      <div class="detail-grid">
+        <div class="detail-item">
+          <label>Name:</label>
+          <span>{{ accessReviewItem.accessSummary.accessProfile?.name }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Description:</label>
+          <span>{{ accessReviewItem.accessSummary.accessProfile?.description }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Privileged:</label>
+          <span class="status-badge" [class]="getPrivilegeBadgeClass(accessReviewItem.accessSummary.accessProfile?.privileged || false)">
+            {{ accessReviewItem.accessSummary.accessProfile?.privileged ? 'Yes' : 'No' }}
+          </span>
+        </div>
+        <div class="detail-item">
+          <label>Cloud Governed:</label>
+          <span class="status-badge" [class]="getCloudGovernedBadgeClass(accessReviewItem.accessSummary.accessProfile?.cloudGoverned || false)">
+            {{ accessReviewItem.accessSummary.accessProfile?.cloudGoverned ? 'Yes' : 'No' }}
+          </span>
+        </div>
+        <div class="detail-item">
+          <label>End Date:</label>
+          <span>{{ formatDate(accessReviewItem.accessSummary.accessProfile?.endDate || '') }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Created:</label>
+          <span>{{ formatDate(accessReviewItem.accessSummary.accessProfile?.created || '') }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Modified:</label>
+          <span>{{ formatDate(accessReviewItem.accessSummary.accessProfile?.modified || '') }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Entitlements Count:</label>
+          <span>{{ accessReviewItem.accessSummary.accessProfile?.entitlements?.length || 0 }}</span>
+        </div>
+      </div>
+
+      <!-- Owner Information -->
+      <div class="owner-section" *ngIf="accessReviewItem.accessSummary.accessProfile?.owner">
+        <h4 class="subsection-title">Owner</h4>
+        <div class="owner-info">
+          <div class="info-item">
+            <label>Name:</label>
+            <span>{{ accessReviewItem.accessSummary.accessProfile?.owner?.name || 'N/A' }}</span>
+          </div>
+          <div class="info-item">
+            <label>Email:</label>
+            <span>{{ accessReviewItem.accessSummary.accessProfile?.owner?.email || 'N/A' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Role Details Section -->
+  <div class="role-section" *ngIf="hasRole()">
+    <h3 class="section-title">
+      <mat-icon>people</mat-icon>
+      Role Details
+    </h3>
+    <div class="role-details">
+      <div class="detail-grid">
+        <div class="detail-item">
+          <label>Name:</label>
+          <span>{{ accessReviewItem.accessSummary.role?.name }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Description:</label>
+          <span>{{ accessReviewItem.accessSummary.role?.description }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Privileged:</label>
+          <span class="status-badge" [class]="getPrivilegeBadgeClass(accessReviewItem.accessSummary.role?.privileged || false)">
+            {{ accessReviewItem.accessSummary.role?.privileged ? 'Yes' : 'No' }}
+          </span>
+        </div>
+        <div class="detail-item">
+          <label>Revocable:</label>
+          <span class="status-badge" [class]="accessReviewItem.accessSummary.role?.revocable ? 'badge-success' : 'badge-danger'">
+            {{ accessReviewItem.accessSummary.role?.revocable ? 'Yes' : 'No' }}
+          </span>
+        </div>
+        <div class="detail-item">
+          <label>End Date:</label>
+          <span>{{ formatDate(accessReviewItem.accessSummary.role?.endDate || '') }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Access Profiles Count:</label>
+          <span>{{ accessReviewItem.accessSummary.role?.accessProfiles?.length || 0 }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Entitlements Count:</label>
+          <span>{{ accessReviewItem.accessSummary.role?.entitlements?.length || 0 }}</span>
+        </div>
+      </div>
+
+      <!-- Owner Information -->
+      <div class="owner-section" *ngIf="accessReviewItem.accessSummary.role?.owner">
+        <h4 class="subsection-title">Owner</h4>
+        <div class="owner-info">
+          <div class="info-item">
+            <label>Name:</label>
+            <span>{{ accessReviewItem.accessSummary.role?.owner?.name || 'N/A' }}</span>
+          </div>
+          <div class="info-item">
+            <label>Email:</label>
+            <span>{{ accessReviewItem.accessSummary.role?.owner?.email || 'N/A' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- No Data State -->
+<div class="no-data-state" *ngIf="!accessReviewItem">
+  <div class="no-data-content">
+      <mat-icon>error</mat-icon>
+    <h3>No Access Details Available</h3>
+    <p>No access review item data was provided to display.</p>
+    <button class="btn btn-primary" (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+      Go Back
+    </button>
+  </div>
+</div>

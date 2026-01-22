@@ -1,0 +1,65 @@
+# Dependencies
+node_modules/
+server/node_modules/
+npm-debug.log*
+
+# Build outputs
+dist/
+electron-dist/
+app/dist/
+server/dist/
+.angular/
+coverage/
+
+# IDE and OS files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml
+
+# Documentation
+*.md
+docs/
+img/
+
+# Test files
+e2e/
+**/*.spec.ts
+**/*.test.ts
+playwright-report/
+test-results/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+server/.env
+
+# Electron-specific files
+# Note: app/ directory is needed for electron:tsc compilation during build
+# Only exclude the build output directories
+electron-dist/
+release/
+
+# Misc
+*.log
+*.pid
+*.seed
+*.pid.lock
+.cache/
+tmp/
+temp/
+

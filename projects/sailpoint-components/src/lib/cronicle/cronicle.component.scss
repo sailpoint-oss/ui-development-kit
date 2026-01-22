@@ -1,0 +1,100 @@
+.cronicle-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.toolbar-title {
+  margin-left: 16px;
+}
+
+.content {
+  padding: 24px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+mat-card {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+mat-card-actions {
+  display: flex;
+  gap: 8px;
+  padding: 16px;
+}
+
+mat-card-actions button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.w-100 { width: 100%; }
+
+/* Keep the icon subtle, show on hover for a clean look */
+.name-cell {
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+
+  .name-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-inline-size: 100%;
+  }
+
+  .quick-action {
+    opacity: .2;
+    transition: opacity .12s ease;
+  }
+}
+
+/* Reveal on hover/focus to reduce visual noise */
+tr.mat-row:hover .quick-action,
+.name-cell:focus-within .quick-action {
+  opacity: 1;
+}
+.link-button {
+  background: none; border: 0; padding: 0; margin: 0;
+  color: #0b63b6; text-decoration: underline; cursor: pointer; font: inherit;
+}
+.link-button:hover { color: #084a88; }
+
+
+/* Keep the row snug and the icon small */
+.name-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.info-dot {
+  font-size: 16px;   /* Material icon glyph size */
+  height: 16px;
+  width: 16px;
+  line-height: 16px;
+  color: var(--mdc-theme-primary, #3f51b5);
+  opacity: 0.9;
+  cursor: pointer;   /* remove if decorative-only */
+  /* prevents the icon from expanding row height */
+  vertical-align: middle;
+}
+table { table-layout: fixed; }
+
+/* cronicle.component.scss */
+.text-ellipsis {
+  display: inline-block;
+  max-width: 100%;        /* <-- important: let it fill whatever width the cell has */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* (Optional) suggest, not force, relative widths */
+th.mat-column-description, td.mat-column-description { width: 40%; }
+th.mat-column-connectorId, td.mat-column-connectorId { width: 18ch; }
+
+

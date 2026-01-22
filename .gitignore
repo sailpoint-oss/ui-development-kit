@@ -61,3 +61,4 @@ openapi-generator-cli.jar
 /api-specs
 
 .env
+dist/

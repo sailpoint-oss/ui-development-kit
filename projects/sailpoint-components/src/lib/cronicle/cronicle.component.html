@@ -1,0 +1,975 @@
+<!-- cronicle.component.html -->
+
+<mat-toolbar color="primary">
+  <mat-toolbar>
+    <span>{{ title }}</span>
+    <span class="spacer"></span>
+
+
+
+  </mat-toolbar>
+
+</mat-toolbar>
+
+<mat-card>
+
+  <mat-form-field appearance="fill" class="w-100">
+    <mat-label>Filter by sources</mat-label>
+
+    <mat-select [formControl]="selectedSourceIds" multiple (selectionChange)="onFilterChange()">
+      <mat-option *ngFor="let s of sourceOptions" [value]="s.id">
+        {{ s.name || '-' }}
+      </mat-option>
+    </mat-select>
+
+    <!-- Clear button appears only when there is a selection -->
+    <button mat-icon-button matSuffix aria-label="Clear selection" *ngIf="(selectedSourceIds.value?.length ?? 0) > 0"
+      (click)="clearFilter($event)">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-form-field>
+
+
+  <div class="table-container">
+    <!-- Loading overlay -->
+    <div class="loading-container" *ngIf="loading">
+      <mat-progress-spinner diameter="64" mode="indeterminate"></mat-progress-spinner>
+    </div>
+
+    <div class="table-wrapper">
+      <table mat-table [dataSource]="filteredSources" class="mat-elevation-z1 cronicle-table" *ngIf="hasDataLoaded">
+
+        <!-- Name column: tiny info icon + plain text name -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>
+            Name {{ getSortSymbol('name') }}
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <span class="name-cell">
+              <!-- Tiny info icon (click opens your dialog). Change to 'info_outline' if you prefer. -->
+              <mat-icon class="info-dot" matTooltip="Details" role="button" tabindex="0"
+                aria-label="View source details" (click)="openSourceDialog(row)" (keydown.enter)="openSourceDialog(row)"
+                (keydown.space)="openSourceDialog(row); $event.preventDefault()">
+                info
+              </mat-icon>
+
+              <!-- Name stays plain text -->
+              <span class="name-text">{{ row?.name || '—' }}</span>
+            </span>
+          </td>
+        </ng-container>
+
+        <!-- Description (not sortable) -->
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef>Description</th>
+          <td mat-cell *matCellDef="let row">
+            <span class="text-ellipsis">{{ row.description || '—' }}</span>
+          </td>
+
+        </ng-container>
+
+        <!-- Connector ID (not sortable) -->
+        <ng-container matColumnDef="connectorId">
+          <th mat-header-cell *matHeaderCellDef>Connector ID</th>
+          <td mat-cell *matCellDef="let row">
+            <span class="text-ellipsis">{{ row.connectorId || '—' }}</span>
+          </td>
+        </ng-container>
+
+        <!-- Schedules -->
+        <ng-container matColumnDef="schedules">
+          <th mat-header-cell *matHeaderCellDef class="schedules-header">Schedules</th>
+          <td mat-cell *matCellDef="let row" class="schedules-cell">
+            <div class="schedule-container">
+              <!-- Account Aggregation -->
+              <div class="schedule-item" *ngIf="getScheduleCron(row, 'ACCOUNT_AGGREGATION') as acctCron">
+                <span class="schedule-label">Account:</span>
+                <code class="cron-code">{{ acctCron }}</code>
+              </div>
+
+              <!-- Group/Entitlement Aggregation (support either enum label) -->
+              <div class="schedule-item"
+                *ngIf="getScheduleCron(row, 'GROUP_AGGREGATION', 'ENTITLEMENT_AGGREGATION') as groupCron">
+                <span class="schedule-label">Group:</span>
+                <code class="cron-code">{{ groupCron }}</code>
+              </div>
+
+              <!-- If nothing found -->
+              <span *ngIf="!getScheduleCron(row, 'ACCOUNT_AGGREGATION')
+                   && !getScheduleCron(row, 'GROUP_AGGREGATION', 'ENTITLEMENT_AGGREGATION')">–</span>
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Average Account Aggregation Time -->
+        <ng-container matColumnDef="averageAccountAggregationTime">
+          <th mat-header-cell *matHeaderCellDef>Avg Account Time</th>
+          <td mat-cell *matCellDef="let row">
+            <span *ngIf="row.averageAccountAggregationTime !== null && row.averageAccountAggregationTime !== undefined">
+              {{ formatDuration(row.averageAccountAggregationTime) }}
+            </span>
+            <span *ngIf="row.averageAccountAggregationTime === null || row.averageAccountAggregationTime === undefined">–</span>
+          </td>
+        </ng-container>
+
+        <!-- Average Entitlement Aggregation Time -->
+        <ng-container matColumnDef="averageEntitlementAggregationTime">
+          <th mat-header-cell *matHeaderCellDef>Avg Entitlement Time</th>
+          <td mat-cell *matCellDef="let row">
+            <span *ngIf="row.averageEntitlementAggregationTime !== null && row.averageEntitlementAggregationTime !== undefined">
+              {{ formatDuration(row.averageEntitlementAggregationTime) }}
+            </span>
+            <span *ngIf="row.averageEntitlementAggregationTime === null || row.averageEntitlementAggregationTime === undefined">–</span>
+          </td>
+        </ng-container>
+
+
+        <tr mat-header-row
+          *matHeaderRowDef="['name', 'description', 'connectorId', 'schedules', 'averageAccountAggregationTime', 'averageEntitlementAggregationTime']"></tr>
+        <tr mat-row
+          *matRowDef="let row; columns: ['name', 'description', 'connectorId', 'schedules', 'averageAccountAggregationTime', 'averageEntitlementAggregationTime']">
+        </tr>
+
+      </table>
+    </div>
+
+    <style>
+      .sortable {
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .sort-indicator {
+        margin-left: .25rem;
+      }
+
+      .wrap {
+        white-space: normal;
+        word-break: break-word;
+      }
+
+      /* Table wrapper for responsive design */
+      .table-wrapper {
+        overflow-x: auto;
+        max-width: 100%;
+      }
+
+      /* Table styling */
+      .cronicle-table {
+        width: 100%;
+        min-width: 1200px;
+        table-layout: fixed;
+      }
+
+      /* Column width constraints - optimized for larger screens */
+      .cronicle-table .mat-column-name {
+        width: 12%;
+        min-width: 150px;
+      }
+
+      .cronicle-table .mat-column-description {
+        width: 35%;
+        min-width: 300px;
+      }
+
+      .cronicle-table .mat-column-connectorId {
+        width: 18%;
+        min-width: 180px;
+      }
+
+      .cronicle-table .mat-column-schedules {
+        width: 25%;
+        min-width: 300px;
+      }
+
+      .cronicle-table .mat-column-averageAggregationTime {
+        width: 10%;
+        min-width: 140px;
+        text-align: center;
+      }
+
+      /* Schedules column styling */
+      .schedules-cell {
+        padding: 8px !important;
+        vertical-align: top;
+      }
+
+      .schedule-container {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .schedule-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9rem;
+        line-height: 1.3;
+        margin-bottom: 6px;
+      }
+
+      .schedule-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .schedule-label {
+        font-weight: 600;
+        color: #666;
+        flex-shrink: 0;
+        min-width: 60px;
+      }
+
+      .cron-code {
+        background-color: #f5f5f5;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-family: 'Courier New', monospace;
+        font-size: 0.8rem;
+        color: #333;
+        word-break: break-all;
+        flex: 1;
+        min-width: 0;
+        border: 1px solid #e0e0e0;
+      }
+
+      /* Responsive adjustments */
+      @media (min-width: 1600px) {
+        .cronicle-table {
+          min-width: 1400px;
+        }
+
+        .cronicle-table .mat-column-description {
+          width: 40%;
+          min-width: 400px;
+        }
+
+        .cronicle-table .mat-column-schedules {
+          width: 28%;
+          min-width: 350px;
+        }
+
+        .cronicle-table .mat-column-connectorId {
+          width: 20%;
+          min-width: 200px;
+        }
+      }
+
+      @media (max-width: 1400px) {
+        .cronicle-table {
+          min-width: 1000px;
+        }
+
+        .cronicle-table .mat-column-description {
+          width: 30%;
+          min-width: 250px;
+        }
+
+        .cronicle-table .mat-column-schedules {
+          width: 22%;
+          min-width: 250px;
+        }
+      }
+
+      @media (max-width: 1000px) {
+        .cronicle-table {
+          min-width: 800px;
+        }
+
+        .cronicle-table .mat-column-schedules {
+          width: 20%;
+          min-width: 200px;
+        }
+
+        .schedule-item {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 2px;
+        }
+
+        .schedule-label {
+          min-width: auto;
+        }
+      }
+    </style>
+
+
+    <!-- Paginator -->
+    <mat-paginator [length]="totalCount" [pageIndex]="pageIndex" [pageSize]="pageSize"
+      [pageSizeOptions]="[5, 10, 25, 50]" (page)="onPageChange($event)">
+    </mat-paginator>
+  </div>
+</mat-card>
+
+<!-- Calendar Timeline Section -->
+<mat-card class="calendar-section">
+  <mat-card-header>
+    <mat-card-title>Aggregation Calendar — Today</mat-card-title>
+    <mat-card-subtitle>Per-source timeline for a 24-hour window (account & entitlement aggregations)</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="timeline-controls">
+      <button mat-icon-button (click)="previousDay()" [disabled]="calendarLoading">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <h3 class="day-title">{{ getDayTitle() }}</h3>
+      <button mat-icon-button (click)="nextDay()" [disabled]="calendarLoading">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+      <button mat-button (click)="goToToday()" [disabled]="calendarLoading">
+        <mat-icon>today</mat-icon>
+        Today
+      </button>
+    </div>
+
+    <!-- Loading state -->
+    <div class="calendar-loading" *ngIf="calendarLoading">
+      <mat-progress-spinner diameter="40" mode="indeterminate"></mat-progress-spinner>
+      <p>Building calendar…</p>
+    </div>
+
+    <!-- Timeline -->
+    <div class="timeline-wrapper" *ngIf="!calendarLoading">
+      <div class="timeline-container">
+        <!-- Header axis -->
+        <div class="timeline-header">
+          <div class="row-label-cell header">Source</div>
+          <div class="row-track axis">
+            <div class="tick" *ngFor="let t of timelineTicks" [style.left.%]="t.positionPct">
+              <span>{{ t.label }}</span>
+            </div>
+            <div class="now-line" *ngIf="isToday()" [style.left.%]="getCurrentTimePosition()"></div>
+          </div>
+        </div>
+
+        <!-- Rows - Parent source with nested aggregation type rows -->
+        <div class="source-group" *ngFor="let row of getSourcesWithSchedules(); trackBy: trackBySourceId">
+          <!-- Parent Source Header Row -->
+          <div class="timeline-row source-header-row">
+            <div class="row-label-cell source-header-label">
+              <mat-icon class="source-icon">storage</mat-icon>
+              {{ row.name || row.id }}
+            </div>
+            <div class="row-track source-header-track">
+              <!-- Empty track for parent header -->
+            </div>
+          </div>
+
+          <!-- Account Aggregation Sub-row -->
+          <div class="timeline-row account-sub-row">
+            <div class="row-label-cell account-label">
+              <mat-icon class="sub-row-icon">person</mat-icon>
+              Account Aggregations
+            </div>
+            <div class="row-track">
+              <div class="event"
+                *ngFor="let ev of getSourceRowEventsByType(row.id || '', 'account'); trackBy: trackByEventId"
+                [class.completed]="ev.status === 'completed'" [class.in-progress]="ev.status === 'in-progress'"
+                [class.scheduled]="ev.status === 'scheduled'" [class.failed]="ev.status === 'failed'"
+                [style.left.%]="getSafeEventPosition(ev).left" [style.width.%]="getSafeEventPosition(ev).width"
+                [matTooltip]="getEventTooltip(ev)" matTooltipPosition="above" matTooltipClass="event-tooltip">
+              </div>
+              <div class="now-line" *ngIf="isToday()" [style.left.%]="getCurrentTimePosition()"></div>
+            </div>
+          </div>
+
+          <!-- Entitlement Aggregation Sub-row -->
+          <div class="timeline-row entitlement-sub-row">
+            <div class="row-label-cell entitlement-label">
+              <mat-icon class="sub-row-icon">group</mat-icon>
+              Entitlement Aggregations
+            </div>
+            <div class="row-track">
+              <div class="event"
+                *ngFor="let ev of getSourceRowEventsByType(row.id || '', 'entitlement'); trackBy: trackByEventId"
+                [class.completed]="ev.status === 'completed'" [class.in-progress]="ev.status === 'in-progress'"
+                [class.scheduled]="ev.status === 'scheduled'" [class.failed]="ev.status === 'failed'"
+                [style.left.%]="getSafeEventPosition(ev).left" [style.width.%]="getSafeEventPosition(ev).width"
+                [matTooltip]="getEventTooltip(ev)" matTooltipPosition="above" matTooltipClass="event-tooltip">
+              </div>
+              <div class="now-line" *ngIf="isToday()" [style.left.%]="getCurrentTimePosition()"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="timeline-legend">
+          <div class="legend-section">
+            <h4>Event Status</h4>
+            <div class="legend-item"><span class="legend-swatch completed"></span>Completed (history)</div>
+            <div class="legend-item"><span class="legend-swatch in-progress"></span>In Progress</div>
+            <div class="legend-item"><span class="legend-swatch scheduled"></span>Scheduled (prediction)</div>
+            <div class="legend-item"><span class="legend-swatch failed"></span>Failed</div>
+          </div>
+          <div class="legend-section">
+            <h4>Aggregation Types</h4>
+            <div class="legend-item"><span class="legend-swatch account-type"></span>Account Aggregations</div>
+            <div class="legend-item"><span class="legend-swatch entitlement-type"></span>Entitlement Aggregations</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </mat-card-content>
+</mat-card>
+
+<!-- Aggregation Overlaps Section -->
+<mat-card class="overlaps-section" *ngIf="showOverlaps">
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon>warning</mat-icon>
+      Aggregation Overlaps
+    </mat-card-title>
+    <mat-card-subtitle>Upcoming overlapping aggregations that may cause system load issues</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div *ngIf="aggregationOverlaps.length === 0" class="no-overlaps">
+      <mat-icon class="success-icon">check_circle</mat-icon>
+      <p>No upcoming overlapping aggregations detected for {{ getDayTitle() }}</p>
+    </div>
+
+    <div *ngIf="aggregationOverlaps.length > 0" class="overlaps-list">
+      <div *ngFor="let overlap of aggregationOverlaps; trackBy: trackByOverlapId" class="overlap-item">
+        <div class="overlap-header">
+          <mat-icon class="warning-icon">warning</mat-icon>
+          <div class="overlap-time">
+            <strong>{{ formatTime(overlap.startTime) }} - {{ formatTime(overlap.endTime) }}</strong>
+            <span class="overlap-duration">({{ formatDuration(overlap.overlapDuration) }} overlap)</span>
+          </div>
+        </div>
+        
+        <div class="overlapping-sources">
+          <div *ngFor="let event of overlap.overlappingEvents" class="source-item">
+            <mat-icon class="source-type-icon" [class.account-icon]="event.aggregationType === 'account'" 
+                      [class.entitlement-icon]="event.aggregationType === 'entitlement'">
+              {{ event.aggregationType === 'account' ? 'person' : 'group' }}
+            </mat-icon>
+            <span class="source-name">{{ event.sourceName }}</span>
+            <span class="aggregation-type">{{ event.aggregationType | titlecase }}</span>
+            <span class="average-duration">(avg: {{ formatDuration(event.averageDuration) }})</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<!-- Optional quick styles; move to cronicle.component.scss if you prefer -->
+<style>
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  .toolbar-row {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin: 1rem 0;
+  }
+
+  .table-container {
+    position: relative;
+    margin-top: 1rem;
+  }
+
+  .loading-container {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, .6);
+    z-index: 2;
+  }
+
+  .wrap {
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  .empty td {
+    padding: 1rem;
+    text-align: center;
+    color: rgba(0, 0, 0, .6);
+  }
+
+  /* Form field styling */
+  .w-100 {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  /* Card styling */
+  mat-card {
+    margin: 0.5rem;
+    padding: 1.5rem;
+    max-width: none;
+  }
+
+  /* Paginator styling */
+  mat-paginator {
+    margin-top: 1rem;
+  }
+
+  /* ===== Timeline calendar styles ===== */
+  .calendar-section {
+    margin: 0.5rem;
+    padding: 1rem 1.5rem;
+  }
+
+  .timeline-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .timeline-controls .day-title {
+    margin: 0 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    min-width: 180px;
+    text-align: center;
+  }
+
+  .calendar-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem;
+    color: #666;
+  }
+
+  .timeline-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    /* Allow horizontal scrolling if needed */
+    overflow-y: visible;
+    /* Allow vertical expansion for tooltips */
+    max-width: 100%;
+    /* Ensure container doesn't exceed parent width */
+    box-sizing: border-box;
+    padding-bottom: 100px;
+    /* Add space for tooltips */
+  }
+
+  .timeline-container {
+    width: 100%;
+    position: relative;
+    min-width: 800px;
+    /* Ensure minimum width for timeline */
+    box-sizing: border-box;
+  }
+
+  .timeline-header,
+  .timeline-row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    align-items: stretch;
+    gap: 8px;
+    margin-bottom: 4px;
+    /* Reduced margin for tighter spacing */
+    min-width: 800px;
+    /* Ensure minimum width for timeline */
+    max-width: 100%;
+    /* Prevent grid from exceeding container */
+    box-sizing: border-box;
+  }
+
+  /* Source group container for parent-child hierarchy */
+  .source-group {
+    margin-bottom: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  /* Parent source header row */
+  .source-header-row {
+    background: #f5f5f5;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .source-header-label {
+    background: #e3f2fd !important;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #1976d2;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .source-header-track {
+    background: #e3f2fd !important;
+    border: none !important;
+  }
+
+  .source-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Sub-rows with indentation and visual hierarchy */
+  .account-sub-row {
+    border-left: 4px solid #4caf50;
+    margin-left: 0;
+  }
+
+  .entitlement-sub-row {
+    border-left: 4px solid #ff9800;
+    margin-left: 0;
+  }
+
+  .account-label {
+    background: #e8f5e8;
+    font-weight: 600;
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .entitlement-label {
+    background: #fff3e0;
+    font-weight: 600;
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .sub-row-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    opacity: 0.7;
+  }
+
+  .timeline-header {
+    margin-bottom: 6px;
+  }
+
+  .row-label-cell.header {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #555;
+  }
+
+  .row-label-cell {
+    padding: 8px 10px;
+    background: #f8f9fa;
+    border: 1px solid #e6e6e6;
+    border-radius: 6px;
+    font-weight: 600;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  .row-track {
+    position: relative;
+    height: 46px;
+    background: linear-gradient(180deg, #fff, #fff) padding-box, repeating-linear-gradient(90deg, #eee 0, #eee 1px, transparent 1px, transparent calc(100% / 24)) border-box;
+    border: 1px solid #e6e6e6;
+    border-radius: 6px;
+    overflow: visible;
+    /* Allow tooltips to show */
+    contain: none;
+    /* Remove containment to allow proper tooltip display */
+    width: 100%;
+    /* Ensure full width */
+    box-sizing: border-box;
+    /* Include border in width calculation */
+    display: flex;
+    align-items: center;
+    /* Center events vertically */
+  }
+
+  .row-track.axis {
+    height: 32px;
+    background: #fafafa;
+  }
+
+  .tick {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    border-left: 1px dashed #e0e0e0;
+  }
+
+  .tick span {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: #666;
+    border: 1px solid #eee;
+  }
+
+  .event {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 32px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 4px;
+    /* Ensure very short events are still visible */
+    max-width: 80%;
+    /* Prevent events from exceeding container width */
+    z-index: 2;
+    /* Higher z-index for events */
+    box-sizing: border-box;
+    /* Include border in width calculation */
+  }
+
+  .event:hover {
+    transform: translateY(-50%) translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+    /* Much higher z-index for hover state */
+  }
+
+  .event.completed {
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+  }
+
+  .event.in-progress {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+  }
+
+  .event.scheduled {
+    background: #cce5ff;
+    border: 1px solid #99d6ff;
+  }
+
+  .event.failed {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+  }
+
+  .now-line {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 32px;
+    width: 2px;
+    background: #ff5252;
+    box-shadow: 0 0 8px rgba(255, 82, 82, 0.6);
+    z-index: 5;
+  }
+
+  .timeline-legend {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+    flex-wrap: wrap;
+  }
+
+  .legend-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .legend-section h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .legend-swatch {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    border: 1px solid;
+  }
+
+  .legend-swatch.completed {
+    background: #d4edda;
+    border-color: #c3e6cb;
+  }
+
+  .legend-swatch.in-progress {
+    background: #fff3cd;
+    border-color: #ffeaa7;
+  }
+
+  .legend-swatch.scheduled {
+    background: #cce5ff;
+    border-color: #99d6ff;
+  }
+
+  .legend-swatch.failed {
+    background: #f8d7da;
+    border-color: #f5c6cb;
+  }
+
+  .legend-swatch.account-type {
+    background: #4caf50;
+    border-color: #4caf50;
+  }
+
+  .legend-swatch.entitlement-type {
+    background: #ff9800;
+    border-color: #ff9800;
+  }
+
+  /* Angular Material tooltip customization */
+  .event-tooltip {
+    background: rgba(0, 0, 0, 0.95) !important;
+    color: white !important;
+    font-size: 0.85rem !important;
+    white-space: pre-line !important;
+    max-width: 350px !important;
+    text-align: left !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+  }
+
+  /* Overlap Detection Styles */
+  .overlaps-section {
+    margin: 1rem 0;
+  }
+
+  .overlaps-section .mat-card-header {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+  }
+
+  .overlaps-section .mat-card-title {
+    color: #856404;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .overlaps-section .mat-card-subtitle {
+    color: #856404;
+  }
+
+  .no-overlaps {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #d4edda;
+    border-radius: 8px;
+    color: #155724;
+  }
+
+  .success-icon {
+    color: #28a745;
+    font-size: 2rem;
+  }
+
+  .overlaps-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .overlap-item {
+    border: 1px solid #ffc107;
+    border-radius: 8px;
+    padding: 1rem;
+    background: #fffbf0;
+  }
+
+  .overlap-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .warning-icon {
+    color: #ffc107;
+    font-size: 1.5rem;
+  }
+
+  .overlap-time {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .overlap-duration {
+    font-size: 0.85rem;
+    color: #856404;
+    font-style: italic;
+  }
+
+  .overlapping-sources {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .source-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: white;
+    border-radius: 4px;
+    border: 1px solid #e9ecef;
+  }
+
+  .source-type-icon {
+    font-size: 1.2rem;
+  }
+
+  .source-type-icon.account-icon {
+    color: #007bff;
+  }
+
+  .source-type-icon.entitlement-icon {
+    color: #6f42c1;
+  }
+
+  .source-name {
+    font-weight: 500;
+    flex: 1;
+  }
+
+  .aggregation-type {
+    font-size: 0.8rem;
+    background: #f8f9fa;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    color: #6c757d;
+  }
+
+  .average-duration {
+    font-size: 0.75rem;
+    color: #495057;
+    font-style: italic;
+    margin-left: auto;
+  }
+</style>

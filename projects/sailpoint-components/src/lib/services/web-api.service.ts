@@ -1,4 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy, Inject, Optional, InjectionToken } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, firstValueFrom, takeUntil, Subject } from 'rxjs';
+
+// Injection token for web API URL
+export const WEB_API_URL = new InjectionToken<string>('WEB_API_URL');
 
 /**
  * Interface that defines all the methods used from window.electronAPI
@@ -10,7 +15,6 @@ export interface ElectronAPIInterface {
   disconnectFromISC: () => Promise<void>;
   checkAccessTokenStatus: () => Promise<AccessTokenStatus>;
   getCurrentTokenDetails: (environment: string) => Promise<{ tokenDetails: TokenDetails | undefined, error?: string }>;
-  
   // Token management
   refreshTokens: () => Promise<{ success: boolean, error?: string }>;
   validateTokens: (environment: string) => Promise<{ isValid: boolean, needsRefresh: boolean, error?: string }>;
@@ -40,6 +44,8 @@ export type UpdateEnvironmentRequest = {
   authtype: AuthMethods;
   clientId?: string;
   clientSecret?: string;
+  bypassTLS?: boolean;
+  caCertPath?: string;
 }
 
 export type Tenant = {
@@ -99,14 +105,43 @@ export type AuthMethods = "oauth" | "pat";
 @Injectable({
   providedIn: 'root'
 })
-export class WebApiService implements ElectronAPIInterface {
-  private apiUrl = '/api'; // Default API URL, can be configured
+export class WebApiService implements ElectronAPIInterface, OnDestroy {
+  private apiUrl: string;
   private tenants: Tenant[] = [];
   private authtype: AuthMethods = 'pat';
   private activeEnvironment: string | null = null;
   private tokens: Map<string, TokenSet> = new Map();
+  private csrfToken: string | null = null;
+  private destroy$ = new Subject<void>();
 
-  constructor() { }
+  constructor(
+    private http: HttpClient,
+    @Optional() @Inject(WEB_API_URL) webApiUrl: string | null
+  ) {
+    this.apiUrl = webApiUrl || '/api'; // Use injected URL or fallback
+    // Create proxy to handle dynamic SDK method calls
+    return new Proxy(this, {
+      get(target: WebApiService, prop: string | symbol) {
+        if (prop in target || typeof prop === 'symbol') {
+          return ((target as unknown) as Record<string | symbol, unknown>)[prop];
+        }
+        
+        // For unknown methods, assume they are SDK methods and proxy them through callSdkMethod
+        if (typeof prop === 'string' && prop !== 'constructor') {
+          return function(this: WebApiService, ...args: unknown[]) {
+            return this.callSdkMethod(prop, ...args);
+          }.bind(target);
+        }
+        
+        return undefined;
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
   
   /**
    * Configure the API URL for the web service
@@ -117,31 +152,109 @@ export class WebApiService implements ElectronAPIInterface {
   }
 
   /**
-   * Helper method to make API calls to the web service
+   * Get CSRF token from the server
    */
-  private async apiCall<T>(endpoint: string, method: string = 'GET', body?: any): Promise<T> {
+  private async getCsrfToken(): Promise<string> {
+    if (this.csrfToken) {
+      return this.csrfToken;
+    }
+
+    try {
+      // Include session ID header for Lambda compatibility - this ensures
+      // the CSRF token is generated using the correct CSRF secret from storage
+      let headers = new HttpHeaders();
+      const sessionId = localStorage.getItem('custom-session-id');
+      if (sessionId) {
+        headers = headers.set('x-session-id', sessionId);
+      }
+
+      const response = await firstValueFrom(
+        this.http.get<{ csrfToken: string }>(`${this.apiUrl}/auth/csrf-token`, {
+          headers,
+          withCredentials: true
+        })
+      );
+
+      this.csrfToken = response.csrfToken;
+      return response.csrfToken;
+    } catch (error) {
+      console.error('Error getting CSRF token:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Helper method to make API calls to the web service using Angular HttpClient
+   */
+  private async apiCall<T>(endpoint: string, method: string = 'GET', body?: unknown): Promise<T> {
     const url = `${this.apiUrl}/${endpoint}`;
+
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    // Add session ID header for Lambda compatibility
+    const sessionId = localStorage.getItem('custom-session-id');
+    if (sessionId) {
+      headers = headers.set('x-session-id', sessionId);
+    }
+
+    // Add CSRF token for non-GET requests
+    if (method !== 'GET') {
+      try {
+        const csrfToken = await this.getCsrfToken();
+        headers = headers.set('x-csrf-token', csrfToken);
+      } catch (error) {
+        console.error('Failed to get CSRF token for request:', error);
+        // Continue without CSRF token - let the server handle the error
+      }
+    }
     
-    const options: RequestInit = {
-      method,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include', // Includes cookies for session management
+    const options = {
+      headers,
+      withCredentials: true // Includes cookies for session management
     };
     
-    if (body) {
-      options.body = JSON.stringify(body);
+    try {
+      let response$: Observable<T>;
+      
+      switch (method.toUpperCase()) {
+        case 'GET':
+          response$ = this.http.get<T>(url, options);
+          break;
+        case 'POST':
+          response$ = this.http.post<T>(url, body, options);
+          break;
+        case 'PUT':
+          response$ = this.http.put<T>(url, body, options);
+          break;
+        case 'PATCH':
+          response$ = this.http.patch<T>(url, body, options);
+          break;
+        case 'DELETE':
+          response$ = this.http.delete<T>(url, options);
+          break;
+        default:
+          throw new Error(`Unsupported HTTP method: ${method}`);
+      }
+      
+      return await firstValueFrom(response$.pipe(takeUntil(this.destroy$)));
+    } catch (error: any) {
+      // Check if the service is being destroyed
+      if (this.destroy$.closed) {
+        console.warn('API call cancelled due to service destruction');
+        throw new Error('Service destroyed');
+      }
+      
+      // Handle CSRF token errors and retry once
+      if (error.status === 403 && method !== 'GET' && error.error?.includes?.('CSRF')) {
+        this.csrfToken = null; // Clear cached token
+        return this.apiCall(endpoint, method, body); // Retry once
+      }
+      
+      console.error('API call failed:', error);
+      throw new Error(`API call failed: ${error.message || error}`);
     }
-    
-    const response = await fetch(url, options);
-    
-    if (!response.ok) {
-      const error = await response.text();
-      throw new Error(`API call failed: ${error}`);
-    }
-    
-    return await response.json() as T;
   }
 
   // Authentication and Connection methods
@@ -218,7 +331,10 @@ export class WebApiService implements ElectronAPIInterface {
   // This acts as a catch-all for any SailPoint API functions
   [key: string]: any;
   
-  async callSdkMethod(methodName: string, ...args: any[]): Promise<any> {
-    return this.apiCall(`sdk/${methodName}`, 'POST', { args });
+  async callSdkMethod(methodName: string, ...args: unknown[]): Promise<unknown> {
+    // Most SDK methods expect the first argument to be the request parameters object
+    // For compatibility with the SDK wrapper, pass the first argument directly
+    const requestParameters = args[0] || {};
+    return this.apiCall(`sdk/${methodName}`, 'POST', { args: requestParameters });
   }
 }

@@ -1,5 +1,6 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import { ConnectionService } from '../services/connection.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,6 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
@@ -25,6 +27,7 @@ import { ElectronApiFactoryService } from 'sailpoint-components';
 import { DOCUMENT } from '@angular/common';
 import { WebAuthComponent, AuthEvent } from '../web-auth/web-auth.component';
 import { GenericDialogComponent, OAuthDialogComponent, OAuthDialogData } from 'sailpoint-components'
+import { environment } from '../../environments/environment';
 
 
 type AuthMethods = "oauth" | "pat";
@@ -41,6 +44,8 @@ type Tenant = {
   name: string;
   authtype: AuthMethods;
   tenantName: string;
+  bypassTLS?: boolean;
+  caCertPath?: string;
 }
 
 type ComponentState = {
@@ -77,6 +82,7 @@ type ComponentState = {
     MatSelectModule,
     MatInputModule,
     MatRadioModule,
+    MatCheckboxModule,
     MatSnackBarModule,
     FormsModule,
     SharedModule,
@@ -94,6 +100,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     name: '',
     authtype: 'oauth',
     tenantName: '',
+    bypassTLS: false,
+    caCertPath: '',
   }
 
   // State management
@@ -116,6 +124,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   oauthAuthUrl: string | null = null;
   pollIntervalId: ReturnType<typeof setInterval> | undefined = undefined;
 
+  private http = inject(HttpClient);
+
   constructor(
     private router: Router,
     private connectionService: ConnectionService,
@@ -132,8 +142,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     void this.loadTenants();
-    void this.checkLoginStatus()
-
     
     this.connectionService.connectedSubject$.subscribe((connection) => {
       this.state.isConnected = connection.connected;
@@ -144,17 +152,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       void this.checkSessionStatus();
     }
 
-    // Check for OAuth callback parameters
-    if (this.state.isWebMode) {
-      const url = new URL(document.location.href);
-      if (url.searchParams.has('success')) {
-        this.showSnackbar('Login successful!');
-        void this.checkLoginStatus();
-      } else if (url.searchParams.has('error')) {
-        const errorMessage = url.searchParams.get('message') || 'Unknown error';
-        this.showSnackbar(`OAuth error: ${errorMessage}`);
-      }
-    }
+    // In web mode, the WebAuthComponent will handle login status checks and OAuth callbacks
+    // No need to duplicate that logic here
 
     this.state.loading = false;
 
@@ -188,11 +187,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (!this.state.isWebMode) return;
 
     try {
-      const response = await fetch('/api/auth/login-status', {
-        credentials: 'include' // Important for session cookies
-      });
-      
-      const status = await response.json();
+      const apiUrl = environment.webApiUrl || '/api';
+      const status = await this.http.get<any>(`${apiUrl}/auth/login-status`, {
+        withCredentials: true
+      }).toPromise();
       
       if (status.isLoggedIn && status.environment) {
         // Update connection state
@@ -275,7 +273,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
 
     this.authenticating = true;
-    this.dialog.open(GenericDialogComponent, {
+    this.dialog.open<GenericDialogComponent>(GenericDialogComponent, {
         data: {
           title: `Logging into ISC...`,
           message: "Please wait while we log you into the selected environment.",
@@ -294,7 +292,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         // Handle OAuth flow if we get UUID back (new authentication needed)
         if (loginResult.success && loginResult.uuid) {
-          this.handleOAuthFlowWithData(loginResult.uuid, loginResult.authUrl);
+          this.handleOAuthFlowWithData(String(loginResult.uuid), loginResult.authUrl ? String(loginResult.authUrl) : undefined);
           return;
         }
 
@@ -354,10 +352,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         connected: true, 
         name: event.username || 'User' 
       });
-      this.showSnackbar(`Successfully authenticated as ${event.username}`);
+      if (event.username) {
+        this.showSnackbar(`Successfully authenticated as ${event.username}`);
+      }
     } else {
       // Handle logout or auth failure
       this.state.isConnected = false;
+      this.state.name = '';
       this.connectionService.connectedSubject$.next({ connected: false });
       if (event.message) {
         this.showSnackbar(event.message);
@@ -369,10 +370,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.state.isWebMode) {
       // Call logout endpoint for web mode
       try {
-        await fetch('/api/auth/logout', {
-          method: 'POST',
-          credentials: 'include'
-        });
+        const apiUrl = environment.webApiUrl || '/api';
+        await this.http.post(`${apiUrl}/auth/logout`, {}, {
+          withCredentials: true
+        }).toPromise();
       } catch (error) {
         console.error('Error during web logout:', error);
       }
@@ -503,6 +504,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         authtype: this.state.actualTenant.authtype as 'oauth' | 'pat',
         clientId: clientId,
         clientSecret: clientSecret,
+        bypassTLS: this.state.actualTenant.bypassTLS || false,
+        caCertPath: this.state.actualTenant.caCertPath || '',
       });
 
       if (result.success) {
@@ -704,6 +707,43 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   // Utility Methods:
+
+  onTlsBypassChange(): void {
+    if (this.state.actualTenant.bypassTLS) {
+      // If TLS bypass is enabled, clear the CA certificate path
+      this.state.actualTenant.caCertPath = '';
+    }
+  }
+
+  onCaCertPathChange(): void {
+    if (this.state.actualTenant.caCertPath && this.state.actualTenant.caCertPath.trim()) {
+      // If CA certificate path is provided, disable TLS bypass
+      this.state.actualTenant.bypassTLS = false;
+    }
+  }
+
+  async browseCaCertFile(): Promise<void> {
+    if (this.state.isWebMode) {
+      this.showSnackbar('File browsing is not available in web mode. Please enter the full file path manually.');
+      return;
+    }
+
+    try {
+      const result = await this.electronService.getApi().browseForFile();
+      
+      if (result.success && result.filePath) {
+        this.state.actualTenant.caCertPath = result.filePath;
+        // When a certificate is selected, disable TLS bypass
+        this.state.actualTenant.bypassTLS = false;
+        this.showSnackbar('Certificate file selected successfully');
+      } else if (!result.canceled) {
+        this.showSnackbar('Failed to select file: ' + (result.error || 'Unknown error'));
+      }
+    } catch (error) {
+      console.error('Error browsing for CA certificate file:', error);
+      this.showSnackbar('Failed to open file browser');
+    }
+  }
 
   showSnackbar(message: string): void {
     this.snackBar.open(message, 'Close', {

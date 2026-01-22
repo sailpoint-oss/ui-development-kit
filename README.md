@@ -40,6 +40,8 @@
   - [Local Development](#local-development)
 - [Building the SailPoint SDK](#building-the-sailpoint-sdk)
 - [Building the Application](#building-the-application)
+  - [Docker Deployment](#docker-deployment)
+  - [Deploying to AWS with GitHub Actions](#deploying-to-aws-with-github-actions)
 - [Usage](#usage)
   - [Environment Configuration](#environment-configuration)
   - [Authentication Methods](#authentication-methods)
@@ -132,7 +134,7 @@ You can download Node.js from [nodejs.org](https://nodejs.org/).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Local Development
+### Local Development (Electron)
 
 To start the application in development mode:
 
@@ -145,9 +147,39 @@ This command will:
 2. Launch the Electron application
 3. Enable hot reload for rapid development
 
-For web-only development (without Electron):
+### Local Development (Web)
+
+#### Getting your OAuth Token:
+1. Log into your ISC instance and navigate to Global -> Security Settings
+2. Click on "API Management" and add a new API like the following:
+
+![ISC Authentication Screen](img/isc_authentication.png)
+
+Record the client id and secret for use in deploying and running locally for authentication purposes (shown below)
+
+#### For web-only local development of the angular app:
 ```bash
-npm run ng:serve
+npm run ng:serve:web
+```
+in the `/server` directory:
+Ensure you have a .env file with the following variables set:
+```yaml
+# Server Configuration
+PORT=3000
+SESSION_SECRET=your-secure-session-secret
+
+# SailPoint OAuth Configuration
+TENANT_URL=https://beta-orgId.identitynow-demo.com/
+API_URL=https://beta-orgId.api.identitynow-demo.com/
+CLIENT_ID=YourClientId
+CLIENT_SECRET=YourClientSecret
+REDIRECT_URI=http://localhost:3000/api/oauth/callback
+OAUTH_SCOPES=sp:scopes:all
+```
+
+And run the command
+```bash
+npm run start
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -240,6 +272,215 @@ For web deployment (without Electron):
 ```bash
 npm run web:build
 ```
+
+For Docker deployment (without Electron TypeScript):
+```bash
+npm run docker:build
+```
+
+### Docker Deployment
+
+The application can be deployed using Docker to any container hosting service (AWS ECS, Azure Container Instances, Google Cloud Run, DigitalOcean, Railway, Render, etc.).
+
+#### Building the Docker Image
+
+Build the Docker image:
+```bash
+docker build -t sailpoint-ui-dev-kit .
+```
+
+#### Running with Docker Compose (Recommended)
+
+1. **Create environment file**:
+   ```bash
+   # Copy the example file
+   cp .env.example .env
+   
+   # Edit .env and fill in your SailPoint credentials
+   # Get OAuth credentials from: Global -> Security Settings -> API Management
+   ```
+
+2. **Start the application**:
+   ```bash
+   docker-compose up -d
+   ```
+
+3. **View logs**:
+   ```bash
+   docker-compose logs -f
+   ```
+
+4. **Stop the application**:
+   ```bash
+   docker-compose down
+   ```
+
+The application will be available at `http://localhost:3000`
+
+#### Running with Docker CLI
+
+```bash
+docker run -d \
+  -p 3000:3000 \
+  -e JWT_SECRET="your-jwt-secret" \
+  -e SESSION_SECRET="your-session-secret" \
+  -e TENANT_URL="https://your-org.identitynow.com/" \
+  -e CLIENT_ID="your-client-id" \
+  -e CLIENT_SECRET="your-client-secret" \
+  -e REDIRECT_URI="http://localhost:3000/api/oauth/callback" \
+  -e OAUTH_SCOPES="sp:scopes:all" \
+  --name sailpoint-ui-dev-kit \
+  sailpoint-ui-dev-kit
+```
+
+#### Environment Variables
+
+| Variable | Description | Required | Default |
+|----------|-------------|----------|---------|
+| `PORT` | Server port | No | `3000` |
+| `NODE_ENV` | Environment mode | No | `production` |
+| `JWT_SECRET` | JWT signing secret | Yes | - |
+| `SESSION_SECRET` | Session encryption secret | Yes | - |
+| `TENANT_URL` | SailPoint tenant URL | Yes | - |
+| `CLIENT_ID` | OAuth client ID | Yes | - |
+| `CLIENT_SECRET` | OAuth client secret | Yes | - |
+| `REDIRECT_URI` | OAuth redirect URI | Yes | - |
+| `OAUTH_SCOPES` | OAuth scopes | No | `sp:scopes:all` |
+| `WEBSITE_URL` | Website URL for CORS | No | `http://localhost:3000` |
+
+#### Deploying to Cloud Services
+
+**AWS ECS/Fargate**:
+```bash
+# Push to ECR
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <account-id>.dkr.ecr.us-east-1.amazonaws.com
+docker tag sailpoint-ui-dev-kit:latest <account-id>.dkr.ecr.us-east-1.amazonaws.com/sailpoint-ui-dev-kit:latest
+docker push <account-id>.dkr.ecr.us-east-1.amazonaws.com/sailpoint-ui-dev-kit:latest
+```
+
+**Google Cloud Run**:
+```bash
+# Push to GCR
+gcloud builds submit --tag gcr.io/<project-id>/sailpoint-ui-dev-kit
+gcloud run deploy sailpoint-ui-dev-kit --image gcr.io/<project-id>/sailpoint-ui-dev-kit --platform managed
+```
+
+**Azure Container Instances**:
+```bash
+# Push to ACR
+az acr login --name <registry-name>
+docker tag sailpoint-ui-dev-kit <registry-name>.azurecr.io/sailpoint-ui-dev-kit
+docker push <registry-name>.azurecr.io/sailpoint-ui-dev-kit
+az container create --resource-group <group> --name sailpoint-ui-dev-kit --image <registry-name>.azurecr.io/sailpoint-ui-dev-kit
+```
+
+**Railway/Render**: Connect your Git repository and they will automatically detect and build the Dockerfile.
+
+### Deploying to AWS with GitHub Actions
+
+The application can be deployed to AWS using the included GitHub Actions workflow (`.github/workflows/aws-deploy.yml`). The workflow automatically deploys both the Angular frontend and Node.js backend to AWS infrastructure.
+
+#### Prerequisites
+
+Before using the GitHub Action to deploy, you need to set up the following in your AWS and GitHub environments:
+
+##### 1. AWS Infrastructure Setup
+
+**AWS OIDC Provider for GitHub Actions**
+- Configure an OIDC identity provider in AWS IAM to allow GitHub Actions to authenticate without storing AWS credentials
+- Create an IAM role with the following trust policy:
+  ```json
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::{ACCOUNT_ID}:oidc-provider/token.actions.githubusercontent.com"
+        },
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringEquals": {
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
+          },
+          "StringLike": {
+            "token.actions.githubusercontent.com:sub": "repo:{ORG}/{REPO}:*"
+          }
+        }
+      }
+    ]
+  }
+  ```
+- Attach the following AWS managed policies to the role:
+  - `AWSCloudFormationFullAccess`
+  - `IAMFullAccess`
+  - `AmazonS3FullAccess`
+  - `CloudFrontFullAccess`
+  - `AmazonDynamoDBFullAccess`
+  - `AWSLambda_FullAccess`
+  - `AmazonAPIGatewayAdministrator`
+
+**Note**: The workflow references `arn:aws:iam::176038645705:role/github-action-role` - update this in the workflow file with your own AWS account ID and role name.
+
+##### 2. GitHub Secrets Configuration
+
+Configure the following secrets in your GitHub repository (Settings → Secrets and variables → Actions):
+
+| Secret Name | Description | Required | Example |
+|------------|-------------|----------|---------|
+| `JWT_SECRET` | Secret key for JWT token signing and session encryption | Yes | A long random string (min 32 characters) |
+| `TENANT_URL` | Your SailPoint tenant URL | Yes | `https://your-org.identitynow.com/` |
+| `CLIENT_ID` | OAuth client ID from SailPoint | Yes | From ISC API Management settings |
+| `CLIENT_SECRET` | OAuth client secret from SailPoint | Yes | From ISC API Management settings |
+| `REDIRECT_URI` | OAuth redirect URI (will be `{API_URL}/oauth/callback`) | Yes | `https://your-api.com/oauth/callback` |
+| `OAUTH_SCOPES` | OAuth scopes to request | No | Defaults to `sp:scopes:all` |
+
+**Getting OAuth Credentials**: Follow the instructions in the [Local Development (Web)](#local-development-web) section to create an OAuth client in SailPoint.
+
+##### 3. SAM CLI Configuration
+
+The workflow uses AWS SAM (Serverless Application Model) to deploy infrastructure. The following resources are created automatically:
+- **Lambda Function**: Node.js backend API
+- **API Gateway**: HTTP API with CORS configuration
+- **DynamoDB Table**: Session and token storage (table name: `{stack-name}-sessions`)
+- **S3 Bucket**: Static website hosting for Angular frontend
+- **CloudFront Distribution**: CDN for the frontend
+
+
+##### 4. Deployment Workflow
+
+**Main Branch Deployment**:
+- Pushes to the `main` branch automatically deploy to the production stack (`ui-dev-kit`)
+- The workflow ignores changes to `README.md` and `docs/**` files
+
+**Pull Request Deployments**:
+- Each pull request gets its own preview deployment stack (`ui-dev-kit-pr-{number}`)
+- A comment is added to the PR with deployment URLs
+- Preview stacks are automatically cleaned up when the PR is closed
+
+**Manual Deployment**:
+- Use the "Actions" tab in GitHub and select "Run workflow" to manually trigger a deployment
+
+##### 5. Deployment Process
+
+The GitHub Action performs the following steps:
+1. Builds the Node.js backend TypeScript code
+2. Deploys AWS infrastructure using SAM CLI (Lambda, API Gateway, DynamoDB, S3, CloudFront)
+3. Updates Angular environment files with the deployed API URL
+4. Builds the Angular application for production
+5. Uploads the built frontend to S3
+6. Updates API Gateway CORS settings with the CloudFront URL
+7. Updates Lambda environment variables with OAuth configuration
+8. Invalidates CloudFront cache to serve the new version
+
+##### 6. Post-Deployment
+
+After successful deployment, the workflow outputs:
+- **Web Application URL**: CloudFront distribution URL for accessing the app
+- **API Endpoint URL**: API Gateway URL for backend services
+- **Stack Name**: CloudFormation stack name for reference
+
+For pull requests, these URLs are automatically posted as a comment on the PR.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

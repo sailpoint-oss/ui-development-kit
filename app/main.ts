@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, screen, shell } from 'electron';
+import { app, BrowserWindow, dialog, ipcMain, screen, shell } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as url from 'url';
@@ -145,8 +145,6 @@ try {
     return getCurrentTokenDetails(environment);
   });
 
-
-
   ipcMain.handle('refresh-tokens', async (event) => {
     return refreshTokens();
   });
@@ -258,6 +256,28 @@ try {
     } catch (error) {
       console.error('Error writing config file:', error);
       throw new Error('Failed to write config file');
+    }
+  });
+
+  ipcMain.handle('browse-for-file', async () => {
+    try {
+      const result = await dialog.showOpenDialog(win!, {
+        title: 'Select CA Certificate File',
+        filters: [
+          { name: 'Certificate Files', extensions: ['pem', 'crt', 'cer', 'p7b', 'p7c', 'der'] },
+          { name: 'All Files', extensions: ['*'] }
+        ],
+        properties: ['openFile']
+      });
+
+      if (result.canceled || result.filePaths.length === 0) {
+        return { success: false, canceled: true };
+      }
+
+      return { success: true, filePath: result.filePaths[0] };
+    } catch (error) {
+      console.error('Error opening file dialog:', error);
+      return { success: false, error: 'Failed to open file dialog' };
     }
   });
 

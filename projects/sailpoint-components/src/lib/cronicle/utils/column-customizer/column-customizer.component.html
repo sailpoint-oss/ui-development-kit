@@ -1,0 +1,27 @@
+<!-- Trigger -->
+<button mat-raised-button class="customizeColumnsToggle" (click)="toggleSelector()">
+  Customize Columns
+</button>
+
+<!-- Dropdown Panel -->
+<div
+  #panelRef
+  class="dropdown-panel"
+  *ngIf="showSelector"
+  cdkDropList
+  (cdkDropListDropped)="dropColumn($event)"
+>
+  <div
+    class="column-option"
+    *ngFor="let col of allColumns"
+    cdkDrag
+  >
+    <input
+      type="checkbox"
+      [checked]="isDisplayed(col)"
+      (change)="toggleColumn(col)"
+    />
+    {{ col }}
+    <span class="drag-handle">☰</span>
+  </div>
+</div>

@@ -1,8 +1,17 @@
 import { Injectable } from '@angular/core';
 
+declare global {
+  interface Window {
+    electronAPI: any;
+  }
+}
+
 @Injectable({
   providedIn: 'root'
 })
+
+
+
 export class ElectronService {
   isElectron: boolean = false;
   electronAPI: any;

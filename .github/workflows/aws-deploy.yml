@@ -1,0 +1,350 @@
+name: Deploy UI Development Kit to AWS
+
+on:
+  push:
+    branches: ['main']
+    paths-ignore:
+      - 'README.md'
+      - 'docs/**'
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+# Allow one concurrent deployment
+concurrency:
+  group: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || 'main' }}
+  cancel-in-progress: true
+
+permissions:
+  id-token: write # Required for AWS OIDC
+  contents: read
+  pull-requests: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::176038645705:role/github-action-role
+          role-session-name: deploy-ui-dev-kit-${{ github.run_id }}
+          aws-region: us-east-1
+          role-duration-seconds: 3600
+
+      - name: Setup SAM CLI
+        uses: aws-actions/setup-sam@v2
+        with:
+          use-installer: true
+
+      - name: Determine deployment target
+        run: |
+          if [[ ${{ github.ref }} == refs/pull/* ]]; then
+            PR_NUMBER=$(echo ${{ github.ref }} | awk -F '/' '{print $3}')
+            echo "STACK_NAME=ui-dev-kit-pr-$PR_NUMBER" >> $GITHUB_ENV
+            echo "IS_PR=true" >> $GITHUB_ENV
+          else
+            echo "STACK_NAME=ui-dev-kit" >> $GITHUB_ENV
+            echo "IS_PR=false" >> $GITHUB_ENV
+          fi
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          cd server && npm ci
+
+      - name: Build server TypeScript
+        run: |
+          cd server
+          npm run build
+
+      - name: Build and deploy SAM application (backend only)
+        env:
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          TENANT_URL: ${{ secrets.TENANT_URL }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          REDIRECT_URI: ${{ secrets.REDIRECT_URI }}
+          OAUTH_SCOPES: ${{ secrets.OAUTH_SCOPES }}
+        run: |
+          sam build
+          if [ "$IS_PR" = "true" ]; then
+            # For PRs, override the stack name
+            sam deploy \
+              --no-confirm-changeset \
+              --no-fail-on-empty-changeset \
+              --stack-name $STACK_NAME \
+              --s3-prefix $STACK_NAME \
+              --parameter-overrides \
+                Environment=prod \
+                JWTSecret="$JWT_SECRET" \
+                TenantUrl="$TENANT_URL" \
+                ClientId="$CLIENT_ID" \
+                ClientSecret="$CLIENT_SECRET" \
+                RedirectUri="$REDIRECT_URI" \
+                OAuthScopes="${OAUTH_SCOPES:-sp:scopes:all}" \
+                WebsiteUrl="http://localhost:4200" \
+              --capabilities CAPABILITY_IAM \
+              --resolve-s3
+          else
+            # For main branch, use samconfig.toml defaults with parameter overrides
+            sam deploy \
+              --no-confirm-changeset \
+              --no-fail-on-empty-changeset \
+              --parameter-overrides \
+                JWTSecret="$JWT_SECRET" \
+                TenantUrl="$TENANT_URL" \
+                ClientId="$CLIENT_ID" \
+                ClientSecret="$CLIENT_SECRET" \
+                RedirectUri="$REDIRECT_URI" \
+                OAuthScopes="${OAUTH_SCOPES:-sp:scopes:all}" \
+                WebsiteUrl="http://localhost:4200"
+          fi
+
+      - name: Get deployment outputs
+        id: outputs
+        run: |
+          S3_BUCKET=$(aws cloudformation describe-stacks \
+            --stack-name $STACK_NAME \
+            --query "Stacks[0].Outputs[?OutputKey=='S3BucketName'].OutputValue" \
+            --output text)
+          echo "S3_BUCKET=$S3_BUCKET" >> $GITHUB_ENV
+          echo "s3_bucket=$S3_BUCKET" >> $GITHUB_OUTPUT
+          
+          CLOUDFRONT_URL=$(aws cloudformation describe-stacks \
+            --stack-name $STACK_NAME \
+            --query "Stacks[0].Outputs[?OutputKey=='WebsiteURL'].OutputValue" \
+            --output text)
+          echo "CLOUDFRONT_URL=$CLOUDFRONT_URL" >> $GITHUB_ENV
+          echo "cloudfront_url=$CLOUDFRONT_URL" >> $GITHUB_OUTPUT
+          
+          API_URL=$(aws cloudformation describe-stacks \
+            --stack-name $STACK_NAME \
+            --query "Stacks[0].Outputs[?OutputKey=='ApiGatewayURL'].OutputValue" \
+            --output text)
+          echo "API_URL=$API_URL" >> $GITHUB_ENV
+          echo "api_url=$API_URL" >> $GITHUB_OUTPUT
+
+          API_GATEWAY_ID=$(aws cloudformation describe-stacks \
+            --stack-name $STACK_NAME \
+            --query "Stacks[0].Outputs[?OutputKey=='ApiGatewayId'].OutputValue" \
+            --output text)
+          echo "API_GATEWAY_ID=$API_GATEWAY_ID" >> $GITHUB_ENV
+          echo "api_gateway_id=$API_GATEWAY_ID" >> $GITHUB_OUTPUT
+
+      - name: Update Angular environment with API URL
+        run: |
+          echo "Injecting API URL: $API_URL"
+          echo "Original environment file contents:"
+          cat src/environments/environment.web.prod.ts
+
+          # Create a temporary environment file with the dynamic API URL
+          cat > src/environments/environment.web.prod.dynamic.ts << EOF
+          export const APP_CONFIG = {
+            production: true,
+            environment: 'WEB-PROD'
+          };
+
+          export const environment = {
+            production: true,
+            web: true,
+            webApiUrl: '$API_URL', // Dynamic URL from CloudFormation
+          };
+          EOF
+
+          # Replace the original environment file
+          mv src/environments/environment.web.prod.dynamic.ts src/environments/environment.web.prod.ts
+
+          echo "Updated environment file contents:"
+          cat src/environments/environment.web.prod.ts
+
+      - name: Build Angular application
+        run: npm run build -- -c web-production
+        env:
+          NODE_OPTIONS: --max_old_space_size=4096
+
+      - name: Verify built files contain correct API URL
+        run: |
+          echo "Checking if built files contain the API URL..."
+          if grep -r "$API_URL" ./dist/; then
+            echo "✅ API URL found in built files"
+          else
+            echo "❌ API URL NOT found in built files"
+            echo "Searching for any webApiUrl references:"
+            grep -r "webApiUrl" ./dist/ || echo "No webApiUrl found"
+          fi
+
+      - name: Update API Gateway CORS policy and Lambda environment variables
+        env:
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          TENANT_URL: ${{ secrets.TENANT_URL }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          OAUTH_SCOPES: ${{ secrets.OAUTH_SCOPES }}
+        run: |
+          echo "Updating CORS policy for API Gateway: $API_GATEWAY_ID"
+          echo "CloudFront URL: $CLOUDFRONT_URL"
+          echo "API URL: $API_URL"
+
+          # Update API Gateway CORS policy
+          aws apigatewayv2 update-api \
+            --api-id $API_GATEWAY_ID \
+            --cors-configuration AllowOrigins='["'$CLOUDFRONT_URL'"]',AllowMethods='["OPTIONS","GET","POST","PUT","PATCH","DELETE"]',AllowHeaders='["Content-Type","Authorization","x-csrf-token","x-session-id"]',AllowCredentials=true
+
+          echo "✅ CORS policy updated successfully"
+
+          # Get Lambda function name from CloudFormation stack
+          echo "Getting Lambda function name from stack: $STACK_NAME"
+
+          # First, let's see what resources exist in the stack
+          echo "Stack resources:"
+          aws cloudformation describe-stack-resources \
+            --stack-name $STACK_NAME \
+            --query "StackResources[?ResourceType=='AWS::Lambda::Function'].[LogicalResourceId,PhysicalResourceId]" \
+            --output table
+
+          LAMBDA_FUNCTION_NAME=$(aws cloudformation describe-stack-resources \
+            --stack-name $STACK_NAME \
+            --logical-resource-id UiDevKitBackendFunction \
+            --query "StackResources[0].PhysicalResourceId" \
+            --output text)
+
+          echo "Lambda function name: $LAMBDA_FUNCTION_NAME"
+
+          if [ "$LAMBDA_FUNCTION_NAME" = "None" ] || [ -z "$LAMBDA_FUNCTION_NAME" ]; then
+            echo "❌ Failed to get Lambda function name"
+            exit 1
+          fi
+
+          # Update Lambda environment variables with all values from GitHub secrets and dynamic URLs
+          echo "Updating Lambda environment variables..."
+          echo "API_URL: $API_URL"
+          echo "CLOUDFRONT_URL: $CLOUDFRONT_URL"
+
+          # Build complete environment variables using GitHub secrets and dynamic URLs
+          echo "Building environment variables from GitHub secrets and dynamic URLs..."
+          jq -n \
+            --arg node_env "prod" \
+            --arg dynamo_table "$STACK_NAME-sessions" \
+            --arg jwt_secret "$JWT_SECRET" \
+            --arg session_secret "$JWT_SECRET" \
+            --arg tenant_url "$TENANT_URL" \
+            --arg client_id "$CLIENT_ID" \
+            --arg client_secret "$CLIENT_SECRET" \
+            --arg redirect_uri "$API_URL/oauth/callback" \
+            --arg oauth_scopes "${OAUTH_SCOPES:-sp:scopes:all}" \
+            --arg website_url "$CLOUDFRONT_URL" \
+            '{
+              Variables: {
+                NODE_ENV: $node_env,
+                DYNAMO_TABLE_NAME: $dynamo_table,
+                JWT_SECRET: $jwt_secret,
+                SESSION_SECRET: $session_secret,
+                TENANT_URL: $tenant_url,
+                CLIENT_ID: $client_id,
+                CLIENT_SECRET: $client_secret,
+                REDIRECT_URI: $redirect_uri,
+                OAUTH_SCOPES: $oauth_scopes,
+                WEBSITE_URL: $website_url
+              }
+            }' > /tmp/lambda-env-final.json
+
+          echo "Environment variables to be set:"
+          cat /tmp/lambda-env-final.json
+
+          aws lambda update-function-configuration \
+            --function-name $LAMBDA_FUNCTION_NAME \
+            --environment file:///tmp/lambda-env-final.json
+
+          echo "✅ Lambda environment variables updated successfully"
+
+      - name: Upload Angular app to S3
+        run: |
+          aws s3 sync ./dist s3://$S3_BUCKET --delete
+          
+      - name: Invalidate CloudFront cache
+        run: |
+          DISTRIBUTION_ID=$(aws cloudformation describe-stacks \
+            --stack-name $STACK_NAME \
+            --query "Stacks[0].Outputs[?OutputKey=='CloudFrontDistributionId'].OutputValue" \
+            --output text)
+          
+          aws cloudfront create-invalidation \
+            --distribution-id $DISTRIBUTION_ID \
+            --paths "/*"
+
+      - name: Find existing deployment comment
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/find-comment@v3
+        id: find-comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body-includes: "🚀 **Preview Deployment Ready**"
+        continue-on-error: true
+
+      - name: Create or update deployment comment
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          comment-id: ${{ steps.find-comment.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          edit-mode: replace
+          body: |
+            🚀 **Preview Deployment Ready**
+
+            Your changes have been deployed and are available at:
+            - **Web App**: ${{ steps.outputs.outputs.cloudfront_url }}
+            - **API**: ${{ steps.outputs.outputs.api_url }}
+            - **Stack**: `${{ env.STACK_NAME }}`
+
+            Built from commit: ${{ github.event.pull_request.head.sha }}
+
+            ---
+            *This comment will be updated with each new deployment.*
+
+      - name: Output deployment URLs
+        run: |
+          echo "🎉 Deployment completed successfully!"
+          echo "Web Application: $CLOUDFRONT_URL"
+          echo "API Endpoint: $API_URL" 
+          echo "Stack Name: $STACK_NAME"
+
+  cleanup-pr-stacks:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-session-name: cleanup-ui-dev-kit-${{ github.run_id }}
+          aws-region: us-east-1
+
+      - name: Delete PR stack
+        run: |
+          PR_NUMBER=${{ github.event.pull_request.number }}
+          STACK_NAME="ui-dev-kit-pr-$PR_NUMBER"
+          
+          echo "Cleaning up stack: $STACK_NAME"
+          
+          # Check if stack exists
+          if aws cloudformation describe-stacks --stack-name $STACK_NAME &>/dev/null; then
+            echo "Stack exists, deleting..."
+            aws cloudformation delete-stack --stack-name $STACK_NAME
+            echo "Stack deletion initiated for $STACK_NAME"
+          else
+            echo "Stack $STACK_NAME does not exist, nothing to clean up"
+          fi

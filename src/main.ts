@@ -10,6 +10,8 @@ import { HttpClient } from '@angular/common/http';
 import { CoreModule } from './app/core/core.module';
 import { SharedModule } from './app/shared/shared.module';
 import { appRoutes } from './app/app.routes';
+import { WEB_API_URL } from 'sailpoint-components';
+import { environment } from './environments/environment';
 
 // AoT-compatible translate loader factory
 export const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
@@ -20,6 +22,7 @@ bootstrapApplication(AppComponent, {
     provideAnimations(),
     provideHttpClient(),
     provideRouter(appRoutes, withHashLocation()),
+    { provide: WEB_API_URL, useValue: environment.webApiUrl },
     importProvidersFrom(
       TranslateModule.forRoot({
         loader: {
