@@ -95,9 +95,9 @@
     "zone.js": "0.15.1"
   },
   "devDependencies": {
-    "@angular-builders/custom-webpack": "19.0.1",
-    "@angular-builders/jest": "19.0.1",
-    "@angular-devkit/build-angular": "19.2.15",
+    "@angular-builders/custom-webpack": "21.0.3",
+    "@angular-builders/jest": "21.0.3",
+    "@angular-devkit/build-angular": "21.1.3",
     "@angular-eslint/builder": "19.3.0",
     "@angular-eslint/eslint-plugin": "19.3.0",
     "@angular-eslint/eslint-plugin-template": "19.3.0",
