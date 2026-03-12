@@ -148,7 +148,7 @@ export class AuthViewerComponent implements OnInit {
 
   loadAuthInfo() {
     const request: DefaultApiGenericGetRequest = {
-      path: '/v2025/authorization-capabilities',
+      path: '/v2025/authorization-capabilities?detailLevel=full',
       xSailPointExperimental: 'true',
     };
     return this.sdk
@@ -198,7 +198,7 @@ export class AuthViewerComponent implements OnInit {
 
   loadScopeInfo() {
     const request: DefaultApiGenericGetRequest = {
-      path: '/v2025/authorization-scopes',
+      path: '/v2025/authorization-scopes?detailLevel=full',
       xSailPointExperimental: 'true',
     };
     return this.sdk
