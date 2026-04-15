@@ -142,6 +142,14 @@ export class ConfigService {
             icon: 'dashboard',
             description: 'Manage config hub in SailPoint.',
             enabled: false
+        },
+        {
+            name: 'nerm-dashboard',
+            displayName: 'Nerm Dashboard',
+            route: '/nerm-dashboard',
+            icon: 'dashboard',
+            description: 'Manage nerm dashboard in SailPoint.',
+            enabled: false
         }
     ];
 

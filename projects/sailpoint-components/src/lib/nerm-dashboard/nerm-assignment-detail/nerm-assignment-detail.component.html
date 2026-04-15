@@ -1,0 +1,233 @@
+<div class="detail-container">
+  <mat-toolbar>
+    <button mat-icon-button (click)="goBack()" matTooltip="Back to dashboard">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span class="toolbar-title">Assignment Review</span>
+  </mat-toolbar>
+
+  @if (!assignment) {
+    <div class="not-found">
+      <mat-icon>search_off</mat-icon>
+      <p>Assignment not found. Please go back and try again.</p>
+      <button mat-stroked-button (click)="goBack()">Back to Dashboard</button>
+    </div>
+  }
+
+  @if (assignment) {
+    <div class="detail-content">
+
+      <!-- Header Card -->
+      <mat-card class="header-card">
+        <div class="header-body">
+          <div class="header-identity">
+            <div class="header-avatar">
+              <mat-icon>person</mat-icon>
+            </div>
+            <div class="header-info">
+              <h1 class="header-name">{{ assignment.personName }}</h1>
+              <div class="header-subtitle">{{ assignment.jobTitle }}</div>
+              <div class="header-meta">
+                {{ assignment.organizationName }} &middot; {{ assignment.locationDescription }}
+                @if (assignment.locationCity) {
+                  &middot; {{ assignment.locationCity }}, {{ assignment.locationState }}
+                }
+              </div>
+            </div>
+          </div>
+          <div class="header-badges">
+            <span class="status-badge status-{{ assignment.status.toLowerCase().replace(' ', '-') }}">
+              {{ assignment.status }}
+            </span>
+            <span class="risk-badge {{ getRiskClass(assignment.riskOverall) }}">
+              Risk {{ assignment.riskOverall | number:'1.1-1' }}/5
+            </span>
+          </div>
+        </div>
+      </mat-card>
+
+      <div class="detail-grid">
+
+        <!-- Assignment Details -->
+        <mat-card class="detail-card">
+          <mat-card-header>
+            <mat-icon mat-card-avatar class="section-icon">assignment</mat-icon>
+            <mat-card-title>Assignment Details</mat-card-title>
+            <mat-card-subtitle>{{ assignment.assignmentId }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="field-list">
+              <div class="field-row">
+                <span class="field-label">Description</span>
+                <span class="field-value">{{ assignment.description || '—' }}</span>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="field-row">
+                <span class="field-label">Job Title</span>
+                <span class="field-value">{{ assignment.jobTitle || '—' }}</span>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="field-row">
+                <span class="field-label">Organization</span>
+                <span class="field-value">{{ assignment.organizationName || '—' }}</span>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="field-row">
+                <span class="field-label">Location</span>
+                <span class="field-value">
+                  {{ assignment.locationDescription }}
+                  @if (assignment.locationCity) {
+                    <br><span class="field-sub">{{ assignment.locationCity }}, {{ assignment.locationState }}</span>
+                  }
+                </span>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Timeline -->
+        <mat-card class="detail-card">
+          <mat-card-header>
+            <mat-icon mat-card-avatar class="section-icon">event</mat-icon>
+            <mat-card-title>Timeline</mat-card-title>
+            <mat-card-subtitle>Assignment dates and expiration</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="field-list">
+              <div class="field-row">
+                <span class="field-label">Start Date</span>
+                <span class="field-value">{{ assignment.startDate | date:'longDate' }}</span>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="field-row">
+                <span class="field-label">End Date</span>
+                <span class="field-value">
+                  {{ assignment.endDate | date:'longDate' }}
+                </span>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="field-row">
+                <span class="field-label">Expiration</span>
+                <span class="field-value">
+                  <span class="days-badge {{ getUrgencyClass(assignment.expirationUrgency) }}">
+                    {{ formatDaysUntil(assignment.daysUntilExpiration) }}
+                  </span>
+                </span>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="field-row">
+                <span class="field-label">Last Verified</span>
+                <span class="field-value">{{ assignment.lastVerificationDate || '—' }}</span>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Risk Assessment -->
+        <mat-card class="detail-card">
+          <mat-card-header>
+            <mat-icon mat-card-avatar class="section-icon">security</mat-icon>
+            <mat-card-title>Risk Assessment</mat-card-title>
+            <mat-card-subtitle>Scores out of 5</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="risk-score-row">
+              <div class="risk-score-block">
+                <div class="risk-score-label">Overall</div>
+                <div class="risk-score-value {{ getRiskClass(assignment.riskOverall) }}">
+                  {{ assignment.riskOverall | number:'1.1-1' }}
+                </div>
+                <mat-progress-bar
+                  mode="determinate"
+                  [value]="getRiskBarWidth(assignment.riskOverall)"
+                  class="{{ getRiskClass(assignment.riskOverall) }}"
+                ></mat-progress-bar>
+              </div>
+              <div class="risk-score-block">
+                <div class="risk-score-label">Impact</div>
+                <div class="risk-score-value">{{ assignment.riskImpact | number:'1.1-1' }}</div>
+                <mat-progress-bar
+                  mode="determinate"
+                  [value]="getRiskBarWidth(assignment.riskImpact)"
+                ></mat-progress-bar>
+              </div>
+              <div class="risk-score-block">
+                <div class="risk-score-label">Probability</div>
+                <div class="risk-score-value">{{ assignment.riskProbability | number:'1.1-1' }}</div>
+                <mat-progress-bar
+                  mode="determinate"
+                  [value]="getRiskBarWidth(assignment.riskProbability)"
+                ></mat-progress-bar>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Person Information -->
+        <mat-card class="detail-card">
+          <mat-card-header>
+            <mat-icon mat-card-avatar class="section-icon">badge</mat-icon>
+            <mat-card-title>Non-Employee Information</mat-card-title>
+            <mat-card-subtitle>{{ assignment.personId }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="field-list">
+              <div class="field-row">
+                <span class="field-label">Full Name</span>
+                <span class="field-value">{{ assignment.personName || '—' }}</span>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="field-row">
+                <span class="field-label">Email</span>
+                <span class="field-value">
+                  @if (assignment.personEmail) {
+                    <a class="email-link" href="mailto:{{ assignment.personEmail }}">{{ assignment.personEmail }}</a>
+                  } @else {
+                    —
+                  }
+                </span>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="field-row">
+                <span class="field-label">Phone</span>
+                <span class="field-value">{{ assignment.personPhone || '—' }}</span>
+              </div>
+              @if (person) {
+                <mat-divider></mat-divider>
+                <div class="field-row">
+                  <span class="field-label">Status</span>
+                  <span class="field-value">
+                    <span class="status-badge status-{{ person.status.toLowerCase() }}">{{ person.status }}</span>
+                  </span>
+                </div>
+                @if (person.collaborator) {
+                  <mat-divider></mat-divider>
+                  <div class="field-row">
+                    <span class="field-label">Type</span>
+                    <span class="field-value">
+                      <span class="collaborator-badge">Collaborator</span>
+                    </span>
+                  </div>
+                }
+              }
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+      </div>
+
+      <!-- Actions -->
+      <div class="actions-bar">
+        <button mat-stroked-button (click)="goBack()">
+          <mat-icon>arrow_back</mat-icon>
+          Back to Dashboard
+        </button>
+        <button mat-stroked-button color="primary" (click)="extendAssignment()">
+          <mat-icon>event</mat-icon>
+          Extend Assignment
+        </button>
+      </div>
+
+    </div>
+  }
+</div>

@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AccountsComponent, AttachRuleComponent, CertificationManagementComponent, ColabComponent, CronicleComponent, IdentitiesComponent, OwnerGraphComponent, REPORT_EXAMPLE_ROUTES, ThemePickerComponent, TransformBuilderComponent, TransformsComponent, ConfigHubComponent } from 'sailpoint-components';
+import { AccountsComponent, AttachRuleComponent, CertificationManagementComponent, ColabComponent, CronicleComponent, IdentitiesComponent, OwnerGraphComponent, REPORT_EXAMPLE_ROUTES, ThemePickerComponent, TransformBuilderComponent, TransformsComponent, ConfigHubComponent, NERM_DASHBOARD_ROUTES } from 'sailpoint-components';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './shared/components';
  
@@ -73,6 +73,11 @@ export const appRoutes: Routes = [
   {
     path: 'config-hub',
     component: ConfigHubComponent
+  },
+
+  {
+    path: 'nerm-dashboard',
+    children: NERM_DASHBOARD_ROUTES
   },
 
   {

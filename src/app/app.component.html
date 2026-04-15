@@ -197,6 +197,13 @@
           Config Hub
         </a>
       }
+        @if (isComponentEnabled('nerm-dashboard')) {
+          <a mat-list-item class="sidebar-link" routerLink="/nerm-dashboard" routerLinkActive="active-link"
+            [class.disabled]="!isConnected" (click)="onNavItemClick($event)">
+            <mat-icon class="card-icon">dashboard</mat-icon>
+            Nerm Dashboard
+          </a>
+        }
       </mat-nav-list>
     </mat-sidenav>
   }
