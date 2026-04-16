@@ -47,7 +47,6 @@
   --nerm-tab-badge-critical: #d32f2f;
   --nerm-expiration-card-shadow: rgba(0, 0, 0, 0.08);
   --nerm-person-link-color: #1976d2;
-  --nerm-offboard-color: #c62828;
 }
 
 :host-context(.dark-theme) {
@@ -94,7 +93,6 @@
   --nerm-tab-badge-critical: #ef5350;
   --nerm-expiration-card-shadow: rgba(0, 0, 0, 0.3);
   --nerm-person-link-color: #90caf9;
-  --nerm-offboard-color: #ef9a9a;
 }
 
 // Layout
@@ -853,7 +851,3 @@ mat-progress-bar {
   }
 }
 
-// Offboard action styling
-.offboard-action {
-  color: var(--nerm-offboard-color) !important;
-}

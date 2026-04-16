@@ -4,12 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -19,12 +19,12 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ProfileNERM } from 'sailpoint-api-client';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
+import { ProfileNERM } from 'sailpoint-api-client';
 import { SailPointSDKService } from '../sailpoint-sdk.service';
+import { ExtendDialogResult, NermExtendDialogComponent } from './nerm-extend-dialog/nerm-extend-dialog.component';
+import { NermEndAssignmentDialogComponent } from './nerm-offboard-dialog/nerm-offboard-dialog.component';
 import { NermStateService } from './nerm-state.service';
-import { NermExtendDialogComponent, ExtendDialogResult } from './nerm-extend-dialog/nerm-extend-dialog.component';
 
 // Profile type IDs
 const PEOPLE_TYPE_ID = 'de5cb47c-2fcf-4eb5-8bcf-0316ffd563db';
@@ -537,6 +537,17 @@ export class NermDashboardComponent implements OnInit {
     ref.afterClosed().subscribe((result: ExtendDialogResult | undefined) => {
       if (result?.newEndDate) {
         console.log('Extend assignment', assignment.assignmentId, 'to', result.newEndDate);
+        void this.sdk.submitWorkflowSessionNerm({
+          submitWorkflowSessionRequestNERM: {
+            workflow_session: {
+              workflow_id: 'de103e43-c3dc-4022-b093-1ce1a95f5448',
+              requester_id: '6a7dffeb-6bfd-4efa-895b-1a7a2d381700',
+              requester_type: 'User',
+              profile_id: assignment.id,
+              attributes: { end_date: `${result.newEndDate.getMonth() + 1}/${result.newEndDate.getDate()}/${result.newEndDate.getFullYear()}` },
+            },
+          },
+        });
       }
     });
   }
@@ -545,8 +556,27 @@ export class NermDashboardComponent implements OnInit {
     void this.router.navigate(['/nerm-dashboard', 'assignment', assignment.id]);
   }
 
-  initiateOffboarding(assignment: EnrichedAssignment): void {
-    console.log('Initiate offboarding for:', assignment.assignmentId);
+  endAssignment(assignment: EnrichedAssignment): void {
+    const ref = this.dialog.open(NermEndAssignmentDialogComponent, {
+      data: { assignment },
+      disableClose: false,
+    });
+    ref.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        console.log('End assignment confirmed for:', assignment.assignmentId);
+        void this.sdk.submitWorkflowSessionNerm({
+          submitWorkflowSessionRequestNERM: {
+            workflow_session: {
+              workflow_id: 'c5c89552-805b-41f3-bb32-d24e92b33349',
+              requester_id: '6a7dffeb-6bfd-4efa-895b-1a7a2d381700',
+              requester_type: 'User',
+              profile_id: assignment.id,
+              attributes: { },
+            },
+          },
+        });
+      }
+    });
   }
 
   // --- Helpers ---

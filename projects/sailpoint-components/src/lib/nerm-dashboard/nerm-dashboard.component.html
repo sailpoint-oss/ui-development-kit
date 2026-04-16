@@ -283,9 +283,9 @@
                         <mat-icon>rate_review</mat-icon>
                         <span>Request Review</span>
                       </button>
-                      <button mat-menu-item (click)="initiateOffboarding(a)" class="offboard-action">
+                      <button mat-menu-item (click)="endAssignment(a)">
                         <mat-icon>exit_to_app</mat-icon>
-                        <span>Initiate Offboarding</span>
+                        <span>End Assignment</span>
                       </button>
                     </mat-menu>
                   </td>
@@ -350,8 +350,8 @@
                       <button mat-stroked-button color="primary" (click)="extendAssignment(a)">
                         <mat-icon>event</mat-icon> Extend
                       </button>
-                      <button mat-stroked-button color="warn" (click)="initiateOffboarding(a)">
-                        <mat-icon>exit_to_app</mat-icon> Offboard
+                      <button mat-stroked-button color="warn" (click)="endAssignment(a)">
+                        <mat-icon>exit_to_app</mat-icon> End Assignment
                       </button>
                     </div>
                   </div>
@@ -583,7 +583,7 @@
                 <div class="person-assignment-actions">
                   <button mat-stroked-button color="primary" (click)="extendAssignment(a)">Extend</button>
                   <button mat-stroked-button (click)="requestReview(a)">Review</button>
-                  <button mat-stroked-button color="warn" (click)="initiateOffboarding(a)">Offboard</button>
+                  <button mat-stroked-button color="warn" (click)="endAssignment(a)">End Assignment</button>
                 </div>
               </mat-card>
             }
