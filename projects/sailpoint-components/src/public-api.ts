@@ -35,3 +35,5 @@ export * from './lib/colab/services/discourse.service';
 
 export * from './lib/nerm-dashboard/nerm-dashboard.component';
 export * from './lib/nerm-dashboard/nerm-dashboard-routes';
+export * from './lib/nerm-dashboard/nerm-dashboard-settings.service';
+export * from './lib/nerm-dashboard/nerm-dashboard-settings/nerm-dashboard-settings.component';

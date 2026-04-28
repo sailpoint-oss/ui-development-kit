@@ -1,0 +1,50 @@
+.nerm-settings-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.toolbar-title {
+  margin-left: 8px;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.settings-body {
+  padding: 24px;
+  max-width: 960px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.fields-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+  width: 100%;
+}
+
+.fields-stack mat-form-field {
+  width: 100%;
+}
+
+mat-card-subtitle code,
+.section-hint code {
+  font-size: 0.85em;
+}
+
+.section-heading {
+  margin: 8px 0 0;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.section-hint {
+  margin: 0 0 8px;
+  font-size: 0.875rem;
+  color: var(--mat-sys-on-surface-variant, rgba(0, 0, 0, 0.6));
+}

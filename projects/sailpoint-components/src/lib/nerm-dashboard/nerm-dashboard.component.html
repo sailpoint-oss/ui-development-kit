@@ -4,6 +4,14 @@
     <mat-icon>shield</mat-icon>
     <span class="toolbar-title">{{ title }}</span>
     <span class="spacer"></span>
+    <button
+      mat-icon-button
+      type="button"
+      routerLink="/nerm-dashboard/settings"
+      matTooltip="Profile type settings"
+      aria-label="Profile type settings">
+      <mat-icon>settings</mat-icon>
+    </button>
     <button mat-icon-button (click)="loadDashboardData()" [disabled]="loading" matTooltip="Refresh data">
       <mat-icon>refresh</mat-icon>
     </button>

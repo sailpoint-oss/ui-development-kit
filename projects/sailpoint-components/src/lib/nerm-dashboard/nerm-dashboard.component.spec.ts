@@ -21,6 +21,6 @@ describe('NermDashboardComponent', () => {
   });
 
   it('should have correct title', () => {
-    expect(component.title).toBe('Nerm Dashboard');
+    expect(component.title).toBe('Non-Employee Resource Management');
   });
 });

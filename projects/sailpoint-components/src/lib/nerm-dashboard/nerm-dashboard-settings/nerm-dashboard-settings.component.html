@@ -1,0 +1,95 @@
+<div class="nerm-settings-page">
+  <mat-toolbar color="primary">
+    <button mat-icon-button type="button" routerLink="/nerm-dashboard" aria-label="Back to dashboard">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span class="toolbar-title">NERM dashboard settings</span>
+    <span class="spacer"></span>
+    <button mat-button type="button" (click)="goToDashboard()">Dashboard</button>
+  </mat-toolbar>
+
+  <div class="settings-body">
+    <mat-card>
+      <mat-card-header>
+        <mat-icon mat-card-avatar>tune</mat-icon>
+        <mat-card-title>NERM dashboard</mat-card-title>
+        <mat-card-subtitle>
+          Profile type IDs are used when loading dashboard data. Workflow IDs are used when submitting extend and end
+          assignment sessions.
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content [formGroup]="form">
+        <div class="fields-stack">
+          <mat-form-field appearance="outline">
+            <mat-label>People profile type</mat-label>
+            <input matInput formControlName="peopleTypeId" autocomplete="off" />
+            @if (form.controls.peopleTypeId.hasError('required')) {
+              <mat-error>Required</mat-error>
+            }
+            @if (form.controls.peopleTypeId.hasError('pattern')) {
+              <mat-error>Must be a UUID</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Location profile type</mat-label>
+            <input matInput formControlName="locationTypeId" autocomplete="off" />
+            @if (form.controls.locationTypeId.hasError('pattern')) {
+              <mat-error>Must be a UUID</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Department profile type</mat-label>
+            <input matInput formControlName="departmentTypeId" autocomplete="off" />
+            @if (form.controls.departmentTypeId.hasError('pattern')) {
+              <mat-error>Must be a UUID</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Organization profile type</mat-label>
+            <input matInput formControlName="organizationTypeId" autocomplete="off" />
+            @if (form.controls.organizationTypeId.hasError('pattern')) {
+              <mat-error>Must be a UUID</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Assignment profile type</mat-label>
+            <input matInput formControlName="assignmentTypeId" autocomplete="off" />
+            @if (form.controls.assignmentTypeId.hasError('pattern')) {
+              <mat-error>Must be a UUID</mat-error>
+            }
+          </mat-form-field>
+
+          <h3 class="section-heading">Workflow IDs</h3>
+          <p class="section-hint">
+            Passed as <code>workflow_id</code> to <code>submitWorkflowSessionNerm</code> for extend and end assignment
+            actions.
+          </p>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Extend assignment workflow</mat-label>
+            <input matInput formControlName="extendAssignmentWorkflowId" autocomplete="off" />
+            @if (form.controls.extendAssignmentWorkflowId.hasError('pattern')) {
+              <mat-error>Must be a UUID</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>End assignment workflow</mat-label>
+            <input matInput formControlName="endAssignmentWorkflowId" autocomplete="off" />
+            @if (form.controls.endAssignmentWorkflowId.hasError('pattern')) {
+              <mat-error>Must be a UUID</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-stroked-button type="button" (click)="resetToDefaults()">Reset to defaults</button>
+        <button mat-raised-button color="primary" type="button" (click)="save()">Save</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

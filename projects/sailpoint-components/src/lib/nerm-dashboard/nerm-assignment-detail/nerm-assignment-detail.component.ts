@@ -10,7 +10,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SailPointSDKService } from '../../sailpoint-sdk.service';
 import { EnrichedAssignment, PersonInfo } from '../nerm-dashboard.component';
+import { NermDashboardSettingsService } from '../nerm-dashboard-settings.service';
 import { ExtendDialogResult, NermExtendDialogComponent } from '../nerm-extend-dialog/nerm-extend-dialog.component';
 import { NermStateService } from '../nerm-state.service';
 
@@ -41,6 +43,8 @@ export class NermAssignmentDetailComponent implements OnInit {
     private router: Router,
     private nermState: NermStateService,
     private dialog: MatDialog,
+    private sdk: SailPointSDKService,
+    private nermSettings: NermDashboardSettingsService,
   ) {}
 
   ngOnInit(): void {
@@ -52,7 +56,7 @@ export class NermAssignmentDetailComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/nerm-dashboard']);
+    void this.router.navigate(['/nerm-dashboard']);
   }
 
   extendAssignment(): void {
@@ -65,6 +69,18 @@ export class NermAssignmentDetailComponent implements OnInit {
       if (result?.newEndDate && this.assignment) {
         const d = result.newEndDate;
         const endDate = `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
+        const settings = this.nermSettings.getSettings();
+        void this.sdk.submitWorkflowSessionNerm({
+          submitWorkflowSessionRequestNERM: {
+            workflow_session: {
+              workflow_id: settings.extendAssignmentWorkflowId,
+              requester_id: '6a7dffeb-6bfd-4efa-895b-1a7a2d381700',
+              requester_type: 'User',
+              profile_id: this.assignment.id,
+              attributes: { end_date: endDate },
+            },
+          },
+        });
       }
     });
   }

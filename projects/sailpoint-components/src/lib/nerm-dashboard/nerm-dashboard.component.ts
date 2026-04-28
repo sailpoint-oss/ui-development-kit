@@ -19,19 +19,13 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ProfileNERM } from 'sailpoint-api-client';
 import { SailPointSDKService } from '../sailpoint-sdk.service';
 import { ExtendDialogResult, NermExtendDialogComponent } from './nerm-extend-dialog/nerm-extend-dialog.component';
 import { NermEndAssignmentDialogComponent } from './nerm-offboard-dialog/nerm-offboard-dialog.component';
 import { NermStateService } from './nerm-state.service';
-
-// Profile type IDs
-const PEOPLE_TYPE_ID = 'de5cb47c-2fcf-4eb5-8bcf-0316ffd563db';
-const LOCATION_TYPE_ID = '5d99e6a9-30e1-4cd1-8461-e28414e0d2bf';
-const DEPARTMENT_TYPE_ID = 'c27434ef-d2e4-48d2-8526-c5857cae01f6';
-const ORGANIZATION_TYPE_ID = '2346d8b3-ac29-4015-8154-dea4404a73fa';
-const ASSIGNMENT_TYPE_ID = '978f1283-ca68-4370-9277-dcc51c5f05ca';
+import { NermDashboardSettingsService } from './nerm-dashboard-settings.service';
 
 export interface DepartmentInfo {
   code: string;
@@ -127,6 +121,7 @@ export interface DashboardMetrics {
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
+    RouterLink,
   ],
   templateUrl: './nerm-dashboard.component.html',
   styleUrl: './nerm-dashboard.component.scss',
@@ -201,6 +196,7 @@ export class NermDashboardComponent implements OnInit {
   constructor(
     private sdk: SailPointSDKService,
     private nermState: NermStateService,
+    private nermSettings: NermDashboardSettingsService,
     private router: Router,
     private dialog: MatDialog,
   ) {}
@@ -212,12 +208,13 @@ export class NermDashboardComponent implements OnInit {
   async loadDashboardData(): Promise<void> {
     this.loading = true;
     try {
+      const ids = this.nermSettings.getProfileTypeIds();
       const [peopleRes, locRes, deptRes, orgRes, assignRes] = await Promise.all([
-        this.sdk.getProfilesNerm({ profileTypeId: PEOPLE_TYPE_ID, limit: 500 }),
-        this.sdk.getProfilesNerm({ profileTypeId: LOCATION_TYPE_ID, limit: 500 }),
-        this.sdk.getProfilesNerm({ profileTypeId: DEPARTMENT_TYPE_ID, limit: 500 }),
-        this.sdk.getProfilesNerm({ profileTypeId: ORGANIZATION_TYPE_ID, limit: 500 }),
-        this.sdk.getProfilesNerm({ profileTypeId: ASSIGNMENT_TYPE_ID, limit: 500 }),
+        this.sdk.getProfilesNerm({ profileTypeId: ids.peopleTypeId, limit: 500 }),
+        this.sdk.getProfilesNerm({ profileTypeId: ids.locationTypeId, limit: 500 }),
+        this.sdk.getProfilesNerm({ profileTypeId: ids.departmentTypeId, limit: 500 }),
+        this.sdk.getProfilesNerm({ profileTypeId: ids.organizationTypeId, limit: 500 }),
+        this.sdk.getProfilesNerm({ profileTypeId: ids.assignmentTypeId, limit: 500 }),
       ]);
 
       this.processDepartments(deptRes.data.profiles ?? []);
@@ -537,10 +534,11 @@ export class NermDashboardComponent implements OnInit {
     ref.afterClosed().subscribe((result: ExtendDialogResult | undefined) => {
       if (result?.newEndDate) {
         console.log('Extend assignment', assignment.assignmentId, 'to', result.newEndDate);
+        const settings = this.nermSettings.getSettings();
         void this.sdk.submitWorkflowSessionNerm({
           submitWorkflowSessionRequestNERM: {
             workflow_session: {
-              workflow_id: 'de103e43-c3dc-4022-b093-1ce1a95f5448',
+              workflow_id: settings.extendAssignmentWorkflowId,
               requester_id: '6a7dffeb-6bfd-4efa-895b-1a7a2d381700',
               requester_type: 'User',
               profile_id: assignment.id,
@@ -564,10 +562,11 @@ export class NermDashboardComponent implements OnInit {
     ref.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
         console.log('End assignment confirmed for:', assignment.assignmentId);
+        const settings = this.nermSettings.getSettings();
         void this.sdk.submitWorkflowSessionNerm({
           submitWorkflowSessionRequestNERM: {
             workflow_session: {
-              workflow_id: 'c5c89552-805b-41f3-bb32-d24e92b33349',
+              workflow_id: settings.endAssignmentWorkflowId,
               requester_id: '6a7dffeb-6bfd-4efa-895b-1a7a2d381700',
               requester_type: 'User',
               profile_id: assignment.id,
