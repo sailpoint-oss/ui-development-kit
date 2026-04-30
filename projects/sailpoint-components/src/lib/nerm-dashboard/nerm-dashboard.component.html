@@ -217,6 +217,13 @@
                   <td mat-cell *matCellDef="let a">{{ a.jobTitle }}</td>
                 </ng-container>
 
+                <ng-container matColumnDef="departmentName">
+                  <th mat-header-cell *matHeaderCellDef class="sortable" (click)="toggleSort('departmentName')">
+                    Department <mat-icon class="sort-icon">{{ getSortIcon('departmentName') }}</mat-icon>
+                  </th>
+                  <td mat-cell *matCellDef="let a">{{ a.departmentName || '—' }}</td>
+                </ng-container>
+
                 <ng-container matColumnDef="organizationName">
                   <th mat-header-cell *matHeaderCellDef class="sortable" (click)="toggleSort('organizationName')">
                     Organization <mat-icon class="sort-icon">{{ getSortIcon('organizationName') }}</mat-icon>

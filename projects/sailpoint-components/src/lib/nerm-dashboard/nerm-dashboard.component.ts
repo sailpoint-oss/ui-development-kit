@@ -22,10 +22,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router, RouterLink } from '@angular/router';
 import { ProfileNERM } from 'sailpoint-api-client';
 import { SailPointSDKService } from '../sailpoint-sdk.service';
+import { NermDashboardSettingsService } from './nerm-dashboard-settings.service';
 import { ExtendDialogResult, NermExtendDialogComponent } from './nerm-extend-dialog/nerm-extend-dialog.component';
 import { NermEndAssignmentDialogComponent } from './nerm-offboard-dialog/nerm-offboard-dialog.component';
 import { NermStateService } from './nerm-state.service';
-import { NermDashboardSettingsService } from './nerm-dashboard-settings.service';
 
 export interface DepartmentInfo {
   code: string;
@@ -79,6 +79,8 @@ export interface EnrichedAssignment {
   personEmail: string;
   personPhone: string;
   organizationName: string;
+  departmentCode: string;
+  departmentName: string;
   locationCode: string;
   locationDescription: string;
   locationCity: string;
@@ -127,7 +129,7 @@ export interface DashboardMetrics {
   styleUrl: './nerm-dashboard.component.scss',
 })
 export class NermDashboardComponent implements OnInit {
-  title = 'Non-Employee Resource Management';
+  title = 'Non-Employee Risk Management';
   loading = false;
   selectedTabIndex = 0;
 
@@ -165,6 +167,7 @@ export class NermDashboardComponent implements OnInit {
     'assignmentId',
     'personName',
     'jobTitle',
+    'departmentName',
     'organizationName',
     'locationDescription',
     'startDate',
@@ -311,6 +314,13 @@ export class NermDashboardComponent implements OnInit {
       const person = this.people.get(personId);
       const locCode = attrs['assignment_location'] ?? '';
       const location = this.locations.get(locCode);
+      const deptCode = (
+        attrs['assignment_department'] ??
+        attrs['assignment_department_code'] ??
+        attrs['department_code'] ??
+        ''
+      ).trim();
+      const department = deptCode ? this.departments.get(deptCode) : undefined;
 
       const endDate = this.parseDate(attrs['end_date']);
       const startDate = this.parseDate(attrs['start_date']);
@@ -342,6 +352,8 @@ export class NermDashboardComponent implements OnInit {
         personEmail: person?.email ?? '',
         personPhone: person?.phone ?? '',
         organizationName: attrs['assignment_organization'] ?? '',
+        departmentCode: deptCode,
+        departmentName: department?.displayName ?? (deptCode || ''),
         locationCode: locCode,
         locationDescription: location?.description ?? locCode,
         locationCity: location?.city ?? '',
@@ -424,6 +436,9 @@ export class NermDashboardComponent implements OnInit {
     if (this.selectedOrganization) {
       filtered = filtered.filter((a) => a.organizationName === this.selectedOrganization);
     }
+    if (this.selectedDepartment) {
+      filtered = filtered.filter((a) => a.departmentCode === this.selectedDepartment);
+    }
     if (this.selectedLocation) {
       filtered = filtered.filter((a) => a.locationCode === this.selectedLocation);
     }
@@ -437,6 +452,7 @@ export class NermDashboardComponent implements OnInit {
           a.personName.toLowerCase().includes(q) ||
           a.assignmentId.toLowerCase().includes(q) ||
           a.jobTitle.toLowerCase().includes(q) ||
+          a.departmentName.toLowerCase().includes(q) ||
           a.description.toLowerCase().includes(q)
       );
     }
