@@ -183,13 +183,42 @@ jobs:
           fetch-depth: 0
           ref: ${{ needs.version.outputs.tag }}
 
-      - name: Set up Node.js
+      - name: Set up Node.js (Windows)
+        if: runner.os == 'Windows'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Set up Node.js (Unix)
+        if: runner.os != 'Windows'
         uses: actions/setup-node@v4
         with:
           node-version: '24'
           cache: 'npm'
 
+      - name: Enable Windows long paths
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: |
+          # Allow paths longer than 260 chars so deeply-nested node_modules trees
+          # don't cause EPERM errors when npm tries to clean up after itself.
+          Set-ItemProperty `
+            -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' `
+            -Name 'LongPathsEnabled' `
+            -Value 1
+
+      - name: Install dependencies (Windows)
+        if: runner.os == 'Windows'
+        # Redirect the npm cache into the workspace so each run starts with a
+        # clean cache directory. The shared C:\npm\cache on Windows runners can
+        # accumulate stale tmp files that trigger a known npm/cacache EEXIST bug
+        # (https://github.com/npm/cli/issues/7308) — a fresh per-run path avoids it.
+        env:
+          NPM_CONFIG_CACHE: ${{ github.workspace }}/.npm-cache
+        run: npm install
+
       - name: Install dependencies
+        if: runner.os != 'Windows'
         run: npm install
 
       - name: Install platform deps (Linux-only)
