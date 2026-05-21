@@ -51,13 +51,13 @@
 </mat-toolbar>
 
 <mat-sidenav-container class="app-container">
-  @if (isConnected) {
-    <mat-sidenav
-      #sidenav
-      [mode]="isSmallScreen ? 'over' : 'side'"
-      [opened]="sidenavOpened"
-      (openedChange)="sidenavOpened = $event"
-      >
+  <mat-sidenav
+    #sidenav
+    [mode]="isSmallScreen ? 'over' : 'side'"
+    [opened]="isConnected && sidenavOpened"
+    (openedChange)="sidenavOpened = $event"
+    >
+    @if (isConnected) {
       <mat-nav-list>
         <a
           mat-list-item
@@ -205,8 +205,8 @@
           </a>
         }
       </mat-nav-list>
-    </mat-sidenav>
-  }
+    }
+  </mat-sidenav>
 
   <mat-sidenav-content>
     <div class="main-content">
