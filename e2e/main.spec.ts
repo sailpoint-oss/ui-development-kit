@@ -1,6 +1,9 @@
-import { BrowserContext, ElectronApplication, Page, _electron as electron } from 'playwright';
+import { _electron as electron } from 'playwright';
+import type { BrowserContext, ElectronApplication, Page } from 'playwright';
 import { test, expect } from '@playwright/test';
 import * as PATH from 'path';
+
+const electronExecutablePath = require('electron') as string;
 
 test.describe('Check Home Page', () => {
   let app: ElectronApplication;
@@ -9,6 +12,7 @@ test.describe('Check Home Page', () => {
 
   test.beforeAll( async () => {
     app = await electron.launch({ 
+      executablePath: electronExecutablePath,
       args: [PATH.join(__dirname, '../electron-dist/main.js')],
       cwd: PATH.join(__dirname, '..')
     });
@@ -56,7 +60,11 @@ test.describe('Check Home Page', () => {
   // });
 
   test.afterAll( async () => {
-    await context.tracing.stop({ path: 'e2e/tracing/trace.zip' });
-    await app.close();
+    if (context) {
+      await context.tracing.stop({ path: 'e2e/tracing/trace.zip' });
+    }
+    if (app) {
+      await app.close();
+    }
   });
 });
