@@ -1,9 +1,17 @@
 import { _electron as electron } from 'playwright';
 import type { BrowserContext, ElectronApplication, Page } from 'playwright';
 import { test, expect } from '@playwright/test';
+import * as FS from 'fs';
 import * as PATH from 'path';
 
-const electronExecutablePath = require('electron') as string;
+const electronExecutablePath = PATH.join(
+  __dirname,
+  '..',
+  'node_modules',
+  'electron',
+  'dist',
+  FS.readFileSync(PATH.join(__dirname, '..', 'node_modules', 'electron', 'path.txt'), 'utf8')
+);
 
 test.describe('Check Home Page', () => {
   let app: ElectronApplication;
