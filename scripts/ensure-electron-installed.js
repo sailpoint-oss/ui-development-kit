@@ -1,11 +1,13 @@
-const childProcess = require('child_process');
+const { downloadArtifact } = require('@electron/get');
+const extract = require('extract-zip');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
 const electronDir = path.join(__dirname, '..', 'node_modules', 'electron');
-const installScript = path.join(electronDir, 'install.js');
 const pathFile = path.join(electronDir, 'path.txt');
+const distPath = path.join(electronDir, 'dist');
+const { version } = require(path.join(electronDir, 'package.json'));
 
 const platformPathByOs = {
   darwin: path.join('Electron.app', 'Contents', 'MacOS', 'Electron'),
@@ -19,25 +21,37 @@ if (!platformPath) {
   throw new Error(`Unsupported Electron platform: ${os.platform()}`);
 }
 
-const installEnv = {
-  ...process.env,
-  force_no_cache: 'true',
-};
-delete installEnv.ELECTRON_SKIP_BINARY_DOWNLOAD;
+async function installElectron() {
+  delete process.env.ELECTRON_SKIP_BINARY_DOWNLOAD;
 
-childProcess.execFileSync(process.execPath, [installScript], {
-  stdio: 'inherit',
-  env: installEnv,
-});
+  const zipPath = await downloadArtifact({
+    version,
+    artifactName: 'electron',
+    force: true,
+    checksums: require(path.join(electronDir, 'checksums.json')),
+    platform: os.platform(),
+    arch: process.arch,
+  });
 
-if (!fs.existsSync(pathFile)) {
+  fs.rmSync(distPath, { recursive: true, force: true });
+  await extract(zipPath, { dir: distPath });
+
   fs.writeFileSync(pathFile, platformPath);
+
+  const electronPath = require('electron');
+
+  if (!fs.existsSync(electronPath)) {
+    throw new Error(`Electron executable was not found at ${electronPath}`);
+  }
+
+  if (os.platform() !== 'win32') {
+    fs.chmodSync(electronPath, 0o755);
+  }
+
+  console.log(`Electron executable ready at ${electronPath}`);
 }
 
-const electronPath = require('electron');
-
-if (!fs.existsSync(electronPath)) {
-  throw new Error(`Electron executable was not found at ${electronPath}`);
-}
-
-console.log(`Electron executable ready at ${electronPath}`);
+installElectron().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});
