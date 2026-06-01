@@ -1,10 +1,12 @@
-const { downloadArtifact } = require('@electron/get');
-const extract = require('extract-zip');
 const fs = require('fs');
+const { createRequire } = require('module');
 const os = require('os');
 const path = require('path');
 
 const electronDir = path.join(__dirname, '..', 'node_modules', 'electron');
+const electronRequire = createRequire(path.join(electronDir, 'package.json'));
+const { downloadArtifact } = electronRequire('@electron/get');
+const extract = electronRequire('extract-zip');
 const pathFile = path.join(electronDir, 'path.txt');
 const distPath = path.join(electronDir, 'dist');
 const { version } = require(path.join(electronDir, 'package.json'));
