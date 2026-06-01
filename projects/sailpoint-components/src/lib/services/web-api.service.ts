@@ -11,7 +11,7 @@ export const WEB_API_URL = new InjectionToken<string>('WEB_API_URL');
  */
 export interface ElectronAPIInterface {
   // Unified authentication and connection
-  unifiedLogin: (environment: string) => Promise<{ success: boolean, error?: string, uuid?: string, authUrl?: string }>;
+  unifiedLogin: (environment: string) => Promise<{ success: boolean, error?: string, uuid?: string, authUrl?: string, ttl?: number }>;
   disconnectFromISC: () => Promise<void>;
   checkAccessTokenStatus: () => Promise<AccessTokenStatus>;
   getCurrentTokenDetails: (environment: string) => Promise<{ tokenDetails: TokenDetails | undefined, error?: string }>;
@@ -19,6 +19,7 @@ export interface ElectronAPIInterface {
   refreshTokens: () => Promise<{ success: boolean, error?: string }>;
   validateTokens: (environment: string) => Promise<{ isValid: boolean, needsRefresh: boolean, error?: string }>;
   checkOauthCodeFlowComplete: (uuid: string, environment: string) => Promise<{ isComplete: boolean, success?: boolean, error?: string }>;
+  cancelOAuthCodeFlow: (uuid?: string) => Promise<{ success: boolean }>;
 
   // Environment management
   getTenants: () => Promise<Tenant[]>;
@@ -402,9 +403,9 @@ export class WebApiService implements ElectronAPIInterface, OnDestroy {
   }
 
   // Authentication and Connection methods
-  async unifiedLogin(environment: string): Promise<{ success: boolean, error?: string, uuid?: string, authUrl?: string }> {
+  async unifiedLogin(environment: string): Promise<{ success: boolean, error?: string, uuid?: string, authUrl?: string, ttl?: number }> {
     try {
-      const result = await this.apiCall<{ success: boolean, error?: string, uuid?: string, authUrl?: string }>('auth/login', 'POST', { environment });
+      const result = await this.apiCall<{ success: boolean, error?: string, uuid?: string, authUrl?: string, ttl?: number }>('auth/login', 'POST', { environment });
       if (result.success) {
         this.activeEnvironment = environment;
       }
@@ -438,6 +439,10 @@ export class WebApiService implements ElectronAPIInterface, OnDestroy {
 
   async checkOauthCodeFlowComplete(uuid: string, environment: string): Promise<{ isComplete: boolean, success?: boolean, error?: string }> {
     return this.apiCall<{ isComplete: boolean, success?: boolean, error?: string }>(`auth/oauth-flow-complete`, 'POST', { uuid, environment });
+  }
+
+  async cancelOAuthCodeFlow(uuid?: string): Promise<{ success: boolean }> {
+    return this.apiCall<{ success: boolean }>(`auth/oauth-flow-cancel`, 'POST', { uuid });
   }
 
   // Environment Management methods

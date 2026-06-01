@@ -124,7 +124,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   oauthPolling = false;
   oauthUuid: string | null = null;
   oauthAuthUrl: string | null = null;
+  oauthTtl: number | null = null;
   pollIntervalId: ReturnType<typeof setInterval> | undefined = undefined;
+  pollTimeoutId: ReturnType<typeof setTimeout> | undefined = undefined;
 
   private http = inject(HttpClient);
 
@@ -294,7 +296,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         // Handle OAuth flow if we get UUID back (new authentication needed)
         if (loginResult.success && loginResult.uuid) {
-          this.handleOAuthFlowWithData(String(loginResult.uuid), loginResult.authUrl ? String(loginResult.authUrl) : undefined);
+          this.handleOAuthFlowWithData(
+            String(loginResult.uuid),
+            loginResult.authUrl ? String(loginResult.authUrl) : undefined,
+            typeof loginResult.ttl === 'number' ? loginResult.ttl : undefined
+          );
           return;
         }
 
@@ -572,10 +578,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  handleOAuthFlowWithData(uuid: string, authUrl?: string): void {
+  handleOAuthFlowWithData(uuid: string, authUrl?: string, ttl?: number): void {
     try {
       this.oauthUuid = uuid;
       this.oauthAuthUrl = authUrl || null;
+      this.oauthTtl = ttl || null;
       this.oauthPolling = true;
 
       // Close the initial dialog and show the OAuth dialog
@@ -610,8 +617,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       clearInterval(this.pollIntervalId);
     }
 
-    
-    this.pollIntervalId = setInterval(() => {
+    if (this.pollTimeoutId) {
+      clearTimeout(this.pollTimeoutId);
+    }
+
+    const pollOnce = () => {
       void (async () => {
         try {
           if (!this.oauthUuid || !this.oauthPolling) {
@@ -641,16 +651,23 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.showSnackbar(`Error checking OAuth status: ${error instanceof Error ? error.message : 'Unknown error'}`);
         }
       })();
-    }, 5000);
+    };
 
-    // Set a timeout to stop polling after 5 minutes
-    setTimeout(() => {
+    pollOnce();
+    this.pollIntervalId = setInterval(pollOnce, 2000);
+
+    const timeoutMs = this.oauthTtl
+      ? Math.max(this.oauthTtl * 1000 - Date.now(), 0)
+      : 5 * 60 * 1000;
+
+    this.pollTimeoutId = setTimeout(() => {
       if (this.oauthPolling) {
+        void this.electronService.getApi().cancelOAuthCodeFlow(this.oauthUuid || undefined);
         this.stopPolling();
         this.dialog.closeAll();
-        this.showSnackbar('OAuth authentication timed out after 5 minutes');
+        this.showSnackbar('OAuth authentication timed out');
       }
-    }, 5 * 60 * 1000);
+    }, timeoutMs);
   }
 
   stopPolling(): void {
@@ -659,12 +676,18 @@ export class HomeComponent implements OnInit, OnDestroy {
       clearInterval(this.pollIntervalId);
       this.pollIntervalId = undefined;
     }
+    if (this.pollTimeoutId) {
+      clearTimeout(this.pollTimeoutId);
+      this.pollTimeoutId = undefined;
+    }
   }
 
   cancelOAuthFlow(): void {
+    void this.electronService.getApi().cancelOAuthCodeFlow(this.oauthUuid || undefined);
     this.stopPolling();
     this.oauthUuid = null;
     this.oauthAuthUrl = null;
+    this.oauthTtl = null;
     this.authenticating = false;
     this.showSnackbar('OAuth authentication cancelled');
   }
@@ -706,6 +729,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     } finally {
       this.oauthUuid = null;
       this.oauthAuthUrl = null;
+      this.oauthTtl = null;
       this.authenticating = false;
     }
   }

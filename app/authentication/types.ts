@@ -15,12 +15,14 @@ export interface LambdaUUIDResponse {
     id: string;
     authURL: string;
     baseURL: string;
+    pickupSecret: string;
+    ttl: number;
 }
 
 export interface TokenResponse {
     baseURL: string;
     id: string;
-    tokenInfo: string;
+    tokenInfo: string | EncryptedTokenData;
 }
 
 export interface RefreshResponse {

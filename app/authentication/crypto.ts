@@ -1,5 +1,5 @@
 import * as crypto from 'crypto';
-import { EncryptedTokenData } from './types';
+import type { EncryptedTokenData } from './types';
 
 /**
  * Generates an RSA key pair with the specified key size
@@ -39,10 +39,12 @@ export function generateKeyPair(keySize: 2048 | 3072 | 4096 = 2048) {
  * @param privateKeyPem Your RSA private key in PEM format
  * @returns The decrypted token object
  */
-export function decryptToken(encryptedTokenData: string, privateKeyPem: string): any {
+export function decryptToken<T = unknown>(encryptedTokenData: string | EncryptedTokenData, privateKeyPem: string): T {
     try {
         // Parse the encrypted token data
-        const tokenData: EncryptedTokenData = JSON.parse(encryptedTokenData);
+        const tokenData: EncryptedTokenData = typeof encryptedTokenData === 'string'
+            ? JSON.parse(encryptedTokenData)
+            : encryptedTokenData;
         
         // Check token format version
         if (tokenData.version !== '1.0') {
@@ -84,7 +86,7 @@ export function decryptToken(encryptedTokenData: string, privateKeyPem: string):
         let decryptedData = decipher.update(ciphertext, 'base64', 'utf8');
         decryptedData += decipher.final('utf8');
         
-        return JSON.parse(decryptedData);
+        return JSON.parse(decryptedData) as T;
     } catch (error) {
         console.error('Token decryption failed:', error);
         throw new Error('Failed to decrypt token');

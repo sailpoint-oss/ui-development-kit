@@ -4,10 +4,10 @@ import {
   ConfigurationParameters,
 } from 'sailpoint-api-client';
 import { getConfig, setConfig,  getConfigEnvironment, setActiveEnvironementInConfig, getSecureValue} from './config';
-import { getStoredOAuthTokens, OAuthLogin, refreshOAuthToken, validateOAuthTokens, storeOAuthTokens, authLambdaTokenURL, consumePrivateKey} from './oauth';
+import { clearOAuthSession, getOAuthPickupSecret, getOAuthSessionTtl, getStoredOAuthTokens, OAuthLogin, refreshOAuthToken, validateOAuthTokens, storeOAuthTokens, authLambdaTokenURL, consumePrivateKey} from './oauth';
 import { getStoredPATTokens, refreshPATToken, validatePATToken } from './pat';
 import { decryptToken } from "./crypto";
-import { TokenSet, TokenResponse } from './types';
+import type { RefreshResponse, TokenSet, TokenResponse } from './types';
 import { ref } from 'process';
 import { existsSync } from 'fs';
 
@@ -82,7 +82,7 @@ export function parseJwt(token: string): AuthPayload {
  * @param request - The login request
  * @returns Promise resolving to the login result
  */
-export const unifiedLogin = async (environment: string): Promise<{ success: boolean, error?: string, uuid?: string, authUrl?: string }> => {
+export const unifiedLogin = async (environment: string): Promise<{ success: boolean, error?: string, uuid?: string, authUrl?: string, ttl?: number }> => {
 
   try {
     activeEnvironment = environment;
@@ -262,7 +262,8 @@ export const unifiedLogin = async (environment: string): Promise<{ success: bool
           return {
             success: true,
             uuid: loginResult.uuid,
-            authUrl: loginResult.authUrl
+            authUrl: loginResult.authUrl,
+            ttl: loginResult.ttl
           };
         }
 
@@ -724,7 +725,23 @@ export function validateTokens(environment: string): { isValid: boolean, needsRe
 export async function checkOauthCodeFlowComplete (uuid: string, environment: string): Promise<{ isComplete: boolean, success?: boolean, error?: string }> {
     try {
       const { tenanturl, baseurl, nermBaseurl, authtype } = getConfigEnvironment(environment);
-        const tokenResponse = await fetch(`${authLambdaTokenURL}/${uuid}`);
+        const sessionTtl = getOAuthSessionTtl(uuid);
+        if (sessionTtl && Date.now() >= sessionTtl * 1000) {
+            clearOAuthSession(uuid);
+            return { isComplete: true, success: false, error: 'OAuth authentication timed out' };
+        }
+
+        const pickupSecret = getOAuthPickupSecret(uuid);
+        if (!pickupSecret) {
+            clearOAuthSession(uuid);
+            return { isComplete: true, success: false, error: 'OAuth pickup secret is missing for this auth session' };
+        }
+
+        const tokenResponse = await fetch(`${authLambdaTokenURL}/${uuid}`, {
+            headers: {
+                Authorization: `Bearer ${pickupSecret}`
+            }
+        });
 
         if (tokenResponse.ok) {
             const tokenData: TokenResponse = await tokenResponse.json();
@@ -736,7 +753,7 @@ export async function checkOauthCodeFlowComplete (uuid: string, environment: str
             }
 
             // Step 6: Decrypt the token info using the private key
-            const decryptedToken = decryptToken(tokenData.tokenInfo, privateKey);
+            const decryptedToken = decryptToken<RefreshResponse>(tokenData.tokenInfo, privateKey);
             console.log('Decrypted token info');
 
             // Validate that we have the required tokens
@@ -762,17 +779,35 @@ export async function checkOauthCodeFlowComplete (uuid: string, environment: str
             };
 
             storeOAuthTokens(environment, tokenSet);
-            connectToISCWithToken(baseurl, tokenSet.accessToken, nermBaseurl);
+            const connectionResult = await connectToISCWithToken(baseurl, tokenSet.accessToken, nermBaseurl);
+            if (!connectionResult.connected) {
+                return {
+                    isComplete: true,
+                    success: false,
+                    error: connectionResult.error || 'Failed to connect to ISC with OAuth token'
+                };
+            }
+
             return { isComplete: true, success: true };
         } else if (tokenResponse.status === 404 || tokenResponse.status === 400) {
             // Token not ready yet, continue polling (backend returns 400 when token not found)
             return { isComplete: false };
+        } else if (tokenResponse.status === 401) {
+            clearOAuthSession(uuid);
+            return { isComplete: true, success: false, error: 'OAuth pickup secret was missing or malformed' };
         } else {
             // Some other error occurred
+            clearOAuthSession(uuid);
             return { isComplete: true, success: false, error: `Token endpoint returned status: ${tokenResponse.status}` };
         }
     } catch (error) {
         console.error('Error checking OAuth code flow completion:', error);
+        clearOAuthSession(uuid);
         return { isComplete: true, success: false, error: `Error checking OAuth completion: ${error}` };
     }
 };
+
+export function cancelOAuthCodeFlow(uuid?: string): { success: boolean } {
+  clearOAuthSession(uuid);
+  return { success: true };
+}
