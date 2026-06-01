@@ -48,7 +48,7 @@
     "electron:build": "npm run build:prod && electron-builder build",
     "test": "ng test --watch=false",
     "test:watch": "ng test",
-    "e2e": "npm run build:prod && node -e \"const cp=require('child_process');const env={...process.env};delete env.ELECTRON_SKIP_BINARY_DOWNLOAD;cp.execFileSync(process.execPath,['node_modules/electron/install.js'],{stdio:'inherit',env})\" && node -e \"require('electron')\" && playwright test -c e2e/playwright.config.ts e2e/",
+    "e2e": "npm run build:prod && node scripts/ensure-electron-installed.js && playwright test -c e2e/playwright.config.ts e2e/",
     "e2e:show-trace": "playwright show-trace e2e/tracing/trace.zip",
     "version": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "lint": "ng lint",
