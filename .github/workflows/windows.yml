@@ -55,7 +55,7 @@ jobs:
       shell: powershell
       run: |
         Remove-Item Env:ELECTRON_SKIP_BINARY_DOWNLOAD -ErrorAction SilentlyContinue
-        node node_modules/electron/install.js
+        npm rebuild electron
         node -e "const fs = require('fs'); const electron = require('electron'); if (!fs.existsSync(electron)) { throw new Error('Electron executable not found at ' + electron); } console.log('Electron ready at ' + electron);"
 
     - name: Install Angular CLI Globally
