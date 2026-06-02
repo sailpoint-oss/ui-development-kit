@@ -22,12 +22,13 @@ test.describe('Check Home Page', () => {
     app = await electron.launch({ 
       executablePath: electronExecutablePath,
       args: [PATH.join(__dirname, '../electron-dist/main.js')],
-      cwd: PATH.join(__dirname, '..')
+      cwd: PATH.join(__dirname, '..'),
+      timeout: 30000
     });
     context = app.context();
     await context.tracing.start({ screenshots: true, snapshots: true });
     firstWindow = await app.firstWindow();
-    await firstWindow.waitForLoadState('domcontentloaded');
+    await firstWindow.waitForLoadState('domcontentloaded', { timeout: 15000 });
   });
 
   test('Launch electron app', async () => {
@@ -45,7 +46,11 @@ test.describe('Check Home Page', () => {
         if (mainWindow.isVisible()) {
           resolve(getState());
         } else {
-          mainWindow.once('ready-to-show', () => setTimeout(() => resolve(getState()), 0));
+          const fallback = setTimeout(() => resolve(getState()), 5000);
+          mainWindow.once('ready-to-show', () => {
+            clearTimeout(fallback);
+            setTimeout(() => resolve(getState()), 0);
+          });
         }
       });
     });
