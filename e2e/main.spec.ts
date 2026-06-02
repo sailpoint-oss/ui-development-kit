@@ -1,5 +1,5 @@
 import { _electron as electron } from 'playwright';
-import type { BrowserContext, ElectronApplication, Page } from 'playwright';
+import type { ElectronApplication, Page } from 'playwright';
 import { test, expect } from '@playwright/test';
 import * as FS from 'fs';
 import * as PATH from 'path';
@@ -13,19 +13,9 @@ const electronExecutablePath = PATH.join(
   FS.readFileSync(PATH.join(__dirname, '..', 'node_modules', 'electron', 'path.txt'), 'utf8')
 );
 
-function withTimeout<T>(promise: Promise<T>, timeoutMs: number, label: string): Promise<T> {
-  return Promise.race([
-    promise,
-    new Promise<T>((_, reject) => {
-      setTimeout(() => reject(new Error(`${label} timed out after ${timeoutMs}ms`)), timeoutMs);
-    }),
-  ]);
-}
-
 test.describe('Check Home Page', () => {
   let app: ElectronApplication;
   let firstWindow: Page;
-  let context: BrowserContext;
 
   test.beforeAll( async () => {
     app = await electron.launch({ 
@@ -34,34 +24,20 @@ test.describe('Check Home Page', () => {
       cwd: PATH.join(__dirname, '..'),
       timeout: 30000
     });
-    context = app.context();
-    await context.tracing.start({ screenshots: true, snapshots: true });
-    firstWindow = await app.firstWindow();
+    firstWindow = await app.firstWindow({ timeout: 15000 });
     await firstWindow.waitForLoadState('domcontentloaded', { timeout: 15000 });
   });
 
   test('Launch electron app', async () => {
 
-    const windowState: { isVisible: boolean; isDevToolsOpened: boolean; isCrashed: boolean } = await app.evaluate(async (process) => {
+    const windowState: { isVisible: boolean; isDevToolsOpened: boolean; isCrashed: boolean } = await app.evaluate((process) => {
       const mainWindow = process.BrowserWindow.getAllWindows()[0];
 
-      const getState = () => ({
+      return {
         isVisible: mainWindow.isVisible(),
         isDevToolsOpened: mainWindow.webContents.isDevToolsOpened(),
         isCrashed: mainWindow.webContents.isCrashed(),
-      });
-
-      return new Promise((resolve) => {
-        if (mainWindow.isVisible()) {
-          resolve(getState());
-        } else {
-          const fallback = setTimeout(() => resolve(getState()), 5000);
-          mainWindow.once('ready-to-show', () => {
-            clearTimeout(fallback);
-            setTimeout(() => resolve(getState()), 0);
-          });
-        }
-      });
+      };
     });
 
     expect(windowState.isVisible).toBeTruthy();
@@ -81,17 +57,9 @@ test.describe('Check Home Page', () => {
   //   expect(text).toBe('App works !');
   // });
 
-  test.afterAll( async () => {
-    if (context) {
-      await withTimeout(context.tracing.stop({ path: 'e2e/tracing/trace.zip' }), 5000, 'Stopping trace');
-    }
+  test.afterAll(() => {
     if (app) {
-      try {
-        await withTimeout(app.close(), 5000, 'Closing Electron app');
-      } catch (error) {
-        app.process().kill();
-        throw error;
-      }
+      app.process().kill();
     }
   });
 });
