@@ -16,7 +16,7 @@ export interface LambdaUUIDResponse {
     authURL: string;
     baseURL: string;
     pickupSecret: string;
-    ttl: number;
+    ttl?: number;
 }
 
 export interface TokenResponse {

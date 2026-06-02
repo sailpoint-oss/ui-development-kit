@@ -1,37 +1,46 @@
+import { BrowserContext, ElectronApplication, Page, _electron as electron } from 'playwright';
 import { test, expect } from '@playwright/test';
-import { spawn } from 'child_process';
-import * as FS from 'fs';
 import * as PATH from 'path';
 
-const electronExecutablePath = PATH.join(
-  __dirname,
-  '..',
-  'node_modules',
-  'electron',
-  'dist',
-  FS.readFileSync(PATH.join(__dirname, '..', 'node_modules', 'electron', 'path.txt'), 'utf8')
-);
-
 test.describe('Check Home Page', () => {
+  let app: ElectronApplication;
+  let firstWindow: Page;
+  let context: BrowserContext;
+
+  test.beforeAll( async () => {
+    app = await electron.launch({ 
+      args: [PATH.join(__dirname, '../electron-dist/main.js')],
+      cwd: PATH.join(__dirname, '..')
+    });
+    context = app.context();
+    await context.tracing.start({ screenshots: true, snapshots: true });
+    firstWindow = await app.firstWindow();
+    await firstWindow.waitForLoadState('domcontentloaded');
+  });
+
   test('Launch electron app', async () => {
-    const appProcess = spawn(electronExecutablePath, [PATH.join(__dirname, '../electron-dist/main.js')], {
-      cwd: PATH.join(__dirname, '..'),
-      stdio: ['ignore', 'pipe', 'pipe'],
+
+    const windowState: { isVisible: boolean; isDevToolsOpened: boolean; isCrashed: boolean } = await app.evaluate(async (process) => {
+      const mainWindow = process.BrowserWindow.getAllWindows()[0];
+
+      const getState = () => ({
+        isVisible: mainWindow.isVisible(),
+        isDevToolsOpened: mainWindow.webContents.isDevToolsOpened(),
+        isCrashed: mainWindow.webContents.isCrashed(),
+      });
+
+      return new Promise((resolve) => {
+        if (mainWindow.isVisible()) {
+          resolve(getState());
+        } else {
+          mainWindow.once('ready-to-show', () => setTimeout(() => resolve(getState()), 0));
+        }
+      });
     });
 
-    const stderr: string[] = [];
-    appProcess.stderr.on('data', (chunk: Buffer) => stderr.push(chunk.toString()));
-
-    const exitCode = await Promise.race<number | null | 'running'>([
-      new Promise((resolve) => appProcess.once('exit', (code) => resolve(code))),
-      new Promise((resolve) => setTimeout(() => resolve('running'), 10000)),
-    ]);
-
-    if (!appProcess.killed) {
-      appProcess.kill();
-    }
-
-    expect(exitCode, stderr.join('')).toBe('running');
+    expect(windowState.isVisible).toBeTruthy();
+    expect(windowState.isDevToolsOpened).toBeFalsy();
+    expect(windowState.isCrashed).toBeFalsy();
   });
 
   // test('Check Home Page design', async ({ browserName}) => {
@@ -45,4 +54,9 @@ test.describe('Check Home Page', () => {
   //   const text = elem ? await elem.innerText() : null;
   //   expect(text).toBe('App works !');
   // });
+
+  test.afterAll( async () => {
+    await context.tracing.stop({ path: 'e2e/tracing/trace.zip' });
+    await app.close();
+  });
 });
