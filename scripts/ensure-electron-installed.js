@@ -53,7 +53,13 @@ async function installElectron() {
   console.log(`Electron executable ready at ${electronPath}`);
 }
 
-installElectron().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+const keepAlive = setInterval(() => undefined, 1000);
+
+installElectron()
+  .catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+  })
+  .finally(() => {
+    clearInterval(keepAlive);
+  });
