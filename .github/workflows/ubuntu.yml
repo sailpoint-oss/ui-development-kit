@@ -34,6 +34,12 @@ jobs:
       run: |
         npm install
 
+    - name: Ensure Electron is installed
+      run: |
+        unset ELECTRON_SKIP_BINARY_DOWNLOAD
+        node node_modules/electron/install.js
+        node -e "const fs = require('fs'); const electron = require('electron'); if (!fs.existsSync(electron)) { throw new Error('Electron executable not found at ' + electron); } console.log('Electron ready at ' + electron);"
+
     - name: Install linux dependencies
       run: |
         sudo apt-get update

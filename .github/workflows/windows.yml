@@ -51,6 +51,13 @@ jobs:
         NPM_CONFIG_CACHE: ${{ github.workspace }}/.npm-cache
       run: npm install
 
+    - name: Ensure Electron is installed
+      shell: powershell
+      run: |
+        Remove-Item Env:ELECTRON_SKIP_BINARY_DOWNLOAD -ErrorAction SilentlyContinue
+        node node_modules/electron/install.js
+        node -e "const fs = require('fs'); const electron = require('electron'); if (!fs.existsSync(electron)) { throw new Error('Electron executable not found at ' + electron); } console.log('Electron ready at ' + electron);"
+
     - name: Install Angular CLI Globally
       run: npm install -g @angular/cli
 
