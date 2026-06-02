@@ -51,13 +51,6 @@ jobs:
         NPM_CONFIG_CACHE: ${{ github.workspace }}/.npm-cache
       run: npm install
 
-    - name: Ensure Electron is installed
-      shell: powershell
-      run: |
-        Remove-Item Env:ELECTRON_SKIP_BINARY_DOWNLOAD -ErrorAction SilentlyContinue
-        node -e "const fs = require('fs'); const { createRequire } = require('module'); const os = require('os'); const path = require('path'); const electronDir = path.join(process.cwd(), 'node_modules', 'electron'); const electronRequire = createRequire(path.join(electronDir, 'package.json')); const { downloadArtifact } = electronRequire('@electron/get'); const extract = electronRequire('extract-zip'); const { version } = require(path.join(electronDir, 'package.json')); const pathFile = path.join(electronDir, 'path.txt'); const distPath = path.join(electronDir, 'dist'); const platformPath = os.platform() === 'win32' ? 'electron.exe' : os.platform() === 'darwin' ? path.join('Electron.app', 'Contents', 'MacOS', 'Electron') : 'electron'; async function install() { const zipPath = await downloadArtifact({ version, artifactName: 'electron', checksums: require(path.join(electronDir, 'checksums.json')), platform: os.platform(), arch: process.arch }); fs.rmSync(distPath, { recursive: true, force: true }); await extract(zipPath, { dir: distPath }); fs.writeFileSync(pathFile, platformPath); const electronPath = require('electron'); if (!fs.existsSync(electronPath)) { throw new Error('Electron executable not found at ' + electronPath); } console.log('Electron ready at ' + electronPath); } const keepAlive = setInterval(() => undefined, 1000); install().catch((error) => { console.error(error); process.exitCode = 1; }).finally(() => { clearInterval(keepAlive); });"
-        node -e "const fs = require('fs'); const electron = require('electron'); if (!fs.existsSync(electron)) { throw new Error('Electron executable not found at ' + electron); } console.log('Electron ready at ' + electron);"
-
     - name: Install Angular CLI Globally
       run: npm install -g @angular/cli
 
