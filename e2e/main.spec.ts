@@ -13,6 +13,15 @@ const electronExecutablePath = PATH.join(
   FS.readFileSync(PATH.join(__dirname, '..', 'node_modules', 'electron', 'path.txt'), 'utf8')
 );
 
+function withTimeout<T>(promise: Promise<T>, timeoutMs: number, label: string): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<T>((_, reject) => {
+      setTimeout(() => reject(new Error(`${label} timed out after ${timeoutMs}ms`)), timeoutMs);
+    }),
+  ]);
+}
+
 test.describe('Check Home Page', () => {
   let app: ElectronApplication;
   let firstWindow: Page;
@@ -74,10 +83,15 @@ test.describe('Check Home Page', () => {
 
   test.afterAll( async () => {
     if (context) {
-      await context.tracing.stop({ path: 'e2e/tracing/trace.zip' });
+      await withTimeout(context.tracing.stop({ path: 'e2e/tracing/trace.zip' }), 5000, 'Stopping trace');
     }
     if (app) {
-      await app.close();
+      try {
+        await withTimeout(app.close(), 5000, 'Closing Electron app');
+      } catch (error) {
+        app.process().kill();
+        throw error;
+      }
     }
   });
 });
