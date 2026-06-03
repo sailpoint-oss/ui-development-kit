@@ -1,0 +1,14 @@
+packages:
+  - app
+
+nodeLinker: hoisted
+
+allowBuilds:
+  '@parcel/watcher': true
+  electron-winstaller: true
+  electron: true
+  esbuild: true
+  keytar: true
+  lmdb: true
+  msgpackr-extract: true
+  unrs-resolver: true

@@ -24,42 +24,61 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Install pnpm
+      uses: pnpm/action-setup@v6
+      with:
+        version: 11.5.1
+        run_install: false
+
+    - name: Configure pnpm store
+      run: pnpm config set store-dir "${{ github.workspace }}/.pnpm-store"
+
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '24'
-        cache: 'npm'
-
-    - name: Install Dependencies
-      run: |
-        npm install
+        cache: 'pnpm'
+        cache-dependency-path: pnpm-lock.yaml
 
     - name: Install linux dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
+        sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf xvfb
 
-    - name: Install Angular CLI Globally
-      run: npm install -g @angular/cli
+    - name: Install Dependencies
+      run: pnpm install --frozen-lockfile
+
+    - name: Install Playwright browser dependencies
+      run: pnpm exec playwright install --with-deps chromium
 
     - name: Check lint
-      run: npm run lint
+      run: pnpm run lint
 
     - name: Build Component Library
-      run: npm run build:components
+      run: pnpm run build:components
 
     - name: Run headless unit test
       uses: GabrielBB/xvfb-action@v1
       with:
-        run: npm run test
+        run: pnpm run test
 
     - name: Run headless e2e test
       uses: GabrielBB/xvfb-action@v1
       with:
-        run: npm run e2e
+        run: pnpm run e2e
+
+    - name: Upload e2e artifacts
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: ubuntu-e2e-artifacts
+        path: |
+          e2e/screenshots/**
+          e2e/tracing/**
+        if-no-files-found: ignore
       
     - name: Build the app
-      run: npm run electron:build -- --publish=never
+      run: pnpm run electron:build -- --publish=never
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4

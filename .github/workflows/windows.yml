@@ -27,48 +27,60 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '24'
-
     - name: Enable Windows long paths
       shell: powershell
       run: |
-        # Allow paths longer than 260 chars so deeply-nested node_modules trees
-        # don't cause EPERM errors when npm tries to clean up after itself.
+        # Allow paths longer than 260 chars so deeply nested dependency trees
+        # don't cause EPERM errors when the package manager cleans up.
         Set-ItemProperty `
           -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' `
           -Name 'LongPathsEnabled' `
           -Value 1
 
-    - name: Install Dependencies
-      # Redirect the npm cache into the workspace so each run starts with a
-      # clean cache directory. The shared C:\npm\cache on Windows runners can
-      # accumulate stale tmp files that trigger a known npm/cacache EEXIST bug
-      # (https://github.com/npm/cli/issues/7308) — a fresh per-run path avoids it.
-      env:
-        NPM_CONFIG_CACHE: ${{ github.workspace }}/.npm-cache
-      run: npm install
+    - name: Install pnpm
+      uses: pnpm/action-setup@v6
+      with:
+        version: 11.5.1
+        run_install: false
 
-    - name: Install Angular CLI Globally
-      run: npm install -g @angular/cli
+    - name: Configure pnpm store
+      run: pnpm config set store-dir "${{ github.workspace }}/.pnpm-store"
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '24'
+        cache: 'pnpm'
+        cache-dependency-path: pnpm-lock.yaml
+
+    - name: Install Dependencies
+      run: pnpm install --frozen-lockfile
 
     - name: Check lint
-      run: npm run lint
+      run: pnpm run lint
 
     - name: Build Component Library
-      run: npm run build:components
+      run: pnpm run build:components
 
     - name: Run headless unit test
-      run: npm run test
+      run: pnpm run test
 
     - name: Run headless e2e test
       run: |
-       npm run e2e
+        pnpm run e2e
+
+    - name: Upload e2e artifacts
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: windows-e2e-artifacts
+        path: |
+          e2e/screenshots/**
+          e2e/tracing/**
+        if-no-files-found: ignore
 
     - name: Build the app
-      run: npm run electron:build -- --publish=never
+      run: pnpm run electron:build -- --publish=never
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4

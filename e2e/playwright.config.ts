@@ -1,13 +1,17 @@
 /** @type {import('@playwright/test').PlaywrightTestConfig} */
+const isCI = !!process.env.CI;
+
 const config = {
   testDir: '.',
-  timeout: 45000,
+  timeout: isCI ? 120000 : 45000,
   outputDir: './screenshots',
+  retries: isCI ? 1 : 0,
+  workers: isCI ? 1 : undefined,
   use: {
-    headless: false,
+    headless: isCI,
     viewport: { width: 1280, height: 720 },
     launchOptions: {
-      slowMo: 1000,
+      slowMo: isCI ? 0 : 1000,
     },
     trace: 'on',
   },
