@@ -172,7 +172,7 @@ jobs:
           cat src/environments/environment.web.prod.ts
 
       - name: Build Angular application
-        run: npm run build -- -c web-production
+        run: npm run web:build
         env:
           NODE_OPTIONS: --max_old_space_size=4096
 

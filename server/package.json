@@ -8,7 +8,7 @@
     "build": "tsc",
     "dev": "nodemon --exec ts-node web-api.ts",
     "serve": "node dist/web-api.js",
-    "lambda:build": "npm run build && npm install --production"
+    "lambda:build": "pnpm run build && pnpm install --prod"
   },
   "author": "SailPoint",
   "license": "MIT",

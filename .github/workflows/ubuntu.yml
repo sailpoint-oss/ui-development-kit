@@ -20,6 +20,8 @@ jobs:
 
     # The type of runner that the job will run on
     runs-on: ubuntu-22.04
+    env:
+      PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.playwright
 
     steps:
     - uses: actions/checkout@v4
@@ -39,6 +41,14 @@ jobs:
         node-version: '24'
         cache: 'pnpm'
         cache-dependency-path: pnpm-lock.yaml
+
+    - name: Restore Playwright browser cache
+      uses: actions/cache@v4
+      with:
+        path: ${{ env.PLAYWRIGHT_BROWSERS_PATH }}
+        key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+        restore-keys: |
+          playwright-${{ runner.os }}-
 
     - name: Install linux dependencies
       run: |
