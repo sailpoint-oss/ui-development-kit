@@ -45,7 +45,7 @@
     "web:build": "pnpm run build:base && ng build --base-href ./ -c web-production",
     "electron": "electron",
     "electron:tsc": "tsc -p tsconfig.serve.json",
-    "electron:dev": "wait-on tcp:4200 && nodemon --watch ./app --exec \"npm run electron:tsc && electron . --serve\"",
+    "electron:dev": "wait-on tcp:4200 && nodemon --watch ./app --exec \"pnpm run electron:tsc && electron . --serve\"",
     "electron:local": "pnpm run build:prod && electron .",
     "electron:build": "pnpm run build:prod && electron-builder build",
     "test": "ng test --watch=false",

@@ -16,32 +16,37 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 11.5.1
+          run_install: false
+
+      - name: Configure pnpm store
+        run: pnpm config set store-dir "${{ github.workspace }}/.pnpm-store"
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '24'
-          cache: 'npm'
+          cache: 'pnpm'
+          cache-dependency-path: pnpm-lock.yaml
 
       - name: Install Dependencies
-        run: |
-          npm i && npm i -D cli-truncate iconv-corefoundation
-          npm --prefix ./app install
-
-      - name: Install Angular CLI Globally
-        run: npm install -g @angular/cli
+        run: pnpm install --frozen-lockfile
 
       - name: Run Lint (with increased memory)
-        run: npm run lint
+        run: pnpm run lint
         env:
           NODE_OPTIONS: "--max-old-space-size=8192"
 
       - name: Build Component Library
-        run: npm run build:components
+        run: pnpm run build:components
         env:
           NODE_OPTIONS: "--max-old-space-size=8192"
 
       - name: Build the App
-        run: npm run electron:build -- --publish=never
+        run: pnpm run electron:build -- --publish=never
         env:
           NODE_OPTIONS: "--max-old-space-size=8192"
 

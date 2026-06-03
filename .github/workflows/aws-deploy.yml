@@ -31,11 +31,21 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 11.5.1
+          run_install: false
+
+      - name: Configure pnpm store
+        run: pnpm config set store-dir "${{ github.workspace }}/.pnpm-store"
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: '24'
+          cache: 'pnpm'
+          cache-dependency-path: pnpm-lock.yaml
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -63,13 +73,13 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm ci
+          pnpm install --frozen-lockfile
           cd server && npm ci
 
       - name: Build server TypeScript
         run: |
           cd server
-          npm run build
+          pnpm run build
 
       - name: Build and deploy SAM application (backend only)
         env:
@@ -172,7 +182,7 @@ jobs:
           cat src/environments/environment.web.prod.ts
 
       - name: Build Angular application
-        run: npm run web:build
+        run: pnpm run web:build
         env:
           NODE_OPTIONS: --max_old_space_size=4096
 
