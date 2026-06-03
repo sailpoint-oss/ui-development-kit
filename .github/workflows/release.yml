@@ -222,6 +222,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Ensure Electron binary
+        run: |
+          pnpm rebuild electron
+          node -e "const fs=require('fs'); const electron=require('electron'); console.log('Electron binary: ' + electron); if (!fs.existsSync(electron)) throw new Error('Electron binary missing: ' + electron);"
+
       - name: Install platform deps (Linux-only)
         if: startsWith(matrix.os, 'ubuntu')
         run: |
