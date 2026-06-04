@@ -31,7 +31,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: '24.15.0'
 
       - name: Ensure jq is available
         shell: bash
@@ -187,13 +187,13 @@ jobs:
         if: runner.os == 'Windows'
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: '24.15.0'
 
       - name: Set up Node.js (Unix)
         if: runner.os != 'Windows'
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: '24.15.0'
           cache: 'npm'
 
       - name: Enable Windows long paths
