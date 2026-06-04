@@ -6,7 +6,7 @@ import { setupSailPointSDKHandlers } from './sailpoint-sdk/ipc-handlers';
 import { setupDiscourseHandlers } from './discourse/ipc-handlers';
 import { setupGitHubHandlers } from './github/ipc-handlers';
 import { setupConnectorHandlers } from './connector/ipc-handlers';
-import { disconnectFromISC, refreshTokens, unifiedLogin, validateTokens, checkAccessTokenStatus, getCurrentTokenDetails, checkOauthCodeFlowComplete } from './authentication/auth';
+import { cancelOAuthCodeFlow, disconnectFromISC, refreshTokens, unifiedLogin, validateTokens, checkAccessTokenStatus, getCurrentTokenDetails, checkOauthCodeFlowComplete } from './authentication/auth';
 import { deleteEnvironment, getTenants, setActiveEnvironment, updateEnvironment, UpdateEnvironmentRequest } from './authentication/config';
 // Global variables
 let win: BrowserWindow | undefined;
@@ -158,6 +158,10 @@ try {
 
   ipcMain.handle('check-oauth-code-flow-complete', async (event, uuid: string, environment: string) => {
     return checkOauthCodeFlowComplete(uuid, environment);
+  });
+
+  ipcMain.handle('cancel-oauth-code-flow', async (event, uuid?: string) => {
+    return cancelOAuthCodeFlow(uuid);
   });
 
   ipcMain.handle('get-tenants', () => {

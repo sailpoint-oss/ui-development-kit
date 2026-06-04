@@ -1,11 +1,15 @@
 import { dialog, shell } from "electron";
 import { getTokenDetails, parseJwt } from "./auth";
-import { getConfig, getConfigEnvironment, getSecureValue, setSecureValue } from "./config";
-import { LambdaUUIDResponse, RefreshResponse, TokenResponse, TokenSet, EncryptedTokenData } from "./types";
-import { generateKeyPair, decryptToken } from "./crypto";
+import { getConfigEnvironment, getSecureValue, setSecureValue } from "./config";
+import type { LambdaUUIDResponse, RefreshResponse, TokenSet } from "./types";
+import { generateKeyPair } from "./crypto";
 
-// In-memory storage for current OAuth keypair
-let currentOAuthKeyPair: {
+// In-memory storage for the active broker auth attempt. The pickup secret must
+// never be persisted or exposed to the renderer process.
+let currentOAuthSession: {
+    id?: string;
+    pickupSecret?: string;
+    ttl?: number;
     privateKey: string;
     publicKey: string;
     publicKeyBase64: string;
@@ -27,7 +31,7 @@ async function generateFreshKeyPair(): Promise<string> {
         const keyPair = generateKeyPair(2048);
         
         // Store the keys in memory
-        currentOAuthKeyPair = {
+        currentOAuthSession = {
             privateKey: keyPair.privateKey,
             publicKey: keyPair.publicKey,
             publicKeyBase64: keyPair.publicKeyBase64
@@ -45,15 +49,41 @@ async function generateFreshKeyPair(): Promise<string> {
  * @returns The private key in PEM format or undefined if not found
  */
 export function consumePrivateKey(): string | undefined {
-    const privateKey = currentOAuthKeyPair?.privateKey;
+    const privateKey = currentOAuthSession?.privateKey;
     
-    // Clear the keypair from memory after use
-    if (currentOAuthKeyPair) {
-        console.log('Clearing OAuth keypair from memory after use');
-        currentOAuthKeyPair = null;
+    if (currentOAuthSession) {
+        console.log('Clearing OAuth session from memory after use');
+        currentOAuthSession = null;
     }
     
     return privateKey;
+}
+
+export function clearOAuthSession(uuid?: string): void {
+    if (!currentOAuthSession) {
+        return;
+    }
+
+    if (!uuid || currentOAuthSession.id === uuid) {
+        console.log('Clearing OAuth session from memory');
+        currentOAuthSession = null;
+    }
+}
+
+export function getOAuthPickupSecret(uuid: string): string | undefined {
+    if (!currentOAuthSession || currentOAuthSession.id !== uuid) {
+        return undefined;
+    }
+
+    return currentOAuthSession.pickupSecret;
+}
+
+export function getOAuthSessionTtl(uuid: string): number | undefined {
+    if (!currentOAuthSession || currentOAuthSession.id !== uuid) {
+        return undefined;
+    }
+
+    return currentOAuthSession.ttl;
 }
 
 /**
@@ -160,7 +190,7 @@ export function validateOAuthTokens(environment: string) {
  * @param environment - The environment name
  * @returns Promise resolving to the UUID and auth URL for polling
  */
-export const OAuthLogin = async ({ tenant, baseAPIUrl, environment }: { tenant: string, baseAPIUrl: string, environment: string }): Promise<{ success: boolean, error?: string, uuid?: string, authUrl?: string }> => {
+export const OAuthLogin = async ({ baseAPIUrl }: { tenant: string, baseAPIUrl: string, environment: string }): Promise<{ success: boolean, error?: string, uuid?: string, authUrl?: string, ttl?: number }> => {
     try {
         // Step 1: Generate fresh RSA key pair for this authentication session
         const publicKeyBase64 = await generateFreshKeyPair();
@@ -173,7 +203,6 @@ export const OAuthLogin = async ({ tenant, baseAPIUrl, environment }: { tenant: 
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    tenant,
                     apiBaseURL: baseAPIUrl,
                     publicKey: publicKeyBase64
                 }),
@@ -184,7 +213,22 @@ export const OAuthLogin = async ({ tenant, baseAPIUrl, environment }: { tenant: 
             }
 
             const authData: LambdaUUIDResponse = await authResponse.json();
-            console.log('Auth Response:', authData);
+            console.log('Auth response received for OAuth session:', {
+                id: authData.id,
+                baseURL: authData.baseURL,
+                ttl: authData.ttl
+            });
+
+            if (!authData.id || !authData.pickupSecret) {
+                clearOAuthSession();
+                throw new Error('Auth lambda response missing id or pickup secret');
+            }
+
+            if (currentOAuthSession) {
+                currentOAuthSession.id = authData.id;
+                currentOAuthSession.pickupSecret = authData.pickupSecret;
+                currentOAuthSession.ttl = authData.ttl;
+            }
 
             // Step 3: Present Auth URL to user
             console.log('Attempting to open browser for authentication');
@@ -193,7 +237,7 @@ export const OAuthLogin = async ({ tenant, baseAPIUrl, environment }: { tenant: 
                 await shell.openExternal(authData.authURL);
                 console.log('Successfully opened OAuth URL in default browser');
 
-            } catch (err) {
+            } catch {
                 dialog.showMessageBox({
                     title: 'OAuth Login',
                     message: 'Please manually open the OAuth login page below',
@@ -206,8 +250,9 @@ export const OAuthLogin = async ({ tenant, baseAPIUrl, environment }: { tenant: 
             }
 
             // Return the UUID and auth URL immediately for the frontend to start polling
-            return { success: true, uuid: authData.id, authUrl: authData.authURL };
+            return { success: true, uuid: authData.id, authUrl: authData.authURL, ttl: authData.ttl };
     } catch (error) {
+        clearOAuthSession();
         console.error('OAuth login error:', error);
         return { success: false, error: 'OAuth login failed: ' + error };
     }
