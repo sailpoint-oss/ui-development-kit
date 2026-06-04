@@ -31,7 +31,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: '24.15.0'
 
       - name: Ensure jq is available
         shell: bash
@@ -196,7 +196,7 @@ jobs:
         if: runner.os == 'Windows'
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: '24.15.0'
           cache: 'pnpm'
           cache-dependency-path: pnpm-lock.yaml
 
@@ -204,7 +204,7 @@ jobs:
         if: runner.os != 'Windows'
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: '24.15.0'
           cache: 'pnpm'
           cache-dependency-path: pnpm-lock.yaml
 
