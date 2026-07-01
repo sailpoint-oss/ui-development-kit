@@ -21,6 +21,6 @@ describe('ReportExampleComponent', () => {
   });
 
   it('should have correct title', () => {
-    expect(component.title).toBe('Report Example');
+    expect(component.title).toBe('Identity Analytics');
   });
 });

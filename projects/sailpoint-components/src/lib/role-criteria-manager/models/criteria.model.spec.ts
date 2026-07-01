@@ -24,7 +24,7 @@ describe('criteria.model', () => {
     });
 
     it('normalizes a single-value leaf into stringValue', () => {
-      const raw = {
+      const raw: CriteriaNode = {
         operation: 'EQUALS',
         key: { type: 'IDENTITY', property: 'attribute.dept' },
         stringValue: 'sales',
@@ -37,7 +37,7 @@ describe('criteria.model', () => {
     });
 
     it('normalizes a multi-value leaf into values[]', () => {
-      const raw = {
+      const raw: CriteriaNode = {
         operation: 'EQUALS',
         key: { type: 'IDENTITY', property: 'attribute.state' },
         values: ['active', 'loa'],
@@ -73,7 +73,7 @@ describe('criteria.model', () => {
     });
 
     it('normalizes a composite tree recursively', () => {
-      const raw = {
+      const raw: CriteriaNode = {
         operation: 'AND',
         children: [
           {

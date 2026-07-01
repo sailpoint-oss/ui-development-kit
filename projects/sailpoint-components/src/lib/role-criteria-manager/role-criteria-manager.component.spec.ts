@@ -8,15 +8,15 @@ import { RoleCriteriaManagerComponent } from './role-criteria-manager.component'
  */
 describe('RoleCriteriaManagerComponent', () => {
   let sdk: {
-    listRoles: jest.Mock;
-    getRole: jest.Mock;
-    patchRole: jest.Mock;
+    listRoles: jasmine.Spy;
+    getRole: jasmine.Spy;
+    patchRole: jasmine.Spy;
   };
-  let saveFile: jest.Mock;
-  let apiFactory: { getApi: jest.Mock };
-  let dialog: { open: jest.Mock };
-  let snackBar: { open: jest.Mock };
-  let cdr: { detectChanges: jest.Mock };
+  let saveFile: jasmine.Spy;
+  let apiFactory: { getApi: jasmine.Spy };
+  let dialog: { open: jasmine.Spy };
+  let snackBar: { open: jasmine.Spy };
+  let cdr: { detectChanges: jasmine.Spy };
   let component: RoleCriteriaManagerComponent;
 
   function makeRole(id: string, name: string, criteria: unknown) {
@@ -33,15 +33,15 @@ describe('RoleCriteriaManagerComponent', () => {
 
   beforeEach(() => {
     sdk = {
-      listRoles: jest.fn(),
-      getRole: jest.fn(),
-      patchRole: jest.fn().mockResolvedValue({ data: {} }),
+      listRoles: jasmine.createSpy('listRoles'),
+      getRole: jasmine.createSpy('getRole'),
+      patchRole: jasmine.createSpy('patchRole').and.resolveTo({ data: {} }),
     };
-    saveFile = jest.fn().mockResolvedValue({ success: true, filePath: '/tmp/s.json' });
-    apiFactory = { getApi: jest.fn().mockReturnValue({ saveFile }) };
-    dialog = { open: jest.fn().mockReturnValue(dialogResult(true)) };
-    snackBar = { open: jest.fn() };
-    cdr = { detectChanges: jest.fn() };
+    saveFile = jasmine.createSpy('saveFile').and.resolveTo({ success: true, filePath: '/tmp/s.json' });
+    apiFactory = { getApi: jasmine.createSpy('getApi').and.returnValue({ saveFile }) };
+    dialog = { open: jasmine.createSpy('open').and.returnValue(dialogResult(true)) };
+    snackBar = { open: jasmine.createSpy('open') };
+    cdr = { detectChanges: jasmine.createSpy('detectChanges') };
 
     component = new RoleCriteriaManagerComponent(
       sdk as never,
@@ -63,7 +63,7 @@ describe('RoleCriteriaManagerComponent', () => {
         key: { type: 'IDENTITY', property: 'attribute.dept' },
         stringValue: 'eng',
       });
-      sdk.listRoles.mockResolvedValueOnce({ data: [role] });
+      sdk.listRoles.and.resolveTo({ data: [role] });
 
       component.mode = 'single';
       component.searchText = 'Engineering';
@@ -74,27 +74,27 @@ describe('RoleCriteriaManagerComponent', () => {
         limit: 250,
         offset: 0,
       });
-      expect(component.roleRows).toHaveLength(1);
+      expect(component.roleRows.length).toBe(1);
       expect(component.roleRows[0].selected).toBe(true);
       expect(component.roleRows[0].nodeCount).toBe(1);
       expect(component.roleRows[0].membershipType).toBe('STANDARD');
     });
 
     it('clamps single mode to the first role when several match', async () => {
-      sdk.listRoles.mockResolvedValueOnce({
+      sdk.listRoles.and.resolveTo({
         data: [makeRole('a', 'Dup', null), makeRole('b', 'Dup', null)],
       });
       component.mode = 'single';
       component.searchText = 'Dup';
       await component.findRoles();
 
-      expect(component.roleRows).toHaveLength(1);
+      expect(component.roleRows.length).toBe(1);
       expect(component.roleRows[0].id).toBe('a');
       expect(snackBar.open).toHaveBeenCalled();
     });
 
     it('uses a contains filter in bulk mode', async () => {
-      sdk.listRoles.mockResolvedValueOnce({ data: [] });
+      sdk.listRoles.and.resolveTo({ data: [] });
       component.mode = 'bulk';
       component.searchText = 'DL';
       await component.findRoles();
@@ -177,12 +177,12 @@ describe('RoleCriteriaManagerComponent', () => {
       };
       component.computePreviews();
 
-      expect(component.previews).toHaveLength(1);
-      expect(component.actionablePreviews()).toHaveLength(1);
-      expect(component.previews[0].result.patch[0]).toMatchObject({
+      expect(component.previews.length).toBe(1);
+      expect(component.actionablePreviews().length).toBe(1);
+      expect(component.previews[0].result.patch[0]).toEqual(jasmine.objectContaining({
         op: 'replace',
         path: '/membership',
-      });
+      }));
     });
   });
 
@@ -337,26 +337,26 @@ describe('RoleCriteriaManagerComponent', () => {
       await component.execute();
 
       expect(saveFile).toHaveBeenCalledTimes(1);
-      expect(sdk.patchRole).toHaveBeenCalledWith({
+      expect(sdk.patchRole).toHaveBeenCalledWith(jasmine.objectContaining({
         id: 'r1',
-        jsonPatchOperationV2025: expect.arrayContaining([
-          expect.objectContaining({ op: 'replace', path: '/membership' }),
+        jsonPatchOperationV2025: jasmine.arrayContaining([
+          jasmine.objectContaining({ op: 'replace', path: '/membership' }),
         ]),
-      });
+      }));
       expect(component.results).toEqual([
-        expect.objectContaining({ role: 'Eng', status: 'Updated' }),
+        jasmine.objectContaining({ role: 'Eng', status: 'Updated' }),
       ]);
     });
 
     it('aborts the run when the snapshot save is cancelled', async () => {
-      saveFile.mockResolvedValueOnce({ success: false, canceled: true });
+      saveFile.and.resolveTo({ success: false, canceled: true });
       await component.execute();
       expect(sdk.patchRole).not.toHaveBeenCalled();
       expect(component.results).toEqual([]);
     });
 
     it('records an ISC error with detail when patchRole fails', async () => {
-      sdk.patchRole.mockRejectedValueOnce({
+      sdk.patchRole.and.rejectWith({
         response: {
           data: {
             messages: [{ text: 'Bad criteria' }],
@@ -366,10 +366,10 @@ describe('RoleCriteriaManagerComponent', () => {
         },
       });
       await component.execute();
-      expect(component.results[0]).toMatchObject({
+      expect(component.results[0]).toEqual(jasmine.objectContaining({
         status: 'Error',
-        detail: expect.stringContaining('Bad criteria'),
-      });
+      }));
+      expect(component.results[0].detail).toContain('Bad criteria');
       expect(component.results[0].detail).toContain('abc123');
     });
 
@@ -397,13 +397,13 @@ describe('RoleCriteriaManagerComponent', () => {
 
       component.startOver();
 
-      expect(component.roleRows).toHaveLength(0);
+      expect(component.roleRows.length).toBe(0);
       expect(component.searched).toBe(false);
       expect(component.searchText).toBe('');
       expect(component.selectedTabIndex).toBe(0);
       expect(component.updateForm).toEqual({ attribute: '', oldValue: '', newValues: '' });
       expect(component.hasExecuted).toBe(false);
-      expect(component.results).toHaveLength(0);
+      expect(component.results.length).toBe(0);
       expect(component.simulationResults).toBeNull();
       expect(
         (component as never as { roleCache: Map<string, unknown> }).roleCache.size
@@ -421,17 +421,17 @@ describe('RoleCriteriaManagerComponent', () => {
   });
 
   describe('pickCsv (CSV target mode)', () => {
-    function setBrowse(browseForCsvFile: jest.Mock) {
-      apiFactory.getApi.mockReturnValue({ saveFile, browseForCsvFile });
+    function setBrowse(browseForCsvFile: jasmine.Spy) {
+      apiFactory.getApi.and.returnValue({ saveFile, browseForCsvFile });
     }
 
     it('resolves CSV refs against the tenant and auto-selects matched roles', async () => {
       const eng = makeRole('r1', 'Engineering', null);
       const sales = makeRole('r2', 'Sales', null);
       // fetchAllRoles pages until an empty page: one page, then undefined -> stop.
-      sdk.listRoles.mockResolvedValueOnce({ data: [eng, sales] });
+      sdk.listRoles.and.resolveTo({ data: [eng, sales] });
       setBrowse(
-        jest.fn().mockResolvedValue({
+        jasmine.createSpy('browseForCsvFile').and.resolveTo({
           success: true,
           filePath: '/tmp/roles.csv',
           content: 'RoleName,RoleId\nEngineering,\n,r2\nGhost,',
@@ -454,7 +454,7 @@ describe('RoleCriteriaManagerComponent', () => {
 
     it('reports parse errors and skips the role fetch when no rows are usable', async () => {
       setBrowse(
-        jest.fn().mockResolvedValue({
+        jasmine.createSpy('browseForCsvFile').and.resolveTo({
           success: true,
           filePath: '/tmp/empty.csv',
           content: 'RoleName,RoleId,Note\n,,oops',
@@ -464,7 +464,7 @@ describe('RoleCriteriaManagerComponent', () => {
       component.mode = 'csv';
       await component.pickCsv();
 
-      expect(component.roleRows).toHaveLength(0);
+      expect(component.roleRows.length).toBe(0);
       expect(component.csvErrors).toEqual([
         { row: 2, message: 'row has neither a role name nor a role id' },
       ]);
@@ -472,12 +472,12 @@ describe('RoleCriteriaManagerComponent', () => {
     });
 
     it('does nothing when the file picker is canceled', async () => {
-      setBrowse(jest.fn().mockResolvedValue({ success: false, canceled: true }));
+      setBrowse(jasmine.createSpy('browseForCsvFile').and.resolveTo({ success: false, canceled: true }));
 
       component.mode = 'csv';
       await component.pickCsv();
 
-      expect(component.roleRows).toHaveLength(0);
+      expect(component.roleRows.length).toBe(0);
       expect(sdk.listRoles).not.toHaveBeenCalled();
     });
   });

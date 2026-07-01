@@ -63,11 +63,12 @@ describe('csv-import', () => {
       const { refs, errors } = parseRoleListCsv(
         'RoleName,RoleId\nDL - Engineering,\n,2c9180abc'
       );
-      expect(errors).toEqual([]);
-      expect(refs).toEqual<CsvRoleRef[]>([
+      const expected: CsvRoleRef[] = [
         { rowNumber: 2, roleName: 'DL - Engineering' },
         { rowNumber: 3, roleId: '2c9180abc' },
-      ]);
+      ];
+      expect(errors).toEqual([]);
+      expect(refs).toEqual(expected);
     });
 
     it('accepts a row with both name and id', () => {

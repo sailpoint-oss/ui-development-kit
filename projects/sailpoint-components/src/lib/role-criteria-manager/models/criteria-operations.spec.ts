@@ -665,10 +665,10 @@ describe('criteria-operations', () => {
         oldValue: '1',
         newValues: ['2'],
       });
-      expect(result.patch[0].value).toMatchObject({
+      expect(result.patch[0].value).toEqual(jasmine.objectContaining({
         type: 'STANDARD',
         identities: [{ id: 'id-1' }],
-      });
+      }));
     });
 
     it('defaults type to STANDARD and identities to null when absent', () => {
@@ -681,10 +681,10 @@ describe('criteria-operations', () => {
           join: 'AND',
         }
       );
-      expect(result.patch[0].value).toMatchObject({
+      expect(result.patch[0].value).toEqual(jasmine.objectContaining({
         type: 'STANDARD',
         identities: null,
-      });
+      }));
     });
   });
 
