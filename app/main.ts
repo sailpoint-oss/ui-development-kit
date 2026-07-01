@@ -13,6 +13,7 @@ let win: BrowserWindow | undefined;
 
 const args = process.argv.slice(1);
 const serve = args.some((val) => val === '--serve');
+const MAX_IMPORT_FILE_SIZE_BYTES = 5_000_000;
 
 // Utility functions
 function getConfigPath(): string {
@@ -265,6 +266,76 @@ try {
       throw new Error('Failed to write config file');
     }
   });
+
+  ipcMain.handle('browse-for-json-file', async () => {
+    try {
+      const result = await dialog.showOpenDialog(win!, {
+        title: 'Load Snapshot File',
+        filters: [{ name: 'JSON Snapshots', extensions: ['json'] }],
+        properties: ['openFile'],
+      });
+      if (result.canceled || result.filePaths.length === 0) {
+        return { success: false, canceled: true };
+      }
+      const filePath = result.filePaths[0];
+      if (fs.statSync(filePath).size > MAX_IMPORT_FILE_SIZE_BYTES) {
+        return { success: false, error: 'File too large (> 5 MB)' };
+      }
+      const content = fs.readFileSync(filePath, 'utf-8');
+      return { success: true, filePath, content };
+    } catch (error) {
+      console.error('Error reading JSON file:', error);
+      return { success: false, error: 'Failed to read file' };
+    }
+  });
+
+  ipcMain.handle('browse-for-csv-file', async () => {
+    try {
+      const result = await dialog.showOpenDialog(win!, {
+        title: 'Import Role List (CSV)',
+        filters: [{ name: 'CSV', extensions: ['csv'] }],
+        properties: ['openFile'],
+      });
+      if (result.canceled || result.filePaths.length === 0) {
+        return { success: false, canceled: true };
+      }
+      const filePath = result.filePaths[0];
+      if (fs.statSync(filePath).size > MAX_IMPORT_FILE_SIZE_BYTES) {
+        return { success: false, error: 'File too large (> 5 MB)' };
+      }
+      const content = fs.readFileSync(filePath, 'utf-8');
+      return { success: true, filePath, content };
+    } catch (error) {
+      console.error('Error reading CSV file:', error);
+      return { success: false, error: 'Failed to read file' };
+    }
+  });
+
+  ipcMain.handle(
+    'save-file',
+    async (event, options: { defaultPath?: string; content: string }) => {
+      try {
+        const result = await dialog.showSaveDialog(win!, {
+          title: 'Save File',
+          defaultPath: options?.defaultPath,
+          filters: [
+            { name: 'JSON', extensions: ['json'] },
+            { name: 'All Files', extensions: ['*'] },
+          ],
+        });
+
+        if (result.canceled || !result.filePath) {
+          return { success: false, canceled: true };
+        }
+
+        fs.writeFileSync(result.filePath, options?.content ?? '', 'utf-8');
+        return { success: true, filePath: result.filePath };
+      } catch (error) {
+        console.error('Error saving file:', error);
+        return { success: false, error: 'Failed to save file' };
+      }
+    }
+  );
 
   ipcMain.handle('browse-for-file', async () => {
     try {
