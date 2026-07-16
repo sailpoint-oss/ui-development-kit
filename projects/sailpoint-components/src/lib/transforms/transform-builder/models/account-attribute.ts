@@ -129,7 +129,7 @@ export async function getAvailableSources(sdk: SailPointSDKService): Promise<{
     names: string[],
     map: Map<string, string>
 }> {
-    const response = await sdk.listSources();
+    const response = await sdk.listSourcesV1();
     const sourceMap = new Map<string, string>();
     
     response.data.forEach(source => {

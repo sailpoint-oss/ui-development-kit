@@ -77,11 +77,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router, RouterModule } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
-import {
-  TransformReadV2025,
-  TransformsV2025ApiCreateTransformRequest,
-  TransformsV2025ApiUpdateTransformRequest,
-} from 'sailpoint-api-client';
+
 import { GenericDialogComponent } from '../../generic-dialog/generic-dialog.component';
 import { SailPointSDKService } from '../../sailpoint-sdk.service';
 import { ConfigService } from '../../services/config.service';
@@ -342,6 +338,8 @@ import {
 } from './models/uuid';
 import { MapEditorDialogComponent } from './utils/map-editor-dialog.component';
 import { TransformPreviewComponent } from './utils/transform-preview.component';
+import type { Transformread } from 'sailpoint-api-client/dist/sources/api';
+import type { TransformsApiCreateTransformV1Request, TransformsApiUpdateTransformV1Request } from 'sailpoint-api-client/dist/transforms/api';
 
 interface ThemedDesigner extends Designer {
   setTheme?: (theme: 'dark' | 'light') => void;
@@ -588,7 +586,7 @@ export function deserializeToStep(data: any): Step {
   encapsulation: ViewEncapsulation.None,
 })
 export class TransformBuilderComponent implements OnInit, OnDestroy {
-  @Input() transform?: TransformReadV2025;
+  @Input() transform?: Transformread;
 
   private destroy$ = new Subject<void>();
   private autoSaveSubject = new Subject<Definition>();
@@ -974,8 +972,8 @@ export class TransformBuilderComponent implements OnInit, OnDestroy {
     try {
       let serializedTransform = serializeStep(this.definition.sequence[0]);
 
-      let newTransform: TransformReadV2025 =
-        serializedTransform as TransformReadV2025;
+      let newTransform: Transformread =
+        serializedTransform as Transformread;
 
       const definitionName = this.definition?.properties?.name;
       newTransform.name = String(
@@ -984,13 +982,13 @@ export class TransformBuilderComponent implements OnInit, OnDestroy {
 
       // If the transform already exists, update it
       if (this.transform?.id) {
-        const transformUpdateRequest: TransformsV2025ApiUpdateTransformRequest =
+        const transformUpdateRequest: TransformsApiUpdateTransformV1Request =
           {
-            transformV2025: newTransform,
+            transform: newTransform,
             id: this.transform?.id,
           };
 
-        await this.sdk.updateTransform(transformUpdateRequest);
+        await this.sdk.updateTransformV1(transformUpdateRequest);
 
         this.autoSaveService.clearLocalSave(this.transform.id);
 
@@ -1001,12 +999,12 @@ export class TransformBuilderComponent implements OnInit, OnDestroy {
         );
       } else {
         // If it's a new transform, create it
-        const createTransformRequest: TransformsV2025ApiCreateTransformRequest =
+        const createTransformRequest: TransformsApiCreateTransformV1Request =
           {
-            transformV2025: newTransform,
+            transform: newTransform,
           };
 
-        const response = await this.sdk.createTransform(createTransformRequest);
+        const response = await this.sdk.createTransformV1(createTransformRequest);
 
         this.transform = response.data;
         this.isNewTransform = false;
@@ -1618,7 +1616,7 @@ export class TransformBuilderComponent implements OnInit, OnDestroy {
     const sourceId = this.sourceMap.get(sourceName);
     if (typeof sourceId === 'string') {
       try {
-        const response = await this.sdk.getSourceSchemas({ sourceId });
+        const response = await this.sdk.getSourceSchemasV1({ sourceId });
         const schemas = response.data;
 
         const userSchema = schemas.find(
@@ -1738,8 +1736,8 @@ export class TransformBuilderComponent implements OnInit, OnDestroy {
     try {
       let serializedTransform = serializeStep(this.definition.sequence[0]);
 
-      let transformDownload: TransformReadV2025 =
-        serializedTransform as TransformReadV2025;
+      let transformDownload: Transformread =
+        serializedTransform as Transformread;
 
       const downloadName = this.definition?.properties?.name;
       transformDownload.name = String(

@@ -42,7 +42,7 @@ export function createReferenceStepModel(transforms: string[]) {
 }
 
 export async function getAvailableTransforms(sdk: SailPointSDKService): Promise<string[]> {
-    const response = await sdk.listTransforms();
+    const response = await sdk.listTransformsV1();
     return response.data.map(transform => transform.name);
 }
 

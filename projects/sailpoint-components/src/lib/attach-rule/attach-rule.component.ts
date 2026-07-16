@@ -16,17 +16,11 @@ import {
   transferArrayItem
 } from '@angular/cdk/drag-drop';
 
-import {
-  SourceV2025,
-  ConnectorRuleResponseV2025,
-  JsonPatchOperation,
-  SPConfigV2025ApiExportSpConfigRequest,
-  SPConfigV2025ApiGetSpConfigExportStatusRequest,
-  SPConfigV2025ApiGetSpConfigExportRequest
-} from 'sailpoint-api-client';
-
 import { SailPointSDKService } from '../sailpoint-sdk.service';
-
+import type { Jsonpatchoperation } from 'sailpoint-api-client/dist/access_model_metadata/api';
+import type { Connectorruleresponse } from 'sailpoint-api-client/dist/connector_rule_management/api';
+import type { Source } from 'sailpoint-api-client/dist/sources/api';
+import type { SPConfigApiExportSpConfigV1Request, SPConfigApiGetSpConfigExportStatusV1Request, SPConfigApiGetSpConfigExportV1Request } from 'sailpoint-api-client/dist/sp_config/api';
 
 interface Slot {
   key: string;
@@ -46,15 +40,15 @@ export interface AvailableRule {
 export async function getAvailableRules(
   sdk: SailPointSDKService
 ): Promise<AvailableRule[]> {
-  const request: SPConfigV2025ApiExportSpConfigRequest = {
-    exportPayloadV2025: {
+  const request: SPConfigApiExportSpConfigV1Request = {
+    exportpayload: {
       description: 'Export rules',
       includeTypes: ['RULE', 'CONNECTOR_RULE'],
       objectOptions: {}
     }
   };
 
-  const job = await sdk.exportSpConfig(request);
+  const job = await sdk.exportSpConfigV1(request);
   if (job.status !== 202) {
     console.error('Error fetching rules:', job.data);
     return [];
@@ -62,10 +56,10 @@ export async function getAvailableRules(
 
   // wait for export to finish
   while (true) {
-    const statusRequest: SPConfigV2025ApiGetSpConfigExportStatusRequest = {
+    const statusRequest: SPConfigApiGetSpConfigExportStatusV1Request = {
       id: job.data.jobId
     };
-    const { data: status } = await sdk.getSpConfigExportStatus(statusRequest);
+    const { data: status } = await sdk.getSpConfigExportStatusV1(statusRequest);
 
     if (status.status === 'NOT_STARTED' || status.status === 'IN_PROGRESS') {
       await new Promise(r => setTimeout(r, 3000));
@@ -73,10 +67,10 @@ export async function getAvailableRules(
     }
 
     if (status.status === 'COMPLETE') {
-      const downloadRequest: SPConfigV2025ApiGetSpConfigExportRequest = {
+      const downloadRequest: SPConfigApiGetSpConfigExportV1Request = {
         id: job.data.jobId
       };
-      const { data: exportData } = await sdk.getSpConfigExport(downloadRequest);
+      const { data: exportData } = await sdk.getSpConfigExportV1(downloadRequest);
 
       const rules: AvailableRule[] = [];
 
@@ -193,7 +187,7 @@ const SLOTS: Slot[] = [ // rules and their location data is found (tested with P
 })
 export class AttachRuleComponent implements OnInit {
   title = 'Attach Rule';
-  sources: SourceV2025[] = [];
+  sources: Source[] = [];
   connectorRules: AvailableRule[] = [];
   availableRules: AvailableRule[] = [];
 
@@ -202,13 +196,13 @@ export class AttachRuleComponent implements OnInit {
   availableConnectedTo = ['available', ...this.slotDropListIds];
 
   assignedRulesMap: Record<string, AvailableRule[]> = {};
-  pendingOps: JsonPatchOperation[] = [];
+  pendingOps: Jsonpatchoperation[] = [];
   hasConnectionParameters = false;
   initialAssignedMap: Record<string, Set<string>> = {};
 
   private paramIndexMap: Record<string, number> = {};
 
-  selectedSource: SourceV2025 | null = null;
+  selectedSource: Source | null = null;
   isLoading = false;
   isSaving = false;
 
@@ -266,9 +260,9 @@ export class AttachRuleComponent implements OnInit {
 
   private makeRulePatch(
     slot: Slot,
-    rule: ConnectorRuleResponseV2025,
+    rule: Connectorruleresponse,
     existingNames: string[]
-  ): JsonPatchOperation {
+  ): Jsonpatchoperation {
     // pick op based solely on whether the slot was empty
     const op: 'add' | 'replace' = existingNames.length ? 'replace' : 'add';
 
@@ -306,7 +300,7 @@ export class AttachRuleComponent implements OnInit {
   private makeRuleRemovePatch(
     slot: Slot,
     rule: AvailableRule
-  ): JsonPatchOperation {
+  ): Jsonpatchoperation {
     // compute the correct path
     let path: string;
     if (slot.key === 'beforeRule' || slot.key === 'afterRule') {
@@ -340,7 +334,7 @@ export class AttachRuleComponent implements OnInit {
     this.isLoading = true;
     try {
       const [sr, rules] = await Promise.all([
-        this.sdk.listSources(),
+        this.sdk.listSourcesV1(),
         getAvailableRules(this.sdk)
       ]);
       this.sources = sr.data.filter(s => (s.connectorAttributes as any)?.idnProxyType !== 'sp-connect');
@@ -351,13 +345,13 @@ export class AttachRuleComponent implements OnInit {
     }
   }
 
-  async onSourceChange(src: SourceV2025): Promise<void> {
+  async onSourceChange(src: Source): Promise<void> {
     this.selectedSource = src;
     this.isLoading = true;
     this.pendingOps = [];
     this.availableRules = [...this.connectorRules];
 
-    const full2 = await this.sdk.getSource({ id: src.id! })
+    const full2 = await this.sdk.getSourceV1({ id: src.id! })
     const attrs2: any = full2.data.connectorAttributes || {};
 
     if (attrs2.idnProxyType === 'sp-connect') {
@@ -368,7 +362,6 @@ export class AttachRuleComponent implements OnInit {
       )
     }
 
-
     // initialize all slots to empty
     this.assignedRulesMap = {};
     for (const slot of this.slots) {
@@ -376,7 +369,7 @@ export class AttachRuleComponent implements OnInit {
     }
 
     // fetch full source and connectorAttributes
-    const full = await this.sdk.getSource({ id: src.id! });
+    const full = await this.sdk.getSourceV1({ id: src.id! });
     const attrs: any = full.data.connectorAttributes || {};
     const params: any[] = attrs.connectionParameters || [];
     this.hasConnectionParameters = params.length > 0;
@@ -400,7 +393,7 @@ export class AttachRuleComponent implements OnInit {
         if (raw && raw.id) {
           const match = this.connectorRules.find(r => r.id === raw.id);
           if (match) {
-            const connectorRule = match as unknown as ConnectorRuleResponseV2025;
+            const connectorRule = match as unknown as Connectorruleresponse;
             this.assignedRulesMap[slot.key] = [connectorRule];
             this.availableRules = this.availableRules.filter(r => r.id !== connectorRule.id);
           }
@@ -432,7 +425,7 @@ export class AttachRuleComponent implements OnInit {
 
       const found = names
         .map(n => this.connectorRules.find(r => r.name === n))
-        .filter((r): r is ConnectorRuleResponseV2025 => !!r);
+        .filter((r): r is Connectorruleresponse => !!r);
 
       this.assignedRulesMap[slot.key] = found;
       found.forEach(r => {
@@ -451,7 +444,7 @@ export class AttachRuleComponent implements OnInit {
     this.isLoading = false;
   }
   canEnter(slot: Slot) {
-    return (drag: CdkDrag<ConnectorRuleResponseV2025>) => {
+    return (drag: CdkDrag<Connectorruleresponse>) => {
       if ((slot.key === 'beforeRule' || slot.key === 'afterRule')
         && !this.hasConnectionParameters) {
         return false;
@@ -461,11 +454,10 @@ export class AttachRuleComponent implements OnInit {
     };
   }
 
-
   onDrop(event: CdkDragDrop<AvailableRule[]>): void {
     if (!this.selectedSource) return;
 
-    const dragged = event.item.data as ConnectorRuleResponseV2025;
+    const dragged = event.item.data as Connectorruleresponse;
     const prevId = event.previousContainer.id;
     const currId = event.container.id;
 
@@ -623,9 +615,9 @@ export class AttachRuleComponent implements OnInit {
 
     try {
       for (const op of this.pendingOps) {
-        await this.sdk.updateSource({
+        await this.sdk.updateSourceV1({
           id: this.selectedSource.id!,
-          jsonPatchOperationV2025: [op]
+          jsonpatchoperation: [op]
         });
       }
       await this.onSourceChange(this.selectedSource);

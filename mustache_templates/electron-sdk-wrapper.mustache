@@ -1,10 +1,16 @@
 import * as sdk from 'sailpoint-api-client';
 import { AxiosResponse } from 'axios';
 import axios from 'axios';
+{{#imports}}
+import type * as {{alias}} from '{{{importPath}}}';
+{{/imports}}
 
 /* tslint:disable */
 /* eslint-disable */
-{{>licenseInfo}}
+/**
+ * GENERATED FILE — do not edit by hand.
+ * Produced by scripts/build-sailpoint-sdk.js from mustache_templates/electron-sdk-wrapper.mustache.
+ */
 
 type ApiResponse<T> = {
   data: T;
@@ -41,7 +47,7 @@ function generateErrorResponse(error: unknown): ApiResponse<any> {
       headers: error.response.headers as Record<string, string>,
     };
   }
-  
+
   // Handle generic Error instances
   if (error instanceof Error) {
     return {
@@ -51,7 +57,7 @@ function generateErrorResponse(error: unknown): ApiResponse<any> {
       headers: {},
     };
   }
-  
+
   // Fallback for unknown errors
   return {
     data: { error: 'Unknown error occurred' },
@@ -63,37 +69,12 @@ function generateErrorResponse(error: unknown): ApiResponse<any> {
 
 
 // --- GENERATED SDK METHODS START ---
-{{#apiInfo}}{{#apis}}
 {{#operations}}
-{{#operation}}
-/**
- * {{&notes}}
- {{#summary}}
- * @summary {{&summary}}
- {{/summary}}
-{{#useSingleRequestParameter}}
- {{#allParams.0}}
- * @param {{=<% %>=}}{<%& classname %><%& operationIdCamelCase %>Request}<%={{ }}=%> requestParameters Request parameters.
- {{/allParams.0}}
-{{/useSingleRequestParameter}}
-{{^useSingleRequestParameter}}
- {{#allParams}}
- * @param {{=<% %>=}}{<%#isEnum%><%&datatypeWithEnum%><%/isEnum%><%^isEnum%><%&dataType%><%#isNullable%> | null<%/isNullable%><%/isEnum%>}<%={{ }}=%> {{^required}}[{{/required}}{{paramName}}{{^required}}]{{/required}} {{description}}
- {{/allParams}}
-{{/useSingleRequestParameter}}
- * @param {*} [axiosOptions] Override http request option.{{#isDeprecated}}
- * @deprecated{{/isDeprecated}}
- * @throws {RequiredError}
- */
-{{#useSingleRequestParameter}}
-export const {{nickname}}{{operationSuffix}} = ({{#allParams.0}}requestParameters: sdk.{{classname}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}, {{/allParams.0}}apiConfig: sdk.Configuration): Promise<ApiResponse<{{#isArray}}Array<{{#returnProperty}}{{^isPrimitiveType}}sdk.{{/isPrimitiveType}}{{/returnProperty}}{{returnBaseType}}>{{/isArray}}{{^isArray}}{{#returnProperty}}{{#isPrimitiveType}}{{returnType}}{{/isPrimitiveType}}{{/returnProperty}}{{#returnProperty}}{{^isPrimitiveType}}sdk.{{returnType}}{{/isPrimitiveType}}{{/returnProperty}}{{/isArray}}{{^returnType}}void{{/returnType}}>> => {
-    const {{#lambda.lowercase}}{{classname}}{{/lambda.lowercase}} = new sdk.{{classname}}(apiConfig);
-    return handleApiCall(() => {{#lambda.lowercase}}{{classname}}{{/lambda.lowercase}}.{{nickname}}({{#allParams.0}}requestParameters{{/allParams.0}}));
+export const {{wrapperName}} = ({{#hasParams}}requestParameters: {{{requestTypeRef}}}{{#paramOptional}} = {}{{/paramOptional}}, {{/hasParams}}apiConfig: sdk.Configuration): Promise<ApiResponse<{{{returnTypeRef}}}>> => {
+    const {{instanceVar}} = new {{classRef}}(apiConfig);
+    return handleApiCall(() => {{instanceVar}}.{{sdkMethodName}}({{#hasParams}}requestParameters{{/hasParams}}));
 }
-{{/useSingleRequestParameter}}
-{{/operation}}
 {{/operations}}
-{{/apis}}{{/apiInfo}}
 // --- GENERATED SDK METHODS END ---
 
 export const genericGet = (requestParameters: sdk.DefaultApiGenericGetRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {

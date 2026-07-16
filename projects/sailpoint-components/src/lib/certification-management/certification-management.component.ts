@@ -19,24 +19,25 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { SailPointSDKService } from '../sailpoint-sdk.service';
-import { IdentityCertificationDtoV2025 } from 'sailpoint-api-client';
+
 import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
 import { NavigationItem, NavigationStackService } from './navigation-stack';
 import { CertificationDetailComponent } from './certification-detail/certification-detail.component';
 import { IdentityInfoComponent } from './identity-info/identity-info.component';
 import { AccessDetailComponent } from './access-detail/access-detail.component';
+import type { Identitycertificationdto } from 'sailpoint-api-client/dist/certifications/api';
 
 // Interface for column configuration with sort and filter
 interface ColumnItem {
   name: string;
   sortOrder: 'asc' | 'desc' | null;
-  sortFn: ((a: IdentityCertificationDtoV2025, b: IdentityCertificationDtoV2025) => number) | null;
+  sortFn: ((a: Identitycertificationdto, b: Identitycertificationdto) => number) | null;
   sortDirections: ('asc' | 'desc')[];
   filterMultiple: boolean;
   listOfFilter: Array<{ text: string; value: string; byDefault?: boolean }>;
-  filterFn: ((list: string[], item: IdentityCertificationDtoV2025) => boolean) | null;
+  filterFn: ((list: string[], item: Identitycertificationdto) => boolean) | null;
   // New properties for dynamic data access and display
-  dataAccessor?: (item: IdentityCertificationDtoV2025) => any;
+  dataAccessor?: (item: Identitycertificationdto) => any;
   formatter?: (value: any) => string;
   cssClass?: (value: any) => string;
 }
@@ -91,8 +92,8 @@ interface CampaignSummary {
 export class CertificationManagementComponent implements OnInit, OnDestroy, AfterViewInit {
   private subscriptions = new Subscription();
   title = 'Certification Management';
-  certifications: IdentityCertificationDtoV2025[] = []; // Original data from API
-  filteredCertifications = new MatTableDataSource<IdentityCertificationDtoV2025>([]); // Filtered data for display
+  certifications: Identitycertificationdto[] = []; // Original data from API
+  filteredCertifications = new MatTableDataSource<Identitycertificationdto>([]); // Filtered data for display
   loading = false;
   
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
@@ -142,7 +143,7 @@ export class CertificationManagementComponent implements OnInit, OnDestroy, Afte
       sortDirections: ['asc', 'desc'],
       filterMultiple: true,
       listOfFilter: [],
-      filterFn: (list: string[], item: IdentityCertificationDtoV2025) =>
+      filterFn: (list: string[], item: Identitycertificationdto) =>
         list.some(
           (name) =>
             (item.campaign?.name || '')
@@ -159,7 +160,7 @@ export class CertificationManagementComponent implements OnInit, OnDestroy, Afte
       sortDirections: ['asc', 'desc'],
       filterMultiple: true,
       listOfFilter: [],
-      filterFn: (list: string[], item: IdentityCertificationDtoV2025) =>
+      filterFn: (list: string[], item: Identitycertificationdto) =>
         list.some(
           (type) =>
             (item.campaign?.type || '')
@@ -190,7 +191,7 @@ export class CertificationManagementComponent implements OnInit, OnDestroy, Afte
         { text: 'Yes', value: 'Yes' },
         { text: 'No', value: 'No' },
       ],
-      filterFn: (list: string[], item: IdentityCertificationDtoV2025) => {
+      filterFn: (list: string[], item: Identitycertificationdto) => {
         if (!list || list.length === 0) return true;
         const itemStatus = item.completed ? 'Yes' : 'No';
         return list.includes(itemStatus);
@@ -204,8 +205,8 @@ export class CertificationManagementComponent implements OnInit, OnDestroy, Afte
       name: 'Identities Completed',
       sortOrder: null,
       sortFn: (
-        a: IdentityCertificationDtoV2025,
-        b: IdentityCertificationDtoV2025
+        a: Identitycertificationdto,
+        b: Identitycertificationdto
       ) => (a.identitiesCompleted || 0) - (b.identitiesCompleted || 0),
       sortDirections: ['asc', 'desc'],
       filterMultiple: true,
@@ -218,8 +219,8 @@ export class CertificationManagementComponent implements OnInit, OnDestroy, Afte
       name: 'Identities Total',
       sortOrder: null,
       sortFn: (
-        a: IdentityCertificationDtoV2025,
-        b: IdentityCertificationDtoV2025
+        a: Identitycertificationdto,
+        b: Identitycertificationdto
       ) => (a.identitiesTotal || 0) - (b.identitiesTotal || 0),
       sortDirections: ['asc', 'desc'],
       filterMultiple: true,
@@ -232,8 +233,8 @@ export class CertificationManagementComponent implements OnInit, OnDestroy, Afte
       name: 'Created',
       sortOrder: null,
       sortFn: (
-        a: IdentityCertificationDtoV2025,
-        b: IdentityCertificationDtoV2025
+        a: Identitycertificationdto,
+        b: Identitycertificationdto
       ) =>
         new Date(a.created || '').getTime() -
         new Date(b.created || '').getTime(),
@@ -249,8 +250,8 @@ export class CertificationManagementComponent implements OnInit, OnDestroy, Afte
       name: 'Decisions Made',
       sortOrder: null,
       sortFn: (
-        a: IdentityCertificationDtoV2025,
-        b: IdentityCertificationDtoV2025
+        a: Identitycertificationdto,
+        b: Identitycertificationdto
       ) => (a.decisionsMade || 0) - (b.decisionsMade || 0),
       sortDirections: ['asc', 'desc'],
       filterMultiple: true,
@@ -263,8 +264,8 @@ export class CertificationManagementComponent implements OnInit, OnDestroy, Afte
       name: 'Decisions Total',
       sortOrder: null,
       sortFn: (
-        a: IdentityCertificationDtoV2025,
-        b: IdentityCertificationDtoV2025
+        a: Identitycertificationdto,
+        b: Identitycertificationdto
       ) => (a.decisionsTotal || 0) - (b.decisionsTotal || 0),
       sortDirections: ['asc', 'desc'],
       filterMultiple: true,
@@ -277,8 +278,8 @@ export class CertificationManagementComponent implements OnInit, OnDestroy, Afte
       name: 'Due',
       sortOrder: null,
       sortFn: (
-        a: IdentityCertificationDtoV2025,
-        b: IdentityCertificationDtoV2025
+        a: Identitycertificationdto,
+        b: Identitycertificationdto
       ) => new Date(a.due || '').getTime() - new Date(b.due || '').getTime(),
       sortDirections: ['asc', 'desc'],
       filterMultiple: true,
@@ -292,8 +293,8 @@ export class CertificationManagementComponent implements OnInit, OnDestroy, Afte
       name: 'Signed',
       sortOrder: null,
       sortFn: (
-        a: IdentityCertificationDtoV2025,
-        b: IdentityCertificationDtoV2025
+        a: Identitycertificationdto,
+        b: Identitycertificationdto
       ) =>
         new Date(a.signed || '').getTime() - new Date(b.signed || '').getTime(),
       sortDirections: ['asc', 'desc'],
@@ -311,7 +312,7 @@ export class CertificationManagementComponent implements OnInit, OnDestroy, Afte
       sortDirections: ['asc', 'desc'],
       filterMultiple: true,
       listOfFilter: [],
-      filterFn: (list: string[], item: IdentityCertificationDtoV2025) =>
+      filterFn: (list: string[], item: Identitycertificationdto) =>
         list.some(
           (name) =>
             (item.reviewer?.name || '')
@@ -328,7 +329,7 @@ export class CertificationManagementComponent implements OnInit, OnDestroy, Afte
       sortDirections: ['asc', 'desc'],
       filterMultiple: true,
       listOfFilter: [],
-      filterFn: (list: string[], item: IdentityCertificationDtoV2025) =>
+      filterFn: (list: string[], item: Identitycertificationdto) =>
         list.some(
           (phase) =>
             (item.phase || '').toLowerCase().indexOf(phase.toLowerCase()) !== -1
@@ -408,7 +409,7 @@ export class CertificationManagementComponent implements OnInit, OnDestroy, Afte
     } else {
       // Filter certifications by name (case-insensitive)
       this.filteredCertifications.data = this.certifications.filter(
-        (item: IdentityCertificationDtoV2025) =>
+        (item: Identitycertificationdto) =>
           item.name
             ?.toLowerCase()
             .indexOf(this.nameSearchValue.toLowerCase()) !== -1
@@ -431,7 +432,7 @@ export class CertificationManagementComponent implements OnInit, OnDestroy, Afte
   }
 
   // Method to navigate to certification details
-  navigateToDetail(certification: IdentityCertificationDtoV2025): void {
+  navigateToDetail(certification: Identitycertificationdto): void {
     const certificationName = certification.name || 'Unknown Certification';
     const detailItem: NavigationItem = {
       id: `certification-${certification.id}`,
@@ -482,7 +483,7 @@ export class CertificationManagementComponent implements OnInit, OnDestroy, Afte
   async getCertificationManagement() {
     this.loading = true;
     try {
-      const res = await this.sdk.listIdentityCertifications();
+      const res = await this.sdk.listIdentityCertificationsV1();
       if (res.status === 200) {
         // Store original data from API
         this.certifications = res.data || [];
@@ -519,7 +520,7 @@ export class CertificationManagementComponent implements OnInit, OnDestroy, Afte
   }
 
   // View certification details in dialog (legacy method - now using navigation)
-  onView(certification: IdentityCertificationDtoV2025): void {
+  onView(certification: Identitycertificationdto): void {
     try {
       if (!certification.id) {
         this.openMessageDialog('Certification ID is missing.', 'Error');
@@ -550,7 +551,7 @@ export class CertificationManagementComponent implements OnInit, OnDestroy, Afte
   // Track by function for ngFor
   trackByCertificationId(
     index: number,
-    certification: IdentityCertificationDtoV2025
+    certification: Identitycertificationdto
   ): string {
     return String(certification.id) || index.toString();
   }

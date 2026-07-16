@@ -9,7 +9,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDividerModule } from '@angular/material/divider';
-import { IdentityV2025 } from 'sailpoint-api-client';
+
 import { SailPointSDKService } from '../sailpoint-sdk.service';
 import { ReportDataService } from './report-data.service';
 import { ConfigService } from '../services/config.service';
@@ -20,6 +20,7 @@ import { IdentityStatusChartComponent } from './identity-status-chart/identity-s
 import { ManagerDistributionChartComponent } from './manager-distribution-chart/manager-distribution-chart.component';
 import { LifecycleStateChartComponent } from './lifecycle-state-chart/lifecycle-state-chart.component';
 import { AxiosResponse } from 'axios';
+import type { Identity } from 'sailpoint-api-client/dist/identities/api';
 
 @Component({
   selector: 'app-report-example',
@@ -51,7 +52,7 @@ export class ReportExampleComponent implements OnInit, OnDestroy {
   isDark = false;
   
   // Data properties
-  identities: IdentityV2025[] = [];
+  identities: Identity[] = [];
   loading = false;
   hasError = false;
   errorMessage = '';
@@ -102,7 +103,7 @@ export class ReportExampleComponent implements OnInit, OnDestroy {
     
     try {
       // First, make one request to get an idea of the total count
-      const initialResponse = await this.sdk.listIdentities({
+      const initialResponse = await this.sdk.listIdentitiesV1({
         limit: BATCH_SIZE,
         offset: 0,
         count: true
@@ -129,13 +130,13 @@ export class ReportExampleComponent implements OnInit, OnDestroy {
         this.loadingMessage = `Loading identities... (${this.totalLoaded} loaded so far)`;
         
         // Create an array of promises for parallel requests
-        const batchPromises: Promise<AxiosResponse<IdentityV2025[]>>[] = [];
+        const batchPromises: Promise<AxiosResponse<Identity[]>>[] = [];
         
         for (let i = 0; i < MAX_PARALLEL_REQUESTS && !this.isCancelled; i++) {
           const currentOffset = offset + (i * BATCH_SIZE);
           
           // Create a promise for each batch request
-          const batchPromise = this.sdk.listIdentities({
+          const batchPromise = this.sdk.listIdentitiesV1({
             limit: BATCH_SIZE,
             offset: currentOffset,
             count: true

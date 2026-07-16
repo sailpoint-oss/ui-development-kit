@@ -1,10 +1,11 @@
 
 import { Component, ElementRef, Input, OnChanges, OnDestroy, SimpleChanges, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { IdentityV2025 } from 'sailpoint-api-client';
+
 import * as d3 from 'd3';
 import { ConfigService } from '../../services/config.service';
 import { Subject, takeUntil } from 'rxjs';
+import type { Identity } from 'sailpoint-api-client/dist/identities/api';
 
 // Define interface for chart data
 interface ChartDataPoint {
@@ -36,7 +37,7 @@ export class ManagerDistributionChartComponent implements OnChanges, OnDestroy {
         }
       });
   }
-  @Input() identities: IdentityV2025[] = [];
+  @Input() identities: Identity[] = [];
   @ViewChild('pieChart', { static: true }) private pieChartContainer!: ElementRef;
 
   // Chart dimensions

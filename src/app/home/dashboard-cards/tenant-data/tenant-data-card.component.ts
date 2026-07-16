@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 import { SailPointSDKService } from 'sailpoint-components';
-import { TenantV2025 } from 'sailpoint-api-client';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import type { Tenant } from 'sailpoint-api-client/dist/tenant/api';
 
 @Component({
   selector: 'app-tenant-data',
@@ -13,7 +14,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 })
 
 export class TenantDataCardComponent implements OnInit {
-  tenantDetails: TenantV2025 | undefined;
+  tenantDetails: Tenant | undefined;
   loading = true;
 
   constructor(private sdk: SailPointSDKService) {
@@ -27,7 +28,7 @@ export class TenantDataCardComponent implements OnInit {
   async getTenantDetails() {
     this.loading = true;
     try {
-      const tenant = await this.sdk.getTenant();
+      const tenant = await this.sdk.getTenantV1();
       console.log(tenant.data);
       this.tenantDetails = tenant.data;
     } catch (error) {

@@ -15,7 +15,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { SailPointSDKService } from '../sailpoint-sdk.service';
-import { AccountV2025 } from 'sailpoint-api-client';
+import type { Account } from 'sailpoint-api-client/dist/accounts/api';
 
 @Component({
   selector: 'app-accounts',
@@ -41,7 +41,7 @@ import { AccountV2025 } from 'sailpoint-api-client';
 export class AccountsComponent implements OnInit {
   title = 'Accounts';
   loading = true;
-  accounts: AccountV2025[] = [];
+  accounts: Account[] = [];
   error = false;
   errorMessage = '';
   displayedColumns: string[] = ['id', 'name', 'nativeIdentity', 'sourceId', 'disabled', 'locked', 'actions'];
@@ -100,7 +100,7 @@ export class AccountsComponent implements OnInit {
     this.errorMessage = '';
     
     try {
-      const response = await this.sdk.listAccounts(request);
+      const response = await this.sdk.listAccountsV1(request);
       if (response.status !== 200) {
         throw new Error(`Failed to load accounts: ${response.statusText}`);
       }
@@ -178,7 +178,7 @@ export class AccountsComponent implements OnInit {
     return filters.length > 0 ? filters.join(' and ') : undefined;
   }
 
-  viewAccount(account: AccountV2025): void {
+  viewAccount(account: Account): void {
       // Format account details as JSON string with indentation
       const details = JSON.stringify(account, null, 2);
       

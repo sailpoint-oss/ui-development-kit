@@ -1,22 +1,24 @@
 import { ipcMain } from 'electron';
 import * as sdkWrapper from './sailpoint-sdk';
 import * as sdk from 'sailpoint-api-client';
+{{#imports}}
+import type * as {{alias}} from '{{{importPath}}}';
+{{/imports}}
 import { apiConfig } from '../authentication/auth';
+
+/**
+ * GENERATED FILE — do not edit by hand.
+ * Produced by scripts/build-sailpoint-sdk.js from mustache_templates/electron-icp-handlers.mustache.
+ */
 
 export function setupSailPointSDKHandlers() {
 
 // --- GENERATED SDK METHODS START ---
-{{#apiInfo}}{{#apis}}
 {{#operations}}
-{{#operation}}
-{{#useSingleRequestParameter}}
-ipcMain.handle('{{#lambda.kebabcase}}{{nickname}}{{operationSuffix}}{{/lambda.kebabcase}}', async (event, {{#allParams.0}}request: sdk.{{classname}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}{{/allParams.0}}) => {
-    return await sdkWrapper.{{nickname}}{{operationSuffix}}({{#allParams.0}}request, apiConfig{{/allParams.0}}{{^allParams.0}}apiConfig{{/allParams.0}});
+ipcMain.handle('{{channelName}}', async (event{{#hasParams}}, request: {{{requestTypeRef}}}{{#paramOptional}} = {}{{/paramOptional}}{{/hasParams}}) => {
+    return await sdkWrapper.{{wrapperName}}({{#hasParams}}request, {{/hasParams}}apiConfig);
 });
-{{/useSingleRequestParameter}}
-{{/operation}}
 {{/operations}}
-{{/apis}}{{/apiInfo}}
 // --- GENERATED SDK METHODS END ---
 
 ipcMain.handle('generic-get', async(event, request: sdk.DefaultApiGenericGetRequest) => {

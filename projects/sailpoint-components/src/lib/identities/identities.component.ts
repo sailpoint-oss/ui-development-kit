@@ -14,17 +14,16 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 
 // SailPoint types and services
-import {
-  IdentityV2025,
-  SearchDocumentsV2025,
-  SearchV2025ApiSearchPostRequest,
-} from 'sailpoint-api-client';
+
 import { SailPointSDKService } from '../sailpoint-sdk.service';
 
 // Local components
 import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
 import { SearchBarComponent } from './utils/search-bar/search-bar.component';
 import { ColumnCustomizerComponent } from './utils/column-customizer/column-customizer.component';
+import type { Identity } from 'sailpoint-api-client/dist/identities/api';
+import type { SearchApiSearchPostV1Request } from 'sailpoint-api-client/dist/search/api';
+import type { IdentityDocument } from '../transforms/transform-builder/utils/identity-document';
 
 @Component({
   selector: 'app-identities',
@@ -48,8 +47,8 @@ export class IdentitiesComponent implements OnInit {
   title = 'Identities';
 
   // Table and search state
-  identities: IdentityV2025[] & Record<string, unknown>[] = [];
-  filteredIdentities: IdentityV2025[] & Record<string, unknown>[] = [];
+  identities: Identity[] & Record<string, unknown>[] = [];
+  filteredIdentities: Identity[] & Record<string, unknown>[] = [];
 
   // Column state
   columnOrder: string[] = [];
@@ -114,8 +113,8 @@ export class IdentitiesComponent implements OnInit {
       };
 
       // Fetch data
-      const response = await this.sdk.listIdentities(request);
-      this.identities = (response.data ?? []) as IdentityV2025[] &
+      const response = await this.sdk.listIdentitiesV1(request);
+      this.identities = (response.data ?? []) as Identity[] &
         Record<string, unknown>[];
 
       // Extract total count from headers (if present)
@@ -182,8 +181,8 @@ export class IdentitiesComponent implements OnInit {
         queryString += `(name:*${escaped}*) OR (alias:*${escaped}*) OR (emailAddress:*${escaped}*) OR (lifecycleState:*${escaped}*)`;
       }
 
-      const request: SearchV2025ApiSearchPostRequest = {
-        searchV2025: {
+      const request: SearchApiSearchPostV1Request = {
+        search: {
           indices: ['identities'],
           query: { query: queryString },
           sort: ['name'],
@@ -192,12 +191,12 @@ export class IdentitiesComponent implements OnInit {
       };
 
       // Call search endpoint
-      const { data: identities } = await this.sdk.searchPost(request);
+      const { data: identities } = await this.sdk.searchPostV1(request);
 
       // Transform search results
       this.filteredIdentities = (identities ?? []).map(
-        (identity: SearchDocumentsV2025) => {
-          // Need to use any here because SearchDocumentsV2025 is a union type
+        (identity: IdentityDocument) => {
+          // Need to use any here because IdentityDocument is a union type
           // and TypeScript can't determine if attributes exists at compile time
           const docWithAttrs = identity as any;
           const attrs = docWithAttrs.attributes as
@@ -217,7 +216,7 @@ export class IdentitiesComponent implements OnInit {
             created: docWithAttrs.created ?? undefined,
           };
         }
-      ) as IdentityV2025[] & Record<string, unknown>[];
+      ) as Identity[] & Record<string, unknown>[];
 
       this.totalCount = this.filteredIdentities.length;
       this.pageIndex = 0;
@@ -283,13 +282,13 @@ export class IdentitiesComponent implements OnInit {
   }
 
   // View identity details in dialog
-  async onView(identity: IdentityV2025): Promise<void> {
+  async onView(identity: Identity): Promise<void> {
     try {
       if (!identity.id) {
         this.openMessageDialog('Identity ID is missing.', 'Error');
         return;
       }
-      const response = await this.sdk.getIdentity({ id: identity.id });
+      const response = await this.sdk.getIdentityV1({ id: identity.id });
       const details = JSON.stringify(response.data, null, 2);
       this.openMessageDialog(
         details,
@@ -304,8 +303,8 @@ export class IdentitiesComponent implements OnInit {
   }
 
   // Fetch a single identity
-  getIdentityById(id: string): Promise<IdentityV2025> {
-    return this.sdk.getIdentity({ id }).then((res) => res.data);
+  getIdentityById(id: string): Promise<Identity> {
+    return this.sdk.getIdentityV1({ id }).then((res) => res.data);
   }
 
   // Show dialog with title + message
@@ -320,7 +319,7 @@ export class IdentitiesComponent implements OnInit {
   }
 
   // Show manager details
-  onViewManager(identity: IdentityV2025): void {
+  onViewManager(identity: Identity): void {
     const manager = identity.managerRef;
 
     if (!manager) {
@@ -339,7 +338,7 @@ export class IdentitiesComponent implements OnInit {
   }
 
   // Show identity attribute details
-  onViewAttributes(identity: IdentityV2025): void {
+  onViewAttributes(identity: Identity): void {
     const attributes = identity.attributes ?? {};
     const formatted = JSON.stringify(attributes, null, 2);
     this.openMessageDialog(

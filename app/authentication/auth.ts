@@ -1,8 +1,4 @@
-import {
-  Configuration,
-  TenantV2024Api,
-  ConfigurationParameters,
-} from 'sailpoint-api-client';
+import { Configuration, ConfigurationParameters, TenantApi } from 'sailpoint-api-client';
 import { getConfig, setConfig,  getConfigEnvironment, setActiveEnvironementInConfig, getSecureValue} from './config';
 import { clearOAuthSession, getOAuthPickupSecret, getOAuthSessionTtl, getStoredOAuthTokens, OAuthLogin, refreshOAuthToken, validateOAuthTokens, storeOAuthTokens, authLambdaTokenURL, consumePrivateKey} from './oauth';
 import { getStoredPATTokens, refreshPATToken, validatePATToken } from './pat';
@@ -420,8 +416,8 @@ export const connectToISCWithPAT = async (
   try {
     apiConfig = new Configuration(config);
     apiConfig.experimental = true;
-    let tenantApi = new TenantV2024Api(apiConfig);
-    let response = await tenantApi.getTenant();
+    let tenantApi = new TenantApi(apiConfig);
+    let response = await tenantApi.getTenantV1();
     if (response.status !== 200) {
       return { connected: false, error: 'Failed to connect to ISC with PAT' };
     }
@@ -446,8 +442,8 @@ export const connectToISCWithToken = async (
   try {
     apiConfig = new Configuration(config);
     apiConfig.experimental = true;
-    let tenantApi = new TenantV2024Api(apiConfig);
-    let response = await tenantApi.getTenant();
+    let tenantApi = new TenantApi(apiConfig);
+    let response = await tenantApi.getTenantV1();
     if (response.status !== 200) {
       return { connected: false, error: 'Failed to connect to ISC with token' };
     }
@@ -601,7 +597,6 @@ export async function checkAccessTokenStatus(): Promise<AccessTokenStatus> {
   }
 };
 
-
 export async function testAccessToken(environment: string, authtype: string): Promise<{ isValid: boolean, needsRefresh: boolean, error?: string }> {
 
   let accessToken;
@@ -650,10 +645,10 @@ export async function testAccessToken(environment: string, authtype: string): Pr
 
     const testApiConfig = new Configuration(testConfig);
     testApiConfig.experimental = true;
-    const tenantApi = new TenantV2024Api(testApiConfig);
+    const tenantApi = new TenantApi(testApiConfig);
 
     // Try to get tenant info to validate the token
-    const response = await tenantApi.getTenant();
+    const response = await tenantApi.getTenantV1();
 
     if (response.status === 200) {
       return {
@@ -714,7 +709,6 @@ export function validateTokens(environment: string): { isValid: boolean, needsRe
     };
   }
 }
-
 
 /**
  * Checks if the OAuth code flow is complete for a given UUID

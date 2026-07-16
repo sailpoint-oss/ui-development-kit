@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, from, Observable, of, switchMap } from 'rxjs';
-import { IdentityDocumentsV2025, SearchV2025ApiSearchPostRequest } from 'sailpoint-api-client';
-import { SailPointSDKService } from '../../../sailpoint-sdk.service';
 
+import { SailPointSDKService } from '../../../sailpoint-sdk.service';
+import type { SearchApiSearchPostV1Request } from 'sailpoint-api-client/dist/search/api';
+import type { IdentityDocument } from './identity-document';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { SailPointSDKService } from '../../../sailpoint-sdk.service';
 export class IdentityService {
   
   // BehaviorSubject to store the selected identities
-  private selectedIdentitiesSubject = new BehaviorSubject<IdentityDocumentsV2025[]>([]);
+  private selectedIdentitiesSubject = new BehaviorSubject<IdentityDocument[]>([]);
   selectedIdentities$ = this.selectedIdentitiesSubject.asObservable();
 
   constructor(private http: HttpClient) {
@@ -24,7 +25,7 @@ export class IdentityService {
     profileId: string,
     sdkService: SailPointSDKService,
     searchQuery?: string
-  ): Observable<IdentityDocumentsV2025[]> {
+  ): Observable<IdentityDocument[]> {
   
     let queryString = `identityProfile.id:${profileId}`;
 
@@ -33,8 +34,8 @@ export class IdentityService {
         queryString += ` AND (name:*${escaped}*)`;
     }
 
-    const request: SearchV2025ApiSearchPostRequest = {
-      searchV2025: {
+    const request: SearchApiSearchPostV1Request = {
+      search: {
         indices: ['identities'],
         query: {
           query: queryString
@@ -45,7 +46,7 @@ export class IdentityService {
     };
 
   
-    const searchPromise = sdkService.searchPost?.(request) ?? Promise.resolve([]);
+    const searchPromise = sdkService.searchPostV1?.(request) ?? Promise.resolve([]);
 
     return from(searchPromise).pipe(
       catchError(err => {
@@ -54,7 +55,7 @@ export class IdentityService {
       }),
       switchMap(response => {
         if ('data' in response) {
-          return of(response.data as IdentityDocumentsV2025[]);
+          return of(response.data as IdentityDocument[]);
         } else {
           return of([]);
         }
@@ -96,7 +97,7 @@ export class IdentityService {
   /**
    * Update the selected identities
    */
-  updateSelectedIdentities(identities: IdentityDocumentsV2025[]): void {
+  updateSelectedIdentities(identities: IdentityDocument[]): void {
     this.selectedIdentitiesSubject.next(identities);
     // Save to local storage for persistence
     localStorage.setItem('selectedIdentities', JSON.stringify(identities));
@@ -105,7 +106,7 @@ export class IdentityService {
   /**
    * Add an identity to the selection
    */
-  addSelectedIdentity(identity: IdentityDocumentsV2025): void {
+  addSelectedIdentity(identity: IdentityDocument): void {
     const currentIdentities = this.selectedIdentitiesSubject.value;
     // Check if identity is already selected
     if (!currentIdentities.some(item => item.id === identity.id)) {
@@ -137,7 +138,7 @@ export class IdentityService {
     const storedIdentities = localStorage.getItem('selectedIdentities');
     if (storedIdentities) {
       try {
-        const identities:IdentityDocumentsV2025[] = JSON.parse(storedIdentities);
+        const identities:IdentityDocument[] = JSON.parse(storedIdentities);
          console.log('Loaded identities from local storage:', identities);
         this.selectedIdentitiesSubject.next(identities);
       } catch (e) {

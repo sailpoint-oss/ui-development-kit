@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { IdentityV2025 } from 'sailpoint-api-client';
+
 import { BehaviorSubject, Observable } from 'rxjs';
+import type { Identity } from 'sailpoint-api-client/dist/identities/api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReportDataService {
-  private identities: IdentityV2025[] = [];
+  private identities: Identity[] = [];
   private dataLoadedSubject = new BehaviorSubject<boolean>(false);
   private isCompleteDataSubject = new BehaviorSubject<boolean>(false);
   
@@ -16,13 +17,13 @@ export class ReportDataService {
 
   constructor() {}
 
-  setIdentities(identities: IdentityV2025[], isCompleteDataset: boolean) {
+  setIdentities(identities: Identity[], isCompleteDataset: boolean) {
     this.identities = [...identities];
     this.dataLoadedSubject.next(true);
     this.isCompleteDataSubject.next(isCompleteDataset);
   }
 
-  getIdentities(): IdentityV2025[] {
+  getIdentities(): Identity[] {
     return [...this.identities]; // Return a copy to prevent direct modification
   }
 

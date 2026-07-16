@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AxiosResponse } from 'axios';
-import { IdentityV2025 } from 'sailpoint-api-client';
+
 import { SailPointSDKService } from 'sailpoint-components';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import type { Identity } from 'sailpoint-api-client/dist/identities/api';
 
 @Component({
   selector: 'app-identities',
@@ -13,7 +14,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   styleUrl: './identities.component.scss'
 })
 export class IdentitiesComponent implements OnInit {
-  identities: AxiosResponse<Array<IdentityV2025>, any> | undefined;
+  identities: AxiosResponse<Array<Identity>, any> | undefined;
   loading = true;
 
   constructor(private sdk: SailPointSDKService) {
@@ -26,7 +27,7 @@ export class IdentitiesComponent implements OnInit {
   async getIdentities() {
     this.loading = true;
     try {
-      const identities = await this.sdk.listIdentities({
+      const identities = await this.sdk.listIdentitiesV1({
         count: true
       });
       console.log(identities)

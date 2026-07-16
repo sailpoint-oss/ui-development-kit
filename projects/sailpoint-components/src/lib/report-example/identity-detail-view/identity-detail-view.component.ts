@@ -11,8 +11,9 @@ import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { IdentityV2025 } from 'sailpoint-api-client';
+
 import { ReportDataService } from '../report-data.service';
+import type { Identity } from 'sailpoint-api-client/dist/identities/api';
 
 @Component({
   selector: 'app-identity-detail-view',
@@ -35,8 +36,8 @@ import { ReportDataService } from '../report-data.service';
 })
 export class IdentityDetailViewComponent implements OnInit {
   // Data properties
-  displayedIdentities: IdentityV2025[] = [];
-  allIdentities: IdentityV2025[] = [];
+  displayedIdentities: Identity[] = [];
+  allIdentities: Identity[] = [];
   loading = true;
   filterCategory = '';
   filterValue = '';
@@ -94,10 +95,10 @@ export class IdentityDetailViewComponent implements OnInit {
   }
 
   private filterIdentities(
-    identities: IdentityV2025[],
+    identities: Identity[],
     category: string,
     value: string
-  ): IdentityV2025[] {
+  ): Identity[] {
     return identities.filter((identity) => {
       switch (category) {
         case 'status':
@@ -218,7 +219,7 @@ export class IdentityDetailViewComponent implements OnInit {
     void this.router.navigate(['/report-example']);
   }
 
-  formatLifecycleState(identity: IdentityV2025): string {
+  formatLifecycleState(identity: Identity): string {
     if (identity.lifecycleState && identity.lifecycleState.stateName) {
       return identity.lifecycleState.stateName;
     } else if (

@@ -7,10 +7,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
-import {
-  TransformReadV2025,
-  TransformsV2025ApiDeleteTransformRequest
-} from 'sailpoint-api-client';
+
 import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
 import { SailPointSDKService } from '../sailpoint-sdk.service';
 import { TransformBuilderComponent } from './transform-builder/transform-builder.component';
@@ -19,6 +16,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { firstValueFrom } from 'rxjs';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { TemplateRef, ChangeDetectorRef } from '@angular/core'
+import type { Transformread } from 'sailpoint-api-client/dist/sources/api';
+import type { TransformsApiDeleteTransformV1Request } from 'sailpoint-api-client/dist/transforms/api';
 
 interface UsageResult {
   kind: 'identityProfile' | 'provisioningPolicy' | 'transform';
@@ -56,7 +55,6 @@ interface RefNode {
   [key: string]: unknown;
 }
 
-
 @Component({
   selector: 'app-transforms',
   standalone: true,
@@ -78,12 +76,12 @@ interface RefNode {
 })
 export class TransformsComponent implements OnInit {
   title = 'Transforms';
-  transforms: TransformReadV2025[] = [];
-  dataSource: MatTableDataSource<TransformReadV2025> = new MatTableDataSource();
+  transforms: Transformread[] = [];
+  dataSource: MatTableDataSource<Transformread> = new MatTableDataSource();
   displayedColumns: string[] = ['id', 'name', 'type', 'internal', 'actions'];
   loading = false;
   hasDataLoaded = false; // ✅ Track data load state
-  transform: TransformReadV2025 | undefined;
+  transform: Transformread | undefined;
   editing = false;
   @ViewChild(TransformBuilderComponent)
   transformBuilder?: TransformBuilderComponent;
@@ -124,7 +122,7 @@ export class TransformsComponent implements OnInit {
     this.hasDataLoaded = false;
 
     try {
-      const response = await this.sdk.listTransforms();
+      const response = await this.sdk.listTransformsV1();
       this.transforms =
         response.data.filter((transform) => transform.internal !== true) ?? [];
       this.dataSource = new MatTableDataSource(this.transforms);
@@ -182,7 +180,7 @@ export class TransformsComponent implements OnInit {
     }
   }
 
-  onEdit(transform?: TransformReadV2025): void {
+  onEdit(transform?: Transformread): void {
     if (transform?.type === 'usernameGenerator') {
       this.dialog.open(GenericDialogComponent, {
         data: {
@@ -198,7 +196,7 @@ export class TransformsComponent implements OnInit {
     this.editing = true;
   }
 
-  onDelete(transform: TransformReadV2025): void {
+  onDelete(transform: Transformread): void {
     this.dialog
       .open(GenericDialogComponent, {
         data: {
@@ -215,10 +213,10 @@ export class TransformsComponent implements OnInit {
         if (confirmed) {
           console.log('Deleting transform:', transform);
 
-          const transformDeleteRequest: TransformsV2025ApiDeleteTransformRequest = {
+          const transformDeleteRequest: TransformsApiDeleteTransformV1Request = {
             id: transform.id,
           };
-          void this.sdk.deleteTransform(transformDeleteRequest).then(() => {
+          void this.sdk.deleteTransformV1(transformDeleteRequest).then(() => {
             this.transforms =
               this.transforms.filter(
                 (transformFilter) =>
@@ -303,7 +301,7 @@ export class TransformsComponent implements OnInit {
 
   private async listWithRetry(sourceId: string, retries = 5): Promise<any[]> {
     try {
-      const resp = await this.sdk.listProvisioningPolicies({ sourceId });
+      const resp = await this.sdk.listProvisioningPoliciesV1({ sourceId });
       return resp.data ?? [];
     } catch (err: any) {
       if (err.response?.status === 429 && retries > 0) {
@@ -327,7 +325,7 @@ export class TransformsComponent implements OnInit {
     return this.totalItems ? ((this.profilesChecked + this.policiesChecked + this.transformsChecked) / this.totalItems) * 100 : 0;
   }
 
-  async onSafeDelete(transform: TransformReadV2025): Promise<void> {
+  async onSafeDelete(transform: Transformread): Promise<void> {
     const name = transform.name || '<Unnamed>';
 
     const doScan = await firstValueFrom(
@@ -357,9 +355,9 @@ export class TransformsComponent implements OnInit {
 
     // compute totals
     const [pr, sr, tr] = await Promise.all([
-      this.sdk.listIdentityProfiles(),
-      this.sdk.listSources(), 
-      this.sdk.listTransforms()
+      this.sdk.listIdentityProfilesV1(),
+      this.sdk.listSourcesV1(), 
+      this.sdk.listTransformsV1()
     ]);
     this.totalProfiles = (pr.data ?? []).length;
     this.totalPolicies = 0;
@@ -412,7 +410,7 @@ export class TransformsComponent implements OnInit {
 
     this.loading = true;
     try {
-      await this.sdk.deleteTransform({ id: transform.id });
+      await this.sdk.deleteTransformV1({ id: transform.id });
       this.snackBar.open(`"${name}" safely deleted`, 'Close', { duration: 3000 });
       await this.loadTransforms();
     } catch (err) {
@@ -432,7 +430,7 @@ export class TransformsComponent implements OnInit {
     this.currentPhase = 'Profiles';
     this.cdr.detectChanges();
 
-    const profiles = (await this.sdk.listIdentityProfiles()).data ?? [];
+    const profiles = (await this.sdk.listIdentityProfilesV1()).data ?? [];
     for (const p of profiles) {
       this.grandProgress++;
       this.cdr.detectChanges();
@@ -455,7 +453,6 @@ export class TransformsComponent implements OnInit {
     }
   }
 
-
   private getRefId(def: RefNode): string | undefined {
     // Check that attributes.id is a string before returning it
     const attrId = def.attributes?.id;
@@ -475,7 +472,7 @@ export class TransformsComponent implements OnInit {
     this.currentPhase = 'Provisioning Policies';
     this.cdr.detectChanges();
 
-    const sources = (await this.sdk.listSources()).data as Array<{
+    const sources = (await this.sdk.listSourcesV1()).data as Array<{
       id?: string;
       name?: string;
     }>;
@@ -512,10 +509,10 @@ export class TransformsComponent implements OnInit {
     }
   }
 
-  private async scanTransformsForReferences(target: TransformReadV2025): Promise<void> {
+  private async scanTransformsForReferences(target: Transformread): Promise<void> {
     this.currentPhase = 'Transforms';
     this.cdr.detectChanges();
-    const resp = await this.sdk.listTransforms();
+    const resp = await this.sdk.listTransformsV1();
     const all = resp.data ?? [];
 
     const targetId = target.id;
