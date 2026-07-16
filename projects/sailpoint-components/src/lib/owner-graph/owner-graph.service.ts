@@ -1,6 +1,5 @@
 import { Injectable, inject } from '@angular/core';
 import { SailPointSDKService } from '../sailpoint-sdk.service';
-import type { Querytype } from 'sailpoint-api-client/dist/access_model_metadata/api';
 import type { Accessprofile, Entitlement } from 'sailpoint-api-client/dist/access_profiles/api';
 import type { Role } from 'sailpoint-api-client/dist/roles/api';
 import type { SearchApiSearchPostV1Request } from 'sailpoint-api-client/dist/search/api';
@@ -182,7 +181,7 @@ async findIdentityByAlias(alias: string) {
   };
 
   const { data } = await this.sdk.searchPostV1(req);
-  const first = (data ?? [])[0] as any;
+  const first = (data ?? [])[0];
   if (!first) {
     throw new Error(`No identity found for alias "${alias}"`);
   }
@@ -437,7 +436,7 @@ async findIdentityByAlias(alias: string) {
       // Initialize counts for all non-active identities
       for (const identity of identities) {
         if (identity.id) {
-          ownershipCounts.set(identity.id, { rolesCount: 0, accessProfilesCount: 0, entitlementsCount: 0 });
+          ownershipCounts.set(identity.id as string, { rolesCount: 0, accessProfilesCount: 0, entitlementsCount: 0 });
         }
       }
 
