@@ -159,21 +159,21 @@ export class SailPointSDKService {
   }
 
 // --- GENERATED SDK METHODS START ---
-async addAccessRequestRecommendationsIgnoredItemV1(requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiAddAccessRequestRecommendationsIgnoredItemV1Request): Promise<AxiosResponse<iaiAccessRequestRecommendationsTypes.Accessrequestrecommendationactionitemresponsedto, any>> {
+async addAccessRequestRecommendationsIgnoredItemV1(requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiAddAccessRequestRecommendationsIgnoredItemV1Request): Promise<AxiosResponse<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationActionItemResponseDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.addAccessRequestRecommendationsIgnoredItemV1(requestParameters) as Promise<AxiosResponse<iaiAccessRequestRecommendationsTypes.Accessrequestrecommendationactionitemresponsedto, any>>;
+    return this.electronAPI.addAccessRequestRecommendationsIgnoredItemV1(requestParameters) as Promise<AxiosResponse<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationActionItemResponseDto, any>>;
 }
-async addAccessRequestRecommendationsRequestedItemV1(requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiAddAccessRequestRecommendationsRequestedItemV1Request): Promise<AxiosResponse<iaiAccessRequestRecommendationsTypes.Accessrequestrecommendationactionitemresponsedto, any>> {
+async addAccessRequestRecommendationsRequestedItemV1(requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiAddAccessRequestRecommendationsRequestedItemV1Request): Promise<AxiosResponse<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationActionItemResponseDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.addAccessRequestRecommendationsRequestedItemV1(requestParameters) as Promise<AxiosResponse<iaiAccessRequestRecommendationsTypes.Accessrequestrecommendationactionitemresponsedto, any>>;
+    return this.electronAPI.addAccessRequestRecommendationsRequestedItemV1(requestParameters) as Promise<AxiosResponse<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationActionItemResponseDto, any>>;
 }
-async addAccessRequestRecommendationsViewedItemsV1(requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiAddAccessRequestRecommendationsViewedItemsV1Request): Promise<AxiosResponse<Array<iaiAccessRequestRecommendationsTypes.Accessrequestrecommendationactionitemresponsedto>, any>> {
+async addAccessRequestRecommendationsViewedItemsV1(requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiAddAccessRequestRecommendationsViewedItemsV1Request): Promise<AxiosResponse<Array<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationActionItemResponseDto>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.addAccessRequestRecommendationsViewedItemsV1(requestParameters) as Promise<AxiosResponse<Array<iaiAccessRequestRecommendationsTypes.Accessrequestrecommendationactionitemresponsedto>, any>>;
+    return this.electronAPI.addAccessRequestRecommendationsViewedItemsV1(requestParameters) as Promise<AxiosResponse<Array<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationActionItemResponseDto>, any>>;
 }
-async addAccessRequestRecommendationsViewedItemV1(requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiAddAccessRequestRecommendationsViewedItemV1Request): Promise<AxiosResponse<iaiAccessRequestRecommendationsTypes.Accessrequestrecommendationactionitemresponsedto, any>> {
+async addAccessRequestRecommendationsViewedItemV1(requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiAddAccessRequestRecommendationsViewedItemV1Request): Promise<AxiosResponse<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationActionItemResponseDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.addAccessRequestRecommendationsViewedItemV1(requestParameters) as Promise<AxiosResponse<iaiAccessRequestRecommendationsTypes.Accessrequestrecommendationactionitemresponsedto, any>>;
+    return this.electronAPI.addAccessRequestRecommendationsViewedItemV1(requestParameters) as Promise<AxiosResponse<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationActionItemResponseDto, any>>;
 }
 async approveAccessRequestV1(requestParameters: accessRequestApprovalsTypes.AccessRequestApprovalsApiApproveAccessRequestV1Request): Promise<AxiosResponse<any, any>> {
     await this.checkSessionBeforeCall();
@@ -183,13 +183,13 @@ async approveApprovalInBulkV1(requestParameters: approvalsTypes.ApprovalsApiAppr
     await this.checkSessionBeforeCall();
     return this.electronAPI.approveApprovalInBulkV1(requestParameters) as Promise<AxiosResponse<any, any>>;
 }
-async approveApprovalItemsInBulkV1(requestParameters: workItemsTypes.WorkItemsApiApproveApprovalItemsInBulkV1Request): Promise<AxiosResponse<workItemsTypes.Workitems, any>> {
+async approveApprovalItemsInBulkV1(requestParameters: workItemsTypes.WorkItemsApiApproveApprovalItemsInBulkV1Request): Promise<AxiosResponse<workItemsTypes.WorkItems, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.approveApprovalItemsInBulkV1(requestParameters) as Promise<AxiosResponse<workItemsTypes.Workitems, any>>;
+    return this.electronAPI.approveApprovalItemsInBulkV1(requestParameters) as Promise<AxiosResponse<workItemsTypes.WorkItems, any>>;
 }
-async approveApprovalItemV1(requestParameters: workItemsTypes.WorkItemsApiApproveApprovalItemV1Request): Promise<AxiosResponse<workItemsTypes.Workitems, any>> {
+async approveApprovalItemV1(requestParameters: workItemsTypes.WorkItemsApiApproveApprovalItemV1Request): Promise<AxiosResponse<workItemsTypes.WorkItems, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.approveApprovalItemV1(requestParameters) as Promise<AxiosResponse<workItemsTypes.Workitems, any>>;
+    return this.electronAPI.approveApprovalItemV1(requestParameters) as Promise<AxiosResponse<workItemsTypes.WorkItems, any>>;
 }
 async approveApprovalV1(requestParameters: approvalsTypes.ApprovalsApiApproveApprovalV1Request): Promise<AxiosResponse<approvalsTypes.Approval2, any>> {
     await this.checkSessionBeforeCall();
@@ -199,13 +199,13 @@ async approveBulkAccessRequestV1(requestParameters: accessRequestsTypes.AccessRe
     await this.checkSessionBeforeCall();
     return this.electronAPI.approveBulkAccessRequestV1(requestParameters) as Promise<AxiosResponse<any, any>>;
 }
-async approveBulkEntitlementRecommendationsV1(requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiApproveBulkEntitlementRecommendationsV1Request): Promise<AxiosResponse<Array<suggestedEntitlementDescriptionTypes.Bulkapproveentitlementrecommendationresult>, any>> {
+async approveBulkEntitlementRecommendationsV1(requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiApproveBulkEntitlementRecommendationsV1Request): Promise<AxiosResponse<Array<suggestedEntitlementDescriptionTypes.BulkApproveEntitlementRecommendationResult>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.approveBulkEntitlementRecommendationsV1(requestParameters) as Promise<AxiosResponse<Array<suggestedEntitlementDescriptionTypes.Bulkapproveentitlementrecommendationresult>, any>>;
+    return this.electronAPI.approveBulkEntitlementRecommendationsV1(requestParameters) as Promise<AxiosResponse<Array<suggestedEntitlementDescriptionTypes.BulkApproveEntitlementRecommendationResult>, any>>;
 }
-async approveNonEmployeeRequestV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiApproveNonEmployeeRequestV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeeapprovalitem, any>> {
+async approveNonEmployeeRequestV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiApproveNonEmployeeRequestV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeApprovalItem, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.approveNonEmployeeRequestV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeeapprovalitem, any>>;
+    return this.electronAPI.approveNonEmployeeRequestV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeApprovalItem, any>>;
 }
 async cancelAccessRequestInBulkV1(requestParameters: accessRequestsTypes.AccessRequestsApiCancelAccessRequestInBulkV1Request): Promise<AxiosResponse<any, any>> {
     await this.checkSessionBeforeCall();
@@ -243,13 +243,13 @@ async closeAccessRequestV1(requestParameters: accessRequestsTypes.AccessRequests
     await this.checkSessionBeforeCall();
     return this.electronAPI.closeAccessRequestV1(requestParameters) as Promise<AxiosResponse<any, any>>;
 }
-async compareIdentitySnapshotsAccessTypeV1(requestParameters: identityHistoryTypes.IdentityHistoryApiCompareIdentitySnapshotsAccessTypeV1Request): Promise<AxiosResponse<Array<identityHistoryTypes.Accessitemdiff>, any>> {
+async compareIdentitySnapshotsAccessTypeV1(requestParameters: identityHistoryTypes.IdentityHistoryApiCompareIdentitySnapshotsAccessTypeV1Request): Promise<AxiosResponse<Array<identityHistoryTypes.AccessItemDiff>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.compareIdentitySnapshotsAccessTypeV1(requestParameters) as Promise<AxiosResponse<Array<identityHistoryTypes.Accessitemdiff>, any>>;
+    return this.electronAPI.compareIdentitySnapshotsAccessTypeV1(requestParameters) as Promise<AxiosResponse<Array<identityHistoryTypes.AccessItemDiff>, any>>;
 }
-async compareIdentitySnapshotsV1(requestParameters: identityHistoryTypes.IdentityHistoryApiCompareIdentitySnapshotsV1Request): Promise<AxiosResponse<Array<identityHistoryTypes.Identitycompareresponse>, any>> {
+async compareIdentitySnapshotsV1(requestParameters: identityHistoryTypes.IdentityHistoryApiCompareIdentitySnapshotsV1Request): Promise<AxiosResponse<Array<identityHistoryTypes.IdentityCompareResponse>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.compareIdentitySnapshotsV1(requestParameters) as Promise<AxiosResponse<Array<identityHistoryTypes.Identitycompareresponse>, any>>;
+    return this.electronAPI.compareIdentitySnapshotsV1(requestParameters) as Promise<AxiosResponse<Array<identityHistoryTypes.IdentityCompareResponse>, any>>;
 }
 async completeCampaignV1(requestParameters: certificationCampaignsTypes.CertificationCampaignsApiCompleteCampaignV1Request): Promise<AxiosResponse<any, any>> {
     await this.checkSessionBeforeCall();
@@ -259,33 +259,33 @@ async completeTriggerInvocationV1(requestParameters: triggersTypes.TriggersApiCo
     await this.checkSessionBeforeCall();
     return this.electronAPI.completeTriggerInvocationV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-async completeWorkItemV1(requestParameters: workItemsTypes.WorkItemsApiCompleteWorkItemV1Request): Promise<AxiosResponse<workItemsTypes.Workitems, any>> {
+async completeWorkItemV1(requestParameters: workItemsTypes.WorkItemsApiCompleteWorkItemV1Request): Promise<AxiosResponse<workItemsTypes.WorkItems, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.completeWorkItemV1(requestParameters) as Promise<AxiosResponse<workItemsTypes.Workitems, any>>;
+    return this.electronAPI.completeWorkItemV1(requestParameters) as Promise<AxiosResponse<workItemsTypes.WorkItems, any>>;
 }
-async createAccessModelMetadataAttributeV1(requestParameters: accessModelMetadataTypes.AccessModelMetadataApiCreateAccessModelMetadataAttributeV1Request): Promise<AxiosResponse<accessModelMetadataTypes.Attributedto, any>> {
+async createAccessModelMetadataAttributeV1(requestParameters: accessModelMetadataTypes.AccessModelMetadataApiCreateAccessModelMetadataAttributeV1Request): Promise<AxiosResponse<accessModelMetadataTypes.AttributeDTO, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createAccessModelMetadataAttributeV1(requestParameters) as Promise<AxiosResponse<accessModelMetadataTypes.Attributedto, any>>;
+    return this.electronAPI.createAccessModelMetadataAttributeV1(requestParameters) as Promise<AxiosResponse<accessModelMetadataTypes.AttributeDTO, any>>;
 }
-async createAccessModelMetadataAttributeValueV1(requestParameters: accessModelMetadataTypes.AccessModelMetadataApiCreateAccessModelMetadataAttributeValueV1Request): Promise<AxiosResponse<accessModelMetadataTypes.Attributevaluedto, any>> {
+async createAccessModelMetadataAttributeValueV1(requestParameters: accessModelMetadataTypes.AccessModelMetadataApiCreateAccessModelMetadataAttributeValueV1Request): Promise<AxiosResponse<accessModelMetadataTypes.AttributeValueDTO, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createAccessModelMetadataAttributeValueV1(requestParameters) as Promise<AxiosResponse<accessModelMetadataTypes.Attributevaluedto, any>>;
+    return this.electronAPI.createAccessModelMetadataAttributeValueV1(requestParameters) as Promise<AxiosResponse<accessModelMetadataTypes.AttributeValueDTO, any>>;
 }
 async createAccessModelMetadataForEntitlementV1(requestParameters: entitlementsTypes.EntitlementsApiCreateAccessModelMetadataForEntitlementV1Request): Promise<AxiosResponse<entitlementsTypes.Entitlement, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.createAccessModelMetadataForEntitlementV1(requestParameters) as Promise<AxiosResponse<entitlementsTypes.Entitlement, any>>;
 }
-async createAccessProfileV1(requestParameters: accessProfilesTypes.AccessProfilesApiCreateAccessProfileV1Request): Promise<AxiosResponse<accessProfilesTypes.Accessprofile, any>> {
+async createAccessProfileV1(requestParameters: accessProfilesTypes.AccessProfilesApiCreateAccessProfileV1Request): Promise<AxiosResponse<accessProfilesTypes.AccessProfile, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createAccessProfileV1(requestParameters) as Promise<AxiosResponse<accessProfilesTypes.Accessprofile, any>>;
+    return this.electronAPI.createAccessProfileV1(requestParameters) as Promise<AxiosResponse<accessProfilesTypes.AccessProfile, any>>;
 }
-async createAccessRequestV1(requestParameters: accessRequestsTypes.AccessRequestsApiCreateAccessRequestV1Request): Promise<AxiosResponse<accessRequestsTypes.Accessrequestresponse, any>> {
+async createAccessRequestV1(requestParameters: accessRequestsTypes.AccessRequestsApiCreateAccessRequestV1Request): Promise<AxiosResponse<accessRequestsTypes.AccessRequestResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createAccessRequestV1(requestParameters) as Promise<AxiosResponse<accessRequestsTypes.Accessrequestresponse, any>>;
+    return this.electronAPI.createAccessRequestV1(requestParameters) as Promise<AxiosResponse<accessRequestsTypes.AccessRequestResponse, any>>;
 }
-async createAccountV1(requestParameters: accountsTypes.AccountsApiCreateAccountV1Request): Promise<AxiosResponse<accountsTypes.Accountsasyncresult, any>> {
+async createAccountV1(requestParameters: accountsTypes.AccountsApiCreateAccountV1Request): Promise<AxiosResponse<accountsTypes.AccountsAsyncResult, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createAccountV1(requestParameters) as Promise<AxiosResponse<accountsTypes.Accountsasyncresult, any>>;
+    return this.electronAPI.createAccountV1(requestParameters) as Promise<AxiosResponse<accountsTypes.AccountsAsyncResult, any>>;
 }
 async createApplicationV1(requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiCreateApplicationV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
@@ -303,9 +303,9 @@ async createAttributeNerm(requestParameters: sdk.AttributesNERMApiCreateAttribut
     await this.checkSessionBeforeCall();
     return this.electronAPI.createAttributeNerm(requestParameters) as Promise<AxiosResponse<sdk.CreateAttribute201ResponseNERM, any>>;
 }
-async createAuthOrgNetworkConfigV1(requestParameters: globalTenantSecuritySettingsTypes.GlobalTenantSecuritySettingsApiCreateAuthOrgNetworkConfigV1Request): Promise<AxiosResponse<globalTenantSecuritySettingsTypes.Networkconfiguration, any>> {
+async createAuthOrgNetworkConfigV1(requestParameters: globalTenantSecuritySettingsTypes.GlobalTenantSecuritySettingsApiCreateAuthOrgNetworkConfigV1Request): Promise<AxiosResponse<globalTenantSecuritySettingsTypes.NetworkConfiguration, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createAuthOrgNetworkConfigV1(requestParameters) as Promise<AxiosResponse<globalTenantSecuritySettingsTypes.Networkconfiguration, any>>;
+    return this.electronAPI.createAuthOrgNetworkConfigV1(requestParameters) as Promise<AxiosResponse<globalTenantSecuritySettingsTypes.NetworkConfiguration, any>>;
 }
 async createAutoAssignActionNerm(requestParameters: sdk.WorkflowActionsNERMApiCreateAutoAssignActionRequest): Promise<AxiosResponse<sdk.CreateApprovalAction200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -315,9 +315,9 @@ async createAutomatedWorkflowNerm(requestParameters: sdk.WorkflowsNERMApiCreateA
     await this.checkSessionBeforeCall();
     return this.electronAPI.createAutomatedWorkflowNerm(requestParameters) as Promise<AxiosResponse<sdk.CreateCreateWorkflow200ResponseNERM, any>>;
 }
-async createAutoWriteSettingsV1(requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiCreateAutoWriteSettingsV1Request): Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.Autowritesettingresponse, any>> {
+async createAutoWriteSettingsV1(requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiCreateAutoWriteSettingsV1Request): Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.AutoWriteSettingResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createAutoWriteSettingsV1(requestParameters) as Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.Autowritesettingresponse, any>>;
+    return this.electronAPI.createAutoWriteSettingsV1(requestParameters) as Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.AutoWriteSettingResponse, any>>;
 }
 async createBatchUpdateActionNerm(requestParameters: sdk.WorkflowActionsNERMApiCreateBatchUpdateActionRequest): Promise<AxiosResponse<sdk.CreateApprovalAction200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -327,17 +327,17 @@ async createBatchWorkflowNerm(requestParameters: sdk.WorkflowsNERMApiCreateBatch
     await this.checkSessionBeforeCall();
     return this.electronAPI.createBatchWorkflowNerm(requestParameters) as Promise<AxiosResponse<sdk.CreateCreateWorkflow200ResponseNERM, any>>;
 }
-async createBrandingItemV1(requestParameters: brandingTypes.BrandingApiCreateBrandingItemV1Request): Promise<AxiosResponse<brandingTypes.Brandingitem, any>> {
+async createBrandingItemV1(requestParameters: brandingTypes.BrandingApiCreateBrandingItemV1Request): Promise<AxiosResponse<brandingTypes.BrandingItem, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createBrandingItemV1(requestParameters) as Promise<AxiosResponse<brandingTypes.Brandingitem, any>>;
+    return this.electronAPI.createBrandingItemV1(requestParameters) as Promise<AxiosResponse<brandingTypes.BrandingItem, any>>;
 }
-async createCampaignFilterV1(requestParameters: certificationCampaignFiltersTypes.CertificationCampaignFiltersApiCreateCampaignFilterV1Request): Promise<AxiosResponse<certificationCampaignFiltersTypes.Campaignfilterdetails, any>> {
+async createCampaignFilterV1(requestParameters: certificationCampaignFiltersTypes.CertificationCampaignFiltersApiCreateCampaignFilterV1Request): Promise<AxiosResponse<certificationCampaignFiltersTypes.CampaignFilterDetails, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createCampaignFilterV1(requestParameters) as Promise<AxiosResponse<certificationCampaignFiltersTypes.Campaignfilterdetails, any>>;
+    return this.electronAPI.createCampaignFilterV1(requestParameters) as Promise<AxiosResponse<certificationCampaignFiltersTypes.CampaignFilterDetails, any>>;
 }
-async createCampaignTemplateV1(requestParameters: certificationCampaignsTypes.CertificationCampaignsApiCreateCampaignTemplateV1Request): Promise<AxiosResponse<certificationCampaignsTypes.Campaigntemplate, any>> {
+async createCampaignTemplateV1(requestParameters: certificationCampaignsTypes.CertificationCampaignsApiCreateCampaignTemplateV1Request): Promise<AxiosResponse<certificationCampaignsTypes.CampaignTemplate, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createCampaignTemplateV1(requestParameters) as Promise<AxiosResponse<certificationCampaignsTypes.Campaigntemplate, any>>;
+    return this.electronAPI.createCampaignTemplateV1(requestParameters) as Promise<AxiosResponse<certificationCampaignsTypes.CampaignTemplate, any>>;
 }
 async createCampaignV1(requestParameters: certificationCampaignsTypes.CertificationCampaignsApiCreateCampaignV1Request): Promise<AxiosResponse<certificationCampaignsTypes.Campaign2, any>> {
     await this.checkSessionBeforeCall();
@@ -347,21 +347,21 @@ async createCloseSessionActionNerm(requestParameters: sdk.WorkflowActionsNERMApi
     await this.checkSessionBeforeCall();
     return this.electronAPI.createCloseSessionActionNerm(requestParameters) as Promise<AxiosResponse<sdk.CreateApprovalAction200ResponseNERM, any>>;
 }
-async createCommonAccessV1(requestParameters: iaiCommonAccessTypes.IAICommonAccessApiCreateCommonAccessV1Request): Promise<AxiosResponse<iaiCommonAccessTypes.Commonaccessitemresponse, any>> {
+async createCommonAccessV1(requestParameters: iaiCommonAccessTypes.IAICommonAccessApiCreateCommonAccessV1Request): Promise<AxiosResponse<iaiCommonAccessTypes.CommonAccessItemResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createCommonAccessV1(requestParameters) as Promise<AxiosResponse<iaiCommonAccessTypes.Commonaccessitemresponse, any>>;
+    return this.electronAPI.createCommonAccessV1(requestParameters) as Promise<AxiosResponse<iaiCommonAccessTypes.CommonAccessItemResponse, any>>;
 }
-async createConnectorCustomizerV1(requestParameters: connectorCustomizersTypes.ConnectorCustomizersApiCreateConnectorCustomizerV1Request): Promise<AxiosResponse<connectorCustomizersTypes.Connectorcustomizercreateresponse, any>> {
+async createConnectorCustomizerV1(requestParameters: connectorCustomizersTypes.ConnectorCustomizersApiCreateConnectorCustomizerV1Request): Promise<AxiosResponse<connectorCustomizersTypes.ConnectorCustomizerCreateResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createConnectorCustomizerV1(requestParameters) as Promise<AxiosResponse<connectorCustomizersTypes.Connectorcustomizercreateresponse, any>>;
+    return this.electronAPI.createConnectorCustomizerV1(requestParameters) as Promise<AxiosResponse<connectorCustomizersTypes.ConnectorCustomizerCreateResponse, any>>;
 }
-async createConnectorCustomizerVersionV1(requestParameters: connectorCustomizersTypes.ConnectorCustomizersApiCreateConnectorCustomizerVersionV1Request): Promise<AxiosResponse<connectorCustomizersTypes.Connectorcustomizerversioncreateresponse, any>> {
+async createConnectorCustomizerVersionV1(requestParameters: connectorCustomizersTypes.ConnectorCustomizersApiCreateConnectorCustomizerVersionV1Request): Promise<AxiosResponse<connectorCustomizersTypes.ConnectorCustomizerVersionCreateResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createConnectorCustomizerVersionV1(requestParameters) as Promise<AxiosResponse<connectorCustomizersTypes.Connectorcustomizerversioncreateresponse, any>>;
+    return this.electronAPI.createConnectorCustomizerVersionV1(requestParameters) as Promise<AxiosResponse<connectorCustomizersTypes.ConnectorCustomizerVersionCreateResponse, any>>;
 }
-async createConnectorRuleV1(requestParameters: connectorRuleManagementTypes.ConnectorRuleManagementApiCreateConnectorRuleV1Request): Promise<AxiosResponse<connectorRuleManagementTypes.Connectorruleresponse, any>> {
+async createConnectorRuleV1(requestParameters: connectorRuleManagementTypes.ConnectorRuleManagementApiCreateConnectorRuleV1Request): Promise<AxiosResponse<connectorRuleManagementTypes.ConnectorRuleResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createConnectorRuleV1(requestParameters) as Promise<AxiosResponse<connectorRuleManagementTypes.Connectorruleresponse, any>>;
+    return this.electronAPI.createConnectorRuleV1(requestParameters) as Promise<AxiosResponse<connectorRuleManagementTypes.ConnectorRuleResponse, any>>;
 }
 async createContributorsActionNerm(requestParameters: sdk.WorkflowActionsNERMApiCreateContributorsActionRequest): Promise<AxiosResponse<sdk.CreateApprovalAction200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -375,41 +375,41 @@ async createCreateWorkflowNerm(requestParameters: sdk.WorkflowsNERMApiCreateCrea
     await this.checkSessionBeforeCall();
     return this.electronAPI.createCreateWorkflowNerm(requestParameters) as Promise<AxiosResponse<sdk.CreateCreateWorkflow200ResponseNERM, any>>;
 }
-async createCustomConnectorV1(requestParameters: connectorsTypes.ConnectorsApiCreateCustomConnectorV1Request): Promise<AxiosResponse<connectorsTypes.V3connectordto, any>> {
+async createCustomConnectorV1(requestParameters: connectorsTypes.ConnectorsApiCreateCustomConnectorV1Request): Promise<AxiosResponse<connectorsTypes.V3ConnectorDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createCustomConnectorV1(requestParameters) as Promise<AxiosResponse<connectorsTypes.V3connectordto, any>>;
+    return this.electronAPI.createCustomConnectorV1(requestParameters) as Promise<AxiosResponse<connectorsTypes.V3ConnectorDto, any>>;
 }
-async createCustomPasswordInstructionsV1(requestParameters: customPasswordInstructionsTypes.CustomPasswordInstructionsApiCreateCustomPasswordInstructionsV1Request): Promise<AxiosResponse<customPasswordInstructionsTypes.Custompasswordinstruction, any>> {
+async createCustomPasswordInstructionsV1(requestParameters: customPasswordInstructionsTypes.CustomPasswordInstructionsApiCreateCustomPasswordInstructionsV1Request): Promise<AxiosResponse<customPasswordInstructionsTypes.CustomPasswordInstruction, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createCustomPasswordInstructionsV1(requestParameters) as Promise<AxiosResponse<customPasswordInstructionsTypes.Custompasswordinstruction, any>>;
+    return this.electronAPI.createCustomPasswordInstructionsV1(requestParameters) as Promise<AxiosResponse<customPasswordInstructionsTypes.CustomPasswordInstruction, any>>;
 }
-async createCustomPrivilegeCriteriaV1(requestParameters: privilegeCriteriaTypes.PrivilegeCriteriaApiCreateCustomPrivilegeCriteriaV1Request): Promise<AxiosResponse<privilegeCriteriaTypes.Privilegecriteriadto, any>> {
+async createCustomPrivilegeCriteriaV1(requestParameters: privilegeCriteriaTypes.PrivilegeCriteriaApiCreateCustomPrivilegeCriteriaV1Request): Promise<AxiosResponse<privilegeCriteriaTypes.PrivilegeCriteriaDTO, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createCustomPrivilegeCriteriaV1(requestParameters) as Promise<AxiosResponse<privilegeCriteriaTypes.Privilegecriteriadto, any>>;
+    return this.electronAPI.createCustomPrivilegeCriteriaV1(requestParameters) as Promise<AxiosResponse<privilegeCriteriaTypes.PrivilegeCriteriaDTO, any>>;
 }
-async createCustomUserLevelV1(requestParameters: customUserLevelsTypes.CustomUserLevelsApiCreateCustomUserLevelV1Request): Promise<AxiosResponse<customUserLevelsTypes.Userlevelsummarydto, any>> {
+async createCustomUserLevelV1(requestParameters: customUserLevelsTypes.CustomUserLevelsApiCreateCustomUserLevelV1Request): Promise<AxiosResponse<customUserLevelsTypes.UserLevelSummaryDTO, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createCustomUserLevelV1(requestParameters) as Promise<AxiosResponse<customUserLevelsTypes.Userlevelsummarydto, any>>;
+    return this.electronAPI.createCustomUserLevelV1(requestParameters) as Promise<AxiosResponse<customUserLevelsTypes.UserLevelSummaryDTO, any>>;
 }
 async createDataSegmentV1(requestParameters: dataSegmentationTypes.DataSegmentationApiCreateDataSegmentV1Request): Promise<AxiosResponse<dataSegmentationTypes.DataSegment, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.createDataSegmentV1(requestParameters) as Promise<AxiosResponse<dataSegmentationTypes.DataSegment, any>>;
 }
-async createDeployV1(requestParameters: configurationHubTypes.ConfigurationHubApiCreateDeployV1Request): Promise<AxiosResponse<configurationHubTypes.Deployresponse, any>> {
+async createDeployV1(requestParameters: configurationHubTypes.ConfigurationHubApiCreateDeployV1Request): Promise<AxiosResponse<configurationHubTypes.DeployResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createDeployV1(requestParameters) as Promise<AxiosResponse<configurationHubTypes.Deployresponse, any>>;
+    return this.electronAPI.createDeployV1(requestParameters) as Promise<AxiosResponse<configurationHubTypes.DeployResponse, any>>;
 }
-async createDigitTokenV1(requestParameters: passwordManagementTypes.PasswordManagementApiCreateDigitTokenV1Request): Promise<AxiosResponse<passwordManagementTypes.Passworddigittoken, any>> {
+async createDigitTokenV1(requestParameters: passwordManagementTypes.PasswordManagementApiCreateDigitTokenV1Request): Promise<AxiosResponse<passwordManagementTypes.PasswordDigitToken, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createDigitTokenV1(requestParameters) as Promise<AxiosResponse<passwordManagementTypes.Passworddigittoken, any>>;
+    return this.electronAPI.createDigitTokenV1(requestParameters) as Promise<AxiosResponse<passwordManagementTypes.PasswordDigitToken, any>>;
 }
 async createDimensionV1(requestParameters: dimensionsTypes.DimensionsApiCreateDimensionV1Request): Promise<AxiosResponse<dimensionsTypes.Dimension, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.createDimensionV1(requestParameters) as Promise<AxiosResponse<dimensionsTypes.Dimension, any>>;
 }
-async createDomainDkimV1(requestParameters: notificationsTypes.NotificationsApiCreateDomainDkimV1Request): Promise<AxiosResponse<notificationsTypes.Domainstatusdto, any>> {
+async createDomainDkimV1(requestParameters: notificationsTypes.NotificationsApiCreateDomainDkimV1Request): Promise<AxiosResponse<notificationsTypes.DomainStatusDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createDomainDkimV1(requestParameters) as Promise<AxiosResponse<notificationsTypes.Domainstatusdto, any>>;
+    return this.electronAPI.createDomainDkimV1(requestParameters) as Promise<AxiosResponse<notificationsTypes.DomainStatusDto, any>>;
 }
 async createDuplicatePreventionActionNerm(requestParameters: sdk.WorkflowActionsNERMApiCreateDuplicatePreventionActionRequest): Promise<AxiosResponse<sdk.CreateApprovalAction200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -427,21 +427,21 @@ async createFormAttributeNerm(requestParameters: sdk.FormAttributesNERMApiCreate
     await this.checkSessionBeforeCall();
     return this.electronAPI.createFormAttributeNerm(requestParameters) as Promise<AxiosResponse<sdk.GetFormAttributes200ResponseNERM, any>>;
 }
-async createFormDefinitionDynamicSchemaV1(requestParameters: customFormsTypes.CustomFormsApiCreateFormDefinitionDynamicSchemaV1Request = {}): Promise<AxiosResponse<customFormsTypes.Formdefinitiondynamicschemaresponse, any>> {
+async createFormDefinitionDynamicSchemaV1(requestParameters: customFormsTypes.CustomFormsApiCreateFormDefinitionDynamicSchemaV1Request = {}): Promise<AxiosResponse<customFormsTypes.FormDefinitionDynamicSchemaResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createFormDefinitionDynamicSchemaV1(requestParameters) as Promise<AxiosResponse<customFormsTypes.Formdefinitiondynamicschemaresponse, any>>;
+    return this.electronAPI.createFormDefinitionDynamicSchemaV1(requestParameters) as Promise<AxiosResponse<customFormsTypes.FormDefinitionDynamicSchemaResponse, any>>;
 }
-async createFormDefinitionFileRequestV1(requestParameters: customFormsTypes.CustomFormsApiCreateFormDefinitionFileRequestV1Request): Promise<AxiosResponse<customFormsTypes.Formdefinitionfileuploadresponse, any>> {
+async createFormDefinitionFileRequestV1(requestParameters: customFormsTypes.CustomFormsApiCreateFormDefinitionFileRequestV1Request): Promise<AxiosResponse<customFormsTypes.FormDefinitionFileUploadResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createFormDefinitionFileRequestV1(requestParameters) as Promise<AxiosResponse<customFormsTypes.Formdefinitionfileuploadresponse, any>>;
+    return this.electronAPI.createFormDefinitionFileRequestV1(requestParameters) as Promise<AxiosResponse<customFormsTypes.FormDefinitionFileUploadResponse, any>>;
 }
-async createFormDefinitionV1(requestParameters: customFormsTypes.CustomFormsApiCreateFormDefinitionV1Request = {}): Promise<AxiosResponse<customFormsTypes.Formdefinitionresponse, any>> {
+async createFormDefinitionV1(requestParameters: customFormsTypes.CustomFormsApiCreateFormDefinitionV1Request = {}): Promise<AxiosResponse<customFormsTypes.FormDefinitionResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createFormDefinitionV1(requestParameters) as Promise<AxiosResponse<customFormsTypes.Formdefinitionresponse, any>>;
+    return this.electronAPI.createFormDefinitionV1(requestParameters) as Promise<AxiosResponse<customFormsTypes.FormDefinitionResponse, any>>;
 }
-async createFormInstanceV1(requestParameters: customFormsTypes.CustomFormsApiCreateFormInstanceV1Request = {}): Promise<AxiosResponse<customFormsTypes.Forminstanceresponse, any>> {
+async createFormInstanceV1(requestParameters: customFormsTypes.CustomFormsApiCreateFormInstanceV1Request = {}): Promise<AxiosResponse<customFormsTypes.FormInstanceResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createFormInstanceV1(requestParameters) as Promise<AxiosResponse<customFormsTypes.Forminstanceresponse, any>>;
+    return this.electronAPI.createFormInstanceV1(requestParameters) as Promise<AxiosResponse<customFormsTypes.FormInstanceResponse, any>>;
 }
 async createFormNerm(requestParameters: sdk.FormsNERMApiCreateFormRequest): Promise<AxiosResponse<sdk.GetForms200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -451,17 +451,17 @@ async createFulfillmentActionNerm(requestParameters: sdk.WorkflowActionsNERMApiC
     await this.checkSessionBeforeCall();
     return this.electronAPI.createFulfillmentActionNerm(requestParameters) as Promise<AxiosResponse<sdk.CreateApprovalAction200ResponseNERM, any>>;
 }
-async createIdentityAttributeV1(requestParameters: identityAttributesTypes.IdentityAttributesApiCreateIdentityAttributeV1Request): Promise<AxiosResponse<identityAttributesTypes.Identityattribute2, any>> {
+async createIdentityAttributeV1(requestParameters: identityAttributesTypes.IdentityAttributesApiCreateIdentityAttributeV1Request): Promise<AxiosResponse<identityAttributesTypes.IdentityAttribute2, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createIdentityAttributeV1(requestParameters) as Promise<AxiosResponse<identityAttributesTypes.Identityattribute2, any>>;
+    return this.electronAPI.createIdentityAttributeV1(requestParameters) as Promise<AxiosResponse<identityAttributesTypes.IdentityAttribute2, any>>;
 }
 async createIdentityCollectorV1(requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiCreateIdentityCollectorV1Request): Promise<AxiosResponse<dataAccessSecurityTypes.CreateIdentityCollectorV1200Response, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.createIdentityCollectorV1(requestParameters) as Promise<AxiosResponse<dataAccessSecurityTypes.CreateIdentityCollectorV1200Response, any>>;
 }
-async createIdentityProfileV1(requestParameters: identityProfilesTypes.IdentityProfilesApiCreateIdentityProfileV1Request): Promise<AxiosResponse<identityProfilesTypes.Identityprofile, any>> {
+async createIdentityProfileV1(requestParameters: identityProfilesTypes.IdentityProfilesApiCreateIdentityProfileV1Request): Promise<AxiosResponse<identityProfilesTypes.IdentityProfile, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createIdentityProfileV1(requestParameters) as Promise<AxiosResponse<identityProfilesTypes.Identityprofile, any>>;
+    return this.electronAPI.createIdentityProfileV1(requestParameters) as Promise<AxiosResponse<identityProfilesTypes.IdentityProfile, any>>;
 }
 async createIdentityProofingActionNerm(requestParameters: sdk.WorkflowActionsNERMApiCreateIdentityProofingActionRequest): Promise<AxiosResponse<sdk.CreateApprovalAction200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -479,81 +479,85 @@ async createLdapActionNerm(requestParameters: sdk.WorkflowActionsNERMApiCreateLd
     await this.checkSessionBeforeCall();
     return this.electronAPI.createLdapActionNerm(requestParameters) as Promise<AxiosResponse<sdk.CreateApprovalAction200ResponseNERM, any>>;
 }
-async createLifecycleStateV1(requestParameters: lifecycleStatesTypes.LifecycleStatesApiCreateLifecycleStateV1Request): Promise<AxiosResponse<lifecycleStatesTypes.Lifecyclestate, any>> {
+async createLifecycleStateV1(requestParameters: lifecycleStatesTypes.LifecycleStatesApiCreateLifecycleStateV1Request): Promise<AxiosResponse<lifecycleStatesTypes.LifecycleState, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createLifecycleStateV1(requestParameters) as Promise<AxiosResponse<lifecycleStatesTypes.Lifecyclestate, any>>;
+    return this.electronAPI.createLifecycleStateV1(requestParameters) as Promise<AxiosResponse<lifecycleStatesTypes.LifecycleState, any>>;
 }
 async createLoginWorkflowNerm(requestParameters: sdk.WorkflowsNERMApiCreateLoginWorkflowRequest): Promise<AxiosResponse<sdk.CreateCreateWorkflow200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.createLoginWorkflowNerm(requestParameters) as Promise<AxiosResponse<sdk.CreateCreateWorkflow200ResponseNERM, any>>;
 }
-async createMachineAccountMappingsV1(requestParameters: machineAccountMappingsTypes.MachineAccountMappingsApiCreateMachineAccountMappingsV1Request): Promise<AxiosResponse<Array<machineAccountMappingsTypes.Attributemappings>, any>> {
+async createMachineAccountMappingsV1(requestParameters: machineAccountMappingsTypes.MachineAccountMappingsApiCreateMachineAccountMappingsV1Request): Promise<AxiosResponse<Array<machineAccountMappingsTypes.AttributeMappings>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createMachineAccountMappingsV1(requestParameters) as Promise<AxiosResponse<Array<machineAccountMappingsTypes.Attributemappings>, any>>;
+    return this.electronAPI.createMachineAccountMappingsV1(requestParameters) as Promise<AxiosResponse<Array<machineAccountMappingsTypes.AttributeMappings>, any>>;
 }
-async createMachineAccountRequestV1(requestParameters: machineAccountCreationRequestTypes.MachineAccountCreationRequestApiCreateMachineAccountRequestV1Request): Promise<AxiosResponse<machineAccountCreationRequestTypes.Accountrequestasyncresult, any>> {
+async createMachineAccountRequestV1(requestParameters: machineAccountCreationRequestTypes.MachineAccountCreationRequestApiCreateMachineAccountRequestV1Request): Promise<AxiosResponse<machineAccountCreationRequestTypes.AccountRequestAsyncResult, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createMachineAccountRequestV1(requestParameters) as Promise<AxiosResponse<machineAccountCreationRequestTypes.Accountrequestasyncresult, any>>;
+    return this.electronAPI.createMachineAccountRequestV1(requestParameters) as Promise<AxiosResponse<machineAccountCreationRequestTypes.AccountRequestAsyncResult, any>>;
 }
-async createMachineAccountSubtypeV1(requestParameters: machineAccountsTypes.MachineAccountsApiCreateMachineAccountSubtypeV1Request): Promise<AxiosResponse<machineAccountsTypes.Sourcesubtype, any>> {
+async createMachineAccountSubtypeV1(requestParameters: machineAccountsTypes.MachineAccountsApiCreateMachineAccountSubtypeV1Request): Promise<AxiosResponse<machineAccountsTypes.SourceSubtype, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createMachineAccountSubtypeV1(requestParameters) as Promise<AxiosResponse<machineAccountsTypes.Sourcesubtype, any>>;
+    return this.electronAPI.createMachineAccountSubtypeV1(requestParameters) as Promise<AxiosResponse<machineAccountsTypes.SourceSubtype, any>>;
 }
-async createMachineIdentityV1(requestParameters: machineIdentitiesTypes.MachineIdentitiesApiCreateMachineIdentityV1Request): Promise<AxiosResponse<machineIdentitiesTypes.Machineidentityresponse, any>> {
+async createMachineIdentityV1(requestParameters: machineIdentitiesTypes.MachineIdentitiesApiCreateMachineIdentityV1Request): Promise<AxiosResponse<machineIdentitiesTypes.MachineIdentityResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createMachineIdentityV1(requestParameters) as Promise<AxiosResponse<machineIdentitiesTypes.Machineidentityresponse, any>>;
+    return this.electronAPI.createMachineIdentityV1(requestParameters) as Promise<AxiosResponse<machineIdentitiesTypes.MachineIdentityResponse, any>>;
 }
-async createManagedClientV1(requestParameters: managedClientsTypes.ManagedClientsApiCreateManagedClientV1Request): Promise<AxiosResponse<managedClientsTypes.Managedclient, any>> {
+async createMachineIdentityV2(requestParameters: machineIdentitiesTypes.MachineIdentitiesApiCreateMachineIdentityV2Request): Promise<AxiosResponse<machineIdentitiesTypes.Machineidentityv2, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createManagedClientV1(requestParameters) as Promise<AxiosResponse<managedClientsTypes.Managedclient, any>>;
+    return this.electronAPI.createMachineIdentityV2(requestParameters) as Promise<AxiosResponse<machineIdentitiesTypes.Machineidentityv2, any>>;
 }
-async createManagedClusterTypeV1(requestParameters: managedClusterTypesTypes.ManagedClusterTypesApiCreateManagedClusterTypeV1Request): Promise<AxiosResponse<managedClusterTypesTypes.Managedclustertype, any>> {
+async createManagedClientV1(requestParameters: managedClientsTypes.ManagedClientsApiCreateManagedClientV1Request): Promise<AxiosResponse<managedClientsTypes.ManagedClient, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createManagedClusterTypeV1(requestParameters) as Promise<AxiosResponse<managedClusterTypesTypes.Managedclustertype, any>>;
+    return this.electronAPI.createManagedClientV1(requestParameters) as Promise<AxiosResponse<managedClientsTypes.ManagedClient, any>>;
 }
-async createManagedClusterV1(requestParameters: managedClustersTypes.ManagedClustersApiCreateManagedClusterV1Request): Promise<AxiosResponse<managedClustersTypes.Managedcluster, any>> {
+async createManagedClusterTypeV1(requestParameters: managedClusterTypesTypes.ManagedClusterTypesApiCreateManagedClusterTypeV1Request): Promise<AxiosResponse<managedClusterTypesTypes.ManagedClusterType, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createManagedClusterV1(requestParameters) as Promise<AxiosResponse<managedClustersTypes.Managedcluster, any>>;
+    return this.electronAPI.createManagedClusterTypeV1(requestParameters) as Promise<AxiosResponse<managedClusterTypesTypes.ManagedClusterType, any>>;
 }
-async createMultiHostIntegrationV1(requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiCreateMultiHostIntegrationV1Request): Promise<AxiosResponse<multiHostIntegrationTypes.Multihostintegrations, any>> {
+async createManagedClusterV1(requestParameters: managedClustersTypes.ManagedClustersApiCreateManagedClusterV1Request): Promise<AxiosResponse<managedClustersTypes.ManagedCluster, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createMultiHostIntegrationV1(requestParameters) as Promise<AxiosResponse<multiHostIntegrationTypes.Multihostintegrations, any>>;
+    return this.electronAPI.createManagedClusterV1(requestParameters) as Promise<AxiosResponse<managedClustersTypes.ManagedCluster, any>>;
 }
-async createNonEmployeeRecordV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiCreateNonEmployeeRecordV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeerecord, any>> {
+async createMultiHostIntegrationV1(requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiCreateMultiHostIntegrationV1Request): Promise<AxiosResponse<multiHostIntegrationTypes.MultiHostIntegrations, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createNonEmployeeRecordV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeerecord, any>>;
+    return this.electronAPI.createMultiHostIntegrationV1(requestParameters) as Promise<AxiosResponse<multiHostIntegrationTypes.MultiHostIntegrations, any>>;
 }
-async createNonEmployeeRequestV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiCreateNonEmployeeRequestV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeerequest, any>> {
+async createNonEmployeeRecordV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiCreateNonEmployeeRecordV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeRecord, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createNonEmployeeRequestV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeerequest, any>>;
+    return this.electronAPI.createNonEmployeeRecordV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeRecord, any>>;
 }
-async createNonEmployeeSourceSchemaAttributesV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiCreateNonEmployeeSourceSchemaAttributesV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeeschemaattribute, any>> {
+async createNonEmployeeRequestV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiCreateNonEmployeeRequestV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeRequest, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createNonEmployeeSourceSchemaAttributesV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeeschemaattribute, any>>;
+    return this.electronAPI.createNonEmployeeRequestV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeRequest, any>>;
 }
-async createNonEmployeeSourceV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiCreateNonEmployeeSourceV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeesourcewithcloudexternalid, any>> {
+async createNonEmployeeSourceSchemaAttributesV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiCreateNonEmployeeSourceSchemaAttributesV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeSchemaAttribute, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createNonEmployeeSourceV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeesourcewithcloudexternalid, any>>;
+    return this.electronAPI.createNonEmployeeSourceSchemaAttributesV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeSchemaAttribute, any>>;
+}
+async createNonEmployeeSourceV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiCreateNonEmployeeSourceV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeSourceWithCloudExternalId, any>> {
+    await this.checkSessionBeforeCall();
+    return this.electronAPI.createNonEmployeeSourceV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeSourceWithCloudExternalId, any>>;
 }
 async createNotificationActionNerm(requestParameters: sdk.WorkflowActionsNERMApiCreateNotificationActionRequest): Promise<AxiosResponse<sdk.CreateApprovalAction200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.createNotificationActionNerm(requestParameters) as Promise<AxiosResponse<sdk.CreateApprovalAction200ResponseNERM, any>>;
 }
-async createNotificationTemplateV1(requestParameters: notificationsTypes.NotificationsApiCreateNotificationTemplateV1Request): Promise<AxiosResponse<notificationsTypes.Templatedto, any>> {
+async createNotificationTemplateV1(requestParameters: notificationsTypes.NotificationsApiCreateNotificationTemplateV1Request): Promise<AxiosResponse<notificationsTypes.TemplateDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createNotificationTemplateV1(requestParameters) as Promise<AxiosResponse<notificationsTypes.Templatedto, any>>;
+    return this.electronAPI.createNotificationTemplateV1(requestParameters) as Promise<AxiosResponse<notificationsTypes.TemplateDto, any>>;
 }
-async createOauthClientV1(requestParameters: oauthClientsTypes.OAuthClientsApiCreateOauthClientV1Request): Promise<AxiosResponse<oauthClientsTypes.Createoauthclientresponse, any>> {
+async createOauthClientV1(requestParameters: oauthClientsTypes.OAuthClientsApiCreateOauthClientV1Request): Promise<AxiosResponse<oauthClientsTypes.CreateOAuthClientResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createOauthClientV1(requestParameters) as Promise<AxiosResponse<oauthClientsTypes.Createoauthclientresponse, any>>;
+    return this.electronAPI.createOauthClientV1(requestParameters) as Promise<AxiosResponse<oauthClientsTypes.CreateOAuthClientResponse, any>>;
 }
-async createObjectMappingsV1(requestParameters: configurationHubTypes.ConfigurationHubApiCreateObjectMappingsV1Request): Promise<AxiosResponse<configurationHubTypes.Objectmappingbulkcreateresponse, any>> {
+async createObjectMappingsV1(requestParameters: configurationHubTypes.ConfigurationHubApiCreateObjectMappingsV1Request): Promise<AxiosResponse<configurationHubTypes.ObjectMappingBulkCreateResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createObjectMappingsV1(requestParameters) as Promise<AxiosResponse<configurationHubTypes.Objectmappingbulkcreateresponse, any>>;
+    return this.electronAPI.createObjectMappingsV1(requestParameters) as Promise<AxiosResponse<configurationHubTypes.ObjectMappingBulkCreateResponse, any>>;
 }
-async createObjectMappingV1(requestParameters: configurationHubTypes.ConfigurationHubApiCreateObjectMappingV1Request): Promise<AxiosResponse<configurationHubTypes.Objectmappingresponse, any>> {
+async createObjectMappingV1(requestParameters: configurationHubTypes.ConfigurationHubApiCreateObjectMappingV1Request): Promise<AxiosResponse<configurationHubTypes.ObjectMappingResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createObjectMappingV1(requestParameters) as Promise<AxiosResponse<configurationHubTypes.Objectmappingresponse, any>>;
+    return this.electronAPI.createObjectMappingV1(requestParameters) as Promise<AxiosResponse<configurationHubTypes.ObjectMappingResponse, any>>;
 }
 async createPageContentNerm(requestParameters: sdk.PageContentsNERMApiCreatePageContentRequest): Promise<AxiosResponse<sdk.GetPageContents200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -567,25 +571,25 @@ async createPageElementNerm(requestParameters: sdk.PageElementsNERMApiCreatePage
     await this.checkSessionBeforeCall();
     return this.electronAPI.createPageElementNerm(requestParameters) as Promise<AxiosResponse<sdk.GetPageElements200ResponseNERM, any>>;
 }
-async createParameterV1(requestParameters: parameterStorageTypes.ParameterStorageApiCreateParameterV1Request = {}): Promise<AxiosResponse<parameterStorageTypes.Parameterstorageparameter, any>> {
+async createParameterV1(requestParameters: parameterStorageTypes.ParameterStorageApiCreateParameterV1Request = {}): Promise<AxiosResponse<parameterStorageTypes.ParameterStorageParameter, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createParameterV1(requestParameters) as Promise<AxiosResponse<parameterStorageTypes.Parameterstorageparameter, any>>;
+    return this.electronAPI.createParameterV1(requestParameters) as Promise<AxiosResponse<parameterStorageTypes.ParameterStorageParameter, any>>;
 }
-async createPasswordOrgConfigV1(requestParameters: passwordConfigurationTypes.PasswordConfigurationApiCreatePasswordOrgConfigV1Request): Promise<AxiosResponse<passwordConfigurationTypes.Passwordorgconfig, any>> {
+async createPasswordOrgConfigV1(requestParameters: passwordConfigurationTypes.PasswordConfigurationApiCreatePasswordOrgConfigV1Request): Promise<AxiosResponse<passwordConfigurationTypes.PasswordOrgConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createPasswordOrgConfigV1(requestParameters) as Promise<AxiosResponse<passwordConfigurationTypes.Passwordorgconfig, any>>;
+    return this.electronAPI.createPasswordOrgConfigV1(requestParameters) as Promise<AxiosResponse<passwordConfigurationTypes.PasswordOrgConfig, any>>;
 }
-async createPasswordPolicyV1(requestParameters: passwordPoliciesTypes.PasswordPoliciesApiCreatePasswordPolicyV1Request): Promise<AxiosResponse<passwordPoliciesTypes.Passwordpolicyv3dto, any>> {
+async createPasswordPolicyV1(requestParameters: passwordPoliciesTypes.PasswordPoliciesApiCreatePasswordPolicyV1Request): Promise<AxiosResponse<passwordPoliciesTypes.PasswordPolicyV3Dto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createPasswordPolicyV1(requestParameters) as Promise<AxiosResponse<passwordPoliciesTypes.Passwordpolicyv3dto, any>>;
+    return this.electronAPI.createPasswordPolicyV1(requestParameters) as Promise<AxiosResponse<passwordPoliciesTypes.PasswordPolicyV3Dto, any>>;
 }
 async createPasswordResetActionNerm(requestParameters: sdk.WorkflowActionsNERMApiCreatePasswordResetActionRequest): Promise<AxiosResponse<sdk.CreateApprovalAction200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.createPasswordResetActionNerm(requestParameters) as Promise<AxiosResponse<sdk.CreateApprovalAction200ResponseNERM, any>>;
 }
-async createPasswordSyncGroupV1(requestParameters: passwordSyncGroupsTypes.PasswordSyncGroupsApiCreatePasswordSyncGroupV1Request): Promise<AxiosResponse<passwordSyncGroupsTypes.Passwordsyncgroup, any>> {
+async createPasswordSyncGroupV1(requestParameters: passwordSyncGroupsTypes.PasswordSyncGroupsApiCreatePasswordSyncGroupV1Request): Promise<AxiosResponse<passwordSyncGroupsTypes.PasswordSyncGroup, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createPasswordSyncGroupV1(requestParameters) as Promise<AxiosResponse<passwordSyncGroupsTypes.Passwordsyncgroup, any>>;
+    return this.electronAPI.createPasswordSyncGroupV1(requestParameters) as Promise<AxiosResponse<passwordSyncGroupsTypes.PasswordSyncGroup, any>>;
 }
 async createPasswordUpdateWorkflowNerm(requestParameters: sdk.WorkflowsNERMApiCreatePasswordUpdateWorkflowRequest): Promise<AxiosResponse<sdk.CreateCreateWorkflow200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -595,13 +599,13 @@ async createPermissionNerm(requestParameters: sdk.PermissionsNERMApiCreatePermis
     await this.checkSessionBeforeCall();
     return this.electronAPI.createPermissionNerm(requestParameters) as Promise<AxiosResponse<sdk.CreatePermission200ResponseNERM, any>>;
 }
-async createPersonalAccessTokenV1(requestParameters: personalAccessTokensTypes.PersonalAccessTokensApiCreatePersonalAccessTokenV1Request): Promise<AxiosResponse<personalAccessTokensTypes.Createpersonalaccesstokenresponse, any>> {
+async createPersonalAccessTokenV1(requestParameters: personalAccessTokensTypes.PersonalAccessTokensApiCreatePersonalAccessTokenV1Request): Promise<AxiosResponse<personalAccessTokensTypes.CreatePersonalAccessTokenResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createPersonalAccessTokenV1(requestParameters) as Promise<AxiosResponse<personalAccessTokensTypes.Createpersonalaccesstokenresponse, any>>;
+    return this.electronAPI.createPersonalAccessTokenV1(requestParameters) as Promise<AxiosResponse<personalAccessTokensTypes.CreatePersonalAccessTokenResponse, any>>;
 }
-async createPotentialRoleProvisionRequestV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiCreatePotentialRoleProvisionRequestV1Request): Promise<AxiosResponse<iaiRoleMiningTypes.Roleminingpotentialrolesummary, any>> {
+async createPotentialRoleProvisionRequestV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiCreatePotentialRoleProvisionRequestV1Request): Promise<AxiosResponse<iaiRoleMiningTypes.RoleMiningPotentialRoleSummary, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createPotentialRoleProvisionRequestV1(requestParameters) as Promise<AxiosResponse<iaiRoleMiningTypes.Roleminingpotentialrolesummary, any>>;
+    return this.electronAPI.createPotentialRoleProvisionRequestV1(requestParameters) as Promise<AxiosResponse<iaiRoleMiningTypes.RoleMiningPotentialRoleSummary, any>>;
 }
 async createProfileCheckActionNerm(requestParameters: sdk.WorkflowActionsNERMApiCreateProfileCheckActionRequest): Promise<AxiosResponse<sdk.CreateApprovalAction200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -623,17 +627,17 @@ async createProfileTypeRoleNerm(requestParameters: sdk.ProfileTypeRolesNERMApiCr
     await this.checkSessionBeforeCall();
     return this.electronAPI.createProfileTypeRoleNerm(requestParameters) as Promise<AxiosResponse<sdk.CreateProfileTypeRole200ResponseNERM, any>>;
 }
-async createProvisioningPolicyV1(requestParameters: sourcesTypes.SourcesApiCreateProvisioningPolicyV1Request): Promise<AxiosResponse<sourcesTypes.Provisioningpolicydto, any>> {
+async createProvisioningPolicyV1(requestParameters: sourcesTypes.SourcesApiCreateProvisioningPolicyV1Request): Promise<AxiosResponse<sourcesTypes.ProvisioningPolicyDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createProvisioningPolicyV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Provisioningpolicydto, any>>;
+    return this.electronAPI.createProvisioningPolicyV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.ProvisioningPolicyDto, any>>;
 }
-async createProvisioningPolicyV2(requestParameters: sourcesTypes.SourcesApiCreateProvisioningPolicyV2Request): Promise<AxiosResponse<sourcesTypes.Provisioningpolicydtov2, any>> {
+async createProvisioningPolicyV2(requestParameters: sourcesTypes.SourcesApiCreateProvisioningPolicyV2Request): Promise<AxiosResponse<sourcesTypes.ProvisioningPolicyDtoV2, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createProvisioningPolicyV2(requestParameters) as Promise<AxiosResponse<sourcesTypes.Provisioningpolicydtov2, any>>;
+    return this.electronAPI.createProvisioningPolicyV2(requestParameters) as Promise<AxiosResponse<sourcesTypes.ProvisioningPolicyDtoV2, any>>;
 }
-async createReassignmentConfigurationV1(requestParameters: workReassignmentTypes.WorkReassignmentApiCreateReassignmentConfigurationV1Request): Promise<AxiosResponse<workReassignmentTypes.Configurationitemresponse, any>> {
+async createReassignmentConfigurationV1(requestParameters: workReassignmentTypes.WorkReassignmentApiCreateReassignmentConfigurationV1Request): Promise<AxiosResponse<workReassignmentTypes.ConfigurationItemResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createReassignmentConfigurationV1(requestParameters) as Promise<AxiosResponse<workReassignmentTypes.Configurationitemresponse, any>>;
+    return this.electronAPI.createReassignmentConfigurationV1(requestParameters) as Promise<AxiosResponse<workReassignmentTypes.ConfigurationItemResponse, any>>;
 }
 async createRegistrationWorkflowNerm(requestParameters: sdk.WorkflowsNERMApiCreateRegistrationWorkflowRequest): Promise<AxiosResponse<sdk.CreateCreateWorkflow200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -651,13 +655,13 @@ async createReviewActionNerm(requestParameters: sdk.WorkflowActionsNERMApiCreate
     await this.checkSessionBeforeCall();
     return this.electronAPI.createReviewActionNerm(requestParameters) as Promise<AxiosResponse<sdk.CreateApprovalAction200ResponseNERM, any>>;
 }
-async createRoleInsightRequestsV1(requestParameters: roleInsightsTypes.RoleInsightsApiCreateRoleInsightRequestsV1Request = {}): Promise<AxiosResponse<roleInsightsTypes.Roleinsightsresponse, any>> {
+async createRoleInsightRequestsV1(requestParameters: roleInsightsTypes.RoleInsightsApiCreateRoleInsightRequestsV1Request = {}): Promise<AxiosResponse<roleInsightsTypes.RoleInsightsResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createRoleInsightRequestsV1(requestParameters) as Promise<AxiosResponse<roleInsightsTypes.Roleinsightsresponse, any>>;
+    return this.electronAPI.createRoleInsightRequestsV1(requestParameters) as Promise<AxiosResponse<roleInsightsTypes.RoleInsightsResponse, any>>;
 }
-async createRoleMiningSessionsV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiCreateRoleMiningSessionsV1Request): Promise<AxiosResponse<iaiRoleMiningTypes.Roleminingsessionresponse, any>> {
+async createRoleMiningSessionsV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiCreateRoleMiningSessionsV1Request): Promise<AxiosResponse<iaiRoleMiningTypes.RoleMiningSessionResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createRoleMiningSessionsV1(requestParameters) as Promise<AxiosResponse<iaiRoleMiningTypes.Roleminingsessionresponse, any>>;
+    return this.electronAPI.createRoleMiningSessionsV1(requestParameters) as Promise<AxiosResponse<iaiRoleMiningTypes.RoleMiningSessionResponse, any>>;
 }
 async createRoleV1(requestParameters: rolesTypes.RolesApiCreateRoleV1Request): Promise<AxiosResponse<rolesTypes.Role, any>> {
     await this.checkSessionBeforeCall();
@@ -667,17 +671,17 @@ async createRunWorkflowActionNerm(requestParameters: sdk.WorkflowActionsNERMApiC
     await this.checkSessionBeforeCall();
     return this.electronAPI.createRunWorkflowActionNerm(requestParameters) as Promise<AxiosResponse<sdk.CreateApprovalAction200ResponseNERM, any>>;
 }
-async createSavedSearchV1(requestParameters: savedSearchTypes.SavedSearchApiCreateSavedSearchV1Request): Promise<AxiosResponse<savedSearchTypes.Savedsearch, any>> {
+async createSavedSearchV1(requestParameters: savedSearchTypes.SavedSearchApiCreateSavedSearchV1Request): Promise<AxiosResponse<savedSearchTypes.SavedSearch, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createSavedSearchV1(requestParameters) as Promise<AxiosResponse<savedSearchTypes.Savedsearch, any>>;
+    return this.electronAPI.createSavedSearchV1(requestParameters) as Promise<AxiosResponse<savedSearchTypes.SavedSearch, any>>;
 }
-async createScheduledActionV1(requestParameters: configurationHubTypes.ConfigurationHubApiCreateScheduledActionV1Request): Promise<AxiosResponse<configurationHubTypes.Scheduledactionresponse, any>> {
+async createScheduledActionV1(requestParameters: configurationHubTypes.ConfigurationHubApiCreateScheduledActionV1Request): Promise<AxiosResponse<configurationHubTypes.ScheduledActionResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createScheduledActionV1(requestParameters) as Promise<AxiosResponse<configurationHubTypes.Scheduledactionresponse, any>>;
+    return this.electronAPI.createScheduledActionV1(requestParameters) as Promise<AxiosResponse<configurationHubTypes.ScheduledActionResponse, any>>;
 }
-async createScheduledSearchV1(requestParameters: scheduledSearchTypes.ScheduledSearchApiCreateScheduledSearchV1Request): Promise<AxiosResponse<scheduledSearchTypes.Scheduledsearch, any>> {
+async createScheduledSearchV1(requestParameters: scheduledSearchTypes.ScheduledSearchApiCreateScheduledSearchV1Request): Promise<AxiosResponse<scheduledSearchTypes.ScheduledSearch, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createScheduledSearchV1(requestParameters) as Promise<AxiosResponse<scheduledSearchTypes.Scheduledsearch, any>>;
+    return this.electronAPI.createScheduledSearchV1(requestParameters) as Promise<AxiosResponse<scheduledSearchTypes.ScheduledSearch, any>>;
 }
 async createScheduleV1(requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiCreateScheduleV1Request): Promise<AxiosResponse<number, any>> {
     await this.checkSessionBeforeCall();
@@ -691,9 +695,9 @@ async createSegmentV1(requestParameters: segmentsTypes.SegmentsApiCreateSegmentV
     await this.checkSessionBeforeCall();
     return this.electronAPI.createSegmentV1(requestParameters) as Promise<AxiosResponse<segmentsTypes.Segment, any>>;
 }
-async createServiceDeskIntegrationV1(requestParameters: serviceDeskIntegrationTypes.ServiceDeskIntegrationApiCreateServiceDeskIntegrationV1Request): Promise<AxiosResponse<serviceDeskIntegrationTypes.Servicedeskintegrationdto, any>> {
+async createServiceDeskIntegrationV1(requestParameters: serviceDeskIntegrationTypes.ServiceDeskIntegrationApiCreateServiceDeskIntegrationV1Request): Promise<AxiosResponse<serviceDeskIntegrationTypes.ServiceDeskIntegrationDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createServiceDeskIntegrationV1(requestParameters) as Promise<AxiosResponse<serviceDeskIntegrationTypes.Servicedeskintegrationdto, any>>;
+    return this.electronAPI.createServiceDeskIntegrationV1(requestParameters) as Promise<AxiosResponse<serviceDeskIntegrationTypes.ServiceDeskIntegrationDto, any>>;
 }
 async createSetAttributesActionNerm(requestParameters: sdk.WorkflowActionsNERMApiCreateSetAttributesActionRequest): Promise<AxiosResponse<sdk.CreateApprovalAction200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -703,21 +707,21 @@ async createSetSecurityQuestionActionNerm(requestParameters: sdk.WorkflowActions
     await this.checkSessionBeforeCall();
     return this.electronAPI.createSetSecurityQuestionActionNerm(requestParameters) as Promise<AxiosResponse<sdk.CreateApprovalAction200ResponseNERM, any>>;
 }
-async createSIMIntegrationV1(requestParameters: simIntegrationsTypes.SIMIntegrationsApiCreateSIMIntegrationV1Request): Promise<AxiosResponse<simIntegrationsTypes.Servicedeskintegrationdto, any>> {
+async createSIMIntegrationV1(requestParameters: simIntegrationsTypes.SIMIntegrationsApiCreateSIMIntegrationV1Request): Promise<AxiosResponse<simIntegrationsTypes.ServiceDeskIntegrationDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createSIMIntegrationV1(requestParameters) as Promise<AxiosResponse<simIntegrationsTypes.Servicedeskintegrationdto, any>>;
+    return this.electronAPI.createSIMIntegrationV1(requestParameters) as Promise<AxiosResponse<simIntegrationsTypes.ServiceDeskIntegrationDto, any>>;
 }
 async createSoapApiActionNerm(requestParameters: sdk.WorkflowActionsNERMApiCreateSoapApiActionRequest): Promise<AxiosResponse<sdk.CreateApprovalAction200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.createSoapApiActionNerm(requestParameters) as Promise<AxiosResponse<sdk.CreateApprovalAction200ResponseNERM, any>>;
 }
-async createSodPolicyV1(requestParameters: sodPoliciesTypes.SODPoliciesApiCreateSodPolicyV1Request): Promise<AxiosResponse<sodPoliciesTypes.Sodpolicy, any>> {
+async createSodPolicyV1(requestParameters: sodPoliciesTypes.SODPoliciesApiCreateSodPolicyV1Request): Promise<AxiosResponse<sodPoliciesTypes.SodPolicy, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createSodPolicyV1(requestParameters) as Promise<AxiosResponse<sodPoliciesTypes.Sodpolicy, any>>;
+    return this.electronAPI.createSodPolicyV1(requestParameters) as Promise<AxiosResponse<sodPoliciesTypes.SodPolicy, any>>;
 }
-async createSourceAppV1(requestParameters: appsTypes.AppsApiCreateSourceAppV1Request): Promise<AxiosResponse<appsTypes.Sourceapp, any>> {
+async createSourceAppV1(requestParameters: appsTypes.AppsApiCreateSourceAppV1Request): Promise<AxiosResponse<appsTypes.SourceApp, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createSourceAppV1(requestParameters) as Promise<AxiosResponse<appsTypes.Sourceapp, any>>;
+    return this.electronAPI.createSourceAppV1(requestParameters) as Promise<AxiosResponse<appsTypes.SourceApp, any>>;
 }
 async createSourceScheduleV1(requestParameters: sourcesTypes.SourcesApiCreateSourceScheduleV1Request): Promise<AxiosResponse<sourcesTypes.Schedule3, any>> {
     await this.checkSessionBeforeCall();
@@ -727,9 +731,9 @@ async createSourceSchemaV1(requestParameters: sourcesTypes.SourcesApiCreateSourc
     await this.checkSessionBeforeCall();
     return this.electronAPI.createSourceSchemaV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Schema, any>>;
 }
-async createSourceSubtypeV1(requestParameters: machineAccountSubtypesTypes.MachineAccountSubtypesApiCreateSourceSubtypeV1Request): Promise<AxiosResponse<machineAccountSubtypesTypes.Sourcesubtypewithsource, any>> {
+async createSourceSubtypeV1(requestParameters: machineAccountSubtypesTypes.MachineAccountSubtypesApiCreateSourceSubtypeV1Request): Promise<AxiosResponse<machineAccountSubtypesTypes.SourceSubtypeWithSource, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createSourceSubtypeV1(requestParameters) as Promise<AxiosResponse<machineAccountSubtypesTypes.Sourcesubtypewithsource, any>>;
+    return this.electronAPI.createSourceSubtypeV1(requestParameters) as Promise<AxiosResponse<machineAccountSubtypesTypes.SourceSubtypeWithSource, any>>;
 }
 async createSourcesWithinMultiHostV1(requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiCreateSourcesWithinMultiHostV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
@@ -743,9 +747,9 @@ async createStatusChangeActionNerm(requestParameters: sdk.WorkflowActionsNERMApi
     await this.checkSessionBeforeCall();
     return this.electronAPI.createStatusChangeActionNerm(requestParameters) as Promise<AxiosResponse<sdk.CreateApprovalAction200ResponseNERM, any>>;
 }
-async createStreamV1(requestParameters: sharedSignalsFrameworkSsfTypes.SharedSignalsFrameworkSSFApiCreateStreamV1Request): Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.Streamconfigresponse, any>> {
+async createStreamV1(requestParameters: sharedSignalsFrameworkSsfTypes.SharedSignalsFrameworkSSFApiCreateStreamV1Request): Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.StreamConfigResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createStreamV1(requestParameters) as Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.Streamconfigresponse, any>>;
+    return this.electronAPI.createStreamV1(requestParameters) as Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.StreamConfigResponse, any>>;
 }
 async createSubscriptionV1(requestParameters: triggersTypes.TriggersApiCreateSubscriptionV1Request): Promise<AxiosResponse<triggersTypes.Subscription, any>> {
     await this.checkSessionBeforeCall();
@@ -763,9 +767,9 @@ async createTagV1(requestParameters: tagsTypes.TagsApiCreateTagV1Request): Promi
     await this.checkSessionBeforeCall();
     return this.electronAPI.createTagV1(requestParameters) as Promise<AxiosResponse<tagsTypes.Tag2, any>>;
 }
-async createTransformV1(requestParameters: transformsTypes.TransformsApiCreateTransformV1Request): Promise<AxiosResponse<transformsTypes.Transformread, any>> {
+async createTransformV1(requestParameters: transformsTypes.TransformsApiCreateTransformV1Request): Promise<AxiosResponse<transformsTypes.TransformRead, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createTransformV1(requestParameters) as Promise<AxiosResponse<transformsTypes.Transformread, any>>;
+    return this.electronAPI.createTransformV1(requestParameters) as Promise<AxiosResponse<transformsTypes.TransformRead, any>>;
 }
 async createUnassignActionNerm(requestParameters: sdk.WorkflowActionsNERMApiCreateUnassignActionRequest): Promise<AxiosResponse<sdk.CreateApprovalAction200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -779,9 +783,9 @@ async createUpdateWorkflowNerm(requestParameters: sdk.WorkflowsNERMApiCreateUpda
     await this.checkSessionBeforeCall();
     return this.electronAPI.createUpdateWorkflowNerm(requestParameters) as Promise<AxiosResponse<sdk.CreateCreateWorkflow200ResponseNERM, any>>;
 }
-async createUploadedConfigurationV1(requestParameters: configurationHubTypes.ConfigurationHubApiCreateUploadedConfigurationV1Request): Promise<AxiosResponse<configurationHubTypes.Backupresponse, any>> {
+async createUploadedConfigurationV1(requestParameters: configurationHubTypes.ConfigurationHubApiCreateUploadedConfigurationV1Request): Promise<AxiosResponse<configurationHubTypes.BackupResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createUploadedConfigurationV1(requestParameters) as Promise<AxiosResponse<configurationHubTypes.Backupresponse, any>>;
+    return this.electronAPI.createUploadedConfigurationV1(requestParameters) as Promise<AxiosResponse<configurationHubTypes.BackupResponse, any>>;
 }
 async createUsernamePasswordActionNerm(requestParameters: sdk.WorkflowActionsNERMApiCreateUsernamePasswordActionRequest): Promise<AxiosResponse<sdk.CreateApprovalAction200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -791,17 +795,17 @@ async createUserProfilesNerm(requestParameters: sdk.UserProfilesNERMApiCreateUse
     await this.checkSessionBeforeCall();
     return this.electronAPI.createUserProfilesNerm(requestParameters) as Promise<AxiosResponse<sdk.CreateUserProfiles200ResponseNERM, any>>;
 }
-async createVerifiedFromAddressV1(requestParameters: notificationsTypes.NotificationsApiCreateVerifiedFromAddressV1Request): Promise<AxiosResponse<notificationsTypes.Emailstatusdto, any>> {
+async createVerifiedFromAddressV1(requestParameters: notificationsTypes.NotificationsApiCreateVerifiedFromAddressV1Request): Promise<AxiosResponse<notificationsTypes.EmailStatusDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createVerifiedFromAddressV1(requestParameters) as Promise<AxiosResponse<notificationsTypes.Emailstatusdto, any>>;
+    return this.electronAPI.createVerifiedFromAddressV1(requestParameters) as Promise<AxiosResponse<notificationsTypes.EmailStatusDto, any>>;
 }
 async createWorkflowActionPerformerNerm(requestParameters: sdk.WorkflowActionPerformerNERMApiCreateWorkflowActionPerformerRequest): Promise<AxiosResponse<sdk.CreateWorkflowActionPerformer200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.createWorkflowActionPerformerNerm(requestParameters) as Promise<AxiosResponse<sdk.CreateWorkflowActionPerformer200ResponseNERM, any>>;
 }
-async createWorkflowExternalTriggerV1(requestParameters: workflowsTypes.WorkflowsApiCreateWorkflowExternalTriggerV1Request): Promise<AxiosResponse<workflowsTypes.Workflowoauthclient, any>> {
+async createWorkflowExternalTriggerV1(requestParameters: workflowsTypes.WorkflowsApiCreateWorkflowExternalTriggerV1Request): Promise<AxiosResponse<workflowsTypes.WorkflowOAuthClient, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createWorkflowExternalTriggerV1(requestParameters) as Promise<AxiosResponse<workflowsTypes.Workflowoauthclient, any>>;
+    return this.electronAPI.createWorkflowExternalTriggerV1(requestParameters) as Promise<AxiosResponse<workflowsTypes.WorkflowOAuthClient, any>>;
 }
 async createWorkflowPageNerm(requestParameters: sdk.PagesNERMApiCreateWorkflowPageRequest): Promise<AxiosResponse<sdk.CreateProfilePage200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -811,17 +815,17 @@ async createWorkflowV1(requestParameters: workflowsTypes.WorkflowsApiCreateWorkf
     await this.checkSessionBeforeCall();
     return this.electronAPI.createWorkflowV1(requestParameters) as Promise<AxiosResponse<workflowsTypes.Workflow, any>>;
 }
-async createWorkgroupV1(requestParameters: governanceGroupsTypes.GovernanceGroupsApiCreateWorkgroupV1Request): Promise<AxiosResponse<governanceGroupsTypes.Workgroupdto, any>> {
+async createWorkgroupV1(requestParameters: governanceGroupsTypes.GovernanceGroupsApiCreateWorkgroupV1Request): Promise<AxiosResponse<governanceGroupsTypes.WorkgroupDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.createWorkgroupV1(requestParameters) as Promise<AxiosResponse<governanceGroupsTypes.Workgroupdto, any>>;
+    return this.electronAPI.createWorkgroupV1(requestParameters) as Promise<AxiosResponse<governanceGroupsTypes.WorkgroupDto, any>>;
 }
 async dasV1OwnersAssignPost(requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiDasV1OwnersAssignPostRequest): Promise<AxiosResponse<number, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.dasV1OwnersAssignPost(requestParameters) as Promise<AxiosResponse<number, any>>;
 }
-async dasV1OwnersOwnerIdentityIdResourcesGet(requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiDasV1OwnersOwnerIdentityIdResourcesGetRequest): Promise<AxiosResponse<Array<dataAccessSecurityTypes.Resourcemodel>, any>> {
+async dasV1OwnersOwnerIdentityIdResourcesGet(requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiDasV1OwnersOwnerIdentityIdResourcesGetRequest): Promise<AxiosResponse<Array<dataAccessSecurityTypes.ResourceModel>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.dasV1OwnersOwnerIdentityIdResourcesGet(requestParameters) as Promise<AxiosResponse<Array<dataAccessSecurityTypes.Resourcemodel>, any>>;
+    return this.electronAPI.dasV1OwnersOwnerIdentityIdResourcesGet(requestParameters) as Promise<AxiosResponse<Array<dataAccessSecurityTypes.ResourceModel>, any>>;
 }
 async dasV1OwnersReelectPost(requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiDasV1OwnersReelectPostRequest): Promise<AxiosResponse<number, any>> {
     await this.checkSessionBeforeCall();
@@ -879,33 +883,33 @@ async deleteAccessModelMetadataFromEntitlementV1(requestParameters: entitlements
     await this.checkSessionBeforeCall();
     return this.electronAPI.deleteAccessModelMetadataFromEntitlementV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-async deleteAccessProfilesFromSourceAppByBulkV1(requestParameters: appsTypes.AppsApiDeleteAccessProfilesFromSourceAppByBulkV1Request): Promise<AxiosResponse<Array<appsTypes.Accessprofiledetails>, any>> {
+async deleteAccessProfilesFromSourceAppByBulkV1(requestParameters: appsTypes.AppsApiDeleteAccessProfilesFromSourceAppByBulkV1Request): Promise<AxiosResponse<Array<appsTypes.AccessProfileDetails>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.deleteAccessProfilesFromSourceAppByBulkV1(requestParameters) as Promise<AxiosResponse<Array<appsTypes.Accessprofiledetails>, any>>;
+    return this.electronAPI.deleteAccessProfilesFromSourceAppByBulkV1(requestParameters) as Promise<AxiosResponse<Array<appsTypes.AccessProfileDetails>, any>>;
 }
-async deleteAccessProfilesInBulkV1(requestParameters: accessProfilesTypes.AccessProfilesApiDeleteAccessProfilesInBulkV1Request): Promise<AxiosResponse<accessProfilesTypes.Accessprofilebulkdeleteresponse, any>> {
+async deleteAccessProfilesInBulkV1(requestParameters: accessProfilesTypes.AccessProfilesApiDeleteAccessProfilesInBulkV1Request): Promise<AxiosResponse<accessProfilesTypes.AccessProfileBulkDeleteResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.deleteAccessProfilesInBulkV1(requestParameters) as Promise<AxiosResponse<accessProfilesTypes.Accessprofilebulkdeleteresponse, any>>;
+    return this.electronAPI.deleteAccessProfilesInBulkV1(requestParameters) as Promise<AxiosResponse<accessProfilesTypes.AccessProfileBulkDeleteResponse, any>>;
 }
 async deleteAccessProfileV1(requestParameters: accessProfilesTypes.AccessProfilesApiDeleteAccessProfileV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.deleteAccessProfileV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-async deleteAccountAsyncV1(requestParameters: accountsTypes.AccountsApiDeleteAccountAsyncV1Request): Promise<AxiosResponse<accountsTypes.Taskresultdto, any>> {
+async deleteAccountAsyncV1(requestParameters: accountsTypes.AccountsApiDeleteAccountAsyncV1Request): Promise<AxiosResponse<accountsTypes.TaskResultDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.deleteAccountAsyncV1(requestParameters) as Promise<AxiosResponse<accountsTypes.Taskresultdto, any>>;
+    return this.electronAPI.deleteAccountAsyncV1(requestParameters) as Promise<AxiosResponse<accountsTypes.TaskResultDto, any>>;
 }
-async deleteAccountRequestV1(requestParameters: accountDeletionRequestsTypes.AccountDeletionRequestsApiDeleteAccountRequestV1Request): Promise<AxiosResponse<accountDeletionRequestsTypes.Accountrequestasyncresult, any>> {
+async deleteAccountRequestV1(requestParameters: accountDeletionRequestsTypes.AccountDeletionRequestsApiDeleteAccountRequestV1Request): Promise<AxiosResponse<accountDeletionRequestsTypes.AccountRequestAsyncResult, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.deleteAccountRequestV1(requestParameters) as Promise<AxiosResponse<accountDeletionRequestsTypes.Accountrequestasyncresult, any>>;
+    return this.electronAPI.deleteAccountRequestV1(requestParameters) as Promise<AxiosResponse<accountDeletionRequestsTypes.AccountRequestAsyncResult, any>>;
 }
-async deleteAccountsAsyncV1(requestParameters: sourcesTypes.SourcesApiDeleteAccountsAsyncV1Request): Promise<AxiosResponse<sourcesTypes.Taskresultdto, any>> {
+async deleteAccountsAsyncV1(requestParameters: sourcesTypes.SourcesApiDeleteAccountsAsyncV1Request): Promise<AxiosResponse<sourcesTypes.TaskResultDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.deleteAccountsAsyncV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Taskresultdto, any>>;
+    return this.electronAPI.deleteAccountsAsyncV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.TaskResultDto, any>>;
 }
-async deleteAccountV1(requestParameters: accountsTypes.AccountsApiDeleteAccountV1Request): Promise<AxiosResponse<accountsTypes.Accountsasyncresult, any>> {
+async deleteAccountV1(requestParameters: accountsTypes.AccountsApiDeleteAccountV1Request): Promise<AxiosResponse<accountsTypes.AccountsAsyncResult, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.deleteAccountV1(requestParameters) as Promise<AxiosResponse<accountsTypes.Accountsasyncresult, any>>;
+    return this.electronAPI.deleteAccountV1(requestParameters) as Promise<AxiosResponse<accountsTypes.AccountsAsyncResult, any>>;
 }
 async deleteApplicationV1(requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiDeleteApplicationV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
@@ -939,13 +943,13 @@ async deleteBrandingV1(requestParameters: brandingTypes.BrandingApiDeleteBrandin
     await this.checkSessionBeforeCall();
     return this.electronAPI.deleteBrandingV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-async deleteBulkDimensionsV1(requestParameters: dimensionsTypes.DimensionsApiDeleteBulkDimensionsV1Request): Promise<AxiosResponse<dimensionsTypes.Taskresultdto, any>> {
+async deleteBulkDimensionsV1(requestParameters: dimensionsTypes.DimensionsApiDeleteBulkDimensionsV1Request): Promise<AxiosResponse<dimensionsTypes.TaskResultDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.deleteBulkDimensionsV1(requestParameters) as Promise<AxiosResponse<dimensionsTypes.Taskresultdto, any>>;
+    return this.electronAPI.deleteBulkDimensionsV1(requestParameters) as Promise<AxiosResponse<dimensionsTypes.TaskResultDto, any>>;
 }
-async deleteBulkRolesV1(requestParameters: rolesTypes.RolesApiDeleteBulkRolesV1Request): Promise<AxiosResponse<rolesTypes.Taskresultdto, any>> {
+async deleteBulkRolesV1(requestParameters: rolesTypes.RolesApiDeleteBulkRolesV1Request): Promise<AxiosResponse<rolesTypes.TaskResultDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.deleteBulkRolesV1(requestParameters) as Promise<AxiosResponse<rolesTypes.Taskresultdto, any>>;
+    return this.electronAPI.deleteBulkRolesV1(requestParameters) as Promise<AxiosResponse<rolesTypes.TaskResultDto, any>>;
 }
 async deleteCampaignFiltersV1(requestParameters: certificationCampaignFiltersTypes.CertificationCampaignFiltersApiDeleteCampaignFiltersV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
@@ -1035,13 +1039,13 @@ async deleteIdentityCollectorV1(requestParameters: dataAccessSecurityTypes.DataA
     await this.checkSessionBeforeCall();
     return this.electronAPI.deleteIdentityCollectorV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-async deleteIdentityProfilesV1(requestParameters: identityProfilesTypes.IdentityProfilesApiDeleteIdentityProfilesV1Request): Promise<AxiosResponse<identityProfilesTypes.Taskresultsimplified, any>> {
+async deleteIdentityProfilesV1(requestParameters: identityProfilesTypes.IdentityProfilesApiDeleteIdentityProfilesV1Request): Promise<AxiosResponse<identityProfilesTypes.TaskResultSimplified, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.deleteIdentityProfilesV1(requestParameters) as Promise<AxiosResponse<identityProfilesTypes.Taskresultsimplified, any>>;
+    return this.electronAPI.deleteIdentityProfilesV1(requestParameters) as Promise<AxiosResponse<identityProfilesTypes.TaskResultSimplified, any>>;
 }
-async deleteIdentityProfileV1(requestParameters: identityProfilesTypes.IdentityProfilesApiDeleteIdentityProfileV1Request): Promise<AxiosResponse<identityProfilesTypes.Taskresultsimplified, any>> {
+async deleteIdentityProfileV1(requestParameters: identityProfilesTypes.IdentityProfilesApiDeleteIdentityProfileV1Request): Promise<AxiosResponse<identityProfilesTypes.TaskResultSimplified, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.deleteIdentityProfileV1(requestParameters) as Promise<AxiosResponse<identityProfilesTypes.Taskresultsimplified, any>>;
+    return this.electronAPI.deleteIdentityProfileV1(requestParameters) as Promise<AxiosResponse<identityProfilesTypes.TaskResultSimplified, any>>;
 }
 async deleteIdentityV1(requestParameters: identitiesTypes.IdentitiesApiDeleteIdentityV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
@@ -1051,9 +1055,9 @@ async deleteLauncherV1(requestParameters: launchersTypes.LaunchersApiDeleteLaunc
     await this.checkSessionBeforeCall();
     return this.electronAPI.deleteLauncherV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-async deleteLifecycleStateV1(requestParameters: lifecycleStatesTypes.LifecycleStatesApiDeleteLifecycleStateV1Request): Promise<AxiosResponse<lifecycleStatesTypes.Lifecyclestatedeleted, any>> {
+async deleteLifecycleStateV1(requestParameters: lifecycleStatesTypes.LifecycleStatesApiDeleteLifecycleStateV1Request): Promise<AxiosResponse<lifecycleStatesTypes.LifecyclestateDeleted, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.deleteLifecycleStateV1(requestParameters) as Promise<AxiosResponse<lifecycleStatesTypes.Lifecyclestatedeleted, any>>;
+    return this.electronAPI.deleteLifecycleStateV1(requestParameters) as Promise<AxiosResponse<lifecycleStatesTypes.LifecyclestateDeleted, any>>;
 }
 async deleteMachineAccountMappingsV1(requestParameters: machineAccountMappingsTypes.MachineAccountMappingsApiDeleteMachineAccountMappingsV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
@@ -1074,6 +1078,10 @@ async deleteMachineClassificationConfigV1(requestParameters: machineClassificati
 async deleteMachineIdentityV1(requestParameters: machineIdentitiesTypes.MachineIdentitiesApiDeleteMachineIdentityV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.deleteMachineIdentityV1(requestParameters) as Promise<AxiosResponse<void, any>>;
+}
+async deleteMachineIdentityV2(requestParameters: machineIdentitiesTypes.MachineIdentitiesApiDeleteMachineIdentityV2Request): Promise<AxiosResponse<void, any>> {
+    await this.checkSessionBeforeCall();
+    return this.electronAPI.deleteMachineIdentityV2(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
 async deleteManagedClientV1(requestParameters: managedClientsTypes.ManagedClientsApiDeleteManagedClientV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
@@ -1142,6 +1150,10 @@ async deleteOauthClientV1(requestParameters: oauthClientsTypes.OAuthClientsApiDe
 async deleteObjectMappingV1(requestParameters: configurationHubTypes.ConfigurationHubApiDeleteObjectMappingV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.deleteObjectMappingV1(requestParameters) as Promise<AxiosResponse<void, any>>;
+}
+async deleteOwnershipCorrelationConfigV1(requestParameters: machineIdentitiesTypes.MachineIdentitiesApiDeleteOwnershipCorrelationConfigV1Request): Promise<AxiosResponse<void, any>> {
+    await this.checkSessionBeforeCall();
+    return this.electronAPI.deleteOwnershipCorrelationConfigV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
 async deletePageContentByIdNerm(requestParameters: sdk.PageContentsNERMApiDeletePageContentByIdRequest): Promise<AxiosResponse<sdk.GetPageContents200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -1259,9 +1271,9 @@ async deleteSodPolicyV1(requestParameters: sodPoliciesTypes.SODPoliciesApiDelete
     await this.checkSessionBeforeCall();
     return this.electronAPI.deleteSodPolicyV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-async deleteSourceAppV1(requestParameters: appsTypes.AppsApiDeleteSourceAppV1Request): Promise<AxiosResponse<appsTypes.Sourceapp, any>> {
+async deleteSourceAppV1(requestParameters: appsTypes.AppsApiDeleteSourceAppV1Request): Promise<AxiosResponse<appsTypes.SourceApp, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.deleteSourceAppV1(requestParameters) as Promise<AxiosResponse<appsTypes.Sourceapp, any>>;
+    return this.electronAPI.deleteSourceAppV1(requestParameters) as Promise<AxiosResponse<appsTypes.SourceApp, any>>;
 }
 async deleteSourceScheduleV1(requestParameters: sourcesTypes.SourcesApiDeleteSourceScheduleV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
@@ -1339,13 +1351,13 @@ async deleteWorkflowV1(requestParameters: workflowsTypes.WorkflowsApiDeleteWorkf
     await this.checkSessionBeforeCall();
     return this.electronAPI.deleteWorkflowV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-async deleteWorkgroupMembersV1(requestParameters: governanceGroupsTypes.GovernanceGroupsApiDeleteWorkgroupMembersV1Request): Promise<AxiosResponse<Array<governanceGroupsTypes.Workgroupmemberdeleteitem>, any>> {
+async deleteWorkgroupMembersV1(requestParameters: governanceGroupsTypes.GovernanceGroupsApiDeleteWorkgroupMembersV1Request): Promise<AxiosResponse<Array<governanceGroupsTypes.WorkgroupMemberDeleteItem>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.deleteWorkgroupMembersV1(requestParameters) as Promise<AxiosResponse<Array<governanceGroupsTypes.Workgroupmemberdeleteitem>, any>>;
+    return this.electronAPI.deleteWorkgroupMembersV1(requestParameters) as Promise<AxiosResponse<Array<governanceGroupsTypes.WorkgroupMemberDeleteItem>, any>>;
 }
-async deleteWorkgroupsInBulkV1(requestParameters: governanceGroupsTypes.GovernanceGroupsApiDeleteWorkgroupsInBulkV1Request): Promise<AxiosResponse<Array<governanceGroupsTypes.Workgroupdeleteitem>, any>> {
+async deleteWorkgroupsInBulkV1(requestParameters: governanceGroupsTypes.GovernanceGroupsApiDeleteWorkgroupsInBulkV1Request): Promise<AxiosResponse<Array<governanceGroupsTypes.WorkgroupDeleteItem>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.deleteWorkgroupsInBulkV1(requestParameters) as Promise<AxiosResponse<Array<governanceGroupsTypes.Workgroupdeleteitem>, any>>;
+    return this.electronAPI.deleteWorkgroupsInBulkV1(requestParameters) as Promise<AxiosResponse<Array<governanceGroupsTypes.WorkgroupDeleteItem>, any>>;
 }
 async deleteWorkgroupV1(requestParameters: governanceGroupsTypes.GovernanceGroupsApiDeleteWorkgroupV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
@@ -1355,13 +1367,13 @@ async disableAccountForIdentityV1(requestParameters: accountsTypes.AccountsApiDi
     await this.checkSessionBeforeCall();
     return this.electronAPI.disableAccountForIdentityV1(requestParameters) as Promise<AxiosResponse<any, any>>;
 }
-async disableAccountsForIdentitiesV1(requestParameters: accountsTypes.AccountsApiDisableAccountsForIdentitiesV1Request): Promise<AxiosResponse<Array<accountsTypes.Bulkidentitiesaccountsresponse>, any>> {
+async disableAccountsForIdentitiesV1(requestParameters: accountsTypes.AccountsApiDisableAccountsForIdentitiesV1Request): Promise<AxiosResponse<Array<accountsTypes.BulkIdentitiesAccountsResponse>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.disableAccountsForIdentitiesV1(requestParameters) as Promise<AxiosResponse<Array<accountsTypes.Bulkidentitiesaccountsresponse>, any>>;
+    return this.electronAPI.disableAccountsForIdentitiesV1(requestParameters) as Promise<AxiosResponse<Array<accountsTypes.BulkIdentitiesAccountsResponse>, any>>;
 }
-async disableAccountV1(requestParameters: accountsTypes.AccountsApiDisableAccountV1Request): Promise<AxiosResponse<accountsTypes.Accountsasyncresult, any>> {
+async disableAccountV1(requestParameters: accountsTypes.AccountsApiDisableAccountV1Request): Promise<AxiosResponse<accountsTypes.AccountsAsyncResult, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.disableAccountV1(requestParameters) as Promise<AxiosResponse<accountsTypes.Accountsasyncresult, any>>;
+    return this.electronAPI.disableAccountV1(requestParameters) as Promise<AxiosResponse<accountsTypes.AccountsAsyncResult, any>>;
 }
 async downloadRoleInsightsEntitlementsChangesV1(requestParameters: roleInsightsTypes.RoleInsightsApiDownloadRoleInsightsEntitlementsChangesV1Request): Promise<AxiosResponse<string, any>> {
     await this.checkSessionBeforeCall();
@@ -1375,13 +1387,13 @@ async enableAccountForIdentityV1(requestParameters: accountsTypes.AccountsApiEna
     await this.checkSessionBeforeCall();
     return this.electronAPI.enableAccountForIdentityV1(requestParameters) as Promise<AxiosResponse<any, any>>;
 }
-async enableAccountsForIdentitiesV1(requestParameters: accountsTypes.AccountsApiEnableAccountsForIdentitiesV1Request): Promise<AxiosResponse<Array<accountsTypes.Bulkidentitiesaccountsresponse>, any>> {
+async enableAccountsForIdentitiesV1(requestParameters: accountsTypes.AccountsApiEnableAccountsForIdentitiesV1Request): Promise<AxiosResponse<Array<accountsTypes.BulkIdentitiesAccountsResponse>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.enableAccountsForIdentitiesV1(requestParameters) as Promise<AxiosResponse<Array<accountsTypes.Bulkidentitiesaccountsresponse>, any>>;
+    return this.electronAPI.enableAccountsForIdentitiesV1(requestParameters) as Promise<AxiosResponse<Array<accountsTypes.BulkIdentitiesAccountsResponse>, any>>;
 }
-async enableAccountV1(requestParameters: accountsTypes.AccountsApiEnableAccountV1Request): Promise<AxiosResponse<accountsTypes.Accountsasyncresult, any>> {
+async enableAccountV1(requestParameters: accountsTypes.AccountsApiEnableAccountV1Request): Promise<AxiosResponse<accountsTypes.AccountsAsyncResult, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.enableAccountV1(requestParameters) as Promise<AxiosResponse<accountsTypes.Accountsasyncresult, any>>;
+    return this.electronAPI.enableAccountV1(requestParameters) as Promise<AxiosResponse<accountsTypes.AccountsAsyncResult, any>>;
 }
 async executeSavedSearchV1(requestParameters: savedSearchTypes.SavedSearchApiExecuteSavedSearchV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
@@ -1391,9 +1403,9 @@ async exportFormDefinitionsByTenantV1(requestParameters: customFormsTypes.Custom
     await this.checkSessionBeforeCall();
     return this.electronAPI.exportFormDefinitionsByTenantV1(requestParameters) as Promise<AxiosResponse<Array<customFormsTypes.ExportFormDefinitionsByTenantV1200ResponseInner>, any>>;
 }
-async exportIdentityProfilesV1(requestParameters: identityProfilesTypes.IdentityProfilesApiExportIdentityProfilesV1Request = {}): Promise<AxiosResponse<Array<identityProfilesTypes.Identityprofileexportedobject>, any>> {
+async exportIdentityProfilesV1(requestParameters: identityProfilesTypes.IdentityProfilesApiExportIdentityProfilesV1Request = {}): Promise<AxiosResponse<Array<identityProfilesTypes.IdentityProfileExportedObject>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.exportIdentityProfilesV1(requestParameters) as Promise<AxiosResponse<Array<identityProfilesTypes.Identityprofileexportedobject>, any>>;
+    return this.electronAPI.exportIdentityProfilesV1(requestParameters) as Promise<AxiosResponse<Array<identityProfilesTypes.IdentityProfileExportedObject>, any>>;
 }
 async exportNonEmployeeRecordsV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiExportNonEmployeeRecordsV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
@@ -1407,21 +1419,21 @@ async exportOutliersZipV1(requestParameters: iaiOutliersTypes.IAIOutliersApiExpo
     await this.checkSessionBeforeCall();
     return this.electronAPI.exportOutliersZipV1(requestParameters) as Promise<AxiosResponse<File, any>>;
 }
-async exportRoleMiningPotentialRoleAsyncV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiExportRoleMiningPotentialRoleAsyncV1Request): Promise<AxiosResponse<iaiRoleMiningTypes.Roleminingpotentialroleexportresponse, any>> {
+async exportRoleMiningPotentialRoleAsyncV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiExportRoleMiningPotentialRoleAsyncV1Request): Promise<AxiosResponse<iaiRoleMiningTypes.RoleMiningPotentialRoleExportResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.exportRoleMiningPotentialRoleAsyncV1(requestParameters) as Promise<AxiosResponse<iaiRoleMiningTypes.Roleminingpotentialroleexportresponse, any>>;
+    return this.electronAPI.exportRoleMiningPotentialRoleAsyncV1(requestParameters) as Promise<AxiosResponse<iaiRoleMiningTypes.RoleMiningPotentialRoleExportResponse, any>>;
 }
-async exportRoleMiningPotentialRoleStatusV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiExportRoleMiningPotentialRoleStatusV1Request): Promise<AxiosResponse<iaiRoleMiningTypes.Roleminingpotentialroleexportresponse, any>> {
+async exportRoleMiningPotentialRoleStatusV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiExportRoleMiningPotentialRoleStatusV1Request): Promise<AxiosResponse<iaiRoleMiningTypes.RoleMiningPotentialRoleExportResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.exportRoleMiningPotentialRoleStatusV1(requestParameters) as Promise<AxiosResponse<iaiRoleMiningTypes.Roleminingpotentialroleexportresponse, any>>;
+    return this.electronAPI.exportRoleMiningPotentialRoleStatusV1(requestParameters) as Promise<AxiosResponse<iaiRoleMiningTypes.RoleMiningPotentialRoleExportResponse, any>>;
 }
 async exportRoleMiningPotentialRoleV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiExportRoleMiningPotentialRoleV1Request): Promise<AxiosResponse<File, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.exportRoleMiningPotentialRoleV1(requestParameters) as Promise<AxiosResponse<File, any>>;
 }
-async exportSpConfigV1(requestParameters: spConfigTypes.SPConfigApiExportSpConfigV1Request): Promise<AxiosResponse<spConfigTypes.Spconfigexportjob, any>> {
+async exportSpConfigV1(requestParameters: spConfigTypes.SPConfigApiExportSpConfigV1Request): Promise<AxiosResponse<spConfigTypes.SpConfigExportJob, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.exportSpConfigV1(requestParameters) as Promise<AxiosResponse<spConfigTypes.Spconfigexportjob, any>>;
+    return this.electronAPI.exportSpConfigV1(requestParameters) as Promise<AxiosResponse<spConfigTypes.SpConfigExportJob, any>>;
 }
 async forwardAccessRequestV1(requestParameters: accessRequestApprovalsTypes.AccessRequestApprovalsApiForwardAccessRequestV1Request): Promise<AxiosResponse<any, any>> {
     await this.checkSessionBeforeCall();
@@ -1431,77 +1443,77 @@ async forwardWorkItemV1(requestParameters: workItemsTypes.WorkItemsApiForwardWor
     await this.checkSessionBeforeCall();
     return this.electronAPI.forwardWorkItemV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-async generateIdentityPreviewV1(requestParameters: identityProfilesTypes.IdentityProfilesApiGenerateIdentityPreviewV1Request): Promise<AxiosResponse<identityProfilesTypes.Identitypreviewresponse, any>> {
+async generateIdentityPreviewV1(requestParameters: identityProfilesTypes.IdentityProfilesApiGenerateIdentityPreviewV1Request): Promise<AxiosResponse<identityProfilesTypes.IdentityPreviewResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.generateIdentityPreviewV1(requestParameters) as Promise<AxiosResponse<identityProfilesTypes.Identitypreviewresponse, any>>;
+    return this.electronAPI.generateIdentityPreviewV1(requestParameters) as Promise<AxiosResponse<identityProfilesTypes.IdentityPreviewResponse, any>>;
 }
-async getAccessModelMetadataAttributeV1(requestParameters: accessModelMetadataTypes.AccessModelMetadataApiGetAccessModelMetadataAttributeV1Request): Promise<AxiosResponse<accessModelMetadataTypes.Attributedto, any>> {
+async getAccessModelMetadataAttributeV1(requestParameters: accessModelMetadataTypes.AccessModelMetadataApiGetAccessModelMetadataAttributeV1Request): Promise<AxiosResponse<accessModelMetadataTypes.AttributeDTO, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getAccessModelMetadataAttributeV1(requestParameters) as Promise<AxiosResponse<accessModelMetadataTypes.Attributedto, any>>;
+    return this.electronAPI.getAccessModelMetadataAttributeV1(requestParameters) as Promise<AxiosResponse<accessModelMetadataTypes.AttributeDTO, any>>;
 }
-async getAccessModelMetadataAttributeValueV1(requestParameters: accessModelMetadataTypes.AccessModelMetadataApiGetAccessModelMetadataAttributeValueV1Request): Promise<AxiosResponse<accessModelMetadataTypes.Attributevaluedto, any>> {
+async getAccessModelMetadataAttributeValueV1(requestParameters: accessModelMetadataTypes.AccessModelMetadataApiGetAccessModelMetadataAttributeValueV1Request): Promise<AxiosResponse<accessModelMetadataTypes.AttributeValueDTO, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getAccessModelMetadataAttributeValueV1(requestParameters) as Promise<AxiosResponse<accessModelMetadataTypes.Attributevaluedto, any>>;
+    return this.electronAPI.getAccessModelMetadataAttributeValueV1(requestParameters) as Promise<AxiosResponse<accessModelMetadataTypes.AttributeValueDTO, any>>;
 }
 async getAccessProfileEntitlementsV1(requestParameters: accessProfilesTypes.AccessProfilesApiGetAccessProfileEntitlementsV1Request): Promise<AxiosResponse<Array<accessProfilesTypes.Entitlement>, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.getAccessProfileEntitlementsV1(requestParameters) as Promise<AxiosResponse<Array<accessProfilesTypes.Entitlement>, any>>;
 }
-async getAccessProfileV1(requestParameters: accessProfilesTypes.AccessProfilesApiGetAccessProfileV1Request): Promise<AxiosResponse<accessProfilesTypes.Accessprofile, any>> {
+async getAccessProfileV1(requestParameters: accessProfilesTypes.AccessProfilesApiGetAccessProfileV1Request): Promise<AxiosResponse<accessProfilesTypes.AccessProfile, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getAccessProfileV1(requestParameters) as Promise<AxiosResponse<accessProfilesTypes.Accessprofile, any>>;
+    return this.electronAPI.getAccessProfileV1(requestParameters) as Promise<AxiosResponse<accessProfilesTypes.AccessProfile, any>>;
 }
-async getAccessRequestApprovalSummaryV1(requestParameters: accessRequestApprovalsTypes.AccessRequestApprovalsApiGetAccessRequestApprovalSummaryV1Request = {}): Promise<AxiosResponse<accessRequestApprovalsTypes.Approvalsummary, any>> {
+async getAccessRequestApprovalSummaryV1(requestParameters: accessRequestApprovalsTypes.AccessRequestApprovalsApiGetAccessRequestApprovalSummaryV1Request = {}): Promise<AxiosResponse<accessRequestApprovalsTypes.ApprovalSummary, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getAccessRequestApprovalSummaryV1(requestParameters) as Promise<AxiosResponse<accessRequestApprovalsTypes.Approvalsummary, any>>;
+    return this.electronAPI.getAccessRequestApprovalSummaryV1(requestParameters) as Promise<AxiosResponse<accessRequestApprovalsTypes.ApprovalSummary, any>>;
 }
-async getAccessRequestConfigV1(): Promise<AxiosResponse<accessRequestsTypes.Accessrequestconfig, any>> {
+async getAccessRequestConfigV1(): Promise<AxiosResponse<accessRequestsTypes.AccessRequestConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getAccessRequestConfigV1() as Promise<AxiosResponse<accessRequestsTypes.Accessrequestconfig, any>>;
+    return this.electronAPI.getAccessRequestConfigV1() as Promise<AxiosResponse<accessRequestsTypes.AccessRequestConfig, any>>;
 }
-async getAccessRequestConfigV2(): Promise<AxiosResponse<accessRequestsTypes.Accessrequestconfigv2, any>> {
+async getAccessRequestConfigV2(): Promise<AxiosResponse<accessRequestsTypes.AccessRequestConfig2, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getAccessRequestConfigV2() as Promise<AxiosResponse<accessRequestsTypes.Accessrequestconfigv2, any>>;
+    return this.electronAPI.getAccessRequestConfigV2() as Promise<AxiosResponse<accessRequestsTypes.AccessRequestConfig2, any>>;
 }
 async getAccessRequestIdentityMetricsV1(requestParameters: accessRequestIdentityMetricsTypes.AccessRequestIdentityMetricsApiGetAccessRequestIdentityMetricsV1Request): Promise<AxiosResponse<any, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.getAccessRequestIdentityMetricsV1(requestParameters) as Promise<AxiosResponse<any, any>>;
 }
-async getAccessRequestRecommendationsConfigV1(requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiGetAccessRequestRecommendationsConfigV1Request = {}): Promise<AxiosResponse<iaiAccessRequestRecommendationsTypes.Accessrequestrecommendationconfigdto, any>> {
+async getAccessRequestRecommendationsConfigV1(requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiGetAccessRequestRecommendationsConfigV1Request = {}): Promise<AxiosResponse<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationConfigDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getAccessRequestRecommendationsConfigV1(requestParameters) as Promise<AxiosResponse<iaiAccessRequestRecommendationsTypes.Accessrequestrecommendationconfigdto, any>>;
+    return this.electronAPI.getAccessRequestRecommendationsConfigV1(requestParameters) as Promise<AxiosResponse<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationConfigDto, any>>;
 }
-async getAccessRequestRecommendationsIgnoredItemsV1(requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiGetAccessRequestRecommendationsIgnoredItemsV1Request = {}): Promise<AxiosResponse<Array<iaiAccessRequestRecommendationsTypes.Accessrequestrecommendationactionitemresponsedto>, any>> {
+async getAccessRequestRecommendationsIgnoredItemsV1(requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiGetAccessRequestRecommendationsIgnoredItemsV1Request = {}): Promise<AxiosResponse<Array<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationActionItemResponseDto>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getAccessRequestRecommendationsIgnoredItemsV1(requestParameters) as Promise<AxiosResponse<Array<iaiAccessRequestRecommendationsTypes.Accessrequestrecommendationactionitemresponsedto>, any>>;
+    return this.electronAPI.getAccessRequestRecommendationsIgnoredItemsV1(requestParameters) as Promise<AxiosResponse<Array<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationActionItemResponseDto>, any>>;
 }
-async getAccessRequestRecommendationsRequestedItemsV1(requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiGetAccessRequestRecommendationsRequestedItemsV1Request = {}): Promise<AxiosResponse<Array<iaiAccessRequestRecommendationsTypes.Accessrequestrecommendationactionitemresponsedto>, any>> {
+async getAccessRequestRecommendationsRequestedItemsV1(requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiGetAccessRequestRecommendationsRequestedItemsV1Request = {}): Promise<AxiosResponse<Array<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationActionItemResponseDto>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getAccessRequestRecommendationsRequestedItemsV1(requestParameters) as Promise<AxiosResponse<Array<iaiAccessRequestRecommendationsTypes.Accessrequestrecommendationactionitemresponsedto>, any>>;
+    return this.electronAPI.getAccessRequestRecommendationsRequestedItemsV1(requestParameters) as Promise<AxiosResponse<Array<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationActionItemResponseDto>, any>>;
 }
-async getAccessRequestRecommendationsV1(requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiGetAccessRequestRecommendationsV1Request = {}): Promise<AxiosResponse<Array<iaiAccessRequestRecommendationsTypes.Accessrequestrecommendationitemdetail>, any>> {
+async getAccessRequestRecommendationsV1(requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiGetAccessRequestRecommendationsV1Request = {}): Promise<AxiosResponse<Array<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationItemDetail>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getAccessRequestRecommendationsV1(requestParameters) as Promise<AxiosResponse<Array<iaiAccessRequestRecommendationsTypes.Accessrequestrecommendationitemdetail>, any>>;
+    return this.electronAPI.getAccessRequestRecommendationsV1(requestParameters) as Promise<AxiosResponse<Array<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationItemDetail>, any>>;
 }
-async getAccessRequestRecommendationsViewedItemsV1(requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiGetAccessRequestRecommendationsViewedItemsV1Request = {}): Promise<AxiosResponse<Array<iaiAccessRequestRecommendationsTypes.Accessrequestrecommendationactionitemresponsedto>, any>> {
+async getAccessRequestRecommendationsViewedItemsV1(requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiGetAccessRequestRecommendationsViewedItemsV1Request = {}): Promise<AxiosResponse<Array<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationActionItemResponseDto>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getAccessRequestRecommendationsViewedItemsV1(requestParameters) as Promise<AxiosResponse<Array<iaiAccessRequestRecommendationsTypes.Accessrequestrecommendationactionitemresponsedto>, any>>;
+    return this.electronAPI.getAccessRequestRecommendationsViewedItemsV1(requestParameters) as Promise<AxiosResponse<Array<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationActionItemResponseDto>, any>>;
 }
-async getAccountActivityV1(requestParameters: accountActivitiesTypes.AccountActivitiesApiGetAccountActivityV1Request): Promise<AxiosResponse<accountActivitiesTypes.Accountactivity, any>> {
+async getAccountActivityV1(requestParameters: accountActivitiesTypes.AccountActivitiesApiGetAccountActivityV1Request): Promise<AxiosResponse<accountActivitiesTypes.AccountActivity, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getAccountActivityV1(requestParameters) as Promise<AxiosResponse<accountActivitiesTypes.Accountactivity, any>>;
+    return this.electronAPI.getAccountActivityV1(requestParameters) as Promise<AxiosResponse<accountActivitiesTypes.AccountActivity, any>>;
 }
-async getAccountAggregationStatusV1(requestParameters: accountAggregationsTypes.AccountAggregationsApiGetAccountAggregationStatusV1Request): Promise<AxiosResponse<accountAggregationsTypes.Accountaggregationstatus, any>> {
+async getAccountAggregationStatusV1(requestParameters: accountAggregationsTypes.AccountAggregationsApiGetAccountAggregationStatusV1Request): Promise<AxiosResponse<accountAggregationsTypes.AccountAggregationStatus, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getAccountAggregationStatusV1(requestParameters) as Promise<AxiosResponse<accountAggregationsTypes.Accountaggregationstatus, any>>;
+    return this.electronAPI.getAccountAggregationStatusV1(requestParameters) as Promise<AxiosResponse<accountAggregationsTypes.AccountAggregationStatus, any>>;
 }
-async getAccountDeleteApprovalConfigV1(requestParameters: sourcesTypes.SourcesApiGetAccountDeleteApprovalConfigV1Request): Promise<AxiosResponse<sourcesTypes.Accountdeleteconfigdto, any>> {
+async getAccountDeleteApprovalConfigV1(requestParameters: sourcesTypes.SourcesApiGetAccountDeleteApprovalConfigV1Request): Promise<AxiosResponse<sourcesTypes.AccountDeleteConfigDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getAccountDeleteApprovalConfigV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Accountdeleteconfigdto, any>>;
+    return this.electronAPI.getAccountDeleteApprovalConfigV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.AccountDeleteConfigDto, any>>;
 }
-async getAccountDeletionRequestsV1(requestParameters: accountDeletionRequestsTypes.AccountDeletionRequestsApiGetAccountDeletionRequestsV1Request = {}): Promise<AxiosResponse<Array<accountDeletionRequestsTypes.Accountactionrequestdto>, any>> {
+async getAccountDeletionRequestsV1(requestParameters: accountDeletionRequestsTypes.AccountDeletionRequestsApiGetAccountDeletionRequestsV1Request = {}): Promise<AxiosResponse<Array<accountDeletionRequestsTypes.AccountActionRequestDto>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getAccountDeletionRequestsV1(requestParameters) as Promise<AxiosResponse<Array<accountDeletionRequestsTypes.Accountactionrequestdto>, any>>;
+    return this.electronAPI.getAccountDeletionRequestsV1(requestParameters) as Promise<AxiosResponse<Array<accountDeletionRequestsTypes.AccountActionRequestDto>, any>>;
 }
 async getAccountEntitlementsV1(requestParameters: accountsTypes.AccountsApiGetAccountEntitlementsV1Request): Promise<AxiosResponse<Array<accountsTypes.Entitlement>, any>> {
     await this.checkSessionBeforeCall();
@@ -1515,9 +1527,9 @@ async getAccountV1(requestParameters: accountsTypes.AccountsApiGetAccountV1Reque
     await this.checkSessionBeforeCall();
     return this.electronAPI.getAccountV1(requestParameters) as Promise<AxiosResponse<accountsTypes.Account, any>>;
 }
-async getAcctAggregationGroupsV1(requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiGetAcctAggregationGroupsV1Request): Promise<AxiosResponse<Array<multiHostIntegrationTypes.Multihostintegrationsaggscheduleupdate>, any>> {
+async getAcctAggregationGroupsV1(requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiGetAcctAggregationGroupsV1Request): Promise<AxiosResponse<Array<multiHostIntegrationTypes.MultiHostIntegrationsAggScheduleUpdate>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getAcctAggregationGroupsV1(requestParameters) as Promise<AxiosResponse<Array<multiHostIntegrationTypes.Multihostintegrationsaggscheduleupdate>, any>>;
+    return this.electronAPI.getAcctAggregationGroupsV1(requestParameters) as Promise<AxiosResponse<Array<multiHostIntegrationTypes.MultiHostIntegrationsAggScheduleUpdate>, any>>;
 }
 async getActiveCampaignsV1(requestParameters: certificationCampaignsTypes.CertificationCampaignsApiGetActiveCampaignsV1Request = {}): Promise<AxiosResponse<Array<certificationCampaignsTypes.GetActiveCampaignsV1200ResponseInner>, any>> {
     await this.checkSessionBeforeCall();
@@ -1527,21 +1539,21 @@ async getAdvancedSearchNerm(): Promise<AxiosResponse<sdk.GetAdvancedSearch200Res
     await this.checkSessionBeforeCall();
     return this.electronAPI.getAdvancedSearchNerm() as Promise<AxiosResponse<sdk.GetAdvancedSearch200ResponseNERM, any>>;
 }
-async getAllPotentialRoleSummariesV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetAllPotentialRoleSummariesV1Request = {}): Promise<AxiosResponse<Array<iaiRoleMiningTypes.Roleminingpotentialrolesummary>, any>> {
+async getAllPotentialRoleSummariesV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetAllPotentialRoleSummariesV1Request = {}): Promise<AxiosResponse<Array<iaiRoleMiningTypes.RoleMiningPotentialRoleSummary>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getAllPotentialRoleSummariesV1(requestParameters) as Promise<AxiosResponse<Array<iaiRoleMiningTypes.Roleminingpotentialrolesummary>, any>>;
+    return this.electronAPI.getAllPotentialRoleSummariesV1(requestParameters) as Promise<AxiosResponse<Array<iaiRoleMiningTypes.RoleMiningPotentialRoleSummary>, any>>;
 }
-async getApplicationsV1(requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiGetApplicationsV1Request = {}): Promise<AxiosResponse<Array<dataAccessSecurityTypes.Applicationitem>, any>> {
+async getApplicationsV1(requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiGetApplicationsV1Request = {}): Promise<AxiosResponse<Array<dataAccessSecurityTypes.ApplicationItem>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getApplicationsV1(requestParameters) as Promise<AxiosResponse<Array<dataAccessSecurityTypes.Applicationitem>, any>>;
+    return this.electronAPI.getApplicationsV1(requestParameters) as Promise<AxiosResponse<Array<dataAccessSecurityTypes.ApplicationItem>, any>>;
 }
-async getApplicationV1(requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiGetApplicationV1Request): Promise<AxiosResponse<dataAccessSecurityTypes.Applicationitem, any>> {
+async getApplicationV1(requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiGetApplicationV1Request): Promise<AxiosResponse<dataAccessSecurityTypes.ApplicationItem, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getApplicationV1(requestParameters) as Promise<AxiosResponse<dataAccessSecurityTypes.Applicationitem, any>>;
+    return this.electronAPI.getApplicationV1(requestParameters) as Promise<AxiosResponse<dataAccessSecurityTypes.ApplicationItem, any>>;
 }
-async getApprovalsConfigV1(requestParameters: approvalsTypes.ApprovalsApiGetApprovalsConfigV1Request): Promise<AxiosResponse<approvalsTypes.Approvalconfig, any>> {
+async getApprovalsConfigV1(requestParameters: approvalsTypes.ApprovalsApiGetApprovalsConfigV1Request): Promise<AxiosResponse<approvalsTypes.ApprovalConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getApprovalsConfigV1(requestParameters) as Promise<AxiosResponse<approvalsTypes.Approvalconfig, any>>;
+    return this.electronAPI.getApprovalsConfigV1(requestParameters) as Promise<AxiosResponse<approvalsTypes.ApprovalConfig, any>>;
 }
 async getApprovalsV1(requestParameters: approvalsTypes.ApprovalsApiGetApprovalsV1Request = {}): Promise<AxiosResponse<Array<approvalsTypes.Approval2>, any>> {
     await this.checkSessionBeforeCall();
@@ -1551,9 +1563,9 @@ async getApprovalV1(requestParameters: approvalsTypes.ApprovalsApiGetApprovalV1R
     await this.checkSessionBeforeCall();
     return this.electronAPI.getApprovalV1(requestParameters) as Promise<AxiosResponse<approvalsTypes.Approval2, any>>;
 }
-async getAttestationDocumentV1(requestParameters: parameterStorageTypes.ParameterStorageApiGetAttestationDocumentV1Request): Promise<AxiosResponse<parameterStorageTypes.Parameterstorageattestationdocument, any>> {
+async getAttestationDocumentV1(requestParameters: parameterStorageTypes.ParameterStorageApiGetAttestationDocumentV1Request): Promise<AxiosResponse<parameterStorageTypes.ParameterStorageAttestationDocument, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getAttestationDocumentV1(requestParameters) as Promise<AxiosResponse<parameterStorageTypes.Parameterstorageattestationdocument, any>>;
+    return this.electronAPI.getAttestationDocumentV1(requestParameters) as Promise<AxiosResponse<parameterStorageTypes.ParameterStorageAttestationDocument, any>>;
 }
 async getAttributeByIdNerm(requestParameters: sdk.AttributesNERMApiGetAttributeByIdRequest): Promise<AxiosResponse<sdk.CreateAttribute201ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -1579,113 +1591,113 @@ async getAttributesNerm(requestParameters: sdk.AttributesNERMApiGetAttributesReq
     await this.checkSessionBeforeCall();
     return this.electronAPI.getAttributesNerm(requestParameters) as Promise<AxiosResponse<sdk.GetAttributes200ResponseNERM, any>>;
 }
-async getAuthOrgLockoutConfigV1(): Promise<AxiosResponse<globalTenantSecuritySettingsTypes.Lockoutconfiguration, any>> {
+async getAuthOrgLockoutConfigV1(): Promise<AxiosResponse<globalTenantSecuritySettingsTypes.LockoutConfiguration, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getAuthOrgLockoutConfigV1() as Promise<AxiosResponse<globalTenantSecuritySettingsTypes.Lockoutconfiguration, any>>;
+    return this.electronAPI.getAuthOrgLockoutConfigV1() as Promise<AxiosResponse<globalTenantSecuritySettingsTypes.LockoutConfiguration, any>>;
 }
-async getAuthOrgNetworkConfigV1(): Promise<AxiosResponse<globalTenantSecuritySettingsTypes.Networkconfiguration, any>> {
+async getAuthOrgNetworkConfigV1(): Promise<AxiosResponse<globalTenantSecuritySettingsTypes.NetworkConfiguration, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getAuthOrgNetworkConfigV1() as Promise<AxiosResponse<globalTenantSecuritySettingsTypes.Networkconfiguration, any>>;
+    return this.electronAPI.getAuthOrgNetworkConfigV1() as Promise<AxiosResponse<globalTenantSecuritySettingsTypes.NetworkConfiguration, any>>;
 }
-async getAuthOrgServiceProviderConfigV1(): Promise<AxiosResponse<globalTenantSecuritySettingsTypes.Serviceproviderconfiguration, any>> {
+async getAuthOrgServiceProviderConfigV1(): Promise<AxiosResponse<globalTenantSecuritySettingsTypes.ServiceProviderConfiguration, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getAuthOrgServiceProviderConfigV1() as Promise<AxiosResponse<globalTenantSecuritySettingsTypes.Serviceproviderconfiguration, any>>;
+    return this.electronAPI.getAuthOrgServiceProviderConfigV1() as Promise<AxiosResponse<globalTenantSecuritySettingsTypes.ServiceProviderConfiguration, any>>;
 }
-async getAuthOrgSessionConfigV1(): Promise<AxiosResponse<globalTenantSecuritySettingsTypes.Sessionconfiguration, any>> {
+async getAuthOrgSessionConfigV1(): Promise<AxiosResponse<globalTenantSecuritySettingsTypes.SessionConfiguration, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getAuthOrgSessionConfigV1() as Promise<AxiosResponse<globalTenantSecuritySettingsTypes.Sessionconfiguration, any>>;
+    return this.electronAPI.getAuthOrgSessionConfigV1() as Promise<AxiosResponse<globalTenantSecuritySettingsTypes.SessionConfiguration, any>>;
 }
-async getAuthUserV1(requestParameters: authUsersTypes.AuthUsersApiGetAuthUserV1Request): Promise<AxiosResponse<authUsersTypes.Authuser, any>> {
+async getAuthUserV1(requestParameters: authUsersTypes.AuthUsersApiGetAuthUserV1Request): Promise<AxiosResponse<authUsersTypes.AuthUser, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getAuthUserV1(requestParameters) as Promise<AxiosResponse<authUsersTypes.Authuser, any>>;
+    return this.electronAPI.getAuthUserV1(requestParameters) as Promise<AxiosResponse<authUsersTypes.AuthUser, any>>;
 }
-async getAutoWriteSettingsV1(): Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.Autowritesettingresponse, any>> {
+async getAutoWriteSettingsV1(): Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.AutoWriteSettingResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getAutoWriteSettingsV1() as Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.Autowritesettingresponse, any>>;
+    return this.electronAPI.getAutoWriteSettingsV1() as Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.AutoWriteSettingResponse, any>>;
 }
-async getBrandingListV1(): Promise<AxiosResponse<Array<brandingTypes.Brandingitem>, any>> {
+async getBrandingListV1(): Promise<AxiosResponse<Array<brandingTypes.BrandingItem>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getBrandingListV1() as Promise<AxiosResponse<Array<brandingTypes.Brandingitem>, any>>;
+    return this.electronAPI.getBrandingListV1() as Promise<AxiosResponse<Array<brandingTypes.BrandingItem>, any>>;
 }
-async getBrandingV1(requestParameters: brandingTypes.BrandingApiGetBrandingV1Request): Promise<AxiosResponse<brandingTypes.Brandingitem, any>> {
+async getBrandingV1(requestParameters: brandingTypes.BrandingApiGetBrandingV1Request): Promise<AxiosResponse<brandingTypes.BrandingItem, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getBrandingV1(requestParameters) as Promise<AxiosResponse<brandingTypes.Brandingitem, any>>;
+    return this.electronAPI.getBrandingV1(requestParameters) as Promise<AxiosResponse<brandingTypes.BrandingItem, any>>;
 }
-async getBulkUpdateStatusByIdV1(requestParameters: rolesTypes.RolesApiGetBulkUpdateStatusByIdV1Request): Promise<AxiosResponse<rolesTypes.Rolebulkupdateresponse, any>> {
+async getBulkUpdateStatusByIdV1(requestParameters: rolesTypes.RolesApiGetBulkUpdateStatusByIdV1Request): Promise<AxiosResponse<rolesTypes.RoleBulkUpdateResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getBulkUpdateStatusByIdV1(requestParameters) as Promise<AxiosResponse<rolesTypes.Rolebulkupdateresponse, any>>;
+    return this.electronAPI.getBulkUpdateStatusByIdV1(requestParameters) as Promise<AxiosResponse<rolesTypes.RoleBulkUpdateResponse, any>>;
 }
-async getBulkUpdateStatusV1(): Promise<AxiosResponse<Array<rolesTypes.Rolegetallbulkupdateresponse>, any>> {
+async getBulkUpdateStatusV1(): Promise<AxiosResponse<Array<rolesTypes.RoleGetAllBulkUpdateResponse>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getBulkUpdateStatusV1() as Promise<AxiosResponse<Array<rolesTypes.Rolegetallbulkupdateresponse>, any>>;
+    return this.electronAPI.getBulkUpdateStatusV1() as Promise<AxiosResponse<Array<rolesTypes.RoleGetAllBulkUpdateResponse>, any>>;
 }
-async getCampaignFilterByIdV1(requestParameters: certificationCampaignFiltersTypes.CertificationCampaignFiltersApiGetCampaignFilterByIdV1Request): Promise<AxiosResponse<certificationCampaignFiltersTypes.Campaignfilterdetails, any>> {
+async getCampaignFilterByIdV1(requestParameters: certificationCampaignFiltersTypes.CertificationCampaignFiltersApiGetCampaignFilterByIdV1Request): Promise<AxiosResponse<certificationCampaignFiltersTypes.CampaignFilterDetails, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getCampaignFilterByIdV1(requestParameters) as Promise<AxiosResponse<certificationCampaignFiltersTypes.Campaignfilterdetails, any>>;
+    return this.electronAPI.getCampaignFilterByIdV1(requestParameters) as Promise<AxiosResponse<certificationCampaignFiltersTypes.CampaignFilterDetails, any>>;
 }
-async getCampaignReportsConfigV1(): Promise<AxiosResponse<certificationCampaignsTypes.Campaignreportsconfig, any>> {
+async getCampaignReportsConfigV1(): Promise<AxiosResponse<certificationCampaignsTypes.CampaignReportsConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getCampaignReportsConfigV1() as Promise<AxiosResponse<certificationCampaignsTypes.Campaignreportsconfig, any>>;
+    return this.electronAPI.getCampaignReportsConfigV1() as Promise<AxiosResponse<certificationCampaignsTypes.CampaignReportsConfig, any>>;
 }
-async getCampaignReportsV1(requestParameters: certificationCampaignsTypes.CertificationCampaignsApiGetCampaignReportsV1Request): Promise<AxiosResponse<Array<certificationCampaignsTypes.Campaignreport>, any>> {
+async getCampaignReportsV1(requestParameters: certificationCampaignsTypes.CertificationCampaignsApiGetCampaignReportsV1Request): Promise<AxiosResponse<Array<certificationCampaignsTypes.CampaignReport>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getCampaignReportsV1(requestParameters) as Promise<AxiosResponse<Array<certificationCampaignsTypes.Campaignreport>, any>>;
+    return this.electronAPI.getCampaignReportsV1(requestParameters) as Promise<AxiosResponse<Array<certificationCampaignsTypes.CampaignReport>, any>>;
 }
 async getCampaignTemplateScheduleV1(requestParameters: certificationCampaignsTypes.CertificationCampaignsApiGetCampaignTemplateScheduleV1Request): Promise<AxiosResponse<certificationCampaignsTypes.Schedule2, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.getCampaignTemplateScheduleV1(requestParameters) as Promise<AxiosResponse<certificationCampaignsTypes.Schedule2, any>>;
 }
-async getCampaignTemplatesV1(requestParameters: certificationCampaignsTypes.CertificationCampaignsApiGetCampaignTemplatesV1Request = {}): Promise<AxiosResponse<Array<certificationCampaignsTypes.Campaigntemplate>, any>> {
+async getCampaignTemplatesV1(requestParameters: certificationCampaignsTypes.CertificationCampaignsApiGetCampaignTemplatesV1Request = {}): Promise<AxiosResponse<Array<certificationCampaignsTypes.CampaignTemplate>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getCampaignTemplatesV1(requestParameters) as Promise<AxiosResponse<Array<certificationCampaignsTypes.Campaigntemplate>, any>>;
+    return this.electronAPI.getCampaignTemplatesV1(requestParameters) as Promise<AxiosResponse<Array<certificationCampaignsTypes.CampaignTemplate>, any>>;
 }
-async getCampaignTemplateV1(requestParameters: certificationCampaignsTypes.CertificationCampaignsApiGetCampaignTemplateV1Request): Promise<AxiosResponse<certificationCampaignsTypes.Campaigntemplate, any>> {
+async getCampaignTemplateV1(requestParameters: certificationCampaignsTypes.CertificationCampaignsApiGetCampaignTemplateV1Request): Promise<AxiosResponse<certificationCampaignsTypes.CampaignTemplate, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getCampaignTemplateV1(requestParameters) as Promise<AxiosResponse<certificationCampaignsTypes.Campaigntemplate, any>>;
+    return this.electronAPI.getCampaignTemplateV1(requestParameters) as Promise<AxiosResponse<certificationCampaignsTypes.CampaignTemplate, any>>;
 }
 async getCampaignV1(requestParameters: certificationCampaignsTypes.CertificationCampaignsApiGetCampaignV1Request): Promise<AxiosResponse<certificationCampaignsTypes.GetCampaignV1200Response, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.getCampaignV1(requestParameters) as Promise<AxiosResponse<certificationCampaignsTypes.GetCampaignV1200Response, any>>;
 }
-async getCertificationTaskV1(requestParameters: certificationsTypes.CertificationsApiGetCertificationTaskV1Request): Promise<AxiosResponse<certificationsTypes.Certificationtask, any>> {
+async getCertificationTaskV1(requestParameters: certificationsTypes.CertificationsApiGetCertificationTaskV1Request): Promise<AxiosResponse<certificationsTypes.CertificationTask, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getCertificationTaskV1(requestParameters) as Promise<AxiosResponse<certificationsTypes.Certificationtask, any>>;
+    return this.electronAPI.getCertificationTaskV1(requestParameters) as Promise<AxiosResponse<certificationsTypes.CertificationTask, any>>;
 }
-async getClassifyMachineAccountFromSourceStatusV1(requestParameters: classifySourceTypes.ClassifySourceApiGetClassifyMachineAccountFromSourceStatusV1Request): Promise<AxiosResponse<classifySourceTypes.Sourceclassificationstatus, any>> {
+async getClassifyMachineAccountFromSourceStatusV1(requestParameters: classifySourceTypes.ClassifySourceApiGetClassifyMachineAccountFromSourceStatusV1Request): Promise<AxiosResponse<classifySourceTypes.SourceClassificationStatus, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getClassifyMachineAccountFromSourceStatusV1(requestParameters) as Promise<AxiosResponse<classifySourceTypes.Sourceclassificationstatus, any>>;
+    return this.electronAPI.getClassifyMachineAccountFromSourceStatusV1(requestParameters) as Promise<AxiosResponse<classifySourceTypes.SourceClassificationStatus, any>>;
 }
-async getClientLogConfigurationV1(requestParameters: managedClustersTypes.ManagedClustersApiGetClientLogConfigurationV1Request): Promise<AxiosResponse<managedClustersTypes.Clientlogconfiguration, any>> {
+async getClientLogConfigurationV1(requestParameters: managedClustersTypes.ManagedClustersApiGetClientLogConfigurationV1Request): Promise<AxiosResponse<managedClustersTypes.ClientLogConfiguration, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getClientLogConfigurationV1(requestParameters) as Promise<AxiosResponse<managedClustersTypes.Clientlogconfiguration, any>>;
+    return this.electronAPI.getClientLogConfigurationV1(requestParameters) as Promise<AxiosResponse<managedClustersTypes.ClientLogConfiguration, any>>;
 }
-async getCommonAccessV1(requestParameters: iaiCommonAccessTypes.IAICommonAccessApiGetCommonAccessV1Request = {}): Promise<AxiosResponse<Array<iaiCommonAccessTypes.Commonaccessresponse>, any>> {
+async getCommonAccessV1(requestParameters: iaiCommonAccessTypes.IAICommonAccessApiGetCommonAccessV1Request = {}): Promise<AxiosResponse<Array<iaiCommonAccessTypes.CommonAccessResponse>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getCommonAccessV1(requestParameters) as Promise<AxiosResponse<Array<iaiCommonAccessTypes.Commonaccessresponse>, any>>;
+    return this.electronAPI.getCommonAccessV1(requestParameters) as Promise<AxiosResponse<Array<iaiCommonAccessTypes.CommonAccessResponse>, any>>;
 }
-async getCompletedWorkItemsV1(requestParameters: workItemsTypes.WorkItemsApiGetCompletedWorkItemsV1Request = {}): Promise<AxiosResponse<Array<workItemsTypes.Workitems>, any>> {
+async getCompletedWorkItemsV1(requestParameters: workItemsTypes.WorkItemsApiGetCompletedWorkItemsV1Request = {}): Promise<AxiosResponse<Array<workItemsTypes.WorkItems>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getCompletedWorkItemsV1(requestParameters) as Promise<AxiosResponse<Array<workItemsTypes.Workitems>, any>>;
+    return this.electronAPI.getCompletedWorkItemsV1(requestParameters) as Promise<AxiosResponse<Array<workItemsTypes.WorkItems>, any>>;
 }
 async getConnectorCorrelationConfigV1(requestParameters: connectorsTypes.ConnectorsApiGetConnectorCorrelationConfigV1Request): Promise<AxiosResponse<string, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.getConnectorCorrelationConfigV1(requestParameters) as Promise<AxiosResponse<string, any>>;
 }
-async getConnectorCustomizerV1(requestParameters: connectorCustomizersTypes.ConnectorCustomizersApiGetConnectorCustomizerV1Request): Promise<AxiosResponse<connectorCustomizersTypes.Connectorcustomizersresponse, any>> {
+async getConnectorCustomizerV1(requestParameters: connectorCustomizersTypes.ConnectorCustomizersApiGetConnectorCustomizerV1Request): Promise<AxiosResponse<connectorCustomizersTypes.ConnectorCustomizersResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getConnectorCustomizerV1(requestParameters) as Promise<AxiosResponse<connectorCustomizersTypes.Connectorcustomizersresponse, any>>;
+    return this.electronAPI.getConnectorCustomizerV1(requestParameters) as Promise<AxiosResponse<connectorCustomizersTypes.ConnectorCustomizersResponse, any>>;
 }
-async getConnectorListV1(requestParameters: connectorsTypes.ConnectorsApiGetConnectorListV1Request = {}): Promise<AxiosResponse<Array<connectorsTypes.V3connectordto>, any>> {
+async getConnectorListV1(requestParameters: connectorsTypes.ConnectorsApiGetConnectorListV1Request = {}): Promise<AxiosResponse<Array<connectorsTypes.V3ConnectorDto>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getConnectorListV1(requestParameters) as Promise<AxiosResponse<Array<connectorsTypes.V3connectordto>, any>>;
+    return this.electronAPI.getConnectorListV1(requestParameters) as Promise<AxiosResponse<Array<connectorsTypes.V3ConnectorDto>, any>>;
 }
-async getConnectorRuleListV1(requestParameters: connectorRuleManagementTypes.ConnectorRuleManagementApiGetConnectorRuleListV1Request = {}): Promise<AxiosResponse<Array<connectorRuleManagementTypes.Connectorruleresponse>, any>> {
+async getConnectorRuleListV1(requestParameters: connectorRuleManagementTypes.ConnectorRuleManagementApiGetConnectorRuleListV1Request = {}): Promise<AxiosResponse<Array<connectorRuleManagementTypes.ConnectorRuleResponse>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getConnectorRuleListV1(requestParameters) as Promise<AxiosResponse<Array<connectorRuleManagementTypes.Connectorruleresponse>, any>>;
+    return this.electronAPI.getConnectorRuleListV1(requestParameters) as Promise<AxiosResponse<Array<connectorRuleManagementTypes.ConnectorRuleResponse>, any>>;
 }
-async getConnectorRuleV1(requestParameters: connectorRuleManagementTypes.ConnectorRuleManagementApiGetConnectorRuleV1Request): Promise<AxiosResponse<connectorRuleManagementTypes.Connectorruleresponse, any>> {
+async getConnectorRuleV1(requestParameters: connectorRuleManagementTypes.ConnectorRuleManagementApiGetConnectorRuleV1Request): Promise<AxiosResponse<connectorRuleManagementTypes.ConnectorRuleResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getConnectorRuleV1(requestParameters) as Promise<AxiosResponse<connectorRuleManagementTypes.Connectorruleresponse, any>>;
+    return this.electronAPI.getConnectorRuleV1(requestParameters) as Promise<AxiosResponse<connectorRuleManagementTypes.ConnectorRuleResponse, any>>;
 }
 async getConnectorSourceConfigV1(requestParameters: connectorsTypes.ConnectorsApiGetConnectorSourceConfigV1Request): Promise<AxiosResponse<string, any>> {
     await this.checkSessionBeforeCall();
@@ -1699,29 +1711,29 @@ async getConnectorTranslationsV1(requestParameters: connectorsTypes.ConnectorsAp
     await this.checkSessionBeforeCall();
     return this.electronAPI.getConnectorTranslationsV1(requestParameters) as Promise<AxiosResponse<string, any>>;
 }
-async getConnectorV1(requestParameters: connectorsTypes.ConnectorsApiGetConnectorV1Request): Promise<AxiosResponse<connectorsTypes.Connectordetail, any>> {
+async getConnectorV1(requestParameters: connectorsTypes.ConnectorsApiGetConnectorV1Request): Promise<AxiosResponse<connectorsTypes.ConnectorDetail, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getConnectorV1(requestParameters) as Promise<AxiosResponse<connectorsTypes.Connectordetail, any>>;
+    return this.electronAPI.getConnectorV1(requestParameters) as Promise<AxiosResponse<connectorsTypes.ConnectorDetail, any>>;
 }
-async getCorrelationConfigV1(requestParameters: sourcesTypes.SourcesApiGetCorrelationConfigV1Request): Promise<AxiosResponse<sourcesTypes.Correlationconfig, any>> {
+async getCorrelationConfigV1(requestParameters: sourcesTypes.SourcesApiGetCorrelationConfigV1Request): Promise<AxiosResponse<sourcesTypes.CorrelationConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getCorrelationConfigV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Correlationconfig, any>>;
+    return this.electronAPI.getCorrelationConfigV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.CorrelationConfig, any>>;
 }
-async getCountCompletedWorkItemsV1(requestParameters: workItemsTypes.WorkItemsApiGetCountCompletedWorkItemsV1Request = {}): Promise<AxiosResponse<workItemsTypes.Workitemscount, any>> {
+async getCountCompletedWorkItemsV1(requestParameters: workItemsTypes.WorkItemsApiGetCountCompletedWorkItemsV1Request = {}): Promise<AxiosResponse<workItemsTypes.WorkItemsCount, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getCountCompletedWorkItemsV1(requestParameters) as Promise<AxiosResponse<workItemsTypes.Workitemscount, any>>;
+    return this.electronAPI.getCountCompletedWorkItemsV1(requestParameters) as Promise<AxiosResponse<workItemsTypes.WorkItemsCount, any>>;
 }
-async getCountWorkItemsV1(requestParameters: workItemsTypes.WorkItemsApiGetCountWorkItemsV1Request = {}): Promise<AxiosResponse<workItemsTypes.Workitemscount, any>> {
+async getCountWorkItemsV1(requestParameters: workItemsTypes.WorkItemsApiGetCountWorkItemsV1Request = {}): Promise<AxiosResponse<workItemsTypes.WorkItemsCount, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getCountWorkItemsV1(requestParameters) as Promise<AxiosResponse<workItemsTypes.Workitemscount, any>>;
+    return this.electronAPI.getCountWorkItemsV1(requestParameters) as Promise<AxiosResponse<workItemsTypes.WorkItemsCount, any>>;
 }
-async getCreateMachineAccountRequestV1(requestParameters: machineAccountCreationRequestTypes.MachineAccountCreationRequestApiGetCreateMachineAccountRequestV1Request): Promise<AxiosResponse<machineAccountCreationRequestTypes.Accountrequestdetailsdto, any>> {
+async getCreateMachineAccountRequestV1(requestParameters: machineAccountCreationRequestTypes.MachineAccountCreationRequestApiGetCreateMachineAccountRequestV1Request): Promise<AxiosResponse<machineAccountCreationRequestTypes.AccountRequestDetailsDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getCreateMachineAccountRequestV1(requestParameters) as Promise<AxiosResponse<machineAccountCreationRequestTypes.Accountrequestdetailsdto, any>>;
+    return this.electronAPI.getCreateMachineAccountRequestV1(requestParameters) as Promise<AxiosResponse<machineAccountCreationRequestTypes.AccountRequestDetailsDto, any>>;
 }
-async getCustomPasswordInstructionsV1(requestParameters: customPasswordInstructionsTypes.CustomPasswordInstructionsApiGetCustomPasswordInstructionsV1Request): Promise<AxiosResponse<customPasswordInstructionsTypes.Custompasswordinstruction, any>> {
+async getCustomPasswordInstructionsV1(requestParameters: customPasswordInstructionsTypes.CustomPasswordInstructionsApiGetCustomPasswordInstructionsV1Request): Promise<AxiosResponse<customPasswordInstructionsTypes.CustomPasswordInstruction, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getCustomPasswordInstructionsV1(requestParameters) as Promise<AxiosResponse<customPasswordInstructionsTypes.Custompasswordinstruction, any>>;
+    return this.electronAPI.getCustomPasswordInstructionsV1(requestParameters) as Promise<AxiosResponse<customPasswordInstructionsTypes.CustomPasswordInstruction, any>>;
 }
 async getCustomViolationReportV1(requestParameters: sodPoliciesTypes.SODPoliciesApiGetCustomViolationReportV1Request): Promise<AxiosResponse<File, any>> {
     await this.checkSessionBeforeCall();
@@ -1731,25 +1743,25 @@ async getDataSegmentationEnabledForUserV1(requestParameters: dataSegmentationTyp
     await this.checkSessionBeforeCall();
     return this.electronAPI.getDataSegmentationEnabledForUserV1(requestParameters) as Promise<AxiosResponse<boolean, any>>;
 }
-async getDataSegmentIdentityMembershipV1(requestParameters: dataSegmentationTypes.DataSegmentationApiGetDataSegmentIdentityMembershipV1Request): Promise<AxiosResponse<Array<dataSegmentationTypes.Segmentmembership>, any>> {
+async getDataSegmentIdentityMembershipV1(requestParameters: dataSegmentationTypes.DataSegmentationApiGetDataSegmentIdentityMembershipV1Request): Promise<AxiosResponse<Array<dataSegmentationTypes.SegmentMembership>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getDataSegmentIdentityMembershipV1(requestParameters) as Promise<AxiosResponse<Array<dataSegmentationTypes.Segmentmembership>, any>>;
+    return this.electronAPI.getDataSegmentIdentityMembershipV1(requestParameters) as Promise<AxiosResponse<Array<dataSegmentationTypes.SegmentMembership>, any>>;
 }
 async getDataSegmentV1(requestParameters: dataSegmentationTypes.DataSegmentationApiGetDataSegmentV1Request): Promise<AxiosResponse<dataSegmentationTypes.DataSegment, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.getDataSegmentV1(requestParameters) as Promise<AxiosResponse<dataSegmentationTypes.DataSegment, any>>;
 }
-async getDefaultIdentityAttributeConfigV1(requestParameters: identityProfilesTypes.IdentityProfilesApiGetDefaultIdentityAttributeConfigV1Request): Promise<AxiosResponse<identityProfilesTypes.Identityattributeconfig, any>> {
+async getDefaultIdentityAttributeConfigV1(requestParameters: identityProfilesTypes.IdentityProfilesApiGetDefaultIdentityAttributeConfigV1Request): Promise<AxiosResponse<identityProfilesTypes.IdentityAttributeConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getDefaultIdentityAttributeConfigV1(requestParameters) as Promise<AxiosResponse<identityProfilesTypes.Identityattributeconfig, any>>;
+    return this.electronAPI.getDefaultIdentityAttributeConfigV1(requestParameters) as Promise<AxiosResponse<identityProfilesTypes.IdentityAttributeConfig, any>>;
 }
 async getDefaultViolationReportV1(requestParameters: sodPoliciesTypes.SODPoliciesApiGetDefaultViolationReportV1Request): Promise<AxiosResponse<File, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.getDefaultViolationReportV1(requestParameters) as Promise<AxiosResponse<File, any>>;
 }
-async getDeployV1(requestParameters: configurationHubTypes.ConfigurationHubApiGetDeployV1Request): Promise<AxiosResponse<configurationHubTypes.Deployresponse, any>> {
+async getDeployV1(requestParameters: configurationHubTypes.ConfigurationHubApiGetDeployV1Request): Promise<AxiosResponse<configurationHubTypes.DeployResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getDeployV1(requestParameters) as Promise<AxiosResponse<configurationHubTypes.Deployresponse, any>>;
+    return this.electronAPI.getDeployV1(requestParameters) as Promise<AxiosResponse<configurationHubTypes.DeployResponse, any>>;
 }
 async getDimensionEntitlementsV1(requestParameters: dimensionsTypes.DimensionsApiGetDimensionEntitlementsV1Request): Promise<AxiosResponse<Array<dimensionsTypes.Entitlement>, any>> {
     await this.checkSessionBeforeCall();
@@ -1763,49 +1775,49 @@ async getDiscoveredApplicationsV1(requestParameters: applicationDiscoveryTypes.A
     await this.checkSessionBeforeCall();
     return this.electronAPI.getDiscoveredApplicationsV1(requestParameters) as Promise<AxiosResponse<Array<applicationDiscoveryTypes.GetDiscoveredApplicationsV1200ResponseInner>, any>>;
 }
-async getDkimAttributesV1(requestParameters: notificationsTypes.NotificationsApiGetDkimAttributesV1Request = {}): Promise<AxiosResponse<Array<notificationsTypes.Dkimattributes>, any>> {
+async getDkimAttributesV1(requestParameters: notificationsTypes.NotificationsApiGetDkimAttributesV1Request = {}): Promise<AxiosResponse<Array<notificationsTypes.DkimAttributes>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getDkimAttributesV1(requestParameters) as Promise<AxiosResponse<Array<notificationsTypes.Dkimattributes>, any>>;
+    return this.electronAPI.getDkimAttributesV1(requestParameters) as Promise<AxiosResponse<Array<notificationsTypes.DkimAttributes>, any>>;
 }
-async getEntitlementAggregationGroupsV1(requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiGetEntitlementAggregationGroupsV1Request): Promise<AxiosResponse<Array<multiHostIntegrationTypes.Multihostintegrationsaggscheduleupdate>, any>> {
+async getEntitlementAggregationGroupsV1(requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiGetEntitlementAggregationGroupsV1Request): Promise<AxiosResponse<Array<multiHostIntegrationTypes.MultiHostIntegrationsAggScheduleUpdate>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getEntitlementAggregationGroupsV1(requestParameters) as Promise<AxiosResponse<Array<multiHostIntegrationTypes.Multihostintegrationsaggscheduleupdate>, any>>;
+    return this.electronAPI.getEntitlementAggregationGroupsV1(requestParameters) as Promise<AxiosResponse<Array<multiHostIntegrationTypes.MultiHostIntegrationsAggScheduleUpdate>, any>>;
 }
-async getEntitlementChangesIdentitiesV1(requestParameters: roleInsightsTypes.RoleInsightsApiGetEntitlementChangesIdentitiesV1Request): Promise<AxiosResponse<Array<roleInsightsTypes.Roleinsightsidentities>, any>> {
+async getEntitlementChangesIdentitiesV1(requestParameters: roleInsightsTypes.RoleInsightsApiGetEntitlementChangesIdentitiesV1Request): Promise<AxiosResponse<Array<roleInsightsTypes.RoleInsightsIdentities>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getEntitlementChangesIdentitiesV1(requestParameters) as Promise<AxiosResponse<Array<roleInsightsTypes.Roleinsightsidentities>, any>>;
+    return this.electronAPI.getEntitlementChangesIdentitiesV1(requestParameters) as Promise<AxiosResponse<Array<roleInsightsTypes.RoleInsightsIdentities>, any>>;
 }
-async getEntitlementDetailsForIdentityV1(requestParameters: accessRequestsTypes.AccessRequestsApiGetEntitlementDetailsForIdentityV1Request): Promise<AxiosResponse<accessRequestsTypes.Identityentitlementdetails, any>> {
+async getEntitlementDetailsForIdentityV1(requestParameters: accessRequestsTypes.AccessRequestsApiGetEntitlementDetailsForIdentityV1Request): Promise<AxiosResponse<accessRequestsTypes.IdentityEntitlementDetails, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getEntitlementDetailsForIdentityV1(requestParameters) as Promise<AxiosResponse<accessRequestsTypes.Identityentitlementdetails, any>>;
+    return this.electronAPI.getEntitlementDetailsForIdentityV1(requestParameters) as Promise<AxiosResponse<accessRequestsTypes.IdentityEntitlementDetails, any>>;
 }
 async getEntitlementDistributionPotentialRoleV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetEntitlementDistributionPotentialRoleV1Request): Promise<AxiosResponse<any, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.getEntitlementDistributionPotentialRoleV1(requestParameters) as Promise<AxiosResponse<any, any>>;
 }
-async getEntitlementRequestConfigV1(requestParameters: entitlementsTypes.EntitlementsApiGetEntitlementRequestConfigV1Request): Promise<AxiosResponse<entitlementsTypes.Entitlementrequestconfig, any>> {
+async getEntitlementRequestConfigV1(requestParameters: entitlementsTypes.EntitlementsApiGetEntitlementRequestConfigV1Request): Promise<AxiosResponse<entitlementsTypes.EntitlementRequestConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getEntitlementRequestConfigV1(requestParameters) as Promise<AxiosResponse<entitlementsTypes.Entitlementrequestconfig, any>>;
+    return this.electronAPI.getEntitlementRequestConfigV1(requestParameters) as Promise<AxiosResponse<entitlementsTypes.EntitlementRequestConfig, any>>;
 }
-async getEntitlementsPotentialRoleV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetEntitlementsPotentialRoleV1Request): Promise<AxiosResponse<Array<iaiRoleMiningTypes.Roleminingentitlement>, any>> {
+async getEntitlementsPotentialRoleV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetEntitlementsPotentialRoleV1Request): Promise<AxiosResponse<Array<iaiRoleMiningTypes.RoleMiningEntitlement>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getEntitlementsPotentialRoleV1(requestParameters) as Promise<AxiosResponse<Array<iaiRoleMiningTypes.Roleminingentitlement>, any>>;
+    return this.electronAPI.getEntitlementsPotentialRoleV1(requestParameters) as Promise<AxiosResponse<Array<iaiRoleMiningTypes.RoleMiningEntitlement>, any>>;
 }
 async getEntitlementsSchemaV1(requestParameters: sourcesTypes.SourcesApiGetEntitlementsSchemaV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.getEntitlementsSchemaV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-async getEntitlementV1(requestParameters: entitlementsTypes.EntitlementsApiGetEntitlementV1Request): Promise<AxiosResponse<entitlementsTypes.Entitlementv2, any>> {
+async getEntitlementV1(requestParameters: entitlementsTypes.EntitlementsApiGetEntitlementV1Request): Promise<AxiosResponse<entitlementsTypes.EntitlementV2, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getEntitlementV1(requestParameters) as Promise<AxiosResponse<entitlementsTypes.Entitlementv2, any>>;
+    return this.electronAPI.getEntitlementV1(requestParameters) as Promise<AxiosResponse<entitlementsTypes.EntitlementV2, any>>;
 }
-async getEvaluateReassignmentConfigurationV1(requestParameters: workReassignmentTypes.WorkReassignmentApiGetEvaluateReassignmentConfigurationV1Request): Promise<AxiosResponse<Array<workReassignmentTypes.Evaluateresponse>, any>> {
+async getEvaluateReassignmentConfigurationV1(requestParameters: workReassignmentTypes.WorkReassignmentApiGetEvaluateReassignmentConfigurationV1Request): Promise<AxiosResponse<Array<workReassignmentTypes.EvaluateResponse>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getEvaluateReassignmentConfigurationV1(requestParameters) as Promise<AxiosResponse<Array<workReassignmentTypes.Evaluateresponse>, any>>;
+    return this.electronAPI.getEvaluateReassignmentConfigurationV1(requestParameters) as Promise<AxiosResponse<Array<workReassignmentTypes.EvaluateResponse>, any>>;
 }
-async getExcludedEntitlementsPotentialRoleV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetExcludedEntitlementsPotentialRoleV1Request): Promise<AxiosResponse<Array<iaiRoleMiningTypes.Roleminingentitlement>, any>> {
+async getExcludedEntitlementsPotentialRoleV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetExcludedEntitlementsPotentialRoleV1Request): Promise<AxiosResponse<Array<iaiRoleMiningTypes.RoleMiningEntitlement>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getExcludedEntitlementsPotentialRoleV1(requestParameters) as Promise<AxiosResponse<Array<iaiRoleMiningTypes.Roleminingentitlement>, any>>;
+    return this.electronAPI.getExcludedEntitlementsPotentialRoleV1(requestParameters) as Promise<AxiosResponse<Array<iaiRoleMiningTypes.RoleMiningEntitlement>, any>>;
 }
 async getFileFromS3V1(requestParameters: customFormsTypes.CustomFormsApiGetFileFromS3V1Request): Promise<AxiosResponse<File, any>> {
     await this.checkSessionBeforeCall();
@@ -1831,13 +1843,13 @@ async getFormByUidNerm(requestParameters: sdk.FormsNERMApiGetFormByUidRequest = 
     await this.checkSessionBeforeCall();
     return this.electronAPI.getFormByUidNerm(requestParameters) as Promise<AxiosResponse<sdk.GetForms200ResponseNERM, any>>;
 }
-async getFormDefinitionByKeyV1(requestParameters: customFormsTypes.CustomFormsApiGetFormDefinitionByKeyV1Request): Promise<AxiosResponse<customFormsTypes.Formdefinitionresponse, any>> {
+async getFormDefinitionByKeyV1(requestParameters: customFormsTypes.CustomFormsApiGetFormDefinitionByKeyV1Request): Promise<AxiosResponse<customFormsTypes.FormDefinitionResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getFormDefinitionByKeyV1(requestParameters) as Promise<AxiosResponse<customFormsTypes.Formdefinitionresponse, any>>;
+    return this.electronAPI.getFormDefinitionByKeyV1(requestParameters) as Promise<AxiosResponse<customFormsTypes.FormDefinitionResponse, any>>;
 }
-async getFormInstanceByKeyV1(requestParameters: customFormsTypes.CustomFormsApiGetFormInstanceByKeyV1Request): Promise<AxiosResponse<customFormsTypes.Forminstanceresponse, any>> {
+async getFormInstanceByKeyV1(requestParameters: customFormsTypes.CustomFormsApiGetFormInstanceByKeyV1Request): Promise<AxiosResponse<customFormsTypes.FormInstanceResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getFormInstanceByKeyV1(requestParameters) as Promise<AxiosResponse<customFormsTypes.Forminstanceresponse, any>>;
+    return this.electronAPI.getFormInstanceByKeyV1(requestParameters) as Promise<AxiosResponse<customFormsTypes.FormInstanceResponse, any>>;
 }
 async getFormInstanceFileV1(requestParameters: customFormsTypes.CustomFormsApiGetFormInstanceFileV1Request): Promise<AxiosResponse<File, any>> {
     await this.checkSessionBeforeCall();
@@ -1851,113 +1863,113 @@ async getHistoricalIdentityEventsV1(requestParameters: identityHistoryTypes.Iden
     await this.checkSessionBeforeCall();
     return this.electronAPI.getHistoricalIdentityEventsV1(requestParameters) as Promise<AxiosResponse<Array<identityHistoryTypes.GetHistoricalIdentityEventsV1200ResponseInner>, any>>;
 }
-async getHistoricalIdentityV1(requestParameters: identityHistoryTypes.IdentityHistoryApiGetHistoricalIdentityV1Request): Promise<AxiosResponse<identityHistoryTypes.Identityhistoryresponse, any>> {
+async getHistoricalIdentityV1(requestParameters: identityHistoryTypes.IdentityHistoryApiGetHistoricalIdentityV1Request): Promise<AxiosResponse<identityHistoryTypes.IdentityHistoryResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getHistoricalIdentityV1(requestParameters) as Promise<AxiosResponse<identityHistoryTypes.Identityhistoryresponse, any>>;
+    return this.electronAPI.getHistoricalIdentityV1(requestParameters) as Promise<AxiosResponse<identityHistoryTypes.IdentityHistoryResponse, any>>;
 }
-async getIdentitiesPotentialRoleV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetIdentitiesPotentialRoleV1Request): Promise<AxiosResponse<Array<iaiRoleMiningTypes.Roleminingidentity>, any>> {
+async getIdentitiesPotentialRoleV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetIdentitiesPotentialRoleV1Request): Promise<AxiosResponse<Array<iaiRoleMiningTypes.RoleMiningIdentity>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getIdentitiesPotentialRoleV1(requestParameters) as Promise<AxiosResponse<Array<iaiRoleMiningTypes.Roleminingidentity>, any>>;
+    return this.electronAPI.getIdentitiesPotentialRoleV1(requestParameters) as Promise<AxiosResponse<Array<iaiRoleMiningTypes.RoleMiningIdentity>, any>>;
 }
-async getIdentityAccessSummariesV1(requestParameters: certificationSummariesTypes.CertificationSummariesApiGetIdentityAccessSummariesV1Request): Promise<AxiosResponse<Array<certificationSummariesTypes.Accesssummary>, any>> {
+async getIdentityAccessSummariesV1(requestParameters: certificationSummariesTypes.CertificationSummariesApiGetIdentityAccessSummariesV1Request): Promise<AxiosResponse<Array<certificationSummariesTypes.AccessSummary>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getIdentityAccessSummariesV1(requestParameters) as Promise<AxiosResponse<Array<certificationSummariesTypes.Accesssummary>, any>>;
+    return this.electronAPI.getIdentityAccessSummariesV1(requestParameters) as Promise<AxiosResponse<Array<certificationSummariesTypes.AccessSummary>, any>>;
 }
-async getIdentityAttributeV1(requestParameters: identityAttributesTypes.IdentityAttributesApiGetIdentityAttributeV1Request): Promise<AxiosResponse<identityAttributesTypes.Identityattribute2, any>> {
+async getIdentityAttributeV1(requestParameters: identityAttributesTypes.IdentityAttributesApiGetIdentityAttributeV1Request): Promise<AxiosResponse<identityAttributesTypes.IdentityAttribute2, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getIdentityAttributeV1(requestParameters) as Promise<AxiosResponse<identityAttributesTypes.Identityattribute2, any>>;
+    return this.electronAPI.getIdentityAttributeV1(requestParameters) as Promise<AxiosResponse<identityAttributesTypes.IdentityAttribute2, any>>;
 }
-async getIdentityCertificationItemPermissionsV1(requestParameters: certificationsTypes.CertificationsApiGetIdentityCertificationItemPermissionsV1Request): Promise<AxiosResponse<Array<certificationsTypes.Permissiondto>, any>> {
+async getIdentityCertificationItemPermissionsV1(requestParameters: certificationsTypes.CertificationsApiGetIdentityCertificationItemPermissionsV1Request): Promise<AxiosResponse<Array<certificationsTypes.PermissionDTO>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getIdentityCertificationItemPermissionsV1(requestParameters) as Promise<AxiosResponse<Array<certificationsTypes.Permissiondto>, any>>;
+    return this.electronAPI.getIdentityCertificationItemPermissionsV1(requestParameters) as Promise<AxiosResponse<Array<certificationsTypes.PermissionDTO>, any>>;
 }
-async getIdentityCertificationV1(requestParameters: certificationsTypes.CertificationsApiGetIdentityCertificationV1Request): Promise<AxiosResponse<certificationsTypes.Identitycertificationdto, any>> {
+async getIdentityCertificationV1(requestParameters: certificationsTypes.CertificationsApiGetIdentityCertificationV1Request): Promise<AxiosResponse<certificationsTypes.IdentityCertificationDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getIdentityCertificationV1(requestParameters) as Promise<AxiosResponse<certificationsTypes.Identitycertificationdto, any>>;
+    return this.electronAPI.getIdentityCertificationV1(requestParameters) as Promise<AxiosResponse<certificationsTypes.IdentityCertificationDto, any>>;
 }
-async getIdentityDecisionSummaryV1(requestParameters: certificationSummariesTypes.CertificationSummariesApiGetIdentityDecisionSummaryV1Request): Promise<AxiosResponse<certificationSummariesTypes.Identitycertdecisionsummary, any>> {
+async getIdentityDecisionSummaryV1(requestParameters: certificationSummariesTypes.CertificationSummariesApiGetIdentityDecisionSummaryV1Request): Promise<AxiosResponse<certificationSummariesTypes.IdentityCertDecisionSummary, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getIdentityDecisionSummaryV1(requestParameters) as Promise<AxiosResponse<certificationSummariesTypes.Identitycertdecisionsummary, any>>;
+    return this.electronAPI.getIdentityDecisionSummaryV1(requestParameters) as Promise<AxiosResponse<certificationSummariesTypes.IdentityCertDecisionSummary, any>>;
 }
-async getIdentityIntelligenceV1(requestParameters: intelligenceTypes.IntelligenceApiGetIdentityIntelligenceV1Request): Promise<AxiosResponse<intelligenceTypes.Intelidentityaggregate, any>> {
+async getIdentityIntelligenceV1(requestParameters: intelligenceTypes.IntelligenceApiGetIdentityIntelligenceV1Request): Promise<AxiosResponse<intelligenceTypes.IntelIdentityAggregate, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getIdentityIntelligenceV1(requestParameters) as Promise<AxiosResponse<intelligenceTypes.Intelidentityaggregate, any>>;
+    return this.electronAPI.getIdentityIntelligenceV1(requestParameters) as Promise<AxiosResponse<intelligenceTypes.IntelIdentityAggregate, any>>;
 }
-async getIdentityOutlierSnapshotsV1(requestParameters: iaiOutliersTypes.IAIOutliersApiGetIdentityOutlierSnapshotsV1Request = {}): Promise<AxiosResponse<Array<iaiOutliersTypes.Outliersummary>, any>> {
+async getIdentityOutlierSnapshotsV1(requestParameters: iaiOutliersTypes.IAIOutliersApiGetIdentityOutlierSnapshotsV1Request = {}): Promise<AxiosResponse<Array<iaiOutliersTypes.OutlierSummary>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getIdentityOutlierSnapshotsV1(requestParameters) as Promise<AxiosResponse<Array<iaiOutliersTypes.Outliersummary>, any>>;
+    return this.electronAPI.getIdentityOutlierSnapshotsV1(requestParameters) as Promise<AxiosResponse<Array<iaiOutliersTypes.OutlierSummary>, any>>;
 }
 async getIdentityOutliersV1(requestParameters: iaiOutliersTypes.IAIOutliersApiGetIdentityOutliersV1Request = {}): Promise<AxiosResponse<Array<iaiOutliersTypes.Outlier>, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.getIdentityOutliersV1(requestParameters) as Promise<AxiosResponse<Array<iaiOutliersTypes.Outlier>, any>>;
 }
-async getIdentityOwnershipDetailsV1(requestParameters: identitiesTypes.IdentitiesApiGetIdentityOwnershipDetailsV1Request): Promise<AxiosResponse<identitiesTypes.Identityownershipassociationdetails, any>> {
+async getIdentityOwnershipDetailsV1(requestParameters: identitiesTypes.IdentitiesApiGetIdentityOwnershipDetailsV1Request): Promise<AxiosResponse<identitiesTypes.IdentityOwnershipAssociationDetails, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getIdentityOwnershipDetailsV1(requestParameters) as Promise<AxiosResponse<identitiesTypes.Identityownershipassociationdetails, any>>;
+    return this.electronAPI.getIdentityOwnershipDetailsV1(requestParameters) as Promise<AxiosResponse<identitiesTypes.IdentityOwnershipAssociationDetails, any>>;
 }
-async getIdentityProfileV1(requestParameters: identityProfilesTypes.IdentityProfilesApiGetIdentityProfileV1Request): Promise<AxiosResponse<identityProfilesTypes.Identityprofile, any>> {
+async getIdentityProfileV1(requestParameters: identityProfilesTypes.IdentityProfilesApiGetIdentityProfileV1Request): Promise<AxiosResponse<identityProfilesTypes.IdentityProfile, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getIdentityProfileV1(requestParameters) as Promise<AxiosResponse<identityProfilesTypes.Identityprofile, any>>;
+    return this.electronAPI.getIdentityProfileV1(requestParameters) as Promise<AxiosResponse<identityProfilesTypes.IdentityProfile, any>>;
 }
 async getIdentityProofingResultsNerm(requestParameters: sdk.IdentityProofingResultsNERMApiGetIdentityProofingResultsRequest = {}): Promise<AxiosResponse<sdk.GetIdentityProofingResults200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.getIdentityProofingResultsNerm(requestParameters) as Promise<AxiosResponse<sdk.GetIdentityProofingResults200ResponseNERM, any>>;
 }
-async getIdentitySnapshotSummaryV1(requestParameters: identityHistoryTypes.IdentityHistoryApiGetIdentitySnapshotSummaryV1Request): Promise<AxiosResponse<Array<identityHistoryTypes.Metricresponse>, any>> {
+async getIdentitySnapshotSummaryV1(requestParameters: identityHistoryTypes.IdentityHistoryApiGetIdentitySnapshotSummaryV1Request): Promise<AxiosResponse<Array<identityHistoryTypes.MetricResponse>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getIdentitySnapshotSummaryV1(requestParameters) as Promise<AxiosResponse<Array<identityHistoryTypes.Metricresponse>, any>>;
+    return this.electronAPI.getIdentitySnapshotSummaryV1(requestParameters) as Promise<AxiosResponse<Array<identityHistoryTypes.MetricResponse>, any>>;
 }
-async getIdentitySnapshotV1(requestParameters: identityHistoryTypes.IdentityHistoryApiGetIdentitySnapshotV1Request): Promise<AxiosResponse<identityHistoryTypes.Identityhistoryresponse, any>> {
+async getIdentitySnapshotV1(requestParameters: identityHistoryTypes.IdentityHistoryApiGetIdentitySnapshotV1Request): Promise<AxiosResponse<identityHistoryTypes.IdentityHistoryResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getIdentitySnapshotV1(requestParameters) as Promise<AxiosResponse<identityHistoryTypes.Identityhistoryresponse, any>>;
+    return this.electronAPI.getIdentitySnapshotV1(requestParameters) as Promise<AxiosResponse<identityHistoryTypes.IdentityHistoryResponse, any>>;
 }
 async getIdentityStartDateV1(requestParameters: identityHistoryTypes.IdentityHistoryApiGetIdentityStartDateV1Request): Promise<AxiosResponse<string, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.getIdentityStartDateV1(requestParameters) as Promise<AxiosResponse<string, any>>;
 }
-async getIdentitySummariesV1(requestParameters: certificationSummariesTypes.CertificationSummariesApiGetIdentitySummariesV1Request): Promise<AxiosResponse<Array<certificationSummariesTypes.Certificationidentitysummary>, any>> {
+async getIdentitySummariesV1(requestParameters: certificationSummariesTypes.CertificationSummariesApiGetIdentitySummariesV1Request): Promise<AxiosResponse<Array<certificationSummariesTypes.CertificationIdentitySummary>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getIdentitySummariesV1(requestParameters) as Promise<AxiosResponse<Array<certificationSummariesTypes.Certificationidentitysummary>, any>>;
+    return this.electronAPI.getIdentitySummariesV1(requestParameters) as Promise<AxiosResponse<Array<certificationSummariesTypes.CertificationIdentitySummary>, any>>;
 }
-async getIdentitySummaryV1(requestParameters: certificationSummariesTypes.CertificationSummariesApiGetIdentitySummaryV1Request): Promise<AxiosResponse<certificationSummariesTypes.Certificationidentitysummary, any>> {
+async getIdentitySummaryV1(requestParameters: certificationSummariesTypes.CertificationSummariesApiGetIdentitySummaryV1Request): Promise<AxiosResponse<certificationSummariesTypes.CertificationIdentitySummary, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getIdentitySummaryV1(requestParameters) as Promise<AxiosResponse<certificationSummariesTypes.Certificationidentitysummary, any>>;
+    return this.electronAPI.getIdentitySummaryV1(requestParameters) as Promise<AxiosResponse<certificationSummariesTypes.CertificationIdentitySummary, any>>;
 }
 async getIdentityV1(requestParameters: identitiesTypes.IdentitiesApiGetIdentityV1Request): Promise<AxiosResponse<identitiesTypes.Identity, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.getIdentityV1(requestParameters) as Promise<AxiosResponse<identitiesTypes.Identity, any>>;
 }
-async getIntelIdentityAccessItemHistoryV1(requestParameters: intelligenceTypes.IntelligenceApiGetIntelIdentityAccessItemHistoryV1Request): Promise<AxiosResponse<Array<intelligenceTypes.Intelaccessitemhistoryevent>, any>> {
+async getIntelIdentityAccessItemHistoryV1(requestParameters: intelligenceTypes.IntelligenceApiGetIntelIdentityAccessItemHistoryV1Request): Promise<AxiosResponse<Array<intelligenceTypes.IntelAccessItemHistoryEvent>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getIntelIdentityAccessItemHistoryV1(requestParameters) as Promise<AxiosResponse<Array<intelligenceTypes.Intelaccessitemhistoryevent>, any>>;
+    return this.electronAPI.getIntelIdentityAccessItemHistoryV1(requestParameters) as Promise<AxiosResponse<Array<intelligenceTypes.IntelAccessItemHistoryEvent>, any>>;
 }
-async getIntelIdentityAccountsV1(requestParameters: intelligenceTypes.IntelligenceApiGetIntelIdentityAccountsV1Request): Promise<AxiosResponse<Array<intelligenceTypes.Intelaccessaccountwire>, any>> {
+async getIntelIdentityAccountsV1(requestParameters: intelligenceTypes.IntelligenceApiGetIntelIdentityAccountsV1Request): Promise<AxiosResponse<Array<intelligenceTypes.IntelAccessAccountWire>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getIntelIdentityAccountsV1(requestParameters) as Promise<AxiosResponse<Array<intelligenceTypes.Intelaccessaccountwire>, any>>;
+    return this.electronAPI.getIntelIdentityAccountsV1(requestParameters) as Promise<AxiosResponse<Array<intelligenceTypes.IntelAccessAccountWire>, any>>;
 }
-async getIntelIdentityCertificationHistoryV1(requestParameters: intelligenceTypes.IntelligenceApiGetIntelIdentityCertificationHistoryV1Request): Promise<AxiosResponse<Array<intelligenceTypes.Intelcertificationhistoryevent>, any>> {
+async getIntelIdentityCertificationHistoryV1(requestParameters: intelligenceTypes.IntelligenceApiGetIntelIdentityCertificationHistoryV1Request): Promise<AxiosResponse<Array<intelligenceTypes.IntelCertificationHistoryEvent>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getIntelIdentityCertificationHistoryV1(requestParameters) as Promise<AxiosResponse<Array<intelligenceTypes.Intelcertificationhistoryevent>, any>>;
+    return this.electronAPI.getIntelIdentityCertificationHistoryV1(requestParameters) as Promise<AxiosResponse<Array<intelligenceTypes.IntelCertificationHistoryEvent>, any>>;
 }
-async getIntelIdentityRareAccessV1(requestParameters: intelligenceTypes.IntelligenceApiGetIntelIdentityRareAccessV1Request): Promise<AxiosResponse<Array<intelligenceTypes.Inteloutlieraccessitem>, any>> {
+async getIntelIdentityRareAccessV1(requestParameters: intelligenceTypes.IntelligenceApiGetIntelIdentityRareAccessV1Request): Promise<AxiosResponse<Array<intelligenceTypes.IntelOutlierAccessItem>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getIntelIdentityRareAccessV1(requestParameters) as Promise<AxiosResponse<Array<intelligenceTypes.Inteloutlieraccessitem>, any>>;
+    return this.electronAPI.getIntelIdentityRareAccessV1(requestParameters) as Promise<AxiosResponse<Array<intelligenceTypes.IntelOutlierAccessItem>, any>>;
 }
-async getJitActivationConfigV1(requestParameters: jitAccessTypes.JITAccessApiGetJitActivationConfigV1Request): Promise<AxiosResponse<jitAccessTypes.Jitactivationconfigresponse, any>> {
+async getJitActivationConfigV1(requestParameters: jitAccessTypes.JITAccessApiGetJitActivationConfigV1Request): Promise<AxiosResponse<jitAccessTypes.JITActivationConfigResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getJitActivationConfigV1(requestParameters) as Promise<AxiosResponse<jitAccessTypes.Jitactivationconfigresponse, any>>;
+    return this.electronAPI.getJitActivationConfigV1(requestParameters) as Promise<AxiosResponse<jitAccessTypes.JITActivationConfigResponse, any>>;
 }
 async getJobStatusNerm(requestParameters: sdk.JobStatusNERMApiGetJobStatusRequest): Promise<AxiosResponse<sdk.GetJobStatus200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.getJobStatusNerm(requestParameters) as Promise<AxiosResponse<sdk.GetJobStatus200ResponseNERM, any>>;
 }
-async getJWKSDataV1(): Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.Jwks, any>> {
+async getJWKSDataV1(): Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.JWKS, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getJWKSDataV1() as Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.Jwks, any>>;
+    return this.electronAPI.getJWKSDataV1() as Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.JWKS, any>>;
 }
-async getLatestIdentityOutlierSnapshotsV1(requestParameters: iaiOutliersTypes.IAIOutliersApiGetLatestIdentityOutlierSnapshotsV1Request = {}): Promise<AxiosResponse<Array<iaiOutliersTypes.Latestoutliersummary>, any>> {
+async getLatestIdentityOutlierSnapshotsV1(requestParameters: iaiOutliersTypes.IAIOutliersApiGetLatestIdentityOutlierSnapshotsV1Request = {}): Promise<AxiosResponse<Array<iaiOutliersTypes.LatestOutlierSummary>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getLatestIdentityOutlierSnapshotsV1(requestParameters) as Promise<AxiosResponse<Array<iaiOutliersTypes.Latestoutliersummary>, any>>;
+    return this.electronAPI.getLatestIdentityOutlierSnapshotsV1(requestParameters) as Promise<AxiosResponse<Array<iaiOutliersTypes.LatestOutlierSummary>, any>>;
 }
 async getLaunchersV1(requestParameters: launchersTypes.LaunchersApiGetLaunchersV1Request = {}): Promise<AxiosResponse<launchersTypes.GetLaunchersV1200Response, any>> {
     await this.checkSessionBeforeCall();
@@ -1967,193 +1979,201 @@ async getLauncherV1(requestParameters: launchersTypes.LaunchersApiGetLauncherV1R
     await this.checkSessionBeforeCall();
     return this.electronAPI.getLauncherV1(requestParameters) as Promise<AxiosResponse<launchersTypes.Launcher, any>>;
 }
-async getLifecycleStatesV1(requestParameters: lifecycleStatesTypes.LifecycleStatesApiGetLifecycleStatesV1Request): Promise<AxiosResponse<Array<lifecycleStatesTypes.Lifecyclestate>, any>> {
+async getLifecycleStatesV1(requestParameters: lifecycleStatesTypes.LifecycleStatesApiGetLifecycleStatesV1Request): Promise<AxiosResponse<Array<lifecycleStatesTypes.LifecycleState>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getLifecycleStatesV1(requestParameters) as Promise<AxiosResponse<Array<lifecycleStatesTypes.Lifecyclestate>, any>>;
+    return this.electronAPI.getLifecycleStatesV1(requestParameters) as Promise<AxiosResponse<Array<lifecycleStatesTypes.LifecycleState>, any>>;
 }
-async getLifecycleStateV1(requestParameters: lifecycleStatesTypes.LifecycleStatesApiGetLifecycleStateV1Request): Promise<AxiosResponse<lifecycleStatesTypes.Lifecyclestate, any>> {
+async getLifecycleStateV1(requestParameters: lifecycleStatesTypes.LifecycleStatesApiGetLifecycleStateV1Request): Promise<AxiosResponse<lifecycleStatesTypes.LifecycleState, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getLifecycleStateV1(requestParameters) as Promise<AxiosResponse<lifecycleStatesTypes.Lifecyclestate, any>>;
+    return this.electronAPI.getLifecycleStateV1(requestParameters) as Promise<AxiosResponse<lifecycleStatesTypes.LifecycleState, any>>;
 }
-async getMachineAccountCreateAccessInfoV1(requestParameters: machineAccountCreationRequestTypes.MachineAccountCreationRequestApiGetMachineAccountCreateAccessInfoV1Request): Promise<AxiosResponse<Array<machineAccountCreationRequestTypes.Machineaccountcreateaccessdto>, any>> {
+async getMachineAccountCreateAccessInfoV1(requestParameters: machineAccountCreationRequestTypes.MachineAccountCreationRequestApiGetMachineAccountCreateAccessInfoV1Request): Promise<AxiosResponse<Array<machineAccountCreationRequestTypes.MachineAccountCreateAccessDto>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getMachineAccountCreateAccessInfoV1(requestParameters) as Promise<AxiosResponse<Array<machineAccountCreationRequestTypes.Machineaccountcreateaccessdto>, any>>;
+    return this.electronAPI.getMachineAccountCreateAccessInfoV1(requestParameters) as Promise<AxiosResponse<Array<machineAccountCreationRequestTypes.MachineAccountCreateAccessDto>, any>>;
 }
-async getMachineAccountDeletionApprovalConfigBySourceV1(requestParameters: sourcesTypes.SourcesApiGetMachineAccountDeletionApprovalConfigBySourceV1Request): Promise<AxiosResponse<sourcesTypes.Accountdeleteconfigdto, any>> {
+async getMachineAccountDeletionApprovalConfigBySourceV1(requestParameters: sourcesTypes.SourcesApiGetMachineAccountDeletionApprovalConfigBySourceV1Request): Promise<AxiosResponse<sourcesTypes.AccountDeleteConfigDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getMachineAccountDeletionApprovalConfigBySourceV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Accountdeleteconfigdto, any>>;
+    return this.electronAPI.getMachineAccountDeletionApprovalConfigBySourceV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.AccountDeleteConfigDto, any>>;
 }
-async getMachineAccountSubtypeApprovalConfigV1(requestParameters: machineAccountSubtypesTypes.MachineAccountSubtypesApiGetMachineAccountSubtypeApprovalConfigV1Request): Promise<AxiosResponse<machineAccountSubtypesTypes.Machineaccountsubtypeconfigdto, any>> {
+async getMachineAccountSubtypeApprovalConfigV1(requestParameters: machineAccountSubtypesTypes.MachineAccountSubtypesApiGetMachineAccountSubtypeApprovalConfigV1Request): Promise<AxiosResponse<machineAccountSubtypesTypes.MachineAccountSubtypeConfigDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getMachineAccountSubtypeApprovalConfigV1(requestParameters) as Promise<AxiosResponse<machineAccountSubtypesTypes.Machineaccountsubtypeconfigdto, any>>;
+    return this.electronAPI.getMachineAccountSubtypeApprovalConfigV1(requestParameters) as Promise<AxiosResponse<machineAccountSubtypesTypes.MachineAccountSubtypeConfigDto, any>>;
 }
-async getMachineAccountSubtypeByIdV1(requestParameters: machineAccountsTypes.MachineAccountsApiGetMachineAccountSubtypeByIdV1Request): Promise<AxiosResponse<machineAccountsTypes.Sourcesubtype, any>> {
+async getMachineAccountSubtypeByIdV1(requestParameters: machineAccountsTypes.MachineAccountsApiGetMachineAccountSubtypeByIdV1Request): Promise<AxiosResponse<machineAccountsTypes.SourceSubtype, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getMachineAccountSubtypeByIdV1(requestParameters) as Promise<AxiosResponse<machineAccountsTypes.Sourcesubtype, any>>;
+    return this.electronAPI.getMachineAccountSubtypeByIdV1(requestParameters) as Promise<AxiosResponse<machineAccountsTypes.SourceSubtype, any>>;
 }
-async getMachineAccountSubtypeByTechnicalNameV1(requestParameters: machineAccountsTypes.MachineAccountsApiGetMachineAccountSubtypeByTechnicalNameV1Request): Promise<AxiosResponse<machineAccountsTypes.Sourcesubtype, any>> {
+async getMachineAccountSubtypeByTechnicalNameV1(requestParameters: machineAccountsTypes.MachineAccountsApiGetMachineAccountSubtypeByTechnicalNameV1Request): Promise<AxiosResponse<machineAccountsTypes.SourceSubtype, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getMachineAccountSubtypeByTechnicalNameV1(requestParameters) as Promise<AxiosResponse<machineAccountsTypes.Sourcesubtype, any>>;
+    return this.electronAPI.getMachineAccountSubtypeByTechnicalNameV1(requestParameters) as Promise<AxiosResponse<machineAccountsTypes.SourceSubtype, any>>;
 }
-async getMachineAccountV1(requestParameters: machineAccountsTypes.MachineAccountsApiGetMachineAccountV1Request): Promise<AxiosResponse<machineAccountsTypes.Machineaccount, any>> {
+async getMachineAccountV1(requestParameters: machineAccountsTypes.MachineAccountsApiGetMachineAccountV1Request): Promise<AxiosResponse<machineAccountsTypes.MachineAccount, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getMachineAccountV1(requestParameters) as Promise<AxiosResponse<machineAccountsTypes.Machineaccount, any>>;
+    return this.electronAPI.getMachineAccountV1(requestParameters) as Promise<AxiosResponse<machineAccountsTypes.MachineAccount, any>>;
 }
-async getMachineClassificationConfigV1(requestParameters: machineClassificationConfigTypes.MachineClassificationConfigApiGetMachineClassificationConfigV1Request): Promise<AxiosResponse<machineClassificationConfigTypes.Machineclassificationconfig, any>> {
+async getMachineClassificationConfigV1(requestParameters: machineClassificationConfigTypes.MachineClassificationConfigApiGetMachineClassificationConfigV1Request): Promise<AxiosResponse<machineClassificationConfigTypes.MachineClassificationConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getMachineClassificationConfigV1(requestParameters) as Promise<AxiosResponse<machineClassificationConfigTypes.Machineclassificationconfig, any>>;
+    return this.electronAPI.getMachineClassificationConfigV1(requestParameters) as Promise<AxiosResponse<machineClassificationConfigTypes.MachineClassificationConfig, any>>;
 }
-async getMachineIdentityV1(requestParameters: machineIdentitiesTypes.MachineIdentitiesApiGetMachineIdentityV1Request): Promise<AxiosResponse<machineIdentitiesTypes.Machineidentityresponse, any>> {
+async getMachineIdentityV1(requestParameters: machineIdentitiesTypes.MachineIdentitiesApiGetMachineIdentityV1Request): Promise<AxiosResponse<machineIdentitiesTypes.MachineIdentityResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getMachineIdentityV1(requestParameters) as Promise<AxiosResponse<machineIdentitiesTypes.Machineidentityresponse, any>>;
+    return this.electronAPI.getMachineIdentityV1(requestParameters) as Promise<AxiosResponse<machineIdentitiesTypes.MachineIdentityResponse, any>>;
 }
-async getMailFromAttributesV1(requestParameters: notificationsTypes.NotificationsApiGetMailFromAttributesV1Request): Promise<AxiosResponse<notificationsTypes.Mailfromattributes, any>> {
+async getMachineIdentityV2(requestParameters: machineIdentitiesTypes.MachineIdentitiesApiGetMachineIdentityV2Request): Promise<AxiosResponse<machineIdentitiesTypes.Machineidentityv2, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getMailFromAttributesV1(requestParameters) as Promise<AxiosResponse<notificationsTypes.Mailfromattributes, any>>;
+    return this.electronAPI.getMachineIdentityV2(requestParameters) as Promise<AxiosResponse<machineIdentitiesTypes.Machineidentityv2, any>>;
 }
-async getManagedClientHealthIndicatorsV1(requestParameters: managedClientsTypes.ManagedClientsApiGetManagedClientHealthIndicatorsV1Request): Promise<AxiosResponse<managedClientsTypes.Managedclienthealthindicators, any>> {
+async getMailFromAttributesV1(requestParameters: notificationsTypes.NotificationsApiGetMailFromAttributesV1Request): Promise<AxiosResponse<notificationsTypes.MailFromAttributes, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getManagedClientHealthIndicatorsV1(requestParameters) as Promise<AxiosResponse<managedClientsTypes.Managedclienthealthindicators, any>>;
+    return this.electronAPI.getMailFromAttributesV1(requestParameters) as Promise<AxiosResponse<notificationsTypes.MailFromAttributes, any>>;
 }
-async getManagedClientStatusV1(requestParameters: managedClientsTypes.ManagedClientsApiGetManagedClientStatusV1Request): Promise<AxiosResponse<managedClientsTypes.Managedclientstatus, any>> {
+async getManagedClientHealthIndicatorsV1(requestParameters: managedClientsTypes.ManagedClientsApiGetManagedClientHealthIndicatorsV1Request): Promise<AxiosResponse<managedClientsTypes.ManagedClientHealthIndicators, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getManagedClientStatusV1(requestParameters) as Promise<AxiosResponse<managedClientsTypes.Managedclientstatus, any>>;
+    return this.electronAPI.getManagedClientHealthIndicatorsV1(requestParameters) as Promise<AxiosResponse<managedClientsTypes.ManagedClientHealthIndicators, any>>;
 }
-async getManagedClientsV1(requestParameters: managedClientsTypes.ManagedClientsApiGetManagedClientsV1Request = {}): Promise<AxiosResponse<Array<managedClientsTypes.Managedclient>, any>> {
+async getManagedClientStatusV1(requestParameters: managedClientsTypes.ManagedClientsApiGetManagedClientStatusV1Request): Promise<AxiosResponse<managedClientsTypes.ManagedClientStatus, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getManagedClientsV1(requestParameters) as Promise<AxiosResponse<Array<managedClientsTypes.Managedclient>, any>>;
+    return this.electronAPI.getManagedClientStatusV1(requestParameters) as Promise<AxiosResponse<managedClientsTypes.ManagedClientStatus, any>>;
 }
-async getManagedClientV1(requestParameters: managedClientsTypes.ManagedClientsApiGetManagedClientV1Request): Promise<AxiosResponse<managedClientsTypes.Managedclient, any>> {
+async getManagedClientsV1(requestParameters: managedClientsTypes.ManagedClientsApiGetManagedClientsV1Request = {}): Promise<AxiosResponse<Array<managedClientsTypes.ManagedClient>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getManagedClientV1(requestParameters) as Promise<AxiosResponse<managedClientsTypes.Managedclient, any>>;
+    return this.electronAPI.getManagedClientsV1(requestParameters) as Promise<AxiosResponse<Array<managedClientsTypes.ManagedClient>, any>>;
 }
-async getManagedClustersV1(requestParameters: managedClustersTypes.ManagedClustersApiGetManagedClustersV1Request = {}): Promise<AxiosResponse<Array<managedClustersTypes.Managedcluster>, any>> {
+async getManagedClientV1(requestParameters: managedClientsTypes.ManagedClientsApiGetManagedClientV1Request): Promise<AxiosResponse<managedClientsTypes.ManagedClient, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getManagedClustersV1(requestParameters) as Promise<AxiosResponse<Array<managedClustersTypes.Managedcluster>, any>>;
+    return this.electronAPI.getManagedClientV1(requestParameters) as Promise<AxiosResponse<managedClientsTypes.ManagedClient, any>>;
 }
-async getManagedClusterTypesV1(requestParameters: managedClusterTypesTypes.ManagedClusterTypesApiGetManagedClusterTypesV1Request = {}): Promise<AxiosResponse<Array<managedClusterTypesTypes.Managedclustertype>, any>> {
+async getManagedClustersV1(requestParameters: managedClustersTypes.ManagedClustersApiGetManagedClustersV1Request = {}): Promise<AxiosResponse<Array<managedClustersTypes.ManagedCluster>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getManagedClusterTypesV1(requestParameters) as Promise<AxiosResponse<Array<managedClusterTypesTypes.Managedclustertype>, any>>;
+    return this.electronAPI.getManagedClustersV1(requestParameters) as Promise<AxiosResponse<Array<managedClustersTypes.ManagedCluster>, any>>;
 }
-async getManagedClusterTypeV1(requestParameters: managedClusterTypesTypes.ManagedClusterTypesApiGetManagedClusterTypeV1Request): Promise<AxiosResponse<managedClusterTypesTypes.Managedclustertype, any>> {
+async getManagedClusterTypesV1(requestParameters: managedClusterTypesTypes.ManagedClusterTypesApiGetManagedClusterTypesV1Request = {}): Promise<AxiosResponse<Array<managedClusterTypesTypes.ManagedClusterType>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getManagedClusterTypeV1(requestParameters) as Promise<AxiosResponse<managedClusterTypesTypes.Managedclustertype, any>>;
+    return this.electronAPI.getManagedClusterTypesV1(requestParameters) as Promise<AxiosResponse<Array<managedClusterTypesTypes.ManagedClusterType>, any>>;
 }
-async getManagedClusterV1(requestParameters: managedClustersTypes.ManagedClustersApiGetManagedClusterV1Request): Promise<AxiosResponse<managedClustersTypes.Managedcluster, any>> {
+async getManagedClusterTypeV1(requestParameters: managedClusterTypesTypes.ManagedClusterTypesApiGetManagedClusterTypeV1Request): Promise<AxiosResponse<managedClusterTypesTypes.ManagedClusterType, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getManagedClusterV1(requestParameters) as Promise<AxiosResponse<managedClustersTypes.Managedcluster, any>>;
+    return this.electronAPI.getManagedClusterTypeV1(requestParameters) as Promise<AxiosResponse<managedClusterTypesTypes.ManagedClusterType, any>>;
 }
-async getManualDiscoverApplicationsCsvTemplateV1(): Promise<AxiosResponse<applicationDiscoveryTypes.Manualdiscoverapplicationstemplate, any>> {
+async getManagedClusterV1(requestParameters: managedClustersTypes.ManagedClustersApiGetManagedClusterV1Request): Promise<AxiosResponse<managedClustersTypes.ManagedCluster, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getManualDiscoverApplicationsCsvTemplateV1() as Promise<AxiosResponse<applicationDiscoveryTypes.Manualdiscoverapplicationstemplate, any>>;
+    return this.electronAPI.getManagedClusterV1(requestParameters) as Promise<AxiosResponse<managedClustersTypes.ManagedCluster, any>>;
 }
-async getMFADuoConfigV1(): Promise<AxiosResponse<mfaConfigurationTypes.Mfaduoconfig, any>> {
+async getManualDiscoverApplicationsCsvTemplateV1(): Promise<AxiosResponse<applicationDiscoveryTypes.ManualDiscoverApplicationsTemplate, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getMFADuoConfigV1() as Promise<AxiosResponse<mfaConfigurationTypes.Mfaduoconfig, any>>;
+    return this.electronAPI.getManualDiscoverApplicationsCsvTemplateV1() as Promise<AxiosResponse<applicationDiscoveryTypes.ManualDiscoverApplicationsTemplate, any>>;
 }
-async getMFAKbaConfigV1(requestParameters: mfaConfigurationTypes.MFAConfigurationApiGetMFAKbaConfigV1Request = {}): Promise<AxiosResponse<Array<mfaConfigurationTypes.Kbaquestion>, any>> {
+async getMFADuoConfigV1(): Promise<AxiosResponse<mfaConfigurationTypes.MfaDuoConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getMFAKbaConfigV1(requestParameters) as Promise<AxiosResponse<Array<mfaConfigurationTypes.Kbaquestion>, any>>;
+    return this.electronAPI.getMFADuoConfigV1() as Promise<AxiosResponse<mfaConfigurationTypes.MfaDuoConfig, any>>;
 }
-async getMFAOktaConfigV1(): Promise<AxiosResponse<mfaConfigurationTypes.Mfaoktaconfig, any>> {
+async getMFAKbaConfigV1(requestParameters: mfaConfigurationTypes.MFAConfigurationApiGetMFAKbaConfigV1Request = {}): Promise<AxiosResponse<Array<mfaConfigurationTypes.KbaQuestion>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getMFAOktaConfigV1() as Promise<AxiosResponse<mfaConfigurationTypes.Mfaoktaconfig, any>>;
+    return this.electronAPI.getMFAKbaConfigV1(requestParameters) as Promise<AxiosResponse<Array<mfaConfigurationTypes.KbaQuestion>, any>>;
 }
-async getMultiHostIntegrationsListV1(requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiGetMultiHostIntegrationsListV1Request = {}): Promise<AxiosResponse<Array<multiHostIntegrationTypes.Multihostintegrations>, any>> {
+async getMFAOktaConfigV1(): Promise<AxiosResponse<mfaConfigurationTypes.MfaOktaConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getMultiHostIntegrationsListV1(requestParameters) as Promise<AxiosResponse<Array<multiHostIntegrationTypes.Multihostintegrations>, any>>;
+    return this.electronAPI.getMFAOktaConfigV1() as Promise<AxiosResponse<mfaConfigurationTypes.MfaOktaConfig, any>>;
 }
-async getMultiHostIntegrationsV1(requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiGetMultiHostIntegrationsV1Request): Promise<AxiosResponse<multiHostIntegrationTypes.Multihostintegrations, any>> {
+async getMultiHostIntegrationsListV1(requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiGetMultiHostIntegrationsListV1Request = {}): Promise<AxiosResponse<Array<multiHostIntegrationTypes.MultiHostIntegrations>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getMultiHostIntegrationsV1(requestParameters) as Promise<AxiosResponse<multiHostIntegrationTypes.Multihostintegrations, any>>;
+    return this.electronAPI.getMultiHostIntegrationsListV1(requestParameters) as Promise<AxiosResponse<Array<multiHostIntegrationTypes.MultiHostIntegrations>, any>>;
 }
-async getMultihostIntegrationTypesV1(): Promise<AxiosResponse<Array<multiHostIntegrationTypes.Multihostintegrationtemplatetype>, any>> {
+async getMultiHostIntegrationsV1(requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiGetMultiHostIntegrationsV1Request): Promise<AxiosResponse<multiHostIntegrationTypes.MultiHostIntegrations, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getMultihostIntegrationTypesV1() as Promise<AxiosResponse<Array<multiHostIntegrationTypes.Multihostintegrationtemplatetype>, any>>;
+    return this.electronAPI.getMultiHostIntegrationsV1(requestParameters) as Promise<AxiosResponse<multiHostIntegrationTypes.MultiHostIntegrations, any>>;
 }
-async getMultiHostSourceCreationErrorsV1(requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiGetMultiHostSourceCreationErrorsV1Request): Promise<AxiosResponse<Array<multiHostIntegrationTypes.Sourcecreationerrors>, any>> {
+async getMultihostIntegrationTypesV1(): Promise<AxiosResponse<Array<multiHostIntegrationTypes.MultiHostIntegrationTemplateType>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getMultiHostSourceCreationErrorsV1(requestParameters) as Promise<AxiosResponse<Array<multiHostIntegrationTypes.Sourcecreationerrors>, any>>;
+    return this.electronAPI.getMultihostIntegrationTypesV1() as Promise<AxiosResponse<Array<multiHostIntegrationTypes.MultiHostIntegrationTemplateType>, any>>;
 }
-async getNativeChangeDetectionConfigV1(requestParameters: sourcesTypes.SourcesApiGetNativeChangeDetectionConfigV1Request): Promise<AxiosResponse<sourcesTypes.Nativechangedetectionconfig, any>> {
+async getMultiHostSourceCreationErrorsV1(requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiGetMultiHostSourceCreationErrorsV1Request): Promise<AxiosResponse<Array<multiHostIntegrationTypes.SourceCreationErrors>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getNativeChangeDetectionConfigV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Nativechangedetectionconfig, any>>;
+    return this.electronAPI.getMultiHostSourceCreationErrorsV1(requestParameters) as Promise<AxiosResponse<Array<multiHostIntegrationTypes.SourceCreationErrors>, any>>;
 }
-async getNonEmployeeApprovalSummaryV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiGetNonEmployeeApprovalSummaryV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeeapprovalsummary, any>> {
+async getNativeChangeDetectionConfigV1(requestParameters: sourcesTypes.SourcesApiGetNativeChangeDetectionConfigV1Request): Promise<AxiosResponse<sourcesTypes.NativeChangeDetectionConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getNonEmployeeApprovalSummaryV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeeapprovalsummary, any>>;
+    return this.electronAPI.getNativeChangeDetectionConfigV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.NativeChangeDetectionConfig, any>>;
 }
-async getNonEmployeeApprovalV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiGetNonEmployeeApprovalV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeeapprovalitemdetail, any>> {
+async getNonEmployeeApprovalSummaryV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiGetNonEmployeeApprovalSummaryV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeApprovalSummary, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getNonEmployeeApprovalV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeeapprovalitemdetail, any>>;
+    return this.electronAPI.getNonEmployeeApprovalSummaryV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeApprovalSummary, any>>;
 }
-async getNonEmployeeBulkUploadStatusV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiGetNonEmployeeBulkUploadStatusV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeebulkuploadstatus, any>> {
+async getNonEmployeeApprovalV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiGetNonEmployeeApprovalV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeApprovalItemDetail, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getNonEmployeeBulkUploadStatusV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeebulkuploadstatus, any>>;
+    return this.electronAPI.getNonEmployeeApprovalV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeApprovalItemDetail, any>>;
 }
-async getNonEmployeeRecordV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiGetNonEmployeeRecordV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeerecord, any>> {
+async getNonEmployeeBulkUploadStatusV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiGetNonEmployeeBulkUploadStatusV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeBulkUploadStatus, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getNonEmployeeRecordV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeerecord, any>>;
+    return this.electronAPI.getNonEmployeeBulkUploadStatusV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeBulkUploadStatus, any>>;
 }
-async getNonEmployeeRequestSummaryV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiGetNonEmployeeRequestSummaryV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeerequestsummary, any>> {
+async getNonEmployeeRecordV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiGetNonEmployeeRecordV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeRecord, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getNonEmployeeRequestSummaryV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeerequestsummary, any>>;
+    return this.electronAPI.getNonEmployeeRecordV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeRecord, any>>;
 }
-async getNonEmployeeRequestV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiGetNonEmployeeRequestV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeerequest, any>> {
+async getNonEmployeeRequestSummaryV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiGetNonEmployeeRequestSummaryV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeRequestSummary, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getNonEmployeeRequestV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeerequest, any>>;
+    return this.electronAPI.getNonEmployeeRequestSummaryV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeRequestSummary, any>>;
 }
-async getNonEmployeeSchemaAttributeV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiGetNonEmployeeSchemaAttributeV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeeschemaattribute, any>> {
+async getNonEmployeeRequestV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiGetNonEmployeeRequestV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeRequest, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getNonEmployeeSchemaAttributeV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeeschemaattribute, any>>;
+    return this.electronAPI.getNonEmployeeRequestV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeRequest, any>>;
 }
-async getNonEmployeeSourceSchemaAttributesV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiGetNonEmployeeSourceSchemaAttributesV1Request): Promise<AxiosResponse<Array<nonEmployeeLifecycleManagementTypes.Nonemployeeschemaattribute>, any>> {
+async getNonEmployeeSchemaAttributeV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiGetNonEmployeeSchemaAttributeV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeSchemaAttribute, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getNonEmployeeSourceSchemaAttributesV1(requestParameters) as Promise<AxiosResponse<Array<nonEmployeeLifecycleManagementTypes.Nonemployeeschemaattribute>, any>>;
+    return this.electronAPI.getNonEmployeeSchemaAttributeV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeSchemaAttribute, any>>;
 }
-async getNonEmployeeSourceV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiGetNonEmployeeSourceV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeesource, any>> {
+async getNonEmployeeSourceSchemaAttributesV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiGetNonEmployeeSourceSchemaAttributesV1Request): Promise<AxiosResponse<Array<nonEmployeeLifecycleManagementTypes.NonEmployeeSchemaAttribute>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getNonEmployeeSourceV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeesource, any>>;
+    return this.electronAPI.getNonEmployeeSourceSchemaAttributesV1(requestParameters) as Promise<AxiosResponse<Array<nonEmployeeLifecycleManagementTypes.NonEmployeeSchemaAttribute>, any>>;
 }
-async getNotificationPreferencesV1(requestParameters: notificationsTypes.NotificationsApiGetNotificationPreferencesV1Request): Promise<AxiosResponse<notificationsTypes.Preferencesdto, any>> {
+async getNonEmployeeSourceV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiGetNonEmployeeSourceV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeSource, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getNotificationPreferencesV1(requestParameters) as Promise<AxiosResponse<notificationsTypes.Preferencesdto, any>>;
+    return this.electronAPI.getNonEmployeeSourceV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeSource, any>>;
 }
-async getNotificationsTemplateContextV1(): Promise<AxiosResponse<notificationsTypes.Notificationtemplatecontext, any>> {
+async getNotificationPreferencesV1(requestParameters: notificationsTypes.NotificationsApiGetNotificationPreferencesV1Request): Promise<AxiosResponse<notificationsTypes.PreferencesDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getNotificationsTemplateContextV1() as Promise<AxiosResponse<notificationsTypes.Notificationtemplatecontext, any>>;
+    return this.electronAPI.getNotificationPreferencesV1(requestParameters) as Promise<AxiosResponse<notificationsTypes.PreferencesDto, any>>;
 }
-async getNotificationTemplateV1(requestParameters: notificationsTypes.NotificationsApiGetNotificationTemplateV1Request): Promise<AxiosResponse<notificationsTypes.Templatedto, any>> {
+async getNotificationsTemplateContextV1(): Promise<AxiosResponse<notificationsTypes.NotificationTemplateContext, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getNotificationTemplateV1(requestParameters) as Promise<AxiosResponse<notificationsTypes.Templatedto, any>>;
+    return this.electronAPI.getNotificationsTemplateContextV1() as Promise<AxiosResponse<notificationsTypes.NotificationTemplateContext, any>>;
 }
-async getNotificationTemplateVariablesV1(requestParameters: notificationsTypes.NotificationsApiGetNotificationTemplateVariablesV1Request): Promise<AxiosResponse<notificationsTypes.Templatevariablesdto, any>> {
+async getNotificationTemplateV1(requestParameters: notificationsTypes.NotificationsApiGetNotificationTemplateV1Request): Promise<AxiosResponse<notificationsTypes.TemplateDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getNotificationTemplateVariablesV1(requestParameters) as Promise<AxiosResponse<notificationsTypes.Templatevariablesdto, any>>;
+    return this.electronAPI.getNotificationTemplateV1(requestParameters) as Promise<AxiosResponse<notificationsTypes.TemplateDto, any>>;
 }
-async getOauthClientV1(requestParameters: oauthClientsTypes.OAuthClientsApiGetOauthClientV1Request): Promise<AxiosResponse<oauthClientsTypes.Getoauthclientresponse, any>> {
+async getNotificationTemplateVariablesV1(requestParameters: notificationsTypes.NotificationsApiGetNotificationTemplateVariablesV1Request): Promise<AxiosResponse<notificationsTypes.TemplateVariablesDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getOauthClientV1(requestParameters) as Promise<AxiosResponse<oauthClientsTypes.Getoauthclientresponse, any>>;
+    return this.electronAPI.getNotificationTemplateVariablesV1(requestParameters) as Promise<AxiosResponse<notificationsTypes.TemplateVariablesDto, any>>;
 }
-async getObjectMappingsV1(requestParameters: configurationHubTypes.ConfigurationHubApiGetObjectMappingsV1Request): Promise<AxiosResponse<Array<configurationHubTypes.Objectmappingresponse>, any>> {
+async getOauthClientV1(requestParameters: oauthClientsTypes.OAuthClientsApiGetOauthClientV1Request): Promise<AxiosResponse<oauthClientsTypes.GetOAuthClientResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getObjectMappingsV1(requestParameters) as Promise<AxiosResponse<Array<configurationHubTypes.Objectmappingresponse>, any>>;
+    return this.electronAPI.getOauthClientV1(requestParameters) as Promise<AxiosResponse<oauthClientsTypes.GetOAuthClientResponse, any>>;
 }
-async getOngoingRolePropagationV1(requestParameters: rolePropagationTypes.RolePropagationApiGetOngoingRolePropagationV1Request = {}): Promise<AxiosResponse<rolePropagationTypes.RolePropagationOngoingResponse, any>> {
+async getObjectMappingsV1(requestParameters: configurationHubTypes.ConfigurationHubApiGetObjectMappingsV1Request): Promise<AxiosResponse<Array<configurationHubTypes.ObjectMappingResponse>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getOngoingRolePropagationV1(requestParameters) as Promise<AxiosResponse<rolePropagationTypes.RolePropagationOngoingResponse, any>>;
+    return this.electronAPI.getObjectMappingsV1(requestParameters) as Promise<AxiosResponse<Array<configurationHubTypes.ObjectMappingResponse>, any>>;
 }
-async getOrgConfigV1(): Promise<AxiosResponse<orgConfigTypes.Orgconfig, any>> {
+async getOngoingRolePropagationV1(requestParameters: rolePropagationTypes.RolePropagationApiGetOngoingRolePropagationV1Request = {}): Promise<AxiosResponse<rolePropagationTypes.Rolepropagationongoingresponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getOrgConfigV1() as Promise<AxiosResponse<orgConfigTypes.Orgconfig, any>>;
+    return this.electronAPI.getOngoingRolePropagationV1(requestParameters) as Promise<AxiosResponse<rolePropagationTypes.Rolepropagationongoingresponse, any>>;
 }
-async getOutlierContributingFeatureSummaryV1(requestParameters: iaiOutliersTypes.IAIOutliersApiGetOutlierContributingFeatureSummaryV1Request): Promise<AxiosResponse<iaiOutliersTypes.Outlierfeaturesummary, any>> {
+async getOrgConfigV1(): Promise<AxiosResponse<orgConfigTypes.OrgConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getOutlierContributingFeatureSummaryV1(requestParameters) as Promise<AxiosResponse<iaiOutliersTypes.Outlierfeaturesummary, any>>;
+    return this.electronAPI.getOrgConfigV1() as Promise<AxiosResponse<orgConfigTypes.OrgConfig, any>>;
 }
-async getOwnersV1(requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiGetOwnersV1Request): Promise<AxiosResponse<Array<dataAccessSecurityTypes.Dataownermodel>, any>> {
+async getOutlierContributingFeatureSummaryV1(requestParameters: iaiOutliersTypes.IAIOutliersApiGetOutlierContributingFeatureSummaryV1Request): Promise<AxiosResponse<iaiOutliersTypes.OutlierFeatureSummary, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getOwnersV1(requestParameters) as Promise<AxiosResponse<Array<dataAccessSecurityTypes.Dataownermodel>, any>>;
+    return this.electronAPI.getOutlierContributingFeatureSummaryV1(requestParameters) as Promise<AxiosResponse<iaiOutliersTypes.OutlierFeatureSummary, any>>;
+}
+async getOwnershipCorrelationConfigV1(requestParameters: machineIdentitiesTypes.MachineIdentitiesApiGetOwnershipCorrelationConfigV1Request): Promise<AxiosResponse<machineIdentitiesTypes.CorrelationConfig, any>> {
+    await this.checkSessionBeforeCall();
+    return this.electronAPI.getOwnershipCorrelationConfigV1(requestParameters) as Promise<AxiosResponse<machineIdentitiesTypes.CorrelationConfig, any>>;
+}
+async getOwnersV1(requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiGetOwnersV1Request): Promise<AxiosResponse<Array<dataAccessSecurityTypes.DataOwnerModel>, any>> {
+    await this.checkSessionBeforeCall();
+    return this.electronAPI.getOwnersV1(requestParameters) as Promise<AxiosResponse<Array<dataAccessSecurityTypes.DataOwnerModel>, any>>;
 }
 async getPageContentByIdNerm(requestParameters: sdk.PageContentsNERMApiGetPageContentByIdRequest): Promise<AxiosResponse<sdk.GetPageContents200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -2191,81 +2211,81 @@ async getPageElementsNerm(): Promise<AxiosResponse<sdk.GetPageElements200Respons
     await this.checkSessionBeforeCall();
     return this.electronAPI.getPageElementsNerm() as Promise<AxiosResponse<sdk.GetPageElements200ResponseNERM, any>>;
 }
-async getParameterReferencesV1(requestParameters: parameterStorageTypes.ParameterStorageApiGetParameterReferencesV1Request): Promise<AxiosResponse<Array<parameterStorageTypes.Parameterstoragereference>, any>> {
+async getParameterReferencesV1(requestParameters: parameterStorageTypes.ParameterStorageApiGetParameterReferencesV1Request): Promise<AxiosResponse<Array<parameterStorageTypes.ParameterStorageReference>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getParameterReferencesV1(requestParameters) as Promise<AxiosResponse<Array<parameterStorageTypes.Parameterstoragereference>, any>>;
+    return this.electronAPI.getParameterReferencesV1(requestParameters) as Promise<AxiosResponse<Array<parameterStorageTypes.ParameterStorageReference>, any>>;
 }
 async getParameterStorageSpecificationV1(requestParameters: parameterStorageTypes.ParameterStorageApiGetParameterStorageSpecificationV1Request = {}): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.getParameterStorageSpecificationV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-async getParameterV1(requestParameters: parameterStorageTypes.ParameterStorageApiGetParameterV1Request): Promise<AxiosResponse<parameterStorageTypes.Parameterstorageparameter, any>> {
+async getParameterV1(requestParameters: parameterStorageTypes.ParameterStorageApiGetParameterV1Request): Promise<AxiosResponse<parameterStorageTypes.ParameterStorageParameter, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getParameterV1(requestParameters) as Promise<AxiosResponse<parameterStorageTypes.Parameterstorageparameter, any>>;
+    return this.electronAPI.getParameterV1(requestParameters) as Promise<AxiosResponse<parameterStorageTypes.ParameterStorageParameter, any>>;
 }
-async getPasswordChangeStatusV1(requestParameters: passwordManagementTypes.PasswordManagementApiGetPasswordChangeStatusV1Request): Promise<AxiosResponse<passwordManagementTypes.Passwordstatus, any>> {
+async getPasswordChangeStatusV1(requestParameters: passwordManagementTypes.PasswordManagementApiGetPasswordChangeStatusV1Request): Promise<AxiosResponse<passwordManagementTypes.PasswordStatus, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getPasswordChangeStatusV1(requestParameters) as Promise<AxiosResponse<passwordManagementTypes.Passwordstatus, any>>;
+    return this.electronAPI.getPasswordChangeStatusV1(requestParameters) as Promise<AxiosResponse<passwordManagementTypes.PasswordStatus, any>>;
 }
 async getPasswordDictionaryV1(): Promise<AxiosResponse<string, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.getPasswordDictionaryV1() as Promise<AxiosResponse<string, any>>;
 }
-async getPasswordOrgConfigV1(): Promise<AxiosResponse<passwordConfigurationTypes.Passwordorgconfig, any>> {
+async getPasswordOrgConfigV1(): Promise<AxiosResponse<passwordConfigurationTypes.PasswordOrgConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getPasswordOrgConfigV1() as Promise<AxiosResponse<passwordConfigurationTypes.Passwordorgconfig, any>>;
+    return this.electronAPI.getPasswordOrgConfigV1() as Promise<AxiosResponse<passwordConfigurationTypes.PasswordOrgConfig, any>>;
 }
-async getPasswordPolicyByIdV1(requestParameters: passwordPoliciesTypes.PasswordPoliciesApiGetPasswordPolicyByIdV1Request): Promise<AxiosResponse<passwordPoliciesTypes.Passwordpolicyv3dto, any>> {
+async getPasswordPolicyByIdV1(requestParameters: passwordPoliciesTypes.PasswordPoliciesApiGetPasswordPolicyByIdV1Request): Promise<AxiosResponse<passwordPoliciesTypes.PasswordPolicyV3Dto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getPasswordPolicyByIdV1(requestParameters) as Promise<AxiosResponse<passwordPoliciesTypes.Passwordpolicyv3dto, any>>;
+    return this.electronAPI.getPasswordPolicyByIdV1(requestParameters) as Promise<AxiosResponse<passwordPoliciesTypes.PasswordPolicyV3Dto, any>>;
 }
-async getPasswordSyncGroupsV1(requestParameters: passwordSyncGroupsTypes.PasswordSyncGroupsApiGetPasswordSyncGroupsV1Request = {}): Promise<AxiosResponse<Array<passwordSyncGroupsTypes.Passwordsyncgroup>, any>> {
+async getPasswordSyncGroupsV1(requestParameters: passwordSyncGroupsTypes.PasswordSyncGroupsApiGetPasswordSyncGroupsV1Request = {}): Promise<AxiosResponse<Array<passwordSyncGroupsTypes.PasswordSyncGroup>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getPasswordSyncGroupsV1(requestParameters) as Promise<AxiosResponse<Array<passwordSyncGroupsTypes.Passwordsyncgroup>, any>>;
+    return this.electronAPI.getPasswordSyncGroupsV1(requestParameters) as Promise<AxiosResponse<Array<passwordSyncGroupsTypes.PasswordSyncGroup>, any>>;
 }
-async getPasswordSyncGroupV1(requestParameters: passwordSyncGroupsTypes.PasswordSyncGroupsApiGetPasswordSyncGroupV1Request): Promise<AxiosResponse<passwordSyncGroupsTypes.Passwordsyncgroup, any>> {
+async getPasswordSyncGroupV1(requestParameters: passwordSyncGroupsTypes.PasswordSyncGroupsApiGetPasswordSyncGroupV1Request): Promise<AxiosResponse<passwordSyncGroupsTypes.PasswordSyncGroup, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getPasswordSyncGroupV1(requestParameters) as Promise<AxiosResponse<passwordSyncGroupsTypes.Passwordsyncgroup, any>>;
+    return this.electronAPI.getPasswordSyncGroupV1(requestParameters) as Promise<AxiosResponse<passwordSyncGroupsTypes.PasswordSyncGroup, any>>;
 }
-async getPeerGroupOutliersContributingFeaturesV1(requestParameters: iaiOutliersTypes.IAIOutliersApiGetPeerGroupOutliersContributingFeaturesV1Request): Promise<AxiosResponse<Array<iaiOutliersTypes.Outliercontributingfeature>, any>> {
+async getPeerGroupOutliersContributingFeaturesV1(requestParameters: iaiOutliersTypes.IAIOutliersApiGetPeerGroupOutliersContributingFeaturesV1Request): Promise<AxiosResponse<Array<iaiOutliersTypes.OutlierContributingFeature>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getPeerGroupOutliersContributingFeaturesV1(requestParameters) as Promise<AxiosResponse<Array<iaiOutliersTypes.Outliercontributingfeature>, any>>;
+    return this.electronAPI.getPeerGroupOutliersContributingFeaturesV1(requestParameters) as Promise<AxiosResponse<Array<iaiOutliersTypes.OutlierContributingFeature>, any>>;
 }
-async getPeerGroupOutliersV1(requestParameters: iaiPeerGroupStrategiesTypes.IAIPeerGroupStrategiesApiGetPeerGroupOutliersV1Request): Promise<AxiosResponse<Array<iaiPeerGroupStrategiesTypes.Peergroupmember>, any>> {
+async getPeerGroupOutliersV1(requestParameters: iaiPeerGroupStrategiesTypes.IAIPeerGroupStrategiesApiGetPeerGroupOutliersV1Request): Promise<AxiosResponse<Array<iaiPeerGroupStrategiesTypes.PeerGroupMember>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getPeerGroupOutliersV1(requestParameters) as Promise<AxiosResponse<Array<iaiPeerGroupStrategiesTypes.Peergroupmember>, any>>;
+    return this.electronAPI.getPeerGroupOutliersV1(requestParameters) as Promise<AxiosResponse<Array<iaiPeerGroupStrategiesTypes.PeerGroupMember>, any>>;
 }
-async getPendingCertificationTasksV1(requestParameters: certificationsTypes.CertificationsApiGetPendingCertificationTasksV1Request = {}): Promise<AxiosResponse<Array<certificationsTypes.Certificationtask>, any>> {
+async getPendingCertificationTasksV1(requestParameters: certificationsTypes.CertificationsApiGetPendingCertificationTasksV1Request = {}): Promise<AxiosResponse<Array<certificationsTypes.CertificationTask>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getPendingCertificationTasksV1(requestParameters) as Promise<AxiosResponse<Array<certificationsTypes.Certificationtask>, any>>;
+    return this.electronAPI.getPendingCertificationTasksV1(requestParameters) as Promise<AxiosResponse<Array<certificationsTypes.CertificationTask>, any>>;
 }
-async getPotentialRoleApplicationsV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetPotentialRoleApplicationsV1Request): Promise<AxiosResponse<Array<iaiRoleMiningTypes.Roleminingpotentialroleapplication>, any>> {
+async getPotentialRoleApplicationsV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetPotentialRoleApplicationsV1Request): Promise<AxiosResponse<Array<iaiRoleMiningTypes.RoleMiningPotentialRoleApplication>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getPotentialRoleApplicationsV1(requestParameters) as Promise<AxiosResponse<Array<iaiRoleMiningTypes.Roleminingpotentialroleapplication>, any>>;
+    return this.electronAPI.getPotentialRoleApplicationsV1(requestParameters) as Promise<AxiosResponse<Array<iaiRoleMiningTypes.RoleMiningPotentialRoleApplication>, any>>;
 }
-async getPotentialRoleEntitlementsV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetPotentialRoleEntitlementsV1Request): Promise<AxiosResponse<Array<iaiRoleMiningTypes.Roleminingpotentialroleentitlements>, any>> {
+async getPotentialRoleEntitlementsV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetPotentialRoleEntitlementsV1Request): Promise<AxiosResponse<Array<iaiRoleMiningTypes.RoleMiningPotentialRoleEntitlements>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getPotentialRoleEntitlementsV1(requestParameters) as Promise<AxiosResponse<Array<iaiRoleMiningTypes.Roleminingpotentialroleentitlements>, any>>;
+    return this.electronAPI.getPotentialRoleEntitlementsV1(requestParameters) as Promise<AxiosResponse<Array<iaiRoleMiningTypes.RoleMiningPotentialRoleEntitlements>, any>>;
 }
-async getPotentialRoleSourceIdentityUsageV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetPotentialRoleSourceIdentityUsageV1Request): Promise<AxiosResponse<Array<iaiRoleMiningTypes.Roleminingpotentialrolesourceusage>, any>> {
+async getPotentialRoleSourceIdentityUsageV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetPotentialRoleSourceIdentityUsageV1Request): Promise<AxiosResponse<Array<iaiRoleMiningTypes.RoleMiningPotentialRoleSourceUsage>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getPotentialRoleSourceIdentityUsageV1(requestParameters) as Promise<AxiosResponse<Array<iaiRoleMiningTypes.Roleminingpotentialrolesourceusage>, any>>;
+    return this.electronAPI.getPotentialRoleSourceIdentityUsageV1(requestParameters) as Promise<AxiosResponse<Array<iaiRoleMiningTypes.RoleMiningPotentialRoleSourceUsage>, any>>;
 }
-async getPotentialRoleSummariesV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetPotentialRoleSummariesV1Request): Promise<AxiosResponse<Array<iaiRoleMiningTypes.Roleminingpotentialrolesummary>, any>> {
+async getPotentialRoleSummariesV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetPotentialRoleSummariesV1Request): Promise<AxiosResponse<Array<iaiRoleMiningTypes.RoleMiningPotentialRoleSummary>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getPotentialRoleSummariesV1(requestParameters) as Promise<AxiosResponse<Array<iaiRoleMiningTypes.Roleminingpotentialrolesummary>, any>>;
+    return this.electronAPI.getPotentialRoleSummariesV1(requestParameters) as Promise<AxiosResponse<Array<iaiRoleMiningTypes.RoleMiningPotentialRoleSummary>, any>>;
 }
-async getPotentialRoleV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetPotentialRoleV1Request): Promise<AxiosResponse<iaiRoleMiningTypes.Roleminingpotentialrole, any>> {
+async getPotentialRoleV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetPotentialRoleV1Request): Promise<AxiosResponse<iaiRoleMiningTypes.RoleMiningPotentialRole, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getPotentialRoleV1(requestParameters) as Promise<AxiosResponse<iaiRoleMiningTypes.Roleminingpotentialrole, any>>;
+    return this.electronAPI.getPotentialRoleV1(requestParameters) as Promise<AxiosResponse<iaiRoleMiningTypes.RoleMiningPotentialRole, any>>;
 }
-async getPrivilegeCriteriaConfigV1(requestParameters: privilegeCriteriaConfigurationTypes.PrivilegeCriteriaConfigurationApiGetPrivilegeCriteriaConfigV1Request): Promise<AxiosResponse<privilegeCriteriaConfigurationTypes.Privilegecriteriaconfigdto, any>> {
+async getPrivilegeCriteriaConfigV1(requestParameters: privilegeCriteriaConfigurationTypes.PrivilegeCriteriaConfigurationApiGetPrivilegeCriteriaConfigV1Request): Promise<AxiosResponse<privilegeCriteriaConfigurationTypes.PrivilegeCriteriaConfigDTO, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getPrivilegeCriteriaConfigV1(requestParameters) as Promise<AxiosResponse<privilegeCriteriaConfigurationTypes.Privilegecriteriaconfigdto, any>>;
+    return this.electronAPI.getPrivilegeCriteriaConfigV1(requestParameters) as Promise<AxiosResponse<privilegeCriteriaConfigurationTypes.PrivilegeCriteriaConfigDTO, any>>;
 }
-async getPrivilegeCriteriaV1(requestParameters: privilegeCriteriaTypes.PrivilegeCriteriaApiGetPrivilegeCriteriaV1Request): Promise<AxiosResponse<privilegeCriteriaTypes.Privilegecriteriadto, any>> {
+async getPrivilegeCriteriaV1(requestParameters: privilegeCriteriaTypes.PrivilegeCriteriaApiGetPrivilegeCriteriaV1Request): Promise<AxiosResponse<privilegeCriteriaTypes.PrivilegeCriteriaDTO, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getPrivilegeCriteriaV1(requestParameters) as Promise<AxiosResponse<privilegeCriteriaTypes.Privilegecriteriadto, any>>;
+    return this.electronAPI.getPrivilegeCriteriaV1(requestParameters) as Promise<AxiosResponse<privilegeCriteriaTypes.PrivilegeCriteriaDTO, any>>;
 }
 async getProfileAvatarNerm(requestParameters: sdk.ProfilesNERMApiGetProfileAvatarRequest): Promise<AxiosResponse<sdk.UrlNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -2275,13 +2295,13 @@ async getProfileByIdNerm(requestParameters: sdk.ProfilesNERMApiGetProfileByIdReq
     await this.checkSessionBeforeCall();
     return this.electronAPI.getProfileByIdNerm(requestParameters) as Promise<AxiosResponse<sdk.GetSingleSchemaMappedProfile200ResponseNERM, any>>;
 }
-async getProfileConfigListV1(requestParameters: authProfileTypes.AuthProfileApiGetProfileConfigListV1Request = {}): Promise<AxiosResponse<Array<authProfileTypes.Authprofilesummary>, any>> {
+async getProfileConfigListV1(requestParameters: authProfileTypes.AuthProfileApiGetProfileConfigListV1Request = {}): Promise<AxiosResponse<Array<authProfileTypes.AuthProfileSummary>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getProfileConfigListV1(requestParameters) as Promise<AxiosResponse<Array<authProfileTypes.Authprofilesummary>, any>>;
+    return this.electronAPI.getProfileConfigListV1(requestParameters) as Promise<AxiosResponse<Array<authProfileTypes.AuthProfileSummary>, any>>;
 }
-async getProfileConfigV1(requestParameters: authProfileTypes.AuthProfileApiGetProfileConfigV1Request): Promise<AxiosResponse<authProfileTypes.Authprofile, any>> {
+async getProfileConfigV1(requestParameters: authProfileTypes.AuthProfileApiGetProfileConfigV1Request): Promise<AxiosResponse<authProfileTypes.AuthProfile, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getProfileConfigV1(requestParameters) as Promise<AxiosResponse<authProfileTypes.Authprofile, any>>;
+    return this.electronAPI.getProfileConfigV1(requestParameters) as Promise<AxiosResponse<authProfileTypes.AuthProfile, any>>;
 }
 async getProfilesNerm(requestParameters: sdk.ProfilesNERMApiGetProfilesRequest = {}): Promise<AxiosResponse<sdk.GetSchemaMappedProfilesCollection200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -2307,41 +2327,41 @@ async getProfileUploadNerm(requestParameters: sdk.ProfilesNERMApiGetProfileUploa
     await this.checkSessionBeforeCall();
     return this.electronAPI.getProfileUploadNerm(requestParameters) as Promise<AxiosResponse<sdk.UrlNERM, any>>;
 }
-async getProvisioningPolicyV1(requestParameters: sourcesTypes.SourcesApiGetProvisioningPolicyV1Request): Promise<AxiosResponse<sourcesTypes.Provisioningpolicydto, any>> {
+async getProvisioningPolicyV1(requestParameters: sourcesTypes.SourcesApiGetProvisioningPolicyV1Request): Promise<AxiosResponse<sourcesTypes.ProvisioningPolicyDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getProvisioningPolicyV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Provisioningpolicydto, any>>;
+    return this.electronAPI.getProvisioningPolicyV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.ProvisioningPolicyDto, any>>;
 }
-async getProvisioningPolicyV2(requestParameters: sourcesTypes.SourcesApiGetProvisioningPolicyV2Request): Promise<AxiosResponse<sourcesTypes.Provisioningpolicydtov2, any>> {
+async getProvisioningPolicyV2(requestParameters: sourcesTypes.SourcesApiGetProvisioningPolicyV2Request): Promise<AxiosResponse<sourcesTypes.ProvisioningPolicyDtoV2, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getProvisioningPolicyV2(requestParameters) as Promise<AxiosResponse<sourcesTypes.Provisioningpolicydtov2, any>>;
+    return this.electronAPI.getProvisioningPolicyV2(requestParameters) as Promise<AxiosResponse<sourcesTypes.ProvisioningPolicyDtoV2, any>>;
 }
-async getPublicIdentitiesV1(requestParameters: publicIdentitiesTypes.PublicIdentitiesApiGetPublicIdentitiesV1Request = {}): Promise<AxiosResponse<Array<publicIdentitiesTypes.Publicidentity>, any>> {
+async getPublicIdentitiesV1(requestParameters: publicIdentitiesTypes.PublicIdentitiesApiGetPublicIdentitiesV1Request = {}): Promise<AxiosResponse<Array<publicIdentitiesTypes.PublicIdentity>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getPublicIdentitiesV1(requestParameters) as Promise<AxiosResponse<Array<publicIdentitiesTypes.Publicidentity>, any>>;
+    return this.electronAPI.getPublicIdentitiesV1(requestParameters) as Promise<AxiosResponse<Array<publicIdentitiesTypes.PublicIdentity>, any>>;
 }
-async getPublicIdentityConfigV1(): Promise<AxiosResponse<publicIdentitiesConfigTypes.Publicidentityconfig, any>> {
+async getPublicIdentityConfigV1(): Promise<AxiosResponse<publicIdentitiesConfigTypes.PublicIdentityConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getPublicIdentityConfigV1() as Promise<AxiosResponse<publicIdentitiesConfigTypes.Publicidentityconfig, any>>;
+    return this.electronAPI.getPublicIdentityConfigV1() as Promise<AxiosResponse<publicIdentitiesConfigTypes.PublicIdentityConfig, any>>;
 }
-async getReassignmentConfigTypesV1(requestParameters: workReassignmentTypes.WorkReassignmentApiGetReassignmentConfigTypesV1Request = {}): Promise<AxiosResponse<Array<workReassignmentTypes.Configtype>, any>> {
+async getReassignmentConfigTypesV1(requestParameters: workReassignmentTypes.WorkReassignmentApiGetReassignmentConfigTypesV1Request = {}): Promise<AxiosResponse<Array<workReassignmentTypes.ConfigType>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getReassignmentConfigTypesV1(requestParameters) as Promise<AxiosResponse<Array<workReassignmentTypes.Configtype>, any>>;
+    return this.electronAPI.getReassignmentConfigTypesV1(requestParameters) as Promise<AxiosResponse<Array<workReassignmentTypes.ConfigType>, any>>;
 }
-async getReassignmentConfigurationV1(requestParameters: workReassignmentTypes.WorkReassignmentApiGetReassignmentConfigurationV1Request): Promise<AxiosResponse<workReassignmentTypes.Configurationresponse, any>> {
+async getReassignmentConfigurationV1(requestParameters: workReassignmentTypes.WorkReassignmentApiGetReassignmentConfigurationV1Request): Promise<AxiosResponse<workReassignmentTypes.ConfigurationResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getReassignmentConfigurationV1(requestParameters) as Promise<AxiosResponse<workReassignmentTypes.Configurationresponse, any>>;
+    return this.electronAPI.getReassignmentConfigurationV1(requestParameters) as Promise<AxiosResponse<workReassignmentTypes.ConfigurationResponse, any>>;
 }
-async getRecommendationsConfigV1(requestParameters: iaiRecommendationsTypes.IAIRecommendationsApiGetRecommendationsConfigV1Request = {}): Promise<AxiosResponse<iaiRecommendationsTypes.Recommendationconfigdto, any>> {
+async getRecommendationsConfigV1(requestParameters: iaiRecommendationsTypes.IAIRecommendationsApiGetRecommendationsConfigV1Request = {}): Promise<AxiosResponse<iaiRecommendationsTypes.RecommendationConfigDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getRecommendationsConfigV1(requestParameters) as Promise<AxiosResponse<iaiRecommendationsTypes.Recommendationconfigdto, any>>;
+    return this.electronAPI.getRecommendationsConfigV1(requestParameters) as Promise<AxiosResponse<iaiRecommendationsTypes.RecommendationConfigDto, any>>;
 }
-async getRecommendationsV1(requestParameters: iaiRecommendationsTypes.IAIRecommendationsApiGetRecommendationsV1Request): Promise<AxiosResponse<iaiRecommendationsTypes.Recommendationresponsedto, any>> {
+async getRecommendationsV1(requestParameters: iaiRecommendationsTypes.IAIRecommendationsApiGetRecommendationsV1Request): Promise<AxiosResponse<iaiRecommendationsTypes.RecommendationResponseDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getRecommendationsV1(requestParameters) as Promise<AxiosResponse<iaiRecommendationsTypes.Recommendationresponsedto, any>>;
+    return this.electronAPI.getRecommendationsV1(requestParameters) as Promise<AxiosResponse<iaiRecommendationsTypes.RecommendationResponseDto, any>>;
 }
-async getReportResultV1(requestParameters: reportsDataExtractionTypes.ReportsDataExtractionApiGetReportResultV1Request): Promise<AxiosResponse<reportsDataExtractionTypes.Reportresults, any>> {
+async getReportResultV1(requestParameters: reportsDataExtractionTypes.ReportsDataExtractionApiGetReportResultV1Request): Promise<AxiosResponse<reportsDataExtractionTypes.ReportResults, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getReportResultV1(requestParameters) as Promise<AxiosResponse<reportsDataExtractionTypes.Reportresults, any>>;
+    return this.electronAPI.getReportResultV1(requestParameters) as Promise<AxiosResponse<reportsDataExtractionTypes.ReportResults, any>>;
 }
 async getReportV1(requestParameters: reportsDataExtractionTypes.ReportsDataExtractionApiGetReportV1Request): Promise<AxiosResponse<File, any>> {
     await this.checkSessionBeforeCall();
@@ -2363,61 +2383,61 @@ async getRiskScoresNerm(requestParameters: sdk.RiskScoresNERMApiGetRiskScoresReq
     await this.checkSessionBeforeCall();
     return this.electronAPI.getRiskScoresNerm(requestParameters) as Promise<AxiosResponse<sdk.GetRiskScores200ResponseNERM, any>>;
 }
-async getRoleAssignedIdentitiesV1(requestParameters: rolesTypes.RolesApiGetRoleAssignedIdentitiesV1Request): Promise<AxiosResponse<Array<rolesTypes.Roleidentity>, any>> {
+async getRoleAssignedIdentitiesV1(requestParameters: rolesTypes.RolesApiGetRoleAssignedIdentitiesV1Request): Promise<AxiosResponse<Array<rolesTypes.RoleIdentity>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getRoleAssignedIdentitiesV1(requestParameters) as Promise<AxiosResponse<Array<rolesTypes.Roleidentity>, any>>;
+    return this.electronAPI.getRoleAssignedIdentitiesV1(requestParameters) as Promise<AxiosResponse<Array<rolesTypes.RoleIdentity>, any>>;
 }
 async getRoleAssignmentsV1(requestParameters: identitiesTypes.IdentitiesApiGetRoleAssignmentsV1Request): Promise<AxiosResponse<Array<identitiesTypes.GetRoleAssignmentsV1200ResponseInner>, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.getRoleAssignmentsV1(requestParameters) as Promise<AxiosResponse<Array<identitiesTypes.GetRoleAssignmentsV1200ResponseInner>, any>>;
 }
-async getRoleAssignmentV1(requestParameters: identitiesTypes.IdentitiesApiGetRoleAssignmentV1Request): Promise<AxiosResponse<identitiesTypes.Roleassignmentdto, any>> {
+async getRoleAssignmentV1(requestParameters: identitiesTypes.IdentitiesApiGetRoleAssignmentV1Request): Promise<AxiosResponse<identitiesTypes.RoleAssignmentDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getRoleAssignmentV1(requestParameters) as Promise<AxiosResponse<identitiesTypes.Roleassignmentdto, any>>;
+    return this.electronAPI.getRoleAssignmentV1(requestParameters) as Promise<AxiosResponse<identitiesTypes.RoleAssignmentDto, any>>;
 }
 async getRoleEntitlementsV1(requestParameters: rolesTypes.RolesApiGetRoleEntitlementsV1Request): Promise<AxiosResponse<Array<rolesTypes.Entitlement>, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.getRoleEntitlementsV1(requestParameters) as Promise<AxiosResponse<Array<rolesTypes.Entitlement>, any>>;
 }
-async getRoleInsightsCurrentEntitlementsV1(requestParameters: roleInsightsTypes.RoleInsightsApiGetRoleInsightsCurrentEntitlementsV1Request): Promise<AxiosResponse<Array<roleInsightsTypes.Roleinsightsentitlement>, any>> {
+async getRoleInsightsCurrentEntitlementsV1(requestParameters: roleInsightsTypes.RoleInsightsApiGetRoleInsightsCurrentEntitlementsV1Request): Promise<AxiosResponse<Array<roleInsightsTypes.RoleInsightsEntitlement>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getRoleInsightsCurrentEntitlementsV1(requestParameters) as Promise<AxiosResponse<Array<roleInsightsTypes.Roleinsightsentitlement>, any>>;
+    return this.electronAPI.getRoleInsightsCurrentEntitlementsV1(requestParameters) as Promise<AxiosResponse<Array<roleInsightsTypes.RoleInsightsEntitlement>, any>>;
 }
-async getRoleInsightsEntitlementsChangesV1(requestParameters: roleInsightsTypes.RoleInsightsApiGetRoleInsightsEntitlementsChangesV1Request): Promise<AxiosResponse<Array<roleInsightsTypes.Roleinsightsentitlementchanges>, any>> {
+async getRoleInsightsEntitlementsChangesV1(requestParameters: roleInsightsTypes.RoleInsightsApiGetRoleInsightsEntitlementsChangesV1Request): Promise<AxiosResponse<Array<roleInsightsTypes.RoleInsightsEntitlementChanges>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getRoleInsightsEntitlementsChangesV1(requestParameters) as Promise<AxiosResponse<Array<roleInsightsTypes.Roleinsightsentitlementchanges>, any>>;
+    return this.electronAPI.getRoleInsightsEntitlementsChangesV1(requestParameters) as Promise<AxiosResponse<Array<roleInsightsTypes.RoleInsightsEntitlementChanges>, any>>;
 }
-async getRoleInsightsRequestsV1(requestParameters: roleInsightsTypes.RoleInsightsApiGetRoleInsightsRequestsV1Request): Promise<AxiosResponse<roleInsightsTypes.Roleinsightsresponse, any>> {
+async getRoleInsightsRequestsV1(requestParameters: roleInsightsTypes.RoleInsightsApiGetRoleInsightsRequestsV1Request): Promise<AxiosResponse<roleInsightsTypes.RoleInsightsResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getRoleInsightsRequestsV1(requestParameters) as Promise<AxiosResponse<roleInsightsTypes.Roleinsightsresponse, any>>;
+    return this.electronAPI.getRoleInsightsRequestsV1(requestParameters) as Promise<AxiosResponse<roleInsightsTypes.RoleInsightsResponse, any>>;
 }
-async getRoleInsightsSummaryV1(requestParameters: roleInsightsTypes.RoleInsightsApiGetRoleInsightsSummaryV1Request = {}): Promise<AxiosResponse<roleInsightsTypes.Roleinsightssummary, any>> {
+async getRoleInsightsSummaryV1(requestParameters: roleInsightsTypes.RoleInsightsApiGetRoleInsightsSummaryV1Request = {}): Promise<AxiosResponse<roleInsightsTypes.RoleInsightsSummary, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getRoleInsightsSummaryV1(requestParameters) as Promise<AxiosResponse<roleInsightsTypes.Roleinsightssummary, any>>;
+    return this.electronAPI.getRoleInsightsSummaryV1(requestParameters) as Promise<AxiosResponse<roleInsightsTypes.RoleInsightsSummary, any>>;
 }
-async getRoleInsightsV1(requestParameters: roleInsightsTypes.RoleInsightsApiGetRoleInsightsV1Request = {}): Promise<AxiosResponse<Array<roleInsightsTypes.Roleinsight>, any>> {
+async getRoleInsightsV1(requestParameters: roleInsightsTypes.RoleInsightsApiGetRoleInsightsV1Request = {}): Promise<AxiosResponse<Array<roleInsightsTypes.RoleInsight>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getRoleInsightsV1(requestParameters) as Promise<AxiosResponse<Array<roleInsightsTypes.Roleinsight>, any>>;
+    return this.electronAPI.getRoleInsightsV1(requestParameters) as Promise<AxiosResponse<Array<roleInsightsTypes.RoleInsight>, any>>;
 }
-async getRoleInsightV1(requestParameters: roleInsightsTypes.RoleInsightsApiGetRoleInsightV1Request): Promise<AxiosResponse<roleInsightsTypes.Roleinsight, any>> {
+async getRoleInsightV1(requestParameters: roleInsightsTypes.RoleInsightsApiGetRoleInsightV1Request): Promise<AxiosResponse<roleInsightsTypes.RoleInsight, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getRoleInsightV1(requestParameters) as Promise<AxiosResponse<roleInsightsTypes.Roleinsight, any>>;
+    return this.electronAPI.getRoleInsightV1(requestParameters) as Promise<AxiosResponse<roleInsightsTypes.RoleInsight, any>>;
 }
-async getRoleMiningPotentialRoleV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetRoleMiningPotentialRoleV1Request): Promise<AxiosResponse<iaiRoleMiningTypes.Roleminingpotentialrole, any>> {
+async getRoleMiningPotentialRoleV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetRoleMiningPotentialRoleV1Request): Promise<AxiosResponse<iaiRoleMiningTypes.RoleMiningPotentialRole, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getRoleMiningPotentialRoleV1(requestParameters) as Promise<AxiosResponse<iaiRoleMiningTypes.Roleminingpotentialrole, any>>;
+    return this.electronAPI.getRoleMiningPotentialRoleV1(requestParameters) as Promise<AxiosResponse<iaiRoleMiningTypes.RoleMiningPotentialRole, any>>;
 }
-async getRoleMiningSessionStatusV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetRoleMiningSessionStatusV1Request): Promise<AxiosResponse<iaiRoleMiningTypes.Roleminingsessionstatus, any>> {
+async getRoleMiningSessionStatusV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetRoleMiningSessionStatusV1Request): Promise<AxiosResponse<iaiRoleMiningTypes.RoleMiningSessionStatus, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getRoleMiningSessionStatusV1(requestParameters) as Promise<AxiosResponse<iaiRoleMiningTypes.Roleminingsessionstatus, any>>;
+    return this.electronAPI.getRoleMiningSessionStatusV1(requestParameters) as Promise<AxiosResponse<iaiRoleMiningTypes.RoleMiningSessionStatus, any>>;
 }
-async getRoleMiningSessionsV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetRoleMiningSessionsV1Request = {}): Promise<AxiosResponse<Array<iaiRoleMiningTypes.Roleminingsessiondto>, any>> {
+async getRoleMiningSessionsV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetRoleMiningSessionsV1Request = {}): Promise<AxiosResponse<Array<iaiRoleMiningTypes.RoleMiningSessionDto>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getRoleMiningSessionsV1(requestParameters) as Promise<AxiosResponse<Array<iaiRoleMiningTypes.Roleminingsessiondto>, any>>;
+    return this.electronAPI.getRoleMiningSessionsV1(requestParameters) as Promise<AxiosResponse<Array<iaiRoleMiningTypes.RoleMiningSessionDto>, any>>;
 }
-async getRoleMiningSessionV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetRoleMiningSessionV1Request): Promise<AxiosResponse<iaiRoleMiningTypes.Roleminingsessionresponse, any>> {
+async getRoleMiningSessionV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetRoleMiningSessionV1Request): Promise<AxiosResponse<iaiRoleMiningTypes.RoleMiningSessionResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getRoleMiningSessionV1(requestParameters) as Promise<AxiosResponse<iaiRoleMiningTypes.Roleminingsessionresponse, any>>;
+    return this.electronAPI.getRoleMiningSessionV1(requestParameters) as Promise<AxiosResponse<iaiRoleMiningTypes.RoleMiningSessionResponse, any>>;
 }
 async getRoleNerm(requestParameters: sdk.RolesNERMApiGetRoleRequest): Promise<AxiosResponse<sdk.SubmitRole200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -2431,13 +2451,13 @@ async getRoleProfilesNerm(requestParameters: sdk.RoleProfilesNERMApiGetRoleProfi
     await this.checkSessionBeforeCall();
     return this.electronAPI.getRoleProfilesNerm(requestParameters) as Promise<AxiosResponse<sdk.GetRoleProfiles200ResponseNERM, any>>;
 }
-async getRolePropagationConfigV1(requestParameters: rolePropagationTypes.RolePropagationApiGetRolePropagationConfigV1Request = {}): Promise<AxiosResponse<rolePropagationTypes.RolePropagationConfigResponse, any>> {
+async getRolePropagationConfigV1(requestParameters: rolePropagationTypes.RolePropagationApiGetRolePropagationConfigV1Request = {}): Promise<AxiosResponse<rolePropagationTypes.Rolepropagationconfigresponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getRolePropagationConfigV1(requestParameters) as Promise<AxiosResponse<rolePropagationTypes.RolePropagationConfigResponse, any>>;
+    return this.electronAPI.getRolePropagationConfigV1(requestParameters) as Promise<AxiosResponse<rolePropagationTypes.Rolepropagationconfigresponse, any>>;
 }
-async getRolePropagationStatusV1(requestParameters: rolePropagationTypes.RolePropagationApiGetRolePropagationStatusV1Request): Promise<AxiosResponse<rolePropagationTypes.RolePropagationStatusResponse, any>> {
+async getRolePropagationStatusV1(requestParameters: rolePropagationTypes.RolePropagationApiGetRolePropagationStatusV1Request): Promise<AxiosResponse<rolePropagationTypes.Rolepropagationstatusresponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getRolePropagationStatusV1(requestParameters) as Promise<AxiosResponse<rolePropagationTypes.RolePropagationStatusResponse, any>>;
+    return this.electronAPI.getRolePropagationStatusV1(requestParameters) as Promise<AxiosResponse<rolePropagationTypes.Rolepropagationstatusresponse, any>>;
 }
 async getRolesNerm(requestParameters: sdk.RolesNERMApiGetRolesRequest = {}): Promise<AxiosResponse<sdk.GetRoles200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -2447,121 +2467,121 @@ async getRoleV1(requestParameters: rolesTypes.RolesApiGetRoleV1Request): Promise
     await this.checkSessionBeforeCall();
     return this.electronAPI.getRoleV1(requestParameters) as Promise<AxiosResponse<rolesTypes.Role, any>>;
 }
-async getSavedPotentialRolesV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetSavedPotentialRolesV1Request = {}): Promise<AxiosResponse<Array<iaiRoleMiningTypes.Roleminingsessiondraftroledto>, any>> {
+async getSavedPotentialRolesV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetSavedPotentialRolesV1Request = {}): Promise<AxiosResponse<Array<iaiRoleMiningTypes.RoleMiningSessionDraftRoleDto>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getSavedPotentialRolesV1(requestParameters) as Promise<AxiosResponse<Array<iaiRoleMiningTypes.Roleminingsessiondraftroledto>, any>>;
+    return this.electronAPI.getSavedPotentialRolesV1(requestParameters) as Promise<AxiosResponse<Array<iaiRoleMiningTypes.RoleMiningSessionDraftRoleDto>, any>>;
 }
-async getSavedSearchV1(requestParameters: savedSearchTypes.SavedSearchApiGetSavedSearchV1Request): Promise<AxiosResponse<savedSearchTypes.Savedsearch, any>> {
+async getSavedSearchV1(requestParameters: savedSearchTypes.SavedSearchApiGetSavedSearchV1Request): Promise<AxiosResponse<savedSearchTypes.SavedSearch, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getSavedSearchV1(requestParameters) as Promise<AxiosResponse<savedSearchTypes.Savedsearch, any>>;
+    return this.electronAPI.getSavedSearchV1(requestParameters) as Promise<AxiosResponse<savedSearchTypes.SavedSearch, any>>;
 }
-async getScheduledSearchV1(requestParameters: scheduledSearchTypes.ScheduledSearchApiGetScheduledSearchV1Request): Promise<AxiosResponse<scheduledSearchTypes.Scheduledsearch, any>> {
+async getScheduledSearchV1(requestParameters: scheduledSearchTypes.ScheduledSearchApiGetScheduledSearchV1Request): Promise<AxiosResponse<scheduledSearchTypes.ScheduledSearch, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getScheduledSearchV1(requestParameters) as Promise<AxiosResponse<scheduledSearchTypes.Scheduledsearch, any>>;
+    return this.electronAPI.getScheduledSearchV1(requestParameters) as Promise<AxiosResponse<scheduledSearchTypes.ScheduledSearch, any>>;
 }
-async getSchedulesV1(requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiGetSchedulesV1Request = {}): Promise<AxiosResponse<Array<dataAccessSecurityTypes.Scheduleinfo>, any>> {
+async getSchedulesV1(requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiGetSchedulesV1Request = {}): Promise<AxiosResponse<Array<dataAccessSecurityTypes.ScheduleInfo>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getSchedulesV1(requestParameters) as Promise<AxiosResponse<Array<dataAccessSecurityTypes.Scheduleinfo>, any>>;
+    return this.electronAPI.getSchedulesV1(requestParameters) as Promise<AxiosResponse<Array<dataAccessSecurityTypes.ScheduleInfo>, any>>;
 }
-async getScheduleV1(requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiGetScheduleV1Request): Promise<AxiosResponse<dataAccessSecurityTypes.Scheduleinfo, any>> {
+async getScheduleV1(requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiGetScheduleV1Request): Promise<AxiosResponse<dataAccessSecurityTypes.ScheduleInfo, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getScheduleV1(requestParameters) as Promise<AxiosResponse<dataAccessSecurityTypes.Scheduleinfo, any>>;
+    return this.electronAPI.getScheduleV1(requestParameters) as Promise<AxiosResponse<dataAccessSecurityTypes.ScheduleInfo, any>>;
 }
 async getSchemaMappedProfilesCollectionNerm(requestParameters: sdk.IscAccountsNERMApiGetSchemaMappedProfilesCollectionRequest = {}): Promise<AxiosResponse<sdk.GetSchemaMappedProfilesCollection200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.getSchemaMappedProfilesCollectionNerm(requestParameters) as Promise<AxiosResponse<sdk.GetSchemaMappedProfilesCollection200ResponseNERM, any>>;
 }
-async getSearchAttributeConfigV1(requestParameters: searchAttributeConfigurationTypes.SearchAttributeConfigurationApiGetSearchAttributeConfigV1Request = {}): Promise<AxiosResponse<Array<searchAttributeConfigurationTypes.Searchattributeconfig>, any>> {
+async getSearchAttributeConfigV1(requestParameters: searchAttributeConfigurationTypes.SearchAttributeConfigurationApiGetSearchAttributeConfigV1Request = {}): Promise<AxiosResponse<Array<searchAttributeConfigurationTypes.SearchAttributeConfig>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getSearchAttributeConfigV1(requestParameters) as Promise<AxiosResponse<Array<searchAttributeConfigurationTypes.Searchattributeconfig>, any>>;
+    return this.electronAPI.getSearchAttributeConfigV1(requestParameters) as Promise<AxiosResponse<Array<searchAttributeConfigurationTypes.SearchAttributeConfig>, any>>;
 }
-async getSedBatchesV1(requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiGetSedBatchesV1Request = {}): Promise<AxiosResponse<Array<suggestedEntitlementDescriptionTypes.Sedbatchrecord>, any>> {
+async getSedBatchesV1(requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiGetSedBatchesV1Request = {}): Promise<AxiosResponse<Array<suggestedEntitlementDescriptionTypes.SedBatchRecord>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getSedBatchesV1(requestParameters) as Promise<AxiosResponse<Array<suggestedEntitlementDescriptionTypes.Sedbatchrecord>, any>>;
+    return this.electronAPI.getSedBatchesV1(requestParameters) as Promise<AxiosResponse<Array<suggestedEntitlementDescriptionTypes.SedBatchRecord>, any>>;
 }
-async getSedBatchStatsV1(requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiGetSedBatchStatsV1Request): Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.Sedbatchstats, any>> {
+async getSedBatchStatsV1(requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiGetSedBatchStatsV1Request): Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.SedBatchStats, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getSedBatchStatsV1(requestParameters) as Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.Sedbatchstats, any>>;
+    return this.electronAPI.getSedBatchStatsV1(requestParameters) as Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.SedBatchStats, any>>;
 }
 async getSegmentV1(requestParameters: segmentsTypes.SegmentsApiGetSegmentV1Request): Promise<AxiosResponse<segmentsTypes.Segment, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.getSegmentV1(requestParameters) as Promise<AxiosResponse<segmentsTypes.Segment, any>>;
 }
-async getServiceDeskIntegrationsV1(requestParameters: serviceDeskIntegrationTypes.ServiceDeskIntegrationApiGetServiceDeskIntegrationsV1Request = {}): Promise<AxiosResponse<Array<serviceDeskIntegrationTypes.Servicedeskintegrationdto>, any>> {
+async getServiceDeskIntegrationsV1(requestParameters: serviceDeskIntegrationTypes.ServiceDeskIntegrationApiGetServiceDeskIntegrationsV1Request = {}): Promise<AxiosResponse<Array<serviceDeskIntegrationTypes.ServiceDeskIntegrationDto>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getServiceDeskIntegrationsV1(requestParameters) as Promise<AxiosResponse<Array<serviceDeskIntegrationTypes.Servicedeskintegrationdto>, any>>;
+    return this.electronAPI.getServiceDeskIntegrationsV1(requestParameters) as Promise<AxiosResponse<Array<serviceDeskIntegrationTypes.ServiceDeskIntegrationDto>, any>>;
 }
-async getServiceDeskIntegrationTemplateV1(requestParameters: serviceDeskIntegrationTypes.ServiceDeskIntegrationApiGetServiceDeskIntegrationTemplateV1Request): Promise<AxiosResponse<serviceDeskIntegrationTypes.Servicedeskintegrationtemplatedto, any>> {
+async getServiceDeskIntegrationTemplateV1(requestParameters: serviceDeskIntegrationTypes.ServiceDeskIntegrationApiGetServiceDeskIntegrationTemplateV1Request): Promise<AxiosResponse<serviceDeskIntegrationTypes.ServiceDeskIntegrationTemplateDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getServiceDeskIntegrationTemplateV1(requestParameters) as Promise<AxiosResponse<serviceDeskIntegrationTypes.Servicedeskintegrationtemplatedto, any>>;
+    return this.electronAPI.getServiceDeskIntegrationTemplateV1(requestParameters) as Promise<AxiosResponse<serviceDeskIntegrationTypes.ServiceDeskIntegrationTemplateDto, any>>;
 }
-async getServiceDeskIntegrationTypesV1(): Promise<AxiosResponse<Array<serviceDeskIntegrationTypes.Servicedeskintegrationtemplatetype>, any>> {
+async getServiceDeskIntegrationTypesV1(): Promise<AxiosResponse<Array<serviceDeskIntegrationTypes.ServiceDeskIntegrationTemplateType>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getServiceDeskIntegrationTypesV1() as Promise<AxiosResponse<Array<serviceDeskIntegrationTypes.Servicedeskintegrationtemplatetype>, any>>;
+    return this.electronAPI.getServiceDeskIntegrationTypesV1() as Promise<AxiosResponse<Array<serviceDeskIntegrationTypes.ServiceDeskIntegrationTemplateType>, any>>;
 }
-async getServiceDeskIntegrationV1(requestParameters: serviceDeskIntegrationTypes.ServiceDeskIntegrationApiGetServiceDeskIntegrationV1Request): Promise<AxiosResponse<serviceDeskIntegrationTypes.Servicedeskintegrationdto, any>> {
+async getServiceDeskIntegrationV1(requestParameters: serviceDeskIntegrationTypes.ServiceDeskIntegrationApiGetServiceDeskIntegrationV1Request): Promise<AxiosResponse<serviceDeskIntegrationTypes.ServiceDeskIntegrationDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getServiceDeskIntegrationV1(requestParameters) as Promise<AxiosResponse<serviceDeskIntegrationTypes.Servicedeskintegrationdto, any>>;
+    return this.electronAPI.getServiceDeskIntegrationV1(requestParameters) as Promise<AxiosResponse<serviceDeskIntegrationTypes.ServiceDeskIntegrationDto, any>>;
 }
-async getSIMIntegrationsV1(requestParameters: simIntegrationsTypes.SIMIntegrationsApiGetSIMIntegrationsV1Request = {}): Promise<AxiosResponse<Array<simIntegrationsTypes.Servicedeskintegrationdto>, any>> {
+async getSIMIntegrationsV1(requestParameters: simIntegrationsTypes.SIMIntegrationsApiGetSIMIntegrationsV1Request = {}): Promise<AxiosResponse<Array<simIntegrationsTypes.ServiceDeskIntegrationDto>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getSIMIntegrationsV1(requestParameters) as Promise<AxiosResponse<Array<simIntegrationsTypes.Servicedeskintegrationdto>, any>>;
+    return this.electronAPI.getSIMIntegrationsV1(requestParameters) as Promise<AxiosResponse<Array<simIntegrationsTypes.ServiceDeskIntegrationDto>, any>>;
 }
-async getSIMIntegrationV1(requestParameters: simIntegrationsTypes.SIMIntegrationsApiGetSIMIntegrationV1Request): Promise<AxiosResponse<simIntegrationsTypes.Servicedeskintegrationdto, any>> {
+async getSIMIntegrationV1(requestParameters: simIntegrationsTypes.SIMIntegrationsApiGetSIMIntegrationV1Request): Promise<AxiosResponse<simIntegrationsTypes.ServiceDeskIntegrationDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getSIMIntegrationV1(requestParameters) as Promise<AxiosResponse<simIntegrationsTypes.Servicedeskintegrationdto, any>>;
+    return this.electronAPI.getSIMIntegrationV1(requestParameters) as Promise<AxiosResponse<simIntegrationsTypes.ServiceDeskIntegrationDto, any>>;
 }
 async getSingleSchemaMappedProfileNerm(requestParameters: sdk.IscAccountsNERMApiGetSingleSchemaMappedProfileRequest): Promise<AxiosResponse<sdk.GetSingleSchemaMappedProfile200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.getSingleSchemaMappedProfileNerm(requestParameters) as Promise<AxiosResponse<sdk.GetSingleSchemaMappedProfile200ResponseNERM, any>>;
 }
-async getSingleSearchAttributeConfigV1(requestParameters: searchAttributeConfigurationTypes.SearchAttributeConfigurationApiGetSingleSearchAttributeConfigV1Request): Promise<AxiosResponse<searchAttributeConfigurationTypes.Searchattributeconfig, any>> {
+async getSingleSearchAttributeConfigV1(requestParameters: searchAttributeConfigurationTypes.SearchAttributeConfigurationApiGetSingleSearchAttributeConfigV1Request): Promise<AxiosResponse<searchAttributeConfigurationTypes.SearchAttributeConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getSingleSearchAttributeConfigV1(requestParameters) as Promise<AxiosResponse<searchAttributeConfigurationTypes.Searchattributeconfig, any>>;
+    return this.electronAPI.getSingleSearchAttributeConfigV1(requestParameters) as Promise<AxiosResponse<searchAttributeConfigurationTypes.SearchAttributeConfig, any>>;
 }
-async getSodAllReportRunStatusV1(): Promise<AxiosResponse<sodPoliciesTypes.Reportresultreference, any>> {
+async getSodAllReportRunStatusV1(): Promise<AxiosResponse<sodPoliciesTypes.ReportResultReference, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getSodAllReportRunStatusV1() as Promise<AxiosResponse<sodPoliciesTypes.Reportresultreference, any>>;
+    return this.electronAPI.getSodAllReportRunStatusV1() as Promise<AxiosResponse<sodPoliciesTypes.ReportResultReference, any>>;
 }
-async getSodPolicyScheduleV1(requestParameters: sodPoliciesTypes.SODPoliciesApiGetSodPolicyScheduleV1Request): Promise<AxiosResponse<sodPoliciesTypes.Sodpolicyschedule, any>> {
+async getSodPolicyScheduleV1(requestParameters: sodPoliciesTypes.SODPoliciesApiGetSodPolicyScheduleV1Request): Promise<AxiosResponse<sodPoliciesTypes.SodPolicySchedule, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getSodPolicyScheduleV1(requestParameters) as Promise<AxiosResponse<sodPoliciesTypes.Sodpolicyschedule, any>>;
+    return this.electronAPI.getSodPolicyScheduleV1(requestParameters) as Promise<AxiosResponse<sodPoliciesTypes.SodPolicySchedule, any>>;
 }
-async getSodPolicyV1(requestParameters: sodPoliciesTypes.SODPoliciesApiGetSodPolicyV1Request): Promise<AxiosResponse<sodPoliciesTypes.Sodpolicy, any>> {
+async getSodPolicyV1(requestParameters: sodPoliciesTypes.SODPoliciesApiGetSodPolicyV1Request): Promise<AxiosResponse<sodPoliciesTypes.SodPolicy, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getSodPolicyV1(requestParameters) as Promise<AxiosResponse<sodPoliciesTypes.Sodpolicy, any>>;
+    return this.electronAPI.getSodPolicyV1(requestParameters) as Promise<AxiosResponse<sodPoliciesTypes.SodPolicy, any>>;
 }
-async getSodViolationReportRunStatusV1(requestParameters: sodPoliciesTypes.SODPoliciesApiGetSodViolationReportRunStatusV1Request): Promise<AxiosResponse<sodPoliciesTypes.Reportresultreference, any>> {
+async getSodViolationReportRunStatusV1(requestParameters: sodPoliciesTypes.SODPoliciesApiGetSodViolationReportRunStatusV1Request): Promise<AxiosResponse<sodPoliciesTypes.ReportResultReference, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getSodViolationReportRunStatusV1(requestParameters) as Promise<AxiosResponse<sodPoliciesTypes.Reportresultreference, any>>;
+    return this.electronAPI.getSodViolationReportRunStatusV1(requestParameters) as Promise<AxiosResponse<sodPoliciesTypes.ReportResultReference, any>>;
 }
-async getSodViolationReportStatusV1(requestParameters: sodPoliciesTypes.SODPoliciesApiGetSodViolationReportStatusV1Request): Promise<AxiosResponse<sodPoliciesTypes.Reportresultreference, any>> {
+async getSodViolationReportStatusV1(requestParameters: sodPoliciesTypes.SODPoliciesApiGetSodViolationReportStatusV1Request): Promise<AxiosResponse<sodPoliciesTypes.ReportResultReference, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getSodViolationReportStatusV1(requestParameters) as Promise<AxiosResponse<sodPoliciesTypes.Reportresultreference, any>>;
+    return this.electronAPI.getSodViolationReportStatusV1(requestParameters) as Promise<AxiosResponse<sodPoliciesTypes.ReportResultReference, any>>;
 }
-async getSourceAppV1(requestParameters: appsTypes.AppsApiGetSourceAppV1Request): Promise<AxiosResponse<appsTypes.Sourceapp, any>> {
+async getSourceAppV1(requestParameters: appsTypes.AppsApiGetSourceAppV1Request): Promise<AxiosResponse<appsTypes.SourceApp, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getSourceAppV1(requestParameters) as Promise<AxiosResponse<appsTypes.Sourceapp, any>>;
+    return this.electronAPI.getSourceAppV1(requestParameters) as Promise<AxiosResponse<appsTypes.SourceApp, any>>;
 }
-async getSourceAttrSyncConfigV1(requestParameters: sourcesTypes.SourcesApiGetSourceAttrSyncConfigV1Request): Promise<AxiosResponse<sourcesTypes.Attrsyncsourceconfig, any>> {
+async getSourceAttrSyncConfigV1(requestParameters: sourcesTypes.SourcesApiGetSourceAttrSyncConfigV1Request): Promise<AxiosResponse<sourcesTypes.AttrSyncSourceConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getSourceAttrSyncConfigV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Attrsyncsourceconfig, any>>;
+    return this.electronAPI.getSourceAttrSyncConfigV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.AttrSyncSourceConfig, any>>;
 }
-async getSourceConfigV1(requestParameters: sourcesTypes.SourcesApiGetSourceConfigV1Request): Promise<AxiosResponse<sourcesTypes.Connectordetail, any>> {
+async getSourceConfigV1(requestParameters: sourcesTypes.SourcesApiGetSourceConfigV1Request): Promise<AxiosResponse<sourcesTypes.ConnectorDetail, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getSourceConfigV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Connectordetail, any>>;
+    return this.electronAPI.getSourceConfigV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.ConnectorDetail, any>>;
 }
-async getSourceConnectionsV1(requestParameters: sourcesTypes.SourcesApiGetSourceConnectionsV1Request): Promise<AxiosResponse<sourcesTypes.Sourceconnectionsdto, any>> {
+async getSourceConnectionsV1(requestParameters: sourcesTypes.SourcesApiGetSourceConnectionsV1Request): Promise<AxiosResponse<sourcesTypes.SourceConnectionsDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getSourceConnectionsV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Sourceconnectionsdto, any>>;
+    return this.electronAPI.getSourceConnectionsV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.SourceConnectionsDto, any>>;
 }
-async getSourceEntitlementRequestConfigV1(requestParameters: sourcesTypes.SourcesApiGetSourceEntitlementRequestConfigV1Request): Promise<AxiosResponse<sourcesTypes.Sourceentitlementrequestconfig, any>> {
+async getSourceEntitlementRequestConfigV1(requestParameters: sourcesTypes.SourcesApiGetSourceEntitlementRequestConfigV1Request): Promise<AxiosResponse<sourcesTypes.SourceEntitlementRequestConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getSourceEntitlementRequestConfigV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Sourceentitlementrequestconfig, any>>;
+    return this.electronAPI.getSourceEntitlementRequestConfigV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.SourceEntitlementRequestConfig, any>>;
 }
-async getSourceHealthV1(requestParameters: sourcesTypes.SourcesApiGetSourceHealthV1Request): Promise<AxiosResponse<sourcesTypes.Sourcehealthdto, any>> {
+async getSourceHealthV1(requestParameters: sourcesTypes.SourcesApiGetSourceHealthV1Request): Promise<AxiosResponse<sourcesTypes.SourceHealthDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getSourceHealthV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Sourcehealthdto, any>>;
+    return this.electronAPI.getSourceHealthV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.SourceHealthDto, any>>;
 }
 async getSourceSchedulesV1(requestParameters: sourcesTypes.SourcesApiGetSourceSchedulesV1Request): Promise<AxiosResponse<Array<sourcesTypes.Schedule3>, any>> {
     await this.checkSessionBeforeCall();
@@ -2579,49 +2599,49 @@ async getSourceSchemaV1(requestParameters: sourcesTypes.SourcesApiGetSourceSchem
     await this.checkSessionBeforeCall();
     return this.electronAPI.getSourceSchemaV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Schema, any>>;
 }
-async getSourceSubtypeByIdV1(requestParameters: machineAccountSubtypesTypes.MachineAccountSubtypesApiGetSourceSubtypeByIdV1Request): Promise<AxiosResponse<machineAccountSubtypesTypes.Sourcesubtypewithsource, any>> {
+async getSourceSubtypeByIdV1(requestParameters: machineAccountSubtypesTypes.MachineAccountSubtypesApiGetSourceSubtypeByIdV1Request): Promise<AxiosResponse<machineAccountSubtypesTypes.SourceSubtypeWithSource, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getSourceSubtypeByIdV1(requestParameters) as Promise<AxiosResponse<machineAccountSubtypesTypes.Sourcesubtypewithsource, any>>;
+    return this.electronAPI.getSourceSubtypeByIdV1(requestParameters) as Promise<AxiosResponse<machineAccountSubtypesTypes.SourceSubtypeWithSource, any>>;
 }
-async getSourcesWithinMultiHostV1(requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiGetSourcesWithinMultiHostV1Request): Promise<AxiosResponse<Array<multiHostIntegrationTypes.Multihostsources>, any>> {
+async getSourcesWithinMultiHostV1(requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiGetSourcesWithinMultiHostV1Request): Promise<AxiosResponse<Array<multiHostIntegrationTypes.MultiHostSources>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getSourcesWithinMultiHostV1(requestParameters) as Promise<AxiosResponse<Array<multiHostIntegrationTypes.Multihostsources>, any>>;
+    return this.electronAPI.getSourcesWithinMultiHostV1(requestParameters) as Promise<AxiosResponse<Array<multiHostIntegrationTypes.MultiHostSources>, any>>;
 }
 async getSourceV1(requestParameters: sourcesTypes.SourcesApiGetSourceV1Request): Promise<AxiosResponse<sourcesTypes.Source, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.getSourceV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Source, any>>;
 }
-async getSpConfigExportStatusV1(requestParameters: spConfigTypes.SPConfigApiGetSpConfigExportStatusV1Request): Promise<AxiosResponse<spConfigTypes.Spconfigexportjobstatus, any>> {
+async getSpConfigExportStatusV1(requestParameters: spConfigTypes.SPConfigApiGetSpConfigExportStatusV1Request): Promise<AxiosResponse<spConfigTypes.SpConfigExportJobStatus, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getSpConfigExportStatusV1(requestParameters) as Promise<AxiosResponse<spConfigTypes.Spconfigexportjobstatus, any>>;
+    return this.electronAPI.getSpConfigExportStatusV1(requestParameters) as Promise<AxiosResponse<spConfigTypes.SpConfigExportJobStatus, any>>;
 }
-async getSpConfigExportV1(requestParameters: spConfigTypes.SPConfigApiGetSpConfigExportV1Request): Promise<AxiosResponse<spConfigTypes.Spconfigexportresults, any>> {
+async getSpConfigExportV1(requestParameters: spConfigTypes.SPConfigApiGetSpConfigExportV1Request): Promise<AxiosResponse<spConfigTypes.SpConfigExportResults, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getSpConfigExportV1(requestParameters) as Promise<AxiosResponse<spConfigTypes.Spconfigexportresults, any>>;
+    return this.electronAPI.getSpConfigExportV1(requestParameters) as Promise<AxiosResponse<spConfigTypes.SpConfigExportResults, any>>;
 }
-async getSpConfigImportStatusV1(requestParameters: spConfigTypes.SPConfigApiGetSpConfigImportStatusV1Request): Promise<AxiosResponse<spConfigTypes.Spconfigimportjobstatus, any>> {
+async getSpConfigImportStatusV1(requestParameters: spConfigTypes.SPConfigApiGetSpConfigImportStatusV1Request): Promise<AxiosResponse<spConfigTypes.SpConfigImportJobStatus, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getSpConfigImportStatusV1(requestParameters) as Promise<AxiosResponse<spConfigTypes.Spconfigimportjobstatus, any>>;
+    return this.electronAPI.getSpConfigImportStatusV1(requestParameters) as Promise<AxiosResponse<spConfigTypes.SpConfigImportJobStatus, any>>;
 }
-async getSpConfigImportV1(requestParameters: spConfigTypes.SPConfigApiGetSpConfigImportV1Request): Promise<AxiosResponse<spConfigTypes.Spconfigimportresults, any>> {
+async getSpConfigImportV1(requestParameters: spConfigTypes.SPConfigApiGetSpConfigImportV1Request): Promise<AxiosResponse<spConfigTypes.SpConfigImportResults, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getSpConfigImportV1(requestParameters) as Promise<AxiosResponse<spConfigTypes.Spconfigimportresults, any>>;
+    return this.electronAPI.getSpConfigImportV1(requestParameters) as Promise<AxiosResponse<spConfigTypes.SpConfigImportResults, any>>;
 }
-async getSSFConfigurationV1(): Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.Transmittermetadata, any>> {
+async getSSFConfigurationV1(): Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.TransmitterMetadata, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getSSFConfigurationV1() as Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.Transmittermetadata, any>>;
+    return this.electronAPI.getSSFConfigurationV1() as Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.TransmitterMetadata, any>>;
 }
-async getStatusBySourceIdV1(requestParameters: sourceUsagesTypes.SourceUsagesApiGetStatusBySourceIdV1Request): Promise<AxiosResponse<sourceUsagesTypes.Sourceusagestatus, any>> {
+async getStatusBySourceIdV1(requestParameters: sourceUsagesTypes.SourceUsagesApiGetStatusBySourceIdV1Request): Promise<AxiosResponse<sourceUsagesTypes.SourceUsageStatus, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getStatusBySourceIdV1(requestParameters) as Promise<AxiosResponse<sourceUsagesTypes.Sourceusagestatus, any>>;
+    return this.electronAPI.getStatusBySourceIdV1(requestParameters) as Promise<AxiosResponse<sourceUsagesTypes.SourceUsageStatus, any>>;
 }
-async getStatusCheckDetailsV1(): Promise<AxiosResponse<serviceDeskIntegrationTypes.Queuedcheckconfigdetails, any>> {
+async getStatusCheckDetailsV1(): Promise<AxiosResponse<serviceDeskIntegrationTypes.QueuedCheckConfigDetails, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getStatusCheckDetailsV1() as Promise<AxiosResponse<serviceDeskIntegrationTypes.Queuedcheckconfigdetails, any>>;
+    return this.electronAPI.getStatusCheckDetailsV1() as Promise<AxiosResponse<serviceDeskIntegrationTypes.QueuedCheckConfigDetails, any>>;
 }
-async getStreamStatusV1(requestParameters: sharedSignalsFrameworkSsfTypes.SharedSignalsFrameworkSSFApiGetStreamStatusV1Request): Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.Streamstatusresponse, any>> {
+async getStreamStatusV1(requestParameters: sharedSignalsFrameworkSsfTypes.SharedSignalsFrameworkSSFApiGetStreamStatusV1Request): Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.StreamStatusResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getStreamStatusV1(requestParameters) as Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.Streamstatusresponse, any>>;
+    return this.electronAPI.getStreamStatusV1(requestParameters) as Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.StreamStatusResponse, any>>;
 }
 async getStreamV1(requestParameters: sharedSignalsFrameworkSsfTypes.SharedSignalsFrameworkSSFApiGetStreamV1Request = {}): Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.GetStreamV1200Response, any>> {
     await this.checkSessionBeforeCall();
@@ -2635,37 +2655,37 @@ async getTagByIdV1(requestParameters: tagsTypes.TagsApiGetTagByIdV1Request): Pro
     await this.checkSessionBeforeCall();
     return this.electronAPI.getTagByIdV1(requestParameters) as Promise<AxiosResponse<tagsTypes.Tag2, any>>;
 }
-async getTaggedObjectV1(requestParameters: taggedObjectsTypes.TaggedObjectsApiGetTaggedObjectV1Request): Promise<AxiosResponse<taggedObjectsTypes.Taggedobject, any>> {
+async getTaggedObjectV1(requestParameters: taggedObjectsTypes.TaggedObjectsApiGetTaggedObjectV1Request): Promise<AxiosResponse<taggedObjectsTypes.TaggedObject, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getTaggedObjectV1(requestParameters) as Promise<AxiosResponse<taggedObjectsTypes.Taggedobject, any>>;
+    return this.electronAPI.getTaggedObjectV1(requestParameters) as Promise<AxiosResponse<taggedObjectsTypes.TaggedObject, any>>;
 }
-async getTaskStatusListV1(requestParameters: taskManagementTypes.TaskManagementApiGetTaskStatusListV1Request = {}): Promise<AxiosResponse<Array<taskManagementTypes.Taskstatus>, any>> {
+async getTaskStatusListV1(requestParameters: taskManagementTypes.TaskManagementApiGetTaskStatusListV1Request = {}): Promise<AxiosResponse<Array<taskManagementTypes.TaskStatus>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getTaskStatusListV1(requestParameters) as Promise<AxiosResponse<Array<taskManagementTypes.Taskstatus>, any>>;
+    return this.electronAPI.getTaskStatusListV1(requestParameters) as Promise<AxiosResponse<Array<taskManagementTypes.TaskStatus>, any>>;
 }
-async getTaskStatusV1(requestParameters: taskManagementTypes.TaskManagementApiGetTaskStatusV1Request): Promise<AxiosResponse<taskManagementTypes.Taskstatus, any>> {
+async getTaskStatusV1(requestParameters: taskManagementTypes.TaskManagementApiGetTaskStatusV1Request): Promise<AxiosResponse<taskManagementTypes.TaskStatus, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getTaskStatusV1(requestParameters) as Promise<AxiosResponse<taskManagementTypes.Taskstatus, any>>;
+    return this.electronAPI.getTaskStatusV1(requestParameters) as Promise<AxiosResponse<taskManagementTypes.TaskStatus, any>>;
 }
-async getTasksV1(requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiGetTasksV1Request = {}): Promise<AxiosResponse<Array<dataAccessSecurityTypes.Taskinfo>, any>> {
+async getTasksV1(requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiGetTasksV1Request = {}): Promise<AxiosResponse<Array<dataAccessSecurityTypes.TaskInfo>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getTasksV1(requestParameters) as Promise<AxiosResponse<Array<dataAccessSecurityTypes.Taskinfo>, any>>;
+    return this.electronAPI.getTasksV1(requestParameters) as Promise<AxiosResponse<Array<dataAccessSecurityTypes.TaskInfo>, any>>;
 }
-async getTaskV1(requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiGetTaskV1Request): Promise<AxiosResponse<dataAccessSecurityTypes.Taskinfo, any>> {
+async getTaskV1(requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiGetTaskV1Request): Promise<AxiosResponse<dataAccessSecurityTypes.TaskInfo, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getTaskV1(requestParameters) as Promise<AxiosResponse<dataAccessSecurityTypes.Taskinfo, any>>;
+    return this.electronAPI.getTaskV1(requestParameters) as Promise<AxiosResponse<dataAccessSecurityTypes.TaskInfo, any>>;
 }
-async getTenantConfigConfigurationV1(requestParameters: workReassignmentTypes.WorkReassignmentApiGetTenantConfigConfigurationV1Request = {}): Promise<AxiosResponse<workReassignmentTypes.Tenantconfigurationresponse, any>> {
+async getTenantConfigConfigurationV1(requestParameters: workReassignmentTypes.WorkReassignmentApiGetTenantConfigConfigurationV1Request = {}): Promise<AxiosResponse<workReassignmentTypes.TenantConfigurationResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getTenantConfigConfigurationV1(requestParameters) as Promise<AxiosResponse<workReassignmentTypes.Tenantconfigurationresponse, any>>;
+    return this.electronAPI.getTenantConfigConfigurationV1(requestParameters) as Promise<AxiosResponse<workReassignmentTypes.TenantConfigurationResponse, any>>;
 }
 async getTenantContextV1(): Promise<AxiosResponse<Array<tenantContextTypes.GetTenantContextV1200ResponseInner>, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.getTenantContextV1() as Promise<AxiosResponse<Array<tenantContextTypes.GetTenantContextV1200ResponseInner>, any>>;
 }
-async getTenantUiMetadataV1(requestParameters: uiMetadataTypes.UIMetadataApiGetTenantUiMetadataV1Request = {}): Promise<AxiosResponse<uiMetadataTypes.Tenantuimetadataitemresponse, any>> {
+async getTenantUiMetadataV1(requestParameters: uiMetadataTypes.UIMetadataApiGetTenantUiMetadataV1Request = {}): Promise<AxiosResponse<uiMetadataTypes.TenantUiMetadataItemResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getTenantUiMetadataV1(requestParameters) as Promise<AxiosResponse<uiMetadataTypes.Tenantuimetadataitemresponse, any>>;
+    return this.electronAPI.getTenantUiMetadataV1(requestParameters) as Promise<AxiosResponse<uiMetadataTypes.TenantUiMetadataItemResponse, any>>;
 }
 async getTenantV1(): Promise<AxiosResponse<tenantTypes.Tenant, any>> {
     await this.checkSessionBeforeCall();
@@ -2675,29 +2695,29 @@ async getTotalCountV1(requestParameters: apiUsageTypes.ApiUsageApiGetTotalCountV
     await this.checkSessionBeforeCall();
     return this.electronAPI.getTotalCountV1(requestParameters) as Promise<AxiosResponse<any, any>>;
 }
-async getTransformV1(requestParameters: transformsTypes.TransformsApiGetTransformV1Request): Promise<AxiosResponse<transformsTypes.Transformread, any>> {
+async getTransformV1(requestParameters: transformsTypes.TransformsApiGetTransformV1Request): Promise<AxiosResponse<transformsTypes.TransformRead, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getTransformV1(requestParameters) as Promise<AxiosResponse<transformsTypes.Transformread, any>>;
+    return this.electronAPI.getTransformV1(requestParameters) as Promise<AxiosResponse<transformsTypes.TransformRead, any>>;
 }
-async getUploadedConfigurationV1(requestParameters: configurationHubTypes.ConfigurationHubApiGetUploadedConfigurationV1Request): Promise<AxiosResponse<configurationHubTypes.Backupresponse, any>> {
+async getUploadedConfigurationV1(requestParameters: configurationHubTypes.ConfigurationHubApiGetUploadedConfigurationV1Request): Promise<AxiosResponse<configurationHubTypes.BackupResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getUploadedConfigurationV1(requestParameters) as Promise<AxiosResponse<configurationHubTypes.Backupresponse, any>>;
+    return this.electronAPI.getUploadedConfigurationV1(requestParameters) as Promise<AxiosResponse<configurationHubTypes.BackupResponse, any>>;
 }
-async getUsagesByAccountIdV1(requestParameters: accountUsagesTypes.AccountUsagesApiGetUsagesByAccountIdV1Request): Promise<AxiosResponse<Array<accountUsagesTypes.Accountusage>, any>> {
+async getUsagesByAccountIdV1(requestParameters: accountUsagesTypes.AccountUsagesApiGetUsagesByAccountIdV1Request): Promise<AxiosResponse<Array<accountUsagesTypes.AccountUsage>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getUsagesByAccountIdV1(requestParameters) as Promise<AxiosResponse<Array<accountUsagesTypes.Accountusage>, any>>;
+    return this.electronAPI.getUsagesByAccountIdV1(requestParameters) as Promise<AxiosResponse<Array<accountUsagesTypes.AccountUsage>, any>>;
 }
-async getUsagesBySourceIdV1(requestParameters: sourceUsagesTypes.SourceUsagesApiGetUsagesBySourceIdV1Request): Promise<AxiosResponse<Array<sourceUsagesTypes.Sourceusage>, any>> {
+async getUsagesBySourceIdV1(requestParameters: sourceUsagesTypes.SourceUsagesApiGetUsagesBySourceIdV1Request): Promise<AxiosResponse<Array<sourceUsagesTypes.SourceUsage>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getUsagesBySourceIdV1(requestParameters) as Promise<AxiosResponse<Array<sourceUsagesTypes.Sourceusage>, any>>;
+    return this.electronAPI.getUsagesBySourceIdV1(requestParameters) as Promise<AxiosResponse<Array<sourceUsagesTypes.SourceUsage>, any>>;
 }
 async getUserAvatarNerm(requestParameters: sdk.UsersNERMApiGetUserAvatarRequest): Promise<AxiosResponse<sdk.UrlNERM, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.getUserAvatarNerm(requestParameters) as Promise<AxiosResponse<sdk.UrlNERM, any>>;
 }
-async getUserLevelV1(requestParameters: customUserLevelsTypes.CustomUserLevelsApiGetUserLevelV1Request): Promise<AxiosResponse<customUserLevelsTypes.Userlevelsummarydto, any>> {
+async getUserLevelV1(requestParameters: customUserLevelsTypes.CustomUserLevelsApiGetUserLevelV1Request): Promise<AxiosResponse<customUserLevelsTypes.UserLevelSummaryDTO, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getUserLevelV1(requestParameters) as Promise<AxiosResponse<customUserLevelsTypes.Userlevelsummarydto, any>>;
+    return this.electronAPI.getUserLevelV1(requestParameters) as Promise<AxiosResponse<customUserLevelsTypes.UserLevelSummaryDTO, any>>;
 }
 async getUserManagerNerm(requestParameters: sdk.UserManagersNERMApiGetUserManagerRequest): Promise<AxiosResponse<sdk.SubmitUserManager200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -2739,21 +2759,21 @@ async getWorkflowActionsNerm(requestParameters: sdk.WorkflowActionsNERMApiGetWor
     await this.checkSessionBeforeCall();
     return this.electronAPI.getWorkflowActionsNerm(requestParameters) as Promise<AxiosResponse<sdk.GetWorkflowActions200ResponseNERM, any>>;
 }
-async getWorkflowExecutionHistoryV1(requestParameters: workflowsTypes.WorkflowsApiGetWorkflowExecutionHistoryV1Request): Promise<AxiosResponse<Array<workflowsTypes.Workflowexecutionevent>, any>> {
+async getWorkflowExecutionHistoryV1(requestParameters: workflowsTypes.WorkflowsApiGetWorkflowExecutionHistoryV1Request): Promise<AxiosResponse<Array<workflowsTypes.WorkflowExecutionEvent>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getWorkflowExecutionHistoryV1(requestParameters) as Promise<AxiosResponse<Array<workflowsTypes.Workflowexecutionevent>, any>>;
+    return this.electronAPI.getWorkflowExecutionHistoryV1(requestParameters) as Promise<AxiosResponse<Array<workflowsTypes.WorkflowExecutionEvent>, any>>;
 }
-async getWorkflowExecutionHistoryV2(requestParameters: workflowsTypes.WorkflowsApiGetWorkflowExecutionHistoryV2Request): Promise<AxiosResponse<workflowsTypes.Workflowexecutionhistory, any>> {
+async getWorkflowExecutionHistoryV2(requestParameters: workflowsTypes.WorkflowsApiGetWorkflowExecutionHistoryV2Request): Promise<AxiosResponse<workflowsTypes.WorkflowExecutionHistory, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getWorkflowExecutionHistoryV2(requestParameters) as Promise<AxiosResponse<workflowsTypes.Workflowexecutionhistory, any>>;
+    return this.electronAPI.getWorkflowExecutionHistoryV2(requestParameters) as Promise<AxiosResponse<workflowsTypes.WorkflowExecutionHistory, any>>;
 }
-async getWorkflowExecutionsV1(requestParameters: workflowsTypes.WorkflowsApiGetWorkflowExecutionsV1Request): Promise<AxiosResponse<Array<workflowsTypes.Workflowexecution>, any>> {
+async getWorkflowExecutionsV1(requestParameters: workflowsTypes.WorkflowsApiGetWorkflowExecutionsV1Request): Promise<AxiosResponse<Array<workflowsTypes.WorkflowExecution>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getWorkflowExecutionsV1(requestParameters) as Promise<AxiosResponse<Array<workflowsTypes.Workflowexecution>, any>>;
+    return this.electronAPI.getWorkflowExecutionsV1(requestParameters) as Promise<AxiosResponse<Array<workflowsTypes.WorkflowExecution>, any>>;
 }
-async getWorkflowExecutionV1(requestParameters: workflowsTypes.WorkflowsApiGetWorkflowExecutionV1Request): Promise<AxiosResponse<Array<workflowsTypes.Workflowexecution>, any>> {
+async getWorkflowExecutionV1(requestParameters: workflowsTypes.WorkflowsApiGetWorkflowExecutionV1Request): Promise<AxiosResponse<Array<workflowsTypes.WorkflowExecution>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getWorkflowExecutionV1(requestParameters) as Promise<AxiosResponse<Array<workflowsTypes.Workflowexecution>, any>>;
+    return this.electronAPI.getWorkflowExecutionV1(requestParameters) as Promise<AxiosResponse<Array<workflowsTypes.WorkflowExecution>, any>>;
 }
 async getWorkflowSessionNerm(requestParameters: sdk.WorkflowSessionsNERMApiGetWorkflowSessionRequest): Promise<AxiosResponse<sdk.SubmitWorkflowSession200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -2771,17 +2791,17 @@ async getWorkflowV1(requestParameters: workflowsTypes.WorkflowsApiGetWorkflowV1R
     await this.checkSessionBeforeCall();
     return this.electronAPI.getWorkflowV1(requestParameters) as Promise<AxiosResponse<workflowsTypes.Workflow, any>>;
 }
-async getWorkgroupV1(requestParameters: governanceGroupsTypes.GovernanceGroupsApiGetWorkgroupV1Request): Promise<AxiosResponse<governanceGroupsTypes.Workgroupdto, any>> {
+async getWorkgroupV1(requestParameters: governanceGroupsTypes.GovernanceGroupsApiGetWorkgroupV1Request): Promise<AxiosResponse<governanceGroupsTypes.WorkgroupDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getWorkgroupV1(requestParameters) as Promise<AxiosResponse<governanceGroupsTypes.Workgroupdto, any>>;
+    return this.electronAPI.getWorkgroupV1(requestParameters) as Promise<AxiosResponse<governanceGroupsTypes.WorkgroupDto, any>>;
 }
-async getWorkItemsSummaryV1(requestParameters: workItemsTypes.WorkItemsApiGetWorkItemsSummaryV1Request = {}): Promise<AxiosResponse<workItemsTypes.Workitemssummary, any>> {
+async getWorkItemsSummaryV1(requestParameters: workItemsTypes.WorkItemsApiGetWorkItemsSummaryV1Request = {}): Promise<AxiosResponse<workItemsTypes.WorkItemsSummary, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getWorkItemsSummaryV1(requestParameters) as Promise<AxiosResponse<workItemsTypes.Workitemssummary, any>>;
+    return this.electronAPI.getWorkItemsSummaryV1(requestParameters) as Promise<AxiosResponse<workItemsTypes.WorkItemsSummary, any>>;
 }
-async getWorkItemV1(requestParameters: workItemsTypes.WorkItemsApiGetWorkItemV1Request): Promise<AxiosResponse<workItemsTypes.Workitems, any>> {
+async getWorkItemV1(requestParameters: workItemsTypes.WorkItemsApiGetWorkItemV1Request): Promise<AxiosResponse<workItemsTypes.WorkItems, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.getWorkItemV1(requestParameters) as Promise<AxiosResponse<workItemsTypes.Workitems, any>>;
+    return this.electronAPI.getWorkItemV1(requestParameters) as Promise<AxiosResponse<workItemsTypes.WorkItems, any>>;
 }
 async ignoreIdentityOutliersV1(requestParameters: iaiOutliersTypes.IAIOutliersApiIgnoreIdentityOutliersV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
@@ -2791,137 +2811,137 @@ async importAccountsSchemaV1(requestParameters: sourcesTypes.SourcesApiImportAcc
     await this.checkSessionBeforeCall();
     return this.electronAPI.importAccountsSchemaV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Schema, any>>;
 }
-async importAccountsV1(requestParameters: sourcesTypes.SourcesApiImportAccountsV1Request): Promise<AxiosResponse<sourcesTypes.Loadaccountstask, any>> {
+async importAccountsV1(requestParameters: sourcesTypes.SourcesApiImportAccountsV1Request): Promise<AxiosResponse<sourcesTypes.LoadAccountsTask, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.importAccountsV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Loadaccountstask, any>>;
+    return this.electronAPI.importAccountsV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.LoadAccountsTask, any>>;
 }
 async importConnectorFileV1(requestParameters: sourcesTypes.SourcesApiImportConnectorFileV1Request): Promise<AxiosResponse<sourcesTypes.Source, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.importConnectorFileV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Source, any>>;
 }
-async importEntitlementsBySourceV1(requestParameters: entitlementsTypes.EntitlementsApiImportEntitlementsBySourceV1Request): Promise<AxiosResponse<entitlementsTypes.Loadentitlementtask, any>> {
+async importEntitlementsBySourceV1(requestParameters: entitlementsTypes.EntitlementsApiImportEntitlementsBySourceV1Request): Promise<AxiosResponse<entitlementsTypes.LoadEntitlementTask, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.importEntitlementsBySourceV1(requestParameters) as Promise<AxiosResponse<entitlementsTypes.Loadentitlementtask, any>>;
+    return this.electronAPI.importEntitlementsBySourceV1(requestParameters) as Promise<AxiosResponse<entitlementsTypes.LoadEntitlementTask, any>>;
 }
 async importEntitlementsSchemaV1(requestParameters: sourcesTypes.SourcesApiImportEntitlementsSchemaV1Request): Promise<AxiosResponse<sourcesTypes.Schema, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.importEntitlementsSchemaV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Schema, any>>;
 }
-async importEntitlementsV1(requestParameters: sourcesTypes.SourcesApiImportEntitlementsV1Request): Promise<AxiosResponse<sourcesTypes.Loadentitlementtask, any>> {
+async importEntitlementsV1(requestParameters: sourcesTypes.SourcesApiImportEntitlementsV1Request): Promise<AxiosResponse<sourcesTypes.LoadEntitlementTask, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.importEntitlementsV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Loadentitlementtask, any>>;
+    return this.electronAPI.importEntitlementsV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.LoadEntitlementTask, any>>;
 }
 async importFormDefinitionsV1(requestParameters: customFormsTypes.CustomFormsApiImportFormDefinitionsV1Request = {}): Promise<AxiosResponse<customFormsTypes.ImportFormDefinitionsV1202Response, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.importFormDefinitionsV1(requestParameters) as Promise<AxiosResponse<customFormsTypes.ImportFormDefinitionsV1202Response, any>>;
 }
-async importIdentityProfilesV1(requestParameters: identityProfilesTypes.IdentityProfilesApiImportIdentityProfilesV1Request): Promise<AxiosResponse<identityProfilesTypes.Objectimportresult, any>> {
+async importIdentityProfilesV1(requestParameters: identityProfilesTypes.IdentityProfilesApiImportIdentityProfilesV1Request): Promise<AxiosResponse<identityProfilesTypes.ObjectImportResult, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.importIdentityProfilesV1(requestParameters) as Promise<AxiosResponse<identityProfilesTypes.Objectimportresult, any>>;
+    return this.electronAPI.importIdentityProfilesV1(requestParameters) as Promise<AxiosResponse<identityProfilesTypes.ObjectImportResult, any>>;
 }
-async importNonEmployeeRecordsInBulkV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiImportNonEmployeeRecordsInBulkV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeebulkuploadjob, any>> {
+async importNonEmployeeRecordsInBulkV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiImportNonEmployeeRecordsInBulkV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeBulkUploadJob, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.importNonEmployeeRecordsInBulkV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeebulkuploadjob, any>>;
+    return this.electronAPI.importNonEmployeeRecordsInBulkV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeBulkUploadJob, any>>;
 }
-async importSpConfigV1(requestParameters: spConfigTypes.SPConfigApiImportSpConfigV1Request): Promise<AxiosResponse<spConfigTypes.Spconfigjob, any>> {
+async importSpConfigV1(requestParameters: spConfigTypes.SPConfigApiImportSpConfigV1Request): Promise<AxiosResponse<spConfigTypes.SpConfigJob, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.importSpConfigV1(requestParameters) as Promise<AxiosResponse<spConfigTypes.Spconfigjob, any>>;
+    return this.electronAPI.importSpConfigV1(requestParameters) as Promise<AxiosResponse<spConfigTypes.SpConfigJob, any>>;
 }
-async importUncorrelatedAccountsV1(requestParameters: sourcesTypes.SourcesApiImportUncorrelatedAccountsV1Request): Promise<AxiosResponse<sourcesTypes.Loaduncorrelatedaccountstask, any>> {
+async importUncorrelatedAccountsV1(requestParameters: sourcesTypes.SourcesApiImportUncorrelatedAccountsV1Request): Promise<AxiosResponse<sourcesTypes.LoadUncorrelatedAccountsTask, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.importUncorrelatedAccountsV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Loaduncorrelatedaccountstask, any>>;
+    return this.electronAPI.importUncorrelatedAccountsV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.LoadUncorrelatedAccountsTask, any>>;
 }
-async listAccessModelMetadataAttributeV1(requestParameters: accessModelMetadataTypes.AccessModelMetadataApiListAccessModelMetadataAttributeV1Request = {}): Promise<AxiosResponse<Array<accessModelMetadataTypes.Attributedto>, any>> {
+async listAccessModelMetadataAttributeV1(requestParameters: accessModelMetadataTypes.AccessModelMetadataApiListAccessModelMetadataAttributeV1Request = {}): Promise<AxiosResponse<Array<accessModelMetadataTypes.AttributeDTO>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listAccessModelMetadataAttributeV1(requestParameters) as Promise<AxiosResponse<Array<accessModelMetadataTypes.Attributedto>, any>>;
+    return this.electronAPI.listAccessModelMetadataAttributeV1(requestParameters) as Promise<AxiosResponse<Array<accessModelMetadataTypes.AttributeDTO>, any>>;
 }
-async listAccessModelMetadataAttributeValueV1(requestParameters: accessModelMetadataTypes.AccessModelMetadataApiListAccessModelMetadataAttributeValueV1Request): Promise<AxiosResponse<Array<accessModelMetadataTypes.Attributevaluedto>, any>> {
+async listAccessModelMetadataAttributeValueV1(requestParameters: accessModelMetadataTypes.AccessModelMetadataApiListAccessModelMetadataAttributeValueV1Request): Promise<AxiosResponse<Array<accessModelMetadataTypes.AttributeValueDTO>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listAccessModelMetadataAttributeValueV1(requestParameters) as Promise<AxiosResponse<Array<accessModelMetadataTypes.Attributevaluedto>, any>>;
+    return this.electronAPI.listAccessModelMetadataAttributeValueV1(requestParameters) as Promise<AxiosResponse<Array<accessModelMetadataTypes.AttributeValueDTO>, any>>;
 }
-async listAccessProfilesForSourceAppV1(requestParameters: appsTypes.AppsApiListAccessProfilesForSourceAppV1Request): Promise<AxiosResponse<Array<appsTypes.Accessprofiledetails>, any>> {
+async listAccessProfilesForSourceAppV1(requestParameters: appsTypes.AppsApiListAccessProfilesForSourceAppV1Request): Promise<AxiosResponse<Array<appsTypes.AccessProfileDetails>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listAccessProfilesForSourceAppV1(requestParameters) as Promise<AxiosResponse<Array<appsTypes.Accessprofiledetails>, any>>;
+    return this.electronAPI.listAccessProfilesForSourceAppV1(requestParameters) as Promise<AxiosResponse<Array<appsTypes.AccessProfileDetails>, any>>;
 }
-async listAccessProfilesV1(requestParameters: accessProfilesTypes.AccessProfilesApiListAccessProfilesV1Request = {}): Promise<AxiosResponse<Array<accessProfilesTypes.Accessprofile>, any>> {
+async listAccessProfilesV1(requestParameters: accessProfilesTypes.AccessProfilesApiListAccessProfilesV1Request = {}): Promise<AxiosResponse<Array<accessProfilesTypes.AccessProfile>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listAccessProfilesV1(requestParameters) as Promise<AxiosResponse<Array<accessProfilesTypes.Accessprofile>, any>>;
+    return this.electronAPI.listAccessProfilesV1(requestParameters) as Promise<AxiosResponse<Array<accessProfilesTypes.AccessProfile>, any>>;
 }
-async listAccessRequestApproversV1(requestParameters: accessRequestApprovalsTypes.AccessRequestApprovalsApiListAccessRequestApproversV1Request): Promise<AxiosResponse<Array<accessRequestApprovalsTypes.Accessrequestapproverslistresponse>, any>> {
+async listAccessRequestApproversV1(requestParameters: accessRequestApprovalsTypes.AccessRequestApprovalsApiListAccessRequestApproversV1Request): Promise<AxiosResponse<Array<accessRequestApprovalsTypes.AccessRequestApproversListResponse>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listAccessRequestApproversV1(requestParameters) as Promise<AxiosResponse<Array<accessRequestApprovalsTypes.Accessrequestapproverslistresponse>, any>>;
+    return this.electronAPI.listAccessRequestApproversV1(requestParameters) as Promise<AxiosResponse<Array<accessRequestApprovalsTypes.AccessRequestApproversListResponse>, any>>;
 }
-async listAccessRequestStatusV1(requestParameters: accessRequestsTypes.AccessRequestsApiListAccessRequestStatusV1Request = {}): Promise<AxiosResponse<Array<accessRequestsTypes.Requesteditemstatus>, any>> {
+async listAccessRequestStatusV1(requestParameters: accessRequestsTypes.AccessRequestsApiListAccessRequestStatusV1Request = {}): Promise<AxiosResponse<Array<accessRequestsTypes.RequestedItemStatus>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listAccessRequestStatusV1(requestParameters) as Promise<AxiosResponse<Array<accessRequestsTypes.Requesteditemstatus>, any>>;
+    return this.electronAPI.listAccessRequestStatusV1(requestParameters) as Promise<AxiosResponse<Array<accessRequestsTypes.RequestedItemStatus>, any>>;
 }
-async listAccountActivitiesV1(requestParameters: accountActivitiesTypes.AccountActivitiesApiListAccountActivitiesV1Request = {}): Promise<AxiosResponse<Array<accountActivitiesTypes.Accountactivity>, any>> {
+async listAccountActivitiesV1(requestParameters: accountActivitiesTypes.AccountActivitiesApiListAccountActivitiesV1Request = {}): Promise<AxiosResponse<Array<accountActivitiesTypes.AccountActivity>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listAccountActivitiesV1(requestParameters) as Promise<AxiosResponse<Array<accountActivitiesTypes.Accountactivity>, any>>;
+    return this.electronAPI.listAccountActivitiesV1(requestParameters) as Promise<AxiosResponse<Array<accountActivitiesTypes.AccountActivity>, any>>;
 }
 async listAccountsV1(requestParameters: accountsTypes.AccountsApiListAccountsV1Request = {}): Promise<AxiosResponse<Array<accountsTypes.Account>, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.listAccountsV1(requestParameters) as Promise<AxiosResponse<Array<accountsTypes.Account>, any>>;
 }
-async listAdministratorsAccessRequestStatusV1(requestParameters: accessRequestsTypes.AccessRequestsApiListAdministratorsAccessRequestStatusV1Request): Promise<AxiosResponse<Array<accessRequestsTypes.Accessrequestadminitemstatus>, any>> {
+async listAdministratorsAccessRequestStatusV1(requestParameters: accessRequestsTypes.AccessRequestsApiListAdministratorsAccessRequestStatusV1Request): Promise<AxiosResponse<Array<accessRequestsTypes.AccessRequestAdminItemStatus>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listAdministratorsAccessRequestStatusV1(requestParameters) as Promise<AxiosResponse<Array<accessRequestsTypes.Accessrequestadminitemstatus>, any>>;
+    return this.electronAPI.listAdministratorsAccessRequestStatusV1(requestParameters) as Promise<AxiosResponse<Array<accessRequestsTypes.AccessRequestAdminItemStatus>, any>>;
 }
-async listAllAuthorizationRightSetsV1(requestParameters: customUserLevelsTypes.CustomUserLevelsApiListAllAuthorizationRightSetsV1Request = {}): Promise<AxiosResponse<Array<customUserLevelsTypes.Hierarchicalrightset>, any>> {
+async listAllAuthorizationRightSetsV1(requestParameters: customUserLevelsTypes.CustomUserLevelsApiListAllAuthorizationRightSetsV1Request = {}): Promise<AxiosResponse<Array<customUserLevelsTypes.HierarchicalRightSet>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listAllAuthorizationRightSetsV1(requestParameters) as Promise<AxiosResponse<Array<customUserLevelsTypes.Hierarchicalrightset>, any>>;
+    return this.electronAPI.listAllAuthorizationRightSetsV1(requestParameters) as Promise<AxiosResponse<Array<customUserLevelsTypes.HierarchicalRightSet>, any>>;
 }
-async listAllSourceAppV1(requestParameters: appsTypes.AppsApiListAllSourceAppV1Request = {}): Promise<AxiosResponse<Array<appsTypes.Sourceapp>, any>> {
+async listAllSourceAppV1(requestParameters: appsTypes.AppsApiListAllSourceAppV1Request = {}): Promise<AxiosResponse<Array<appsTypes.SourceApp>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listAllSourceAppV1(requestParameters) as Promise<AxiosResponse<Array<appsTypes.Sourceapp>, any>>;
+    return this.electronAPI.listAllSourceAppV1(requestParameters) as Promise<AxiosResponse<Array<appsTypes.SourceApp>, any>>;
 }
-async listAllUserAppsV1(requestParameters: appsTypes.AppsApiListAllUserAppsV1Request): Promise<AxiosResponse<Array<appsTypes.Userapp>, any>> {
+async listAllUserAppsV1(requestParameters: appsTypes.AppsApiListAllUserAppsV1Request): Promise<AxiosResponse<Array<appsTypes.UserApp>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listAllUserAppsV1(requestParameters) as Promise<AxiosResponse<Array<appsTypes.Userapp>, any>>;
+    return this.electronAPI.listAllUserAppsV1(requestParameters) as Promise<AxiosResponse<Array<appsTypes.UserApp>, any>>;
 }
-async listApiSummaryV1(requestParameters: apiUsageTypes.ApiUsageApiListApiSummaryV1Request = {}): Promise<AxiosResponse<Array<apiUsageTypes.Summaryresponse>, any>> {
+async listApiSummaryV1(requestParameters: apiUsageTypes.ApiUsageApiListApiSummaryV1Request = {}): Promise<AxiosResponse<Array<apiUsageTypes.SummaryResponse>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listApiSummaryV1(requestParameters) as Promise<AxiosResponse<Array<apiUsageTypes.Summaryresponse>, any>>;
+    return this.electronAPI.listApiSummaryV1(requestParameters) as Promise<AxiosResponse<Array<apiUsageTypes.SummaryResponse>, any>>;
 }
-async listAssignedSourceAppV1(requestParameters: appsTypes.AppsApiListAssignedSourceAppV1Request = {}): Promise<AxiosResponse<Array<appsTypes.Sourceapp>, any>> {
+async listAssignedSourceAppV1(requestParameters: appsTypes.AppsApiListAssignedSourceAppV1Request = {}): Promise<AxiosResponse<Array<appsTypes.SourceApp>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listAssignedSourceAppV1(requestParameters) as Promise<AxiosResponse<Array<appsTypes.Sourceapp>, any>>;
+    return this.electronAPI.listAssignedSourceAppV1(requestParameters) as Promise<AxiosResponse<Array<appsTypes.SourceApp>, any>>;
 }
-async listAvailableAccountsForUserAppV1(requestParameters: appsTypes.AppsApiListAvailableAccountsForUserAppV1Request): Promise<AxiosResponse<Array<appsTypes.Appaccountdetails>, any>> {
+async listAvailableAccountsForUserAppV1(requestParameters: appsTypes.AppsApiListAvailableAccountsForUserAppV1Request): Promise<AxiosResponse<Array<appsTypes.AppAccountDetails>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listAvailableAccountsForUserAppV1(requestParameters) as Promise<AxiosResponse<Array<appsTypes.Appaccountdetails>, any>>;
+    return this.electronAPI.listAvailableAccountsForUserAppV1(requestParameters) as Promise<AxiosResponse<Array<appsTypes.AppAccountDetails>, any>>;
 }
-async listAvailableSourceAppsV1(requestParameters: appsTypes.AppsApiListAvailableSourceAppsV1Request = {}): Promise<AxiosResponse<Array<appsTypes.Sourceapp>, any>> {
+async listAvailableSourceAppsV1(requestParameters: appsTypes.AppsApiListAvailableSourceAppsV1Request = {}): Promise<AxiosResponse<Array<appsTypes.SourceApp>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listAvailableSourceAppsV1(requestParameters) as Promise<AxiosResponse<Array<appsTypes.Sourceapp>, any>>;
+    return this.electronAPI.listAvailableSourceAppsV1(requestParameters) as Promise<AxiosResponse<Array<appsTypes.SourceApp>, any>>;
 }
-async listBackupsV1(requestParameters: configurationHubTypes.ConfigurationHubApiListBackupsV1Request = {}): Promise<AxiosResponse<Array<configurationHubTypes.Backupresponse>, any>> {
+async listBackupsV1(requestParameters: configurationHubTypes.ConfigurationHubApiListBackupsV1Request = {}): Promise<AxiosResponse<Array<configurationHubTypes.BackupResponse>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listBackupsV1(requestParameters) as Promise<AxiosResponse<Array<configurationHubTypes.Backupresponse>, any>>;
+    return this.electronAPI.listBackupsV1(requestParameters) as Promise<AxiosResponse<Array<configurationHubTypes.BackupResponse>, any>>;
 }
 async listCampaignFiltersV1(requestParameters: certificationCampaignFiltersTypes.CertificationCampaignFiltersApiListCampaignFiltersV1Request = {}): Promise<AxiosResponse<certificationCampaignFiltersTypes.ListCampaignFiltersV1200Response, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.listCampaignFiltersV1(requestParameters) as Promise<AxiosResponse<certificationCampaignFiltersTypes.ListCampaignFiltersV1200Response, any>>;
 }
-async listCertificationReviewersV1(requestParameters: certificationsTypes.CertificationsApiListCertificationReviewersV1Request): Promise<AxiosResponse<Array<certificationsTypes.Identityreferencewithnameandemail>, any>> {
+async listCertificationReviewersV1(requestParameters: certificationsTypes.CertificationsApiListCertificationReviewersV1Request): Promise<AxiosResponse<Array<certificationsTypes.IdentityReferenceWithNameAndEmail>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listCertificationReviewersV1(requestParameters) as Promise<AxiosResponse<Array<certificationsTypes.Identityreferencewithnameandemail>, any>>;
+    return this.electronAPI.listCertificationReviewersV1(requestParameters) as Promise<AxiosResponse<Array<certificationsTypes.IdentityReferenceWithNameAndEmail>, any>>;
 }
-async listCompletedApprovalsV1(requestParameters: accessRequestApprovalsTypes.AccessRequestApprovalsApiListCompletedApprovalsV1Request = {}): Promise<AxiosResponse<Array<accessRequestApprovalsTypes.Completedapproval>, any>> {
+async listCompletedApprovalsV1(requestParameters: accessRequestApprovalsTypes.AccessRequestApprovalsApiListCompletedApprovalsV1Request = {}): Promise<AxiosResponse<Array<accessRequestApprovalsTypes.CompletedApproval>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listCompletedApprovalsV1(requestParameters) as Promise<AxiosResponse<Array<accessRequestApprovalsTypes.Completedapproval>, any>>;
+    return this.electronAPI.listCompletedApprovalsV1(requestParameters) as Promise<AxiosResponse<Array<accessRequestApprovalsTypes.CompletedApproval>, any>>;
 }
 async listCompleteWorkflowLibraryV1(requestParameters: workflowsTypes.WorkflowsApiListCompleteWorkflowLibraryV1Request = {}): Promise<AxiosResponse<Array<workflowsTypes.ListCompleteWorkflowLibraryV1200ResponseInner>, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.listCompleteWorkflowLibraryV1(requestParameters) as Promise<AxiosResponse<Array<workflowsTypes.ListCompleteWorkflowLibraryV1200ResponseInner>, any>>;
 }
-async listConnectionsV1(requestParameters: governanceGroupsTypes.GovernanceGroupsApiListConnectionsV1Request): Promise<AxiosResponse<Array<governanceGroupsTypes.Workgroupconnectiondto>, any>> {
+async listConnectionsV1(requestParameters: governanceGroupsTypes.GovernanceGroupsApiListConnectionsV1Request): Promise<AxiosResponse<Array<governanceGroupsTypes.WorkgroupConnectionDto>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listConnectionsV1(requestParameters) as Promise<AxiosResponse<Array<governanceGroupsTypes.Workgroupconnectiondto>, any>>;
+    return this.electronAPI.listConnectionsV1(requestParameters) as Promise<AxiosResponse<Array<governanceGroupsTypes.WorkgroupConnectionDto>, any>>;
 }
-async listConnectorCustomizersV1(requestParameters: connectorCustomizersTypes.ConnectorCustomizersApiListConnectorCustomizersV1Request = {}): Promise<AxiosResponse<Array<connectorCustomizersTypes.Connectorcustomizersresponse>, any>> {
+async listConnectorCustomizersV1(requestParameters: connectorCustomizersTypes.ConnectorCustomizersApiListConnectorCustomizersV1Request = {}): Promise<AxiosResponse<Array<connectorCustomizersTypes.ConnectorCustomizersResponse>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listConnectorCustomizersV1(requestParameters) as Promise<AxiosResponse<Array<connectorCustomizersTypes.Connectorcustomizersresponse>, any>>;
+    return this.electronAPI.listConnectorCustomizersV1(requestParameters) as Promise<AxiosResponse<Array<connectorCustomizersTypes.ConnectorCustomizersResponse>, any>>;
 }
 async listDataSegmentsV1(requestParameters: dataSegmentationTypes.DataSegmentationApiListDataSegmentsV1Request = {}): Promise<AxiosResponse<Array<dataSegmentationTypes.DataSegment>, any>> {
     await this.checkSessionBeforeCall();
@@ -2931,53 +2951,53 @@ async listDeploysV1(): Promise<AxiosResponse<configurationHubTypes.ListDeploysV1
     await this.checkSessionBeforeCall();
     return this.electronAPI.listDeploysV1() as Promise<AxiosResponse<configurationHubTypes.ListDeploysV1200Response, any>>;
 }
-async listDimensionAccessProfilesV1(requestParameters: dimensionsTypes.DimensionsApiListDimensionAccessProfilesV1Request): Promise<AxiosResponse<Array<dimensionsTypes.Accessprofile>, any>> {
+async listDimensionAccessProfilesV1(requestParameters: dimensionsTypes.DimensionsApiListDimensionAccessProfilesV1Request): Promise<AxiosResponse<Array<dimensionsTypes.AccessProfile>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listDimensionAccessProfilesV1(requestParameters) as Promise<AxiosResponse<Array<dimensionsTypes.Accessprofile>, any>>;
+    return this.electronAPI.listDimensionAccessProfilesV1(requestParameters) as Promise<AxiosResponse<Array<dimensionsTypes.AccessProfile>, any>>;
 }
 async listDimensionsV1(requestParameters: dimensionsTypes.DimensionsApiListDimensionsV1Request): Promise<AxiosResponse<Array<dimensionsTypes.Dimension>, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.listDimensionsV1(requestParameters) as Promise<AxiosResponse<Array<dimensionsTypes.Dimension>, any>>;
 }
-async listDraftsV1(requestParameters: configurationHubTypes.ConfigurationHubApiListDraftsV1Request = {}): Promise<AxiosResponse<Array<configurationHubTypes.Draftresponse>, any>> {
+async listDraftsV1(requestParameters: configurationHubTypes.ConfigurationHubApiListDraftsV1Request = {}): Promise<AxiosResponse<Array<configurationHubTypes.DraftResponse>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listDraftsV1(requestParameters) as Promise<AxiosResponse<Array<configurationHubTypes.Draftresponse>, any>>;
+    return this.electronAPI.listDraftsV1(requestParameters) as Promise<AxiosResponse<Array<configurationHubTypes.DraftResponse>, any>>;
 }
-async listEntitlementChildrenV1(requestParameters: entitlementsTypes.EntitlementsApiListEntitlementChildrenV1Request): Promise<AxiosResponse<Array<entitlementsTypes.Entitlementv2>, any>> {
+async listEntitlementChildrenV1(requestParameters: entitlementsTypes.EntitlementsApiListEntitlementChildrenV1Request): Promise<AxiosResponse<Array<entitlementsTypes.EntitlementV2>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listEntitlementChildrenV1(requestParameters) as Promise<AxiosResponse<Array<entitlementsTypes.Entitlementv2>, any>>;
+    return this.electronAPI.listEntitlementChildrenV1(requestParameters) as Promise<AxiosResponse<Array<entitlementsTypes.EntitlementV2>, any>>;
 }
-async listEntitlementConnectionsForCurrentIdentityV1(requestParameters: entitlementConnectionsTypes.EntitlementConnectionsApiListEntitlementConnectionsForCurrentIdentityV1Request = {}): Promise<AxiosResponse<Array<entitlementConnectionsTypes.Entitlementconnectionsearchhit>, any>> {
+async listEntitlementConnectionsForCurrentIdentityV1(requestParameters: entitlementConnectionsTypes.EntitlementConnectionsApiListEntitlementConnectionsForCurrentIdentityV1Request = {}): Promise<AxiosResponse<Array<entitlementConnectionsTypes.EntitlementConnectionSearchHit>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listEntitlementConnectionsForCurrentIdentityV1(requestParameters) as Promise<AxiosResponse<Array<entitlementConnectionsTypes.Entitlementconnectionsearchhit>, any>>;
+    return this.electronAPI.listEntitlementConnectionsForCurrentIdentityV1(requestParameters) as Promise<AxiosResponse<Array<entitlementConnectionsTypes.EntitlementConnectionSearchHit>, any>>;
 }
-async listEntitlementConnectionsV1(requestParameters: entitlementConnectionsTypes.EntitlementConnectionsApiListEntitlementConnectionsV1Request = {}): Promise<AxiosResponse<Array<entitlementConnectionsTypes.Entitlementconnectionsearchhit>, any>> {
+async listEntitlementConnectionsV1(requestParameters: entitlementConnectionsTypes.EntitlementConnectionsApiListEntitlementConnectionsV1Request = {}): Promise<AxiosResponse<Array<entitlementConnectionsTypes.EntitlementConnectionSearchHit>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listEntitlementConnectionsV1(requestParameters) as Promise<AxiosResponse<Array<entitlementConnectionsTypes.Entitlementconnectionsearchhit>, any>>;
+    return this.electronAPI.listEntitlementConnectionsV1(requestParameters) as Promise<AxiosResponse<Array<entitlementConnectionsTypes.EntitlementConnectionSearchHit>, any>>;
 }
-async listEntitlementParentsV1(requestParameters: entitlementsTypes.EntitlementsApiListEntitlementParentsV1Request): Promise<AxiosResponse<Array<entitlementsTypes.Entitlementv2>, any>> {
+async listEntitlementParentsV1(requestParameters: entitlementsTypes.EntitlementsApiListEntitlementParentsV1Request): Promise<AxiosResponse<Array<entitlementsTypes.EntitlementV2>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listEntitlementParentsV1(requestParameters) as Promise<AxiosResponse<Array<entitlementsTypes.Entitlementv2>, any>>;
+    return this.electronAPI.listEntitlementParentsV1(requestParameters) as Promise<AxiosResponse<Array<entitlementsTypes.EntitlementV2>, any>>;
 }
-async listEntitlementsByAccountV1(requestParameters: entitlementsTypes.EntitlementsApiListEntitlementsByAccountV1Request): Promise<AxiosResponse<Array<entitlementsTypes.Entitlementv2>, any>> {
+async listEntitlementsByAccountV1(requestParameters: entitlementsTypes.EntitlementsApiListEntitlementsByAccountV1Request): Promise<AxiosResponse<Array<entitlementsTypes.EntitlementV2>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listEntitlementsByAccountV1(requestParameters) as Promise<AxiosResponse<Array<entitlementsTypes.Entitlementv2>, any>>;
+    return this.electronAPI.listEntitlementsByAccountV1(requestParameters) as Promise<AxiosResponse<Array<entitlementsTypes.EntitlementV2>, any>>;
 }
-async listEntitlementsByIdentityV1(requestParameters: identitiesTypes.IdentitiesApiListEntitlementsByIdentityV1Request): Promise<AxiosResponse<Array<identitiesTypes.Identityentitlements>, any>> {
+async listEntitlementsByIdentityV1(requestParameters: identitiesTypes.IdentitiesApiListEntitlementsByIdentityV1Request): Promise<AxiosResponse<Array<identitiesTypes.IdentityEntitlements>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listEntitlementsByIdentityV1(requestParameters) as Promise<AxiosResponse<Array<identitiesTypes.Identityentitlements>, any>>;
+    return this.electronAPI.listEntitlementsByIdentityV1(requestParameters) as Promise<AxiosResponse<Array<identitiesTypes.IdentityEntitlements>, any>>;
 }
-async listEntitlementsV1(requestParameters: entitlementsTypes.EntitlementsApiListEntitlementsV1Request = {}): Promise<AxiosResponse<Array<entitlementsTypes.Entitlementv2>, any>> {
+async listEntitlementsV1(requestParameters: entitlementsTypes.EntitlementsApiListEntitlementsV1Request = {}): Promise<AxiosResponse<Array<entitlementsTypes.EntitlementV2>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listEntitlementsV1(requestParameters) as Promise<AxiosResponse<Array<entitlementsTypes.Entitlementv2>, any>>;
+    return this.electronAPI.listEntitlementsV1(requestParameters) as Promise<AxiosResponse<Array<entitlementsTypes.EntitlementV2>, any>>;
 }
-async listFromAddressesV1(requestParameters: notificationsTypes.NotificationsApiListFromAddressesV1Request = {}): Promise<AxiosResponse<Array<notificationsTypes.Emailstatusdto>, any>> {
+async listFromAddressesV1(requestParameters: notificationsTypes.NotificationsApiListFromAddressesV1Request = {}): Promise<AxiosResponse<Array<notificationsTypes.EmailStatusDto>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listFromAddressesV1(requestParameters) as Promise<AxiosResponse<Array<notificationsTypes.Emailstatusdto>, any>>;
+    return this.electronAPI.listFromAddressesV1(requestParameters) as Promise<AxiosResponse<Array<notificationsTypes.EmailStatusDto>, any>>;
 }
-async listHistoricalIdentitiesV1(requestParameters: identityHistoryTypes.IdentityHistoryApiListHistoricalIdentitiesV1Request = {}): Promise<AxiosResponse<Array<identityHistoryTypes.Identitylistitem>, any>> {
+async listHistoricalIdentitiesV1(requestParameters: identityHistoryTypes.IdentityHistoryApiListHistoricalIdentitiesV1Request = {}): Promise<AxiosResponse<Array<identityHistoryTypes.IdentityListItem>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listHistoricalIdentitiesV1(requestParameters) as Promise<AxiosResponse<Array<identityHistoryTypes.Identitylistitem>, any>>;
+    return this.electronAPI.listHistoricalIdentitiesV1(requestParameters) as Promise<AxiosResponse<Array<identityHistoryTypes.IdentityListItem>, any>>;
 }
 async listIdentitiesV1(requestParameters: identitiesTypes.IdentitiesApiListIdentitiesV1Request = {}): Promise<AxiosResponse<Array<identitiesTypes.Identity>, any>> {
     await this.checkSessionBeforeCall();
@@ -2987,153 +3007,161 @@ async listIdentityAccessItemsV1(requestParameters: identityHistoryTypes.Identity
     await this.checkSessionBeforeCall();
     return this.electronAPI.listIdentityAccessItemsV1(requestParameters) as Promise<AxiosResponse<Array<identityHistoryTypes.ListIdentityAccessItemsV1200ResponseInner>, any>>;
 }
-async listIdentityAccessReviewItemsV1(requestParameters: certificationsTypes.CertificationsApiListIdentityAccessReviewItemsV1Request): Promise<AxiosResponse<Array<certificationsTypes.Accessreviewitem>, any>> {
+async listIdentityAccessReviewItemsV1(requestParameters: certificationsTypes.CertificationsApiListIdentityAccessReviewItemsV1Request): Promise<AxiosResponse<Array<certificationsTypes.AccessReviewItem>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listIdentityAccessReviewItemsV1(requestParameters) as Promise<AxiosResponse<Array<certificationsTypes.Accessreviewitem>, any>>;
+    return this.electronAPI.listIdentityAccessReviewItemsV1(requestParameters) as Promise<AxiosResponse<Array<certificationsTypes.AccessReviewItem>, any>>;
 }
-async listIdentityAttributesV1(requestParameters: identityAttributesTypes.IdentityAttributesApiListIdentityAttributesV1Request = {}): Promise<AxiosResponse<Array<identityAttributesTypes.Identityattribute2>, any>> {
+async listIdentityAttributesV1(requestParameters: identityAttributesTypes.IdentityAttributesApiListIdentityAttributesV1Request = {}): Promise<AxiosResponse<Array<identityAttributesTypes.IdentityAttribute2>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listIdentityAttributesV1(requestParameters) as Promise<AxiosResponse<Array<identityAttributesTypes.Identityattribute2>, any>>;
+    return this.electronAPI.listIdentityAttributesV1(requestParameters) as Promise<AxiosResponse<Array<identityAttributesTypes.IdentityAttribute2>, any>>;
 }
-async listIdentityCertificationsV1(requestParameters: certificationsTypes.CertificationsApiListIdentityCertificationsV1Request = {}): Promise<AxiosResponse<Array<certificationsTypes.Identitycertificationdto>, any>> {
+async listIdentityCertificationsV1(requestParameters: certificationsTypes.CertificationsApiListIdentityCertificationsV1Request = {}): Promise<AxiosResponse<Array<certificationsTypes.IdentityCertificationDto>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listIdentityCertificationsV1(requestParameters) as Promise<AxiosResponse<Array<certificationsTypes.Identitycertificationdto>, any>>;
+    return this.electronAPI.listIdentityCertificationsV1(requestParameters) as Promise<AxiosResponse<Array<certificationsTypes.IdentityCertificationDto>, any>>;
 }
 async listIdentityCollectorsV1(requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiListIdentityCollectorsV1Request = {}): Promise<AxiosResponse<Array<dataAccessSecurityTypes.Identitycollectorlistitem>, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.listIdentityCollectorsV1(requestParameters) as Promise<AxiosResponse<Array<dataAccessSecurityTypes.Identitycollectorlistitem>, any>>;
 }
-async listIdentityProfilesV1(requestParameters: identityProfilesTypes.IdentityProfilesApiListIdentityProfilesV1Request = {}): Promise<AxiosResponse<Array<identityProfilesTypes.Identityprofile>, any>> {
+async listIdentityProfilesV1(requestParameters: identityProfilesTypes.IdentityProfilesApiListIdentityProfilesV1Request = {}): Promise<AxiosResponse<Array<identityProfilesTypes.IdentityProfile>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listIdentityProfilesV1(requestParameters) as Promise<AxiosResponse<Array<identityProfilesTypes.Identityprofile>, any>>;
+    return this.electronAPI.listIdentityProfilesV1(requestParameters) as Promise<AxiosResponse<Array<identityProfilesTypes.IdentityProfile>, any>>;
 }
 async listIdentitySnapshotAccessItemsV1(requestParameters: identityHistoryTypes.IdentityHistoryApiListIdentitySnapshotAccessItemsV1Request): Promise<AxiosResponse<Array<identityHistoryTypes.ListIdentitySnapshotAccessItemsV1200ResponseInner>, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.listIdentitySnapshotAccessItemsV1(requestParameters) as Promise<AxiosResponse<Array<identityHistoryTypes.ListIdentitySnapshotAccessItemsV1200ResponseInner>, any>>;
 }
-async listIdentitySnapshotsV1(requestParameters: identityHistoryTypes.IdentityHistoryApiListIdentitySnapshotsV1Request): Promise<AxiosResponse<Array<identityHistoryTypes.Identitysnapshotsummaryresponse>, any>> {
+async listIdentitySnapshotsV1(requestParameters: identityHistoryTypes.IdentityHistoryApiListIdentitySnapshotsV1Request): Promise<AxiosResponse<Array<identityHistoryTypes.IdentitySnapshotSummaryResponse>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listIdentitySnapshotsV1(requestParameters) as Promise<AxiosResponse<Array<identityHistoryTypes.Identitysnapshotsummaryresponse>, any>>;
+    return this.electronAPI.listIdentitySnapshotsV1(requestParameters) as Promise<AxiosResponse<Array<identityHistoryTypes.IdentitySnapshotSummaryResponse>, any>>;
 }
-async listMachineAccountMappingsV1(requestParameters: machineAccountMappingsTypes.MachineAccountMappingsApiListMachineAccountMappingsV1Request): Promise<AxiosResponse<Array<machineAccountMappingsTypes.Attributemappings>, any>> {
+async listMachineAccountMappingsV1(requestParameters: machineAccountMappingsTypes.MachineAccountMappingsApiListMachineAccountMappingsV1Request): Promise<AxiosResponse<Array<machineAccountMappingsTypes.AttributeMappings>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listMachineAccountMappingsV1(requestParameters) as Promise<AxiosResponse<Array<machineAccountMappingsTypes.Attributemappings>, any>>;
+    return this.electronAPI.listMachineAccountMappingsV1(requestParameters) as Promise<AxiosResponse<Array<machineAccountMappingsTypes.AttributeMappings>, any>>;
 }
-async listMachineAccountSubtypesV1(requestParameters: machineAccountsTypes.MachineAccountsApiListMachineAccountSubtypesV1Request): Promise<AxiosResponse<Array<machineAccountsTypes.Sourcesubtype>, any>> {
+async listMachineAccountSubtypesV1(requestParameters: machineAccountsTypes.MachineAccountsApiListMachineAccountSubtypesV1Request): Promise<AxiosResponse<Array<machineAccountsTypes.SourceSubtype>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listMachineAccountSubtypesV1(requestParameters) as Promise<AxiosResponse<Array<machineAccountsTypes.Sourcesubtype>, any>>;
+    return this.electronAPI.listMachineAccountSubtypesV1(requestParameters) as Promise<AxiosResponse<Array<machineAccountsTypes.SourceSubtype>, any>>;
 }
-async listMachineAccountsV1(requestParameters: machineAccountsTypes.MachineAccountsApiListMachineAccountsV1Request = {}): Promise<AxiosResponse<Array<machineAccountsTypes.Machineaccount>, any>> {
+async listMachineAccountsV1(requestParameters: machineAccountsTypes.MachineAccountsApiListMachineAccountsV1Request = {}): Promise<AxiosResponse<Array<machineAccountsTypes.MachineAccount>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listMachineAccountsV1(requestParameters) as Promise<AxiosResponse<Array<machineAccountsTypes.Machineaccount>, any>>;
+    return this.electronAPI.listMachineAccountsV1(requestParameters) as Promise<AxiosResponse<Array<machineAccountsTypes.MachineAccount>, any>>;
 }
-async listMachineIdentitiesV1(requestParameters: machineIdentitiesTypes.MachineIdentitiesApiListMachineIdentitiesV1Request = {}): Promise<AxiosResponse<Array<machineIdentitiesTypes.Machineidentityresponse>, any>> {
+async listMachineIdentitiesV1(requestParameters: machineIdentitiesTypes.MachineIdentitiesApiListMachineIdentitiesV1Request = {}): Promise<AxiosResponse<Array<machineIdentitiesTypes.MachineIdentityResponse>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listMachineIdentitiesV1(requestParameters) as Promise<AxiosResponse<Array<machineIdentitiesTypes.Machineidentityresponse>, any>>;
+    return this.electronAPI.listMachineIdentitiesV1(requestParameters) as Promise<AxiosResponse<Array<machineIdentitiesTypes.MachineIdentityResponse>, any>>;
 }
-async listMachineIdentityUserEntitlementsV1(requestParameters: machineIdentitiesTypes.MachineIdentitiesApiListMachineIdentityUserEntitlementsV1Request = {}): Promise<AxiosResponse<Array<machineIdentitiesTypes.Machineidentityuserentitlementresponse>, any>> {
+async listMachineIdentitiesV2(requestParameters: machineIdentitiesTypes.MachineIdentitiesApiListMachineIdentitiesV2Request = {}): Promise<AxiosResponse<Array<machineIdentitiesTypes.Machineidentityv2>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listMachineIdentityUserEntitlementsV1(requestParameters) as Promise<AxiosResponse<Array<machineIdentitiesTypes.Machineidentityuserentitlementresponse>, any>>;
+    return this.electronAPI.listMachineIdentitiesV2(requestParameters) as Promise<AxiosResponse<Array<machineIdentitiesTypes.Machineidentityv2>, any>>;
 }
-async listNonEmployeeApprovalsV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiListNonEmployeeApprovalsV1Request = {}): Promise<AxiosResponse<Array<nonEmployeeLifecycleManagementTypes.Nonemployeeapprovalitem>, any>> {
+async listMachineIdentityUserEntitlementsV1(requestParameters: machineIdentitiesTypes.MachineIdentitiesApiListMachineIdentityUserEntitlementsV1Request = {}): Promise<AxiosResponse<Array<machineIdentitiesTypes.MachineIdentityUserEntitlementResponse>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listNonEmployeeApprovalsV1(requestParameters) as Promise<AxiosResponse<Array<nonEmployeeLifecycleManagementTypes.Nonemployeeapprovalitem>, any>>;
+    return this.electronAPI.listMachineIdentityUserEntitlementsV1(requestParameters) as Promise<AxiosResponse<Array<machineIdentitiesTypes.MachineIdentityUserEntitlementResponse>, any>>;
 }
-async listNonEmployeeRecordsV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiListNonEmployeeRecordsV1Request = {}): Promise<AxiosResponse<Array<nonEmployeeLifecycleManagementTypes.Nonemployeerecord>, any>> {
+async listNonEmployeeApprovalsV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiListNonEmployeeApprovalsV1Request = {}): Promise<AxiosResponse<Array<nonEmployeeLifecycleManagementTypes.NonEmployeeApprovalItem>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listNonEmployeeRecordsV1(requestParameters) as Promise<AxiosResponse<Array<nonEmployeeLifecycleManagementTypes.Nonemployeerecord>, any>>;
+    return this.electronAPI.listNonEmployeeApprovalsV1(requestParameters) as Promise<AxiosResponse<Array<nonEmployeeLifecycleManagementTypes.NonEmployeeApprovalItem>, any>>;
 }
-async listNonEmployeeRequestsV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiListNonEmployeeRequestsV1Request): Promise<AxiosResponse<Array<nonEmployeeLifecycleManagementTypes.Nonemployeerequest>, any>> {
+async listNonEmployeeRecordsV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiListNonEmployeeRecordsV1Request = {}): Promise<AxiosResponse<Array<nonEmployeeLifecycleManagementTypes.NonEmployeeRecord>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listNonEmployeeRequestsV1(requestParameters) as Promise<AxiosResponse<Array<nonEmployeeLifecycleManagementTypes.Nonemployeerequest>, any>>;
+    return this.electronAPI.listNonEmployeeRecordsV1(requestParameters) as Promise<AxiosResponse<Array<nonEmployeeLifecycleManagementTypes.NonEmployeeRecord>, any>>;
 }
-async listNonEmployeeSourcesV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiListNonEmployeeSourcesV1Request = {}): Promise<AxiosResponse<Array<nonEmployeeLifecycleManagementTypes.Nonemployeesourcewithnecount>, any>> {
+async listNonEmployeeRequestsV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiListNonEmployeeRequestsV1Request): Promise<AxiosResponse<Array<nonEmployeeLifecycleManagementTypes.NonEmployeeRequest>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listNonEmployeeSourcesV1(requestParameters) as Promise<AxiosResponse<Array<nonEmployeeLifecycleManagementTypes.Nonemployeesourcewithnecount>, any>>;
+    return this.electronAPI.listNonEmployeeRequestsV1(requestParameters) as Promise<AxiosResponse<Array<nonEmployeeLifecycleManagementTypes.NonEmployeeRequest>, any>>;
 }
-async listNotificationTemplateDefaultsV1(requestParameters: notificationsTypes.NotificationsApiListNotificationTemplateDefaultsV1Request = {}): Promise<AxiosResponse<Array<notificationsTypes.Templatedtodefault>, any>> {
+async listNonEmployeeSourcesV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiListNonEmployeeSourcesV1Request = {}): Promise<AxiosResponse<Array<nonEmployeeLifecycleManagementTypes.NonEmployeeSourceWithNECount>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listNotificationTemplateDefaultsV1(requestParameters) as Promise<AxiosResponse<Array<notificationsTypes.Templatedtodefault>, any>>;
+    return this.electronAPI.listNonEmployeeSourcesV1(requestParameters) as Promise<AxiosResponse<Array<nonEmployeeLifecycleManagementTypes.NonEmployeeSourceWithNECount>, any>>;
 }
-async listNotificationTemplatesV1(requestParameters: notificationsTypes.NotificationsApiListNotificationTemplatesV1Request = {}): Promise<AxiosResponse<Array<notificationsTypes.Templatedto>, any>> {
+async listNotificationTemplateDefaultsV1(requestParameters: notificationsTypes.NotificationsApiListNotificationTemplateDefaultsV1Request = {}): Promise<AxiosResponse<Array<notificationsTypes.TemplateDtoDefault>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listNotificationTemplatesV1(requestParameters) as Promise<AxiosResponse<Array<notificationsTypes.Templatedto>, any>>;
+    return this.electronAPI.listNotificationTemplateDefaultsV1(requestParameters) as Promise<AxiosResponse<Array<notificationsTypes.TemplateDtoDefault>, any>>;
 }
-async listOauthClientsV1(requestParameters: oauthClientsTypes.OAuthClientsApiListOauthClientsV1Request = {}): Promise<AxiosResponse<Array<oauthClientsTypes.Getoauthclientresponse>, any>> {
+async listNotificationTemplatesV1(requestParameters: notificationsTypes.NotificationsApiListNotificationTemplatesV1Request = {}): Promise<AxiosResponse<Array<notificationsTypes.TemplateDto>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listOauthClientsV1(requestParameters) as Promise<AxiosResponse<Array<oauthClientsTypes.Getoauthclientresponse>, any>>;
+    return this.electronAPI.listNotificationTemplatesV1(requestParameters) as Promise<AxiosResponse<Array<notificationsTypes.TemplateDto>, any>>;
 }
-async listOutliersContributingFeatureAccessItemsV1(requestParameters: iaiOutliersTypes.IAIOutliersApiListOutliersContributingFeatureAccessItemsV1Request): Promise<AxiosResponse<Array<iaiOutliersTypes.Outlierscontributingfeatureaccessitems>, any>> {
+async listOauthClientsV1(requestParameters: oauthClientsTypes.OAuthClientsApiListOauthClientsV1Request = {}): Promise<AxiosResponse<Array<oauthClientsTypes.GetOAuthClientResponse>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listOutliersContributingFeatureAccessItemsV1(requestParameters) as Promise<AxiosResponse<Array<iaiOutliersTypes.Outlierscontributingfeatureaccessitems>, any>>;
+    return this.electronAPI.listOauthClientsV1(requestParameters) as Promise<AxiosResponse<Array<oauthClientsTypes.GetOAuthClientResponse>, any>>;
 }
-async listOwnedUserAppsV1(requestParameters: appsTypes.AppsApiListOwnedUserAppsV1Request = {}): Promise<AxiosResponse<Array<appsTypes.Userapp>, any>> {
+async listOutliersContributingFeatureAccessItemsV1(requestParameters: iaiOutliersTypes.IAIOutliersApiListOutliersContributingFeatureAccessItemsV1Request): Promise<AxiosResponse<Array<iaiOutliersTypes.OutliersContributingFeatureAccessItems>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listOwnedUserAppsV1(requestParameters) as Promise<AxiosResponse<Array<appsTypes.Userapp>, any>>;
+    return this.electronAPI.listOutliersContributingFeatureAccessItemsV1(requestParameters) as Promise<AxiosResponse<Array<iaiOutliersTypes.OutliersContributingFeatureAccessItems>, any>>;
 }
-async listPasswordPoliciesV1(requestParameters: passwordPoliciesTypes.PasswordPoliciesApiListPasswordPoliciesV1Request = {}): Promise<AxiosResponse<Array<passwordPoliciesTypes.Passwordpolicyv3dto>, any>> {
+async listOwnedUserAppsV1(requestParameters: appsTypes.AppsApiListOwnedUserAppsV1Request = {}): Promise<AxiosResponse<Array<appsTypes.UserApp>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listPasswordPoliciesV1(requestParameters) as Promise<AxiosResponse<Array<passwordPoliciesTypes.Passwordpolicyv3dto>, any>>;
+    return this.electronAPI.listOwnedUserAppsV1(requestParameters) as Promise<AxiosResponse<Array<appsTypes.UserApp>, any>>;
 }
-async listPasswordPolicyHoldersOnSourceV1(requestParameters: sourcesTypes.SourcesApiListPasswordPolicyHoldersOnSourceV1Request): Promise<AxiosResponse<Array<sourcesTypes.PasswordpolicyholdersdtoInner>, any>> {
+async listOwnershipCorrelationConfigsV1(requestParameters: machineIdentitiesTypes.MachineIdentitiesApiListOwnershipCorrelationConfigsV1Request): Promise<AxiosResponse<Array<machineIdentitiesTypes.CorrelationConfig>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listPasswordPolicyHoldersOnSourceV1(requestParameters) as Promise<AxiosResponse<Array<sourcesTypes.PasswordpolicyholdersdtoInner>, any>>;
+    return this.electronAPI.listOwnershipCorrelationConfigsV1(requestParameters) as Promise<AxiosResponse<Array<machineIdentitiesTypes.CorrelationConfig>, any>>;
 }
-async listPendingApprovalsV1(requestParameters: accessRequestApprovalsTypes.AccessRequestApprovalsApiListPendingApprovalsV1Request = {}): Promise<AxiosResponse<Array<accessRequestApprovalsTypes.Pendingapproval>, any>> {
+async listPasswordPoliciesV1(requestParameters: passwordPoliciesTypes.PasswordPoliciesApiListPasswordPoliciesV1Request = {}): Promise<AxiosResponse<Array<passwordPoliciesTypes.PasswordPolicyV3Dto>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listPendingApprovalsV1(requestParameters) as Promise<AxiosResponse<Array<accessRequestApprovalsTypes.Pendingapproval>, any>>;
+    return this.electronAPI.listPasswordPoliciesV1(requestParameters) as Promise<AxiosResponse<Array<passwordPoliciesTypes.PasswordPolicyV3Dto>, any>>;
 }
-async listPendingEntitlementRecommendationApprovalsV1(requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiListPendingEntitlementRecommendationApprovalsV1Request = {}): Promise<AxiosResponse<Array<suggestedEntitlementDescriptionTypes.Entitlementrecommendationrecord>, any>> {
+async listPasswordPolicyHoldersOnSourceV1(requestParameters: sourcesTypes.SourcesApiListPasswordPolicyHoldersOnSourceV1Request): Promise<AxiosResponse<Array<sourcesTypes.PasswordPolicyHoldersDtoInner>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listPendingEntitlementRecommendationApprovalsV1(requestParameters) as Promise<AxiosResponse<Array<suggestedEntitlementDescriptionTypes.Entitlementrecommendationrecord>, any>>;
+    return this.electronAPI.listPasswordPolicyHoldersOnSourceV1(requestParameters) as Promise<AxiosResponse<Array<sourcesTypes.PasswordPolicyHoldersDtoInner>, any>>;
 }
-async listPersonalAccessTokensV1(requestParameters: personalAccessTokensTypes.PersonalAccessTokensApiListPersonalAccessTokensV1Request = {}): Promise<AxiosResponse<Array<personalAccessTokensTypes.Getpersonalaccesstokenresponse>, any>> {
+async listPendingApprovalsV1(requestParameters: accessRequestApprovalsTypes.AccessRequestApprovalsApiListPendingApprovalsV1Request = {}): Promise<AxiosResponse<Array<accessRequestApprovalsTypes.PendingApproval>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listPersonalAccessTokensV1(requestParameters) as Promise<AxiosResponse<Array<personalAccessTokensTypes.Getpersonalaccesstokenresponse>, any>>;
+    return this.electronAPI.listPendingApprovalsV1(requestParameters) as Promise<AxiosResponse<Array<accessRequestApprovalsTypes.PendingApproval>, any>>;
 }
-async listPrivilegeCriteriaConfigV1(requestParameters: privilegeCriteriaConfigurationTypes.PrivilegeCriteriaConfigurationApiListPrivilegeCriteriaConfigV1Request): Promise<AxiosResponse<Array<privilegeCriteriaConfigurationTypes.Privilegecriteriaconfigdto>, any>> {
+async listPendingEntitlementRecommendationApprovalsV1(requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiListPendingEntitlementRecommendationApprovalsV1Request = {}): Promise<AxiosResponse<Array<suggestedEntitlementDescriptionTypes.EntitlementRecommendationRecord>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listPrivilegeCriteriaConfigV1(requestParameters) as Promise<AxiosResponse<Array<privilegeCriteriaConfigurationTypes.Privilegecriteriaconfigdto>, any>>;
+    return this.electronAPI.listPendingEntitlementRecommendationApprovalsV1(requestParameters) as Promise<AxiosResponse<Array<suggestedEntitlementDescriptionTypes.EntitlementRecommendationRecord>, any>>;
 }
-async listPrivilegeCriteriaV1(requestParameters: privilegeCriteriaTypes.PrivilegeCriteriaApiListPrivilegeCriteriaV1Request): Promise<AxiosResponse<Array<privilegeCriteriaTypes.Privilegecriteriadto>, any>> {
+async listPersonalAccessTokensV1(requestParameters: personalAccessTokensTypes.PersonalAccessTokensApiListPersonalAccessTokensV1Request = {}): Promise<AxiosResponse<Array<personalAccessTokensTypes.GetPersonalAccessTokenResponse>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listPrivilegeCriteriaV1(requestParameters) as Promise<AxiosResponse<Array<privilegeCriteriaTypes.Privilegecriteriadto>, any>>;
+    return this.electronAPI.listPersonalAccessTokensV1(requestParameters) as Promise<AxiosResponse<Array<personalAccessTokensTypes.GetPersonalAccessTokenResponse>, any>>;
 }
-async listPrivilegedEntitlementRecommendationsV1(requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiListPrivilegedEntitlementRecommendationsV1Request = {}): Promise<AxiosResponse<Array<suggestedEntitlementDescriptionTypes.Privilegedrecommendationgroup>, any>> {
+async listPrivilegeCriteriaConfigV1(requestParameters: privilegeCriteriaConfigurationTypes.PrivilegeCriteriaConfigurationApiListPrivilegeCriteriaConfigV1Request): Promise<AxiosResponse<Array<privilegeCriteriaConfigurationTypes.PrivilegeCriteriaConfigDTO>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listPrivilegedEntitlementRecommendationsV1(requestParameters) as Promise<AxiosResponse<Array<suggestedEntitlementDescriptionTypes.Privilegedrecommendationgroup>, any>>;
+    return this.electronAPI.listPrivilegeCriteriaConfigV1(requestParameters) as Promise<AxiosResponse<Array<privilegeCriteriaConfigurationTypes.PrivilegeCriteriaConfigDTO>, any>>;
 }
-async listProvisioningPoliciesV1(requestParameters: sourcesTypes.SourcesApiListProvisioningPoliciesV1Request): Promise<AxiosResponse<Array<sourcesTypes.Provisioningpolicydto>, any>> {
+async listPrivilegeCriteriaV1(requestParameters: privilegeCriteriaTypes.PrivilegeCriteriaApiListPrivilegeCriteriaV1Request): Promise<AxiosResponse<Array<privilegeCriteriaTypes.PrivilegeCriteriaDTO>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listProvisioningPoliciesV1(requestParameters) as Promise<AxiosResponse<Array<sourcesTypes.Provisioningpolicydto>, any>>;
+    return this.electronAPI.listPrivilegeCriteriaV1(requestParameters) as Promise<AxiosResponse<Array<privilegeCriteriaTypes.PrivilegeCriteriaDTO>, any>>;
 }
-async listProvisioningPoliciesV2(requestParameters: sourcesTypes.SourcesApiListProvisioningPoliciesV2Request): Promise<AxiosResponse<Array<sourcesTypes.Provisioningpolicydtov2>, any>> {
+async listPrivilegedEntitlementRecommendationsV1(requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiListPrivilegedEntitlementRecommendationsV1Request = {}): Promise<AxiosResponse<Array<suggestedEntitlementDescriptionTypes.PrivilegedRecommendationGroup>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listProvisioningPoliciesV2(requestParameters) as Promise<AxiosResponse<Array<sourcesTypes.Provisioningpolicydtov2>, any>>;
+    return this.electronAPI.listPrivilegedEntitlementRecommendationsV1(requestParameters) as Promise<AxiosResponse<Array<suggestedEntitlementDescriptionTypes.PrivilegedRecommendationGroup>, any>>;
 }
-async listReassignmentConfigurationsV1(requestParameters: workReassignmentTypes.WorkReassignmentApiListReassignmentConfigurationsV1Request = {}): Promise<AxiosResponse<Array<workReassignmentTypes.Configurationresponse>, any>> {
+async listProvisioningPoliciesV1(requestParameters: sourcesTypes.SourcesApiListProvisioningPoliciesV1Request): Promise<AxiosResponse<Array<sourcesTypes.ProvisioningPolicyDto>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listReassignmentConfigurationsV1(requestParameters) as Promise<AxiosResponse<Array<workReassignmentTypes.Configurationresponse>, any>>;
+    return this.electronAPI.listProvisioningPoliciesV1(requestParameters) as Promise<AxiosResponse<Array<sourcesTypes.ProvisioningPolicyDto>, any>>;
 }
-async listRequestableObjectsV1(requestParameters: requestableObjectsTypes.RequestableObjectsApiListRequestableObjectsV1Request = {}): Promise<AxiosResponse<Array<requestableObjectsTypes.Requestableobject>, any>> {
+async listProvisioningPoliciesV2(requestParameters: sourcesTypes.SourcesApiListProvisioningPoliciesV2Request): Promise<AxiosResponse<Array<sourcesTypes.ProvisioningPolicyDtoV2>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listRequestableObjectsV1(requestParameters) as Promise<AxiosResponse<Array<requestableObjectsTypes.Requestableobject>, any>>;
+    return this.electronAPI.listProvisioningPoliciesV2(requestParameters) as Promise<AxiosResponse<Array<sourcesTypes.ProvisioningPolicyDtoV2>, any>>;
+}
+async listReassignmentConfigurationsV1(requestParameters: workReassignmentTypes.WorkReassignmentApiListReassignmentConfigurationsV1Request = {}): Promise<AxiosResponse<Array<workReassignmentTypes.ConfigurationResponse>, any>> {
+    await this.checkSessionBeforeCall();
+    return this.electronAPI.listReassignmentConfigurationsV1(requestParameters) as Promise<AxiosResponse<Array<workReassignmentTypes.ConfigurationResponse>, any>>;
+}
+async listRequestableObjectsV1(requestParameters: requestableObjectsTypes.RequestableObjectsApiListRequestableObjectsV1Request = {}): Promise<AxiosResponse<Array<requestableObjectsTypes.RequestableObject>, any>> {
+    await this.checkSessionBeforeCall();
+    return this.electronAPI.listRequestableObjectsV1(requestParameters) as Promise<AxiosResponse<Array<requestableObjectsTypes.RequestableObject>, any>>;
 }
 async listRolesV1(requestParameters: rolesTypes.RolesApiListRolesV1Request = {}): Promise<AxiosResponse<Array<rolesTypes.Role>, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.listRolesV1(requestParameters) as Promise<AxiosResponse<Array<rolesTypes.Role>, any>>;
 }
-async listSavedSearchesV1(requestParameters: savedSearchTypes.SavedSearchApiListSavedSearchesV1Request = {}): Promise<AxiosResponse<Array<savedSearchTypes.Savedsearch>, any>> {
+async listSavedSearchesV1(requestParameters: savedSearchTypes.SavedSearchApiListSavedSearchesV1Request = {}): Promise<AxiosResponse<Array<savedSearchTypes.SavedSearch>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listSavedSearchesV1(requestParameters) as Promise<AxiosResponse<Array<savedSearchTypes.Savedsearch>, any>>;
+    return this.electronAPI.listSavedSearchesV1(requestParameters) as Promise<AxiosResponse<Array<savedSearchTypes.SavedSearch>, any>>;
 }
-async listScheduledActionsV1(): Promise<AxiosResponse<Array<configurationHubTypes.Scheduledactionresponse>, any>> {
+async listScheduledActionsV1(): Promise<AxiosResponse<Array<configurationHubTypes.ScheduledActionResponse>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listScheduledActionsV1() as Promise<AxiosResponse<Array<configurationHubTypes.Scheduledactionresponse>, any>>;
+    return this.electronAPI.listScheduledActionsV1() as Promise<AxiosResponse<Array<configurationHubTypes.ScheduledActionResponse>, any>>;
 }
-async listScheduledSearchV1(requestParameters: scheduledSearchTypes.ScheduledSearchApiListScheduledSearchV1Request = {}): Promise<AxiosResponse<Array<scheduledSearchTypes.Scheduledsearch>, any>> {
+async listScheduledSearchV1(requestParameters: scheduledSearchTypes.ScheduledSearchApiListScheduledSearchV1Request = {}): Promise<AxiosResponse<Array<scheduledSearchTypes.ScheduledSearch>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listScheduledSearchV1(requestParameters) as Promise<AxiosResponse<Array<scheduledSearchTypes.Scheduledsearch>, any>>;
+    return this.electronAPI.listScheduledSearchV1(requestParameters) as Promise<AxiosResponse<Array<scheduledSearchTypes.ScheduledSearch>, any>>;
 }
 async listSedsV1(requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiListSedsV1Request = {}): Promise<AxiosResponse<Array<suggestedEntitlementDescriptionTypes.Sed>, any>> {
     await this.checkSessionBeforeCall();
@@ -3143,73 +3171,73 @@ async listSegmentsV1(requestParameters: segmentsTypes.SegmentsApiListSegmentsV1R
     await this.checkSessionBeforeCall();
     return this.electronAPI.listSegmentsV1(requestParameters) as Promise<AxiosResponse<Array<segmentsTypes.Segment>, any>>;
 }
-async listSodPoliciesV1(requestParameters: sodPoliciesTypes.SODPoliciesApiListSodPoliciesV1Request = {}): Promise<AxiosResponse<Array<sodPoliciesTypes.Sodpolicy>, any>> {
+async listSodPoliciesV1(requestParameters: sodPoliciesTypes.SODPoliciesApiListSodPoliciesV1Request = {}): Promise<AxiosResponse<Array<sodPoliciesTypes.SodPolicy>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listSodPoliciesV1(requestParameters) as Promise<AxiosResponse<Array<sodPoliciesTypes.Sodpolicy>, any>>;
+    return this.electronAPI.listSodPoliciesV1(requestParameters) as Promise<AxiosResponse<Array<sodPoliciesTypes.SodPolicy>, any>>;
 }
-async listSourceSubtypesV1(requestParameters: machineAccountSubtypesTypes.MachineAccountSubtypesApiListSourceSubtypesV1Request = {}): Promise<AxiosResponse<Array<machineAccountSubtypesTypes.Sourcesubtypewithsource>, any>> {
+async listSourceSubtypesV1(requestParameters: machineAccountSubtypesTypes.MachineAccountSubtypesApiListSourceSubtypesV1Request = {}): Promise<AxiosResponse<Array<machineAccountSubtypesTypes.SourceSubtypeWithSource>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listSourceSubtypesV1(requestParameters) as Promise<AxiosResponse<Array<machineAccountSubtypesTypes.Sourcesubtypewithsource>, any>>;
+    return this.electronAPI.listSourceSubtypesV1(requestParameters) as Promise<AxiosResponse<Array<machineAccountSubtypesTypes.SourceSubtypeWithSource>, any>>;
 }
 async listSourcesV1(requestParameters: sourcesTypes.SourcesApiListSourcesV1Request = {}): Promise<AxiosResponse<Array<sourcesTypes.Source>, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.listSourcesV1(requestParameters) as Promise<AxiosResponse<Array<sourcesTypes.Source>, any>>;
 }
-async listSpConfigObjectsV1(): Promise<AxiosResponse<Array<spConfigTypes.Spconfigobject>, any>> {
+async listSpConfigObjectsV1(): Promise<AxiosResponse<Array<spConfigTypes.SpConfigObject>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listSpConfigObjectsV1() as Promise<AxiosResponse<Array<spConfigTypes.Spconfigobject>, any>>;
+    return this.electronAPI.listSpConfigObjectsV1() as Promise<AxiosResponse<Array<spConfigTypes.SpConfigObject>, any>>;
 }
 async listSubscriptionsV1(requestParameters: triggersTypes.TriggersApiListSubscriptionsV1Request = {}): Promise<AxiosResponse<Array<triggersTypes.Subscription>, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.listSubscriptionsV1(requestParameters) as Promise<AxiosResponse<Array<triggersTypes.Subscription>, any>>;
 }
-async listTaggedObjectsByTypeV1(requestParameters: taggedObjectsTypes.TaggedObjectsApiListTaggedObjectsByTypeV1Request): Promise<AxiosResponse<Array<taggedObjectsTypes.Taggedobject>, any>> {
+async listTaggedObjectsByTypeV1(requestParameters: taggedObjectsTypes.TaggedObjectsApiListTaggedObjectsByTypeV1Request): Promise<AxiosResponse<Array<taggedObjectsTypes.TaggedObject>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listTaggedObjectsByTypeV1(requestParameters) as Promise<AxiosResponse<Array<taggedObjectsTypes.Taggedobject>, any>>;
+    return this.electronAPI.listTaggedObjectsByTypeV1(requestParameters) as Promise<AxiosResponse<Array<taggedObjectsTypes.TaggedObject>, any>>;
 }
-async listTaggedObjectsV1(requestParameters: taggedObjectsTypes.TaggedObjectsApiListTaggedObjectsV1Request = {}): Promise<AxiosResponse<Array<taggedObjectsTypes.Taggedobject>, any>> {
+async listTaggedObjectsV1(requestParameters: taggedObjectsTypes.TaggedObjectsApiListTaggedObjectsV1Request = {}): Promise<AxiosResponse<Array<taggedObjectsTypes.TaggedObject>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listTaggedObjectsV1(requestParameters) as Promise<AxiosResponse<Array<taggedObjectsTypes.Taggedobject>, any>>;
+    return this.electronAPI.listTaggedObjectsV1(requestParameters) as Promise<AxiosResponse<Array<taggedObjectsTypes.TaggedObject>, any>>;
 }
 async listTagsV1(requestParameters: tagsTypes.TagsApiListTagsV1Request = {}): Promise<AxiosResponse<Array<tagsTypes.Tag2>, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.listTagsV1(requestParameters) as Promise<AxiosResponse<Array<tagsTypes.Tag2>, any>>;
 }
-async listTransformsV1(requestParameters: transformsTypes.TransformsApiListTransformsV1Request = {}): Promise<AxiosResponse<Array<transformsTypes.Transformread>, any>> {
+async listTransformsV1(requestParameters: transformsTypes.TransformsApiListTransformsV1Request = {}): Promise<AxiosResponse<Array<transformsTypes.TransformRead>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listTransformsV1(requestParameters) as Promise<AxiosResponse<Array<transformsTypes.Transformread>, any>>;
+    return this.electronAPI.listTransformsV1(requestParameters) as Promise<AxiosResponse<Array<transformsTypes.TransformRead>, any>>;
 }
-async listTriggerInvocationStatusV1(requestParameters: triggersTypes.TriggersApiListTriggerInvocationStatusV1Request = {}): Promise<AxiosResponse<Array<triggersTypes.Invocationstatus>, any>> {
+async listTriggerInvocationStatusV1(requestParameters: triggersTypes.TriggersApiListTriggerInvocationStatusV1Request = {}): Promise<AxiosResponse<Array<triggersTypes.InvocationStatus>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listTriggerInvocationStatusV1(requestParameters) as Promise<AxiosResponse<Array<triggersTypes.Invocationstatus>, any>>;
+    return this.electronAPI.listTriggerInvocationStatusV1(requestParameters) as Promise<AxiosResponse<Array<triggersTypes.InvocationStatus>, any>>;
 }
 async listTriggersV1(requestParameters: triggersTypes.TriggersApiListTriggersV1Request = {}): Promise<AxiosResponse<Array<triggersTypes.Trigger>, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.listTriggersV1(requestParameters) as Promise<AxiosResponse<Array<triggersTypes.Trigger>, any>>;
 }
-async listUploadedConfigurationsV1(requestParameters: configurationHubTypes.ConfigurationHubApiListUploadedConfigurationsV1Request = {}): Promise<AxiosResponse<Array<configurationHubTypes.Backupresponse>, any>> {
+async listUploadedConfigurationsV1(requestParameters: configurationHubTypes.ConfigurationHubApiListUploadedConfigurationsV1Request = {}): Promise<AxiosResponse<Array<configurationHubTypes.BackupResponse>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listUploadedConfigurationsV1(requestParameters) as Promise<AxiosResponse<Array<configurationHubTypes.Backupresponse>, any>>;
+    return this.electronAPI.listUploadedConfigurationsV1(requestParameters) as Promise<AxiosResponse<Array<configurationHubTypes.BackupResponse>, any>>;
 }
-async listUserLevelIdentitiesV1(requestParameters: customUserLevelsTypes.CustomUserLevelsApiListUserLevelIdentitiesV1Request): Promise<AxiosResponse<Array<customUserLevelsTypes.Authuserslimresponse>, any>> {
+async listUserLevelIdentitiesV1(requestParameters: customUserLevelsTypes.CustomUserLevelsApiListUserLevelIdentitiesV1Request): Promise<AxiosResponse<Array<customUserLevelsTypes.AuthUserSlimResponse>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listUserLevelIdentitiesV1(requestParameters) as Promise<AxiosResponse<Array<customUserLevelsTypes.Authuserslimresponse>, any>>;
+    return this.electronAPI.listUserLevelIdentitiesV1(requestParameters) as Promise<AxiosResponse<Array<customUserLevelsTypes.AuthUserSlimResponse>, any>>;
 }
-async listUserLevelsV1(requestParameters: customUserLevelsTypes.CustomUserLevelsApiListUserLevelsV1Request = {}): Promise<AxiosResponse<Array<customUserLevelsTypes.Userlevelsummarydto>, any>> {
+async listUserLevelsV1(requestParameters: customUserLevelsTypes.CustomUserLevelsApiListUserLevelsV1Request = {}): Promise<AxiosResponse<Array<customUserLevelsTypes.UserLevelSummaryDTO>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listUserLevelsV1(requestParameters) as Promise<AxiosResponse<Array<customUserLevelsTypes.Userlevelsummarydto>, any>>;
+    return this.electronAPI.listUserLevelsV1(requestParameters) as Promise<AxiosResponse<Array<customUserLevelsTypes.UserLevelSummaryDTO>, any>>;
 }
-async listWorkflowLibraryActionsV1(requestParameters: workflowsTypes.WorkflowsApiListWorkflowLibraryActionsV1Request = {}): Promise<AxiosResponse<Array<workflowsTypes.Workflowlibraryaction>, any>> {
+async listWorkflowLibraryActionsV1(requestParameters: workflowsTypes.WorkflowsApiListWorkflowLibraryActionsV1Request = {}): Promise<AxiosResponse<Array<workflowsTypes.WorkflowLibraryAction>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listWorkflowLibraryActionsV1(requestParameters) as Promise<AxiosResponse<Array<workflowsTypes.Workflowlibraryaction>, any>>;
+    return this.electronAPI.listWorkflowLibraryActionsV1(requestParameters) as Promise<AxiosResponse<Array<workflowsTypes.WorkflowLibraryAction>, any>>;
 }
-async listWorkflowLibraryOperatorsV1(): Promise<AxiosResponse<Array<workflowsTypes.Workflowlibraryoperator>, any>> {
+async listWorkflowLibraryOperatorsV1(): Promise<AxiosResponse<Array<workflowsTypes.WorkflowLibraryOperator>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listWorkflowLibraryOperatorsV1() as Promise<AxiosResponse<Array<workflowsTypes.Workflowlibraryoperator>, any>>;
+    return this.electronAPI.listWorkflowLibraryOperatorsV1() as Promise<AxiosResponse<Array<workflowsTypes.WorkflowLibraryOperator>, any>>;
 }
-async listWorkflowLibraryTriggersV1(requestParameters: workflowsTypes.WorkflowsApiListWorkflowLibraryTriggersV1Request = {}): Promise<AxiosResponse<Array<workflowsTypes.Workflowlibrarytrigger>, any>> {
+async listWorkflowLibraryTriggersV1(requestParameters: workflowsTypes.WorkflowsApiListWorkflowLibraryTriggersV1Request = {}): Promise<AxiosResponse<Array<workflowsTypes.WorkflowLibraryTrigger>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listWorkflowLibraryTriggersV1(requestParameters) as Promise<AxiosResponse<Array<workflowsTypes.Workflowlibrarytrigger>, any>>;
+    return this.electronAPI.listWorkflowLibraryTriggersV1(requestParameters) as Promise<AxiosResponse<Array<workflowsTypes.WorkflowLibraryTrigger>, any>>;
 }
 async listWorkflowsV1(): Promise<AxiosResponse<Array<workflowsTypes.Workflow>, any>> {
     await this.checkSessionBeforeCall();
@@ -3219,37 +3247,37 @@ async listWorkgroupMembersV1(requestParameters: governanceGroupsTypes.Governance
     await this.checkSessionBeforeCall();
     return this.electronAPI.listWorkgroupMembersV1(requestParameters) as Promise<AxiosResponse<Array<governanceGroupsTypes.ListWorkgroupMembersV1200ResponseInner>, any>>;
 }
-async listWorkgroupsV1(requestParameters: governanceGroupsTypes.GovernanceGroupsApiListWorkgroupsV1Request = {}): Promise<AxiosResponse<Array<governanceGroupsTypes.Workgroupdto>, any>> {
+async listWorkgroupsV1(requestParameters: governanceGroupsTypes.GovernanceGroupsApiListWorkgroupsV1Request = {}): Promise<AxiosResponse<Array<governanceGroupsTypes.WorkgroupDto>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listWorkgroupsV1(requestParameters) as Promise<AxiosResponse<Array<governanceGroupsTypes.Workgroupdto>, any>>;
+    return this.electronAPI.listWorkgroupsV1(requestParameters) as Promise<AxiosResponse<Array<governanceGroupsTypes.WorkgroupDto>, any>>;
 }
-async listWorkItemsV1(requestParameters: workItemsTypes.WorkItemsApiListWorkItemsV1Request = {}): Promise<AxiosResponse<Array<workItemsTypes.Workitems>, any>> {
+async listWorkItemsV1(requestParameters: workItemsTypes.WorkItemsApiListWorkItemsV1Request = {}): Promise<AxiosResponse<Array<workItemsTypes.WorkItems>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.listWorkItemsV1(requestParameters) as Promise<AxiosResponse<Array<workItemsTypes.Workitems>, any>>;
+    return this.electronAPI.listWorkItemsV1(requestParameters) as Promise<AxiosResponse<Array<workItemsTypes.WorkItems>, any>>;
 }
-async loadAccountSelectionsV1(requestParameters: accessRequestsTypes.AccessRequestsApiLoadAccountSelectionsV1Request): Promise<AxiosResponse<accessRequestsTypes.Accountsselectionresponse, any>> {
+async loadAccountSelectionsV1(requestParameters: accessRequestsTypes.AccessRequestsApiLoadAccountSelectionsV1Request): Promise<AxiosResponse<accessRequestsTypes.AccountsSelectionResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.loadAccountSelectionsV1(requestParameters) as Promise<AxiosResponse<accessRequestsTypes.Accountsselectionresponse, any>>;
+    return this.electronAPI.loadAccountSelectionsV1(requestParameters) as Promise<AxiosResponse<accessRequestsTypes.AccountsSelectionResponse, any>>;
 }
-async loadBulkSourceSubtypesV1(requestParameters: machineAccountSubtypesTypes.MachineAccountSubtypesApiLoadBulkSourceSubtypesV1Request): Promise<AxiosResponse<Array<machineAccountSubtypesTypes.Sourcesubtypewithsource>, any>> {
+async loadBulkSourceSubtypesV1(requestParameters: machineAccountSubtypesTypes.MachineAccountSubtypesApiLoadBulkSourceSubtypesV1Request): Promise<AxiosResponse<Array<machineAccountSubtypesTypes.SourceSubtypeWithSource>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.loadBulkSourceSubtypesV1(requestParameters) as Promise<AxiosResponse<Array<machineAccountSubtypesTypes.Sourcesubtypewithsource>, any>>;
+    return this.electronAPI.loadBulkSourceSubtypesV1(requestParameters) as Promise<AxiosResponse<Array<machineAccountSubtypesTypes.SourceSubtypeWithSource>, any>>;
 }
-async makeIdentityDecisionV1(requestParameters: certificationsTypes.CertificationsApiMakeIdentityDecisionV1Request): Promise<AxiosResponse<certificationsTypes.Identitycertificationdto, any>> {
+async makeIdentityDecisionV1(requestParameters: certificationsTypes.CertificationsApiMakeIdentityDecisionV1Request): Promise<AxiosResponse<certificationsTypes.IdentityCertificationDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.makeIdentityDecisionV1(requestParameters) as Promise<AxiosResponse<certificationsTypes.Identitycertificationdto, any>>;
+    return this.electronAPI.makeIdentityDecisionV1(requestParameters) as Promise<AxiosResponse<certificationsTypes.IdentityCertificationDto, any>>;
 }
 async moveApprovalV1(requestParameters: approvalsTypes.ApprovalsApiMoveApprovalV1Request): Promise<AxiosResponse<any, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.moveApprovalV1(requestParameters) as Promise<AxiosResponse<any, any>>;
 }
-async moveV1(requestParameters: certificationCampaignsTypes.CertificationCampaignsApiMoveV1Request): Promise<AxiosResponse<certificationCampaignsTypes.Certificationtask, any>> {
+async moveV1(requestParameters: certificationCampaignsTypes.CertificationCampaignsApiMoveV1Request): Promise<AxiosResponse<certificationCampaignsTypes.CertificationTask, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.moveV1(requestParameters) as Promise<AxiosResponse<certificationCampaignsTypes.Certificationtask, any>>;
+    return this.electronAPI.moveV1(requestParameters) as Promise<AxiosResponse<certificationCampaignsTypes.CertificationTask, any>>;
 }
-async patchAccessProfileV1(requestParameters: accessProfilesTypes.AccessProfilesApiPatchAccessProfileV1Request): Promise<AxiosResponse<accessProfilesTypes.Accessprofile, any>> {
+async patchAccessProfileV1(requestParameters: accessProfilesTypes.AccessProfilesApiPatchAccessProfileV1Request): Promise<AxiosResponse<accessProfilesTypes.AccessProfile, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchAccessProfileV1(requestParameters) as Promise<AxiosResponse<accessProfilesTypes.Accessprofile, any>>;
+    return this.electronAPI.patchAccessProfileV1(requestParameters) as Promise<AxiosResponse<accessProfilesTypes.AccessProfile, any>>;
 }
 async patchAdvancedSearchNerm(requestParameters: sdk.AdvancedSearchNERMApiPatchAdvancedSearchRequest): Promise<AxiosResponse<sdk.SubmitAdvancedSearch200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -3267,33 +3295,33 @@ async patchAttributeOptionsNerm(requestParameters: sdk.AttributeOptionsNERMApiPa
     await this.checkSessionBeforeCall();
     return this.electronAPI.patchAttributeOptionsNerm(requestParameters) as Promise<AxiosResponse<sdk.SubmitAttributeOptions200ResponseNERM, any>>;
 }
-async patchAuthOrgLockoutConfigV1(requestParameters: globalTenantSecuritySettingsTypes.GlobalTenantSecuritySettingsApiPatchAuthOrgLockoutConfigV1Request): Promise<AxiosResponse<globalTenantSecuritySettingsTypes.Lockoutconfiguration, any>> {
+async patchAuthOrgLockoutConfigV1(requestParameters: globalTenantSecuritySettingsTypes.GlobalTenantSecuritySettingsApiPatchAuthOrgLockoutConfigV1Request): Promise<AxiosResponse<globalTenantSecuritySettingsTypes.LockoutConfiguration, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchAuthOrgLockoutConfigV1(requestParameters) as Promise<AxiosResponse<globalTenantSecuritySettingsTypes.Lockoutconfiguration, any>>;
+    return this.electronAPI.patchAuthOrgLockoutConfigV1(requestParameters) as Promise<AxiosResponse<globalTenantSecuritySettingsTypes.LockoutConfiguration, any>>;
 }
-async patchAuthOrgNetworkConfigV1(requestParameters: globalTenantSecuritySettingsTypes.GlobalTenantSecuritySettingsApiPatchAuthOrgNetworkConfigV1Request): Promise<AxiosResponse<globalTenantSecuritySettingsTypes.Networkconfiguration, any>> {
+async patchAuthOrgNetworkConfigV1(requestParameters: globalTenantSecuritySettingsTypes.GlobalTenantSecuritySettingsApiPatchAuthOrgNetworkConfigV1Request): Promise<AxiosResponse<globalTenantSecuritySettingsTypes.NetworkConfiguration, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchAuthOrgNetworkConfigV1(requestParameters) as Promise<AxiosResponse<globalTenantSecuritySettingsTypes.Networkconfiguration, any>>;
+    return this.electronAPI.patchAuthOrgNetworkConfigV1(requestParameters) as Promise<AxiosResponse<globalTenantSecuritySettingsTypes.NetworkConfiguration, any>>;
 }
-async patchAuthOrgServiceProviderConfigV1(requestParameters: globalTenantSecuritySettingsTypes.GlobalTenantSecuritySettingsApiPatchAuthOrgServiceProviderConfigV1Request): Promise<AxiosResponse<globalTenantSecuritySettingsTypes.Serviceproviderconfiguration, any>> {
+async patchAuthOrgServiceProviderConfigV1(requestParameters: globalTenantSecuritySettingsTypes.GlobalTenantSecuritySettingsApiPatchAuthOrgServiceProviderConfigV1Request): Promise<AxiosResponse<globalTenantSecuritySettingsTypes.ServiceProviderConfiguration, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchAuthOrgServiceProviderConfigV1(requestParameters) as Promise<AxiosResponse<globalTenantSecuritySettingsTypes.Serviceproviderconfiguration, any>>;
+    return this.electronAPI.patchAuthOrgServiceProviderConfigV1(requestParameters) as Promise<AxiosResponse<globalTenantSecuritySettingsTypes.ServiceProviderConfiguration, any>>;
 }
-async patchAuthOrgSessionConfigV1(requestParameters: globalTenantSecuritySettingsTypes.GlobalTenantSecuritySettingsApiPatchAuthOrgSessionConfigV1Request): Promise<AxiosResponse<globalTenantSecuritySettingsTypes.Sessionconfiguration, any>> {
+async patchAuthOrgSessionConfigV1(requestParameters: globalTenantSecuritySettingsTypes.GlobalTenantSecuritySettingsApiPatchAuthOrgSessionConfigV1Request): Promise<AxiosResponse<globalTenantSecuritySettingsTypes.SessionConfiguration, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchAuthOrgSessionConfigV1(requestParameters) as Promise<AxiosResponse<globalTenantSecuritySettingsTypes.Sessionconfiguration, any>>;
+    return this.electronAPI.patchAuthOrgSessionConfigV1(requestParameters) as Promise<AxiosResponse<globalTenantSecuritySettingsTypes.SessionConfiguration, any>>;
 }
-async patchAuthUserV1(requestParameters: authUsersTypes.AuthUsersApiPatchAuthUserV1Request): Promise<AxiosResponse<authUsersTypes.Authuser, any>> {
+async patchAuthUserV1(requestParameters: authUsersTypes.AuthUsersApiPatchAuthUserV1Request): Promise<AxiosResponse<authUsersTypes.AuthUser, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchAuthUserV1(requestParameters) as Promise<AxiosResponse<authUsersTypes.Authuser, any>>;
+    return this.electronAPI.patchAuthUserV1(requestParameters) as Promise<AxiosResponse<authUsersTypes.AuthUser, any>>;
 }
-async patchBeforeProvisioningRuleV1(requestParameters: simIntegrationsTypes.SIMIntegrationsApiPatchBeforeProvisioningRuleV1Request): Promise<AxiosResponse<simIntegrationsTypes.Servicedeskintegrationdto, any>> {
+async patchBeforeProvisioningRuleV1(requestParameters: simIntegrationsTypes.SIMIntegrationsApiPatchBeforeProvisioningRuleV1Request): Promise<AxiosResponse<simIntegrationsTypes.ServiceDeskIntegrationDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchBeforeProvisioningRuleV1(requestParameters) as Promise<AxiosResponse<simIntegrationsTypes.Servicedeskintegrationdto, any>>;
+    return this.electronAPI.patchBeforeProvisioningRuleV1(requestParameters) as Promise<AxiosResponse<simIntegrationsTypes.ServiceDeskIntegrationDto, any>>;
 }
-async patchCampaignTemplateV1(requestParameters: certificationCampaignsTypes.CertificationCampaignsApiPatchCampaignTemplateV1Request): Promise<AxiosResponse<certificationCampaignsTypes.Campaigntemplate, any>> {
+async patchCampaignTemplateV1(requestParameters: certificationCampaignsTypes.CertificationCampaignsApiPatchCampaignTemplateV1Request): Promise<AxiosResponse<certificationCampaignsTypes.CampaignTemplate, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchCampaignTemplateV1(requestParameters) as Promise<AxiosResponse<certificationCampaignsTypes.Campaigntemplate, any>>;
+    return this.electronAPI.patchCampaignTemplateV1(requestParameters) as Promise<AxiosResponse<certificationCampaignsTypes.CampaignTemplate, any>>;
 }
 async patchDataRecordNerm(requestParameters: sdk.ConsolidationNERMApiPatchDataRecordRequest): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
@@ -3307,69 +3335,73 @@ async patchDimensionV1(requestParameters: dimensionsTypes.DimensionsApiPatchDime
     await this.checkSessionBeforeCall();
     return this.electronAPI.patchDimensionV1(requestParameters) as Promise<AxiosResponse<dimensionsTypes.Dimension, any>>;
 }
-async patchEntitlementConnectionByIdV1(requestParameters: entitlementConnectionsTypes.EntitlementConnectionsApiPatchEntitlementConnectionByIdV1Request): Promise<AxiosResponse<entitlementConnectionsTypes.Entitlementconnection, any>> {
+async patchEntitlementConnectionByIdV1(requestParameters: entitlementConnectionsTypes.EntitlementConnectionsApiPatchEntitlementConnectionByIdV1Request): Promise<AxiosResponse<entitlementConnectionsTypes.EntitlementConnection, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchEntitlementConnectionByIdV1(requestParameters) as Promise<AxiosResponse<entitlementConnectionsTypes.Entitlementconnection, any>>;
+    return this.electronAPI.patchEntitlementConnectionByIdV1(requestParameters) as Promise<AxiosResponse<entitlementConnectionsTypes.EntitlementConnection, any>>;
 }
-async patchEntitlementConnectionByQueryV1(requestParameters: entitlementConnectionsTypes.EntitlementConnectionsApiPatchEntitlementConnectionByQueryV1Request): Promise<AxiosResponse<entitlementConnectionsTypes.Entitlementconnection, any>> {
+async patchEntitlementConnectionByQueryV1(requestParameters: entitlementConnectionsTypes.EntitlementConnectionsApiPatchEntitlementConnectionByQueryV1Request): Promise<AxiosResponse<entitlementConnectionsTypes.EntitlementConnection, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchEntitlementConnectionByQueryV1(requestParameters) as Promise<AxiosResponse<entitlementConnectionsTypes.Entitlementconnection, any>>;
+    return this.electronAPI.patchEntitlementConnectionByQueryV1(requestParameters) as Promise<AxiosResponse<entitlementConnectionsTypes.EntitlementConnection, any>>;
 }
-async patchEntitlementRecommendationV1(requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiPatchEntitlementRecommendationV1Request): Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.Entitlementrecommendationrecord, any>> {
+async patchEntitlementRecommendationV1(requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiPatchEntitlementRecommendationV1Request): Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.EntitlementRecommendationRecord, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchEntitlementRecommendationV1(requestParameters) as Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.Entitlementrecommendationrecord, any>>;
+    return this.electronAPI.patchEntitlementRecommendationV1(requestParameters) as Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.EntitlementRecommendationRecord, any>>;
 }
-async patchEntitlementV1(requestParameters: entitlementsTypes.EntitlementsApiPatchEntitlementV1Request): Promise<AxiosResponse<entitlementsTypes.Entitlementv2, any>> {
+async patchEntitlementV1(requestParameters: entitlementsTypes.EntitlementsApiPatchEntitlementV1Request): Promise<AxiosResponse<entitlementsTypes.EntitlementV2, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchEntitlementV1(requestParameters) as Promise<AxiosResponse<entitlementsTypes.Entitlementv2, any>>;
+    return this.electronAPI.patchEntitlementV1(requestParameters) as Promise<AxiosResponse<entitlementsTypes.EntitlementV2, any>>;
 }
-async patchFormDefinitionV1(requestParameters: customFormsTypes.CustomFormsApiPatchFormDefinitionV1Request): Promise<AxiosResponse<customFormsTypes.Formdefinitionresponse, any>> {
+async patchFormDefinitionV1(requestParameters: customFormsTypes.CustomFormsApiPatchFormDefinitionV1Request): Promise<AxiosResponse<customFormsTypes.FormDefinitionResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchFormDefinitionV1(requestParameters) as Promise<AxiosResponse<customFormsTypes.Formdefinitionresponse, any>>;
+    return this.electronAPI.patchFormDefinitionV1(requestParameters) as Promise<AxiosResponse<customFormsTypes.FormDefinitionResponse, any>>;
 }
-async patchFormInstanceV1(requestParameters: customFormsTypes.CustomFormsApiPatchFormInstanceV1Request): Promise<AxiosResponse<customFormsTypes.Forminstanceresponse, any>> {
+async patchFormInstanceV1(requestParameters: customFormsTypes.CustomFormsApiPatchFormInstanceV1Request): Promise<AxiosResponse<customFormsTypes.FormInstanceResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchFormInstanceV1(requestParameters) as Promise<AxiosResponse<customFormsTypes.Forminstanceresponse, any>>;
+    return this.electronAPI.patchFormInstanceV1(requestParameters) as Promise<AxiosResponse<customFormsTypes.FormInstanceResponse, any>>;
 }
-async patchJitActivationConfigV1(requestParameters: jitAccessTypes.JITAccessApiPatchJitActivationConfigV1Request): Promise<AxiosResponse<jitAccessTypes.Jitactivationconfigresponse, any>> {
+async patchJitActivationConfigV1(requestParameters: jitAccessTypes.JITAccessApiPatchJitActivationConfigV1Request): Promise<AxiosResponse<jitAccessTypes.JITActivationConfigResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchJitActivationConfigV1(requestParameters) as Promise<AxiosResponse<jitAccessTypes.Jitactivationconfigresponse, any>>;
+    return this.electronAPI.patchJitActivationConfigV1(requestParameters) as Promise<AxiosResponse<jitAccessTypes.JITActivationConfigResponse, any>>;
 }
 async patchLanguageNerm(requestParameters: sdk.LanguagesNERMApiPatchLanguageRequest): Promise<AxiosResponse<sdk.PatchLanguageRequestNERM, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.patchLanguageNerm(requestParameters) as Promise<AxiosResponse<sdk.PatchLanguageRequestNERM, any>>;
 }
-async patchMachineAccountSubtypeByTechnicalNameV1(requestParameters: machineAccountsTypes.MachineAccountsApiPatchMachineAccountSubtypeByTechnicalNameV1Request): Promise<AxiosResponse<machineAccountsTypes.Sourcesubtype, any>> {
+async patchMachineAccountSubtypeByTechnicalNameV1(requestParameters: machineAccountsTypes.MachineAccountsApiPatchMachineAccountSubtypeByTechnicalNameV1Request): Promise<AxiosResponse<machineAccountsTypes.SourceSubtype, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchMachineAccountSubtypeByTechnicalNameV1(requestParameters) as Promise<AxiosResponse<machineAccountsTypes.Sourcesubtype, any>>;
+    return this.electronAPI.patchMachineAccountSubtypeByTechnicalNameV1(requestParameters) as Promise<AxiosResponse<machineAccountsTypes.SourceSubtype, any>>;
 }
-async patchMachineAccountSubtypeV1(requestParameters: machineAccountSubtypesTypes.MachineAccountSubtypesApiPatchMachineAccountSubtypeV1Request): Promise<AxiosResponse<machineAccountSubtypesTypes.Sourcesubtypewithsource, any>> {
+async patchMachineAccountSubtypeV1(requestParameters: machineAccountSubtypesTypes.MachineAccountSubtypesApiPatchMachineAccountSubtypeV1Request): Promise<AxiosResponse<machineAccountSubtypesTypes.SourceSubtypeWithSource, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchMachineAccountSubtypeV1(requestParameters) as Promise<AxiosResponse<machineAccountSubtypesTypes.Sourcesubtypewithsource, any>>;
+    return this.electronAPI.patchMachineAccountSubtypeV1(requestParameters) as Promise<AxiosResponse<machineAccountSubtypesTypes.SourceSubtypeWithSource, any>>;
 }
-async patchNonEmployeeRecordV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiPatchNonEmployeeRecordV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeerecord, any>> {
+async patchNonEmployeeRecordV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiPatchNonEmployeeRecordV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeRecord, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchNonEmployeeRecordV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeerecord, any>>;
+    return this.electronAPI.patchNonEmployeeRecordV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeRecord, any>>;
 }
-async patchNonEmployeeSchemaAttributeV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiPatchNonEmployeeSchemaAttributeV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeeschemaattribute, any>> {
+async patchNonEmployeeSchemaAttributeV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiPatchNonEmployeeSchemaAttributeV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeSchemaAttribute, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchNonEmployeeSchemaAttributeV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeeschemaattribute, any>>;
+    return this.electronAPI.patchNonEmployeeSchemaAttributeV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeSchemaAttribute, any>>;
 }
-async patchNonEmployeeSourceV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiPatchNonEmployeeSourceV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeesource, any>> {
+async patchNonEmployeeSourceV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiPatchNonEmployeeSourceV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeSource, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchNonEmployeeSourceV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeesource, any>>;
+    return this.electronAPI.patchNonEmployeeSourceV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeSource, any>>;
 }
-async patchOauthClientV1(requestParameters: oauthClientsTypes.OAuthClientsApiPatchOauthClientV1Request): Promise<AxiosResponse<oauthClientsTypes.Getoauthclientresponse, any>> {
+async patchOauthClientV1(requestParameters: oauthClientsTypes.OAuthClientsApiPatchOauthClientV1Request): Promise<AxiosResponse<oauthClientsTypes.GetOAuthClientResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchOauthClientV1(requestParameters) as Promise<AxiosResponse<oauthClientsTypes.Getoauthclientresponse, any>>;
+    return this.electronAPI.patchOauthClientV1(requestParameters) as Promise<AxiosResponse<oauthClientsTypes.GetOAuthClientResponse, any>>;
 }
-async patchOrgConfigV1(requestParameters: orgConfigTypes.OrgConfigApiPatchOrgConfigV1Request): Promise<AxiosResponse<orgConfigTypes.Orgconfig, any>> {
+async patchOrgConfigV1(requestParameters: orgConfigTypes.OrgConfigApiPatchOrgConfigV1Request): Promise<AxiosResponse<orgConfigTypes.OrgConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchOrgConfigV1(requestParameters) as Promise<AxiosResponse<orgConfigTypes.Orgconfig, any>>;
+    return this.electronAPI.patchOrgConfigV1(requestParameters) as Promise<AxiosResponse<orgConfigTypes.OrgConfig, any>>;
 }
-async patchPersonalAccessTokenV1(requestParameters: personalAccessTokensTypes.PersonalAccessTokensApiPatchPersonalAccessTokenV1Request): Promise<AxiosResponse<personalAccessTokensTypes.Getpersonalaccesstokenresponse, any>> {
+async patchOwnershipCorrelationConfigV1(requestParameters: machineIdentitiesTypes.MachineIdentitiesApiPatchOwnershipCorrelationConfigV1Request): Promise<AxiosResponse<machineIdentitiesTypes.CorrelationConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchPersonalAccessTokenV1(requestParameters) as Promise<AxiosResponse<personalAccessTokensTypes.Getpersonalaccesstokenresponse, any>>;
+    return this.electronAPI.patchOwnershipCorrelationConfigV1(requestParameters) as Promise<AxiosResponse<machineIdentitiesTypes.CorrelationConfig, any>>;
+}
+async patchPersonalAccessTokenV1(requestParameters: personalAccessTokensTypes.PersonalAccessTokensApiPatchPersonalAccessTokenV1Request): Promise<AxiosResponse<personalAccessTokensTypes.GetPersonalAccessTokenResponse, any>> {
+    await this.checkSessionBeforeCall();
+    return this.electronAPI.patchPersonalAccessTokenV1(requestParameters) as Promise<AxiosResponse<personalAccessTokensTypes.GetPersonalAccessTokenResponse, any>>;
 }
 async patchPotentialRoleSessionV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiPatchPotentialRoleSessionV1Request): Promise<AxiosResponse<any, any>> {
     await this.checkSessionBeforeCall();
@@ -3379,17 +3411,17 @@ async patchPotentialRoleV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningAp
     await this.checkSessionBeforeCall();
     return this.electronAPI.patchPotentialRoleV1(requestParameters) as Promise<AxiosResponse<any, any>>;
 }
-async patchPrivilegeCriteriaConfigV1(requestParameters: privilegeCriteriaConfigurationTypes.PrivilegeCriteriaConfigurationApiPatchPrivilegeCriteriaConfigV1Request): Promise<AxiosResponse<privilegeCriteriaConfigurationTypes.Privilegecriteriaconfigdto, any>> {
+async patchPrivilegeCriteriaConfigV1(requestParameters: privilegeCriteriaConfigurationTypes.PrivilegeCriteriaConfigurationApiPatchPrivilegeCriteriaConfigV1Request): Promise<AxiosResponse<privilegeCriteriaConfigurationTypes.PrivilegeCriteriaConfigDTO, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchPrivilegeCriteriaConfigV1(requestParameters) as Promise<AxiosResponse<privilegeCriteriaConfigurationTypes.Privilegecriteriaconfigdto, any>>;
+    return this.electronAPI.patchPrivilegeCriteriaConfigV1(requestParameters) as Promise<AxiosResponse<privilegeCriteriaConfigurationTypes.PrivilegeCriteriaConfigDTO, any>>;
 }
 async patchProfileByIdNerm(requestParameters: sdk.ProfilesNERMApiPatchProfileByIdRequest): Promise<AxiosResponse<sdk.GetSingleSchemaMappedProfile200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.patchProfileByIdNerm(requestParameters) as Promise<AxiosResponse<sdk.GetSingleSchemaMappedProfile200ResponseNERM, any>>;
 }
-async patchProfileConfigV1(requestParameters: authProfileTypes.AuthProfileApiPatchProfileConfigV1Request): Promise<AxiosResponse<authProfileTypes.Authprofile, any>> {
+async patchProfileConfigV1(requestParameters: authProfileTypes.AuthProfileApiPatchProfileConfigV1Request): Promise<AxiosResponse<authProfileTypes.AuthProfile, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchProfileConfigV1(requestParameters) as Promise<AxiosResponse<authProfileTypes.Authprofile, any>>;
+    return this.electronAPI.patchProfileConfigV1(requestParameters) as Promise<AxiosResponse<authProfileTypes.AuthProfile, any>>;
 }
 async patchProfilesNerm(requestParameters: sdk.ProfilesNERMApiPatchProfilesRequest): Promise<AxiosResponse<sdk.SearchAdvancedSearch200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -3427,9 +3459,9 @@ async patchRoleV1(requestParameters: rolesTypes.RolesApiPatchRoleV1Request): Pro
     await this.checkSessionBeforeCall();
     return this.electronAPI.patchRoleV1(requestParameters) as Promise<AxiosResponse<rolesTypes.Role, any>>;
 }
-async patchSearchAttributeConfigV1(requestParameters: searchAttributeConfigurationTypes.SearchAttributeConfigurationApiPatchSearchAttributeConfigV1Request): Promise<AxiosResponse<searchAttributeConfigurationTypes.Searchattributeconfig, any>> {
+async patchSearchAttributeConfigV1(requestParameters: searchAttributeConfigurationTypes.SearchAttributeConfigurationApiPatchSearchAttributeConfigV1Request): Promise<AxiosResponse<searchAttributeConfigurationTypes.SearchAttributeConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchSearchAttributeConfigV1(requestParameters) as Promise<AxiosResponse<searchAttributeConfigurationTypes.Searchattributeconfig, any>>;
+    return this.electronAPI.patchSearchAttributeConfigV1(requestParameters) as Promise<AxiosResponse<searchAttributeConfigurationTypes.SearchAttributeConfig, any>>;
 }
 async patchSedV1(requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiPatchSedV1Request): Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.Sed, any>> {
     await this.checkSessionBeforeCall();
@@ -3439,21 +3471,21 @@ async patchSegmentV1(requestParameters: segmentsTypes.SegmentsApiPatchSegmentV1R
     await this.checkSessionBeforeCall();
     return this.electronAPI.patchSegmentV1(requestParameters) as Promise<AxiosResponse<segmentsTypes.Segment, any>>;
 }
-async patchServiceDeskIntegrationV1(requestParameters: serviceDeskIntegrationTypes.ServiceDeskIntegrationApiPatchServiceDeskIntegrationV1Request): Promise<AxiosResponse<serviceDeskIntegrationTypes.Servicedeskintegrationdto, any>> {
+async patchServiceDeskIntegrationV1(requestParameters: serviceDeskIntegrationTypes.ServiceDeskIntegrationApiPatchServiceDeskIntegrationV1Request): Promise<AxiosResponse<serviceDeskIntegrationTypes.ServiceDeskIntegrationDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchServiceDeskIntegrationV1(requestParameters) as Promise<AxiosResponse<serviceDeskIntegrationTypes.Servicedeskintegrationdto, any>>;
+    return this.electronAPI.patchServiceDeskIntegrationV1(requestParameters) as Promise<AxiosResponse<serviceDeskIntegrationTypes.ServiceDeskIntegrationDto, any>>;
 }
-async patchSIMAttributesV1(requestParameters: simIntegrationsTypes.SIMIntegrationsApiPatchSIMAttributesV1Request): Promise<AxiosResponse<simIntegrationsTypes.Servicedeskintegrationdto, any>> {
+async patchSIMAttributesV1(requestParameters: simIntegrationsTypes.SIMIntegrationsApiPatchSIMAttributesV1Request): Promise<AxiosResponse<simIntegrationsTypes.ServiceDeskIntegrationDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchSIMAttributesV1(requestParameters) as Promise<AxiosResponse<simIntegrationsTypes.Servicedeskintegrationdto, any>>;
+    return this.electronAPI.patchSIMAttributesV1(requestParameters) as Promise<AxiosResponse<simIntegrationsTypes.ServiceDeskIntegrationDto, any>>;
 }
-async patchSodPolicyV1(requestParameters: sodPoliciesTypes.SODPoliciesApiPatchSodPolicyV1Request): Promise<AxiosResponse<sodPoliciesTypes.Sodpolicy, any>> {
+async patchSodPolicyV1(requestParameters: sodPoliciesTypes.SODPoliciesApiPatchSodPolicyV1Request): Promise<AxiosResponse<sodPoliciesTypes.SodPolicy, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchSodPolicyV1(requestParameters) as Promise<AxiosResponse<sodPoliciesTypes.Sodpolicy, any>>;
+    return this.electronAPI.patchSodPolicyV1(requestParameters) as Promise<AxiosResponse<sodPoliciesTypes.SodPolicy, any>>;
 }
-async patchSourceAppV1(requestParameters: appsTypes.AppsApiPatchSourceAppV1Request): Promise<AxiosResponse<appsTypes.Sourceapppatchdto, any>> {
+async patchSourceAppV1(requestParameters: appsTypes.AppsApiPatchSourceAppV1Request): Promise<AxiosResponse<appsTypes.SourceAppPatchDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchSourceAppV1(requestParameters) as Promise<AxiosResponse<appsTypes.Sourceapppatchdto, any>>;
+    return this.electronAPI.patchSourceAppV1(requestParameters) as Promise<AxiosResponse<appsTypes.SourceAppPatchDto, any>>;
 }
 async patchSubscriptionV1(requestParameters: triggersTypes.TriggersApiPatchSubscriptionV1Request): Promise<AxiosResponse<triggersTypes.Subscription, any>> {
     await this.checkSessionBeforeCall();
@@ -3463,9 +3495,9 @@ async patchTenantContextV1(requestParameters: tenantContextTypes.TenantContextAp
     await this.checkSessionBeforeCall();
     return this.electronAPI.patchTenantContextV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-async patchUserAppV1(requestParameters: appsTypes.AppsApiPatchUserAppV1Request): Promise<AxiosResponse<appsTypes.Userapp, any>> {
+async patchUserAppV1(requestParameters: appsTypes.AppsApiPatchUserAppV1Request): Promise<AxiosResponse<appsTypes.UserApp, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchUserAppV1(requestParameters) as Promise<AxiosResponse<appsTypes.Userapp, any>>;
+    return this.electronAPI.patchUserAppV1(requestParameters) as Promise<AxiosResponse<appsTypes.UserApp, any>>;
 }
 async patchUserManagerNerm(requestParameters: sdk.UserManagersNERMApiPatchUserManagerRequest): Promise<AxiosResponse<sdk.SubmitUserManager200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -3507,77 +3539,77 @@ async patchWorkflowV1(requestParameters: workflowsTypes.WorkflowsApiPatchWorkflo
     await this.checkSessionBeforeCall();
     return this.electronAPI.patchWorkflowV1(requestParameters) as Promise<AxiosResponse<workflowsTypes.Workflow, any>>;
 }
-async patchWorkgroupV1(requestParameters: governanceGroupsTypes.GovernanceGroupsApiPatchWorkgroupV1Request): Promise<AxiosResponse<governanceGroupsTypes.Workgroupdto, any>> {
+async patchWorkgroupV1(requestParameters: governanceGroupsTypes.GovernanceGroupsApiPatchWorkgroupV1Request): Promise<AxiosResponse<governanceGroupsTypes.WorkgroupDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.patchWorkgroupV1(requestParameters) as Promise<AxiosResponse<governanceGroupsTypes.Workgroupdto, any>>;
+    return this.electronAPI.patchWorkgroupV1(requestParameters) as Promise<AxiosResponse<governanceGroupsTypes.WorkgroupDto, any>>;
 }
-async pingClusterV1(requestParameters: sourcesTypes.SourcesApiPingClusterV1Request): Promise<AxiosResponse<sourcesTypes.Statusresponse, any>> {
+async pingClusterV1(requestParameters: sourcesTypes.SourcesApiPingClusterV1Request): Promise<AxiosResponse<sourcesTypes.StatusResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.pingClusterV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Statusresponse, any>>;
+    return this.electronAPI.pingClusterV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.StatusResponse, any>>;
 }
-async publishCustomUserLevelV1(requestParameters: customUserLevelsTypes.CustomUserLevelsApiPublishCustomUserLevelV1Request): Promise<AxiosResponse<customUserLevelsTypes.Userlevelpublishsummary, any>> {
+async publishCustomUserLevelV1(requestParameters: customUserLevelsTypes.CustomUserLevelsApiPublishCustomUserLevelV1Request): Promise<AxiosResponse<customUserLevelsTypes.UserLevelPublishSummary, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.publishCustomUserLevelV1(requestParameters) as Promise<AxiosResponse<customUserLevelsTypes.Userlevelpublishsummary, any>>;
+    return this.electronAPI.publishCustomUserLevelV1(requestParameters) as Promise<AxiosResponse<customUserLevelsTypes.UserLevelPublishSummary, any>>;
 }
 async publishDataSegmentV1(requestParameters: dataSegmentationTypes.DataSegmentationApiPublishDataSegmentV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.publishDataSegmentV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-async putAccountV1(requestParameters: accountsTypes.AccountsApiPutAccountV1Request): Promise<AxiosResponse<accountsTypes.Accountsasyncresult, any>> {
+async putAccountV1(requestParameters: accountsTypes.AccountsApiPutAccountV1Request): Promise<AxiosResponse<accountsTypes.AccountsAsyncResult, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.putAccountV1(requestParameters) as Promise<AxiosResponse<accountsTypes.Accountsasyncresult, any>>;
+    return this.electronAPI.putAccountV1(requestParameters) as Promise<AxiosResponse<accountsTypes.AccountsAsyncResult, any>>;
 }
 async putApplicationV1(requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiPutApplicationV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.putApplicationV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-async putApprovalsConfigV1(requestParameters: approvalsTypes.ApprovalsApiPutApprovalsConfigV1Request): Promise<AxiosResponse<approvalsTypes.Approvalconfig, any>> {
+async putApprovalsConfigV1(requestParameters: approvalsTypes.ApprovalsApiPutApprovalsConfigV1Request): Promise<AxiosResponse<approvalsTypes.ApprovalConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.putApprovalsConfigV1(requestParameters) as Promise<AxiosResponse<approvalsTypes.Approvalconfig, any>>;
+    return this.electronAPI.putApprovalsConfigV1(requestParameters) as Promise<AxiosResponse<approvalsTypes.ApprovalConfig, any>>;
 }
-async putClientLogConfigurationV1(requestParameters: managedClustersTypes.ManagedClustersApiPutClientLogConfigurationV1Request): Promise<AxiosResponse<managedClustersTypes.Clientlogconfiguration, any>> {
+async putClientLogConfigurationV1(requestParameters: managedClustersTypes.ManagedClustersApiPutClientLogConfigurationV1Request): Promise<AxiosResponse<managedClustersTypes.ClientLogConfiguration, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.putClientLogConfigurationV1(requestParameters) as Promise<AxiosResponse<managedClustersTypes.Clientlogconfiguration, any>>;
+    return this.electronAPI.putClientLogConfigurationV1(requestParameters) as Promise<AxiosResponse<managedClustersTypes.ClientLogConfiguration, any>>;
 }
-async putConnectorCorrelationConfigV1(requestParameters: connectorsTypes.ConnectorsApiPutConnectorCorrelationConfigV1Request): Promise<AxiosResponse<connectorsTypes.Updatedetail, any>> {
+async putConnectorCorrelationConfigV1(requestParameters: connectorsTypes.ConnectorsApiPutConnectorCorrelationConfigV1Request): Promise<AxiosResponse<connectorsTypes.UpdateDetail, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.putConnectorCorrelationConfigV1(requestParameters) as Promise<AxiosResponse<connectorsTypes.Updatedetail, any>>;
+    return this.electronAPI.putConnectorCorrelationConfigV1(requestParameters) as Promise<AxiosResponse<connectorsTypes.UpdateDetail, any>>;
 }
-async putConnectorCustomizerV1(requestParameters: connectorCustomizersTypes.ConnectorCustomizersApiPutConnectorCustomizerV1Request): Promise<AxiosResponse<connectorCustomizersTypes.Connectorcustomizerupdateresponse, any>> {
+async putConnectorCustomizerV1(requestParameters: connectorCustomizersTypes.ConnectorCustomizersApiPutConnectorCustomizerV1Request): Promise<AxiosResponse<connectorCustomizersTypes.ConnectorCustomizerUpdateResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.putConnectorCustomizerV1(requestParameters) as Promise<AxiosResponse<connectorCustomizersTypes.Connectorcustomizerupdateresponse, any>>;
+    return this.electronAPI.putConnectorCustomizerV1(requestParameters) as Promise<AxiosResponse<connectorCustomizersTypes.ConnectorCustomizerUpdateResponse, any>>;
 }
-async putConnectorRuleV1(requestParameters: connectorRuleManagementTypes.ConnectorRuleManagementApiPutConnectorRuleV1Request): Promise<AxiosResponse<connectorRuleManagementTypes.Connectorruleresponse, any>> {
+async putConnectorRuleV1(requestParameters: connectorRuleManagementTypes.ConnectorRuleManagementApiPutConnectorRuleV1Request): Promise<AxiosResponse<connectorRuleManagementTypes.ConnectorRuleResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.putConnectorRuleV1(requestParameters) as Promise<AxiosResponse<connectorRuleManagementTypes.Connectorruleresponse, any>>;
+    return this.electronAPI.putConnectorRuleV1(requestParameters) as Promise<AxiosResponse<connectorRuleManagementTypes.ConnectorRuleResponse, any>>;
 }
-async putConnectorSourceConfigV1(requestParameters: connectorsTypes.ConnectorsApiPutConnectorSourceConfigV1Request): Promise<AxiosResponse<connectorsTypes.Updatedetail, any>> {
+async putConnectorSourceConfigV1(requestParameters: connectorsTypes.ConnectorsApiPutConnectorSourceConfigV1Request): Promise<AxiosResponse<connectorsTypes.UpdateDetail, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.putConnectorSourceConfigV1(requestParameters) as Promise<AxiosResponse<connectorsTypes.Updatedetail, any>>;
+    return this.electronAPI.putConnectorSourceConfigV1(requestParameters) as Promise<AxiosResponse<connectorsTypes.UpdateDetail, any>>;
 }
-async putConnectorSourceTemplateV1(requestParameters: connectorsTypes.ConnectorsApiPutConnectorSourceTemplateV1Request): Promise<AxiosResponse<connectorsTypes.Updatedetail, any>> {
+async putConnectorSourceTemplateV1(requestParameters: connectorsTypes.ConnectorsApiPutConnectorSourceTemplateV1Request): Promise<AxiosResponse<connectorsTypes.UpdateDetail, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.putConnectorSourceTemplateV1(requestParameters) as Promise<AxiosResponse<connectorsTypes.Updatedetail, any>>;
+    return this.electronAPI.putConnectorSourceTemplateV1(requestParameters) as Promise<AxiosResponse<connectorsTypes.UpdateDetail, any>>;
 }
-async putConnectorTranslationsV1(requestParameters: connectorsTypes.ConnectorsApiPutConnectorTranslationsV1Request): Promise<AxiosResponse<connectorsTypes.Updatedetail, any>> {
+async putConnectorTranslationsV1(requestParameters: connectorsTypes.ConnectorsApiPutConnectorTranslationsV1Request): Promise<AxiosResponse<connectorsTypes.UpdateDetail, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.putConnectorTranslationsV1(requestParameters) as Promise<AxiosResponse<connectorsTypes.Updatedetail, any>>;
+    return this.electronAPI.putConnectorTranslationsV1(requestParameters) as Promise<AxiosResponse<connectorsTypes.UpdateDetail, any>>;
 }
-async putCorrelationConfigV1(requestParameters: sourcesTypes.SourcesApiPutCorrelationConfigV1Request): Promise<AxiosResponse<sourcesTypes.Correlationconfig, any>> {
+async putCorrelationConfigV1(requestParameters: sourcesTypes.SourcesApiPutCorrelationConfigV1Request): Promise<AxiosResponse<sourcesTypes.CorrelationConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.putCorrelationConfigV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Correlationconfig, any>>;
+    return this.electronAPI.putCorrelationConfigV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.CorrelationConfig, any>>;
 }
-async putCustomPrivilegeCriteriaValueV1(requestParameters: privilegeCriteriaTypes.PrivilegeCriteriaApiPutCustomPrivilegeCriteriaValueV1Request): Promise<AxiosResponse<privilegeCriteriaTypes.Privilegecriteriadto, any>> {
+async putCustomPrivilegeCriteriaValueV1(requestParameters: privilegeCriteriaTypes.PrivilegeCriteriaApiPutCustomPrivilegeCriteriaValueV1Request): Promise<AxiosResponse<privilegeCriteriaTypes.PrivilegeCriteriaDTO, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.putCustomPrivilegeCriteriaValueV1(requestParameters) as Promise<AxiosResponse<privilegeCriteriaTypes.Privilegecriteriadto, any>>;
+    return this.electronAPI.putCustomPrivilegeCriteriaValueV1(requestParameters) as Promise<AxiosResponse<privilegeCriteriaTypes.PrivilegeCriteriaDTO, any>>;
 }
-async putEntitlementRequestConfigV1(requestParameters: entitlementsTypes.EntitlementsApiPutEntitlementRequestConfigV1Request): Promise<AxiosResponse<entitlementsTypes.Entitlementrequestconfig, any>> {
+async putEntitlementRequestConfigV1(requestParameters: entitlementsTypes.EntitlementsApiPutEntitlementRequestConfigV1Request): Promise<AxiosResponse<entitlementsTypes.EntitlementRequestConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.putEntitlementRequestConfigV1(requestParameters) as Promise<AxiosResponse<entitlementsTypes.Entitlementrequestconfig, any>>;
+    return this.electronAPI.putEntitlementRequestConfigV1(requestParameters) as Promise<AxiosResponse<entitlementsTypes.EntitlementRequestConfig, any>>;
 }
-async putIdentityAttributeV1(requestParameters: identityAttributesTypes.IdentityAttributesApiPutIdentityAttributeV1Request): Promise<AxiosResponse<identityAttributesTypes.Identityattribute2, any>> {
+async putIdentityAttributeV1(requestParameters: identityAttributesTypes.IdentityAttributesApiPutIdentityAttributeV1Request): Promise<AxiosResponse<identityAttributesTypes.IdentityAttribute2, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.putIdentityAttributeV1(requestParameters) as Promise<AxiosResponse<identityAttributesTypes.Identityattribute2, any>>;
+    return this.electronAPI.putIdentityAttributeV1(requestParameters) as Promise<AxiosResponse<identityAttributesTypes.IdentityAttribute2, any>>;
 }
 async putIdentityCollectorV1(requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiPutIdentityCollectorV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
@@ -3587,61 +3619,61 @@ async putLauncherV1(requestParameters: launchersTypes.LaunchersApiPutLauncherV1R
     await this.checkSessionBeforeCall();
     return this.electronAPI.putLauncherV1(requestParameters) as Promise<AxiosResponse<launchersTypes.Launcher, any>>;
 }
-async putMailFromAttributesV1(requestParameters: notificationsTypes.NotificationsApiPutMailFromAttributesV1Request): Promise<AxiosResponse<notificationsTypes.Mailfromattributes, any>> {
+async putMailFromAttributesV1(requestParameters: notificationsTypes.NotificationsApiPutMailFromAttributesV1Request): Promise<AxiosResponse<notificationsTypes.MailFromAttributes, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.putMailFromAttributesV1(requestParameters) as Promise<AxiosResponse<notificationsTypes.Mailfromattributes, any>>;
+    return this.electronAPI.putMailFromAttributesV1(requestParameters) as Promise<AxiosResponse<notificationsTypes.MailFromAttributes, any>>;
 }
-async putNativeChangeDetectionConfigV1(requestParameters: sourcesTypes.SourcesApiPutNativeChangeDetectionConfigV1Request): Promise<AxiosResponse<sourcesTypes.Nativechangedetectionconfig, any>> {
+async putNativeChangeDetectionConfigV1(requestParameters: sourcesTypes.SourcesApiPutNativeChangeDetectionConfigV1Request): Promise<AxiosResponse<sourcesTypes.NativeChangeDetectionConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.putNativeChangeDetectionConfigV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Nativechangedetectionconfig, any>>;
+    return this.electronAPI.putNativeChangeDetectionConfigV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.NativeChangeDetectionConfig, any>>;
 }
 async putPasswordDictionaryV1(requestParameters: passwordDictionaryTypes.PasswordDictionaryApiPutPasswordDictionaryV1Request = {}): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.putPasswordDictionaryV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-async putPasswordOrgConfigV1(requestParameters: passwordConfigurationTypes.PasswordConfigurationApiPutPasswordOrgConfigV1Request): Promise<AxiosResponse<passwordConfigurationTypes.Passwordorgconfig, any>> {
+async putPasswordOrgConfigV1(requestParameters: passwordConfigurationTypes.PasswordConfigurationApiPutPasswordOrgConfigV1Request): Promise<AxiosResponse<passwordConfigurationTypes.PasswordOrgConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.putPasswordOrgConfigV1(requestParameters) as Promise<AxiosResponse<passwordConfigurationTypes.Passwordorgconfig, any>>;
+    return this.electronAPI.putPasswordOrgConfigV1(requestParameters) as Promise<AxiosResponse<passwordConfigurationTypes.PasswordOrgConfig, any>>;
 }
-async putPolicyScheduleV1(requestParameters: sodPoliciesTypes.SODPoliciesApiPutPolicyScheduleV1Request): Promise<AxiosResponse<sodPoliciesTypes.Sodpolicyschedule, any>> {
+async putPolicyScheduleV1(requestParameters: sodPoliciesTypes.SODPoliciesApiPutPolicyScheduleV1Request): Promise<AxiosResponse<sodPoliciesTypes.SodPolicySchedule, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.putPolicyScheduleV1(requestParameters) as Promise<AxiosResponse<sodPoliciesTypes.Sodpolicyschedule, any>>;
+    return this.electronAPI.putPolicyScheduleV1(requestParameters) as Promise<AxiosResponse<sodPoliciesTypes.SodPolicySchedule, any>>;
 }
-async putProvisioningPolicyV1(requestParameters: sourcesTypes.SourcesApiPutProvisioningPolicyV1Request): Promise<AxiosResponse<sourcesTypes.Provisioningpolicydto, any>> {
+async putProvisioningPolicyV1(requestParameters: sourcesTypes.SourcesApiPutProvisioningPolicyV1Request): Promise<AxiosResponse<sourcesTypes.ProvisioningPolicyDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.putProvisioningPolicyV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Provisioningpolicydto, any>>;
+    return this.electronAPI.putProvisioningPolicyV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.ProvisioningPolicyDto, any>>;
 }
-async putProvisioningPolicyV2(requestParameters: sourcesTypes.SourcesApiPutProvisioningPolicyV2Request): Promise<AxiosResponse<sourcesTypes.Provisioningpolicydtov2, any>> {
+async putProvisioningPolicyV2(requestParameters: sourcesTypes.SourcesApiPutProvisioningPolicyV2Request): Promise<AxiosResponse<sourcesTypes.ProvisioningPolicyDtoV2, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.putProvisioningPolicyV2(requestParameters) as Promise<AxiosResponse<sourcesTypes.Provisioningpolicydtov2, any>>;
+    return this.electronAPI.putProvisioningPolicyV2(requestParameters) as Promise<AxiosResponse<sourcesTypes.ProvisioningPolicyDtoV2, any>>;
 }
-async putReassignmentConfigV1(requestParameters: workReassignmentTypes.WorkReassignmentApiPutReassignmentConfigV1Request): Promise<AxiosResponse<workReassignmentTypes.Configurationitemresponse, any>> {
+async putReassignmentConfigV1(requestParameters: workReassignmentTypes.WorkReassignmentApiPutReassignmentConfigV1Request): Promise<AxiosResponse<workReassignmentTypes.ConfigurationItemResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.putReassignmentConfigV1(requestParameters) as Promise<AxiosResponse<workReassignmentTypes.Configurationitemresponse, any>>;
+    return this.electronAPI.putReassignmentConfigV1(requestParameters) as Promise<AxiosResponse<workReassignmentTypes.ConfigurationItemResponse, any>>;
 }
-async putSavedSearchV1(requestParameters: savedSearchTypes.SavedSearchApiPutSavedSearchV1Request): Promise<AxiosResponse<savedSearchTypes.Savedsearch, any>> {
+async putSavedSearchV1(requestParameters: savedSearchTypes.SavedSearchApiPutSavedSearchV1Request): Promise<AxiosResponse<savedSearchTypes.SavedSearch, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.putSavedSearchV1(requestParameters) as Promise<AxiosResponse<savedSearchTypes.Savedsearch, any>>;
+    return this.electronAPI.putSavedSearchV1(requestParameters) as Promise<AxiosResponse<savedSearchTypes.SavedSearch, any>>;
 }
 async putScheduleV1(requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiPutScheduleV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.putScheduleV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-async putServiceDeskIntegrationV1(requestParameters: serviceDeskIntegrationTypes.ServiceDeskIntegrationApiPutServiceDeskIntegrationV1Request): Promise<AxiosResponse<serviceDeskIntegrationTypes.Servicedeskintegrationdto, any>> {
+async putServiceDeskIntegrationV1(requestParameters: serviceDeskIntegrationTypes.ServiceDeskIntegrationApiPutServiceDeskIntegrationV1Request): Promise<AxiosResponse<serviceDeskIntegrationTypes.ServiceDeskIntegrationDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.putServiceDeskIntegrationV1(requestParameters) as Promise<AxiosResponse<serviceDeskIntegrationTypes.Servicedeskintegrationdto, any>>;
+    return this.electronAPI.putServiceDeskIntegrationV1(requestParameters) as Promise<AxiosResponse<serviceDeskIntegrationTypes.ServiceDeskIntegrationDto, any>>;
 }
-async putSIMIntegrationV1(requestParameters: simIntegrationsTypes.SIMIntegrationsApiPutSIMIntegrationV1Request): Promise<AxiosResponse<simIntegrationsTypes.Servicedeskintegrationdto, any>> {
+async putSIMIntegrationV1(requestParameters: simIntegrationsTypes.SIMIntegrationsApiPutSIMIntegrationV1Request): Promise<AxiosResponse<simIntegrationsTypes.ServiceDeskIntegrationDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.putSIMIntegrationV1(requestParameters) as Promise<AxiosResponse<simIntegrationsTypes.Servicedeskintegrationdto, any>>;
+    return this.electronAPI.putSIMIntegrationV1(requestParameters) as Promise<AxiosResponse<simIntegrationsTypes.ServiceDeskIntegrationDto, any>>;
 }
-async putSodPolicyV1(requestParameters: sodPoliciesTypes.SODPoliciesApiPutSodPolicyV1Request): Promise<AxiosResponse<sodPoliciesTypes.Sodpolicy, any>> {
+async putSodPolicyV1(requestParameters: sodPoliciesTypes.SODPoliciesApiPutSodPolicyV1Request): Promise<AxiosResponse<sodPoliciesTypes.SodPolicy, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.putSodPolicyV1(requestParameters) as Promise<AxiosResponse<sodPoliciesTypes.Sodpolicy, any>>;
+    return this.electronAPI.putSodPolicyV1(requestParameters) as Promise<AxiosResponse<sodPoliciesTypes.SodPolicy, any>>;
 }
-async putSourceAttrSyncConfigV1(requestParameters: sourcesTypes.SourcesApiPutSourceAttrSyncConfigV1Request): Promise<AxiosResponse<sourcesTypes.Attrsyncsourceconfig, any>> {
+async putSourceAttrSyncConfigV1(requestParameters: sourcesTypes.SourcesApiPutSourceAttrSyncConfigV1Request): Promise<AxiosResponse<sourcesTypes.AttrSyncSourceConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.putSourceAttrSyncConfigV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Attrsyncsourceconfig, any>>;
+    return this.electronAPI.putSourceAttrSyncConfigV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.AttrSyncSourceConfig, any>>;
 }
 async putSourceSchemaV1(requestParameters: sourcesTypes.SourcesApiPutSourceSchemaV1Request): Promise<AxiosResponse<sourcesTypes.Schema, any>> {
     await this.checkSessionBeforeCall();
@@ -3651,25 +3683,25 @@ async putSourceV1(requestParameters: sourcesTypes.SourcesApiPutSourceV1Request):
     await this.checkSessionBeforeCall();
     return this.electronAPI.putSourceV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Source, any>>;
 }
-async putTaggedObjectV1(requestParameters: taggedObjectsTypes.TaggedObjectsApiPutTaggedObjectV1Request): Promise<AxiosResponse<taggedObjectsTypes.Taggedobject, any>> {
+async putTaggedObjectV1(requestParameters: taggedObjectsTypes.TaggedObjectsApiPutTaggedObjectV1Request): Promise<AxiosResponse<taggedObjectsTypes.TaggedObject, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.putTaggedObjectV1(requestParameters) as Promise<AxiosResponse<taggedObjectsTypes.Taggedobject, any>>;
+    return this.electronAPI.putTaggedObjectV1(requestParameters) as Promise<AxiosResponse<taggedObjectsTypes.TaggedObject, any>>;
 }
-async putTenantConfigurationV1(requestParameters: workReassignmentTypes.WorkReassignmentApiPutTenantConfigurationV1Request): Promise<AxiosResponse<workReassignmentTypes.Tenantconfigurationresponse, any>> {
+async putTenantConfigurationV1(requestParameters: workReassignmentTypes.WorkReassignmentApiPutTenantConfigurationV1Request): Promise<AxiosResponse<workReassignmentTypes.TenantConfigurationResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.putTenantConfigurationV1(requestParameters) as Promise<AxiosResponse<workReassignmentTypes.Tenantconfigurationresponse, any>>;
+    return this.electronAPI.putTenantConfigurationV1(requestParameters) as Promise<AxiosResponse<workReassignmentTypes.TenantConfigurationResponse, any>>;
 }
 async putWorkflowV1(requestParameters: workflowsTypes.WorkflowsApiPutWorkflowV1Request): Promise<AxiosResponse<workflowsTypes.Workflow, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.putWorkflowV1(requestParameters) as Promise<AxiosResponse<workflowsTypes.Workflow, any>>;
 }
-async queryPasswordInfoV1(requestParameters: passwordManagementTypes.PasswordManagementApiQueryPasswordInfoV1Request): Promise<AxiosResponse<passwordManagementTypes.Passwordinfo, any>> {
+async queryPasswordInfoV1(requestParameters: passwordManagementTypes.PasswordManagementApiQueryPasswordInfoV1Request): Promise<AxiosResponse<passwordManagementTypes.PasswordInfo, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.queryPasswordInfoV1(requestParameters) as Promise<AxiosResponse<passwordManagementTypes.Passwordinfo, any>>;
+    return this.electronAPI.queryPasswordInfoV1(requestParameters) as Promise<AxiosResponse<passwordManagementTypes.PasswordInfo, any>>;
 }
-async reassignIdentityCertificationsV1(requestParameters: certificationsTypes.CertificationsApiReassignIdentityCertificationsV1Request): Promise<AxiosResponse<certificationsTypes.Identitycertificationdto, any>> {
+async reassignIdentityCertificationsV1(requestParameters: certificationsTypes.CertificationsApiReassignIdentityCertificationsV1Request): Promise<AxiosResponse<certificationsTypes.IdentityCertificationDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.reassignIdentityCertificationsV1(requestParameters) as Promise<AxiosResponse<certificationsTypes.Identitycertificationdto, any>>;
+    return this.electronAPI.reassignIdentityCertificationsV1(requestParameters) as Promise<AxiosResponse<certificationsTypes.IdentityCertificationDto, any>>;
 }
 async rejectAccessRequestV1(requestParameters: accessRequestApprovalsTypes.AccessRequestApprovalsApiRejectAccessRequestV1Request): Promise<AxiosResponse<any, any>> {
     await this.checkSessionBeforeCall();
@@ -3679,29 +3711,29 @@ async rejectApprovalInBulkV1(requestParameters: approvalsTypes.ApprovalsApiRejec
     await this.checkSessionBeforeCall();
     return this.electronAPI.rejectApprovalInBulkV1(requestParameters) as Promise<AxiosResponse<any, any>>;
 }
-async rejectApprovalItemsInBulkV1(requestParameters: workItemsTypes.WorkItemsApiRejectApprovalItemsInBulkV1Request): Promise<AxiosResponse<workItemsTypes.Workitems, any>> {
+async rejectApprovalItemsInBulkV1(requestParameters: workItemsTypes.WorkItemsApiRejectApprovalItemsInBulkV1Request): Promise<AxiosResponse<workItemsTypes.WorkItems, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.rejectApprovalItemsInBulkV1(requestParameters) as Promise<AxiosResponse<workItemsTypes.Workitems, any>>;
+    return this.electronAPI.rejectApprovalItemsInBulkV1(requestParameters) as Promise<AxiosResponse<workItemsTypes.WorkItems, any>>;
 }
-async rejectApprovalItemV1(requestParameters: workItemsTypes.WorkItemsApiRejectApprovalItemV1Request): Promise<AxiosResponse<workItemsTypes.Workitems, any>> {
+async rejectApprovalItemV1(requestParameters: workItemsTypes.WorkItemsApiRejectApprovalItemV1Request): Promise<AxiosResponse<workItemsTypes.WorkItems, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.rejectApprovalItemV1(requestParameters) as Promise<AxiosResponse<workItemsTypes.Workitems, any>>;
+    return this.electronAPI.rejectApprovalItemV1(requestParameters) as Promise<AxiosResponse<workItemsTypes.WorkItems, any>>;
 }
 async rejectApprovalV1(requestParameters: approvalsTypes.ApprovalsApiRejectApprovalV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.rejectApprovalV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-async rejectNonEmployeeRequestV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiRejectNonEmployeeRequestV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeeapprovalitem, any>> {
+async rejectNonEmployeeRequestV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiRejectNonEmployeeRequestV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeApprovalItem, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.rejectNonEmployeeRequestV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeeapprovalitem, any>>;
+    return this.electronAPI.rejectNonEmployeeRequestV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeApprovalItem, any>>;
 }
 async resetIdentityV1(requestParameters: identitiesTypes.IdentitiesApiResetIdentityV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.resetIdentityV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-async resetSourceEntitlementsV1(requestParameters: entitlementsTypes.EntitlementsApiResetSourceEntitlementsV1Request): Promise<AxiosResponse<entitlementsTypes.Entitlementsourceresetbasereferencedto, any>> {
+async resetSourceEntitlementsV1(requestParameters: entitlementsTypes.EntitlementsApiResetSourceEntitlementsV1Request): Promise<AxiosResponse<entitlementsTypes.EntitlementSourceResetBaseReferenceDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.resetSourceEntitlementsV1(requestParameters) as Promise<AxiosResponse<entitlementsTypes.Entitlementsourceresetbasereferencedto, any>>;
+    return this.electronAPI.resetSourceEntitlementsV1(requestParameters) as Promise<AxiosResponse<entitlementsTypes.EntitlementSourceResetBaseReferenceDto, any>>;
 }
 async searchAdvancedSearchbyIDNerm(requestParameters: sdk.AdvancedSearchNERMApiSearchAdvancedSearchbyIDRequest): Promise<AxiosResponse<sdk.SearchAdvancedSearch200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -3711,25 +3743,25 @@ async searchAdvancedSearchNerm(requestParameters: sdk.AdvancedSearchNERMApiSearc
     await this.checkSessionBeforeCall();
     return this.electronAPI.searchAdvancedSearchNerm(requestParameters) as Promise<AxiosResponse<sdk.SearchAdvancedSearch200ResponseNERM, any>>;
 }
-async searchAggregateV1(requestParameters: searchTypes.SearchApiSearchAggregateV1Request): Promise<AxiosResponse<searchTypes.Aggregationresult, any>> {
+async searchAggregateV1(requestParameters: searchTypes.SearchApiSearchAggregateV1Request): Promise<AxiosResponse<searchTypes.AggregationResult, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.searchAggregateV1(requestParameters) as Promise<AxiosResponse<searchTypes.Aggregationresult, any>>;
+    return this.electronAPI.searchAggregateV1(requestParameters) as Promise<AxiosResponse<searchTypes.AggregationResult, any>>;
 }
 async searchCountV1(requestParameters: searchTypes.SearchApiSearchCountV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.searchCountV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-async searchFormDefinitionsByTenantV1(requestParameters: customFormsTypes.CustomFormsApiSearchFormDefinitionsByTenantV1Request = {}): Promise<AxiosResponse<customFormsTypes.Listformdefinitionsbytenantresponse, any>> {
+async searchFormDefinitionsByTenantV1(requestParameters: customFormsTypes.CustomFormsApiSearchFormDefinitionsByTenantV1Request = {}): Promise<AxiosResponse<customFormsTypes.ListFormDefinitionsByTenantResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.searchFormDefinitionsByTenantV1(requestParameters) as Promise<AxiosResponse<customFormsTypes.Listformdefinitionsbytenantresponse, any>>;
+    return this.electronAPI.searchFormDefinitionsByTenantV1(requestParameters) as Promise<AxiosResponse<customFormsTypes.ListFormDefinitionsByTenantResponse, any>>;
 }
-async searchFormElementDataByElementIDV1(requestParameters: customFormsTypes.CustomFormsApiSearchFormElementDataByElementIDV1Request): Promise<AxiosResponse<customFormsTypes.Listformelementdatabyelementidresponse, any>> {
+async searchFormElementDataByElementIDV1(requestParameters: customFormsTypes.CustomFormsApiSearchFormElementDataByElementIDV1Request): Promise<AxiosResponse<customFormsTypes.ListFormElementDataByElementIDResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.searchFormElementDataByElementIDV1(requestParameters) as Promise<AxiosResponse<customFormsTypes.Listformelementdatabyelementidresponse, any>>;
+    return this.electronAPI.searchFormElementDataByElementIDV1(requestParameters) as Promise<AxiosResponse<customFormsTypes.ListFormElementDataByElementIDResponse, any>>;
 }
-async searchFormInstancesByTenantV1(requestParameters: customFormsTypes.CustomFormsApiSearchFormInstancesByTenantV1Request = {}): Promise<AxiosResponse<Array<customFormsTypes.Listforminstancesbytenantresponse>, any>> {
+async searchFormInstancesByTenantV1(requestParameters: customFormsTypes.CustomFormsApiSearchFormInstancesByTenantV1Request = {}): Promise<AxiosResponse<Array<customFormsTypes.ListFormInstancesByTenantResponse>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.searchFormInstancesByTenantV1(requestParameters) as Promise<AxiosResponse<Array<customFormsTypes.Listforminstancesbytenantresponse>, any>>;
+    return this.electronAPI.searchFormInstancesByTenantV1(requestParameters) as Promise<AxiosResponse<Array<customFormsTypes.ListFormInstancesByTenantResponse>, any>>;
 }
 async searchGetV1(requestParameters: searchTypes.SearchApiSearchGetV1Request): Promise<AxiosResponse<any, any>> {
     await this.checkSessionBeforeCall();
@@ -3739,21 +3771,21 @@ async searchNerm(requestParameters: sdk.AuditsNERMApiSearchRequest): Promise<Axi
     await this.checkSessionBeforeCall();
     return this.electronAPI.searchNerm(requestParameters) as Promise<AxiosResponse<sdk.Search200ResponseNERM, any>>;
 }
-async searchParametersV1(requestParameters: parameterStorageTypes.ParameterStorageApiSearchParametersV1Request = {}): Promise<AxiosResponse<Array<parameterStorageTypes.Parameterstorageparameter>, any>> {
+async searchParametersV1(requestParameters: parameterStorageTypes.ParameterStorageApiSearchParametersV1Request = {}): Promise<AxiosResponse<Array<parameterStorageTypes.ParameterStorageParameter>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.searchParametersV1(requestParameters) as Promise<AxiosResponse<Array<parameterStorageTypes.Parameterstorageparameter>, any>>;
+    return this.electronAPI.searchParametersV1(requestParameters) as Promise<AxiosResponse<Array<parameterStorageTypes.ParameterStorageParameter>, any>>;
 }
 async searchPostV1(requestParameters: searchTypes.SearchApiSearchPostV1Request): Promise<AxiosResponse<Array<any>, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.searchPostV1(requestParameters) as Promise<AxiosResponse<Array<any>, any>>;
 }
-async searchPreDefinedSelectOptionsV1(): Promise<AxiosResponse<customFormsTypes.Listpredefinedselectoptionsresponse, any>> {
+async searchPreDefinedSelectOptionsV1(): Promise<AxiosResponse<customFormsTypes.ListPredefinedSelectOptionsResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.searchPreDefinedSelectOptionsV1() as Promise<AxiosResponse<customFormsTypes.Listpredefinedselectoptionsresponse, any>>;
+    return this.electronAPI.searchPreDefinedSelectOptionsV1() as Promise<AxiosResponse<customFormsTypes.ListPredefinedSelectOptionsResponse, any>>;
 }
-async searchResourceObjectsV1(requestParameters: sourcesTypes.SourcesApiSearchResourceObjectsV1Request): Promise<AxiosResponse<sourcesTypes.Resourceobjectsresponse, any>> {
+async searchResourceObjectsV1(requestParameters: sourcesTypes.SourcesApiSearchResourceObjectsV1Request): Promise<AxiosResponse<sourcesTypes.ResourceObjectsResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.searchResourceObjectsV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Resourceobjectsresponse, any>>;
+    return this.electronAPI.searchResourceObjectsV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.ResourceObjectsResponse, any>>;
 }
 async searchRolesByFilterV1(requestParameters: rolesTypes.RolesApiSearchRolesByFilterV1Request = {}): Promise<AxiosResponse<Array<rolesTypes.Role>, any>> {
     await this.checkSessionBeforeCall();
@@ -3787,25 +3819,25 @@ async sendTestNotificationV1(requestParameters: notificationsTypes.Notifications
     await this.checkSessionBeforeCall();
     return this.electronAPI.sendTestNotificationV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-async setAccessRequestConfigV1(requestParameters: accessRequestsTypes.AccessRequestsApiSetAccessRequestConfigV1Request): Promise<AxiosResponse<accessRequestsTypes.Accessrequestconfig, any>> {
+async setAccessRequestConfigV1(requestParameters: accessRequestsTypes.AccessRequestsApiSetAccessRequestConfigV1Request): Promise<AxiosResponse<accessRequestsTypes.AccessRequestConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.setAccessRequestConfigV1(requestParameters) as Promise<AxiosResponse<accessRequestsTypes.Accessrequestconfig, any>>;
+    return this.electronAPI.setAccessRequestConfigV1(requestParameters) as Promise<AxiosResponse<accessRequestsTypes.AccessRequestConfig, any>>;
 }
-async setAccessRequestConfigV2(requestParameters: accessRequestsTypes.AccessRequestsApiSetAccessRequestConfigV2Request): Promise<AxiosResponse<accessRequestsTypes.Accessrequestconfigv2, any>> {
+async setAccessRequestConfigV2(requestParameters: accessRequestsTypes.AccessRequestsApiSetAccessRequestConfigV2Request): Promise<AxiosResponse<accessRequestsTypes.AccessRequestConfig2, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.setAccessRequestConfigV2(requestParameters) as Promise<AxiosResponse<accessRequestsTypes.Accessrequestconfigv2, any>>;
+    return this.electronAPI.setAccessRequestConfigV2(requestParameters) as Promise<AxiosResponse<accessRequestsTypes.AccessRequestConfig2, any>>;
 }
-async setAccessRequestRecommendationsConfigV1(requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiSetAccessRequestRecommendationsConfigV1Request): Promise<AxiosResponse<iaiAccessRequestRecommendationsTypes.Accessrequestrecommendationconfigdto, any>> {
+async setAccessRequestRecommendationsConfigV1(requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiSetAccessRequestRecommendationsConfigV1Request): Promise<AxiosResponse<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationConfigDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.setAccessRequestRecommendationsConfigV1(requestParameters) as Promise<AxiosResponse<iaiAccessRequestRecommendationsTypes.Accessrequestrecommendationconfigdto, any>>;
+    return this.electronAPI.setAccessRequestRecommendationsConfigV1(requestParameters) as Promise<AxiosResponse<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationConfigDto, any>>;
 }
-async setBrandingItemV1(requestParameters: brandingTypes.BrandingApiSetBrandingItemV1Request): Promise<AxiosResponse<brandingTypes.Brandingitem, any>> {
+async setBrandingItemV1(requestParameters: brandingTypes.BrandingApiSetBrandingItemV1Request): Promise<AxiosResponse<brandingTypes.BrandingItem, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.setBrandingItemV1(requestParameters) as Promise<AxiosResponse<brandingTypes.Brandingitem, any>>;
+    return this.electronAPI.setBrandingItemV1(requestParameters) as Promise<AxiosResponse<brandingTypes.BrandingItem, any>>;
 }
-async setCampaignReportsConfigV1(requestParameters: certificationCampaignsTypes.CertificationCampaignsApiSetCampaignReportsConfigV1Request): Promise<AxiosResponse<certificationCampaignsTypes.Campaignreportsconfig, any>> {
+async setCampaignReportsConfigV1(requestParameters: certificationCampaignsTypes.CertificationCampaignsApiSetCampaignReportsConfigV1Request): Promise<AxiosResponse<certificationCampaignsTypes.CampaignReportsConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.setCampaignReportsConfigV1(requestParameters) as Promise<AxiosResponse<certificationCampaignsTypes.Campaignreportsconfig, any>>;
+    return this.electronAPI.setCampaignReportsConfigV1(requestParameters) as Promise<AxiosResponse<certificationCampaignsTypes.CampaignReportsConfig, any>>;
 }
 async setCampaignTemplateScheduleV1(requestParameters: certificationCampaignsTypes.CertificationCampaignsApiSetCampaignTemplateScheduleV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
@@ -3819,73 +3851,73 @@ async setLifecycleStateV1(requestParameters: lifecycleStatesTypes.LifecycleState
     await this.checkSessionBeforeCall();
     return this.electronAPI.setLifecycleStateV1(requestParameters) as Promise<AxiosResponse<lifecycleStatesTypes.SetLifecycleStateV1200Response, any>>;
 }
-async setMachineAccountMappingsV1(requestParameters: machineAccountMappingsTypes.MachineAccountMappingsApiSetMachineAccountMappingsV1Request): Promise<AxiosResponse<Array<machineAccountMappingsTypes.Attributemappings>, any>> {
+async setMachineAccountMappingsV1(requestParameters: machineAccountMappingsTypes.MachineAccountMappingsApiSetMachineAccountMappingsV1Request): Promise<AxiosResponse<Array<machineAccountMappingsTypes.AttributeMappings>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.setMachineAccountMappingsV1(requestParameters) as Promise<AxiosResponse<Array<machineAccountMappingsTypes.Attributemappings>, any>>;
+    return this.electronAPI.setMachineAccountMappingsV1(requestParameters) as Promise<AxiosResponse<Array<machineAccountMappingsTypes.AttributeMappings>, any>>;
 }
-async setMachineClassificationConfigV1(requestParameters: machineClassificationConfigTypes.MachineClassificationConfigApiSetMachineClassificationConfigV1Request): Promise<AxiosResponse<machineClassificationConfigTypes.Machineclassificationconfig, any>> {
+async setMachineClassificationConfigV1(requestParameters: machineClassificationConfigTypes.MachineClassificationConfigApiSetMachineClassificationConfigV1Request): Promise<AxiosResponse<machineClassificationConfigTypes.MachineClassificationConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.setMachineClassificationConfigV1(requestParameters) as Promise<AxiosResponse<machineClassificationConfigTypes.Machineclassificationconfig, any>>;
+    return this.electronAPI.setMachineClassificationConfigV1(requestParameters) as Promise<AxiosResponse<machineClassificationConfigTypes.MachineClassificationConfig, any>>;
 }
-async setMFADuoConfigV1(requestParameters: mfaConfigurationTypes.MFAConfigurationApiSetMFADuoConfigV1Request): Promise<AxiosResponse<mfaConfigurationTypes.Mfaduoconfig, any>> {
+async setMFADuoConfigV1(requestParameters: mfaConfigurationTypes.MFAConfigurationApiSetMFADuoConfigV1Request): Promise<AxiosResponse<mfaConfigurationTypes.MfaDuoConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.setMFADuoConfigV1(requestParameters) as Promise<AxiosResponse<mfaConfigurationTypes.Mfaduoconfig, any>>;
+    return this.electronAPI.setMFADuoConfigV1(requestParameters) as Promise<AxiosResponse<mfaConfigurationTypes.MfaDuoConfig, any>>;
 }
-async setMFAKBAConfigV1(requestParameters: mfaConfigurationTypes.MFAConfigurationApiSetMFAKBAConfigV1Request): Promise<AxiosResponse<Array<mfaConfigurationTypes.Kbaanswerresponseitem>, any>> {
+async setMFAKBAConfigV1(requestParameters: mfaConfigurationTypes.MFAConfigurationApiSetMFAKBAConfigV1Request): Promise<AxiosResponse<Array<mfaConfigurationTypes.KbaAnswerResponseItem>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.setMFAKBAConfigV1(requestParameters) as Promise<AxiosResponse<Array<mfaConfigurationTypes.Kbaanswerresponseitem>, any>>;
+    return this.electronAPI.setMFAKBAConfigV1(requestParameters) as Promise<AxiosResponse<Array<mfaConfigurationTypes.KbaAnswerResponseItem>, any>>;
 }
-async setMFAOktaConfigV1(requestParameters: mfaConfigurationTypes.MFAConfigurationApiSetMFAOktaConfigV1Request): Promise<AxiosResponse<mfaConfigurationTypes.Mfaoktaconfig, any>> {
+async setMFAOktaConfigV1(requestParameters: mfaConfigurationTypes.MFAConfigurationApiSetMFAOktaConfigV1Request): Promise<AxiosResponse<mfaConfigurationTypes.MfaOktaConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.setMFAOktaConfigV1(requestParameters) as Promise<AxiosResponse<mfaConfigurationTypes.Mfaoktaconfig, any>>;
+    return this.electronAPI.setMFAOktaConfigV1(requestParameters) as Promise<AxiosResponse<mfaConfigurationTypes.MfaOktaConfig, any>>;
 }
-async setPasswordPolicyV1(requestParameters: passwordPoliciesTypes.PasswordPoliciesApiSetPasswordPolicyV1Request): Promise<AxiosResponse<passwordPoliciesTypes.Passwordpolicyv3dto, any>> {
+async setPasswordPolicyV1(requestParameters: passwordPoliciesTypes.PasswordPoliciesApiSetPasswordPolicyV1Request): Promise<AxiosResponse<passwordPoliciesTypes.PasswordPolicyV3Dto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.setPasswordPolicyV1(requestParameters) as Promise<AxiosResponse<passwordPoliciesTypes.Passwordpolicyv3dto, any>>;
+    return this.electronAPI.setPasswordPolicyV1(requestParameters) as Promise<AxiosResponse<passwordPoliciesTypes.PasswordPolicyV3Dto, any>>;
 }
-async setPasswordV1(requestParameters: passwordManagementTypes.PasswordManagementApiSetPasswordV1Request): Promise<AxiosResponse<passwordManagementTypes.Passwordchangeresponse, any>> {
+async setPasswordV1(requestParameters: passwordManagementTypes.PasswordManagementApiSetPasswordV1Request): Promise<AxiosResponse<passwordManagementTypes.PasswordChangeResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.setPasswordV1(requestParameters) as Promise<AxiosResponse<passwordManagementTypes.Passwordchangeresponse, any>>;
+    return this.electronAPI.setPasswordV1(requestParameters) as Promise<AxiosResponse<passwordManagementTypes.PasswordChangeResponse, any>>;
 }
-async setRolePropagationConfigV1(requestParameters: rolePropagationTypes.RolePropagationApiSetRolePropagationConfigV1Request): Promise<AxiosResponse<rolePropagationTypes.RolePropagationConfigResponse, any>> {
+async setRolePropagationConfigV1(requestParameters: rolePropagationTypes.RolePropagationApiSetRolePropagationConfigV1Request): Promise<AxiosResponse<rolePropagationTypes.Rolepropagationconfigresponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.setRolePropagationConfigV1(requestParameters) as Promise<AxiosResponse<rolePropagationTypes.RolePropagationConfigResponse, any>>;
+    return this.electronAPI.setRolePropagationConfigV1(requestParameters) as Promise<AxiosResponse<rolePropagationTypes.Rolepropagationconfigresponse, any>>;
 }
-async setStreamConfigurationV1(requestParameters: sharedSignalsFrameworkSsfTypes.SharedSignalsFrameworkSSFApiSetStreamConfigurationV1Request): Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.Updatestreamconfigresponse, any>> {
+async setStreamConfigurationV1(requestParameters: sharedSignalsFrameworkSsfTypes.SharedSignalsFrameworkSSFApiSetStreamConfigurationV1Request): Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.UpdateStreamConfigResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.setStreamConfigurationV1(requestParameters) as Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.Updatestreamconfigresponse, any>>;
+    return this.electronAPI.setStreamConfigurationV1(requestParameters) as Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.UpdateStreamConfigResponse, any>>;
 }
-async setTagsToManyObjectsV1(requestParameters: taggedObjectsTypes.TaggedObjectsApiSetTagsToManyObjectsV1Request): Promise<AxiosResponse<Array<taggedObjectsTypes.Bulktaggedobjectresponse>, any>> {
+async setTagsToManyObjectsV1(requestParameters: taggedObjectsTypes.TaggedObjectsApiSetTagsToManyObjectsV1Request): Promise<AxiosResponse<Array<taggedObjectsTypes.BulkTaggedObjectResponse>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.setTagsToManyObjectsV1(requestParameters) as Promise<AxiosResponse<Array<taggedObjectsTypes.Bulktaggedobjectresponse>, any>>;
+    return this.electronAPI.setTagsToManyObjectsV1(requestParameters) as Promise<AxiosResponse<Array<taggedObjectsTypes.BulkTaggedObjectResponse>, any>>;
 }
 async setTagToObjectV1(requestParameters: taggedObjectsTypes.TaggedObjectsApiSetTagToObjectV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.setTagToObjectV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-async setTenantUiMetadataV1(requestParameters: uiMetadataTypes.UIMetadataApiSetTenantUiMetadataV1Request): Promise<AxiosResponse<uiMetadataTypes.Tenantuimetadataitemresponse, any>> {
+async setTenantUiMetadataV1(requestParameters: uiMetadataTypes.UIMetadataApiSetTenantUiMetadataV1Request): Promise<AxiosResponse<uiMetadataTypes.TenantUiMetadataItemResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.setTenantUiMetadataV1(requestParameters) as Promise<AxiosResponse<uiMetadataTypes.Tenantuimetadataitemresponse, any>>;
+    return this.electronAPI.setTenantUiMetadataV1(requestParameters) as Promise<AxiosResponse<uiMetadataTypes.TenantUiMetadataItemResponse, any>>;
 }
-async showPreviewDataSourceV1(requestParameters: customFormsTypes.CustomFormsApiShowPreviewDataSourceV1Request): Promise<AxiosResponse<customFormsTypes.Previewdatasourceresponse, any>> {
+async showPreviewDataSourceV1(requestParameters: customFormsTypes.CustomFormsApiShowPreviewDataSourceV1Request): Promise<AxiosResponse<customFormsTypes.PreviewDataSourceResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.showPreviewDataSourceV1(requestParameters) as Promise<AxiosResponse<customFormsTypes.Previewdatasourceresponse, any>>;
+    return this.electronAPI.showPreviewDataSourceV1(requestParameters) as Promise<AxiosResponse<customFormsTypes.PreviewDataSourceResponse, any>>;
 }
-async showUserLevelCountsV1(requestParameters: customUserLevelsTypes.CustomUserLevelsApiShowUserLevelCountsV1Request): Promise<AxiosResponse<Array<customUserLevelsTypes.Authuserlevelsidentitycount>, any>> {
+async showUserLevelCountsV1(requestParameters: customUserLevelsTypes.CustomUserLevelsApiShowUserLevelCountsV1Request): Promise<AxiosResponse<Array<customUserLevelsTypes.AuthUserLevelsIdentityCount>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.showUserLevelCountsV1(requestParameters) as Promise<AxiosResponse<Array<customUserLevelsTypes.Authuserlevelsidentitycount>, any>>;
+    return this.electronAPI.showUserLevelCountsV1(requestParameters) as Promise<AxiosResponse<Array<customUserLevelsTypes.AuthUserLevelsIdentityCount>, any>>;
 }
-async signOffIdentityCertificationV1(requestParameters: certificationsTypes.CertificationsApiSignOffIdentityCertificationV1Request): Promise<AxiosResponse<certificationsTypes.Identitycertificationdto, any>> {
+async signOffIdentityCertificationV1(requestParameters: certificationsTypes.CertificationsApiSignOffIdentityCertificationV1Request): Promise<AxiosResponse<certificationsTypes.IdentityCertificationDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.signOffIdentityCertificationV1(requestParameters) as Promise<AxiosResponse<certificationsTypes.Identitycertificationdto, any>>;
+    return this.electronAPI.signOffIdentityCertificationV1(requestParameters) as Promise<AxiosResponse<certificationsTypes.IdentityCertificationDto, any>>;
 }
-async startActivateWorkflowV1(requestParameters: jitActivationsTypes.JITActivationsApiStartActivateWorkflowV1Request): Promise<AxiosResponse<jitActivationsTypes.Jitactivationactivateresponse, any>> {
+async startActivateWorkflowV1(requestParameters: jitActivationsTypes.JITActivationsApiStartActivateWorkflowV1Request): Promise<AxiosResponse<jitActivationsTypes.JitActivationActivateResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.startActivateWorkflowV1(requestParameters) as Promise<AxiosResponse<jitActivationsTypes.Jitactivationactivateresponse, any>>;
+    return this.electronAPI.startActivateWorkflowV1(requestParameters) as Promise<AxiosResponse<jitActivationsTypes.JitActivationActivateResponse, any>>;
 }
-async startApplicationDiscoveryV1(requestParameters: applicationDiscoveryTypes.ApplicationDiscoveryApiStartApplicationDiscoveryV1Request): Promise<AxiosResponse<applicationDiscoveryTypes.Applicationdiscoveryresponse, any>> {
+async startApplicationDiscoveryV1(requestParameters: applicationDiscoveryTypes.ApplicationDiscoveryApiStartApplicationDiscoveryV1Request): Promise<AxiosResponse<applicationDiscoveryTypes.ApplicationDiscoveryResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.startApplicationDiscoveryV1(requestParameters) as Promise<AxiosResponse<applicationDiscoveryTypes.Applicationdiscoveryresponse, any>>;
+    return this.electronAPI.startApplicationDiscoveryV1(requestParameters) as Promise<AxiosResponse<applicationDiscoveryTypes.ApplicationDiscoveryResponse, any>>;
 }
 async startCampaignRemediationScanV1(requestParameters: certificationCampaignsTypes.CertificationCampaignsApiStartCampaignRemediationScanV1Request): Promise<AxiosResponse<any, any>> {
     await this.checkSessionBeforeCall();
@@ -3899,57 +3931,57 @@ async startCampaignV1(requestParameters: certificationCampaignsTypes.Certificati
     await this.checkSessionBeforeCall();
     return this.electronAPI.startCampaignV1(requestParameters) as Promise<AxiosResponse<any, any>>;
 }
-async startDeactivateWorkflowV1(requestParameters: jitActivationsTypes.JITActivationsApiStartDeactivateWorkflowV1Request): Promise<AxiosResponse<jitActivationsTypes.Jitactivationdeactivateresponse, any>> {
+async startDeactivateWorkflowV1(requestParameters: jitActivationsTypes.JITActivationsApiStartDeactivateWorkflowV1Request): Promise<AxiosResponse<jitActivationsTypes.JitActivationDeactivateResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.startDeactivateWorkflowV1(requestParameters) as Promise<AxiosResponse<jitActivationsTypes.Jitactivationdeactivateresponse, any>>;
+    return this.electronAPI.startDeactivateWorkflowV1(requestParameters) as Promise<AxiosResponse<jitActivationsTypes.JitActivationDeactivateResponse, any>>;
 }
-async startEvaluateSodPolicyV1(requestParameters: sodPoliciesTypes.SODPoliciesApiStartEvaluateSodPolicyV1Request): Promise<AxiosResponse<sodPoliciesTypes.Reportresultreference, any>> {
+async startEvaluateSodPolicyV1(requestParameters: sodPoliciesTypes.SODPoliciesApiStartEvaluateSodPolicyV1Request): Promise<AxiosResponse<sodPoliciesTypes.ReportResultReference, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.startEvaluateSodPolicyV1(requestParameters) as Promise<AxiosResponse<sodPoliciesTypes.Reportresultreference, any>>;
+    return this.electronAPI.startEvaluateSodPolicyV1(requestParameters) as Promise<AxiosResponse<sodPoliciesTypes.ReportResultReference, any>>;
 }
-async startExtendWorkflowV1(requestParameters: jitActivationsTypes.JITActivationsApiStartExtendWorkflowV1Request): Promise<AxiosResponse<jitActivationsTypes.Jitactivationextendresponse, any>> {
+async startExtendWorkflowV1(requestParameters: jitActivationsTypes.JITActivationsApiStartExtendWorkflowV1Request): Promise<AxiosResponse<jitActivationsTypes.JitActivationExtendResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.startExtendWorkflowV1(requestParameters) as Promise<AxiosResponse<jitActivationsTypes.Jitactivationextendresponse, any>>;
+    return this.electronAPI.startExtendWorkflowV1(requestParameters) as Promise<AxiosResponse<jitActivationsTypes.JitActivationExtendResponse, any>>;
 }
-async startGenerateCampaignTemplateV1(requestParameters: certificationCampaignsTypes.CertificationCampaignsApiStartGenerateCampaignTemplateV1Request): Promise<AxiosResponse<certificationCampaignsTypes.Campaignreference, any>> {
+async startGenerateCampaignTemplateV1(requestParameters: certificationCampaignsTypes.CertificationCampaignsApiStartGenerateCampaignTemplateV1Request): Promise<AxiosResponse<certificationCampaignsTypes.CampaignReference, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.startGenerateCampaignTemplateV1(requestParameters) as Promise<AxiosResponse<certificationCampaignsTypes.Campaignreference, any>>;
+    return this.electronAPI.startGenerateCampaignTemplateV1(requestParameters) as Promise<AxiosResponse<certificationCampaignsTypes.CampaignReference, any>>;
 }
-async startIdentitiesInviteV1(requestParameters: identitiesTypes.IdentitiesApiStartIdentitiesInviteV1Request): Promise<AxiosResponse<identitiesTypes.Taskstatus, any>> {
+async startIdentitiesInviteV1(requestParameters: identitiesTypes.IdentitiesApiStartIdentitiesInviteV1Request): Promise<AxiosResponse<identitiesTypes.TaskStatus, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.startIdentitiesInviteV1(requestParameters) as Promise<AxiosResponse<identitiesTypes.Taskstatus, any>>;
+    return this.electronAPI.startIdentitiesInviteV1(requestParameters) as Promise<AxiosResponse<identitiesTypes.TaskStatus, any>>;
 }
-async startIdentityProcessingV1(requestParameters: identitiesTypes.IdentitiesApiStartIdentityProcessingV1Request): Promise<AxiosResponse<identitiesTypes.Taskresultresponse, any>> {
+async startIdentityProcessingV1(requestParameters: identitiesTypes.IdentitiesApiStartIdentityProcessingV1Request): Promise<AxiosResponse<identitiesTypes.TaskResultResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.startIdentityProcessingV1(requestParameters) as Promise<AxiosResponse<identitiesTypes.Taskresultresponse, any>>;
+    return this.electronAPI.startIdentityProcessingV1(requestParameters) as Promise<AxiosResponse<identitiesTypes.TaskResultResponse, any>>;
 }
 async startLauncherV1(requestParameters: launchersTypes.LaunchersApiStartLauncherV1Request): Promise<AxiosResponse<launchersTypes.StartLauncherV1200Response, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.startLauncherV1(requestParameters) as Promise<AxiosResponse<launchersTypes.StartLauncherV1200Response, any>>;
 }
-async startMachineIdentityAggregationV1(requestParameters: machineIdentitiesTypes.MachineIdentitiesApiStartMachineIdentityAggregationV1Request): Promise<AxiosResponse<machineIdentitiesTypes.Machineidentityaggregationresponse, any>> {
+async startMachineIdentityAggregationV1(requestParameters: machineIdentitiesTypes.MachineIdentitiesApiStartMachineIdentityAggregationV1Request): Promise<AxiosResponse<machineIdentitiesTypes.MachineIdentityAggregationResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.startMachineIdentityAggregationV1(requestParameters) as Promise<AxiosResponse<machineIdentitiesTypes.Machineidentityaggregationresponse, any>>;
+    return this.electronAPI.startMachineIdentityAggregationV1(requestParameters) as Promise<AxiosResponse<machineIdentitiesTypes.MachineIdentityAggregationResponse, any>>;
 }
-async startPredictSodViolationsV1(requestParameters: sodViolationsTypes.SODViolationsApiStartPredictSodViolationsV1Request): Promise<AxiosResponse<sodViolationsTypes.Violationprediction, any>> {
+async startPredictSodViolationsV1(requestParameters: sodViolationsTypes.SODViolationsApiStartPredictSodViolationsV1Request): Promise<AxiosResponse<sodViolationsTypes.ViolationPrediction, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.startPredictSodViolationsV1(requestParameters) as Promise<AxiosResponse<sodViolationsTypes.Violationprediction, any>>;
+    return this.electronAPI.startPredictSodViolationsV1(requestParameters) as Promise<AxiosResponse<sodViolationsTypes.ViolationPrediction, any>>;
 }
-async startReportV1(requestParameters: reportsDataExtractionTypes.ReportsDataExtractionApiStartReportV1Request): Promise<AxiosResponse<reportsDataExtractionTypes.Taskresultdetails, any>> {
+async startReportV1(requestParameters: reportsDataExtractionTypes.ReportsDataExtractionApiStartReportV1Request): Promise<AxiosResponse<reportsDataExtractionTypes.TaskResultDetails, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.startReportV1(requestParameters) as Promise<AxiosResponse<reportsDataExtractionTypes.Taskresultdetails, any>>;
+    return this.electronAPI.startReportV1(requestParameters) as Promise<AxiosResponse<reportsDataExtractionTypes.TaskResultDetails, any>>;
 }
-async startRolePropagationV1(requestParameters: rolePropagationTypes.RolePropagationApiStartRolePropagationV1Request = {}): Promise<AxiosResponse<rolePropagationTypes.RolePropagationResponse, any>> {
+async startRolePropagationV1(requestParameters: rolePropagationTypes.RolePropagationApiStartRolePropagationV1Request = {}): Promise<AxiosResponse<rolePropagationTypes.Rolepropagationresponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.startRolePropagationV1(requestParameters) as Promise<AxiosResponse<rolePropagationTypes.RolePropagationResponse, any>>;
+    return this.electronAPI.startRolePropagationV1(requestParameters) as Promise<AxiosResponse<rolePropagationTypes.Rolepropagationresponse, any>>;
 }
-async startSodAllPoliciesForOrgV1(requestParameters: sodPoliciesTypes.SODPoliciesApiStartSodAllPoliciesForOrgV1Request = {}): Promise<AxiosResponse<sodPoliciesTypes.Reportresultreference, any>> {
+async startSodAllPoliciesForOrgV1(requestParameters: sodPoliciesTypes.SODPoliciesApiStartSodAllPoliciesForOrgV1Request = {}): Promise<AxiosResponse<sodPoliciesTypes.ReportResultReference, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.startSodAllPoliciesForOrgV1(requestParameters) as Promise<AxiosResponse<sodPoliciesTypes.Reportresultreference, any>>;
+    return this.electronAPI.startSodAllPoliciesForOrgV1(requestParameters) as Promise<AxiosResponse<sodPoliciesTypes.ReportResultReference, any>>;
 }
-async startSodPolicyV1(requestParameters: sodPoliciesTypes.SODPoliciesApiStartSodPolicyV1Request): Promise<AxiosResponse<sodPoliciesTypes.Reportresultreference, any>> {
+async startSodPolicyV1(requestParameters: sodPoliciesTypes.SODPoliciesApiStartSodPolicyV1Request): Promise<AxiosResponse<sodPoliciesTypes.ReportResultReference, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.startSodPolicyV1(requestParameters) as Promise<AxiosResponse<sodPoliciesTypes.Reportresultreference, any>>;
+    return this.electronAPI.startSodPolicyV1(requestParameters) as Promise<AxiosResponse<sodPoliciesTypes.ReportResultReference, any>>;
 }
 async startTaskRerunV1(requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiStartTaskRerunV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
@@ -3959,13 +3991,13 @@ async startTestTriggerInvocationV1(requestParameters: triggersTypes.TriggersApiS
     await this.checkSessionBeforeCall();
     return this.electronAPI.startTestTriggerInvocationV1(requestParameters) as Promise<AxiosResponse<Array<triggersTypes.Invocation>, any>>;
 }
-async startViolationCheckV1(requestParameters: sodViolationsTypes.SODViolationsApiStartViolationCheckV1Request): Promise<AxiosResponse<sodViolationsTypes.Sodviolationcheck, any>> {
+async startViolationCheckV1(requestParameters: sodViolationsTypes.SODViolationsApiStartViolationCheckV1Request): Promise<AxiosResponse<sodViolationsTypes.SodViolationCheck, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.startViolationCheckV1(requestParameters) as Promise<AxiosResponse<sodViolationsTypes.Sodviolationcheck, any>>;
+    return this.electronAPI.startViolationCheckV1(requestParameters) as Promise<AxiosResponse<sodViolationsTypes.SodViolationCheck, any>>;
 }
-async submitAccountSelectionV1(requestParameters: workItemsTypes.WorkItemsApiSubmitAccountSelectionV1Request): Promise<AxiosResponse<workItemsTypes.Workitems, any>> {
+async submitAccountSelectionV1(requestParameters: workItemsTypes.WorkItemsApiSubmitAccountSelectionV1Request): Promise<AxiosResponse<workItemsTypes.WorkItems, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.submitAccountSelectionV1(requestParameters) as Promise<AxiosResponse<workItemsTypes.Workitems, any>>;
+    return this.electronAPI.submitAccountSelectionV1(requestParameters) as Promise<AxiosResponse<workItemsTypes.WorkItems, any>>;
 }
 async submitAdvancedSearchNerm(requestParameters: sdk.AdvancedSearchNERMApiSubmitAdvancedSearchRequest): Promise<AxiosResponse<sdk.SubmitAdvancedSearch200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -3979,9 +4011,9 @@ async submitAttributeOptionsNerm(requestParameters: sdk.AttributeOptionsNERMApiS
     await this.checkSessionBeforeCall();
     return this.electronAPI.submitAttributeOptionsNerm(requestParameters) as Promise<AxiosResponse<sdk.SubmitAttributeOptions200ResponseNERM, any>>;
 }
-async submitEntitlementRecommendationsAssignmentV1(requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiSubmitEntitlementRecommendationsAssignmentV1Request): Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.Entitlementrecommendationassignresult, any>> {
+async submitEntitlementRecommendationsAssignmentV1(requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiSubmitEntitlementRecommendationsAssignmentV1Request): Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.EntitlementRecommendationAssignResult, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.submitEntitlementRecommendationsAssignmentV1(requestParameters) as Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.Entitlementrecommendationassignresult, any>>;
+    return this.electronAPI.submitEntitlementRecommendationsAssignmentV1(requestParameters) as Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.EntitlementRecommendationAssignResult, any>>;
 }
 async submitProfileAvatarNerm(requestParameters: sdk.ProfilesNERMApiSubmitProfileAvatarRequest): Promise<AxiosResponse<sdk.UrlNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -3999,13 +4031,13 @@ async submitProfileUploadNerm(requestParameters: sdk.ProfilesNERMApiSubmitProfil
     await this.checkSessionBeforeCall();
     return this.electronAPI.submitProfileUploadNerm(requestParameters) as Promise<AxiosResponse<sdk.UrlNERM, any>>;
 }
-async submitReassignCertsAsyncV1(requestParameters: certificationsTypes.CertificationsApiSubmitReassignCertsAsyncV1Request): Promise<AxiosResponse<certificationsTypes.Certificationtask, any>> {
+async submitReassignCertsAsyncV1(requestParameters: certificationsTypes.CertificationsApiSubmitReassignCertsAsyncV1Request): Promise<AxiosResponse<certificationsTypes.CertificationTask, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.submitReassignCertsAsyncV1(requestParameters) as Promise<AxiosResponse<certificationsTypes.Certificationtask, any>>;
+    return this.electronAPI.submitReassignCertsAsyncV1(requestParameters) as Promise<AxiosResponse<certificationsTypes.CertificationTask, any>>;
 }
-async submitReloadAccountV1(requestParameters: accountsTypes.AccountsApiSubmitReloadAccountV1Request): Promise<AxiosResponse<accountsTypes.Accountsasyncresult, any>> {
+async submitReloadAccountV1(requestParameters: accountsTypes.AccountsApiSubmitReloadAccountV1Request): Promise<AxiosResponse<accountsTypes.AccountsAsyncResult, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.submitReloadAccountV1(requestParameters) as Promise<AxiosResponse<accountsTypes.Accountsasyncresult, any>>;
+    return this.electronAPI.submitReloadAccountV1(requestParameters) as Promise<AxiosResponse<accountsTypes.AccountsAsyncResult, any>>;
 }
 async submitRoleNerm(requestParameters: sdk.RolesNERMApiSubmitRoleRequest): Promise<AxiosResponse<sdk.SubmitRole200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -4023,17 +4055,17 @@ async submitRolesNerm(requestParameters: sdk.RolesNERMApiSubmitRolesRequest): Pr
     await this.checkSessionBeforeCall();
     return this.electronAPI.submitRolesNerm(requestParameters) as Promise<AxiosResponse<sdk.SubmitRoles200ResponseNERM, any>>;
 }
-async submitSedApprovalV1(requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiSubmitSedApprovalV1Request): Promise<AxiosResponse<Array<suggestedEntitlementDescriptionTypes.Sedapprovalstatus>, any>> {
+async submitSedApprovalV1(requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiSubmitSedApprovalV1Request): Promise<AxiosResponse<Array<suggestedEntitlementDescriptionTypes.SedApprovalStatus>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.submitSedApprovalV1(requestParameters) as Promise<AxiosResponse<Array<suggestedEntitlementDescriptionTypes.Sedapprovalstatus>, any>>;
+    return this.electronAPI.submitSedApprovalV1(requestParameters) as Promise<AxiosResponse<Array<suggestedEntitlementDescriptionTypes.SedApprovalStatus>, any>>;
 }
-async submitSedAssignmentV1(requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiSubmitSedAssignmentV1Request): Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.Sedassignmentresponse, any>> {
+async submitSedAssignmentV1(requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiSubmitSedAssignmentV1Request): Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.SedAssignmentResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.submitSedAssignmentV1(requestParameters) as Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.Sedassignmentresponse, any>>;
+    return this.electronAPI.submitSedAssignmentV1(requestParameters) as Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.SedAssignmentResponse, any>>;
 }
-async submitSedBatchRequestV1(requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiSubmitSedBatchRequestV1Request = {}): Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.Sedbatchresponse, any>> {
+async submitSedBatchRequestV1(requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiSubmitSedBatchRequestV1Request = {}): Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.SedBatchResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.submitSedBatchRequestV1(requestParameters) as Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.Sedbatchresponse, any>>;
+    return this.electronAPI.submitSedBatchRequestV1(requestParameters) as Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.SedBatchResponse, any>>;
 }
 async submitUserAvatarNerm(requestParameters: sdk.UsersNERMApiSubmitUserAvatarRequest): Promise<AxiosResponse<sdk.UrlNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -4075,13 +4107,13 @@ async submitWorkflowSessionUploadNerm(requestParameters: sdk.WorkflowSessionsNER
     await this.checkSessionBeforeCall();
     return this.electronAPI.submitWorkflowSessionUploadNerm(requestParameters) as Promise<AxiosResponse<sdk.UrlNERM, any>>;
 }
-async syncAttributesForSourceV1(requestParameters: sourcesTypes.SourcesApiSyncAttributesForSourceV1Request): Promise<AxiosResponse<sourcesTypes.Sourcesyncjob, any>> {
+async syncAttributesForSourceV1(requestParameters: sourcesTypes.SourcesApiSyncAttributesForSourceV1Request): Promise<AxiosResponse<sourcesTypes.SourceSyncJob, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.syncAttributesForSourceV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Sourcesyncjob, any>>;
+    return this.electronAPI.syncAttributesForSourceV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.SourceSyncJob, any>>;
 }
-async synchronizeAttributesForIdentityV1(requestParameters: identitiesTypes.IdentitiesApiSynchronizeAttributesForIdentityV1Request): Promise<AxiosResponse<identitiesTypes.Identitysyncjob, any>> {
+async synchronizeAttributesForIdentityV1(requestParameters: identitiesTypes.IdentitiesApiSynchronizeAttributesForIdentityV1Request): Promise<AxiosResponse<identitiesTypes.IdentitySyncJob, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.synchronizeAttributesForIdentityV1(requestParameters) as Promise<AxiosResponse<identitiesTypes.Identitysyncjob, any>>;
+    return this.electronAPI.synchronizeAttributesForIdentityV1(requestParameters) as Promise<AxiosResponse<identitiesTypes.IdentitySyncJob, any>>;
 }
 async syncIdentityProfileV1(requestParameters: identityProfilesTypes.IdentityProfilesApiSyncIdentityProfileV1Request): Promise<AxiosResponse<any, any>> {
     await this.checkSessionBeforeCall();
@@ -4091,33 +4123,33 @@ async testConnectionMultiHostSourcesV1(requestParameters: multiHostIntegrationTy
     await this.checkSessionBeforeCall();
     return this.electronAPI.testConnectionMultiHostSourcesV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-async testConnectorRuleV1(requestParameters: connectorRuleManagementTypes.ConnectorRuleManagementApiTestConnectorRuleV1Request): Promise<AxiosResponse<connectorRuleManagementTypes.Connectorrulevalidationresponse, any>> {
+async testConnectorRuleV1(requestParameters: connectorRuleManagementTypes.ConnectorRuleManagementApiTestConnectorRuleV1Request): Promise<AxiosResponse<connectorRuleManagementTypes.ConnectorRuleValidationResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.testConnectorRuleV1(requestParameters) as Promise<AxiosResponse<connectorRuleManagementTypes.Connectorrulevalidationresponse, any>>;
+    return this.electronAPI.testConnectorRuleV1(requestParameters) as Promise<AxiosResponse<connectorRuleManagementTypes.ConnectorRuleValidationResponse, any>>;
 }
 async testExternalExecuteWorkflowV1(requestParameters: workflowsTypes.WorkflowsApiTestExternalExecuteWorkflowV1Request): Promise<AxiosResponse<workflowsTypes.TestExternalExecuteWorkflowV1200Response, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.testExternalExecuteWorkflowV1(requestParameters) as Promise<AxiosResponse<workflowsTypes.TestExternalExecuteWorkflowV1200Response, any>>;
 }
-async testMFAConfigV1(requestParameters: mfaConfigurationTypes.MFAConfigurationApiTestMFAConfigV1Request): Promise<AxiosResponse<mfaConfigurationTypes.Mfaconfigtestresponse, any>> {
+async testMFAConfigV1(requestParameters: mfaConfigurationTypes.MFAConfigurationApiTestMFAConfigV1Request): Promise<AxiosResponse<mfaConfigurationTypes.MfaConfigTestResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.testMFAConfigV1(requestParameters) as Promise<AxiosResponse<mfaConfigurationTypes.Mfaconfigtestresponse, any>>;
+    return this.electronAPI.testMFAConfigV1(requestParameters) as Promise<AxiosResponse<mfaConfigurationTypes.MfaConfigTestResponse, any>>;
 }
-async testSourceConfigurationV1(requestParameters: sourcesTypes.SourcesApiTestSourceConfigurationV1Request): Promise<AxiosResponse<sourcesTypes.Statusresponse, any>> {
+async testSourceConfigurationV1(requestParameters: sourcesTypes.SourcesApiTestSourceConfigurationV1Request): Promise<AxiosResponse<sourcesTypes.StatusResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.testSourceConfigurationV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Statusresponse, any>>;
+    return this.electronAPI.testSourceConfigurationV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.StatusResponse, any>>;
 }
 async testSourceConnectionMultihostV1(requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiTestSourceConnectionMultihostV1Request): Promise<AxiosResponse<multiHostIntegrationTypes.TestSourceConnectionMultihostV1200Response, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.testSourceConnectionMultihostV1(requestParameters) as Promise<AxiosResponse<multiHostIntegrationTypes.TestSourceConnectionMultihostV1200Response, any>>;
 }
-async testSourceConnectionV1(requestParameters: sourcesTypes.SourcesApiTestSourceConnectionV1Request): Promise<AxiosResponse<sourcesTypes.Statusresponse, any>> {
+async testSourceConnectionV1(requestParameters: sourcesTypes.SourcesApiTestSourceConnectionV1Request): Promise<AxiosResponse<sourcesTypes.StatusResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.testSourceConnectionV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Statusresponse, any>>;
+    return this.electronAPI.testSourceConnectionV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.StatusResponse, any>>;
 }
-async testSubscriptionFilterV1(requestParameters: triggersTypes.TriggersApiTestSubscriptionFilterV1Request): Promise<AxiosResponse<triggersTypes.Validatefilteroutputdto, any>> {
+async testSubscriptionFilterV1(requestParameters: triggersTypes.TriggersApiTestSubscriptionFilterV1Request): Promise<AxiosResponse<triggersTypes.ValidateFilterOutputDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.testSubscriptionFilterV1(requestParameters) as Promise<AxiosResponse<triggersTypes.Validatefilteroutputdto, any>>;
+    return this.electronAPI.testSubscriptionFilterV1(requestParameters) as Promise<AxiosResponse<triggersTypes.ValidateFilterOutputDto, any>>;
 }
 async testWorkflowV1(requestParameters: workflowsTypes.WorkflowsApiTestWorkflowV1Request): Promise<AxiosResponse<workflowsTypes.TestWorkflowV1200Response, any>> {
     await this.checkSessionBeforeCall();
@@ -4127,41 +4159,41 @@ async unIgnoreIdentityOutliersV1(requestParameters: iaiOutliersTypes.IAIOutliers
     await this.checkSessionBeforeCall();
     return this.electronAPI.unIgnoreIdentityOutliersV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-async unlockAccountV1(requestParameters: accountsTypes.AccountsApiUnlockAccountV1Request): Promise<AxiosResponse<accountsTypes.Accountsasyncresult, any>> {
+async unlockAccountV1(requestParameters: accountsTypes.AccountsApiUnlockAccountV1Request): Promise<AxiosResponse<accountsTypes.AccountsAsyncResult, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.unlockAccountV1(requestParameters) as Promise<AxiosResponse<accountsTypes.Accountsasyncresult, any>>;
+    return this.electronAPI.unlockAccountV1(requestParameters) as Promise<AxiosResponse<accountsTypes.AccountsAsyncResult, any>>;
 }
 async unsubscribeScheduledSearchV1(requestParameters: scheduledSearchTypes.ScheduledSearchApiUnsubscribeScheduledSearchV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.unsubscribeScheduledSearchV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-async updateAccessModelMetadataAttributeV1(requestParameters: accessModelMetadataTypes.AccessModelMetadataApiUpdateAccessModelMetadataAttributeV1Request): Promise<AxiosResponse<accessModelMetadataTypes.Attributedto, any>> {
+async updateAccessModelMetadataAttributeV1(requestParameters: accessModelMetadataTypes.AccessModelMetadataApiUpdateAccessModelMetadataAttributeV1Request): Promise<AxiosResponse<accessModelMetadataTypes.AttributeDTO, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateAccessModelMetadataAttributeV1(requestParameters) as Promise<AxiosResponse<accessModelMetadataTypes.Attributedto, any>>;
+    return this.electronAPI.updateAccessModelMetadataAttributeV1(requestParameters) as Promise<AxiosResponse<accessModelMetadataTypes.AttributeDTO, any>>;
 }
-async updateAccessModelMetadataAttributeValueV1(requestParameters: accessModelMetadataTypes.AccessModelMetadataApiUpdateAccessModelMetadataAttributeValueV1Request): Promise<AxiosResponse<accessModelMetadataTypes.Attributevaluedto, any>> {
+async updateAccessModelMetadataAttributeValueV1(requestParameters: accessModelMetadataTypes.AccessModelMetadataApiUpdateAccessModelMetadataAttributeValueV1Request): Promise<AxiosResponse<accessModelMetadataTypes.AttributeValueDTO, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateAccessModelMetadataAttributeValueV1(requestParameters) as Promise<AxiosResponse<accessModelMetadataTypes.Attributevaluedto, any>>;
+    return this.electronAPI.updateAccessModelMetadataAttributeValueV1(requestParameters) as Promise<AxiosResponse<accessModelMetadataTypes.AttributeValueDTO, any>>;
 }
-async updateAccessModelMetadataByFilterV1(requestParameters: accessModelMetadataTypes.AccessModelMetadataApiUpdateAccessModelMetadataByFilterV1Request): Promise<AxiosResponse<accessModelMetadataTypes.Accessmodelmetadatabulkupdateresponse, any>> {
+async updateAccessModelMetadataByFilterV1(requestParameters: accessModelMetadataTypes.AccessModelMetadataApiUpdateAccessModelMetadataByFilterV1Request): Promise<AxiosResponse<accessModelMetadataTypes.AccessModelMetadataBulkUpdateResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateAccessModelMetadataByFilterV1(requestParameters) as Promise<AxiosResponse<accessModelMetadataTypes.Accessmodelmetadatabulkupdateresponse, any>>;
+    return this.electronAPI.updateAccessModelMetadataByFilterV1(requestParameters) as Promise<AxiosResponse<accessModelMetadataTypes.AccessModelMetadataBulkUpdateResponse, any>>;
 }
-async updateAccessModelMetadataByIdsV1(requestParameters: accessModelMetadataTypes.AccessModelMetadataApiUpdateAccessModelMetadataByIdsV1Request): Promise<AxiosResponse<accessModelMetadataTypes.Accessmodelmetadatabulkupdateresponse, any>> {
+async updateAccessModelMetadataByIdsV1(requestParameters: accessModelMetadataTypes.AccessModelMetadataApiUpdateAccessModelMetadataByIdsV1Request): Promise<AxiosResponse<accessModelMetadataTypes.AccessModelMetadataBulkUpdateResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateAccessModelMetadataByIdsV1(requestParameters) as Promise<AxiosResponse<accessModelMetadataTypes.Accessmodelmetadatabulkupdateresponse, any>>;
+    return this.electronAPI.updateAccessModelMetadataByIdsV1(requestParameters) as Promise<AxiosResponse<accessModelMetadataTypes.AccessModelMetadataBulkUpdateResponse, any>>;
 }
-async updateAccessModelMetadataByQueryV1(requestParameters: accessModelMetadataTypes.AccessModelMetadataApiUpdateAccessModelMetadataByQueryV1Request): Promise<AxiosResponse<accessModelMetadataTypes.Accessmodelmetadatabulkupdateresponse, any>> {
+async updateAccessModelMetadataByQueryV1(requestParameters: accessModelMetadataTypes.AccessModelMetadataApiUpdateAccessModelMetadataByQueryV1Request): Promise<AxiosResponse<accessModelMetadataTypes.AccessModelMetadataBulkUpdateResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateAccessModelMetadataByQueryV1(requestParameters) as Promise<AxiosResponse<accessModelMetadataTypes.Accessmodelmetadatabulkupdateresponse, any>>;
+    return this.electronAPI.updateAccessModelMetadataByQueryV1(requestParameters) as Promise<AxiosResponse<accessModelMetadataTypes.AccessModelMetadataBulkUpdateResponse, any>>;
 }
-async updateAccessProfilesInBulkV1(requestParameters: accessProfilesTypes.AccessProfilesApiUpdateAccessProfilesInBulkV1Request): Promise<AxiosResponse<Array<accessProfilesTypes.Accessprofileupdateitem>, any>> {
+async updateAccessProfilesInBulkV1(requestParameters: accessProfilesTypes.AccessProfilesApiUpdateAccessProfilesInBulkV1Request): Promise<AxiosResponse<Array<accessProfilesTypes.AccessProfileUpdateItem>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateAccessProfilesInBulkV1(requestParameters) as Promise<AxiosResponse<Array<accessProfilesTypes.Accessprofileupdateitem>, any>>;
+    return this.electronAPI.updateAccessProfilesInBulkV1(requestParameters) as Promise<AxiosResponse<Array<accessProfilesTypes.AccessProfileUpdateItem>, any>>;
 }
-async updateAccountDeletionApprovalConfigV1(requestParameters: sourcesTypes.SourcesApiUpdateAccountDeletionApprovalConfigV1Request): Promise<AxiosResponse<sourcesTypes.Accountdeleteconfigdto, any>> {
+async updateAccountDeletionApprovalConfigV1(requestParameters: sourcesTypes.SourcesApiUpdateAccountDeletionApprovalConfigV1Request): Promise<AxiosResponse<sourcesTypes.AccountDeleteConfigDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateAccountDeletionApprovalConfigV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Accountdeleteconfigdto, any>>;
+    return this.electronAPI.updateAccountDeletionApprovalConfigV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.AccountDeleteConfigDto, any>>;
 }
 async updateAccountV1(requestParameters: accountsTypes.AccountsApiUpdateAccountV1Request): Promise<AxiosResponse<any, any>> {
     await this.checkSessionBeforeCall();
@@ -4191,37 +4223,37 @@ async updateAttributeKeyAndValueToRoleV1(requestParameters: rolesTypes.RolesApiU
     await this.checkSessionBeforeCall();
     return this.electronAPI.updateAttributeKeyAndValueToRoleV1(requestParameters) as Promise<AxiosResponse<rolesTypes.Role, any>>;
 }
-async updateAutoWriteSettingsV1(requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiUpdateAutoWriteSettingsV1Request): Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.Autowritesettingresponse, any>> {
+async updateAutoWriteSettingsV1(requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiUpdateAutoWriteSettingsV1Request): Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.AutoWriteSettingResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateAutoWriteSettingsV1(requestParameters) as Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.Autowritesettingresponse, any>>;
+    return this.electronAPI.updateAutoWriteSettingsV1(requestParameters) as Promise<AxiosResponse<suggestedEntitlementDescriptionTypes.AutoWriteSettingResponse, any>>;
 }
-async updateCampaignFilterV1(requestParameters: certificationCampaignFiltersTypes.CertificationCampaignFiltersApiUpdateCampaignFilterV1Request): Promise<AxiosResponse<certificationCampaignFiltersTypes.Campaignfilterdetails, any>> {
+async updateCampaignFilterV1(requestParameters: certificationCampaignFiltersTypes.CertificationCampaignFiltersApiUpdateCampaignFilterV1Request): Promise<AxiosResponse<certificationCampaignFiltersTypes.CampaignFilterDetails, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateCampaignFilterV1(requestParameters) as Promise<AxiosResponse<certificationCampaignFiltersTypes.Campaignfilterdetails, any>>;
+    return this.electronAPI.updateCampaignFilterV1(requestParameters) as Promise<AxiosResponse<certificationCampaignFiltersTypes.CampaignFilterDetails, any>>;
 }
-async updateCampaignV1(requestParameters: certificationCampaignsTypes.CertificationCampaignsApiUpdateCampaignV1Request): Promise<AxiosResponse<certificationCampaignsTypes.Slimcampaign, any>> {
+async updateCampaignV1(requestParameters: certificationCampaignsTypes.CertificationCampaignsApiUpdateCampaignV1Request): Promise<AxiosResponse<certificationCampaignsTypes.SlimCampaign, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateCampaignV1(requestParameters) as Promise<AxiosResponse<certificationCampaignsTypes.Slimcampaign, any>>;
+    return this.electronAPI.updateCampaignV1(requestParameters) as Promise<AxiosResponse<certificationCampaignsTypes.SlimCampaign, any>>;
 }
 async updateCommonAccessStatusInBulkV1(requestParameters: iaiCommonAccessTypes.IAICommonAccessApiUpdateCommonAccessStatusInBulkV1Request): Promise<AxiosResponse<any, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.updateCommonAccessStatusInBulkV1(requestParameters) as Promise<AxiosResponse<any, any>>;
 }
-async updateConnectorV1(requestParameters: connectorsTypes.ConnectorsApiUpdateConnectorV1Request): Promise<AxiosResponse<connectorsTypes.Connectordetail, any>> {
+async updateConnectorV1(requestParameters: connectorsTypes.ConnectorsApiUpdateConnectorV1Request): Promise<AxiosResponse<connectorsTypes.ConnectorDetail, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateConnectorV1(requestParameters) as Promise<AxiosResponse<connectorsTypes.Connectordetail, any>>;
+    return this.electronAPI.updateConnectorV1(requestParameters) as Promise<AxiosResponse<connectorsTypes.ConnectorDetail, any>>;
 }
-async updateEntitlementConnectionsBulkV1(requestParameters: entitlementConnectionsTypes.EntitlementConnectionsApiUpdateEntitlementConnectionsBulkV1Request): Promise<AxiosResponse<Array<entitlementConnectionsTypes.Entitlementconnectionbulkupdateresultitem>, any>> {
+async updateEntitlementConnectionsBulkV1(requestParameters: entitlementConnectionsTypes.EntitlementConnectionsApiUpdateEntitlementConnectionsBulkV1Request): Promise<AxiosResponse<Array<entitlementConnectionsTypes.EntitlementConnectionBulkUpdateResultItem>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateEntitlementConnectionsBulkV1(requestParameters) as Promise<AxiosResponse<Array<entitlementConnectionsTypes.Entitlementconnectionbulkupdateresultitem>, any>>;
+    return this.electronAPI.updateEntitlementConnectionsBulkV1(requestParameters) as Promise<AxiosResponse<Array<entitlementConnectionsTypes.EntitlementConnectionBulkUpdateResultItem>, any>>;
 }
 async updateEntitlementsInBulkV1(requestParameters: entitlementsTypes.EntitlementsApiUpdateEntitlementsInBulkV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.updateEntitlementsInBulkV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-async updateEntitlementsPotentialRoleV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiUpdateEntitlementsPotentialRoleV1Request): Promise<AxiosResponse<iaiRoleMiningTypes.Roleminingpotentialrole, any>> {
+async updateEntitlementsPotentialRoleV1(requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiUpdateEntitlementsPotentialRoleV1Request): Promise<AxiosResponse<iaiRoleMiningTypes.RoleMiningPotentialRole, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateEntitlementsPotentialRoleV1(requestParameters) as Promise<AxiosResponse<iaiRoleMiningTypes.Roleminingpotentialrole, any>>;
+    return this.electronAPI.updateEntitlementsPotentialRoleV1(requestParameters) as Promise<AxiosResponse<iaiRoleMiningTypes.RoleMiningPotentialRole, any>>;
 }
 async updateFormAttributeByIdNerm(requestParameters: sdk.FormAttributesNERMApiUpdateFormAttributeByIdRequest): Promise<AxiosResponse<sdk.GetFormAttributes200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -4239,53 +4271,57 @@ async updateFormByUidNerm(requestParameters: sdk.FormsNERMApiUpdateFormByUidRequ
     await this.checkSessionBeforeCall();
     return this.electronAPI.updateFormByUidNerm(requestParameters) as Promise<AxiosResponse<sdk.CreateAttribute201ResponseNERM, any>>;
 }
-async updateIdentityProfileV1(requestParameters: identityProfilesTypes.IdentityProfilesApiUpdateIdentityProfileV1Request): Promise<AxiosResponse<identityProfilesTypes.Identityprofile, any>> {
+async updateIdentityProfileV1(requestParameters: identityProfilesTypes.IdentityProfilesApiUpdateIdentityProfileV1Request): Promise<AxiosResponse<identityProfilesTypes.IdentityProfile, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateIdentityProfileV1(requestParameters) as Promise<AxiosResponse<identityProfilesTypes.Identityprofile, any>>;
+    return this.electronAPI.updateIdentityProfileV1(requestParameters) as Promise<AxiosResponse<identityProfilesTypes.IdentityProfile, any>>;
 }
-async updateLifecycleStatesV1(requestParameters: lifecycleStatesTypes.LifecycleStatesApiUpdateLifecycleStatesV1Request): Promise<AxiosResponse<lifecycleStatesTypes.Lifecyclestate, any>> {
+async updateLifecycleStatesV1(requestParameters: lifecycleStatesTypes.LifecycleStatesApiUpdateLifecycleStatesV1Request): Promise<AxiosResponse<lifecycleStatesTypes.LifecycleState, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateLifecycleStatesV1(requestParameters) as Promise<AxiosResponse<lifecycleStatesTypes.Lifecyclestate, any>>;
+    return this.electronAPI.updateLifecycleStatesV1(requestParameters) as Promise<AxiosResponse<lifecycleStatesTypes.LifecycleState, any>>;
 }
-async updateMachineAccountDeletionApprovalConfigV1(requestParameters: sourcesTypes.SourcesApiUpdateMachineAccountDeletionApprovalConfigV1Request): Promise<AxiosResponse<sourcesTypes.Accountdeleteconfigdto, any>> {
+async updateMachineAccountDeletionApprovalConfigV1(requestParameters: sourcesTypes.SourcesApiUpdateMachineAccountDeletionApprovalConfigV1Request): Promise<AxiosResponse<sourcesTypes.AccountDeleteConfigDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateMachineAccountDeletionApprovalConfigV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Accountdeleteconfigdto, any>>;
+    return this.electronAPI.updateMachineAccountDeletionApprovalConfigV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.AccountDeleteConfigDto, any>>;
 }
-async updateMachineAccountSubtypeApprovalConfigV1(requestParameters: machineAccountSubtypesTypes.MachineAccountSubtypesApiUpdateMachineAccountSubtypeApprovalConfigV1Request): Promise<AxiosResponse<machineAccountSubtypesTypes.Machineaccountsubtypeconfigdto, any>> {
+async updateMachineAccountSubtypeApprovalConfigV1(requestParameters: machineAccountSubtypesTypes.MachineAccountSubtypesApiUpdateMachineAccountSubtypeApprovalConfigV1Request): Promise<AxiosResponse<machineAccountSubtypesTypes.MachineAccountSubtypeConfigDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateMachineAccountSubtypeApprovalConfigV1(requestParameters) as Promise<AxiosResponse<machineAccountSubtypesTypes.Machineaccountsubtypeconfigdto, any>>;
+    return this.electronAPI.updateMachineAccountSubtypeApprovalConfigV1(requestParameters) as Promise<AxiosResponse<machineAccountSubtypesTypes.MachineAccountSubtypeConfigDto, any>>;
 }
-async updateMachineAccountV1(requestParameters: machineAccountsTypes.MachineAccountsApiUpdateMachineAccountV1Request): Promise<AxiosResponse<machineAccountsTypes.Machineaccount, any>> {
+async updateMachineAccountV1(requestParameters: machineAccountsTypes.MachineAccountsApiUpdateMachineAccountV1Request): Promise<AxiosResponse<machineAccountsTypes.MachineAccount, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateMachineAccountV1(requestParameters) as Promise<AxiosResponse<machineAccountsTypes.Machineaccount, any>>;
+    return this.electronAPI.updateMachineAccountV1(requestParameters) as Promise<AxiosResponse<machineAccountsTypes.MachineAccount, any>>;
 }
-async updateMachineIdentityV1(requestParameters: machineIdentitiesTypes.MachineIdentitiesApiUpdateMachineIdentityV1Request): Promise<AxiosResponse<machineIdentitiesTypes.Machineidentityresponse, any>> {
+async updateMachineIdentityV1(requestParameters: machineIdentitiesTypes.MachineIdentitiesApiUpdateMachineIdentityV1Request): Promise<AxiosResponse<machineIdentitiesTypes.MachineIdentityResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateMachineIdentityV1(requestParameters) as Promise<AxiosResponse<machineIdentitiesTypes.Machineidentityresponse, any>>;
+    return this.electronAPI.updateMachineIdentityV1(requestParameters) as Promise<AxiosResponse<machineIdentitiesTypes.MachineIdentityResponse, any>>;
 }
-async updateManagedClientV1(requestParameters: managedClientsTypes.ManagedClientsApiUpdateManagedClientV1Request): Promise<AxiosResponse<managedClientsTypes.Managedclient, any>> {
+async updateMachineIdentityV2(requestParameters: machineIdentitiesTypes.MachineIdentitiesApiUpdateMachineIdentityV2Request): Promise<AxiosResponse<machineIdentitiesTypes.Machineidentityv2, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateManagedClientV1(requestParameters) as Promise<AxiosResponse<managedClientsTypes.Managedclient, any>>;
+    return this.electronAPI.updateMachineIdentityV2(requestParameters) as Promise<AxiosResponse<machineIdentitiesTypes.Machineidentityv2, any>>;
 }
-async updateManagedClusterTypeV1(requestParameters: managedClusterTypesTypes.ManagedClusterTypesApiUpdateManagedClusterTypeV1Request): Promise<AxiosResponse<managedClusterTypesTypes.Managedclustertype, any>> {
+async updateManagedClientV1(requestParameters: managedClientsTypes.ManagedClientsApiUpdateManagedClientV1Request): Promise<AxiosResponse<managedClientsTypes.ManagedClient, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateManagedClusterTypeV1(requestParameters) as Promise<AxiosResponse<managedClusterTypesTypes.Managedclustertype, any>>;
+    return this.electronAPI.updateManagedClientV1(requestParameters) as Promise<AxiosResponse<managedClientsTypes.ManagedClient, any>>;
 }
-async updateManagedClusterV1(requestParameters: managedClustersTypes.ManagedClustersApiUpdateManagedClusterV1Request): Promise<AxiosResponse<managedClustersTypes.Managedcluster, any>> {
+async updateManagedClusterTypeV1(requestParameters: managedClusterTypesTypes.ManagedClusterTypesApiUpdateManagedClusterTypeV1Request): Promise<AxiosResponse<managedClusterTypesTypes.ManagedClusterType, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateManagedClusterV1(requestParameters) as Promise<AxiosResponse<managedClustersTypes.Managedcluster, any>>;
+    return this.electronAPI.updateManagedClusterTypeV1(requestParameters) as Promise<AxiosResponse<managedClusterTypesTypes.ManagedClusterType, any>>;
+}
+async updateManagedClusterV1(requestParameters: managedClustersTypes.ManagedClustersApiUpdateManagedClusterV1Request): Promise<AxiosResponse<managedClustersTypes.ManagedCluster, any>> {
+    await this.checkSessionBeforeCall();
+    return this.electronAPI.updateManagedClusterV1(requestParameters) as Promise<AxiosResponse<managedClustersTypes.ManagedCluster, any>>;
 }
 async updateMultiHostSourcesV1(requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiUpdateMultiHostSourcesV1Request): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.updateMultiHostSourcesV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-async updateNonEmployeeRecordV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiUpdateNonEmployeeRecordV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeerecord, any>> {
+async updateNonEmployeeRecordV1(requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiUpdateNonEmployeeRecordV1Request): Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeRecord, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateNonEmployeeRecordV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.Nonemployeerecord, any>>;
+    return this.electronAPI.updateNonEmployeeRecordV1(requestParameters) as Promise<AxiosResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeRecord, any>>;
 }
-async updateObjectMappingsV1(requestParameters: configurationHubTypes.ConfigurationHubApiUpdateObjectMappingsV1Request): Promise<AxiosResponse<configurationHubTypes.Objectmappingbulkpatchresponse, any>> {
+async updateObjectMappingsV1(requestParameters: configurationHubTypes.ConfigurationHubApiUpdateObjectMappingsV1Request): Promise<AxiosResponse<configurationHubTypes.ObjectMappingBulkPatchResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateObjectMappingsV1(requestParameters) as Promise<AxiosResponse<configurationHubTypes.Objectmappingbulkpatchresponse, any>>;
+    return this.electronAPI.updateObjectMappingsV1(requestParameters) as Promise<AxiosResponse<configurationHubTypes.ObjectMappingBulkPatchResponse, any>>;
 }
 async updatePageContentByIdNerm(requestParameters: sdk.PageContentsNERMApiUpdatePageContentByIdRequest): Promise<AxiosResponse<sdk.GetPageContents200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
@@ -4311,69 +4347,69 @@ async updatePageElementByUidNerm(requestParameters: sdk.PageElementsNERMApiUpdat
     await this.checkSessionBeforeCall();
     return this.electronAPI.updatePageElementByUidNerm(requestParameters) as Promise<AxiosResponse<sdk.GetPageElements200ResponseNERM, any>>;
 }
-async updateParameterV1(requestParameters: parameterStorageTypes.ParameterStorageApiUpdateParameterV1Request): Promise<AxiosResponse<parameterStorageTypes.Parameterstorageparameter, any>> {
+async updateParameterV1(requestParameters: parameterStorageTypes.ParameterStorageApiUpdateParameterV1Request): Promise<AxiosResponse<parameterStorageTypes.ParameterStorageParameter, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateParameterV1(requestParameters) as Promise<AxiosResponse<parameterStorageTypes.Parameterstorageparameter, any>>;
+    return this.electronAPI.updateParameterV1(requestParameters) as Promise<AxiosResponse<parameterStorageTypes.ParameterStorageParameter, any>>;
 }
-async updatePasswordPolicyHoldersV1(requestParameters: sourcesTypes.SourcesApiUpdatePasswordPolicyHoldersV1Request): Promise<AxiosResponse<Array<sourcesTypes.PasswordpolicyholdersdtoInner>, any>> {
+async updatePasswordPolicyHoldersV1(requestParameters: sourcesTypes.SourcesApiUpdatePasswordPolicyHoldersV1Request): Promise<AxiosResponse<Array<sourcesTypes.PasswordPolicyHoldersDtoInner>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updatePasswordPolicyHoldersV1(requestParameters) as Promise<AxiosResponse<Array<sourcesTypes.PasswordpolicyholdersdtoInner>, any>>;
+    return this.electronAPI.updatePasswordPolicyHoldersV1(requestParameters) as Promise<AxiosResponse<Array<sourcesTypes.PasswordPolicyHoldersDtoInner>, any>>;
 }
-async updatePasswordSyncGroupV1(requestParameters: passwordSyncGroupsTypes.PasswordSyncGroupsApiUpdatePasswordSyncGroupV1Request): Promise<AxiosResponse<passwordSyncGroupsTypes.Passwordsyncgroup, any>> {
+async updatePasswordSyncGroupV1(requestParameters: passwordSyncGroupsTypes.PasswordSyncGroupsApiUpdatePasswordSyncGroupV1Request): Promise<AxiosResponse<passwordSyncGroupsTypes.PasswordSyncGroup, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updatePasswordSyncGroupV1(requestParameters) as Promise<AxiosResponse<passwordSyncGroupsTypes.Passwordsyncgroup, any>>;
+    return this.electronAPI.updatePasswordSyncGroupV1(requestParameters) as Promise<AxiosResponse<passwordSyncGroupsTypes.PasswordSyncGroup, any>>;
 }
 async updateProfileNerm(requestParameters: sdk.IscAccountsNERMApiUpdateProfileRequest): Promise<AxiosResponse<sdk.GetSingleSchemaMappedProfile200ResponseNERM, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.updateProfileNerm(requestParameters) as Promise<AxiosResponse<sdk.GetSingleSchemaMappedProfile200ResponseNERM, any>>;
 }
-async updateProvisioningPoliciesInBulkV1(requestParameters: sourcesTypes.SourcesApiUpdateProvisioningPoliciesInBulkV1Request): Promise<AxiosResponse<Array<sourcesTypes.Provisioningpolicydto>, any>> {
+async updateProvisioningPoliciesInBulkV1(requestParameters: sourcesTypes.SourcesApiUpdateProvisioningPoliciesInBulkV1Request): Promise<AxiosResponse<Array<sourcesTypes.ProvisioningPolicyDto>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateProvisioningPoliciesInBulkV1(requestParameters) as Promise<AxiosResponse<Array<sourcesTypes.Provisioningpolicydto>, any>>;
+    return this.electronAPI.updateProvisioningPoliciesInBulkV1(requestParameters) as Promise<AxiosResponse<Array<sourcesTypes.ProvisioningPolicyDto>, any>>;
 }
-async updateProvisioningPolicyV1(requestParameters: sourcesTypes.SourcesApiUpdateProvisioningPolicyV1Request): Promise<AxiosResponse<sourcesTypes.Provisioningpolicydto, any>> {
+async updateProvisioningPolicyV1(requestParameters: sourcesTypes.SourcesApiUpdateProvisioningPolicyV1Request): Promise<AxiosResponse<sourcesTypes.ProvisioningPolicyDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateProvisioningPolicyV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Provisioningpolicydto, any>>;
+    return this.electronAPI.updateProvisioningPolicyV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.ProvisioningPolicyDto, any>>;
 }
-async updateProvisioningPolicyV2(requestParameters: sourcesTypes.SourcesApiUpdateProvisioningPolicyV2Request): Promise<AxiosResponse<sourcesTypes.Provisioningpolicydtov2, any>> {
+async updateProvisioningPolicyV2(requestParameters: sourcesTypes.SourcesApiUpdateProvisioningPolicyV2Request): Promise<AxiosResponse<sourcesTypes.ProvisioningPolicyDtoV2, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateProvisioningPolicyV2(requestParameters) as Promise<AxiosResponse<sourcesTypes.Provisioningpolicydtov2, any>>;
+    return this.electronAPI.updateProvisioningPolicyV2(requestParameters) as Promise<AxiosResponse<sourcesTypes.ProvisioningPolicyDtoV2, any>>;
 }
-async updatePublicIdentityConfigV1(requestParameters: publicIdentitiesConfigTypes.PublicIdentitiesConfigApiUpdatePublicIdentityConfigV1Request): Promise<AxiosResponse<publicIdentitiesConfigTypes.Publicidentityconfig, any>> {
+async updatePublicIdentityConfigV1(requestParameters: publicIdentitiesConfigTypes.PublicIdentitiesConfigApiUpdatePublicIdentityConfigV1Request): Promise<AxiosResponse<publicIdentitiesConfigTypes.PublicIdentityConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updatePublicIdentityConfigV1(requestParameters) as Promise<AxiosResponse<publicIdentitiesConfigTypes.Publicidentityconfig, any>>;
+    return this.electronAPI.updatePublicIdentityConfigV1(requestParameters) as Promise<AxiosResponse<publicIdentitiesConfigTypes.PublicIdentityConfig, any>>;
 }
-async updateRecommendationsConfigV1(requestParameters: iaiRecommendationsTypes.IAIRecommendationsApiUpdateRecommendationsConfigV1Request): Promise<AxiosResponse<iaiRecommendationsTypes.Recommendationconfigdto, any>> {
+async updateRecommendationsConfigV1(requestParameters: iaiRecommendationsTypes.IAIRecommendationsApiUpdateRecommendationsConfigV1Request): Promise<AxiosResponse<iaiRecommendationsTypes.RecommendationConfigDto, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateRecommendationsConfigV1(requestParameters) as Promise<AxiosResponse<iaiRecommendationsTypes.Recommendationconfigdto, any>>;
+    return this.electronAPI.updateRecommendationsConfigV1(requestParameters) as Promise<AxiosResponse<iaiRecommendationsTypes.RecommendationConfigDto, any>>;
 }
-async updateRolesMetadataByFilterV1(requestParameters: rolesTypes.RolesApiUpdateRolesMetadataByFilterV1Request): Promise<AxiosResponse<rolesTypes.Rolebulkupdateresponse, any>> {
+async updateRolesMetadataByFilterV1(requestParameters: rolesTypes.RolesApiUpdateRolesMetadataByFilterV1Request): Promise<AxiosResponse<rolesTypes.RoleBulkUpdateResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateRolesMetadataByFilterV1(requestParameters) as Promise<AxiosResponse<rolesTypes.Rolebulkupdateresponse, any>>;
+    return this.electronAPI.updateRolesMetadataByFilterV1(requestParameters) as Promise<AxiosResponse<rolesTypes.RoleBulkUpdateResponse, any>>;
 }
-async updateRolesMetadataByIdsV1(requestParameters: rolesTypes.RolesApiUpdateRolesMetadataByIdsV1Request): Promise<AxiosResponse<rolesTypes.Rolebulkupdateresponse, any>> {
+async updateRolesMetadataByIdsV1(requestParameters: rolesTypes.RolesApiUpdateRolesMetadataByIdsV1Request): Promise<AxiosResponse<rolesTypes.RoleBulkUpdateResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateRolesMetadataByIdsV1(requestParameters) as Promise<AxiosResponse<rolesTypes.Rolebulkupdateresponse, any>>;
+    return this.electronAPI.updateRolesMetadataByIdsV1(requestParameters) as Promise<AxiosResponse<rolesTypes.RoleBulkUpdateResponse, any>>;
 }
-async updateRolesMetadataByQueryV1(requestParameters: rolesTypes.RolesApiUpdateRolesMetadataByQueryV1Request): Promise<AxiosResponse<rolesTypes.Rolebulkupdateresponse, any>> {
+async updateRolesMetadataByQueryV1(requestParameters: rolesTypes.RolesApiUpdateRolesMetadataByQueryV1Request): Promise<AxiosResponse<rolesTypes.RoleBulkUpdateResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateRolesMetadataByQueryV1(requestParameters) as Promise<AxiosResponse<rolesTypes.Rolebulkupdateresponse, any>>;
+    return this.electronAPI.updateRolesMetadataByQueryV1(requestParameters) as Promise<AxiosResponse<rolesTypes.RoleBulkUpdateResponse, any>>;
 }
-async updateScheduledActionV1(requestParameters: configurationHubTypes.ConfigurationHubApiUpdateScheduledActionV1Request): Promise<AxiosResponse<configurationHubTypes.Scheduledactionresponse, any>> {
+async updateScheduledActionV1(requestParameters: configurationHubTypes.ConfigurationHubApiUpdateScheduledActionV1Request): Promise<AxiosResponse<configurationHubTypes.ScheduledActionResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateScheduledActionV1(requestParameters) as Promise<AxiosResponse<configurationHubTypes.Scheduledactionresponse, any>>;
+    return this.electronAPI.updateScheduledActionV1(requestParameters) as Promise<AxiosResponse<configurationHubTypes.ScheduledActionResponse, any>>;
 }
-async updateScheduledSearchV1(requestParameters: scheduledSearchTypes.ScheduledSearchApiUpdateScheduledSearchV1Request): Promise<AxiosResponse<scheduledSearchTypes.Scheduledsearch, any>> {
+async updateScheduledSearchV1(requestParameters: scheduledSearchTypes.ScheduledSearchApiUpdateScheduledSearchV1Request): Promise<AxiosResponse<scheduledSearchTypes.ScheduledSearch, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateScheduledSearchV1(requestParameters) as Promise<AxiosResponse<scheduledSearchTypes.Scheduledsearch, any>>;
+    return this.electronAPI.updateScheduledSearchV1(requestParameters) as Promise<AxiosResponse<scheduledSearchTypes.ScheduledSearch, any>>;
 }
 async updateSourceAppsInBulkV1(requestParameters: appsTypes.AppsApiUpdateSourceAppsInBulkV1Request = {}): Promise<AxiosResponse<void, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.updateSourceAppsInBulkV1(requestParameters) as Promise<AxiosResponse<void, any>>;
 }
-async updateSourceEntitlementRequestConfigV1(requestParameters: sourcesTypes.SourcesApiUpdateSourceEntitlementRequestConfigV1Request): Promise<AxiosResponse<sourcesTypes.Sourceentitlementrequestconfig, any>> {
+async updateSourceEntitlementRequestConfigV1(requestParameters: sourcesTypes.SourcesApiUpdateSourceEntitlementRequestConfigV1Request): Promise<AxiosResponse<sourcesTypes.SourceEntitlementRequestConfig, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateSourceEntitlementRequestConfigV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Sourceentitlementrequestconfig, any>>;
+    return this.electronAPI.updateSourceEntitlementRequestConfigV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.SourceEntitlementRequestConfig, any>>;
 }
 async updateSourceScheduleV1(requestParameters: sourcesTypes.SourcesApiUpdateSourceScheduleV1Request): Promise<AxiosResponse<sourcesTypes.Schedule3, any>> {
     await this.checkSessionBeforeCall();
@@ -4387,41 +4423,41 @@ async updateSourceV1(requestParameters: sourcesTypes.SourcesApiUpdateSourceV1Req
     await this.checkSessionBeforeCall();
     return this.electronAPI.updateSourceV1(requestParameters) as Promise<AxiosResponse<sourcesTypes.Source, any>>;
 }
-async updateStatusCheckDetailsV1(requestParameters: serviceDeskIntegrationTypes.ServiceDeskIntegrationApiUpdateStatusCheckDetailsV1Request): Promise<AxiosResponse<serviceDeskIntegrationTypes.Queuedcheckconfigdetails, any>> {
+async updateStatusCheckDetailsV1(requestParameters: serviceDeskIntegrationTypes.ServiceDeskIntegrationApiUpdateStatusCheckDetailsV1Request): Promise<AxiosResponse<serviceDeskIntegrationTypes.QueuedCheckConfigDetails, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateStatusCheckDetailsV1(requestParameters) as Promise<AxiosResponse<serviceDeskIntegrationTypes.Queuedcheckconfigdetails, any>>;
+    return this.electronAPI.updateStatusCheckDetailsV1(requestParameters) as Promise<AxiosResponse<serviceDeskIntegrationTypes.QueuedCheckConfigDetails, any>>;
 }
-async updateStreamConfigurationV1(requestParameters: sharedSignalsFrameworkSsfTypes.SharedSignalsFrameworkSSFApiUpdateStreamConfigurationV1Request): Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.Updatestreamconfigresponse, any>> {
+async updateStreamConfigurationV1(requestParameters: sharedSignalsFrameworkSsfTypes.SharedSignalsFrameworkSSFApiUpdateStreamConfigurationV1Request): Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.UpdateStreamConfigResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateStreamConfigurationV1(requestParameters) as Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.Updatestreamconfigresponse, any>>;
+    return this.electronAPI.updateStreamConfigurationV1(requestParameters) as Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.UpdateStreamConfigResponse, any>>;
 }
-async updateStreamStatusV1(requestParameters: sharedSignalsFrameworkSsfTypes.SharedSignalsFrameworkSSFApiUpdateStreamStatusV1Request): Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.Streamstatusresponse, any>> {
+async updateStreamStatusV1(requestParameters: sharedSignalsFrameworkSsfTypes.SharedSignalsFrameworkSSFApiUpdateStreamStatusV1Request): Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.StreamStatusResponse, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateStreamStatusV1(requestParameters) as Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.Streamstatusresponse, any>>;
+    return this.electronAPI.updateStreamStatusV1(requestParameters) as Promise<AxiosResponse<sharedSignalsFrameworkSsfTypes.StreamStatusResponse, any>>;
 }
 async updateSubscriptionV1(requestParameters: triggersTypes.TriggersApiUpdateSubscriptionV1Request): Promise<AxiosResponse<triggersTypes.Subscription, any>> {
     await this.checkSessionBeforeCall();
     return this.electronAPI.updateSubscriptionV1(requestParameters) as Promise<AxiosResponse<triggersTypes.Subscription, any>>;
 }
-async updateTaskStatusV1(requestParameters: taskManagementTypes.TaskManagementApiUpdateTaskStatusV1Request): Promise<AxiosResponse<taskManagementTypes.Taskstatus, any>> {
+async updateTaskStatusV1(requestParameters: taskManagementTypes.TaskManagementApiUpdateTaskStatusV1Request): Promise<AxiosResponse<taskManagementTypes.TaskStatus, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateTaskStatusV1(requestParameters) as Promise<AxiosResponse<taskManagementTypes.Taskstatus, any>>;
+    return this.electronAPI.updateTaskStatusV1(requestParameters) as Promise<AxiosResponse<taskManagementTypes.TaskStatus, any>>;
 }
-async updateTransformV1(requestParameters: transformsTypes.TransformsApiUpdateTransformV1Request): Promise<AxiosResponse<transformsTypes.Transformread, any>> {
+async updateTransformV1(requestParameters: transformsTypes.TransformsApiUpdateTransformV1Request): Promise<AxiosResponse<transformsTypes.TransformRead, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateTransformV1(requestParameters) as Promise<AxiosResponse<transformsTypes.Transformread, any>>;
+    return this.electronAPI.updateTransformV1(requestParameters) as Promise<AxiosResponse<transformsTypes.TransformRead, any>>;
 }
-async updateUserLevelV1(requestParameters: customUserLevelsTypes.CustomUserLevelsApiUpdateUserLevelV1Request): Promise<AxiosResponse<customUserLevelsTypes.Userlevelsummarydto, any>> {
+async updateUserLevelV1(requestParameters: customUserLevelsTypes.CustomUserLevelsApiUpdateUserLevelV1Request): Promise<AxiosResponse<customUserLevelsTypes.UserLevelSummaryDTO, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateUserLevelV1(requestParameters) as Promise<AxiosResponse<customUserLevelsTypes.Userlevelsummarydto, any>>;
+    return this.electronAPI.updateUserLevelV1(requestParameters) as Promise<AxiosResponse<customUserLevelsTypes.UserLevelSummaryDTO, any>>;
 }
-async updateV1(requestParameters: managedClustersTypes.ManagedClustersApiUpdateV1Request): Promise<AxiosResponse<managedClustersTypes.Clustermanualupgrade, any>> {
+async updateV1(requestParameters: managedClustersTypes.ManagedClustersApiUpdateV1Request): Promise<AxiosResponse<managedClustersTypes.ClusterManualUpgrade, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateV1(requestParameters) as Promise<AxiosResponse<managedClustersTypes.Clustermanualupgrade, any>>;
+    return this.electronAPI.updateV1(requestParameters) as Promise<AxiosResponse<managedClustersTypes.ClusterManualUpgrade, any>>;
 }
-async updateWorkgroupMembersV1(requestParameters: governanceGroupsTypes.GovernanceGroupsApiUpdateWorkgroupMembersV1Request): Promise<AxiosResponse<Array<governanceGroupsTypes.Workgroupmemberadditem>, any>> {
+async updateWorkgroupMembersV1(requestParameters: governanceGroupsTypes.GovernanceGroupsApiUpdateWorkgroupMembersV1Request): Promise<AxiosResponse<Array<governanceGroupsTypes.WorkgroupMemberAddItem>, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.updateWorkgroupMembersV1(requestParameters) as Promise<AxiosResponse<Array<governanceGroupsTypes.Workgroupmemberadditem>, any>>;
+    return this.electronAPI.updateWorkgroupMembersV1(requestParameters) as Promise<AxiosResponse<Array<governanceGroupsTypes.WorkgroupMemberAddItem>, any>>;
 }
 // --- GENERATED SDK METHODS END ---
 

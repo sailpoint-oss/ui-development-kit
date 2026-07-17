@@ -338,7 +338,7 @@ import {
 } from './models/uuid';
 import { MapEditorDialogComponent } from './utils/map-editor-dialog.component';
 import { TransformPreviewComponent } from './utils/transform-preview.component';
-import type { Transformread } from 'sailpoint-api-client/dist/sources/api';
+import type { TransformRead } from 'sailpoint-api-client/dist/sources/api';
 import type { TransformsApiCreateTransformV1Request, TransformsApiUpdateTransformV1Request } from 'sailpoint-api-client/dist/transforms/api';
 
 interface ThemedDesigner extends Designer {
@@ -586,7 +586,7 @@ export function deserializeToStep(data: any): Step {
   encapsulation: ViewEncapsulation.None,
 })
 export class TransformBuilderComponent implements OnInit, OnDestroy {
-  @Input() transform?: Transformread;
+  @Input() transform?: TransformRead;
 
   private destroy$ = new Subject<void>();
   private autoSaveSubject = new Subject<Definition>();
@@ -972,8 +972,8 @@ export class TransformBuilderComponent implements OnInit, OnDestroy {
     try {
       let serializedTransform = serializeStep(this.definition.sequence[0]);
 
-      let newTransform: Transformread =
-        serializedTransform as Transformread;
+      let newTransform: TransformRead =
+        serializedTransform as TransformRead;
 
       const definitionName = this.definition?.properties?.name;
       newTransform.name = String(
@@ -1736,8 +1736,8 @@ export class TransformBuilderComponent implements OnInit, OnDestroy {
     try {
       let serializedTransform = serializeStep(this.definition.sequence[0]);
 
-      let transformDownload: Transformread =
-        serializedTransform as Transformread;
+      let transformDownload: TransformRead =
+        serializedTransform as TransformRead;
 
       const downloadName = this.definition?.properties?.name;
       transformDownload.name = String(

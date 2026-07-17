@@ -46,7 +46,7 @@ export function createRuleStepModel(rules: string[]) {
 
 export async function getAvailableRules(sdk: SailPointSDKService): Promise<string[]> {
   const request: SPConfigApiExportSpConfigV1Request = {
-    exportpayload: {
+    exportPayload: {
       description: 'Export rules',
       includeTypes: ['RULE'],
       objectOptions: {}

@@ -16,7 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { firstValueFrom } from 'rxjs';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { TemplateRef, ChangeDetectorRef } from '@angular/core'
-import type { Transformread } from 'sailpoint-api-client/dist/sources/api';
+import type { TransformRead } from 'sailpoint-api-client/dist/sources/api';
 import type { TransformsApiDeleteTransformV1Request } from 'sailpoint-api-client/dist/transforms/api';
 
 interface UsageResult {
@@ -76,12 +76,12 @@ interface RefNode {
 })
 export class TransformsComponent implements OnInit {
   title = 'Transforms';
-  transforms: Transformread[] = [];
-  dataSource: MatTableDataSource<Transformread> = new MatTableDataSource();
+  transforms: TransformRead[] = [];
+  dataSource: MatTableDataSource<TransformRead> = new MatTableDataSource();
   displayedColumns: string[] = ['id', 'name', 'type', 'internal', 'actions'];
   loading = false;
   hasDataLoaded = false; // ✅ Track data load state
-  transform: Transformread | undefined;
+  transform: TransformRead | undefined;
   editing = false;
   @ViewChild(TransformBuilderComponent)
   transformBuilder?: TransformBuilderComponent;
@@ -180,7 +180,7 @@ export class TransformsComponent implements OnInit {
     }
   }
 
-  onEdit(transform?: Transformread): void {
+  onEdit(transform?: TransformRead): void {
     if (transform?.type === 'usernameGenerator') {
       this.dialog.open(GenericDialogComponent, {
         data: {
@@ -196,7 +196,7 @@ export class TransformsComponent implements OnInit {
     this.editing = true;
   }
 
-  onDelete(transform: Transformread): void {
+  onDelete(transform: TransformRead): void {
     this.dialog
       .open(GenericDialogComponent, {
         data: {
@@ -325,7 +325,7 @@ export class TransformsComponent implements OnInit {
     return this.totalItems ? ((this.profilesChecked + this.policiesChecked + this.transformsChecked) / this.totalItems) * 100 : 0;
   }
 
-  async onSafeDelete(transform: Transformread): Promise<void> {
+  async onSafeDelete(transform: TransformRead): Promise<void> {
     const name = transform.name || '<Unnamed>';
 
     const doScan = await firstValueFrom(
@@ -509,7 +509,7 @@ export class TransformsComponent implements OnInit {
     }
   }
 
-  private async scanTransformsForReferences(target: Transformread): Promise<void> {
+  private async scanTransformsForReferences(target: TransformRead): Promise<void> {
     this.currentPhase = 'Transforms';
     this.cdr.detectChanges();
     const resp = await this.sdk.listTransformsV1();

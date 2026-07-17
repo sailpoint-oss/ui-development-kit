@@ -23,7 +23,7 @@ import { SailPointSDKService } from '../../../sailpoint-sdk.service';
 import { IdentitySearchComponent } from './identity-search.component';
 import { IdentityService } from './identity-service';
 import { TransformResultsComponent } from './transform-results.component';
-import type { IdentityProfilesApiGenerateIdentityPreviewV1Request, Identityprofile } from 'sailpoint-api-client/dist/identity_profiles/api';
+import type { IdentityProfilesApiGenerateIdentityPreviewV1Request, IdentityProfile } from 'sailpoint-api-client/dist/identity_profiles/api';
 import type { TransformsApiCreateTransformV1Request } from 'sailpoint-api-client/dist/transforms/api';
 import type { IdentityDocument } from './identity-document';
 
@@ -47,7 +47,7 @@ export class TransformPreviewComponent implements OnInit {
   sdk: SailPointSDKService;
   private destroy$ = new Subject<void>();
   transformForm: FormGroup;
-  profiles: Identityprofile[] = []; 
+  profiles: IdentityProfile[] = []; 
   loadingProfiles = false;
   profileError = '';
   selectedIdentities: IdentityDocument[] = [];
@@ -207,7 +207,7 @@ export class TransformPreviewComponent implements OnInit {
     
     const previewPromises = this.selectedIdentities.map(async identity => {
       const request: IdentityProfilesApiGenerateIdentityPreviewV1Request = {
-        identitypreviewrequest: {
+        identityPreviewRequest: {
           identityId: identity.id,
           identityAttributeConfig: {
             enabled: true,

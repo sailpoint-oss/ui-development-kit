@@ -18,8 +18,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { SailPointSDKService } from '../../sailpoint-sdk.service';
 import { NavigationStackService, NavigationItem } from '../navigation-stack';
-import type { Identityreferencewithnameandemail } from 'sailpoint-api-client/dist/access_requests/api';
-import type { Accessreviewitem, Certificationdecision, Identitycertificationdto } from 'sailpoint-api-client/dist/certifications/api';
+import type { IdentityReferenceWithNameAndEmail } from 'sailpoint-api-client/dist/access_requests/api';
+import type { AccessReviewItem, CertificationDecision, IdentityCertificationDto } from 'sailpoint-api-client/dist/certifications/api';
 
 // Polyfill for Promise.allSettled for older environments
 if (!(Promise as any).allSettled) {
@@ -36,7 +36,7 @@ if (!(Promise as any).allSettled) {
 
 // Interface for comprehensive certification details
 interface CertificationDetails {
-  certification: Identitycertificationdto;
+  certification: IdentityCertificationDto;
   reviewers: any[];
   accessReviewItems: any[];
   campaign?: any; // Full campaign data from getCampaign API
@@ -138,7 +138,7 @@ export class CertificationDetailComponent implements OnInit, OnDestroy {
     {
       name: 'Identity',
       sortOrder: null,
-      sortFn: (a: Accessreviewitem, b: Accessreviewitem) => {
+      sortFn: (a: AccessReviewItem, b: AccessReviewItem) => {
         const nameA = a.identitySummary?.name || '';
         const nameB = b.identitySummary?.name || '';
         return nameA.localeCompare(nameB);
@@ -146,7 +146,7 @@ export class CertificationDetailComponent implements OnInit, OnDestroy {
       sortDirections: ['asc', 'desc'],
       filterMultiple: true,
       listOfFilter: [],
-      filterFn: (list: string[], item: Accessreviewitem) =>
+      filterFn: (list: string[], item: AccessReviewItem) =>
         list &&
         Array.isArray(list) &&
         list.some(
@@ -161,8 +161,8 @@ export class CertificationDetailComponent implements OnInit, OnDestroy {
     {
       name: 'Access Type',
       sortOrder: null,
-      sortFn: (a: Accessreviewitem, b: Accessreviewitem) => {
-        const getAccessType = (item: Accessreviewitem) => {
+      sortFn: (a: AccessReviewItem, b: AccessReviewItem) => {
+        const getAccessType = (item: AccessReviewItem) => {
           if (item.accessSummary?.entitlement) return 'Entitlement';
           if (item.accessSummary?.accessProfile) return 'Access Profile';
           if (item.accessSummary?.role) return 'Role';
@@ -191,8 +191,8 @@ export class CertificationDetailComponent implements OnInit, OnDestroy {
     {
       name: 'Access Name',
       sortOrder: null,
-      sortFn: (a: Accessreviewitem, b: Accessreviewitem) => {
-        const getName = (item: Accessreviewitem) => {
+      sortFn: (a: AccessReviewItem, b: AccessReviewItem) => {
+        const getName = (item: AccessReviewItem) => {
           return (
             item.accessSummary?.entitlement?.name ||
             item.accessSummary?.accessProfile?.name ||
@@ -221,8 +221,8 @@ export class CertificationDetailComponent implements OnInit, OnDestroy {
     {
       name: 'Source',
       sortOrder: null,
-      sortFn: (a: Accessreviewitem, b: Accessreviewitem) => {
-        const getSource = (item: Accessreviewitem) => {
+      sortFn: (a: AccessReviewItem, b: AccessReviewItem) => {
+        const getSource = (item: AccessReviewItem) => {
           return String(
             item.accessSummary?.entitlement?.sourceName ||
               item.accessSummary?.accessProfile?.entitlements?.[0]
@@ -238,7 +238,7 @@ export class CertificationDetailComponent implements OnInit, OnDestroy {
       sortDirections: ['asc', 'desc'],
       filterMultiple: true,
       listOfFilter: [],
-      filterFn: (list: string[], item: Accessreviewitem) =>
+      filterFn: (list: string[], item: AccessReviewItem) =>
         list &&
         Array.isArray(list) &&
         list.some(
@@ -267,7 +267,7 @@ export class CertificationDetailComponent implements OnInit, OnDestroy {
         { text: 'Yes', value: 'Yes' },
         { text: 'No', value: 'No' },
       ],
-      filterFn: (list: string[], item: Accessreviewitem) => {
+      filterFn: (list: string[], item: AccessReviewItem) => {
         if (!list || list.length === 0) return true;
         const itemStatus = item.completed ? 'Yes' : 'No';
         return list.includes(itemStatus);
@@ -287,7 +287,7 @@ export class CertificationDetailComponent implements OnInit, OnDestroy {
         { text: 'Yes', value: 'Yes' },
         { text: 'No', value: 'No' },
       ],
-      filterFn: (list: string[], item: Accessreviewitem) => {
+      filterFn: (list: string[], item: AccessReviewItem) => {
         if (!list || list.length === 0) return true;
         const itemStatus = item.newAccess ? 'Yes' : 'No';
         return list.includes(itemStatus);
@@ -320,7 +320,7 @@ export class CertificationDetailComponent implements OnInit, OnDestroy {
         { text: 'REVOKE', value: 'REVOKE' },
         { text: 'PENDING', value: 'PENDING' },
       ],
-      filterFn: (list: string[], item: Accessreviewitem) =>
+      filterFn: (list: string[], item: AccessReviewItem) =>
         list &&
         Array.isArray(list) &&
         list.some(
@@ -419,7 +419,7 @@ export class CertificationDetailComponent implements OnInit, OnDestroy {
     try {
       // Initialize certification details structure
       const certificationDetails: CertificationDetails = {
-        certification: {} as Identitycertificationdto,
+        certification: {} as IdentityCertificationDto,
         reviewers: [],
         accessReviewItems: [],
         campaign: undefined,
@@ -439,15 +439,15 @@ export class CertificationDetailComponent implements OnInit, OnDestroy {
           switch (index) {
             case 0: // Certification details
               certificationDetails.certification =
-                result.value as Identitycertificationdto;
+                result.value as IdentityCertificationDto;
               break;
             case 1: // Reviewers
               certificationDetails.reviewers =
-                result.value as Identityreferencewithnameandemail[];
+                result.value as IdentityReferenceWithNameAndEmail[];
               break;
             case 2: // Access review items
               certificationDetails.accessReviewItems =
-                result.value as Accessreviewitem[];
+                result.value as AccessReviewItem[];
               break;
           }
         } else {
@@ -503,7 +503,7 @@ export class CertificationDetailComponent implements OnInit, OnDestroy {
   // Helper method to fetch certification details
   private async fetchCertificationDetails(
     certificationId: string
-  ): Promise<Identitycertificationdto> {
+  ): Promise<IdentityCertificationDto> {
     try {
       const response = await this.sdk.getIdentityCertificationV1({
         id: certificationId,
@@ -1124,21 +1124,21 @@ export class CertificationDetailComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const reviewdecision = Array.from(this.decisionChanges.entries()).map(
+    const reviewDecision = Array.from(this.decisionChanges.entries()).map(
       ([id, decisionChange]) => ({
         id: id,
-        decision: decisionChange.decision as Certificationdecision,
+        decision: decisionChange.decision as CertificationDecision,
         bulk: true,
         comments: decisionChange.comment || '',
       })
     );
-    console.log('Review decision V2025:', reviewdecision);
+    console.log('Review decision V2025:', reviewDecision);
 
     this.saveChangesLoading = true;
     try {
       const response = await this.sdk.makeIdentityDecisionV1({
         id: this.certificationId,
-        reviewdecision: reviewdecision,
+        reviewDecision: reviewDecision,
       });
 
       console.log('Descision response:', response);

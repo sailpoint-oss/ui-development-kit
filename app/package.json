@@ -10,6 +10,6 @@
   "private": true,
   "dependencies": {
     "js-yaml": "^4.1.0",
-    "sailpoint-api-client": "2.0.13"
+    "sailpoint-api-client": "2.1.0"
   }
 }

@@ -311,7 +311,7 @@ export class SourceActionsDialogComponent implements OnInit {
                 const updateResult = await this.sdk.updateSourceScheduleV1({
                     sourceId: this.data.sourceId,
                     scheduleType: 'ACCOUNT_AGGREGATION',
-                    jsonpatchoperation: patchOps
+                    jsonPatchOperation: patchOps
                 });
                 
                 this.debugLog(`Update result status: ${updateResult?.status}`, 'apiCalls');

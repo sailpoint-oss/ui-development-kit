@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { SailPointSDKService } from '../sailpoint-sdk.service';
-import type { Accessprofile, Entitlement } from 'sailpoint-api-client/dist/access_profiles/api';
+import type { AccessProfile, Entitlement } from 'sailpoint-api-client/dist/access_profiles/api';
 import type { Role } from 'sailpoint-api-client/dist/roles/api';
 import type { SearchApiSearchPostV1Request } from 'sailpoint-api-client/dist/search/api';
 import type { IdentityDocument } from '../transforms/transform-builder/utils/identity-document';
@@ -134,7 +134,7 @@ export class OwnerGraphService {
     return res.data ?? [];
   }
 
-  async listAccessProfilesByOwner(ownerId: string, limit = 200): Promise<Accessprofile[]> {
+  async listAccessProfilesByOwner(ownerId: string, limit = 200): Promise<AccessProfile[]> {
     const res = await this.sdk.listAccessProfilesV1({ limit, filters: `owner.id eq "${ownerId}"` });
     if (res.status !== 200) throw new Error(res.statusText);
     return res.data ?? [];
@@ -845,7 +845,7 @@ async findIdentityByAlias(alias: string) {
 
             const res = await this.sdk.patchRoleV1({
               id: roleId,
-              jsonpatchoperation: [patchOp]
+              jsonPatchOperation: [patchOp]
             });
 
             if (res.status === 200 || res.status === 204) {
@@ -906,7 +906,7 @@ async findIdentityByAlias(alias: string) {
           try {
             const res = await this.sdk.patchAccessProfileV1({
               id: apId,
-              jsonpatchoperation: [patchOp]
+              jsonPatchOperation: [patchOp]
             });
 
             if (res.status === 200 || res.status === 204) {
@@ -967,7 +967,7 @@ async findIdentityByAlias(alias: string) {
           try {
             const res = await this.sdk.patchEntitlementV1({
               id: entId,
-              jsonpatchoperation: [patchOp]
+              jsonPatchOperation: [patchOp]
             });
 
             if (res.status === 200 || res.status === 204) {

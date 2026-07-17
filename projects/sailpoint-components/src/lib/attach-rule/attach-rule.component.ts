@@ -17,8 +17,8 @@ import {
 } from '@angular/cdk/drag-drop';
 
 import { SailPointSDKService } from '../sailpoint-sdk.service';
-import type { Jsonpatchoperation } from 'sailpoint-api-client/dist/access_model_metadata/api';
-import type { Connectorruleresponse } from 'sailpoint-api-client/dist/connector_rule_management/api';
+import type { JsonPatchOperation } from 'sailpoint-api-client/dist/access_model_metadata/api';
+import type { ConnectorRuleResponse } from 'sailpoint-api-client/dist/connector_rule_management/api';
 import type { Source } from 'sailpoint-api-client/dist/sources/api';
 import type { SPConfigApiExportSpConfigV1Request, SPConfigApiGetSpConfigExportStatusV1Request, SPConfigApiGetSpConfigExportV1Request } from 'sailpoint-api-client/dist/sp_config/api';
 
@@ -41,7 +41,7 @@ export async function getAvailableRules(
   sdk: SailPointSDKService
 ): Promise<AvailableRule[]> {
   const request: SPConfigApiExportSpConfigV1Request = {
-    exportpayload: {
+    exportPayload: {
       description: 'Export rules',
       includeTypes: ['RULE', 'CONNECTOR_RULE'],
       objectOptions: {}
@@ -196,7 +196,7 @@ export class AttachRuleComponent implements OnInit {
   availableConnectedTo = ['available', ...this.slotDropListIds];
 
   assignedRulesMap: Record<string, AvailableRule[]> = {};
-  pendingOps: Jsonpatchoperation[] = [];
+  pendingOps: JsonPatchOperation[] = [];
   hasConnectionParameters = false;
   initialAssignedMap: Record<string, Set<string>> = {};
 
@@ -260,9 +260,9 @@ export class AttachRuleComponent implements OnInit {
 
   private makeRulePatch(
     slot: Slot,
-    rule: Connectorruleresponse,
+    rule: ConnectorRuleResponse,
     existingNames: string[]
-  ): Jsonpatchoperation {
+  ): JsonPatchOperation {
     // pick op based solely on whether the slot was empty
     const op: 'add' | 'replace' = existingNames.length ? 'replace' : 'add';
 
@@ -300,7 +300,7 @@ export class AttachRuleComponent implements OnInit {
   private makeRuleRemovePatch(
     slot: Slot,
     rule: AvailableRule
-  ): Jsonpatchoperation {
+  ): JsonPatchOperation {
     // compute the correct path
     let path: string;
     if (slot.key === 'beforeRule' || slot.key === 'afterRule') {
@@ -393,7 +393,7 @@ export class AttachRuleComponent implements OnInit {
         if (raw && raw.id) {
           const match = this.connectorRules.find(r => r.id === raw.id);
           if (match) {
-            const connectorRule = match as unknown as Connectorruleresponse;
+            const connectorRule = match as unknown as ConnectorRuleResponse;
             this.assignedRulesMap[slot.key] = [connectorRule];
             this.availableRules = this.availableRules.filter(r => r.id !== connectorRule.id);
           }
@@ -425,7 +425,7 @@ export class AttachRuleComponent implements OnInit {
 
       const found = names
         .map(n => this.connectorRules.find(r => r.name === n))
-        .filter((r): r is Connectorruleresponse => !!r);
+        .filter((r): r is ConnectorRuleResponse => !!r);
 
       this.assignedRulesMap[slot.key] = found;
       found.forEach(r => {
@@ -444,7 +444,7 @@ export class AttachRuleComponent implements OnInit {
     this.isLoading = false;
   }
   canEnter(slot: Slot) {
-    return (drag: CdkDrag<Connectorruleresponse>) => {
+    return (drag: CdkDrag<ConnectorRuleResponse>) => {
       if ((slot.key === 'beforeRule' || slot.key === 'afterRule')
         && !this.hasConnectionParameters) {
         return false;
@@ -457,7 +457,7 @@ export class AttachRuleComponent implements OnInit {
   onDrop(event: CdkDragDrop<AvailableRule[]>): void {
     if (!this.selectedSource) return;
 
-    const dragged = event.item.data as Connectorruleresponse;
+    const dragged = event.item.data as ConnectorRuleResponse;
     const prevId = event.previousContainer.id;
     const currId = event.container.id;
 
@@ -617,7 +617,7 @@ export class AttachRuleComponent implements OnInit {
       for (const op of this.pendingOps) {
         await this.sdk.updateSourceV1({
           id: this.selectedSource.id!,
-          jsonpatchoperation: [op]
+          jsonPatchOperation: [op]
         });
       }
       await this.onSourceChange(this.selectedSource);

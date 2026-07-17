@@ -379,6 +379,9 @@ ipcMain.handle('create-machine-account-subtype-v-1', async (event, request: mach
 ipcMain.handle('create-machine-identity-v-1', async (event, request: machineIdentitiesTypes.MachineIdentitiesApiCreateMachineIdentityV1Request) => {
     return await sdkWrapper.createMachineIdentityV1(request, apiConfig);
 });
+ipcMain.handle('create-machine-identity-v-2', async (event, request: machineIdentitiesTypes.MachineIdentitiesApiCreateMachineIdentityV2Request) => {
+    return await sdkWrapper.createMachineIdentityV2(request, apiConfig);
+});
 ipcMain.handle('create-managed-client-v-1', async (event, request: managedClientsTypes.ManagedClientsApiCreateManagedClientV1Request) => {
     return await sdkWrapper.createManagedClientV1(request, apiConfig);
 });
@@ -808,6 +811,9 @@ ipcMain.handle('delete-machine-classification-config-v-1', async (event, request
 ipcMain.handle('delete-machine-identity-v-1', async (event, request: machineIdentitiesTypes.MachineIdentitiesApiDeleteMachineIdentityV1Request) => {
     return await sdkWrapper.deleteMachineIdentityV1(request, apiConfig);
 });
+ipcMain.handle('delete-machine-identity-v-2', async (event, request: machineIdentitiesTypes.MachineIdentitiesApiDeleteMachineIdentityV2Request) => {
+    return await sdkWrapper.deleteMachineIdentityV2(request, apiConfig);
+});
 ipcMain.handle('delete-managed-client-v-1', async (event, request: managedClientsTypes.ManagedClientsApiDeleteManagedClientV1Request) => {
     return await sdkWrapper.deleteManagedClientV1(request, apiConfig);
 });
@@ -858,6 +864,9 @@ ipcMain.handle('delete-oauth-client-v-1', async (event, request: oauthClientsTyp
 });
 ipcMain.handle('delete-object-mapping-v-1', async (event, request: configurationHubTypes.ConfigurationHubApiDeleteObjectMappingV1Request) => {
     return await sdkWrapper.deleteObjectMappingV1(request, apiConfig);
+});
+ipcMain.handle('delete-ownership-correlation-config-v-1', async (event, request: machineIdentitiesTypes.MachineIdentitiesApiDeleteOwnershipCorrelationConfigV1Request) => {
+    return await sdkWrapper.deleteOwnershipCorrelationConfigV1(request, apiConfig);
 });
 ipcMain.handle('delete-page-content-by-id-nerm', async (event, request: sdk.PageContentsNERMApiDeletePageContentByIdRequest) => {
     return await sdkWrapper.deletePageContentByIdNerm(request, apiConfig);
@@ -1507,6 +1516,9 @@ ipcMain.handle('get-machine-classification-config-v-1', async (event, request: m
 ipcMain.handle('get-machine-identity-v-1', async (event, request: machineIdentitiesTypes.MachineIdentitiesApiGetMachineIdentityV1Request) => {
     return await sdkWrapper.getMachineIdentityV1(request, apiConfig);
 });
+ipcMain.handle('get-machine-identity-v-2', async (event, request: machineIdentitiesTypes.MachineIdentitiesApiGetMachineIdentityV2Request) => {
+    return await sdkWrapper.getMachineIdentityV2(request, apiConfig);
+});
 ipcMain.handle('get-mail-from-attributes-v-1', async (event, request: notificationsTypes.NotificationsApiGetMailFromAttributesV1Request) => {
     return await sdkWrapper.getMailFromAttributesV1(request, apiConfig);
 });
@@ -1614,6 +1626,9 @@ ipcMain.handle('get-org-config-v-1', async (event) => {
 });
 ipcMain.handle('get-outlier-contributing-feature-summary-v-1', async (event, request: iaiOutliersTypes.IAIOutliersApiGetOutlierContributingFeatureSummaryV1Request) => {
     return await sdkWrapper.getOutlierContributingFeatureSummaryV1(request, apiConfig);
+});
+ipcMain.handle('get-ownership-correlation-config-v-1', async (event, request: machineIdentitiesTypes.MachineIdentitiesApiGetOwnershipCorrelationConfigV1Request) => {
+    return await sdkWrapper.getOwnershipCorrelationConfigV1(request, apiConfig);
 });
 ipcMain.handle('get-owners-v-1', async (event, request: dataAccessSecurityTypes.DataAccessSecurityApiGetOwnersV1Request) => {
     return await sdkWrapper.getOwnersV1(request, apiConfig);
@@ -2275,6 +2290,9 @@ ipcMain.handle('list-machine-accounts-v-1', async (event, request: machineAccoun
 ipcMain.handle('list-machine-identities-v-1', async (event, request: machineIdentitiesTypes.MachineIdentitiesApiListMachineIdentitiesV1Request = {}) => {
     return await sdkWrapper.listMachineIdentitiesV1(request, apiConfig);
 });
+ipcMain.handle('list-machine-identities-v-2', async (event, request: machineIdentitiesTypes.MachineIdentitiesApiListMachineIdentitiesV2Request = {}) => {
+    return await sdkWrapper.listMachineIdentitiesV2(request, apiConfig);
+});
 ipcMain.handle('list-machine-identity-user-entitlements-v-1', async (event, request: machineIdentitiesTypes.MachineIdentitiesApiListMachineIdentityUserEntitlementsV1Request = {}) => {
     return await sdkWrapper.listMachineIdentityUserEntitlementsV1(request, apiConfig);
 });
@@ -2304,6 +2322,9 @@ ipcMain.handle('list-outliers-contributing-feature-access-items-v-1', async (eve
 });
 ipcMain.handle('list-owned-user-apps-v-1', async (event, request: appsTypes.AppsApiListOwnedUserAppsV1Request = {}) => {
     return await sdkWrapper.listOwnedUserAppsV1(request, apiConfig);
+});
+ipcMain.handle('list-ownership-correlation-configs-v-1', async (event, request: machineIdentitiesTypes.MachineIdentitiesApiListOwnershipCorrelationConfigsV1Request) => {
+    return await sdkWrapper.listOwnershipCorrelationConfigsV1(request, apiConfig);
 });
 ipcMain.handle('list-password-policies-v-1', async (event, request: passwordPoliciesTypes.PasswordPoliciesApiListPasswordPoliciesV1Request = {}) => {
     return await sdkWrapper.listPasswordPoliciesV1(request, apiConfig);
@@ -2526,6 +2547,9 @@ ipcMain.handle('patch-oauth-client-v-1', async (event, request: oauthClientsType
 });
 ipcMain.handle('patch-org-config-v-1', async (event, request: orgConfigTypes.OrgConfigApiPatchOrgConfigV1Request) => {
     return await sdkWrapper.patchOrgConfigV1(request, apiConfig);
+});
+ipcMain.handle('patch-ownership-correlation-config-v-1', async (event, request: machineIdentitiesTypes.MachineIdentitiesApiPatchOwnershipCorrelationConfigV1Request) => {
+    return await sdkWrapper.patchOwnershipCorrelationConfigV1(request, apiConfig);
 });
 ipcMain.handle('patch-personal-access-token-v-1', async (event, request: personalAccessTokensTypes.PersonalAccessTokensApiPatchPersonalAccessTokenV1Request) => {
     return await sdkWrapper.patchPersonalAccessTokenV1(request, apiConfig);
@@ -3198,6 +3222,9 @@ ipcMain.handle('update-machine-account-v-1', async (event, request: machineAccou
 });
 ipcMain.handle('update-machine-identity-v-1', async (event, request: machineIdentitiesTypes.MachineIdentitiesApiUpdateMachineIdentityV1Request) => {
     return await sdkWrapper.updateMachineIdentityV1(request, apiConfig);
+});
+ipcMain.handle('update-machine-identity-v-2', async (event, request: machineIdentitiesTypes.MachineIdentitiesApiUpdateMachineIdentityV2Request) => {
+    return await sdkWrapper.updateMachineIdentityV2(request, apiConfig);
 });
 ipcMain.handle('update-managed-client-v-1', async (event, request: managedClientsTypes.ManagedClientsApiUpdateManagedClientV1Request) => {
     return await sdkWrapper.updateManagedClientV1(request, apiConfig);

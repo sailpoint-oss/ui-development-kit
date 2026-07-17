@@ -5,7 +5,7 @@ import { AxiosResponse } from 'axios';
 import { SailPointSDKService } from 'sailpoint-components';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import type { Identityprofile } from 'sailpoint-api-client/dist/identity_profiles/api';
+import type { IdentityProfile } from 'sailpoint-api-client/dist/identity_profiles/api';
 
 @Component({
   selector: 'app-identity-profiles',
@@ -15,7 +15,7 @@ import type { Identityprofile } from 'sailpoint-api-client/dist/identity_profile
 })
 export class IdentityProfilesComponent implements OnInit {
 
-  identityProfiles: AxiosResponse<Array<Identityprofile>, any> | undefined;
+  identityProfiles: AxiosResponse<Array<IdentityProfile>, any> | undefined;
   loading = true;
 
   constructor(private sdk: SailPointSDKService) {
