@@ -1,8 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AxiosResponse } from 'axios';
-import * as sdk from 'sailpoint-api-client';
+import type * as sdk from 'sailpoint-api-client';
+{{#imports}}
+import type * as {{alias}} from '{{{importPath}}}';
+{{/imports}}
 import { ElectronApiFactoryService } from './services/electron-api-factory.service';
+
+/**
+ * GENERATED FILE — do not edit by hand.
+ * Produced by scripts/build-sailpoint-sdk.js from mustache_templates/sailpoint-sdk-service.mustache.
+ */
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +28,7 @@ export class SailPointSDKService {
       if (sessionStatus && sessionStatus.expiry) {
         const now = new Date();
         const expiryDate = new Date(sessionStatus.expiry);
-        
+
         if (now >= expiryDate) {
           console.log('Session expired during SDK call - notifying electron');
           const refreshState = await this.electronAPI.refreshTokens();
@@ -44,18 +52,12 @@ export class SailPointSDKService {
   }
 
 // --- GENERATED SDK METHODS START ---
-{{#apiInfo}}{{#apis}}
 {{#operations}}
-{{#operation}}
-{{#useSingleRequestParameter}}
-async {{nickname}}{{operationSuffix}}({{#allParams.0}}requestParameters: sdk.{{classname}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}{{/allParams.0}}): Promise<AxiosResponse<{{#isArray}}Array<{{#returnProperty}}{{^isPrimitiveType}}sdk.{{/isPrimitiveType}}{{/returnProperty}}{{returnBaseType}}>{{/isArray}}{{^isArray}}{{#returnProperty}}{{#isPrimitiveType}}{{returnType}}{{/isPrimitiveType}}{{/returnProperty}}{{#returnProperty}}{{^isPrimitiveType}}sdk.{{returnType}}{{/isPrimitiveType}}{{/returnProperty}}{{/isArray}}{{^returnType}}void{{/returnType}}, any>> {
+async {{wrapperName}}({{#hasParams}}requestParameters: {{{requestTypeRef}}}{{#paramOptional}} = {}{{/paramOptional}}{{/hasParams}}): Promise<AxiosResponse<{{{returnTypeRef}}}, any>> {
     await this.checkSessionBeforeCall();
-    return this.electronAPI.{{nickname}}{{operationSuffix}}({{#allParams.0}}requestParameters{{/allParams.0}}) as Promise<AxiosResponse<{{#isArray}}Array<{{#returnProperty}}{{^isPrimitiveType}}sdk.{{/isPrimitiveType}}{{/returnProperty}}{{returnBaseType}}>{{/isArray}}{{^isArray}}{{#returnProperty}}{{#isPrimitiveType}}{{returnType}}{{/isPrimitiveType}}{{/returnProperty}}{{#returnProperty}}{{^isPrimitiveType}}sdk.{{returnType}}{{/isPrimitiveType}}{{/returnProperty}}{{/isArray}}{{^returnType}}void{{/returnType}}, any>>;
+    return this.electronAPI.{{wrapperName}}({{#hasParams}}requestParameters{{/hasParams}}) as Promise<AxiosResponse<{{{returnTypeRef}}}, any>>;
 }
-{{/useSingleRequestParameter}}
-{{/operation}}
 {{/operations}}
-{{/apis}}{{/apiInfo}}
 // --- GENERATED SDK METHODS END ---
 
 async genericGet(requestParameters: sdk.DefaultApiGenericGetRequest): Promise<AxiosResponse<any, any>> {

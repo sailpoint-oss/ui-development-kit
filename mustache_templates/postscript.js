@@ -2,8 +2,8 @@
 /**
  * Post-generation script for the SailPoint SDK wrappers.
  *
- * Run automatically by scripts/build-sailpoint-sdk.js after the OpenAPI Generator
- * produces the base TypeScript files from the Mustache templates.
+ * Run automatically by scripts/build-sailpoint-sdk.js after the Mustache
+ * templates are rendered from the introspected SDK model.
  *
  * Applies two targeted patches that cannot be expressed generically in Mustache:
  *
@@ -97,9 +97,9 @@ const CUSTOM_IMPL_LINES = [
     '        form.append(\'name\', requestParameters.name);',
     '        console.log(\'[createUploadedConfiguration] FormData built \u2014 file:\', fileName,',
     '            \'size:\', blob.size, \'bytes, POSTing to:\',',
-    '            `${basePath}/v2025/configuration-hub/backups/uploads`);',
+    '            `${basePath}/configuration-hub/v1/backups/uploads`);',
     '',
-    '        const response = await fetch(`${basePath}/v2025/configuration-hub/backups/uploads`, {',
+    '        const response = await fetch(`${basePath}/configuration-hub/v1/backups/uploads`, {',
     '            method: \'POST\',',
     '            headers: {',
     '                Authorization: `Bearer ${accessToken}`,',
@@ -113,9 +113,9 @@ const CUSTOM_IMPL_LINES = [
     '        const responseText = await response.text();',
     '        console.log(\'[createUploadedConfiguration] Response body:\', responseText);',
     '',
-    '        let responseData: sdk.BackupResponseV2025;',
+    '        let responseData: configurationHubTypes.BackupResponse;',
     '        try { responseData = JSON.parse(responseText); }',
-    '        catch { responseData = {} as sdk.BackupResponseV2025; }',
+    '        catch { responseData = {} as configurationHubTypes.BackupResponse; }',
     '',
     '        return {',
     '            data: responseData,',
@@ -153,8 +153,8 @@ function writeFile(filePath, content) {
  */
 function patchImportSpConfig(content) {
     return content.replace(
-        /return handleApiCall\(\(\) => spconfigv2025api\.importSpConfig\(requestParameters\)\);/g,
-        "return handleApiCall(() => spconfigv2025api.importSpConfig(requestParameters, { headers: { 'Content-Type': null } } as any));"
+        /return handleApiCall\(\(\) => spconfigapi\.importSpConfigV1\(requestParameters\)\);/g,
+        "return handleApiCall(() => spconfigapi.importSpConfigV1(requestParameters, { headers: { 'Content-Type': null } } as any));"
     );
 }
 
@@ -177,8 +177,8 @@ function patchElectronSdk(filePath) {
     //    the override assignment at the end of the file is valid TypeScript.
     //    Simple string replace is reliable regardless of return-type annotations.
     content = content.replace(
-        'export const createUploadedConfiguration = ',
-        'export let createUploadedConfiguration = '
+        'export const createUploadedConfigurationV1 = ',
+        'export let createUploadedConfigurationV1 = '
     );
 
     // 3. Append the async override (idempotent — only added once).
@@ -193,10 +193,10 @@ function patchElectronSdk(filePath) {
             '// Override: replace the generated stub with a fetch-based implementation',
             '// that works correctly in Electron\'s main process (avoids Axios/FormData',
             '// boundary issues and handles IPC-cloned File objects).',
-            'createUploadedConfiguration = async (',
-            '    requestParameters: sdk.ConfigurationHubV2025ApiCreateUploadedConfigurationRequest,',
+            'createUploadedConfigurationV1 = async (',
+            '    requestParameters: configurationHubTypes.ConfigurationHubApiCreateUploadedConfigurationV1Request,',
             '    apiConfig: sdk.Configuration',
-            '): Promise<ApiResponse<sdk.BackupResponseV2025>> => {',
+            '): Promise<ApiResponse<configurationHubTypes.BackupResponse>> => {',
             CUSTOM_IMPL,
             '};',
             '',
@@ -234,14 +234,14 @@ function patchWebSdk(filePath) {
             '// =========================================================================',
             '',
             '// Override: replace the generated stub with a fetch-based implementation.',
-            'sdkFunctionsObject.createUploadedConfiguration = async (',
-            '    requestParameters: sdk.ConfigurationHubV2025ApiCreateUploadedConfigurationRequest,',
+            'sdkFunctionsObject.createUploadedConfigurationV1 = async (',
+            '    requestParameters: configurationHubTypes.ConfigurationHubApiCreateUploadedConfigurationV1Request,',
             '    apiConfig: sdk.Configuration',
-            '): Promise<ApiResponse<sdk.BackupResponseV2025>> => {',
+            '): Promise<ApiResponse<configurationHubTypes.BackupResponse>> => {',
             CUSTOM_IMPL,
             '};',
             '// Keep the Map in sync so executeSdkMethod routes to the new implementation.',
-            "sdkFunctions.set('createUploadedConfiguration', sdkFunctionsObject.createUploadedConfiguration as any);",
+            "sdkFunctions.set('createUploadedConfigurationV1', sdkFunctionsObject.createUploadedConfigurationV1 as any);",
             '',
         ].join('\n');
 

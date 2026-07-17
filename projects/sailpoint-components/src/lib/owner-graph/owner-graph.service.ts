@@ -1,13 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import { SailPointSDKService } from '../sailpoint-sdk.service';
-import type {
-  SearchDocumentsV2025,
-  SearchV2025ApiSearchPostRequest,
-  RoleV2025,
-  AccessProfileV2025,
-  EntitlementV2025,
-} from 'sailpoint-api-client';
-// import { QueryTypeV2025 } from 'sailpoint-api-client';
+import type { AccessProfile, Entitlement } from 'sailpoint-api-client/dist/access_profiles/api';
+import type { Role } from 'sailpoint-api-client/dist/roles/api';
+import type { SearchApiSearchPostV1Request } from 'sailpoint-api-client/dist/search/api';
+import type { IdentityDocument } from '../transforms/transform-builder/utils/identity-document';
+
+// 
 
 @Injectable({ providedIn: 'root' })
 export class OwnerGraphService {
@@ -21,15 +19,15 @@ export class OwnerGraphService {
     const u = user.trim();
     if (!u) return null;
 
-    const attempts: SearchV2025ApiSearchPostRequest[] = [
-      { searchV2025: { indices: ['identities'], query: { query: `alias:"${u}"` }, sort: ['+id'] }, limit: 1 },
-      { searchV2025: { indices: ['identities'], query: { query: `name:"${u}"`  }, sort: ['+id'] }, limit: 1 },
-      { searchV2025: { indices: ['identities'], query: { query: `alias:*${u}* OR name:*${u}* OR displayName:*${u}*` }, sort: ['+id'] }, limit: 1 },
+    const attempts: SearchApiSearchPostV1Request[] = [
+      { search: { indices: ['identities'], query: { query: `alias:"${u}"` }, sort: ['+id'] }, limit: 1 },
+      { search: { indices: ['identities'], query: { query: `name:"${u}"`  }, sort: ['+id'] }, limit: 1 },
+      { search: { indices: ['identities'], query: { query: `alias:*${u}* OR name:*${u}* OR displayName:*${u}*` }, sort: ['+id'] }, limit: 1 },
     ];
 
     for (const req of attempts) {
-      const { data } = await this.sdk.searchPost(req);
-      const hit = (data ?? [])[0] as SearchDocumentsV2025 | undefined;
+      const { data } = await this.sdk.searchPostV1(req);
+      const hit = (data ?? [])[0] as IdentityDocument | undefined;
       if (!hit) continue;
       const anyHit = hit as any;
       return (anyHit.id ?? anyHit['documentId'] ?? null) as string | null;
@@ -41,7 +39,7 @@ export class OwnerGraphService {
    * Find identities that are NOT ACTIVE (robust to field differences across tenants).
    */
   async searchNonActiveIdentities(limit = 25) {
-    const attempts: Array<NonNullable<SearchV2025ApiSearchPostRequest['searchV2025']>> = [
+    const attempts: Array<NonNullable<SearchApiSearchPostV1Request['search']>> = [
       // Common: nested lifecycle state
       {
         indices: ['identities'],
@@ -91,12 +89,12 @@ export class OwnerGraphService {
     ];
 
     let lastErr: any;
-    for (const searchV2025 of attempts) {
+    for (const search of attempts) {
       try {
-        const req: SearchV2025ApiSearchPostRequest = { searchV2025, limit };
-        const { data } = await this.sdk.searchPost(req);
+        const req: SearchApiSearchPostV1Request = { search, limit };
+        const { data } = await this.sdk.searchPostV1(req);
 
-        const rows = (data ?? []).map((doc: SearchDocumentsV2025) => {
+        const rows = (data ?? []).map((doc: IdentityDocument) => {
           const anyDoc = doc as any;
           const attrs = (anyDoc.attributes ?? {}) as Record<string, unknown>;
           // normalize a bit
@@ -130,20 +128,20 @@ export class OwnerGraphService {
 
   // ---------- Owner queries (by Identity ID) ----------
 
-  async listRolesByOwner(ownerId: string, limit = 200): Promise<RoleV2025[]> {
-    const res = await this.sdk.listRoles({ limit, filters: `owner.id eq "${ownerId}"` });
+  async listRolesByOwner(ownerId: string, limit = 200): Promise<Role[]> {
+    const res = await this.sdk.listRolesV1({ limit, filters: `owner.id eq "${ownerId}"` });
     if (res.status !== 200) throw new Error(res.statusText);
     return res.data ?? [];
   }
 
-  async listAccessProfilesByOwner(ownerId: string, limit = 200): Promise<AccessProfileV2025[]> {
-    const res = await this.sdk.listAccessProfiles({ limit, filters: `owner.id eq "${ownerId}"` });
+  async listAccessProfilesByOwner(ownerId: string, limit = 200): Promise<AccessProfile[]> {
+    const res = await this.sdk.listAccessProfilesV1({ limit, filters: `owner.id eq "${ownerId}"` });
     if (res.status !== 200) throw new Error(res.statusText);
     return res.data ?? [];
   }
 
-  async listEntitlementsByOwner(ownerId: string, limit = 200): Promise<EntitlementV2025[]> {
-    const res = await this.sdk.listEntitlements({ limit, filters: `owner.id eq "${ownerId}"` });
+  async listEntitlementsByOwner(ownerId: string, limit = 200): Promise<Entitlement[]> {
+    const res = await this.sdk.listEntitlementsV1({ limit, filters: `owner.id eq "${ownerId}"` });
     if (res.status !== 200) throw new Error(res.statusText);
     return res.data ?? [];
   }
@@ -168,8 +166,8 @@ export class OwnerGraphService {
 async findIdentityByAlias(alias: string) {
   const q = alias.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
 
-  const req: SearchV2025ApiSearchPostRequest = {
-    searchV2025: {
+  const req: SearchApiSearchPostV1Request = {
+    search: {
       indices: ['identities'],
       // use the same style you already use elsewhere
       queryType: 'SAILPOINT' as any,
@@ -182,8 +180,8 @@ async findIdentityByAlias(alias: string) {
     limit: 1
   };
 
-  const { data } = await this.sdk.searchPost(req);
-  const first = (data ?? [])[0] as any;
+  const { data } = await this.sdk.searchPostV1(req);
+  const first = (data ?? [])[0];
   if (!first) {
     throw new Error(`No identity found for alias "${alias}"`);
   }
@@ -197,7 +195,7 @@ async findIdentityByAlias(alias: string) {
    * Get detailed role information including composition and configuration
    */
   async getRoleDetails(roleId: string): Promise<any> {
-    const res = await this.sdk.getRole({ id: roleId });
+    const res = await this.sdk.getRoleV1({ id: roleId });
     if (res.status !== 200) throw new Error(res.statusText);
     return res.data;
   }
@@ -243,7 +241,7 @@ async findIdentityByAlias(alias: string) {
    * Get detailed access profile information including its entitlements
    */
   async getAccessProfileDetails(accessProfileId: string): Promise<any> {
-    const res = await this.sdk.getAccessProfile({ id: accessProfileId });
+    const res = await this.sdk.getAccessProfileV1({ id: accessProfileId });
     if (res.status !== 200) throw new Error(res.statusText);
     return res.data;
   }
@@ -252,7 +250,7 @@ async findIdentityByAlias(alias: string) {
    * Get detailed entitlement information
    */
   async getEntitlementDetails(entitlementId: string): Promise<any> {
-    const res = await this.sdk.getEntitlement({ id: entitlementId });
+    const res = await this.sdk.getEntitlementV1({ id: entitlementId });
     if (res.status !== 200) throw new Error(res.statusText);
     return res.data;
   }
@@ -383,7 +381,7 @@ async findIdentityByAlias(alias: string) {
 
       // Step 1: Get all non-active identities first
       const searchReq = {
-        searchV2025: {
+        search: {
           indices: ['identities'] as any[],
           queryType: 'SAILPOINT' as any,
           query: {
@@ -395,7 +393,7 @@ async findIdentityByAlias(alias: string) {
       };
 
       console.log('Search request being sent:', JSON.stringify(searchReq, null, 2));
-      const { data: identities } = await this.sdk.searchPost(searchReq);
+      const { data: identities } = await this.sdk.searchPostV1(searchReq);
 
       console.log('Raw search results:', identities);
 
@@ -424,9 +422,9 @@ async findIdentityByAlias(alias: string) {
       // This is much faster than individual ownership count calls
       // Using smaller limits to avoid API 400 errors
       const [allRoles, allAccessProfiles, allEntitlements] = await Promise.all([
-        this.sdk.listRoles({ limit: 250 }).then(res => res.data || []).catch(() => []),
-        this.sdk.listAccessProfiles({ limit: 250 }).then(res => res.data || []).catch(() => []),
-        this.sdk.listEntitlements({ limit: 250 }).then(res => res.data || []).catch(() => [])
+        this.sdk.listRolesV1({ limit: 250 }).then(res => res.data || []).catch(() => []),
+        this.sdk.listAccessProfilesV1({ limit: 250 }).then(res => res.data || []).catch(() => []),
+        this.sdk.listEntitlementsV1({ limit: 250 }).then(res => res.data || []).catch(() => [])
       ]);
 
       console.log(`Loaded ${allRoles.length} roles, ${allAccessProfiles.length} access profiles, ${allEntitlements.length} entitlements`);
@@ -438,7 +436,7 @@ async findIdentityByAlias(alias: string) {
       // Initialize counts for all non-active identities
       for (const identity of identities) {
         if (identity.id) {
-          ownershipCounts.set(identity.id, { rolesCount: 0, accessProfilesCount: 0, entitlementsCount: 0 });
+          ownershipCounts.set(identity.id as string, { rolesCount: 0, accessProfilesCount: 0, entitlementsCount: 0 });
         }
       }
 
@@ -520,7 +518,7 @@ async findIdentityByAlias(alias: string) {
    */
   private async getIdentityDetails(identityId: string): Promise<any> {
     try {
-      const res = await this.sdk.getIdentity({ id: identityId });
+      const res = await this.sdk.getIdentityV1({ id: identityId });
       if (res.status !== 200) {
         console.warn(`Could not fetch identity details for ${identityId}: ${res.statusText}`);
         return null;
@@ -541,13 +539,13 @@ async findIdentityByAlias(alias: string) {
 
       switch (type) {
         case 'roles':
-          response = await this.sdk.listRoles({ limit });
+          response = await this.sdk.listRolesV1({ limit });
           break;
         case 'accessProfiles':
-          response = await this.sdk.listAccessProfiles({ limit });
+          response = await this.sdk.listAccessProfilesV1({ limit });
           break;
         case 'entitlements':
-          response = await this.sdk.listEntitlements({ limit });
+          response = await this.sdk.listEntitlementsV1({ limit });
           break;
       }
 
@@ -596,13 +594,13 @@ async findIdentityByAlias(alias: string) {
 
       switch (type) {
         case 'roles':
-          response = await this.sdk.listRoles({ filters: `owner.id eq "${ownerId}"` });
+          response = await this.sdk.listRolesV1({ filters: `owner.id eq "${ownerId}"` });
           break;
         case 'accessProfiles':
-          response = await this.sdk.listAccessProfiles({ filters: `owner.id eq "${ownerId}"` });
+          response = await this.sdk.listAccessProfilesV1({ filters: `owner.id eq "${ownerId}"` });
           break;
         case 'entitlements':
-          response = await this.sdk.listEntitlements({ filters: `owner.id eq "${ownerId}"` });
+          response = await this.sdk.listEntitlementsV1({ filters: `owner.id eq "${ownerId}"` });
           break;
       }
 
@@ -644,7 +642,7 @@ async findIdentityByAlias(alias: string) {
       console.log(`Searching for identities with query: "${query}"`);
 
       const searchReq = {
-        searchV2025: {
+        search: {
           indices: ['identities'] as any[],
           query: {
             query: `displayName:*${query}* OR name:*${query}* OR alias:*${query}*`
@@ -654,7 +652,7 @@ async findIdentityByAlias(alias: string) {
         limit
       };
 
-      const { data: identities } = await this.sdk.searchPost(searchReq);
+      const { data: identities } = await this.sdk.searchPostV1(searchReq);
 
       if (!identities || identities.length === 0) {
         return [];
@@ -764,7 +762,7 @@ async findIdentityByAlias(alias: string) {
 
       console.log(`Searching for active identities with query: "${query}"`);
       const searchReq = {
-        searchV2025: {
+        search: {
           indices: ['identities'] as any[],
           query: {
             query: `(displayName:*${query}* OR name:*${query}* OR alias:*${query}*) AND attributes.cloudLifecycleState:Active`
@@ -774,7 +772,7 @@ async findIdentityByAlias(alias: string) {
         limit
       };
 
-      const { data: identities } = await this.sdk.searchPost(searchReq);
+      const { data: identities } = await this.sdk.searchPostV1(searchReq);
 
       if (!identities || identities.length === 0) {
         return [];
@@ -845,9 +843,9 @@ async findIdentityByAlias(alias: string) {
           try {
             console.log(`Trying patch operation:`, patchOp);
 
-            const res = await this.sdk.patchRole({
+            const res = await this.sdk.patchRoleV1({
               id: roleId,
-              jsonPatchOperationV2025: [patchOp]
+              jsonPatchOperation: [patchOp]
             });
 
             if (res.status === 200 || res.status === 204) {
@@ -906,9 +904,9 @@ async findIdentityByAlias(alias: string) {
 
         for (const patchOp of patchOperations) {
           try {
-            const res = await this.sdk.patchAccessProfile({
+            const res = await this.sdk.patchAccessProfileV1({
               id: apId,
-              jsonPatchOperationV2025: [patchOp]
+              jsonPatchOperation: [patchOp]
             });
 
             if (res.status === 200 || res.status === 204) {
@@ -967,9 +965,9 @@ async findIdentityByAlias(alias: string) {
 
         for (const patchOp of patchOperations) {
           try {
-            const res = await this.sdk.patchEntitlement({
+            const res = await this.sdk.patchEntitlementV1({
               id: entId,
-              jsonPatchOperationV2025: [patchOp]
+              jsonPatchOperation: [patchOp]
             });
 
             if (res.status === 200 || res.status === 204) {
@@ -1023,7 +1021,7 @@ async findIdentityByAlias(alias: string) {
       }
 
       const searchReq = {
-        searchV2025: {
+        search: {
           indices: ['accessrequests'] as any[],
           query: {
             query: `state:Pending AND (${query})`
@@ -1033,7 +1031,7 @@ async findIdentityByAlias(alias: string) {
         limit: 100
       };
 
-      const { data: requests } = await this.sdk.searchPost(searchReq);
+      const { data: requests } = await this.sdk.searchPostV1(searchReq);
       return requests || [];
 
     } catch (error) {

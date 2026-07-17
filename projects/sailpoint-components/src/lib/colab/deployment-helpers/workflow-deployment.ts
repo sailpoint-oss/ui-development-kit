@@ -56,7 +56,7 @@ export async function deployWorkflow(
 
     // Get existing workflows to check for duplicates
     showMessage(deps.snackBar, `Checking for existing workflows...`, 'info');
-    const existingWorkflowsResponse = await deps.sdkService.listWorkflows();
+    const existingWorkflowsResponse = await deps.sdkService.listWorkflowsV1();
     const existingWorkflowNames = new Set(
       existingWorkflowsResponse.data.map((wf: any) => wf.name as string)
     );
@@ -108,8 +108,8 @@ export async function deployWorkflow(
 
         // Create the workflow using the SDK
         console.log(`Creating workflow from ${file.name}`);
-        const response = await deps.sdkService.createWorkflow({
-          createWorkflowRequestV2025: workflowData
+        const response = await deps.sdkService.createWorkflowV1({
+          createWorkflowV1Request: workflowData
         });
 
         // Check if the response indicates an error (status >= 400)

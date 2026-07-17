@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SourceV2025 } from 'sailpoint-api-client';
 import { SailPointSDKService } from 'sailpoint-components';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AxiosResponse } from 'axios';
-
+import type { Source } from 'sailpoint-api-client/dist/sources/api';
 
 @Component({
   selector: 'app-sources',
@@ -14,7 +13,7 @@ import { AxiosResponse } from 'axios';
   styleUrl: './sources.component.scss'
 })
 export class SourcesComponent implements OnInit {
-  sources: AxiosResponse<Array<SourceV2025>, any> | undefined;
+  sources: AxiosResponse<Array<Source>, any> | undefined;
   loading = true;
 
   constructor(private sdk: SailPointSDKService) {
@@ -27,7 +26,7 @@ export class SourcesComponent implements OnInit {
   async getSources() {
     this.loading = true;
     try {
-      const sources = await this.sdk.listSources({
+      const sources = await this.sdk.listSourcesV1({
         count: true
       });
       this.sources = sources;

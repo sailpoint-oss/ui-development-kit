@@ -56,7 +56,7 @@ export async function deployTransform(
 
     // Get existing transforms to check for duplicates
     showMessage(deps.snackBar, `Checking for existing transforms...`, 'info');
-    const existingTransformsResponse = await deps.sdkService.listTransforms();
+    const existingTransformsResponse = await deps.sdkService.listTransformsV1();
     const existingTransformNames = new Set(
       existingTransformsResponse.data.map((tf: any) => tf.name as string)
     );
@@ -108,8 +108,8 @@ export async function deployTransform(
 
         // Create the transform using the SDK
         console.log(`Creating transform from ${file.name}`);
-        const response = await deps.sdkService.createTransform({
-          transformV2025: transformData
+        const response = await deps.sdkService.createTransformV1({
+          transform: transformData
         });
 
         // Check if the response indicates an error (status >= 400)

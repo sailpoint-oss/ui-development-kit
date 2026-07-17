@@ -1,9 +1,15 @@
 import * as sdk from 'sailpoint-api-client';
 import { AxiosResponse } from 'axios';
+{{#imports}}
+import type * as {{alias}} from '{{{importPath}}}';
+{{/imports}}
 
 /* tslint:disable */
 /* eslint-disable */
-{{>licenseInfo}}
+/**
+ * GENERATED FILE — do not edit by hand.
+ * Produced by scripts/build-sailpoint-sdk.js from mustache_templates/web-sdk-wrapper.mustache.
+ */
 
 type ApiResponse<T> = {
   data: T;
@@ -61,17 +67,12 @@ export function createSdkConfiguration(accessToken: string, basePath: string): s
  */
 const sdkFunctionsObject: { [key: string]: (params: any, config: sdk.Configuration) => Promise<ApiResponse<any>> } = {
 // --- GENERATED SDK METHODS START ---
-{{#apiInfo}}{{#apis}}
 {{#operations}}
-{{#operation}}
-  // {{&notes}}
-  {{nickname}}{{operationSuffix}}: ({{#useSingleRequestParameter}}{{#allParams.0}}requestParameters: sdk.{{classname}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}, {{/allParams.0}}{{/useSingleRequestParameter}}{{^useSingleRequestParameter}}params: any, {{/useSingleRequestParameter}}apiConfig: sdk.Configuration): Promise<ApiResponse<{{#isArray}}Array<{{#returnProperty}}{{^isPrimitiveType}}sdk.{{/isPrimitiveType}}{{/returnProperty}}{{returnBaseType}}>{{/isArray}}{{^isArray}}{{#returnProperty}}{{#isPrimitiveType}}{{returnType}}{{/isPrimitiveType}}{{/returnProperty}}{{#returnProperty}}{{^isPrimitiveType}}sdk.{{returnType}}{{/isPrimitiveType}}{{/returnProperty}}{{/isArray}}{{^returnType}}void{{/returnType}}>> => {
-    const {{#lambda.lowercase}}{{classname}}{{/lambda.lowercase}} = new sdk.{{classname}}(apiConfig);
-    return handleApiCall(() => {{#lambda.lowercase}}{{classname}}{{/lambda.lowercase}}.{{nickname}}({{#useSingleRequestParameter}}{{#allParams.0}}requestParameters{{/allParams.0}}{{/useSingleRequestParameter}}{{^useSingleRequestParameter}}params{{/useSingleRequestParameter}}));
+  {{wrapperName}}: ({{#hasParams}}requestParameters: {{{requestTypeRef}}}{{#paramOptional}} = {}{{/paramOptional}}, {{/hasParams}}apiConfig: sdk.Configuration): Promise<ApiResponse<{{{returnTypeRef}}}>> => {
+    const {{instanceVar}} = new {{classRef}}(apiConfig);
+    return handleApiCall(() => {{instanceVar}}.{{sdkMethodName}}({{#hasParams}}requestParameters{{/hasParams}}));
   },
-{{/operation}}
 {{/operations}}
-{{/apis}}{{/apiInfo}}
 // --- GENERATED SDK METHODS END ---
 
   // Generic REST operations
@@ -117,9 +118,9 @@ Object.entries(sdkFunctionsObject).forEach(([key, value]) => {
  * Uses secure Map lookup to prevent prototype pollution attacks
  */
 export async function executeSdkMethod(
-  methodName: string, 
-  params: any, 
-  accessToken: string, 
+  methodName: string,
+  params: any,
+  accessToken: string,
   basePath: string
 ): Promise<ApiResponse<any>> {
   // SECURITY: Use Map.has() to safely check if the method exists
@@ -135,7 +136,7 @@ export async function executeSdkMethod(
 
   // SECURITY: Use Map.get() for safe method retrieval
   const sdkFunction = sdkFunctions.get(methodName);
-  
+
   // Additional type safety check
   if (typeof sdkFunction !== 'function') {
     return {
@@ -147,11 +148,11 @@ export async function executeSdkMethod(
   }
 
   const config = createSdkConfiguration(accessToken, basePath);
-  
+
   // Check the function signature to determine how to call it
   // Some functions take (params, config), others take just (config)
   const functionLength = sdkFunction.length;
-  
+
   let result: ApiResponse<any>;
   if (functionLength === 1) {
     // Function only takes config parameter: (config: Configuration)
@@ -162,6 +163,6 @@ export async function executeSdkMethod(
     console.log('Calling SDK function with params and config');
     result = await sdkFunction(params, config);
   }
-  
+
   return result;
 }

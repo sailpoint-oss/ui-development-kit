@@ -18,13 +18,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 
-
 // SailPoint types
-import {
-  SourceV2025,
-  SourceScheduleV2025,
-  SourceScheduleV2025TypeV2025,
-} from 'sailpoint-api-client';
+import type { Schedule3, Schedule3TypeEnum } from 'sailpoint-api-client/dist/sources/api';
 
 import { SailPointSDKService } from '../sailpoint-sdk.service';
 
@@ -33,13 +28,13 @@ import { GenericDialogComponent } from '../generic-dialog/generic-dialog.compone
 import { SourceActionsDialogComponent, SourceActionsDialogData } from './dialogs/source-actions-dialog.component';
 import { SearchBarComponent } from './utils/search-bar/search-bar.component';
 import { ColumnCustomizerComponent } from './utils/column-customizer/column-customizer.component';
+import type { Source } from 'sailpoint-api-client/dist/sources/api';
 
-
-type SourceRow = SourceV2025 & Record<string, unknown>;
+type SourceRow = Source & Record<string, unknown>;
 
 type SourceWithSchedules = SourceRow & {
-  schedules?: SourceScheduleV2025[];
-  scheduleByType?: Partial<Record<SourceScheduleV2025TypeV2025, SourceScheduleV2025>>;
+  schedules?: Schedule3[];
+  scheduleByType?: Partial<Record<Schedule3TypeEnum, Schedule3>>;
   averageAggregationTime?: number; // in milliseconds (legacy - for backward compatibility)
   averageAccountAggregationTime?: number; // in milliseconds
   averageEntitlementAggregationTime?: number; // in milliseconds
@@ -68,7 +63,6 @@ interface AggregationOverlap {
   }>;
   overlapDuration: number; // in milliseconds
 }
-
 
 @Component({
   selector: 'app-cronicle',
@@ -220,9 +214,9 @@ export class CronicleComponent implements OnInit {
         sorters: this.sorters.join(',') || 'name',
         filters: this.currentFilters || undefined,   // <-- make sure this is here
       };
-      const response = await this.sdk.listSources(request);
+      const response = await this.sdk.listSourcesV1(request);
 
-      // Data array of SourceV2025
+      // Data array of Source
       this.sources = (response.data ?? []) as SourceRow[];
 
       // Robust X-Total-Count parsing (Axios headers are typically lowercased)
@@ -303,7 +297,7 @@ export class CronicleComponent implements OnInit {
         filters
       };
 
-      const response = await this.sdk.listSources(request);
+      const response = await this.sdk.listSourcesV1(request);
       this.filteredSources = (response.data ?? []) as SourceRow[];
 
       // Parse X-Total-Count defensively (Axios lowercases headers)
@@ -325,7 +319,6 @@ export class CronicleComponent implements OnInit {
     }
   }
 
-
   async enrichVisibleRowsWithSchedules(concurrency = 4): Promise<void> {
     // Only work with the rows on the current page
     const pageRows = this.filteredSources;
@@ -338,7 +331,7 @@ export class CronicleComponent implements OnInit {
     for (const group of chunk(ids, concurrency)) {
       const batch = group.map(sourceId =>
         Promise.all([
-          this.sdk.getSourceSchedules({ sourceId }) // <-- requires sourceId
+          this.sdk.getSourceSchedulesV1({ sourceId }) // <-- requires sourceId
             .then(res => ({ sourceId, schedules: res.data ?? [] }))
             .catch(err => ({ sourceId, error: String(err), schedules: [] })),
           this.getAverageAccountAggregationTime(sourceId)
@@ -382,8 +375,6 @@ export class CronicleComponent implements OnInit {
       this.cdr.detectChanges();
     }
   }
-
-
 
   // Paginator
   onPageChange(event: PageEvent) {
@@ -429,14 +420,14 @@ export class CronicleComponent implements OnInit {
   }
 
   // View a single source
-  async onView(source: SourceV2025): Promise<void> {
+  async onView(source: Source): Promise<void> {
     try {
       if (!source.id) {
         this.openMessageDialog('Source ID is missing.', 'Error');
         return;
       }
       // Ensure your SDK wrapper has this; if not, add it similarly to listSources
-      const response = await this.sdk.getSource({ id: source.id });
+      const response = await this.sdk.getSourceV1({ id: source.id });
       const details = JSON.stringify(response.data, null, 2);
       this.openMessageDialog(details, `Source Details: ${source.name ?? source.id}`);
     } catch (error) {
@@ -452,7 +443,7 @@ export class CronicleComponent implements OnInit {
     this.sourceOptions = [];
 
     while (offset < total) {
-      const resp = await this.sdk.listSources({
+      const resp = await this.sdk.listSourcesV1({
         limit: pageSize,
         offset,
         count: true,
@@ -498,7 +489,7 @@ export class CronicleComponent implements OnInit {
   }
 
   // // Optional: view schedules for a source
-  // async onViewSchedules(source: SourceV2025): Promise<void> {
+  // async onViewSchedules(source: Source): Promise<void> {
   //   try {
   //     if (!source.id) {
   //       this.openMessageDialog('Source ID is missing.', 'Error');
@@ -506,7 +497,7 @@ export class CronicleComponent implements OnInit {
   //     }
   //     // Ensure your SDK wrapper provides listSourceSchedules
   //     const { data: schedules } = await this.sdk.listSourceSchedules({ id: source.id });
-  //     const formatted = JSON.stringify(schedules as SourceScheduleV2025[], null, 2);
+  //     const formatted = JSON.stringify(schedules as Schedule3[], null, 2);
   //     this.openMessageDialog(formatted, `Schedules: ${source.name ?? source.id}`);
   //   } catch (error) {
   //     this.openMessageDialog(`Failed to load schedules: ${String(error)}`, 'Error');
@@ -535,7 +526,6 @@ export class CronicleComponent implements OnInit {
   getHeaderLabel(column: string): string {
     return this.columnDisplayNames[column] ?? column;
   }
-
 
   getScheduleCron(row: any, ...types: string[]): string | null {
     // Prefer the map if present
@@ -577,7 +567,7 @@ export class CronicleComponent implements OnInit {
         sorters: '-created'
       };
 
-      const response = await this.sdk.getTaskStatusList(request);
+      const response = await this.sdk.getTaskStatusListV1(request);
       const tasks = response.data ?? [];
 
       if (tasks.length === 0) {
@@ -622,7 +612,7 @@ export class CronicleComponent implements OnInit {
         sorters: '-created'
       };
 
-      const response = await this.sdk.getTaskStatusList(request);
+      const response = await this.sdk.getTaskStatusListV1(request);
       const tasks = response.data ?? [];
 
       if (tasks.length === 0) {
@@ -781,7 +771,7 @@ export class CronicleComponent implements OnInit {
           sorters: '-created'
         };
 
-        const response = await this.sdk.getTaskStatusList(request);
+        const response = await this.sdk.getTaskStatusListV1(request);
         const tasks = response.data ?? [];
 
         // Filter tasks by date on the client side since API doesn't support date filtering
@@ -1985,5 +1975,4 @@ export class CronicleComponent implements OnInit {
   }
 
 }
-
 

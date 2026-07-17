@@ -18,11 +18,14 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { finalize, from, Subject, takeUntil } from 'rxjs';
-import { IdentityDocumentsV2025, IdentityProfilesV2025ApiGenerateIdentityPreviewRequest, IdentityProfileV2025, TransformsV2025ApiCreateTransformRequest } from 'sailpoint-api-client';
+
 import { SailPointSDKService } from '../../../sailpoint-sdk.service';
 import { IdentitySearchComponent } from './identity-search.component';
 import { IdentityService } from './identity-service';
 import { TransformResultsComponent } from './transform-results.component';
+import type { IdentityProfilesApiGenerateIdentityPreviewV1Request, IdentityProfile } from 'sailpoint-api-client/dist/identity_profiles/api';
+import type { TransformsApiCreateTransformV1Request } from 'sailpoint-api-client/dist/transforms/api';
+import type { IdentityDocument } from './identity-document';
 
 export type TransformResult = {
   identityName: string;
@@ -44,17 +47,15 @@ export class TransformPreviewComponent implements OnInit {
   sdk: SailPointSDKService;
   private destroy$ = new Subject<void>();
   transformForm: FormGroup;
-  profiles: IdentityProfileV2025[] = []; 
+  profiles: IdentityProfile[] = []; 
   loadingProfiles = false;
   profileError = '';
-  selectedIdentities: IdentityDocumentsV2025[] = [];
+  selectedIdentities: IdentityDocument[] = [];
   codeExpanded = false;
   transformName: string = '';
   transformCode: string = '';
   executingTransform = false;
   transformResults: TransformResult[] = [];
-
-
 
   constructor(
     private fb: FormBuilder,
@@ -106,7 +107,6 @@ export class TransformPreviewComponent implements OnInit {
     } 
   }
 
-
   private _formBuilder = inject(FormBuilder);
 
   firstFormGroup = this._formBuilder.group({
@@ -116,7 +116,6 @@ export class TransformPreviewComponent implements OnInit {
     secondCtrl: [null, (control: AbstractControl<any, any>) => Validators.required(control)],
   });
 
-
   cancel() {
     this.dialogRef.close();
   }
@@ -125,7 +124,7 @@ export class TransformPreviewComponent implements OnInit {
     this.loadingProfiles = true;
     this.profileError = '';
     
-    from(this.sdk.listIdentityProfiles())
+    from(this.sdk.listIdentityProfilesV1())
       .pipe(
         takeUntil(this.destroy$),
         finalize(() => this.loadingProfiles = false)
@@ -166,7 +165,7 @@ export class TransformPreviewComponent implements OnInit {
       }
     }
 
-    onIdentitiesSelected(identities: IdentityDocumentsV2025[]): void {
+    onIdentitiesSelected(identities: IdentityDocument[]): void {
       this.selectedIdentities = identities;
     }
 
@@ -193,11 +192,11 @@ export class TransformPreviewComponent implements OnInit {
     const transformDefinition = JSON.parse(this.transformCode);
     transformDefinition.name = transformDefinition.name + 'Preview';
     
-    const createTransformRequest: TransformsV2025ApiCreateTransformRequest = {
-      transformV2025: transformDefinition      
+    const createTransformRequest: TransformsApiCreateTransformV1Request = {
+      transform: transformDefinition      
     };
     
-    const transformCreateResponse = await this.sdk.createTransform(createTransformRequest);
+    const transformCreateResponse = await this.sdk.createTransformV1(createTransformRequest);
     if (transformCreateResponse.status >= 400) {
       this.snackBar.open('Error creating transform', 'Dismiss', { duration: 5000 });
       return;
@@ -207,8 +206,8 @@ export class TransformPreviewComponent implements OnInit {
     this.transformResults = [];
     
     const previewPromises = this.selectedIdentities.map(async identity => {
-      const request: IdentityProfilesV2025ApiGenerateIdentityPreviewRequest = {
-        identityPreviewRequestV2025: {
+      const request: IdentityProfilesApiGenerateIdentityPreviewV1Request = {
+        identityPreviewRequest: {
           identityId: identity.id,
           identityAttributeConfig: {
             enabled: true,
@@ -227,7 +226,7 @@ export class TransformPreviewComponent implements OnInit {
         }
       };
     
-      const response = await this.sdk.generateIdentityPreview(request);
+      const response = await this.sdk.generateIdentityPreviewV1(request);
     
       if (response.status >= 400) {
         this.transformResults.push({
@@ -260,7 +259,7 @@ export class TransformPreviewComponent implements OnInit {
     await Promise.all(previewPromises);
     
     // Now it's safe to delete the transform
-    const deleteTransformResponse = await this.sdk.deleteTransform({ id: transformCreateResponse.data.id });
+    const deleteTransformResponse = await this.sdk.deleteTransformV1({ id: transformCreateResponse.data.id });
     
     if (deleteTransformResponse.status >= 400) {
       this.snackBar.open('Error deleting transform', 'Dismiss', { duration: 5000 });

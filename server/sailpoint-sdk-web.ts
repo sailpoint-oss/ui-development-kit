@@ -1,20 +1,122 @@
 import * as sdk from 'sailpoint-api-client';
 import { AxiosResponse } from 'axios';
+import type * as accessModelMetadataTypes from 'sailpoint-api-client/dist/access_model_metadata/api';
+import type * as accessProfilesTypes from 'sailpoint-api-client/dist/access_profiles/api';
+import type * as accessRequestApprovalsTypes from 'sailpoint-api-client/dist/access_request_approvals/api';
+import type * as accessRequestIdentityMetricsTypes from 'sailpoint-api-client/dist/access_request_identity_metrics/api';
+import type * as accessRequestsTypes from 'sailpoint-api-client/dist/access_requests/api';
+import type * as accountActivitiesTypes from 'sailpoint-api-client/dist/account_activities/api';
+import type * as accountAggregationsTypes from 'sailpoint-api-client/dist/account_aggregations/api';
+import type * as accountDeletionRequestsTypes from 'sailpoint-api-client/dist/account_deletion_requests/api';
+import type * as accountsTypes from 'sailpoint-api-client/dist/accounts/api';
+import type * as accountUsagesTypes from 'sailpoint-api-client/dist/account_usages/api';
+import type * as apiUsageTypes from 'sailpoint-api-client/dist/api_usage/api';
+import type * as applicationDiscoveryTypes from 'sailpoint-api-client/dist/application_discovery/api';
+import type * as approvalsTypes from 'sailpoint-api-client/dist/approvals/api';
+import type * as appsTypes from 'sailpoint-api-client/dist/apps/api';
+import type * as authProfileTypes from 'sailpoint-api-client/dist/auth_profile/api';
+import type * as authUsersTypes from 'sailpoint-api-client/dist/auth_users/api';
+import type * as brandingTypes from 'sailpoint-api-client/dist/branding/api';
+import type * as certificationCampaignFiltersTypes from 'sailpoint-api-client/dist/certification_campaign_filters/api';
+import type * as certificationCampaignsTypes from 'sailpoint-api-client/dist/certification_campaigns/api';
+import type * as certificationsTypes from 'sailpoint-api-client/dist/certifications/api';
+import type * as certificationSummariesTypes from 'sailpoint-api-client/dist/certification_summaries/api';
+import type * as classifySourceTypes from 'sailpoint-api-client/dist/classify_source/api';
+import type * as configurationHubTypes from 'sailpoint-api-client/dist/configuration_hub/api';
+import type * as connectorCustomizersTypes from 'sailpoint-api-client/dist/connector_customizers/api';
+import type * as connectorRuleManagementTypes from 'sailpoint-api-client/dist/connector_rule_management/api';
+import type * as connectorsTypes from 'sailpoint-api-client/dist/connectors/api';
+import type * as customFormsTypes from 'sailpoint-api-client/dist/custom_forms/api';
+import type * as customPasswordInstructionsTypes from 'sailpoint-api-client/dist/custom_password_instructions/api';
+import type * as customUserLevelsTypes from 'sailpoint-api-client/dist/custom_user_levels/api';
+import type * as dataAccessSecurityTypes from 'sailpoint-api-client/dist/data_access_security/api';
+import type * as dataSegmentationTypes from 'sailpoint-api-client/dist/data_segmentation/api';
+import type * as declassifySourceTypes from 'sailpoint-api-client/dist/declassify_source/api';
+import type * as dimensionsTypes from 'sailpoint-api-client/dist/dimensions/api';
+import type * as entitlementConnectionsTypes from 'sailpoint-api-client/dist/entitlement_connections/api';
+import type * as entitlementsTypes from 'sailpoint-api-client/dist/entitlements/api';
+import type * as globalTenantSecuritySettingsTypes from 'sailpoint-api-client/dist/global_tenant_security_settings/api';
+import type * as governanceGroupsTypes from 'sailpoint-api-client/dist/governance_groups/api';
+import type * as iaiAccessRequestRecommendationsTypes from 'sailpoint-api-client/dist/iai_access_request_recommendations/api';
+import type * as iaiCommonAccessTypes from 'sailpoint-api-client/dist/iai_common_access/api';
+import type * as iaiOutliersTypes from 'sailpoint-api-client/dist/iai_outliers/api';
+import type * as iaiPeerGroupStrategiesTypes from 'sailpoint-api-client/dist/iai_peer_group_strategies/api';
+import type * as iaiRecommendationsTypes from 'sailpoint-api-client/dist/iai_recommendations/api';
+import type * as iaiRoleMiningTypes from 'sailpoint-api-client/dist/iai_role_mining/api';
+import type * as iconsTypes from 'sailpoint-api-client/dist/icons/api';
+import type * as identitiesTypes from 'sailpoint-api-client/dist/identities/api';
+import type * as identityAttributesTypes from 'sailpoint-api-client/dist/identity_attributes/api';
+import type * as identityHistoryTypes from 'sailpoint-api-client/dist/identity_history/api';
+import type * as identityProfilesTypes from 'sailpoint-api-client/dist/identity_profiles/api';
+import type * as intelligenceTypes from 'sailpoint-api-client/dist/intelligence/api';
+import type * as jitAccessTypes from 'sailpoint-api-client/dist/jit_access/api';
+import type * as jitActivationsTypes from 'sailpoint-api-client/dist/jit_activations/api';
+import type * as launchersTypes from 'sailpoint-api-client/dist/launchers/api';
+import type * as lifecycleStatesTypes from 'sailpoint-api-client/dist/lifecycle_states/api';
+import type * as machineAccountClassifyTypes from 'sailpoint-api-client/dist/machine_account_classify/api';
+import type * as machineAccountCreationRequestTypes from 'sailpoint-api-client/dist/machine_account_creation_request/api';
+import type * as machineAccountMappingsTypes from 'sailpoint-api-client/dist/machine_account_mappings/api';
+import type * as machineAccountsTypes from 'sailpoint-api-client/dist/machine_accounts/api';
+import type * as machineAccountSubtypesTypes from 'sailpoint-api-client/dist/machine_account_subtypes/api';
+import type * as machineClassificationConfigTypes from 'sailpoint-api-client/dist/machine_classification_config/api';
+import type * as machineIdentitiesTypes from 'sailpoint-api-client/dist/machine_identities/api';
+import type * as managedClientsTypes from 'sailpoint-api-client/dist/managed_clients/api';
+import type * as managedClustersTypes from 'sailpoint-api-client/dist/managed_clusters/api';
+import type * as managedClusterTypesTypes from 'sailpoint-api-client/dist/managed_cluster_types/api';
+import type * as mfaConfigurationTypes from 'sailpoint-api-client/dist/mfa_configuration/api';
+import type * as multiHostIntegrationTypes from 'sailpoint-api-client/dist/multi_host_integration/api';
+import type * as nonEmployeeLifecycleManagementTypes from 'sailpoint-api-client/dist/non_employee_lifecycle_management/api';
+import type * as notificationsTypes from 'sailpoint-api-client/dist/notifications/api';
+import type * as oauthClientsTypes from 'sailpoint-api-client/dist/oauth_clients/api';
+import type * as orgConfigTypes from 'sailpoint-api-client/dist/org_config/api';
+import type * as parameterStorageTypes from 'sailpoint-api-client/dist/parameter_storage/api';
+import type * as passwordConfigurationTypes from 'sailpoint-api-client/dist/password_configuration/api';
+import type * as passwordDictionaryTypes from 'sailpoint-api-client/dist/password_dictionary/api';
+import type * as passwordManagementTypes from 'sailpoint-api-client/dist/password_management/api';
+import type * as passwordPoliciesTypes from 'sailpoint-api-client/dist/password_policies/api';
+import type * as passwordSyncGroupsTypes from 'sailpoint-api-client/dist/password_sync_groups/api';
+import type * as personalAccessTokensTypes from 'sailpoint-api-client/dist/personal_access_tokens/api';
+import type * as privilegeCriteriaConfigurationTypes from 'sailpoint-api-client/dist/privilege_criteria_configuration/api';
+import type * as privilegeCriteriaTypes from 'sailpoint-api-client/dist/privilege_criteria/api';
+import type * as publicIdentitiesConfigTypes from 'sailpoint-api-client/dist/public_identities_config/api';
+import type * as publicIdentitiesTypes from 'sailpoint-api-client/dist/public_identities/api';
+import type * as reportsDataExtractionTypes from 'sailpoint-api-client/dist/reports_data_extraction/api';
+import type * as requestableObjectsTypes from 'sailpoint-api-client/dist/requestable_objects/api';
+import type * as roleInsightsTypes from 'sailpoint-api-client/dist/role_insights/api';
+import type * as rolePropagationTypes from 'sailpoint-api-client/dist/role_propagation/api';
+import type * as rolesTypes from 'sailpoint-api-client/dist/roles/api';
+import type * as savedSearchTypes from 'sailpoint-api-client/dist/saved_search/api';
+import type * as scheduledSearchTypes from 'sailpoint-api-client/dist/scheduled_search/api';
+import type * as searchAttributeConfigurationTypes from 'sailpoint-api-client/dist/search_attribute_configuration/api';
+import type * as searchTypes from 'sailpoint-api-client/dist/search/api';
+import type * as segmentsTypes from 'sailpoint-api-client/dist/segments/api';
+import type * as serviceDeskIntegrationTypes from 'sailpoint-api-client/dist/service_desk_integration/api';
+import type * as sharedSignalsFrameworkSsfTypes from 'sailpoint-api-client/dist/shared_signals_framework_ssf/api';
+import type * as simIntegrationsTypes from 'sailpoint-api-client/dist/sim_integrations/api';
+import type * as sodPoliciesTypes from 'sailpoint-api-client/dist/sod_policies/api';
+import type * as sodViolationsTypes from 'sailpoint-api-client/dist/sod_violations/api';
+import type * as sourcesTypes from 'sailpoint-api-client/dist/sources/api';
+import type * as sourceUsagesTypes from 'sailpoint-api-client/dist/source_usages/api';
+import type * as spConfigTypes from 'sailpoint-api-client/dist/sp_config/api';
+import type * as suggestedEntitlementDescriptionTypes from 'sailpoint-api-client/dist/suggested_entitlement_description/api';
+import type * as taggedObjectsTypes from 'sailpoint-api-client/dist/tagged_objects/api';
+import type * as tagsTypes from 'sailpoint-api-client/dist/tags/api';
+import type * as taskManagementTypes from 'sailpoint-api-client/dist/task_management/api';
+import type * as tenantContextTypes from 'sailpoint-api-client/dist/tenant_context/api';
+import type * as tenantTypes from 'sailpoint-api-client/dist/tenant/api';
+import type * as transformsTypes from 'sailpoint-api-client/dist/transforms/api';
+import type * as triggersTypes from 'sailpoint-api-client/dist/triggers/api';
+import type * as uiMetadataTypes from 'sailpoint-api-client/dist/ui_metadata/api';
+import type * as workflowsTypes from 'sailpoint-api-client/dist/workflows/api';
+import type * as workItemsTypes from 'sailpoint-api-client/dist/work_items/api';
+import type * as workReassignmentTypes from 'sailpoint-api-client/dist/work_reassignment/api';
 
 /* tslint:disable */
 /* eslint-disable */
 /**
- * Identity Security Cloud V2025 API
- * Use these APIs to interact with the Identity Security Cloud platform to achieve repeatable, automated processes with greater scalability. We encourage you to join the SailPoint Developer Community forum at https://developer.sailpoint.com/discuss to connect with other developers using our APIs.
- *
- * The version of the OpenAPI document: v2025
- * 
- *
- * NOTE: This class is auto generated by OpenAPI Generator (https://openapi-generator.tech).
- * https://openapi-generator.tech
- * Do not edit the class manually.
+ * GENERATED FILE — do not edit by hand.
+ * Produced by scripts/build-sailpoint-sdk.js from mustache_templates/web-sdk-wrapper.mustache.
  */
-
 
 type ApiResponse<T> = {
   data: T;
@@ -72,5177 +174,4306 @@ export function createSdkConfiguration(accessToken: string, basePath: string): s
  */
 const sdkFunctionsObject: { [key: string]: (params: any, config: sdk.Configuration) => Promise<ApiResponse<any>> } = {
 // --- GENERATED SDK METHODS START ---
-
-  // Create a new Access Model Metadata Attribute. 
-  createAccessModelMetadataAttribute: (requestParameters: sdk.AccessModelMetadataV2025ApiCreateAccessModelMetadataAttributeRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AttributeDTOV2025>> => {
-    const accessmodelmetadatav2025api = new sdk.AccessModelMetadataV2025Api(apiConfig);
-    return handleApiCall(() => accessmodelmetadatav2025api.createAccessModelMetadataAttribute(requestParameters));
+  addAccessRequestRecommendationsIgnoredItemV1: (requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiAddAccessRequestRecommendationsIgnoredItemV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationActionItemResponseDto>> => {
+    const iaiaccessrequestrecommendationsapi = new sdk.IAIAccessRequestRecommendationsApi(apiConfig);
+    return handleApiCall(() => iaiaccessrequestrecommendationsapi.addAccessRequestRecommendationsIgnoredItemV1(requestParameters));
+  },
+  addAccessRequestRecommendationsRequestedItemV1: (requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiAddAccessRequestRecommendationsRequestedItemV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationActionItemResponseDto>> => {
+    const iaiaccessrequestrecommendationsapi = new sdk.IAIAccessRequestRecommendationsApi(apiConfig);
+    return handleApiCall(() => iaiaccessrequestrecommendationsapi.addAccessRequestRecommendationsRequestedItemV1(requestParameters));
+  },
+  addAccessRequestRecommendationsViewedItemsV1: (requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiAddAccessRequestRecommendationsViewedItemsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationActionItemResponseDto>>> => {
+    const iaiaccessrequestrecommendationsapi = new sdk.IAIAccessRequestRecommendationsApi(apiConfig);
+    return handleApiCall(() => iaiaccessrequestrecommendationsapi.addAccessRequestRecommendationsViewedItemsV1(requestParameters));
+  },
+  addAccessRequestRecommendationsViewedItemV1: (requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiAddAccessRequestRecommendationsViewedItemV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationActionItemResponseDto>> => {
+    const iaiaccessrequestrecommendationsapi = new sdk.IAIAccessRequestRecommendationsApi(apiConfig);
+    return handleApiCall(() => iaiaccessrequestrecommendationsapi.addAccessRequestRecommendationsViewedItemV1(requestParameters));
+  },
+  approveAccessRequestV1: (requestParameters: accessRequestApprovalsTypes.AccessRequestApprovalsApiApproveAccessRequestV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const accessrequestapprovalsapi = new sdk.AccessRequestApprovalsApi(apiConfig);
+    return handleApiCall(() => accessrequestapprovalsapi.approveAccessRequestV1(requestParameters));
+  },
+  approveApprovalInBulkV1: (requestParameters: approvalsTypes.ApprovalsApiApproveApprovalInBulkV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const approvalsapi = new sdk.ApprovalsApi(apiConfig);
+    return handleApiCall(() => approvalsapi.approveApprovalInBulkV1(requestParameters));
+  },
+  approveApprovalItemsInBulkV1: (requestParameters: workItemsTypes.WorkItemsApiApproveApprovalItemsInBulkV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<workItemsTypes.WorkItems>> => {
+    const workitemsapi = new sdk.WorkItemsApi(apiConfig);
+    return handleApiCall(() => workitemsapi.approveApprovalItemsInBulkV1(requestParameters));
+  },
+  approveApprovalItemV1: (requestParameters: workItemsTypes.WorkItemsApiApproveApprovalItemV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<workItemsTypes.WorkItems>> => {
+    const workitemsapi = new sdk.WorkItemsApi(apiConfig);
+    return handleApiCall(() => workitemsapi.approveApprovalItemV1(requestParameters));
+  },
+  approveApprovalV1: (requestParameters: approvalsTypes.ApprovalsApiApproveApprovalV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<approvalsTypes.Approval2>> => {
+    const approvalsapi = new sdk.ApprovalsApi(apiConfig);
+    return handleApiCall(() => approvalsapi.approveApprovalV1(requestParameters));
   },
-  // Create a new value for an existing Access Model Metadata Attribute.     
-  createAccessModelMetadataAttributeValue: (requestParameters: sdk.AccessModelMetadataV2025ApiCreateAccessModelMetadataAttributeValueRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AttributeValueDTOV2025>> => {
-    const accessmodelmetadatav2025api = new sdk.AccessModelMetadataV2025Api(apiConfig);
-    return handleApiCall(() => accessmodelmetadatav2025api.createAccessModelMetadataAttributeValue(requestParameters));
+  approveBulkAccessRequestV1: (requestParameters: accessRequestsTypes.AccessRequestsApiApproveBulkAccessRequestV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const accessrequestsapi = new sdk.AccessRequestsApi(apiConfig);
+    return handleApiCall(() => accessrequestsapi.approveBulkAccessRequestV1(requestParameters));
   },
-  // Get single Access Model Metadata Attribute
-  getAccessModelMetadataAttribute: (requestParameters: sdk.AccessModelMetadataV2025ApiGetAccessModelMetadataAttributeRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AttributeDTOV2025>> => {
-    const accessmodelmetadatav2025api = new sdk.AccessModelMetadataV2025Api(apiConfig);
-    return handleApiCall(() => accessmodelmetadatav2025api.getAccessModelMetadataAttribute(requestParameters));
+  approveBulkEntitlementRecommendationsV1: (requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiApproveBulkEntitlementRecommendationsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<suggestedEntitlementDescriptionTypes.BulkApproveEntitlementRecommendationResult>>> => {
+    const suggestedentitlementdescriptionapi = new sdk.SuggestedEntitlementDescriptionApi(apiConfig);
+    return handleApiCall(() => suggestedentitlementdescriptionapi.approveBulkEntitlementRecommendationsV1(requestParameters));
   },
-  // Get single Access Model Metadata Attribute Value
-  getAccessModelMetadataAttributeValue: (requestParameters: sdk.AccessModelMetadataV2025ApiGetAccessModelMetadataAttributeValueRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AttributeValueDTOV2025>> => {
-    const accessmodelmetadatav2025api = new sdk.AccessModelMetadataV2025Api(apiConfig);
-    return handleApiCall(() => accessmodelmetadatav2025api.getAccessModelMetadataAttributeValue(requestParameters));
+  approveNonEmployeeRequestV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiApproveNonEmployeeRequestV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeApprovalItem>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.approveNonEmployeeRequestV1(requestParameters));
   },
-  // Get a list of Access Model Metadata Attributes
-  listAccessModelMetadataAttribute: (requestParameters: sdk.AccessModelMetadataV2025ApiListAccessModelMetadataAttributeRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AttributeDTOV2025>>> => {
-    const accessmodelmetadatav2025api = new sdk.AccessModelMetadataV2025Api(apiConfig);
-    return handleApiCall(() => accessmodelmetadatav2025api.listAccessModelMetadataAttribute(requestParameters));
+  cancelAccessRequestInBulkV1: (requestParameters: accessRequestsTypes.AccessRequestsApiCancelAccessRequestInBulkV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const accessrequestsapi = new sdk.AccessRequestsApi(apiConfig);
+    return handleApiCall(() => accessrequestsapi.cancelAccessRequestInBulkV1(requestParameters));
   },
-  // Get a list of Access Model Metadata Attribute Values
-  listAccessModelMetadataAttributeValue: (requestParameters: sdk.AccessModelMetadataV2025ApiListAccessModelMetadataAttributeValueRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AttributeValueDTOV2025>>> => {
-    const accessmodelmetadatav2025api = new sdk.AccessModelMetadataV2025Api(apiConfig);
-    return handleApiCall(() => accessmodelmetadatav2025api.listAccessModelMetadataAttributeValue(requestParameters));
+  cancelAccessRequestV1: (requestParameters: accessRequestsTypes.AccessRequestsApiCancelAccessRequestV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const accessrequestsapi = new sdk.AccessRequestsApi(apiConfig);
+    return handleApiCall(() => accessrequestsapi.cancelAccessRequestV1(requestParameters));
   },
-  // Update an existing Access Model Metadata Attribute.   The following fields are patchable: **name**, **description**, **multiselect**, **values** 
-  updateAccessModelMetadataAttribute: (requestParameters: sdk.AccessModelMetadataV2025ApiUpdateAccessModelMetadataAttributeRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AttributeDTOV2025>> => {
-    const accessmodelmetadatav2025api = new sdk.AccessModelMetadataV2025Api(apiConfig);
-    return handleApiCall(() => accessmodelmetadatav2025api.updateAccessModelMetadataAttribute(requestParameters));
+  cancelApprovalByIdV1: (requestParameters: approvalsTypes.ApprovalsApiCancelApprovalByIdV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const approvalsapi = new sdk.ApprovalsApi(apiConfig);
+    return handleApiCall(() => approvalsapi.cancelApprovalByIdV1(requestParameters));
   },
-  // Update an existing Access Model Metadata Attribute Value.     The following fields are patchable: **name** 
-  updateAccessModelMetadataAttributeValue: (requestParameters: sdk.AccessModelMetadataV2025ApiUpdateAccessModelMetadataAttributeValueRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AttributeValueDTOV2025>> => {
-    const accessmodelmetadatav2025api = new sdk.AccessModelMetadataV2025Api(apiConfig);
-    return handleApiCall(() => accessmodelmetadatav2025api.updateAccessModelMetadataAttributeValue(requestParameters));
+  cancelApprovalV1: (requestParameters: approvalsTypes.ApprovalsApiCancelApprovalV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const approvalsapi = new sdk.ApprovalsApi(apiConfig);
+    return handleApiCall(() => approvalsapi.cancelApprovalV1(requestParameters));
   },
-  // Bulk update Access Model Metadata Attribute Values using a filter
-  updateAccessModelMetadataByFilter: (requestParameters: sdk.AccessModelMetadataV2025ApiUpdateAccessModelMetadataByFilterRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AccessModelMetadataBulkUpdateResponseV2025>> => {
-    const accessmodelmetadatav2025api = new sdk.AccessModelMetadataV2025Api(apiConfig);
-    return handleApiCall(() => accessmodelmetadatav2025api.updateAccessModelMetadataByFilter(requestParameters));
+  cancelReportV1: (requestParameters: reportsDataExtractionTypes.ReportsDataExtractionApiCancelReportV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const reportsdataextractionapi = new sdk.ReportsDataExtractionApi(apiConfig);
+    return handleApiCall(() => reportsdataextractionapi.cancelReportV1(requestParameters));
   },
-  // Bulk update Access Model Metadata Attribute Values using ids.
-  updateAccessModelMetadataByIds: (requestParameters: sdk.AccessModelMetadataV2025ApiUpdateAccessModelMetadataByIdsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AccessModelMetadataBulkUpdateResponseV2025>> => {
-    const accessmodelmetadatav2025api = new sdk.AccessModelMetadataV2025Api(apiConfig);
-    return handleApiCall(() => accessmodelmetadatav2025api.updateAccessModelMetadataByIds(requestParameters));
+  cancelRolePropagationV1: (requestParameters: rolePropagationTypes.RolePropagationApiCancelRolePropagationV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const rolepropagationapi = new sdk.RolePropagationApi(apiConfig);
+    return handleApiCall(() => rolepropagationapi.cancelRolePropagationV1(requestParameters));
   },
-  // Bulk update Access Model Metadata Attribute Values using a query
-  updateAccessModelMetadataByQuery: (requestParameters: sdk.AccessModelMetadataV2025ApiUpdateAccessModelMetadataByQueryRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AccessModelMetadataBulkUpdateResponseV2025>> => {
-    const accessmodelmetadatav2025api = new sdk.AccessModelMetadataV2025Api(apiConfig);
-    return handleApiCall(() => accessmodelmetadatav2025api.updateAccessModelMetadataByQuery(requestParameters));
+  cancelTaskV1: (requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiCancelTaskV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const dataaccesssecurityapi = new sdk.DataAccessSecurityApi(apiConfig);
+    return handleApiCall(() => dataaccesssecurityapi.cancelTaskV1(requestParameters));
   },
-
-  // Create an access profile. A user with `ROLE_SUBADMIN` or `SOURCE_SUBADMIN` authority must be associated with the access profile\'s source. The maximum supported length for the description field is 2000 characters. Longer descriptions will be preserved for existing access profiles. However, any new access profiles as well as any updates to existing descriptions are limited to 2000 characters. >**Note:** To use this endpoint, you need all the listed scopes.
-  createAccessProfile: (requestParameters: sdk.AccessProfilesV2025ApiCreateAccessProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AccessProfileV2025>> => {
-    const accessprofilesv2025api = new sdk.AccessProfilesV2025Api(apiConfig);
-    return handleApiCall(() => accessprofilesv2025api.createAccessProfile(requestParameters));
+  cancelWorkflowExecutionV1: (requestParameters: workflowsTypes.WorkflowsApiCancelWorkflowExecutionV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const workflowsapi = new sdk.WorkflowsApi(apiConfig);
+    return handleApiCall(() => workflowsapi.cancelWorkflowExecutionV1(requestParameters));
   },
-  // This API deletes an existing Access Profile.  The Access Profile must not be in use, for example, Access Profile can not be deleted if they belong to an Application, Life Cycle State or a Role. If it is, a 400 error is returned.  A user with SOURCE_SUBADMIN must be able to administer the Source associated with the Access Profile.
-  deleteAccessProfile: (requestParameters: sdk.AccessProfilesV2025ApiDeleteAccessProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const accessprofilesv2025api = new sdk.AccessProfilesV2025Api(apiConfig);
-    return handleApiCall(() => accessprofilesv2025api.deleteAccessProfile(requestParameters));
+  closeAccessRequestV1: (requestParameters: accessRequestsTypes.AccessRequestsApiCloseAccessRequestV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const accessrequestsapi = new sdk.AccessRequestsApi(apiConfig);
+    return handleApiCall(() => accessrequestsapi.closeAccessRequestV1(requestParameters));
   },
-  // This endpoint initiates a bulk deletion of one or more access profiles. When the request is successful, the endpoint returns the bulk delete\'s task result ID.  To follow the task, you can use [Get Task Status by ID](https://developer.sailpoint.com/docs/api/beta/get-task-status), which will return the task result\'s status and information.  This endpoint can only bulk delete up to a limit of 50 access profiles per request.  By default, if any of the indicated access profiles are in use, no deletions will be performed and the **inUse** field of the response indicates the usages that must be removed first. If the request field **bestEffortOnly** is **true**, however, usages are reported in the **inUse** response field but all other indicated access profiles will be deleted. A SOURCE_SUBADMIN user can only use this endpoint to delete access profiles associated with sources they\'re able to administer.
-  deleteAccessProfilesInBulk: (requestParameters: sdk.AccessProfilesV2025ApiDeleteAccessProfilesInBulkRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AccessProfileBulkDeleteResponseV2025>> => {
-    const accessprofilesv2025api = new sdk.AccessProfilesV2025Api(apiConfig);
-    return handleApiCall(() => accessprofilesv2025api.deleteAccessProfilesInBulk(requestParameters));
+  compareIdentitySnapshotsAccessTypeV1: (requestParameters: identityHistoryTypes.IdentityHistoryApiCompareIdentitySnapshotsAccessTypeV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<identityHistoryTypes.AccessItemDiff>>> => {
+    const identityhistoryapi = new sdk.IdentityHistoryApi(apiConfig);
+    return handleApiCall(() => identityhistoryapi.compareIdentitySnapshotsAccessTypeV1(requestParameters));
   },
-  // This API returns an Access Profile by its ID.
-  getAccessProfile: (requestParameters: sdk.AccessProfilesV2025ApiGetAccessProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AccessProfileV2025>> => {
-    const accessprofilesv2025api = new sdk.AccessProfilesV2025Api(apiConfig);
-    return handleApiCall(() => accessprofilesv2025api.getAccessProfile(requestParameters));
+  compareIdentitySnapshotsV1: (requestParameters: identityHistoryTypes.IdentityHistoryApiCompareIdentitySnapshotsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<identityHistoryTypes.IdentityCompareResponse>>> => {
+    const identityhistoryapi = new sdk.IdentityHistoryApi(apiConfig);
+    return handleApiCall(() => identityhistoryapi.compareIdentitySnapshotsV1(requestParameters));
   },
-  // Use this API to get a list of an access profile\'s entitlements.  A SOURCE_SUBADMIN user must have access to the source associated with the specified access profile. >**Note:** When you filter for access profiles that have the \'+\' symbol in their names, the response is blank. 
-  getAccessProfileEntitlements: (requestParameters: sdk.AccessProfilesV2025ApiGetAccessProfileEntitlementsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.EntitlementV2025>>> => {
-    const accessprofilesv2025api = new sdk.AccessProfilesV2025Api(apiConfig);
-    return handleApiCall(() => accessprofilesv2025api.getAccessProfileEntitlements(requestParameters));
+  completeCampaignV1: (requestParameters: certificationCampaignsTypes.CertificationCampaignsApiCompleteCampaignV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const certificationcampaignsapi = new sdk.CertificationCampaignsApi(apiConfig);
+    return handleApiCall(() => certificationcampaignsapi.completeCampaignV1(requestParameters));
   },
-  // Get a list of access profiles. >**Note:** When you filter for access profiles that have the \'+\' symbol in their names, the response is blank. 
-  listAccessProfiles: (requestParameters: sdk.AccessProfilesV2025ApiListAccessProfilesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AccessProfileV2025>>> => {
-    const accessprofilesv2025api = new sdk.AccessProfilesV2025Api(apiConfig);
-    return handleApiCall(() => accessprofilesv2025api.listAccessProfiles(requestParameters));
+  completeTriggerInvocationV1: (requestParameters: triggersTypes.TriggersApiCompleteTriggerInvocationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const triggersapi = new sdk.TriggersApi(apiConfig);
+    return handleApiCall(() => triggersapi.completeTriggerInvocationV1(requestParameters));
   },
-  // This API updates an existing Access Profile. The following fields are patchable:  **name**  **description**  **enabled**  **owner**  **requestable**  **accessRequestConfig**  **revokeRequestConfig**  **segments**  **entitlements**  **provisioningCriteria**  **source** (must be updated with entitlements belonging to new source in the same API call)  If you need to change the `source` of the access profile, you can do so only if you update the `entitlements` in the same API call.  The new entitlements can only come from the target source that you want to change to.  Look for the example \"Replace Source\" in the examples dropdown.  A user with SOURCE_SUBADMIN may only use this API to patch Access Profiles which are associated with Sources they are able to administer. >  The maximum supported length for the description field is 2000 characters. Longer descriptions will be preserved for existing access profiles, however, any new access profiles as well as any updates to existing descriptions will be limited to 2000 characters.  > You can only add or replace **entitlements** that exist on the source that the access profile is attached to. You can use the **list entitlements** endpoint with the **filters** query parameter to get a list of available entitlements on the access profile\'s source.
-  patchAccessProfile: (requestParameters: sdk.AccessProfilesV2025ApiPatchAccessProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AccessProfileV2025>> => {
-    const accessprofilesv2025api = new sdk.AccessProfilesV2025Api(apiConfig);
-    return handleApiCall(() => accessprofilesv2025api.patchAccessProfile(requestParameters));
+  completeWorkItemV1: (requestParameters: workItemsTypes.WorkItemsApiCompleteWorkItemV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<workItemsTypes.WorkItems>> => {
+    const workitemsapi = new sdk.WorkItemsApi(apiConfig);
+    return handleApiCall(() => workitemsapi.completeWorkItemV1(requestParameters));
   },
-  // This API initiates a bulk update of field requestable for one or more Access Profiles.  >  If any of the indicated Access Profiles is exists in Organization,then those Access Profiles will be added in **updated**     list of the response.Requestable field of these Access Profiles marked as **true** or **false**.  >  If any of the indicated Access Profiles is not does not exists in Organization,then those Access Profiles will be added in **notFound** list of the response. Access Profiles marked as **notFound** will not be updated.  A SOURCE_SUBADMIN may only use this API to update Access Profiles which are associated with Sources they are able to administer.
-  updateAccessProfilesInBulk: (requestParameters: sdk.AccessProfilesV2025ApiUpdateAccessProfilesInBulkRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AccessProfileUpdateItemV2025>>> => {
-    const accessprofilesv2025api = new sdk.AccessProfilesV2025Api(apiConfig);
-    return handleApiCall(() => accessprofilesv2025api.updateAccessProfilesInBulk(requestParameters));
+  createAccessModelMetadataAttributeV1: (requestParameters: accessModelMetadataTypes.AccessModelMetadataApiCreateAccessModelMetadataAttributeV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accessModelMetadataTypes.AttributeDTO>> => {
+    const accessmodelmetadataapi = new sdk.AccessModelMetadataApi(apiConfig);
+    return handleApiCall(() => accessmodelmetadataapi.createAccessModelMetadataAttributeV1(requestParameters));
   },
-
-  // Use this endpoint to approve an access request approval. Only the owner of the approval and ORG_ADMIN users are allowed to perform this action.
-  approveAccessRequest: (requestParameters: sdk.AccessRequestApprovalsV2025ApiApproveAccessRequestRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const accessrequestapprovalsv2025api = new sdk.AccessRequestApprovalsV2025Api(apiConfig);
-    return handleApiCall(() => accessrequestapprovalsv2025api.approveAccessRequest(requestParameters));
+  createAccessModelMetadataAttributeValueV1: (requestParameters: accessModelMetadataTypes.AccessModelMetadataApiCreateAccessModelMetadataAttributeValueV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accessModelMetadataTypes.AttributeValueDTO>> => {
+    const accessmodelmetadataapi = new sdk.AccessModelMetadataApi(apiConfig);
+    return handleApiCall(() => accessmodelmetadataapi.createAccessModelMetadataAttributeValueV1(requestParameters));
   },
-  // Use this API to forward an access request approval to a new owner. Only the owner of the approval and ORG_ADMIN users are allowed to perform this action. Only the owner of the approval and ORG_ADMIN users are allowed to perform this action.
-  forwardAccessRequest: (requestParameters: sdk.AccessRequestApprovalsV2025ApiForwardAccessRequestRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const accessrequestapprovalsv2025api = new sdk.AccessRequestApprovalsV2025Api(apiConfig);
-    return handleApiCall(() => accessrequestapprovalsv2025api.forwardAccessRequest(requestParameters));
+  createAccessModelMetadataForEntitlementV1: (requestParameters: entitlementsTypes.EntitlementsApiCreateAccessModelMetadataForEntitlementV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<entitlementsTypes.Entitlement>> => {
+    const entitlementsapi = new sdk.EntitlementsApi(apiConfig);
+    return handleApiCall(() => entitlementsapi.createAccessModelMetadataForEntitlementV1(requestParameters));
   },
-  // Use this API to return the number of pending, approved and rejected access requests approvals. See the \"owner-id\" query parameter for authorization information. info.
-  getAccessRequestApprovalSummary: (requestParameters: sdk.AccessRequestApprovalsV2025ApiGetAccessRequestApprovalSummaryRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ApprovalSummaryV2025>> => {
-    const accessrequestapprovalsv2025api = new sdk.AccessRequestApprovalsV2025Api(apiConfig);
-    return handleApiCall(() => accessrequestapprovalsv2025api.getAccessRequestApprovalSummary(requestParameters));
+  createAccessProfileV1: (requestParameters: accessProfilesTypes.AccessProfilesApiCreateAccessProfileV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accessProfilesTypes.AccessProfile>> => {
+    const accessprofilesapi = new sdk.AccessProfilesApi(apiConfig);
+    return handleApiCall(() => accessprofilesapi.createAccessProfileV1(requestParameters));
   },
-  // This API endpoint returns the list of approvers for the given access request id. 
-  listAccessRequestApprovers: (requestParameters: sdk.AccessRequestApprovalsV2025ApiListAccessRequestApproversRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AccessRequestApproversListResponseV2025>>> => {
-    const accessrequestapprovalsv2025api = new sdk.AccessRequestApprovalsV2025Api(apiConfig);
-    return handleApiCall(() => accessrequestapprovalsv2025api.listAccessRequestApprovers(requestParameters));
+  createAccessRequestV1: (requestParameters: accessRequestsTypes.AccessRequestsApiCreateAccessRequestV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accessRequestsTypes.AccessRequestResponse>> => {
+    const accessrequestsapi = new sdk.AccessRequestsApi(apiConfig);
+    return handleApiCall(() => accessrequestsapi.createAccessRequestV1(requestParameters));
   },
-  // This endpoint returns list of completed approvals. See *owner-id* query parameter below for authorization info.
-  listCompletedApprovals: (requestParameters: sdk.AccessRequestApprovalsV2025ApiListCompletedApprovalsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.CompletedApprovalV2025>>> => {
-    const accessrequestapprovalsv2025api = new sdk.AccessRequestApprovalsV2025Api(apiConfig);
-    return handleApiCall(() => accessrequestapprovalsv2025api.listCompletedApprovals(requestParameters));
+  createAccountV1: (requestParameters: accountsTypes.AccountsApiCreateAccountV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accountsTypes.AccountsAsyncResult>> => {
+    const accountsapi = new sdk.AccountsApi(apiConfig);
+    return handleApiCall(() => accountsapi.createAccountV1(requestParameters));
   },
-  // This endpoint returns a list of pending approvals. See \"owner-id\" query parameter below for authorization info.
-  listPendingApprovals: (requestParameters: sdk.AccessRequestApprovalsV2025ApiListPendingApprovalsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.PendingApprovalV2025>>> => {
-    const accessrequestapprovalsv2025api = new sdk.AccessRequestApprovalsV2025Api(apiConfig);
-    return handleApiCall(() => accessrequestapprovalsv2025api.listPendingApprovals(requestParameters));
+  createApplicationV1: (requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiCreateApplicationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const dataaccesssecurityapi = new sdk.DataAccessSecurityApi(apiConfig);
+    return handleApiCall(() => dataaccesssecurityapi.createApplicationV1(requestParameters));
   },
-  // Use this API to reject an access request approval. Only the owner of the approval and admin users are allowed to perform this action.
-  rejectAccessRequest: (requestParameters: sdk.AccessRequestApprovalsV2025ApiRejectAccessRequestRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const accessrequestapprovalsv2025api = new sdk.AccessRequestApprovalsV2025Api(apiConfig);
-    return handleApiCall(() => accessrequestapprovalsv2025api.rejectAccessRequest(requestParameters));
-  },
-
-  // Use this API to return information access metrics.
-  getAccessRequestIdentityMetrics: (requestParameters: sdk.AccessRequestIdentityMetricsV2025ApiGetAccessRequestIdentityMetricsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const accessrequestidentitymetricsv2025api = new sdk.AccessRequestIdentityMetricsV2025Api(apiConfig);
-    return handleApiCall(() => accessrequestidentitymetricsv2025api.getAccessRequestIdentityMetrics(requestParameters));
-  },
-
-  // This API endpoint allows approving pending access requests in bulk. Maximum of 50 approval ids can be  provided in the request for one single invocation.  ORG_ADMIN or users with rights \"idn:access-request-administration:write\" can approve the access requests in bulk.
-  approveBulkAccessRequest: (requestParameters: sdk.AccessRequestsV2025ApiApproveBulkAccessRequestRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const accessrequestsv2025api = new sdk.AccessRequestsV2025Api(apiConfig);
-    return handleApiCall(() => accessrequestsv2025api.approveBulkAccessRequest(requestParameters));
-  },
-  // This API endpoint cancels a pending access request. An access request can be cancelled only if it has not passed the approval step. In addition to users with ORG_ADMIN, any user who originally submitted the access request may cancel it.
-  cancelAccessRequest: (requestParameters: sdk.AccessRequestsV2025ApiCancelAccessRequestRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const accessrequestsv2025api = new sdk.AccessRequestsV2025Api(apiConfig);
-    return handleApiCall(() => accessrequestsv2025api.cancelAccessRequest(requestParameters));
-  },
-  // This API endpoint allows cancelling pending access requests in bulk. Maximum of 50 access request ids can be  provided in the request for one single invocation.  Only ORG_ADMIN or users with rights \"idn:access-request-administration:write\" can cancel the access requests in  bulk.
-  cancelAccessRequestInBulk: (requestParameters: sdk.AccessRequestsV2025ApiCancelAccessRequestInBulkRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const accessrequestsv2025api = new sdk.AccessRequestsV2025Api(apiConfig);
-    return handleApiCall(() => accessrequestsv2025api.cancelAccessRequestInBulk(requestParameters));
-  },
-  // This endpoint closes access requests that are stuck in a pending state. It can be used throughout a request\'s lifecycle even after the approval state, unlike the [Cancel Access Request endpoint](https://developer.sailpoint.com/idn/api/v3/cancel-access-request/).  To find pending access requests with the UI, navigate to Search and use this query: status: Pending AND \"Access Request\". Use the Column Chooser to select \'Tracking Number\', and use the \'Download\' button to export a CSV containing the tracking numbers.  To find pending access requests with the API, use the [List Account Activities endpoint](https://developer.sailpoint.com/idn/api/v3/list-account-activities/).  Input the IDs from either source.  To track the status of endpoint requests, navigate to Search and use this query: name:\"Close Identity Requests\". Search will include \"Close Identity Requests Started\" audits when requests are initiated and \"Close Identity Requests Completed\" audits when requests are completed. The completion audit will list the identity request IDs that finished in error.  This API triggers the [Provisioning Completed event trigger](https://developer.sailpoint.com/docs/extensibility/event-triggers/triggers/provisioning-completed/) for each access request that is closed. 
-  closeAccessRequest: (requestParameters: sdk.AccessRequestsV2025ApiCloseAccessRequestRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const accessrequestsv2025api = new sdk.AccessRequestsV2025Api(apiConfig);
-    return handleApiCall(() => accessrequestsv2025api.closeAccessRequest(requestParameters));
-  },
-  // Use this API to submit an access request in Identity Security Cloud (ISC), where it follows any ISC approval processes.  >**Security:** idn:access-request:manage is for ORG_ADMIN level. idn:access-request-self:manage is for USER level.  :::info The ability to request access using this API is constrained by the Access Request Segments defined in the API token\'s user context. :::  Access requests are processed asynchronously by ISC. A successful response from this endpoint means that the request has been submitted to ISC and is queued for processing. Because this endpoint is asynchronous, it does not return an error if you submit duplicate access requests in quick succession or submit an access request for access that is already in progress, approved, or rejected.  It is best practice to check for any existing access requests that reference the same access items before submitting a new access request. This can be accomplished by using the [List Access Request Status](https://developer.sailpoint.com/idn/api/v3/list-access-request-status) or the [Pending Access Request Approvals](https://developer.sailpoint.com/idn/api/v3/list-pending-approvals) APIs. You can also use the [Search API](https://developer.sailpoint.com/idn/api/v3/search) to check the existing access items an identity has before submitting an access request to ensure that you aren\'t requesting access that is already granted. If you use this API to request access that an identity already has,  without changing the account details or end date information from the existing assignment,  the API will cancel the request as a duplicate.  There are two types of access request:  __GRANT_ACCESS__ * Can be requested for multiple identities in a single request. * Supports self request and request on behalf of other users. Refer to the [Get Access Request Configuration](https://developer.sailpoint.com/idn/api/v3/get-access-request-config) endpoint for request configuration options.   * Allows any authenticated token (except API) to call this endpoint to request to grant access to themselves. Depending on the configuration, a user can request access for others. * Roles, access profiles and entitlements can be requested. * You can specify a `removeDate` to set or alter a sunset date-time on an assignment. The removeDate must be a future date-time, in the UTC timezone. Additionally, if the user already has the access assigned with a sunset date, you can also submit a request without a `removeDate` to request removal of the sunset date and time. * If a `removeDate` is specified, then the requested role, access profile, or entitlement will be removed on that date and time. * Now supports an alternate field \'requestedForWithRequestedItems\' for users to specify account selections while requesting items where they have more than one account on the source.  :::caution  If any entitlements are being requested, then the maximum number of entitlements that can be requested is 25, and the maximum number of identities that can be requested for is 10. If you exceed these limits, the request will fail with a 400 error. If you are not requesting any entitlements, then there are no limits.  :::  __REVOKE_ACCESS__ * Can only be requested for a single identity at a time. * You cannot use an access request to revoke access from an identity if that access has been granted by role membership or by birthright provisioning.  * Does not support self request. Only manager can request to revoke access for their directly managed employees. * If a `removeDate` is specified, then the requested role, access profile, or entitlement will be removed on that date and time. * Roles, access profiles, and entitlements can be requested for revocation. * Revoke requests for entitlements are limited to 1 entitlement per access request currently. * You can specify a `removeDate` to add or alter a sunset date and time on an assignment. The `removeDate` must be a future date-time, in the UTC timezone. If the user already has the access assigned with a sunset date and time, the removeDate must be a date-time earlier than the existing sunset date and time.  * Allows a manager to request to revoke access for direct employees. A user with ORG_ADMIN authority can also request to revoke access from anyone. * Now supports REVOKE_ACCESS requests for identities with multiple accounts on a single source, with the help of \'assignmentId\' and \'nativeIdentity\' fields. These fields should be used within the \'requestedItems\' section for the revoke requests.  * Usage of \'requestedForWithRequestedItems\' field is not supported for revoke requests. 
-  createAccessRequest: (requestParameters: sdk.AccessRequestsV2025ApiCreateAccessRequestRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AccessRequestResponseV2025>> => {
-    const accessrequestsv2025api = new sdk.AccessRequestsV2025Api(apiConfig);
-    return handleApiCall(() => accessrequestsv2025api.createAccessRequest(requestParameters));
-  },
-  // This endpoint returns the current access-request configuration.
-  getAccessRequestConfig: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AccessRequestConfigV2025>> => {
-    const accessrequestsv2025api = new sdk.AccessRequestsV2025Api(apiConfig);
-    return handleApiCall(() => accessrequestsv2025api.getAccessRequestConfig());
-  },
-  // Use this API to return the details for a entitlement on an identity including specific data relating to remove date and the ability to revoke the identity.
-  getEntitlementDetailsForIdentity: (requestParameters: sdk.AccessRequestsV2025ApiGetEntitlementDetailsForIdentityRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.IdentityEntitlementDetailsV2025>> => {
-    const accessrequestsv2025api = new sdk.AccessRequestsV2025Api(apiConfig);
-    return handleApiCall(() => accessrequestsv2025api.getEntitlementDetailsForIdentity(requestParameters));
-  },
-  // Use this API to return a list of access request statuses based on the specified query parameters. If an access request was made for access that an identity already has, the API ignores the access request.  These ignored requests do not display in the list of access request statuses. Any user with any user level can get the status of their own access requests. A user with ORG_ADMIN is required to call this API to get a list of statuses for other users.
-  listAccessRequestStatus: (requestParameters: sdk.AccessRequestsV2025ApiListAccessRequestStatusRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.RequestedItemStatusV2025>>> => {
-    const accessrequestsv2025api = new sdk.AccessRequestsV2025Api(apiConfig);
-    return handleApiCall(() => accessrequestsv2025api.listAccessRequestStatus(requestParameters));
-  },
-  // Use this API to get access request statuses of all the access requests in the org based on the specified query  parameters. Any user with user level ORG_ADMIN or scope idn:access-request-administration:read can access this endpoint to get  the  access request statuses
-  listAdministratorsAccessRequestStatus: (requestParameters: sdk.AccessRequestsV2025ApiListAdministratorsAccessRequestStatusRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AccessRequestAdminItemStatusV2025>>> => {
-    const accessrequestsv2025api = new sdk.AccessRequestsV2025Api(apiConfig);
-    return handleApiCall(() => accessrequestsv2025api.listAdministratorsAccessRequestStatus(requestParameters));
-  },
-  // Use this API to fetch account information for an identity against the items in an access request.  Used to fetch accountSelection for the AccessRequest prior to submitting for async processing. 
-  loadAccountSelections: (requestParameters: sdk.AccessRequestsV2025ApiLoadAccountSelectionsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AccountsSelectionResponseV2025>> => {
-    const accessrequestsv2025api = new sdk.AccessRequestsV2025Api(apiConfig);
-    return handleApiCall(() => accessrequestsv2025api.loadAccountSelections(requestParameters));
-  },
-  // This endpoint replaces the current access-request configuration.
-  setAccessRequestConfig: (requestParameters: sdk.AccessRequestsV2025ApiSetAccessRequestConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AccessRequestConfigV2025>> => {
-    const accessrequestsv2025api = new sdk.AccessRequestsV2025Api(apiConfig);
-    return handleApiCall(() => accessrequestsv2025api.setAccessRequestConfig(requestParameters));
-  },
-
-  // This gets a single account activity by its id.
-  getAccountActivity: (requestParameters: sdk.AccountActivitiesV2025ApiGetAccountActivityRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AccountActivityV2025>> => {
-    const accountactivitiesv2025api = new sdk.AccountActivitiesV2025Api(apiConfig);
-    return handleApiCall(() => accountactivitiesv2025api.getAccountActivity(requestParameters));
-  },
-  // This gets a collection of account activities that satisfy the given query parameters.
-  listAccountActivities: (requestParameters: sdk.AccountActivitiesV2025ApiListAccountActivitiesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AccountActivityV2025>>> => {
-    const accountactivitiesv2025api = new sdk.AccountActivitiesV2025Api(apiConfig);
-    return handleApiCall(() => accountactivitiesv2025api.listAccountActivities(requestParameters));
-  },
-
-  // This API returns the status of an *in-progress* account aggregation, along with the total number of **NEW**, **CHANGED** and **DELETED** accounts found since the previous aggregation, and the number of those accounts that have been processed so far.  Accounts that have not changed since the previous aggregation are not included in **totalAccounts** and **processedAccounts** counts returned by this API. This is distinct from **Accounts Scanned** shown in the Aggregation UI, which indicates total accounts scanned regardless of whether they changed or not.  Since this endpoint reports on the status of an *in-progress* account aggregation, totalAccounts and processedAccounts may change between calls to this endpoint.  *Only available up to an hour after the aggregation completes. May respond with *404 Not Found* after that.* required to call this API.
-  getAccountAggregationStatus: (requestParameters: sdk.AccountAggregationsV2025ApiGetAccountAggregationStatusRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AccountAggregationStatusV2025>> => {
-    const accountaggregationsv2025api = new sdk.AccountAggregationsV2025Api(apiConfig);
-    return handleApiCall(() => accountaggregationsv2025api.getAccountAggregationStatus(requestParameters));
-  },
-
-  // This API returns a summary of account usage insights for past 12 months.
-  getUsagesByAccountId: (requestParameters: sdk.AccountUsagesV2025ApiGetUsagesByAccountIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AccountUsageV2025>>> => {
-    const accountusagesv2025api = new sdk.AccountUsagesV2025Api(apiConfig);
-    return handleApiCall(() => accountusagesv2025api.getUsagesByAccountId(requestParameters));
-  },
-
-  // Submit an account creation task - the API then returns the task ID.    You must include the `sourceId` where the account will be created in the `attributes` object.  This endpoint creates an account on the source record in your ISC tenant. This is useful for Flat File (`DelimitedFile`) type sources because it allows you to aggregate new accounts without needing to import a new CSV file every time.   However, if you use this endpoint to create an account for a Direct Connection type source, you must ensure that the account also exists on the target source.  The endpoint doesn\'t actually provision the account on the target source, which means that if the account doesn\'t also exist on the target source, an aggregation between the source and your tenant will remove it from your tenant.   By providing the account ID of an existing account in the request body, this API will function as a PATCH operation and update the account. 
-  createAccount: (requestParameters: sdk.AccountsV2025ApiCreateAccountRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AccountsAsyncResultV2025>> => {
-    const accountsv2025api = new sdk.AccountsV2025Api(apiConfig);
-    return handleApiCall(() => accountsv2025api.createAccount(requestParameters));
-  },
-  // Use this API to delete an account.  This endpoint submits an account delete task and returns the task ID.  This endpoint only deletes the account from IdentityNow, not the source itself, which can result in the account\'s returning with the next aggregation between the source and IdentityNow.  To avoid this scenario, it is recommended that you [disable accounts](https://developer.sailpoint.com/idn/api/v3/disable-account) rather than delete them. This will also allow you to reenable the accounts in the future.  >**NOTE: You can only delete accounts from sources of the \"DelimitedFile\" type.**
-  deleteAccount: (requestParameters: sdk.AccountsV2025ApiDeleteAccountRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AccountsAsyncResultV2025>> => {
-    const accountsv2025api = new sdk.AccountsV2025Api(apiConfig);
-    return handleApiCall(() => accountsv2025api.deleteAccount(requestParameters));
-  },
-  // Use this endpoint to remove accounts from the system without provisioning changes to the source. Accounts that are removed could be re-created during the next aggregation.  This endpoint is good for: * Removing accounts that no longer exist on the source. * Removing accounts that won\'t be aggregated following updates to the source configuration. * Forcing accounts to be re-created following the next aggregation to re-run account processing, support testing, etc. 
-  deleteAccountAsync: (requestParameters: sdk.AccountsV2025ApiDeleteAccountAsyncRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TaskResultDtoV2025>> => {
-    const accountsv2025api = new sdk.AccountsV2025Api(apiConfig);
-    return handleApiCall(() => accountsv2025api.deleteAccountAsync(requestParameters));
-  },
-  // This API submits a task to disable the account and returns the task ID.      
-  disableAccount: (requestParameters: sdk.AccountsV2025ApiDisableAccountRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AccountsAsyncResultV2025>> => {
-    const accountsv2025api = new sdk.AccountsV2025Api(apiConfig);
-    return handleApiCall(() => accountsv2025api.disableAccount(requestParameters));
-  },
-  // This API submits a task to disable IDN account for a single identity.
-  disableAccountForIdentity: (requestParameters: sdk.AccountsV2025ApiDisableAccountForIdentityRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const accountsv2025api = new sdk.AccountsV2025Api(apiConfig);
-    return handleApiCall(() => accountsv2025api.disableAccountForIdentity(requestParameters));
-  },
-  // This API submits tasks to disable IDN account for each identity provided in the request body.
-  disableAccountsForIdentities: (requestParameters: sdk.AccountsV2025ApiDisableAccountsForIdentitiesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.BulkIdentitiesAccountsResponseV2025>>> => {
-    const accountsv2025api = new sdk.AccountsV2025Api(apiConfig);
-    return handleApiCall(() => accountsv2025api.disableAccountsForIdentities(requestParameters));
-  },
-  // This API submits a task to enable account and returns the task ID.      
-  enableAccount: (requestParameters: sdk.AccountsV2025ApiEnableAccountRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AccountsAsyncResultV2025>> => {
-    const accountsv2025api = new sdk.AccountsV2025Api(apiConfig);
-    return handleApiCall(() => accountsv2025api.enableAccount(requestParameters));
-  },
-  // This API submits a task to enable IDN account for a single identity.
-  enableAccountForIdentity: (requestParameters: sdk.AccountsV2025ApiEnableAccountForIdentityRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const accountsv2025api = new sdk.AccountsV2025Api(apiConfig);
-    return handleApiCall(() => accountsv2025api.enableAccountForIdentity(requestParameters));
-  },
-  // This API submits tasks to enable IDN account for each identity provided in the request body.
-  enableAccountsForIdentities: (requestParameters: sdk.AccountsV2025ApiEnableAccountsForIdentitiesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.BulkIdentitiesAccountsResponseV2025>>> => {
-    const accountsv2025api = new sdk.AccountsV2025Api(apiConfig);
-    return handleApiCall(() => accountsv2025api.enableAccountsForIdentities(requestParameters));
-  },
-  // Use this API to return the details for a single account by its ID.  
-  getAccount: (requestParameters: sdk.AccountsV2025ApiGetAccountRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AccountV2025>> => {
-    const accountsv2025api = new sdk.AccountsV2025Api(apiConfig);
-    return handleApiCall(() => accountsv2025api.getAccount(requestParameters));
-  },
-  // This API returns entitlements of the account.      
-  getAccountEntitlements: (requestParameters: sdk.AccountsV2025ApiGetAccountEntitlementsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.EntitlementV2025>>> => {
-    const accountsv2025api = new sdk.AccountsV2025Api(apiConfig);
-    return handleApiCall(() => accountsv2025api.getAccountEntitlements(requestParameters));
-  },
-  // List accounts. 
-  listAccounts: (requestParameters: sdk.AccountsV2025ApiListAccountsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AccountV2025>>> => {
-    const accountsv2025api = new sdk.AccountsV2025Api(apiConfig);
-    return handleApiCall(() => accountsv2025api.listAccounts(requestParameters));
-  },
-  // Use this API to update an account with a PUT request.   This endpoint submits an account update task and returns the task ID.   >**Note: You can only use this PUT endpoint to update accounts from flat file sources.** 
-  putAccount: (requestParameters: sdk.AccountsV2025ApiPutAccountRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AccountsAsyncResultV2025>> => {
-    const accountsv2025api = new sdk.AccountsV2025Api(apiConfig);
-    return handleApiCall(() => accountsv2025api.putAccount(requestParameters));
-  },
-  // This API asynchronously reloads the account directly from the connector and performs a one-time aggregation process.      
-  submitReloadAccount: (requestParameters: sdk.AccountsV2025ApiSubmitReloadAccountRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AccountsAsyncResultV2025>> => {
-    const accountsv2025api = new sdk.AccountsV2025Api(apiConfig);
-    return handleApiCall(() => accountsv2025api.submitReloadAccount(requestParameters));
-  },
-  // This API submits a task to unlock an account and returns the task ID.   To use this endpoint to unlock an account that has the `forceProvisioning` option set to true, the `idn:accounts-provisioning:manage` scope is required. 
-  unlockAccount: (requestParameters: sdk.AccountsV2025ApiUnlockAccountRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AccountsAsyncResultV2025>> => {
-    const accountsv2025api = new sdk.AccountsV2025Api(apiConfig);
-    return handleApiCall(() => accountsv2025api.unlockAccount(requestParameters));
-  },
-  // Use this API to update account details.   This API supports updating an account\'s correlation by modifying the `identityId` and `manuallyCorrelated` fields.  To reassign an account from one identity to another, replace the current `identityId` with a new value.  If the account you\'re assigning was provisioned by Identity Security Cloud (ISC), it\'s possible for ISC to create a new account  for the previous identity as soon as the account is moved. If the account you\'re assigning is authoritative,  this causes the previous identity to become uncorrelated and can even result in its deletion. All accounts that are reassigned will be set to `manuallyCorrelated: true` unless you specify otherwise.  >**Note:** The `attributes` field can only be modified for flat file accounts.  
-  updateAccount: (requestParameters: sdk.AccountsV2025ApiUpdateAccountRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const accountsv2025api = new sdk.AccountsV2025Api(apiConfig);
-    return handleApiCall(() => accountsv2025api.updateAccount(requestParameters));
-  },
-
-  // This API gets an aggregated number of all API calls from an org in a specific timespan. Unless specified, the results are aggregated between the first day of the current month and today.
-  getTotalCount: (requestParameters: sdk.ApiUsageV2025ApiGetTotalCountRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const apiusagev2025api = new sdk.ApiUsageV2025Api(apiConfig);
-    return handleApiCall(() => apiusagev2025api.getTotalCount(requestParameters));
-  },
-  // This API gets a list of APIs called by the org in a specific timespan, sorted by number of calls. Unless specified,  the results are aggregated between the first day of the current month and today.
-  listApiSummary: (requestParameters: sdk.ApiUsageV2025ApiListApiSummaryRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.SummaryResponseV2025>>> => {
-    const apiusagev2025api = new sdk.ApiUsageV2025Api(apiConfig);
-    return handleApiCall(() => apiusagev2025api.listApiSummary(requestParameters));
-  },
-
-  // Get a list of applications that have been identified within the environment. This includes details such as application names, discovery dates, potential correlated saas_vendors and related suggested connectors. 
-  getDiscoveredApplications: (requestParameters: sdk.ApplicationDiscoveryV2025ApiGetDiscoveredApplicationsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.GetDiscoveredApplications200ResponseInnerV2025>>> => {
-    const applicationdiscoveryv2025api = new sdk.ApplicationDiscoveryV2025Api(apiConfig);
-    return handleApiCall(() => applicationdiscoveryv2025api.getDiscoveredApplications(requestParameters));
-  },
-  // Download an example CSV file with two columns `application_name` and `description`.  The CSV file contains a single row with the values \'Example Application\' and \'Example Description\'.  The downloaded template is specifically designed for use with the `/manual-discover-applications` endpoint. 
-  getManualDiscoverApplicationsCsvTemplate: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ManualDiscoverApplicationsTemplateV2025>> => {
-    const applicationdiscoveryv2025api = new sdk.ApplicationDiscoveryV2025Api(apiConfig);
-    return handleApiCall(() => applicationdiscoveryv2025api.getManualDiscoverApplicationsCsvTemplate());
-  },
-  // Uploading a CSV file with application data for manual correlation to specific ISC connectors.  If a suitable ISC connector is unavailable, the system will recommend generic connectors instead.
-  sendManualDiscoverApplicationsCsvTemplate: (requestParameters: sdk.ApplicationDiscoveryV2025ApiSendManualDiscoverApplicationsCsvTemplateRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const applicationdiscoveryv2025api = new sdk.ApplicationDiscoveryV2025Api(apiConfig);
-    return handleApiCall(() => applicationdiscoveryv2025api.sendManualDiscoverApplicationsCsvTemplate(requestParameters));
-  },
-  // Use this API to discover applications.
-  startApplicationDiscovery: (requestParameters: sdk.ApplicationDiscoveryV2025ApiStartApplicationDiscoveryRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ApplicationDiscoveryResponseV2025>> => {
-    const applicationdiscoveryv2025api = new sdk.ApplicationDiscoveryV2025Api(apiConfig);
-    return handleApiCall(() => applicationdiscoveryv2025api.startApplicationDiscovery(requestParameters));
-  },
-
-  // Currently this endpoint only supports Entitlement Description Approvals. Approves a specified approval request on behalf of the caller. This endpoint is for generic approvals, unlike the access-request-approval endpoint, and does not include access-request-approvals. The approval request must be in a state that allows it to be approved. If called by an admin and the admin is not listed as an approver, the approval request will be reassigned from a random approver to the admin user.
-  approveApproval: (requestParameters: sdk.ApprovalsV2025ApiApproveApprovalRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ApprovalV2025>> => {
-    const approvalsv2025api = new sdk.ApprovalsV2025Api(apiConfig);
-    return handleApiCall(() => approvalsv2025api.approveApproval(requestParameters));
-  },
-  // Bulk Approves specified approval requests on behalf of the caller
-  approveApprovalInBulk: (requestParameters: sdk.ApprovalsV2025ApiApproveApprovalInBulkRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const approvalsv2025api = new sdk.ApprovalsV2025Api(apiConfig);
-    return handleApiCall(() => approvalsv2025api.approveApprovalInBulk(requestParameters));
-  },
-  // Bulk cancels specified approval requests on behalf of the caller
-  cancelApproval: (requestParameters: sdk.ApprovalsV2025ApiCancelApprovalRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const approvalsv2025api = new sdk.ApprovalsV2025Api(apiConfig);
-    return handleApiCall(() => approvalsv2025api.cancelApproval(requestParameters));
-  },
-  // Deletes an approval configuration. Configurations at the APPROVAL_REQUEST scope cannot be deleted.
-  deleteApprovalConfigRequest: (requestParameters: sdk.ApprovalsV2025ApiDeleteApprovalConfigRequestRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const approvalsv2025api = new sdk.ApprovalsV2025Api(apiConfig);
-    return handleApiCall(() => approvalsv2025api.deleteApprovalConfigRequest(requestParameters));
-  },
-  // Currently this endpoint only supports Entitlement Description Approvals. Retrieve a single approval for a given approval ID. This endpoint is for generic approvals, different than the access-request-approval endpoint and does not include access-request-approvals.
-  getApproval: (requestParameters: sdk.ApprovalsV2025ApiGetApprovalRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ApprovalV2025>> => {
-    const approvalsv2025api = new sdk.ApprovalsV2025Api(apiConfig);
-    return handleApiCall(() => approvalsv2025api.getApproval(requestParameters));
-  },
-  // Currently this endpoint only supports Entitlement Description Approvals. Get a list of approvals. This endpoint is for generic approvals, unlike the access-request-approval endpoint, and does not include access-request-approvals.  Absence of all query parameters for non admins will will default to mine=true. Admin will default to mine=false. Absence of all query parameters for admins will return all approvals in the org.
-  getApprovals: (requestParameters: sdk.ApprovalsV2025ApiGetApprovalsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ApprovalV2025>>> => {
-    const approvalsv2025api = new sdk.ApprovalsV2025Api(apiConfig);
-    return handleApiCall(() => approvalsv2025api.getApprovals(requestParameters));
-  },
-  // Retrieves a singular approval configuration that matches the given ID
-  getApprovalsConfig: (requestParameters: sdk.ApprovalsV2025ApiGetApprovalsConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ApprovalConfigV2025>> => {
-    const approvalsv2025api = new sdk.ApprovalsV2025Api(apiConfig);
-    return handleApiCall(() => approvalsv2025api.getApprovalsConfig(requestParameters));
-  },
-  // Bulk reassigns specified approval requests on behalf of the caller
-  moveApproval: (requestParameters: sdk.ApprovalsV2025ApiMoveApprovalRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const approvalsv2025api = new sdk.ApprovalsV2025Api(apiConfig);
-    return handleApiCall(() => approvalsv2025api.moveApproval(requestParameters));
-  },
-  // Upserts a singular approval configuration that matches the given configID and configScope. If id and scope are not provided, it will default to setting the tenant config.
-  putApprovalsConfig: (requestParameters: sdk.ApprovalsV2025ApiPutApprovalsConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ApprovalConfigV2025>> => {
-    const approvalsv2025api = new sdk.ApprovalsV2025Api(apiConfig);
-    return handleApiCall(() => approvalsv2025api.putApprovalsConfig(requestParameters));
-  },
-  // Currently this endpoint only supports Entitlement Description Approvals. Rejects a specified approval request on behalf of the caller. If called by an admin and the admin is not listed as an approver, the approval request will be reassigned from a random approver to the admin user.
-  rejectApproval: (requestParameters: sdk.ApprovalsV2025ApiRejectApprovalRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const approvalsv2025api = new sdk.ApprovalsV2025Api(apiConfig);
-    return handleApiCall(() => approvalsv2025api.rejectApproval(requestParameters));
-  },
-  // Bulk reject specified approval requests on behalf of the caller
-  rejectApprovalInBulk: (requestParameters: sdk.ApprovalsV2025ApiRejectApprovalInBulkRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const approvalsv2025api = new sdk.ApprovalsV2025Api(apiConfig);
-    return handleApiCall(() => approvalsv2025api.rejectApprovalInBulk(requestParameters));
-  },
-  // Currently this endpoint only supports Entitlement Description Approvals. Allows for the edit/addition/removal of the key/value pair additional attributes map for an existing approval request.
-  updateApprovalsAttributes: (requestParameters: sdk.ApprovalsV2025ApiUpdateApprovalsAttributesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ApprovalV2025>> => {
-    const approvalsv2025api = new sdk.ApprovalsV2025Api(apiConfig);
-    return handleApiCall(() => approvalsv2025api.updateApprovalsAttributes(requestParameters));
-  },
-  // Currently this endpoint only supports Entitlement Description Approvals. Adds comments to a specified approval request.
-  updateApprovalsComments: (requestParameters: sdk.ApprovalsV2025ApiUpdateApprovalsCommentsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ApprovalV2025>> => {
-    const approvalsv2025api = new sdk.ApprovalsV2025Api(apiConfig);
-    return handleApiCall(() => approvalsv2025api.updateApprovalsComments(requestParameters));
-  },
-  // Currently this endpoint only supports Entitlement Description Approvals. Reassigns an approval request to another identity resulting in that identity being added as an authorized approver.
-  updateApprovalsReassign: (requestParameters: sdk.ApprovalsV2025ApiUpdateApprovalsReassignRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const approvalsv2025api = new sdk.ApprovalsV2025Api(apiConfig);
-    return handleApiCall(() => approvalsv2025api.updateApprovalsReassign(requestParameters));
-  },
-
-  // This endpoint creates a source app using the given source app payload
-  createSourceApp: (requestParameters: sdk.AppsV2025ApiCreateSourceAppRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SourceAppV2025>> => {
-    const appsv2025api = new sdk.AppsV2025Api(apiConfig);
-    return handleApiCall(() => appsv2025api.createSourceApp(requestParameters));
-  },
-  // This API returns the final list of access profiles for the specified source app after removing
-  deleteAccessProfilesFromSourceAppByBulk: (requestParameters: sdk.AppsV2025ApiDeleteAccessProfilesFromSourceAppByBulkRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AccessProfileDetailsV2025>>> => {
-    const appsv2025api = new sdk.AppsV2025Api(apiConfig);
-    return handleApiCall(() => appsv2025api.deleteAccessProfilesFromSourceAppByBulk(requestParameters));
-  },
-  // Use this API to delete a specific source app
-  deleteSourceApp: (requestParameters: sdk.AppsV2025ApiDeleteSourceAppRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SourceAppV2025>> => {
-    const appsv2025api = new sdk.AppsV2025Api(apiConfig);
-    return handleApiCall(() => appsv2025api.deleteSourceApp(requestParameters));
-  },
-  // This API returns a source app by its ID.
-  getSourceApp: (requestParameters: sdk.AppsV2025ApiGetSourceAppRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SourceAppV2025>> => {
-    const appsv2025api = new sdk.AppsV2025Api(apiConfig);
-    return handleApiCall(() => appsv2025api.getSourceApp(requestParameters));
-  },
-  // This API returns the list of access profiles for the specified source app
-  listAccessProfilesForSourceApp: (requestParameters: sdk.AppsV2025ApiListAccessProfilesForSourceAppRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AccessProfileDetailsV2025>>> => {
-    const appsv2025api = new sdk.AppsV2025Api(apiConfig);
-    return handleApiCall(() => appsv2025api.listAccessProfilesForSourceApp(requestParameters));
-  },
-  // This API returns the list of all source apps for the org.    
-  listAllSourceApp: (requestParameters: sdk.AppsV2025ApiListAllSourceAppRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.SourceAppV2025>>> => {
-    const appsv2025api = new sdk.AppsV2025Api(apiConfig);
-    return handleApiCall(() => appsv2025api.listAllSourceApp(requestParameters));
-  },
-  // This API returns the list of all user apps with specified filters. This API must be used with **filters** query parameter.
-  listAllUserApps: (requestParameters: sdk.AppsV2025ApiListAllUserAppsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.UserAppV2025>>> => {
-    const appsv2025api = new sdk.AppsV2025Api(apiConfig);
-    return handleApiCall(() => appsv2025api.listAllUserApps(requestParameters));
-  },
-  // This API returns the list of source apps assigned for logged in user.
-  listAssignedSourceApp: (requestParameters: sdk.AppsV2025ApiListAssignedSourceAppRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.SourceAppV2025>>> => {
-    const appsv2025api = new sdk.AppsV2025Api(apiConfig);
-    return handleApiCall(() => appsv2025api.listAssignedSourceApp(requestParameters));
-  },
-  // This API returns the list of available accounts for the specified user app. The user app needs to belong lo logged in user.
-  listAvailableAccountsForUserApp: (requestParameters: sdk.AppsV2025ApiListAvailableAccountsForUserAppRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AppAccountDetailsV2025>>> => {
-    const appsv2025api = new sdk.AppsV2025Api(apiConfig);
-    return handleApiCall(() => appsv2025api.listAvailableAccountsForUserApp(requestParameters));
-  },
-  // This API returns the list of source apps available for access request.
-  listAvailableSourceApps: (requestParameters: sdk.AppsV2025ApiListAvailableSourceAppsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.SourceAppV2025>>> => {
-    const appsv2025api = new sdk.AppsV2025Api(apiConfig);
-    return handleApiCall(() => appsv2025api.listAvailableSourceApps(requestParameters));
-  },
-  // This API returns the list of user apps assigned to logged in user
-  listOwnedUserApps: (requestParameters: sdk.AppsV2025ApiListOwnedUserAppsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.UserAppV2025>>> => {
-    const appsv2025api = new sdk.AppsV2025Api(apiConfig);
-    return handleApiCall(() => appsv2025api.listOwnedUserApps(requestParameters));
-  },
-  // This API updates an existing source app using [JSON Patch](https://tools.ietf.org/html/rfc6902) syntax. The following fields are patchable: **name**, **description**, **enabled**, **owner**, **provisionRequestEnabled**, **appCenterEnabled**, **accountSource**,  **matchAllAccounts** and **accessProfiles**. Name, description and owner can\'t be empty or null.
-  patchSourceApp: (requestParameters: sdk.AppsV2025ApiPatchSourceAppRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SourceAppPatchDtoV2025>> => {
-    const appsv2025api = new sdk.AppsV2025Api(apiConfig);
-    return handleApiCall(() => appsv2025api.patchSourceApp(requestParameters));
-  },
-  // This API updates an existing user app using [JSON Patch](https://tools.ietf.org/html/rfc6902) syntax. The following fields are patchable: **account**
-  patchUserApp: (requestParameters: sdk.AppsV2025ApiPatchUserAppRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.UserAppV2025>> => {
-    const appsv2025api = new sdk.AppsV2025Api(apiConfig);
-    return handleApiCall(() => appsv2025api.patchUserApp(requestParameters));
-  },
-  // This API updates source apps using [JSON Patch](https://tools.ietf.org/html/rfc6902) syntax.  It can update up to 50 source apps in a batch. The following fields can be updated: **name**, **description**, **enabled**, **owner**, **provisionRequestEnabled**, **appCenterEnabled**, **accountSource**,  **matchAllAccounts**, and **accessProfiles**. Name, description and owner can\'t be empty or null.
-  updateSourceAppsInBulk: (requestParameters: sdk.AppsV2025ApiUpdateSourceAppsInBulkRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const appsv2025api = new sdk.AppsV2025Api(apiConfig);
-    return handleApiCall(() => appsv2025api.updateSourceAppsInBulk(requestParameters));
-  },
-
-  // This API returns auth profile information.
-  getProfileConfig: (requestParameters: sdk.AuthProfileV2025ApiGetProfileConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AuthProfileV2025>> => {
-    const authprofilev2025api = new sdk.AuthProfileV2025Api(apiConfig);
-    return handleApiCall(() => authprofilev2025api.getProfileConfig(requestParameters));
-  },
-  // This API returns a list of auth profiles.
-  getProfileConfigList: (requestParameters: sdk.AuthProfileV2025ApiGetProfileConfigListRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AuthProfileSummaryV2025>>> => {
-    const authprofilev2025api = new sdk.AuthProfileV2025Api(apiConfig);
-    return handleApiCall(() => authprofilev2025api.getProfileConfigList(requestParameters));
-  },
-  // This API updates an existing Auth Profile. The following fields are patchable: **offNetwork**, **untrustedGeography**, **applicationId**, **applicationName**, **type**
-  patchProfileConfig: (requestParameters: sdk.AuthProfileV2025ApiPatchProfileConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AuthProfileV2025>> => {
-    const authprofilev2025api = new sdk.AuthProfileV2025Api(apiConfig);
-    return handleApiCall(() => authprofilev2025api.patchProfileConfig(requestParameters));
-  },
-
-  // Return the specified user\'s authentication system details.
-  getAuthUser: (requestParameters: sdk.AuthUsersV2025ApiGetAuthUserRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AuthUserV2025>> => {
-    const authusersv2025api = new sdk.AuthUsersV2025Api(apiConfig);
-    return handleApiCall(() => authusersv2025api.getAuthUser(requestParameters));
-  },
-  // Use a PATCH request to update an existing user in the authentication system. Use this endpoint to modify these fields:    * `capabilities`  A \'400.1.1 Illegal update attempt\' detail code indicates that you attempted to PATCH a field that is not allowed.
-  patchAuthUser: (requestParameters: sdk.AuthUsersV2025ApiPatchAuthUserRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AuthUserV2025>> => {
-    const authusersv2025api = new sdk.AuthUsersV2025Api(apiConfig);
-    return handleApiCall(() => authusersv2025api.patchAuthUser(requestParameters));
-  },
-
-  // This API endpoint creates a branding item.
-  createBrandingItem: (requestParameters: sdk.BrandingV2025ApiCreateBrandingItemRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.BrandingItemV2025>> => {
-    const brandingv2025api = new sdk.BrandingV2025Api(apiConfig);
-    return handleApiCall(() => brandingv2025api.createBrandingItem(requestParameters));
-  },
-  // This API endpoint delete information for an existing branding item by name.    
-  deleteBranding: (requestParameters: sdk.BrandingV2025ApiDeleteBrandingRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const brandingv2025api = new sdk.BrandingV2025Api(apiConfig);
-    return handleApiCall(() => brandingv2025api.deleteBranding(requestParameters));
-  },
-  // This API endpoint retrieves information for an existing branding item by name.    
-  getBranding: (requestParameters: sdk.BrandingV2025ApiGetBrandingRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.BrandingItemV2025>> => {
-    const brandingv2025api = new sdk.BrandingV2025Api(apiConfig);
-    return handleApiCall(() => brandingv2025api.getBranding(requestParameters));
-  },
-  // This API endpoint returns a list of branding items.
-  getBrandingList: (apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.BrandingItemV2025>>> => {
-    const brandingv2025api = new sdk.BrandingV2025Api(apiConfig);
-    return handleApiCall(() => brandingv2025api.getBrandingList());
-  },
-  // This API endpoint updates information for an existing branding item.
-  setBrandingItem: (requestParameters: sdk.BrandingV2025ApiSetBrandingItemRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.BrandingItemV2025>> => {
-    const brandingv2025api = new sdk.BrandingV2025Api(apiConfig);
-    return handleApiCall(() => brandingv2025api.setBrandingItem(requestParameters));
-  },
-
-  // Use this API to create a campaign filter based on filter details and criteria.
-  createCampaignFilter: (requestParameters: sdk.CertificationCampaignFiltersV2025ApiCreateCampaignFilterRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CampaignFilterDetailsV2025>> => {
-    const certificationcampaignfiltersv2025api = new sdk.CertificationCampaignFiltersV2025Api(apiConfig);
-    return handleApiCall(() => certificationcampaignfiltersv2025api.createCampaignFilter(requestParameters));
-  },
-  // Deletes campaign filters whose Ids are specified in the provided list of campaign filter Ids. Authorized callers must be an ORG_ADMIN or a CERT_ADMIN.
-  deleteCampaignFilters: (requestParameters: sdk.CertificationCampaignFiltersV2025ApiDeleteCampaignFiltersRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const certificationcampaignfiltersv2025api = new sdk.CertificationCampaignFiltersV2025Api(apiConfig);
-    return handleApiCall(() => certificationcampaignfiltersv2025api.deleteCampaignFilters(requestParameters));
-  },
-  // Retrieves information for an existing campaign filter using the filter\'s ID.
-  getCampaignFilterById: (requestParameters: sdk.CertificationCampaignFiltersV2025ApiGetCampaignFilterByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CampaignFilterDetailsV2025>> => {
-    const certificationcampaignfiltersv2025api = new sdk.CertificationCampaignFiltersV2025Api(apiConfig);
-    return handleApiCall(() => certificationcampaignfiltersv2025api.getCampaignFilterById(requestParameters));
-  },
-  // Use this API to list all campaign filters. You can reduce scope with standard V3 query parameters.
-  listCampaignFilters: (requestParameters: sdk.CertificationCampaignFiltersV2025ApiListCampaignFiltersRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ListCampaignFilters200ResponseV2025>> => {
-    const certificationcampaignfiltersv2025api = new sdk.CertificationCampaignFiltersV2025Api(apiConfig);
-    return handleApiCall(() => certificationcampaignfiltersv2025api.listCampaignFilters(requestParameters));
-  },
-  // Updates an existing campaign filter using the filter\'s ID.
-  updateCampaignFilter: (requestParameters: sdk.CertificationCampaignFiltersV2025ApiUpdateCampaignFilterRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CampaignFilterDetailsV2025>> => {
-    const certificationcampaignfiltersv2025api = new sdk.CertificationCampaignFiltersV2025Api(apiConfig);
-    return handleApiCall(() => certificationcampaignfiltersv2025api.updateCampaignFilter(requestParameters));
-  },
-
-  // :::caution  This endpoint will run successfully for any campaigns that are **past due**.  This endpoint will return a content error if the campaign is **not past due**.  :::  Use this API to complete a certification campaign. This functionality is provided to admins so that they can complete a certification even if all items have not been completed. 
-  completeCampaign: (requestParameters: sdk.CertificationCampaignsV2025ApiCompleteCampaignRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const certificationcampaignsv2025api = new sdk.CertificationCampaignsV2025Api(apiConfig);
-    return handleApiCall(() => certificationcampaignsv2025api.completeCampaign(requestParameters));
-  },
-  // Use this API to create a certification campaign with the information provided in the request body.     
-  createCampaign: (requestParameters: sdk.CertificationCampaignsV2025ApiCreateCampaignRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CampaignV2025>> => {
-    const certificationcampaignsv2025api = new sdk.CertificationCampaignsV2025Api(apiConfig);
-    return handleApiCall(() => certificationcampaignsv2025api.createCampaign(requestParameters));
-  },
-  // Use this API to create a certification campaign template based on campaign. 
-  createCampaignTemplate: (requestParameters: sdk.CertificationCampaignsV2025ApiCreateCampaignTemplateRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CampaignTemplateV2025>> => {
-    const certificationcampaignsv2025api = new sdk.CertificationCampaignsV2025Api(apiConfig);
-    return handleApiCall(() => certificationcampaignsv2025api.createCampaignTemplate(requestParameters));
-  },
-  // Use this API to delete a certification campaign template by ID. 
-  deleteCampaignTemplate: (requestParameters: sdk.CertificationCampaignsV2025ApiDeleteCampaignTemplateRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const certificationcampaignsv2025api = new sdk.CertificationCampaignsV2025Api(apiConfig);
-    return handleApiCall(() => certificationcampaignsv2025api.deleteCampaignTemplate(requestParameters));
-  },
-  // Use this API to delete the schedule for a certification campaign template. The API returns a 404 if there is no schedule set. 
-  deleteCampaignTemplateSchedule: (requestParameters: sdk.CertificationCampaignsV2025ApiDeleteCampaignTemplateScheduleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const certificationcampaignsv2025api = new sdk.CertificationCampaignsV2025Api(apiConfig);
-    return handleApiCall(() => certificationcampaignsv2025api.deleteCampaignTemplateSchedule(requestParameters));
-  },
-  // Use this API to delete certification campaigns whose IDs are specified in the provided list of campaign IDs. 
-  deleteCampaigns: (requestParameters: sdk.CertificationCampaignsV2025ApiDeleteCampaignsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const certificationcampaignsv2025api = new sdk.CertificationCampaignsV2025Api(apiConfig);
-    return handleApiCall(() => certificationcampaignsv2025api.deleteCampaigns(requestParameters));
-  },
-  // Use this API to get a list of campaigns. This API can provide increased level of detail for each campaign for the correct provided query. 
-  getActiveCampaigns: (requestParameters: sdk.CertificationCampaignsV2025ApiGetActiveCampaignsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.GetActiveCampaigns200ResponseInnerV2025>>> => {
-    const certificationcampaignsv2025api = new sdk.CertificationCampaignsV2025Api(apiConfig);
-    return handleApiCall(() => certificationcampaignsv2025api.getActiveCampaigns(requestParameters));
-  },
-  // Use this API to get information for an existing certification campaign by the campaign\'s ID. 
-  getCampaign: (requestParameters: sdk.CertificationCampaignsV2025ApiGetCampaignRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetCampaign200ResponseV2025>> => {
-    const certificationcampaignsv2025api = new sdk.CertificationCampaignsV2025Api(apiConfig);
-    return handleApiCall(() => certificationcampaignsv2025api.getCampaign(requestParameters));
-  },
-  // Use this API to fetch all reports for a certification campaign by campaign ID. 
-  getCampaignReports: (requestParameters: sdk.CertificationCampaignsV2025ApiGetCampaignReportsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.CampaignReportV2025>>> => {
-    const certificationcampaignsv2025api = new sdk.CertificationCampaignsV2025Api(apiConfig);
-    return handleApiCall(() => certificationcampaignsv2025api.getCampaignReports(requestParameters));
-  },
-  // Use this API to fetch the configuration for certification campaign reports. The configuration includes only one element - identity attributes defined as custom report columns.  
-  getCampaignReportsConfig: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CampaignReportsConfigV2025>> => {
-    const certificationcampaignsv2025api = new sdk.CertificationCampaignsV2025Api(apiConfig);
-    return handleApiCall(() => certificationcampaignsv2025api.getCampaignReportsConfig());
-  },
-  // Use this API to fetch a certification campaign template by ID. 
-  getCampaignTemplate: (requestParameters: sdk.CertificationCampaignsV2025ApiGetCampaignTemplateRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CampaignTemplateV2025>> => {
-    const certificationcampaignsv2025api = new sdk.CertificationCampaignsV2025Api(apiConfig);
-    return handleApiCall(() => certificationcampaignsv2025api.getCampaignTemplate(requestParameters));
-  },
-  // Use this API to get the schedule for a certification campaign template. The API returns a 404 if there is no schedule set. 
-  getCampaignTemplateSchedule: (requestParameters: sdk.CertificationCampaignsV2025ApiGetCampaignTemplateScheduleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ScheduleV2025>> => {
-    const certificationcampaignsv2025api = new sdk.CertificationCampaignsV2025Api(apiConfig);
-    return handleApiCall(() => certificationcampaignsv2025api.getCampaignTemplateSchedule(requestParameters));
-  },
-  // Use this API to get a list of all campaign templates. Scope can be reduced through standard V3 query params.  The API returns all campaign templates matching the query parameters.  
-  getCampaignTemplates: (requestParameters: sdk.CertificationCampaignsV2025ApiGetCampaignTemplatesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.CampaignTemplateV2025>>> => {
-    const certificationcampaignsv2025api = new sdk.CertificationCampaignsV2025Api(apiConfig);
-    return handleApiCall(() => certificationcampaignsv2025api.getCampaignTemplates(requestParameters));
-  },
-  // This API reassigns the specified certifications from one identity to another.     
-  move: (requestParameters: sdk.CertificationCampaignsV2025ApiMoveRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CertificationTaskV2025>> => {
-    const certificationcampaignsv2025api = new sdk.CertificationCampaignsV2025Api(apiConfig);
-    return handleApiCall(() => certificationcampaignsv2025api.move(requestParameters));
-  },
-  // Use this API to update individual fields on a certification campaign template, using the [JSON Patch](https://tools.ietf.org/html/rfc6902) standard. 
-  patchCampaignTemplate: (requestParameters: sdk.CertificationCampaignsV2025ApiPatchCampaignTemplateRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CampaignTemplateV2025>> => {
-    const certificationcampaignsv2025api = new sdk.CertificationCampaignsV2025Api(apiConfig);
-    return handleApiCall(() => certificationcampaignsv2025api.patchCampaignTemplate(requestParameters));
-  },
-  // Use this API to overwrite the configuration for campaign reports.  
-  setCampaignReportsConfig: (requestParameters: sdk.CertificationCampaignsV2025ApiSetCampaignReportsConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CampaignReportsConfigV2025>> => {
-    const certificationcampaignsv2025api = new sdk.CertificationCampaignsV2025Api(apiConfig);
-    return handleApiCall(() => certificationcampaignsv2025api.setCampaignReportsConfig(requestParameters));
-  },
-  // Use this API to set the schedule for a certification campaign template. If a schedule already exists, the API overwrites it with the new one. 
-  setCampaignTemplateSchedule: (requestParameters: sdk.CertificationCampaignsV2025ApiSetCampaignTemplateScheduleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const certificationcampaignsv2025api = new sdk.CertificationCampaignsV2025Api(apiConfig);
-    return handleApiCall(() => certificationcampaignsv2025api.setCampaignTemplateSchedule(requestParameters));
-  },
-  // Use this API to submit a job to activate the certified campaign with the specified ID. The campaign must be staged. 
-  startCampaign: (requestParameters: sdk.CertificationCampaignsV2025ApiStartCampaignRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const certificationcampaignsv2025api = new sdk.CertificationCampaignsV2025Api(apiConfig);
-    return handleApiCall(() => certificationcampaignsv2025api.startCampaign(requestParameters));
-  },
-  // Use this API to run a remediation scan task for a certification campaign. 
-  startCampaignRemediationScan: (requestParameters: sdk.CertificationCampaignsV2025ApiStartCampaignRemediationScanRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const certificationcampaignsv2025api = new sdk.CertificationCampaignsV2025Api(apiConfig);
-    return handleApiCall(() => certificationcampaignsv2025api.startCampaignRemediationScan(requestParameters));
-  },
-  // Use this API to run a report for a certification campaign. 
-  startCampaignReport: (requestParameters: sdk.CertificationCampaignsV2025ApiStartCampaignReportRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const certificationcampaignsv2025api = new sdk.CertificationCampaignsV2025Api(apiConfig);
-    return handleApiCall(() => certificationcampaignsv2025api.startCampaignReport(requestParameters));
-  },
-  // Use this API to generate a new certification campaign from a campaign template.  The campaign object contained in the template has special formatting applied to its name and description fields that determine the generated campaign\'s name/description. Placeholders in those fields are formatted with the current date and time upon generation.  Placeholders consist of a percent sign followed by a letter indicating what should be inserted. For example, \"%Y\" inserts the current year, and a campaign template named \"Campaign for %y\" generates a campaign called \"Campaign for 2020\" (assuming the year at generation time is 2020).  Valid placeholders are the date/time conversion suffix characters supported by [java.util.Formatter](https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html). 
-  startGenerateCampaignTemplate: (requestParameters: sdk.CertificationCampaignsV2025ApiStartGenerateCampaignTemplateRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CampaignReferenceV2025>> => {
-    const certificationcampaignsv2025api = new sdk.CertificationCampaignsV2025Api(apiConfig);
-    return handleApiCall(() => certificationcampaignsv2025api.startGenerateCampaignTemplate(requestParameters));
-  },
-  // Use this API to update individual fields on a certification campaign, using the [JSON Patch](https://tools.ietf.org/html/rfc6902) standard. 
-  updateCampaign: (requestParameters: sdk.CertificationCampaignsV2025ApiUpdateCampaignRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SlimCampaignV2025>> => {
-    const certificationcampaignsv2025api = new sdk.CertificationCampaignsV2025Api(apiConfig);
-    return handleApiCall(() => certificationcampaignsv2025api.updateCampaign(requestParameters));
-  },
-
-  // This API returns a list of access summaries for the specified identity campaign certification and type. Reviewers for this certification can also call this API.
-  getIdentityAccessSummaries: (requestParameters: sdk.CertificationSummariesV2025ApiGetIdentityAccessSummariesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AccessSummaryV2025>>> => {
-    const certificationsummariesv2025api = new sdk.CertificationSummariesV2025Api(apiConfig);
-    return handleApiCall(() => certificationsummariesv2025api.getIdentityAccessSummaries(requestParameters));
-  },
-  // This API returns a summary of the decisions made on an identity campaign certification. The decisions are summarized by type. Reviewers for this certification can also call this API.
-  getIdentityDecisionSummary: (requestParameters: sdk.CertificationSummariesV2025ApiGetIdentityDecisionSummaryRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.IdentityCertDecisionSummaryV2025>> => {
-    const certificationsummariesv2025api = new sdk.CertificationSummariesV2025Api(apiConfig);
-    return handleApiCall(() => certificationsummariesv2025api.getIdentityDecisionSummary(requestParameters));
-  },
-  // This API returns a list of the identity summaries for a specific identity campaign certification. Reviewers for this certification can also call this API.
-  getIdentitySummaries: (requestParameters: sdk.CertificationSummariesV2025ApiGetIdentitySummariesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.CertificationIdentitySummaryV2025>>> => {
-    const certificationsummariesv2025api = new sdk.CertificationSummariesV2025Api(apiConfig);
-    return handleApiCall(() => certificationsummariesv2025api.getIdentitySummaries(requestParameters));
-  },
-  // This API returns the summary for an identity on a specified identity campaign certification. Reviewers for this certification can also call this API.
-  getIdentitySummary: (requestParameters: sdk.CertificationSummariesV2025ApiGetIdentitySummaryRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CertificationIdentitySummaryV2025>> => {
-    const certificationsummariesv2025api = new sdk.CertificationSummariesV2025Api(apiConfig);
-    return handleApiCall(() => certificationsummariesv2025api.getIdentitySummary(requestParameters));
-  },
-
-  // This API returns the certification task for the specified ID. Reviewers for the specified certification can also call this API.
-  getCertificationTask: (requestParameters: sdk.CertificationsV2025ApiGetCertificationTaskRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CertificationTaskV2025>> => {
-    const certificationsv2025api = new sdk.CertificationsV2025Api(apiConfig);
-    return handleApiCall(() => certificationsv2025api.getCertificationTask(requestParameters));
-  },
-  // This API returns a single identity campaign certification by its ID. Reviewers for this certification can also call this API.
-  getIdentityCertification: (requestParameters: sdk.CertificationsV2025ApiGetIdentityCertificationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.IdentityCertificationDtoV2025>> => {
-    const certificationsv2025api = new sdk.CertificationsV2025Api(apiConfig);
-    return handleApiCall(() => certificationsv2025api.getIdentityCertification(requestParameters));
-  },
-  // This API returns the permissions associated with an entitlement certification item based on the certification item\'s ID. Reviewers for this certification can also call this API.
-  getIdentityCertificationItemPermissions: (requestParameters: sdk.CertificationsV2025ApiGetIdentityCertificationItemPermissionsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.PermissionDtoV2025>>> => {
-    const certificationsv2025api = new sdk.CertificationsV2025Api(apiConfig);
-    return handleApiCall(() => certificationsv2025api.getIdentityCertificationItemPermissions(requestParameters));
-  },
-  // This API returns a list of pending (`QUEUED` or `IN_PROGRESS`) certification tasks. Any authenticated token can call this API, but only certification tasks you are authorized to review will be returned.
-  getPendingCertificationTasks: (requestParameters: sdk.CertificationsV2025ApiGetPendingCertificationTasksRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.CertificationTaskV2025>>> => {
-    const certificationsv2025api = new sdk.CertificationsV2025Api(apiConfig);
-    return handleApiCall(() => certificationsv2025api.getPendingCertificationTasks(requestParameters));
-  },
-  // This API returns a list of reviewers for the certification. Reviewers for this certification can also call this API.
-  listCertificationReviewers: (requestParameters: sdk.CertificationsV2025ApiListCertificationReviewersRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.IdentityReferenceWithNameAndEmailV2025>>> => {
-    const certificationsv2025api = new sdk.CertificationsV2025Api(apiConfig);
-    return handleApiCall(() => certificationsv2025api.listCertificationReviewers(requestParameters));
-  },
-  // This API returns a list of access review items for an identity campaign certification. Reviewers for this certification can also call this API. This API does not support requests for certifications assigned to Governance Groups.
-  listIdentityAccessReviewItems: (requestParameters: sdk.CertificationsV2025ApiListIdentityAccessReviewItemsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AccessReviewItemV2025>>> => {
-    const certificationsv2025api = new sdk.CertificationsV2025Api(apiConfig);
-    return handleApiCall(() => certificationsv2025api.listIdentityAccessReviewItems(requestParameters));
-  },
-  // Use this API to get a list of identity campaign certifications for the specified query parameters. Any authenticated token can call this API, but only certifications you are authorized to review will be returned. This API does not support requests for certifications assigned to governance groups.
-  listIdentityCertifications: (requestParameters: sdk.CertificationsV2025ApiListIdentityCertificationsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.IdentityCertificationDtoV2025>>> => {
-    const certificationsv2025api = new sdk.CertificationsV2025Api(apiConfig);
-    return handleApiCall(() => certificationsv2025api.listIdentityCertifications(requestParameters));
-  },
-  // The API makes a decision to approve or revoke one or more identity campaign certification items. Reviewers for this certification can also call this API. This API does not support requests for certifications assigned to Governance Groups.
-  makeIdentityDecision: (requestParameters: sdk.CertificationsV2025ApiMakeIdentityDecisionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.IdentityCertificationDtoV2025>> => {
-    const certificationsv2025api = new sdk.CertificationsV2025Api(apiConfig);
-    return handleApiCall(() => certificationsv2025api.makeIdentityDecision(requestParameters));
-  },
-  // This API reassigns up to 50 identities or items in an identity campaign certification to another reviewer. A token with ORG_ADMIN or CERT_ADMIN authority is required to call this API. Reviewers for this certification can also call this API. This API does not support requests for certifications assigned to Governance Groups.
-  reassignIdentityCertifications: (requestParameters: sdk.CertificationsV2025ApiReassignIdentityCertificationsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.IdentityCertificationDtoV2025>> => {
-    const certificationsv2025api = new sdk.CertificationsV2025Api(apiConfig);
-    return handleApiCall(() => certificationsv2025api.reassignIdentityCertifications(requestParameters));
-  },
-  // This API finalizes all decisions made on an identity campaign certification and initiates any remediations required. Reviewers for this certification can also call this API. This API does not support requests for certifications assigned to Governance Groups.
-  signOffIdentityCertification: (requestParameters: sdk.CertificationsV2025ApiSignOffIdentityCertificationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.IdentityCertificationDtoV2025>> => {
-    const certificationsv2025api = new sdk.CertificationsV2025Api(apiConfig);
-    return handleApiCall(() => certificationsv2025api.signOffIdentityCertification(requestParameters));
-  },
-  // This API initiates a task to reassign up to 500 identities or items in an identity campaign certification to another reviewer. The `certification-tasks` API can be used to get an updated status on the task and determine when the reassignment is complete.   Reviewers for this certification can also call this API. 
-  submitReassignCertsAsync: (requestParameters: sdk.CertificationsV2025ApiSubmitReassignCertsAsyncRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CertificationTaskV2025>> => {
-    const certificationsv2025api = new sdk.CertificationsV2025Api(apiConfig);
-    return handleApiCall(() => certificationsv2025api.submitReassignCertsAsync(requestParameters));
-  },
-
-  // Use this API to cancel account classification process on a source. A token with API, ORG_ADMIN, ROLE_ADMIN, ROLE_SUBADMIN, SOURCE_ADMIN, or SOURCE_SUBADMIN authority is required to call this API.
-  deleteClassifyMachineAccountFromSource: (requestParameters: sdk.ClassifySourceV2025ApiDeleteClassifyMachineAccountFromSourceRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const classifysourcev2025api = new sdk.ClassifySourceV2025Api(apiConfig);
-    return handleApiCall(() => classifysourcev2025api.deleteClassifyMachineAccountFromSource(requestParameters));
-  },
-  // Use this API to get the status of Machine Account Classification process for a source. A token with API, ORG_ADMIN, ROLE_ADMIN, ROLE_SUBADMIN, SOURCE_ADMIN, or SOURCE_SUBADMIN authority is required to call this API.
-  getClassifyMachineAccountFromSourceStatus: (requestParameters: sdk.ClassifySourceV2025ApiGetClassifyMachineAccountFromSourceStatusRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SourceClassificationStatusV2025>> => {
-    const classifysourcev2025api = new sdk.ClassifySourceV2025Api(apiConfig);
-    return handleApiCall(() => classifysourcev2025api.getClassifyMachineAccountFromSourceStatus(requestParameters));
-  },
-  // Use this API to classify all the accounts from a source. A token with API, ORG_ADMIN, ROLE_ADMIN, ROLE_SUBADMIN, SOURCE_ADMIN, or SOURCE_SUBADMIN authority is required to call this API.
-  sendClassifyMachineAccountFromSource: (requestParameters: sdk.ClassifySourceV2025ApiSendClassifyMachineAccountFromSourceRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SendClassifyMachineAccountFromSource200ResponseV2025>> => {
-    const classifysourcev2025api = new sdk.ClassifySourceV2025Api(apiConfig);
-    return handleApiCall(() => classifysourcev2025api.sendClassifyMachineAccountFromSource(requestParameters));
-  },
-
-  // This API performs a deploy based on an existing daft.
-  createDeploy: (requestParameters: sdk.ConfigurationHubV2025ApiCreateDeployRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DeployResponseV2025>> => {
-    const configurationhubv2025api = new sdk.ConfigurationHubV2025Api(apiConfig);
-    return handleApiCall(() => configurationhubv2025api.createDeploy(requestParameters));
-  },
-  // This creates an object mapping between current org and source org. Source org should be \"default\" when creating an object mapping that is not to be associated to any particular org. The request will need the following security scope: - sp:config-object-mapping:manage
-  createObjectMapping: (requestParameters: sdk.ConfigurationHubV2025ApiCreateObjectMappingRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ObjectMappingResponseV2025>> => {
-    const configurationhubv2025api = new sdk.ConfigurationHubV2025Api(apiConfig);
-    return handleApiCall(() => configurationhubv2025api.createObjectMapping(requestParameters));
-  },
-  // This creates a set of object mappings (Max 25) between current org and source org. Source org should be \"default\" when creating object mappings that are not to be associated to any particular org. The request will need the following security scope: - sp:config-object-mapping:manage
-  createObjectMappings: (requestParameters: sdk.ConfigurationHubV2025ApiCreateObjectMappingsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ObjectMappingBulkCreateResponseV2025>> => {
-    const configurationhubv2025api = new sdk.ConfigurationHubV2025Api(apiConfig);
-    return handleApiCall(() => configurationhubv2025api.createObjectMappings(requestParameters));
-  },
-  // This API creates a new scheduled action for the current tenant.
-  createScheduledAction: (requestParameters: sdk.ConfigurationHubV2025ApiCreateScheduledActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ScheduledActionResponseV2025>> => {
-    const configurationhubv2025api = new sdk.ConfigurationHubV2025Api(apiConfig);
-    return handleApiCall(() => configurationhubv2025api.createScheduledAction(requestParameters));
-  },
-  // This API uploads a JSON configuration file into a tenant.  Configuration files can be managed and deployed via Configuration Hub by uploading a json file which contains configuration data. The JSON file should be the same as the one used by our import endpoints. The object types supported by upload configuration file functionality are the same as the ones supported by our regular backup functionality.  Refer to [SaaS Configuration](https://developer.sailpoint.com/docs/extensibility/configuration-management/saas-configuration#supported-objects) for more information about supported objects.
-  createUploadedConfiguration: (requestParameters: sdk.ConfigurationHubV2025ApiCreateUploadedConfigurationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.BackupResponseV2025>> => {
-    const configurationhubv2025api = new sdk.ConfigurationHubV2025Api(apiConfig);
-    return handleApiCall(() => configurationhubv2025api.createUploadedConfiguration(requestParameters));
-  },
-  // This API deletes an existing backup for the current tenant.  On success, this endpoint will return an empty response.  The backup id can be obtained from the response after a backup was successfully created, or from the list backups endpoint.
-  deleteBackup: (requestParameters: sdk.ConfigurationHubV2025ApiDeleteBackupRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const configurationhubv2025api = new sdk.ConfigurationHubV2025Api(apiConfig);
-    return handleApiCall(() => configurationhubv2025api.deleteBackup(requestParameters));
-  },
-  // This API deletes an existing draft for the current tenant.  On success, this endpoint will return an empty response.  The draft id can be obtained from the response after a draft was successfully created, or from the list drafts endpoint.
-  deleteDraft: (requestParameters: sdk.ConfigurationHubV2025ApiDeleteDraftRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const configurationhubv2025api = new sdk.ConfigurationHubV2025Api(apiConfig);
-    return handleApiCall(() => configurationhubv2025api.deleteDraft(requestParameters));
-  },
-  // This deletes an existing object mapping. Source org should be \"default\" when deleting an object mapping that is not associated to any particular org. The request will need the following security scope: - sp:config-object-mapping:manage
-  deleteObjectMapping: (requestParameters: sdk.ConfigurationHubV2025ApiDeleteObjectMappingRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const configurationhubv2025api = new sdk.ConfigurationHubV2025Api(apiConfig);
-    return handleApiCall(() => configurationhubv2025api.deleteObjectMapping(requestParameters));
-  },
-  // This API deletes an existing scheduled action.
-  deleteScheduledAction: (requestParameters: sdk.ConfigurationHubV2025ApiDeleteScheduledActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const configurationhubv2025api = new sdk.ConfigurationHubV2025Api(apiConfig);
-    return handleApiCall(() => configurationhubv2025api.deleteScheduledAction(requestParameters));
-  },
-  // This API deletes an uploaded configuration based on Id.  On success, this endpoint will return an empty response.  The uploaded configuration id can be obtained from the response after a successful upload, or the list uploaded configurations endpoint.
-  deleteUploadedConfiguration: (requestParameters: sdk.ConfigurationHubV2025ApiDeleteUploadedConfigurationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const configurationhubv2025api = new sdk.ConfigurationHubV2025Api(apiConfig);
-    return handleApiCall(() => configurationhubv2025api.deleteUploadedConfiguration(requestParameters));
-  },
-  // This API gets an existing deploy for the current tenant.
-  getDeploy: (requestParameters: sdk.ConfigurationHubV2025ApiGetDeployRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DeployResponseV2025>> => {
-    const configurationhubv2025api = new sdk.ConfigurationHubV2025Api(apiConfig);
-    return handleApiCall(() => configurationhubv2025api.getDeploy(requestParameters));
-  },
-  // This gets a list of existing object mappings between current org and source org. Source org should be \"default\" when getting object mappings that are not associated to any particular org. The request will need the following security scope: - sp:config-object-mapping:read
-  getObjectMappings: (requestParameters: sdk.ConfigurationHubV2025ApiGetObjectMappingsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ObjectMappingResponseV2025>>> => {
-    const configurationhubv2025api = new sdk.ConfigurationHubV2025Api(apiConfig);
-    return handleApiCall(() => configurationhubv2025api.getObjectMappings(requestParameters));
-  },
-  // This API gets an existing uploaded configuration for the current tenant.
-  getUploadedConfiguration: (requestParameters: sdk.ConfigurationHubV2025ApiGetUploadedConfigurationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.BackupResponseV2025>> => {
-    const configurationhubv2025api = new sdk.ConfigurationHubV2025Api(apiConfig);
-    return handleApiCall(() => configurationhubv2025api.getUploadedConfiguration(requestParameters));
-  },
-  // This API gets a list of existing backups for the current tenant.
-  listBackups: (requestParameters: sdk.ConfigurationHubV2025ApiListBackupsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.BackupResponse1V2025>>> => {
-    const configurationhubv2025api = new sdk.ConfigurationHubV2025Api(apiConfig);
-    return handleApiCall(() => configurationhubv2025api.listBackups(requestParameters));
-  },
-  // This API gets a list of deploys for the current tenant.
-  listDeploys: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ListDeploys200ResponseV2025>> => {
-    const configurationhubv2025api = new sdk.ConfigurationHubV2025Api(apiConfig);
-    return handleApiCall(() => configurationhubv2025api.listDeploys());
-  },
-  // This API gets a list of existing drafts for the current tenant.
-  listDrafts: (requestParameters: sdk.ConfigurationHubV2025ApiListDraftsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.DraftResponseV2025>>> => {
-    const configurationhubv2025api = new sdk.ConfigurationHubV2025Api(apiConfig);
-    return handleApiCall(() => configurationhubv2025api.listDrafts(requestParameters));
-  },
-  // This API gets a list of existing scheduled actions for the current tenant.
-  listScheduledActions: (apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ScheduledActionResponseV2025>>> => {
-    const configurationhubv2025api = new sdk.ConfigurationHubV2025Api(apiConfig);
-    return handleApiCall(() => configurationhubv2025api.listScheduledActions());
-  },
-  // This API gets a list of existing uploaded configurations for the current tenant.
-  listUploadedConfigurations: (requestParameters: sdk.ConfigurationHubV2025ApiListUploadedConfigurationsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.BackupResponseV2025>>> => {
-    const configurationhubv2025api = new sdk.ConfigurationHubV2025Api(apiConfig);
-    return handleApiCall(() => configurationhubv2025api.listUploadedConfigurations(requestParameters));
-  },
-  // This updates a set of object mappings, only enabled and targetValue fields can be updated. Source org should be \"default\" when updating object mappings that are not associated to any particular org. The request will need the following security scope: - sp:config-object-mapping:manage
-  updateObjectMappings: (requestParameters: sdk.ConfigurationHubV2025ApiUpdateObjectMappingsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ObjectMappingBulkPatchResponseV2025>> => {
-    const configurationhubv2025api = new sdk.ConfigurationHubV2025Api(apiConfig);
-    return handleApiCall(() => configurationhubv2025api.updateObjectMappings(requestParameters));
-  },
-  // This API updates an existing scheduled action using JSON Patch format.
-  updateScheduledAction: (requestParameters: sdk.ConfigurationHubV2025ApiUpdateScheduledActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ScheduledActionResponseV2025>> => {
-    const configurationhubv2025api = new sdk.ConfigurationHubV2025Api(apiConfig);
-    return handleApiCall(() => configurationhubv2025api.updateScheduledAction(requestParameters));
-  },
-
-  // Create a connector customizer.
-  createConnectorCustomizer: (requestParameters: sdk.ConnectorCustomizersV2025ApiCreateConnectorCustomizerRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ConnectorCustomizerCreateResponseV2025>> => {
-    const connectorcustomizersv2025api = new sdk.ConnectorCustomizersV2025Api(apiConfig);
-    return handleApiCall(() => connectorcustomizersv2025api.createConnectorCustomizer(requestParameters));
-  },
-  // Creates a new version for the customizer.
-  createConnectorCustomizerVersion: (requestParameters: sdk.ConnectorCustomizersV2025ApiCreateConnectorCustomizerVersionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ConnectorCustomizerVersionCreateResponseV2025>> => {
-    const connectorcustomizersv2025api = new sdk.ConnectorCustomizersV2025Api(apiConfig);
-    return handleApiCall(() => connectorcustomizersv2025api.createConnectorCustomizerVersion(requestParameters));
-  },
-  // Delete the connector customizer for the given ID.
-  deleteConnectorCustomizer: (requestParameters: sdk.ConnectorCustomizersV2025ApiDeleteConnectorCustomizerRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const connectorcustomizersv2025api = new sdk.ConnectorCustomizersV2025Api(apiConfig);
-    return handleApiCall(() => connectorcustomizersv2025api.deleteConnectorCustomizer(requestParameters));
-  },
-  // Gets connector customizer by ID.
-  getConnectorCustomizer: (requestParameters: sdk.ConnectorCustomizersV2025ApiGetConnectorCustomizerRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ConnectorCustomizersResponseV2025>> => {
-    const connectorcustomizersv2025api = new sdk.ConnectorCustomizersV2025Api(apiConfig);
-    return handleApiCall(() => connectorcustomizersv2025api.getConnectorCustomizer(requestParameters));
-  },
-  // List all connector customizers.
-  listConnectorCustomizers: (requestParameters: sdk.ConnectorCustomizersV2025ApiListConnectorCustomizersRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ConnectorCustomizersResponseV2025>>> => {
-    const connectorcustomizersv2025api = new sdk.ConnectorCustomizersV2025Api(apiConfig);
-    return handleApiCall(() => connectorcustomizersv2025api.listConnectorCustomizers(requestParameters));
-  },
-  // Update an existing connector customizer with the one provided in the request body. These fields are immutable: `id`, `name`, `type`.
-  putConnectorCustomizer: (requestParameters: sdk.ConnectorCustomizersV2025ApiPutConnectorCustomizerRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ConnectorCustomizerUpdateResponseV2025>> => {
-    const connectorcustomizersv2025api = new sdk.ConnectorCustomizersV2025Api(apiConfig);
-    return handleApiCall(() => connectorcustomizersv2025api.putConnectorCustomizer(requestParameters));
-  },
-
-  // Create a connector rule from the available types.
-  createConnectorRule: (requestParameters: sdk.ConnectorRuleManagementV2025ApiCreateConnectorRuleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ConnectorRuleResponseV2025>> => {
-    const connectorrulemanagementv2025api = new sdk.ConnectorRuleManagementV2025Api(apiConfig);
-    return handleApiCall(() => connectorrulemanagementv2025api.createConnectorRule(requestParameters));
-  },
-  // Delete the connector rule for the given ID.
-  deleteConnectorRule: (requestParameters: sdk.ConnectorRuleManagementV2025ApiDeleteConnectorRuleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const connectorrulemanagementv2025api = new sdk.ConnectorRuleManagementV2025Api(apiConfig);
-    return handleApiCall(() => connectorrulemanagementv2025api.deleteConnectorRule(requestParameters));
-  },
-  // Get a connector rule by ID.
-  getConnectorRule: (requestParameters: sdk.ConnectorRuleManagementV2025ApiGetConnectorRuleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ConnectorRuleResponseV2025>> => {
-    const connectorrulemanagementv2025api = new sdk.ConnectorRuleManagementV2025Api(apiConfig);
-    return handleApiCall(() => connectorrulemanagementv2025api.getConnectorRule(requestParameters));
-  },
-  // List existing connector rules.
-  getConnectorRuleList: (requestParameters: sdk.ConnectorRuleManagementV2025ApiGetConnectorRuleListRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ConnectorRuleResponseV2025>>> => {
-    const connectorrulemanagementv2025api = new sdk.ConnectorRuleManagementV2025Api(apiConfig);
-    return handleApiCall(() => connectorrulemanagementv2025api.getConnectorRuleList(requestParameters));
-  },
-  // Update an existing connector rule with the one provided in the request body. These fields are immutable: `id`, `name`, `type`
-  putConnectorRule: (requestParameters: sdk.ConnectorRuleManagementV2025ApiPutConnectorRuleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ConnectorRuleResponseV2025>> => {
-    const connectorrulemanagementv2025api = new sdk.ConnectorRuleManagementV2025Api(apiConfig);
-    return handleApiCall(() => connectorrulemanagementv2025api.putConnectorRule(requestParameters));
-  },
-  // Detect issues within the connector rule\'s code to fix and list them.
-  testConnectorRule: (requestParameters: sdk.ConnectorRuleManagementV2025ApiTestConnectorRuleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ConnectorRuleValidationResponseV2025>> => {
-    const connectorrulemanagementv2025api = new sdk.ConnectorRuleManagementV2025Api(apiConfig);
-    return handleApiCall(() => connectorrulemanagementv2025api.testConnectorRule(requestParameters));
-  },
-
-  // Create custom connector.    
-  createCustomConnector: (requestParameters: sdk.ConnectorsV2025ApiCreateCustomConnectorRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.V3ConnectorDtoV2025>> => {
-    const connectorsv2025api = new sdk.ConnectorsV2025Api(apiConfig);
-    return handleApiCall(() => connectorsv2025api.createCustomConnector(requestParameters));
-  },
-  // Delete a custom connector that using its script name.
-  deleteCustomConnector: (requestParameters: sdk.ConnectorsV2025ApiDeleteCustomConnectorRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const connectorsv2025api = new sdk.ConnectorsV2025Api(apiConfig);
-    return handleApiCall(() => connectorsv2025api.deleteCustomConnector(requestParameters));
-  },
-  // Fetches a connector that using its script name.    
-  getConnector: (requestParameters: sdk.ConnectorsV2025ApiGetConnectorRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ConnectorDetailV2025>> => {
-    const connectorsv2025api = new sdk.ConnectorsV2025Api(apiConfig);
-    return handleApiCall(() => connectorsv2025api.getConnector(requestParameters));
-  },
-  // Fetches a connector\'s correlation config using its script name.    
-  getConnectorCorrelationConfig: (requestParameters: sdk.ConnectorsV2025ApiGetConnectorCorrelationConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<string>> => {
-    const connectorsv2025api = new sdk.ConnectorsV2025Api(apiConfig);
-    return handleApiCall(() => connectorsv2025api.getConnectorCorrelationConfig(requestParameters));
-  },
-  // Fetches list of connectors that have \'RELEASED\' status using filtering and pagination.
-  getConnectorList: (requestParameters: sdk.ConnectorsV2025ApiGetConnectorListRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.V3ConnectorDtoV2025>>> => {
-    const connectorsv2025api = new sdk.ConnectorsV2025Api(apiConfig);
-    return handleApiCall(() => connectorsv2025api.getConnectorList(requestParameters));
-  },
-  // Fetches a connector\'s source config using its script name.    
-  getConnectorSourceConfig: (requestParameters: sdk.ConnectorsV2025ApiGetConnectorSourceConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<string>> => {
-    const connectorsv2025api = new sdk.ConnectorsV2025Api(apiConfig);
-    return handleApiCall(() => connectorsv2025api.getConnectorSourceConfig(requestParameters));
-  },
-  // Fetches a connector\'s source template using its script name.    
-  getConnectorSourceTemplate: (requestParameters: sdk.ConnectorsV2025ApiGetConnectorSourceTemplateRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<string>> => {
-    const connectorsv2025api = new sdk.ConnectorsV2025Api(apiConfig);
-    return handleApiCall(() => connectorsv2025api.getConnectorSourceTemplate(requestParameters));
-  },
-  // Fetches a connector\'s translations using its script name.    
-  getConnectorTranslations: (requestParameters: sdk.ConnectorsV2025ApiGetConnectorTranslationsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<string>> => {
-    const connectorsv2025api = new sdk.ConnectorsV2025Api(apiConfig);
-    return handleApiCall(() => connectorsv2025api.getConnectorTranslations(requestParameters));
-  },
-  // Update a connector\'s correlation config using its script name.    
-  putConnectorCorrelationConfig: (requestParameters: sdk.ConnectorsV2025ApiPutConnectorCorrelationConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.UpdateDetailV2025>> => {
-    const connectorsv2025api = new sdk.ConnectorsV2025Api(apiConfig);
-    return handleApiCall(() => connectorsv2025api.putConnectorCorrelationConfig(requestParameters));
-  },
-  // Update a connector\'s source config using its script name.    
-  putConnectorSourceConfig: (requestParameters: sdk.ConnectorsV2025ApiPutConnectorSourceConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.UpdateDetailV2025>> => {
-    const connectorsv2025api = new sdk.ConnectorsV2025Api(apiConfig);
-    return handleApiCall(() => connectorsv2025api.putConnectorSourceConfig(requestParameters));
-  },
-  // Update a connector\'s source template using its script name.    
-  putConnectorSourceTemplate: (requestParameters: sdk.ConnectorsV2025ApiPutConnectorSourceTemplateRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.UpdateDetailV2025>> => {
-    const connectorsv2025api = new sdk.ConnectorsV2025Api(apiConfig);
-    return handleApiCall(() => connectorsv2025api.putConnectorSourceTemplate(requestParameters));
-  },
-  // Update a connector\'s translations using its script name.    
-  putConnectorTranslations: (requestParameters: sdk.ConnectorsV2025ApiPutConnectorTranslationsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.UpdateDetailV2025>> => {
-    const connectorsv2025api = new sdk.ConnectorsV2025Api(apiConfig);
-    return handleApiCall(() => connectorsv2025api.putConnectorTranslations(requestParameters));
-  },
-  // This API updates a custom connector by script name using [JSON Patch](https://tools.ietf.org/html/rfc6902) syntax.  The following fields are patchable:   * connectorMetadata  * applicationXml  * correlationConfigXml  * sourceConfigXml 
-  updateConnector: (requestParameters: sdk.ConnectorsV2025ApiUpdateConnectorRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ConnectorDetailV2025>> => {
-    const connectorsv2025api = new sdk.ConnectorsV2025Api(apiConfig);
-    return handleApiCall(() => connectorsv2025api.updateConnector(requestParameters));
-  },
-
-  // 
-  createFormDefinition: (requestParameters: sdk.CustomFormsV2025ApiCreateFormDefinitionRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.FormDefinitionResponseV2025>> => {
-    const customformsv2025api = new sdk.CustomFormsV2025Api(apiConfig);
-    return handleApiCall(() => customformsv2025api.createFormDefinition(requestParameters));
-  },
-  // 
-  createFormDefinitionDynamicSchema: (requestParameters: sdk.CustomFormsV2025ApiCreateFormDefinitionDynamicSchemaRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.FormDefinitionDynamicSchemaResponseV2025>> => {
-    const customformsv2025api = new sdk.CustomFormsV2025Api(apiConfig);
-    return handleApiCall(() => customformsv2025api.createFormDefinitionDynamicSchema(requestParameters));
-  },
-  // Parameter `{formDefinitionID}` should match a form definition ID.
-  createFormDefinitionFileRequest: (requestParameters: sdk.CustomFormsV2025ApiCreateFormDefinitionFileRequestRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.FormDefinitionFileUploadResponseV2025>> => {
-    const customformsv2025api = new sdk.CustomFormsV2025Api(apiConfig);
-    return handleApiCall(() => customformsv2025api.createFormDefinitionFileRequest(requestParameters));
-  },
-  // 
-  createFormInstance: (requestParameters: sdk.CustomFormsV2025ApiCreateFormInstanceRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.FormInstanceResponseV2025>> => {
-    const customformsv2025api = new sdk.CustomFormsV2025Api(apiConfig);
-    return handleApiCall(() => customformsv2025api.createFormInstance(requestParameters));
-  },
-  // Parameter `{formDefinitionID}` should match a form definition ID.
-  deleteFormDefinition: (requestParameters: sdk.CustomFormsV2025ApiDeleteFormDefinitionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const customformsv2025api = new sdk.CustomFormsV2025Api(apiConfig);
-    return handleApiCall(() => customformsv2025api.deleteFormDefinition(requestParameters));
-  },
-  // No parameters required.
-  exportFormDefinitionsByTenant: (requestParameters: sdk.CustomFormsV2025ApiExportFormDefinitionsByTenantRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ExportFormDefinitionsByTenant200ResponseInnerV2025>>> => {
-    const customformsv2025api = new sdk.CustomFormsV2025Api(apiConfig);
-    return handleApiCall(() => customformsv2025api.exportFormDefinitionsByTenant(requestParameters));
-  },
-  // 
-  getFileFromS3: (requestParameters: sdk.CustomFormsV2025ApiGetFileFromS3Request, apiConfig: sdk.Configuration): Promise<ApiResponse<File>> => {
-    const customformsv2025api = new sdk.CustomFormsV2025Api(apiConfig);
-    return handleApiCall(() => customformsv2025api.getFileFromS3(requestParameters));
-  },
-  // Parameter `{formDefinitionID}` should match a form definition ID.
-  getFormDefinitionByKey: (requestParameters: sdk.CustomFormsV2025ApiGetFormDefinitionByKeyRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.FormDefinitionResponseV2025>> => {
-    const customformsv2025api = new sdk.CustomFormsV2025Api(apiConfig);
-    return handleApiCall(() => customformsv2025api.getFormDefinitionByKey(requestParameters));
-  },
-  // Parameter `{formInstanceID}` should match a form instance ID.
-  getFormInstanceByKey: (requestParameters: sdk.CustomFormsV2025ApiGetFormInstanceByKeyRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.FormInstanceResponseV2025>> => {
-    const customformsv2025api = new sdk.CustomFormsV2025Api(apiConfig);
-    return handleApiCall(() => customformsv2025api.getFormInstanceByKey(requestParameters));
-  },
-  // 
-  getFormInstanceFile: (requestParameters: sdk.CustomFormsV2025ApiGetFormInstanceFileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<File>> => {
-    const customformsv2025api = new sdk.CustomFormsV2025Api(apiConfig);
-    return handleApiCall(() => customformsv2025api.getFormInstanceFile(requestParameters));
-  },
-  // 
-  importFormDefinitions: (requestParameters: sdk.CustomFormsV2025ApiImportFormDefinitionsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ImportFormDefinitions202ResponseV2025>> => {
-    const customformsv2025api = new sdk.CustomFormsV2025Api(apiConfig);
-    return handleApiCall(() => customformsv2025api.importFormDefinitions(requestParameters));
-  },
-  // Parameter `{formDefinitionID}` should match a form definition ID.
-  patchFormDefinition: (requestParameters: sdk.CustomFormsV2025ApiPatchFormDefinitionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.FormDefinitionResponseV2025>> => {
-    const customformsv2025api = new sdk.CustomFormsV2025Api(apiConfig);
-    return handleApiCall(() => customformsv2025api.patchFormDefinition(requestParameters));
-  },
-  // Parameter `{formInstanceID}` should match a form instance ID.
-  patchFormInstance: (requestParameters: sdk.CustomFormsV2025ApiPatchFormInstanceRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.FormInstanceResponseV2025>> => {
-    const customformsv2025api = new sdk.CustomFormsV2025Api(apiConfig);
-    return handleApiCall(() => customformsv2025api.patchFormInstance(requestParameters));
-  },
-  // No parameters required.
-  searchFormDefinitionsByTenant: (requestParameters: sdk.CustomFormsV2025ApiSearchFormDefinitionsByTenantRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ListFormDefinitionsByTenantResponseV2025>> => {
-    const customformsv2025api = new sdk.CustomFormsV2025Api(apiConfig);
-    return handleApiCall(() => customformsv2025api.searchFormDefinitionsByTenant(requestParameters));
-  },
-  // Parameter `{formInstanceID}` should match a form instance ID. Parameter `{formElementID}` should match a form element ID at the data source configuration.
-  searchFormElementDataByElementID: (requestParameters: sdk.CustomFormsV2025ApiSearchFormElementDataByElementIDRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ListFormElementDataByElementIDResponseV2025>> => {
-    const customformsv2025api = new sdk.CustomFormsV2025Api(apiConfig);
-    return handleApiCall(() => customformsv2025api.searchFormElementDataByElementID(requestParameters));
-  },
-  // Returns a list of form instances for the tenant. Optionally filter by form definition ID.
-  searchFormInstancesByTenant: (requestParameters: sdk.CustomFormsV2025ApiSearchFormInstancesByTenantRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ListFormInstancesByTenantResponseV2025>>> => {
-    const customformsv2025api = new sdk.CustomFormsV2025Api(apiConfig);
-    return handleApiCall(() => customformsv2025api.searchFormInstancesByTenant(requestParameters));
-  },
-  // No parameters required.
-  searchPreDefinedSelectOptions: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ListPredefinedSelectOptionsResponseV2025>> => {
-    const customformsv2025api = new sdk.CustomFormsV2025Api(apiConfig);
-    return handleApiCall(() => customformsv2025api.searchPreDefinedSelectOptions());
-  },
-  // 
-  showPreviewDataSource: (requestParameters: sdk.CustomFormsV2025ApiShowPreviewDataSourceRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.PreviewDataSourceResponseV2025>> => {
-    const customformsv2025api = new sdk.CustomFormsV2025Api(apiConfig);
-    return handleApiCall(() => customformsv2025api.showPreviewDataSource(requestParameters));
-  },
-
-  // This API creates the custom password instructions for the specified page ID.
-  createCustomPasswordInstructions: (requestParameters: sdk.CustomPasswordInstructionsV2025ApiCreateCustomPasswordInstructionsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CustomPasswordInstructionV2025>> => {
-    const custompasswordinstructionsv2025api = new sdk.CustomPasswordInstructionsV2025Api(apiConfig);
-    return handleApiCall(() => custompasswordinstructionsv2025api.createCustomPasswordInstructions(requestParameters));
-  },
-  // This API delete the custom password instructions for the specified page ID.
-  deleteCustomPasswordInstructions: (requestParameters: sdk.CustomPasswordInstructionsV2025ApiDeleteCustomPasswordInstructionsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const custompasswordinstructionsv2025api = new sdk.CustomPasswordInstructionsV2025Api(apiConfig);
-    return handleApiCall(() => custompasswordinstructionsv2025api.deleteCustomPasswordInstructions(requestParameters));
-  },
-  // This API returns the custom password instructions for the specified page ID.
-  getCustomPasswordInstructions: (requestParameters: sdk.CustomPasswordInstructionsV2025ApiGetCustomPasswordInstructionsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CustomPasswordInstructionV2025>> => {
-    const custompasswordinstructionsv2025api = new sdk.CustomPasswordInstructionsV2025Api(apiConfig);
-    return handleApiCall(() => custompasswordinstructionsv2025api.getCustomPasswordInstructions(requestParameters));
-  },
-
-  // Creates a new custom user level for the tenant.
-  createCustomUserLevel: (requestParameters: sdk.CustomUserLevelsV2025ApiCreateCustomUserLevelRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.UserLevelSummaryDTOV2025>> => {
-    const customuserlevelsv2025api = new sdk.CustomUserLevelsV2025Api(apiConfig);
-    return handleApiCall(() => customuserlevelsv2025api.createCustomUserLevel(requestParameters));
-  },
-  // Deletes a specific user level by its ID.
-  deleteUserLevel: (requestParameters: sdk.CustomUserLevelsV2025ApiDeleteUserLevelRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const customuserlevelsv2025api = new sdk.CustomUserLevelsV2025Api(apiConfig);
-    return handleApiCall(() => customuserlevelsv2025api.deleteUserLevel(requestParameters));
-  },
-  // Fetches the details of a specific user level by its ID.
-  getUserLevel: (requestParameters: sdk.CustomUserLevelsV2025ApiGetUserLevelRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.UserLevelSummaryDTOV2025>> => {
-    const customuserlevelsv2025api = new sdk.CustomUserLevelsV2025Api(apiConfig);
-    return handleApiCall(() => customuserlevelsv2025api.getUserLevel(requestParameters));
-  },
-  // Retrieves a list of authorization assignable right sets for the tenant.
-  listAllAuthorizationRightSets: (requestParameters: sdk.CustomUserLevelsV2025ApiListAllAuthorizationRightSetsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.HierarchicalRightSetV2025>>> => {
-    const customuserlevelsv2025api = new sdk.CustomUserLevelsV2025Api(apiConfig);
-    return handleApiCall(() => customuserlevelsv2025api.listAllAuthorizationRightSets(requestParameters));
-  },
-  // List of identities associated with a user level.
-  listUserLevelIdentities: (requestParameters: sdk.CustomUserLevelsV2025ApiListUserLevelIdentitiesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AuthUserSlimResponseV2025>>> => {
-    const customuserlevelsv2025api = new sdk.CustomUserLevelsV2025Api(apiConfig);
-    return handleApiCall(() => customuserlevelsv2025api.listUserLevelIdentities(requestParameters));
-  },
-  // Retrieves a list of user levels for the tenant.
-  listUserLevels: (requestParameters: sdk.CustomUserLevelsV2025ApiListUserLevelsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.UserLevelSummaryDTOV2025>>> => {
-    const customuserlevelsv2025api = new sdk.CustomUserLevelsV2025Api(apiConfig);
-    return handleApiCall(() => customuserlevelsv2025api.listUserLevels(requestParameters));
-  },
-  // Publishes a custom user level for the tenant, making it active and available.
-  publishCustomUserLevel: (requestParameters: sdk.CustomUserLevelsV2025ApiPublishCustomUserLevelRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.UserLevelPublishSummaryV2025>> => {
-    const customuserlevelsv2025api = new sdk.CustomUserLevelsV2025Api(apiConfig);
-    return handleApiCall(() => customuserlevelsv2025api.publishCustomUserLevel(requestParameters));
-  },
-  // List of user levels along with the number of identities associated to it.
-  showUserLevelCounts: (requestParameters: sdk.CustomUserLevelsV2025ApiShowUserLevelCountsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AuthUserLevelsIdentityCountV2025>>> => {
-    const customuserlevelsv2025api = new sdk.CustomUserLevelsV2025Api(apiConfig);
-    return handleApiCall(() => customuserlevelsv2025api.showUserLevelCounts(requestParameters));
-  },
-  // Updates the details of a specific user level using JSON Patch.
-  updateUserLevel: (requestParameters: sdk.CustomUserLevelsV2025ApiUpdateUserLevelRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.UserLevelSummaryDTOV2025>> => {
-    const customuserlevelsv2025api = new sdk.CustomUserLevelsV2025Api(apiConfig);
-    return handleApiCall(() => customuserlevelsv2025api.updateUserLevel(requestParameters));
-  },
-
-  // This end-point sends a request to cancel a task in Data Access Security.
-  cancelTask: (requestParameters: sdk.DataAccessSecurityV2025ApiCancelTaskRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const dataaccesssecurityv2025api = new sdk.DataAccessSecurityV2025Api(apiConfig);
-    return handleApiCall(() => dataaccesssecurityv2025api.cancelTask(requestParameters));
-  },
-  // This endpoint creates a new application in Data Access Security with the specified configuration.
-  createApplication: (requestParameters: sdk.DataAccessSecurityV2025ApiCreateApplicationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const dataaccesssecurityv2025api = new sdk.DataAccessSecurityV2025Api(apiConfig);
-    return handleApiCall(() => dataaccesssecurityv2025api.createApplication(requestParameters));
-  },
-  // 
-  createSchedule: (requestParameters: sdk.DataAccessSecurityV2025ApiCreateScheduleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<number>> => {
-    const dataaccesssecurityv2025api = new sdk.DataAccessSecurityV2025Api(apiConfig);
-    return handleApiCall(() => dataaccesssecurityv2025api.createSchedule(requestParameters));
-  },
-  // 
-  dasOwnersAssignPost: (requestParameters: sdk.DataAccessSecurityV2025ApiDasOwnersAssignPostRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<number>> => {
-    const dataaccesssecurityv2025api = new sdk.DataAccessSecurityV2025Api(apiConfig);
-    return handleApiCall(() => dataaccesssecurityv2025api.dasOwnersAssignPost(requestParameters));
-  },
-  // 
-  dasOwnersOwnerIdentityIdResourcesGet: (requestParameters: sdk.DataAccessSecurityV2025ApiDasOwnersOwnerIdentityIdResourcesGetRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ResourceModelV2025>>> => {
-    const dataaccesssecurityv2025api = new sdk.DataAccessSecurityV2025Api(apiConfig);
-    return handleApiCall(() => dataaccesssecurityv2025api.dasOwnersOwnerIdentityIdResourcesGet(requestParameters));
-  },
-  // 
-  dasOwnersReelectPost: (requestParameters: sdk.DataAccessSecurityV2025ApiDasOwnersReelectPostRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<number>> => {
-    const dataaccesssecurityv2025api = new sdk.DataAccessSecurityV2025Api(apiConfig);
-    return handleApiCall(() => dataaccesssecurityv2025api.dasOwnersReelectPost(requestParameters));
-  },
-  // 
-  dasOwnersResourcesResourceIdGet: (requestParameters: sdk.DataAccessSecurityV2025ApiDasOwnersResourcesResourceIdGetRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<string>>> => {
-    const dataaccesssecurityv2025api = new sdk.DataAccessSecurityV2025Api(apiConfig);
-    return handleApiCall(() => dataaccesssecurityv2025api.dasOwnersResourcesResourceIdGet(requestParameters));
-  },
-  // 
-  dasOwnersSourceIdentityIdReassignDestinationIdentityIdPost: (requestParameters: sdk.DataAccessSecurityV2025ApiDasOwnersSourceIdentityIdReassignDestinationIdentityIdPostRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<number>> => {
-    const dataaccesssecurityv2025api = new sdk.DataAccessSecurityV2025Api(apiConfig);
-    return handleApiCall(() => dataaccesssecurityv2025api.dasOwnersSourceIdentityIdReassignDestinationIdentityIdPost(requestParameters));
-  },
-  // This endpoint deletes an application from Data Access Security by its unique identifier.
-  deleteApplication: (requestParameters: sdk.DataAccessSecurityV2025ApiDeleteApplicationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const dataaccesssecurityv2025api = new sdk.DataAccessSecurityV2025Api(apiConfig);
-    return handleApiCall(() => dataaccesssecurityv2025api.deleteApplication(requestParameters));
-  },
-  // This end-point sends a request to delete a schedule in Data Access Security.
-  deleteSchedule: (requestParameters: sdk.DataAccessSecurityV2025ApiDeleteScheduleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const dataaccesssecurityv2025api = new sdk.DataAccessSecurityV2025Api(apiConfig);
-    return handleApiCall(() => dataaccesssecurityv2025api.deleteSchedule(requestParameters));
-  },
-  // This end-point sends a request to delete a task in Data Access Security. 
-  deleteTask: (requestParameters: sdk.DataAccessSecurityV2025ApiDeleteTaskRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const dataaccesssecurityv2025api = new sdk.DataAccessSecurityV2025Api(apiConfig);
-    return handleApiCall(() => dataaccesssecurityv2025api.deleteTask(requestParameters));
-  },
-  // This endpoint retrieves the details of a specific application in Data Access Security by its unique identifier.
-  getApplication: (requestParameters: sdk.DataAccessSecurityV2025ApiGetApplicationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ApplicationItemV2025>> => {
-    const dataaccesssecurityv2025api = new sdk.DataAccessSecurityV2025Api(apiConfig);
-    return handleApiCall(() => dataaccesssecurityv2025api.getApplication(requestParameters));
-  },
-  // This endpoint lists all the applications in Data Access Security with optional filtering.
-  getApplications: (requestParameters: sdk.DataAccessSecurityV2025ApiGetApplicationsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ApplicationItemV2025>>> => {
-    const dataaccesssecurityv2025api = new sdk.DataAccessSecurityV2025Api(apiConfig);
-    return handleApiCall(() => dataaccesssecurityv2025api.getApplications(requestParameters));
-  },
-  // 
-  getOwners: (requestParameters: sdk.DataAccessSecurityV2025ApiGetOwnersRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.DataOwnerModelV2025>>> => {
-    const dataaccesssecurityv2025api = new sdk.DataAccessSecurityV2025Api(apiConfig);
-    return handleApiCall(() => dataaccesssecurityv2025api.getOwners(requestParameters));
-  },
-  // This end-point gets a schedule in Data Access Security.
-  getSchedule: (requestParameters: sdk.DataAccessSecurityV2025ApiGetScheduleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ScheduleInfoV2025>> => {
-    const dataaccesssecurityv2025api = new sdk.DataAccessSecurityV2025Api(apiConfig);
-    return handleApiCall(() => dataaccesssecurityv2025api.getSchedule(requestParameters));
-  },
-  // This end-point lists all the schedules in Data Access Security.
-  getSchedules: (requestParameters: sdk.DataAccessSecurityV2025ApiGetSchedulesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ScheduleInfoV2025>>> => {
-    const dataaccesssecurityv2025api = new sdk.DataAccessSecurityV2025Api(apiConfig);
-    return handleApiCall(() => dataaccesssecurityv2025api.getSchedules(requestParameters));
-  },
-  // This end-point gets a task in Data Access Security.
-  getTask: (requestParameters: sdk.DataAccessSecurityV2025ApiGetTaskRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TaskInfoV2025>> => {
-    const dataaccesssecurityv2025api = new sdk.DataAccessSecurityV2025Api(apiConfig);
-    return handleApiCall(() => dataaccesssecurityv2025api.getTask(requestParameters));
-  },
-  // This end-point lists all the tasks in Data Access Security.
-  getTasks: (requestParameters: sdk.DataAccessSecurityV2025ApiGetTasksRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.TaskInfoV2025>>> => {
-    const dataaccesssecurityv2025api = new sdk.DataAccessSecurityV2025Api(apiConfig);
-    return handleApiCall(() => dataaccesssecurityv2025api.getTasks(requestParameters));
-  },
-  // This endpoint updates an existing application in Data Access Security with the specified configuration.
-  putApplication: (requestParameters: sdk.DataAccessSecurityV2025ApiPutApplicationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const dataaccesssecurityv2025api = new sdk.DataAccessSecurityV2025Api(apiConfig);
-    return handleApiCall(() => dataaccesssecurityv2025api.putApplication(requestParameters));
-  },
-  // 
-  putSchedule: (requestParameters: sdk.DataAccessSecurityV2025ApiPutScheduleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const dataaccesssecurityv2025api = new sdk.DataAccessSecurityV2025Api(apiConfig);
-    return handleApiCall(() => dataaccesssecurityv2025api.putSchedule(requestParameters));
-  },
-  // This end-point sends a request to re-run a task in Data Access Security.
-  startTaskRerun: (requestParameters: sdk.DataAccessSecurityV2025ApiStartTaskRerunRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const dataaccesssecurityv2025api = new sdk.DataAccessSecurityV2025Api(apiConfig);
-    return handleApiCall(() => dataaccesssecurityv2025api.startTaskRerun(requestParameters));
-  },
-
-  // This API creates a segment.  >**Note:** Segment definitions may take time to propagate to all identities.
-  createDataSegment: (requestParameters: sdk.DataSegmentationV2025ApiCreateDataSegmentRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DataSegmentV2025>> => {
-    const datasegmentationv2025api = new sdk.DataSegmentationV2025Api(apiConfig);
-    return handleApiCall(() => datasegmentationv2025api.createDataSegment(requestParameters));
-  },
-  // This API deletes the segment specified by the given ID.
-  deleteDataSegment: (requestParameters: sdk.DataSegmentationV2025ApiDeleteDataSegmentRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const datasegmentationv2025api = new sdk.DataSegmentationV2025Api(apiConfig);
-    return handleApiCall(() => datasegmentationv2025api.deleteDataSegment(requestParameters));
-  },
-  // This API returns the segment specified by the given ID.
-  getDataSegment: (requestParameters: sdk.DataSegmentationV2025ApiGetDataSegmentRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DataSegmentV2025>> => {
-    const datasegmentationv2025api = new sdk.DataSegmentationV2025Api(apiConfig);
-    return handleApiCall(() => datasegmentationv2025api.getDataSegment(requestParameters));
-  },
-  // This API returns the segment membership specified by the given identity ID.
-  getDataSegmentIdentityMembership: (requestParameters: sdk.DataSegmentationV2025ApiGetDataSegmentIdentityMembershipRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const datasegmentationv2025api = new sdk.DataSegmentationV2025Api(apiConfig);
-    return handleApiCall(() => datasegmentationv2025api.getDataSegmentIdentityMembership(requestParameters));
-  },
-  // This API returns whether or not segmentation is enabled for the identity.
-  getDataSegmentationEnabledForUser: (requestParameters: sdk.DataSegmentationV2025ApiGetDataSegmentationEnabledForUserRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<boolean>> => {
-    const datasegmentationv2025api = new sdk.DataSegmentationV2025Api(apiConfig);
-    return handleApiCall(() => datasegmentationv2025api.getDataSegmentationEnabledForUser(requestParameters));
-  },
-  // This API returns the segment specified by the given ID.
-  listDataSegments: (requestParameters: sdk.DataSegmentationV2025ApiListDataSegmentsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.DataSegmentV2025>>> => {
-    const datasegmentationv2025api = new sdk.DataSegmentationV2025Api(apiConfig);
-    return handleApiCall(() => datasegmentationv2025api.listDataSegments(requestParameters));
-  },
-  // Use this API to update segment fields by using the [JSON Patch](https://tools.ietf.org/html/rfc6902) standard.
-  patchDataSegment: (requestParameters: sdk.DataSegmentationV2025ApiPatchDataSegmentRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DataSegmentV2025>> => {
-    const datasegmentationv2025api = new sdk.DataSegmentationV2025Api(apiConfig);
-    return handleApiCall(() => datasegmentationv2025api.patchDataSegment(requestParameters));
-  },
-  // This will publish the segment so that it starts applying the segmentation to the desired users if enabled
-  publishDataSegment: (requestParameters: sdk.DataSegmentationV2025ApiPublishDataSegmentRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const datasegmentationv2025api = new sdk.DataSegmentationV2025Api(apiConfig);
-    return handleApiCall(() => datasegmentationv2025api.publishDataSegment(requestParameters));
-  },
-
-  // Use this API to declassify all the accounts from a source. A token with API, ORG_ADMIN, ROLE_ADMIN, ROLE_SUBADMIN, SOURCE_ADMIN, or SOURCE_SUBADMIN authority is required to call this API.
-  sendDeclassifyMachineAccountFromSource: (requestParameters: sdk.DeclassifySourceV2025ApiSendDeclassifyMachineAccountFromSourceRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const declassifysourcev2025api = new sdk.DeclassifySourceV2025Api(apiConfig);
-    return handleApiCall(() => declassifysourcev2025api.sendDeclassifyMachineAccountFromSource(requestParameters));
-  },
-
-  // This API creates a dimension. You must have a token with API, ORG_ADMIN, ROLE_ADMIN, or ROLE_SUBADMIN authority to call this API.  Additionally, a ROLE_SUBADMIN cannot create a dimension that includes an access profile or entitlement if that access profile or entitlement is linked to a source that the ROLE_SUBADMIN is not associated with.  The maximum supported length for the description field is 2000 characters.
-  createDimension: (requestParameters: sdk.DimensionsV2025ApiCreateDimensionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DimensionV2025>> => {
-    const dimensionsv2025api = new sdk.DimensionsV2025Api(apiConfig);
-    return handleApiCall(() => dimensionsv2025api.createDimension(requestParameters));
-  },
-  // This endpoint initiates a bulk deletion of one or more dimensions. When the request is successful, the endpoint returns the bulk delete\'s task result ID.  To follow the task, you can use [Get Task Status by ID](https://developer.sailpoint.com/docs/api/beta/get-task-status), which will return the task result\'s status and information.  This endpoint can only bulk delete up to a limit of 50 roles per request.  A token with API, ORG_ADMIN, ROLE_ADMIN, or ROLE_SUBADMIN authority is required to call this endpoint. In addition, a token with ROLE_SUBADMIN authority can only call this endpoint if all dimensions included in the request are associated with sources with management workgroups the ROLE_SUBADMIN is a member of.
-  deleteBulkDimensions: (requestParameters: sdk.DimensionsV2025ApiDeleteBulkDimensionsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TaskResultDtoV2025>> => {
-    const dimensionsv2025api = new sdk.DimensionsV2025Api(apiConfig);
-    return handleApiCall(() => dimensionsv2025api.deleteBulkDimensions(requestParameters));
-  },
-  // This API deletes a Dimension by its ID. A token with API, ORG_ADMIN, ROLE_ADMIN, or ROLE_SUBADMIN authority is required to call this API. In addition, a token with ROLE_SUBADMIN authority may only call this API if all Access Profiles/Entitlements included in the Dimension are associated to Sources with management workgroups of which the ROLE_SUBADMIN is a member.
-  deleteDimension: (requestParameters: sdk.DimensionsV2025ApiDeleteDimensionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const dimensionsv2025api = new sdk.DimensionsV2025Api(apiConfig);
-    return handleApiCall(() => dimensionsv2025api.deleteDimension(requestParameters));
-  },
-  // This API returns a Dimension by its ID.  A token with API, ORG_ADMIN, ROLE_ADMIN, or ROLE_SUBADMIN authority is required to call this API. In addition, a token with ROLE_SUBADMIN authority may only call this API if all Access Profiles or Entitlements included in the Dimension or Parent Role are associated to Sources with management workgroups of which the ROLE_SUBADMIN is a member.
-  getDimension: (requestParameters: sdk.DimensionsV2025ApiGetDimensionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DimensionV2025>> => {
-    const dimensionsv2025api = new sdk.DimensionsV2025Api(apiConfig);
-    return handleApiCall(() => dimensionsv2025api.getDimension(requestParameters));
-  },
-  // This API lists the Entitlements associated with a given dimension.  A token with API, ORG_ADMIN, ROLE_ADMIN, or ROLE_SUBADMIN authority is required to call this API.
-  getDimensionEntitlements: (requestParameters: sdk.DimensionsV2025ApiGetDimensionEntitlementsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.EntitlementV2025>>> => {
-    const dimensionsv2025api = new sdk.DimensionsV2025Api(apiConfig);
-    return handleApiCall(() => dimensionsv2025api.getDimensionEntitlements(requestParameters));
-  },
-  // This API lists the Access Profiles associated with a given Dimension  A token with API, ORG_ADMIN, ROLE_ADMIN, or ROLE_SUBADMIN authority is required to call this API. In addition, a token with ROLE_SUBADMIN authority may only call this API if all Access Profiles included in the Role are associated to Sources with management workgroups of which the ROLE_SUBADMIN is a member.
-  listDimensionAccessProfiles: (requestParameters: sdk.DimensionsV2025ApiListDimensionAccessProfilesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AccessProfileV2025>>> => {
-    const dimensionsv2025api = new sdk.DimensionsV2025Api(apiConfig);
-    return handleApiCall(() => dimensionsv2025api.listDimensionAccessProfiles(requestParameters));
-  },
-  // This API returns a list of dimensions under a specified role.  A token with API, ORG_ADMIN, ROLE_ADMIN, or ROLE_SUBADMIN authority is required to call this API.
-  listDimensions: (requestParameters: sdk.DimensionsV2025ApiListDimensionsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.DimensionV2025>>> => {
-    const dimensionsv2025api = new sdk.DimensionsV2025Api(apiConfig);
-    return handleApiCall(() => dimensionsv2025api.listDimensions(requestParameters));
-  },
-  // This API updates an existing dimension using [JSON Patch](https://tools.ietf.org/html/rfc6902) syntax. The following fields are patchable: **name** **description** **owner** **accessProfiles** **entitlements** **membership** A token with API, ORG_ADMIN, ROLE_ADMIN, or ROLE_SUBADMIN authority is required to call this API. In addition, a token with ROLE_SUBADMIN authority may only call this API if all access profiles/entitlements included in the dimension are associated to Sources with management workgroups of which the ROLE_SUBADMIN is a member. The maximum supported length for the description field is 2000 characters. When you use this API to modify a dimension\'s membership identities, you can only modify up to a limit of 500 membership identities at a time.
-  patchDimension: (requestParameters: sdk.DimensionsV2025ApiPatchDimensionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DimensionV2025>> => {
-    const dimensionsv2025api = new sdk.DimensionsV2025Api(apiConfig);
-    return handleApiCall(() => dimensionsv2025api.patchDimension(requestParameters));
-  },
-
-  // Add single Access Model Metadata to an entitlement.
-  createAccessModelMetadataForEntitlement: (requestParameters: sdk.EntitlementsV2025ApiCreateAccessModelMetadataForEntitlementRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.EntitlementV2025>> => {
-    const entitlementsv2025api = new sdk.EntitlementsV2025Api(apiConfig);
-    return handleApiCall(() => entitlementsv2025api.createAccessModelMetadataForEntitlement(requestParameters));
-  },
-  // Remove single Access Model Metadata from an entitlement.
-  deleteAccessModelMetadataFromEntitlement: (requestParameters: sdk.EntitlementsV2025ApiDeleteAccessModelMetadataFromEntitlementRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const entitlementsv2025api = new sdk.EntitlementsV2025Api(apiConfig);
-    return handleApiCall(() => entitlementsv2025api.deleteAccessModelMetadataFromEntitlement(requestParameters));
-  },
-  // This API returns an entitlement by its ID.
-  getEntitlement: (requestParameters: sdk.EntitlementsV2025ApiGetEntitlementRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.EntitlementV2025>> => {
-    const entitlementsv2025api = new sdk.EntitlementsV2025Api(apiConfig);
-    return handleApiCall(() => entitlementsv2025api.getEntitlement(requestParameters));
-  },
-  // This API returns the entitlement request config for a specified entitlement.
-  getEntitlementRequestConfig: (requestParameters: sdk.EntitlementsV2025ApiGetEntitlementRequestConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.EntitlementRequestConfigV2025>> => {
-    const entitlementsv2025api = new sdk.EntitlementsV2025Api(apiConfig);
-    return handleApiCall(() => entitlementsv2025api.getEntitlementRequestConfig(requestParameters));
-  },
-  // Starts an entitlement aggregation on the specified source. Though this endpoint has been deprecated, you can find its Beta equivalent [here](https://developer.sailpoint.com/docs/api/beta/import-entitlements).  If the target source is a direct connection, then the request body must be empty. You will also need to make sure the Content-Type header is not set. If you set the Content-Type header without specifying a body, then you will receive a 500 error.  If the target source is a delimited file source, then the CSV file needs to be included in the request body. You will also need to set the Content-Type header to `multipart/form-data`.
-  importEntitlementsBySource: (requestParameters: sdk.EntitlementsV2025ApiImportEntitlementsBySourceRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.LoadEntitlementTaskV2025>> => {
-    const entitlementsv2025api = new sdk.EntitlementsV2025Api(apiConfig);
-    return handleApiCall(() => entitlementsv2025api.importEntitlementsBySource(requestParameters));
-  },
-  // This API returns a list of all child entitlements of a given entitlement.
-  listEntitlementChildren: (requestParameters: sdk.EntitlementsV2025ApiListEntitlementChildrenRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.EntitlementV2025>>> => {
-    const entitlementsv2025api = new sdk.EntitlementsV2025Api(apiConfig);
-    return handleApiCall(() => entitlementsv2025api.listEntitlementChildren(requestParameters));
-  },
-  // This API returns a list of all parent entitlements of a given entitlement.
-  listEntitlementParents: (requestParameters: sdk.EntitlementsV2025ApiListEntitlementParentsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.EntitlementV2025>>> => {
-    const entitlementsv2025api = new sdk.EntitlementsV2025Api(apiConfig);
-    return handleApiCall(() => entitlementsv2025api.listEntitlementParents(requestParameters));
-  },
-  // This API returns a list of entitlements.  This API can be used in one of the two following ways: either getting entitlements for a specific **account-id**, or getting via use of **filters** (those two options are exclusive).  Any authenticated token can call this API.
-  listEntitlements: (requestParameters: sdk.EntitlementsV2025ApiListEntitlementsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.EntitlementV2025>>> => {
-    const entitlementsv2025api = new sdk.EntitlementsV2025Api(apiConfig);
-    return handleApiCall(() => entitlementsv2025api.listEntitlements(requestParameters));
-  },
-  // This API updates an existing entitlement using [JSON Patch](https://tools.ietf.org/html/rfc6902) syntax.  The following fields are patchable: **requestable**, **privileged**, **segments**, **owner**, **name**, **description**, and **manuallyUpdatedFields**  When you\'re patching owner, only owner type and owner id must be provided. Owner name is optional, and it won\'t be modified. If the owner name is provided, it should correspond to the real name. The only owner type currently supported is IDENTITY.
-  patchEntitlement: (requestParameters: sdk.EntitlementsV2025ApiPatchEntitlementRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.EntitlementV2025>> => {
-    const entitlementsv2025api = new sdk.EntitlementsV2025Api(apiConfig);
-    return handleApiCall(() => entitlementsv2025api.patchEntitlement(requestParameters));
-  },
-  // This API replaces the entitlement request config for a specified entitlement.
-  putEntitlementRequestConfig: (requestParameters: sdk.EntitlementsV2025ApiPutEntitlementRequestConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.EntitlementRequestConfigV2025>> => {
-    const entitlementsv2025api = new sdk.EntitlementsV2025Api(apiConfig);
-    return handleApiCall(() => entitlementsv2025api.putEntitlementRequestConfig(requestParameters));
-  },
-  // Remove all entitlements from a specific source. To reload the accounts along with the entitlements you removed, you must run an unoptimized aggregation.  To do so, use [Account Aggregation](https://developer.sailpoint.com/docs/api/v2024/import-accounts/) with `disableOptimization` = `true`. 
-  resetSourceEntitlements: (requestParameters: sdk.EntitlementsV2025ApiResetSourceEntitlementsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.EntitlementSourceResetBaseReferenceDtoV2025>> => {
-    const entitlementsv2025api = new sdk.EntitlementsV2025Api(apiConfig);
-    return handleApiCall(() => entitlementsv2025api.resetSourceEntitlements(requestParameters));
-  },
-  // This API applies an update to every entitlement of the list.   The number of entitlements to update is limited to 50 items maximum.   The JsonPatch update follows the [JSON Patch](https://tools.ietf.org/html/rfc6902) standard. examples of allowed operations : `**{ \"op\": \"replace\", \"path\": \"/privileged\", \"value\": boolean }**` `**{ \"op\": \"replace\", \"path\": \"/requestable\",\"value\": boolean }**`  A token with ORG_ADMIN or API authority is required to call this API. 
-  updateEntitlementsInBulk: (requestParameters: sdk.EntitlementsV2025ApiUpdateEntitlementsInBulkRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const entitlementsv2025api = new sdk.EntitlementsV2025Api(apiConfig);
-    return handleApiCall(() => entitlementsv2025api.updateEntitlementsInBulk(requestParameters));
-  },
-
-  // This API returns the details of an org\'s network auth configuration. Requires security scope of: \'sp:auth-org:manage\'
-  createAuthOrgNetworkConfig: (requestParameters: sdk.GlobalTenantSecuritySettingsV2025ApiCreateAuthOrgNetworkConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.NetworkConfigurationV2025>> => {
-    const globaltenantsecuritysettingsv2025api = new sdk.GlobalTenantSecuritySettingsV2025Api(apiConfig);
-    return handleApiCall(() => globaltenantsecuritysettingsv2025api.createAuthOrgNetworkConfig(requestParameters));
-  },
-  // This API returns the details of an org\'s lockout auth configuration.
-  getAuthOrgLockoutConfig: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.LockoutConfigurationV2025>> => {
-    const globaltenantsecuritysettingsv2025api = new sdk.GlobalTenantSecuritySettingsV2025Api(apiConfig);
-    return handleApiCall(() => globaltenantsecuritysettingsv2025api.getAuthOrgLockoutConfig());
-  },
-  // This API returns the details of an org\'s network auth configuration.
-  getAuthOrgNetworkConfig: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.NetworkConfigurationV2025>> => {
-    const globaltenantsecuritysettingsv2025api = new sdk.GlobalTenantSecuritySettingsV2025Api(apiConfig);
-    return handleApiCall(() => globaltenantsecuritysettingsv2025api.getAuthOrgNetworkConfig());
-  },
-  // This API returns the details of an org\'s service provider auth configuration.
-  getAuthOrgServiceProviderConfig: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ServiceProviderConfigurationV2025>> => {
-    const globaltenantsecuritysettingsv2025api = new sdk.GlobalTenantSecuritySettingsV2025Api(apiConfig);
-    return handleApiCall(() => globaltenantsecuritysettingsv2025api.getAuthOrgServiceProviderConfig());
-  },
-  // This API returns the details of an org\'s session auth configuration.
-  getAuthOrgSessionConfig: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SessionConfigurationV2025>> => {
-    const globaltenantsecuritysettingsv2025api = new sdk.GlobalTenantSecuritySettingsV2025Api(apiConfig);
-    return handleApiCall(() => globaltenantsecuritysettingsv2025api.getAuthOrgSessionConfig());
-  },
-  // This API updates an existing lockout configuration for an org using PATCH 
-  patchAuthOrgLockoutConfig: (requestParameters: sdk.GlobalTenantSecuritySettingsV2025ApiPatchAuthOrgLockoutConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.LockoutConfigurationV2025>> => {
-    const globaltenantsecuritysettingsv2025api = new sdk.GlobalTenantSecuritySettingsV2025Api(apiConfig);
-    return handleApiCall(() => globaltenantsecuritysettingsv2025api.patchAuthOrgLockoutConfig(requestParameters));
-  },
-  // This API updates an existing network configuration for an org using PATCH  Requires security scope of:  \'sp:auth-org:manage\'
-  patchAuthOrgNetworkConfig: (requestParameters: sdk.GlobalTenantSecuritySettingsV2025ApiPatchAuthOrgNetworkConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.NetworkConfigurationV2025>> => {
-    const globaltenantsecuritysettingsv2025api = new sdk.GlobalTenantSecuritySettingsV2025Api(apiConfig);
-    return handleApiCall(() => globaltenantsecuritysettingsv2025api.patchAuthOrgNetworkConfig(requestParameters));
-  },
-  // This API updates an existing service provider configuration for an org using PATCH.
-  patchAuthOrgServiceProviderConfig: (requestParameters: sdk.GlobalTenantSecuritySettingsV2025ApiPatchAuthOrgServiceProviderConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ServiceProviderConfigurationV2025>> => {
-    const globaltenantsecuritysettingsv2025api = new sdk.GlobalTenantSecuritySettingsV2025Api(apiConfig);
-    return handleApiCall(() => globaltenantsecuritysettingsv2025api.patchAuthOrgServiceProviderConfig(requestParameters));
-  },
-  // This API updates an existing session configuration for an org using PATCH.
-  patchAuthOrgSessionConfig: (requestParameters: sdk.GlobalTenantSecuritySettingsV2025ApiPatchAuthOrgSessionConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SessionConfigurationV2025>> => {
-    const globaltenantsecuritysettingsv2025api = new sdk.GlobalTenantSecuritySettingsV2025Api(apiConfig);
-    return handleApiCall(() => globaltenantsecuritysettingsv2025api.patchAuthOrgSessionConfig(requestParameters));
-  },
-
-  // This API creates a new Governance Group.
-  createWorkgroup: (requestParameters: sdk.GovernanceGroupsV2025ApiCreateWorkgroupRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.WorkgroupDtoV2025>> => {
-    const governancegroupsv2025api = new sdk.GovernanceGroupsV2025Api(apiConfig);
-    return handleApiCall(() => governancegroupsv2025api.createWorkgroup(requestParameters));
-  },
-  // This API deletes a Governance Group by its ID.
-  deleteWorkgroup: (requestParameters: sdk.GovernanceGroupsV2025ApiDeleteWorkgroupRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const governancegroupsv2025api = new sdk.GovernanceGroupsV2025Api(apiConfig);
-    return handleApiCall(() => governancegroupsv2025api.deleteWorkgroup(requestParameters));
-  },
-  // This API removes one or more  members from a Governance Group.  A >  **Following field of Identity is an optional field in the request.**  >  **name**
-  deleteWorkgroupMembers: (requestParameters: sdk.GovernanceGroupsV2025ApiDeleteWorkgroupMembersRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.WorkgroupMemberDeleteItemV2025>>> => {
-    const governancegroupsv2025api = new sdk.GovernanceGroupsV2025Api(apiConfig);
-    return handleApiCall(() => governancegroupsv2025api.deleteWorkgroupMembers(requestParameters));
-  },
-  //  This API initiates a bulk deletion of one or more Governance Groups.  >  If any of the indicated Governance Groups have one or more connections associated with it,then those Governance Groups will be added in  **inUse** list of the response. Governance Group(s) marked as **inUse** can not be deleted.  >  If any of the indicated Governance Groups is not does not exists in Organization,then those Governance Groups will be added in **notFound** list of the response. Governance Groups marked as **notFound** will not be deleted.  >  If any of the indicated Governance Groups does not have any connections associated with it,then those Governance Groups will be added in **deleted** list of the response. A Governance Group marked as **deleted** will be deleted from current Organization.  >  If the request contains any **inUse** or **notFound** Governance Group IDs then it skips only these Governance Groups for deletion and deletes the rest of Governance Groups which have no connections associated with it.   >  **This API has limit number of Governance Groups can be deleted at one time. If the request contains more then 100 Governance Groups IDs to be deleted then the API will throw an exception.**
-  deleteWorkgroupsInBulk: (requestParameters: sdk.GovernanceGroupsV2025ApiDeleteWorkgroupsInBulkRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.WorkgroupDeleteItemV2025>>> => {
-    const governancegroupsv2025api = new sdk.GovernanceGroupsV2025Api(apiConfig);
-    return handleApiCall(() => governancegroupsv2025api.deleteWorkgroupsInBulk(requestParameters));
-  },
-  // This API returns a Governance Groups by its ID.
-  getWorkgroup: (requestParameters: sdk.GovernanceGroupsV2025ApiGetWorkgroupRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.WorkgroupDtoV2025>> => {
-    const governancegroupsv2025api = new sdk.GovernanceGroupsV2025Api(apiConfig);
-    return handleApiCall(() => governancegroupsv2025api.getWorkgroup(requestParameters));
-  },
-  // This API returns list of connections associated with a Governance Group.
-  listConnections: (requestParameters: sdk.GovernanceGroupsV2025ApiListConnectionsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.WorkgroupConnectionDtoV2025>>> => {
-    const governancegroupsv2025api = new sdk.GovernanceGroupsV2025Api(apiConfig);
-    return handleApiCall(() => governancegroupsv2025api.listConnections(requestParameters));
-  },
-  // This API returns list of members associated with a Governance Group.
-  listWorkgroupMembers: (requestParameters: sdk.GovernanceGroupsV2025ApiListWorkgroupMembersRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ListWorkgroupMembers200ResponseInnerV2025>>> => {
-    const governancegroupsv2025api = new sdk.GovernanceGroupsV2025Api(apiConfig);
-    return handleApiCall(() => governancegroupsv2025api.listWorkgroupMembers(requestParameters));
-  },
-  // This API returns list of Governance Groups
-  listWorkgroups: (requestParameters: sdk.GovernanceGroupsV2025ApiListWorkgroupsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.WorkgroupDtoV2025>>> => {
-    const governancegroupsv2025api = new sdk.GovernanceGroupsV2025Api(apiConfig);
-    return handleApiCall(() => governancegroupsv2025api.listWorkgroups(requestParameters));
-  },
-  // This API updates an existing governance group by ID. The following fields and objects are patchable: * name * description * owner
-  patchWorkgroup: (requestParameters: sdk.GovernanceGroupsV2025ApiPatchWorkgroupRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.WorkgroupDtoV2025>> => {
-    const governancegroupsv2025api = new sdk.GovernanceGroupsV2025Api(apiConfig);
-    return handleApiCall(() => governancegroupsv2025api.patchWorkgroup(requestParameters));
-  },
-  // This API adds one or more members to a Governance Group.  A token with API, ORG_ADMIN authority is required to call this API.  >  **Following field of Identity is an optional field in the request.**  >  **name**
-  updateWorkgroupMembers: (requestParameters: sdk.GovernanceGroupsV2025ApiUpdateWorkgroupMembersRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.WorkgroupMemberAddItemV2025>>> => {
-    const governancegroupsv2025api = new sdk.GovernanceGroupsV2025Api(apiConfig);
-    return handleApiCall(() => governancegroupsv2025api.updateWorkgroupMembers(requestParameters));
-  },
-
-  // This API ignores a recommended access request item. Once an item is ignored, it will be marked as ignored=true if it is still a recommended item. The consumer can decide to hide ignored recommendations.
-  addAccessRequestRecommendationsIgnoredItem: (requestParameters: sdk.IAIAccessRequestRecommendationsV2025ApiAddAccessRequestRecommendationsIgnoredItemRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AccessRequestRecommendationActionItemResponseDtoV2025>> => {
-    const iaiaccessrequestrecommendationsv2025api = new sdk.IAIAccessRequestRecommendationsV2025Api(apiConfig);
-    return handleApiCall(() => iaiaccessrequestrecommendationsv2025api.addAccessRequestRecommendationsIgnoredItem(requestParameters));
-  },
-  // This API consumes a notification that a recommended access request item was requested. This API does not actually make the request, it is just a notification. This will help provide feedback in order to improve our recommendations.
-  addAccessRequestRecommendationsRequestedItem: (requestParameters: sdk.IAIAccessRequestRecommendationsV2025ApiAddAccessRequestRecommendationsRequestedItemRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AccessRequestRecommendationActionItemResponseDtoV2025>> => {
-    const iaiaccessrequestrecommendationsv2025api = new sdk.IAIAccessRequestRecommendationsV2025Api(apiConfig);
-    return handleApiCall(() => iaiaccessrequestrecommendationsv2025api.addAccessRequestRecommendationsRequestedItem(requestParameters));
-  },
-  // This API consumes a notification that a recommended access request item was viewed. Future recommendations with this item will be marked with viewed=true. This can be useful for the consumer to determine if there are any new/unviewed recommendations.
-  addAccessRequestRecommendationsViewedItem: (requestParameters: sdk.IAIAccessRequestRecommendationsV2025ApiAddAccessRequestRecommendationsViewedItemRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AccessRequestRecommendationActionItemResponseDtoV2025>> => {
-    const iaiaccessrequestrecommendationsv2025api = new sdk.IAIAccessRequestRecommendationsV2025Api(apiConfig);
-    return handleApiCall(() => iaiaccessrequestrecommendationsv2025api.addAccessRequestRecommendationsViewedItem(requestParameters));
-  },
-  // This API consumes a notification that a set of recommended access request item were viewed. Future recommendations with these items will be marked with viewed=true. This can be useful for the consumer to determine if there are any new/unviewed recommendations.
-  addAccessRequestRecommendationsViewedItems: (requestParameters: sdk.IAIAccessRequestRecommendationsV2025ApiAddAccessRequestRecommendationsViewedItemsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AccessRequestRecommendationActionItemResponseDtoV2025>>> => {
-    const iaiaccessrequestrecommendationsv2025api = new sdk.IAIAccessRequestRecommendationsV2025Api(apiConfig);
-    return handleApiCall(() => iaiaccessrequestrecommendationsv2025api.addAccessRequestRecommendationsViewedItems(requestParameters));
-  },
-  // This API returns the access request recommendations for the specified identity. The default identity is *me* which indicates the current user.
-  getAccessRequestRecommendations: (requestParameters: sdk.IAIAccessRequestRecommendationsV2025ApiGetAccessRequestRecommendationsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AccessRequestRecommendationItemDetailV2025>>> => {
-    const iaiaccessrequestrecommendationsv2025api = new sdk.IAIAccessRequestRecommendationsV2025Api(apiConfig);
-    return handleApiCall(() => iaiaccessrequestrecommendationsv2025api.getAccessRequestRecommendations(requestParameters));
-  },
-  // This API returns the configurations for Access Request Recommender for the tenant.
-  getAccessRequestRecommendationsConfig: (requestParameters: sdk.IAIAccessRequestRecommendationsV2025ApiGetAccessRequestRecommendationsConfigRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AccessRequestRecommendationConfigDtoV2025>> => {
-    const iaiaccessrequestrecommendationsv2025api = new sdk.IAIAccessRequestRecommendationsV2025Api(apiConfig);
-    return handleApiCall(() => iaiaccessrequestrecommendationsv2025api.getAccessRequestRecommendationsConfig(requestParameters));
-  },
-  // This API returns the list of ignored access request recommendations.
-  getAccessRequestRecommendationsIgnoredItems: (requestParameters: sdk.IAIAccessRequestRecommendationsV2025ApiGetAccessRequestRecommendationsIgnoredItemsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AccessRequestRecommendationActionItemResponseDtoV2025>>> => {
-    const iaiaccessrequestrecommendationsv2025api = new sdk.IAIAccessRequestRecommendationsV2025Api(apiConfig);
-    return handleApiCall(() => iaiaccessrequestrecommendationsv2025api.getAccessRequestRecommendationsIgnoredItems(requestParameters));
-  },
-  // This API returns a list of requested access request recommendations.
-  getAccessRequestRecommendationsRequestedItems: (requestParameters: sdk.IAIAccessRequestRecommendationsV2025ApiGetAccessRequestRecommendationsRequestedItemsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AccessRequestRecommendationActionItemResponseDtoV2025>>> => {
-    const iaiaccessrequestrecommendationsv2025api = new sdk.IAIAccessRequestRecommendationsV2025Api(apiConfig);
-    return handleApiCall(() => iaiaccessrequestrecommendationsv2025api.getAccessRequestRecommendationsRequestedItems(requestParameters));
-  },
-  // This API returns the list of viewed access request recommendations.
-  getAccessRequestRecommendationsViewedItems: (requestParameters: sdk.IAIAccessRequestRecommendationsV2025ApiGetAccessRequestRecommendationsViewedItemsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AccessRequestRecommendationActionItemResponseDtoV2025>>> => {
-    const iaiaccessrequestrecommendationsv2025api = new sdk.IAIAccessRequestRecommendationsV2025Api(apiConfig);
-    return handleApiCall(() => iaiaccessrequestrecommendationsv2025api.getAccessRequestRecommendationsViewedItems(requestParameters));
-  },
-  // This API updates the configurations for Access Request Recommender for the tenant.
-  setAccessRequestRecommendationsConfig: (requestParameters: sdk.IAIAccessRequestRecommendationsV2025ApiSetAccessRequestRecommendationsConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AccessRequestRecommendationConfigDtoV2025>> => {
-    const iaiaccessrequestrecommendationsv2025api = new sdk.IAIAccessRequestRecommendationsV2025Api(apiConfig);
-    return handleApiCall(() => iaiaccessrequestrecommendationsv2025api.setAccessRequestRecommendationsConfig(requestParameters));
-  },
-
-  // This API is used to add roles/access profiles to the list of common access for a customer. Requires authorization scope of iai:access-modeling:create
-  createCommonAccess: (requestParameters: sdk.IAICommonAccessV2025ApiCreateCommonAccessRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CommonAccessItemResponseV2025>> => {
-    const iaicommonaccessv2025api = new sdk.IAICommonAccessV2025Api(apiConfig);
-    return handleApiCall(() => iaicommonaccessv2025api.createCommonAccess(requestParameters));
-  },
-  // This endpoint returns the current common access for a customer. The returned items can be filtered and sorted. Requires authorization scope of iai:access-modeling:read
-  getCommonAccess: (requestParameters: sdk.IAICommonAccessV2025ApiGetCommonAccessRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.CommonAccessResponseV2025>>> => {
-    const iaicommonaccessv2025api = new sdk.IAICommonAccessV2025Api(apiConfig);
-    return handleApiCall(() => iaicommonaccessv2025api.getCommonAccess(requestParameters));
-  },
-  // This submits an update request to the common access application. At this time there are no parameters. Requires authorization scope of iai:access-modeling:update
-  updateCommonAccessStatusInBulk: (requestParameters: sdk.IAICommonAccessV2025ApiUpdateCommonAccessStatusInBulkRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const iaicommonaccessv2025api = new sdk.IAICommonAccessV2025Api(apiConfig);
-    return handleApiCall(() => iaicommonaccessv2025api.updateCommonAccessStatusInBulk(requestParameters));
-  },
-
-  // This API exports a list of ignored outliers to a CSV as well as list of non-ignored outliers to a CSV. These two CSVs will be zipped and exported.  Columns will include: identityId, type, firstDetectionDate, latestDetectionDate, ignored, & attributes (defined set of identity attributes). 
-  exportOutliersZip: (requestParameters: sdk.IAIOutliersV2025ApiExportOutliersZipRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<File>> => {
-    const iaioutliersv2025api = new sdk.IAIOutliersV2025Api(apiConfig);
-    return handleApiCall(() => iaioutliersv2025api.exportOutliersZip(requestParameters));
-  },
-  // This API returns a summary containing the number of identities that customer has, the number of outliers, and the type of outlier.
-  getIdentityOutlierSnapshots: (requestParameters: sdk.IAIOutliersV2025ApiGetIdentityOutlierSnapshotsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.OutlierSummaryV2025>>> => {
-    const iaioutliersv2025api = new sdk.IAIOutliersV2025Api(apiConfig);
-    return handleApiCall(() => iaioutliersv2025api.getIdentityOutlierSnapshots(requestParameters));
-  },
-  // This API returns a list of outliers, containing data such as identity ID, outlier type, detection dates, identity attributes, if identity is ignored, and certification information.
-  getIdentityOutliers: (requestParameters: sdk.IAIOutliersV2025ApiGetIdentityOutliersRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.OutlierV2025>>> => {
-    const iaioutliersv2025api = new sdk.IAIOutliersV2025Api(apiConfig);
-    return handleApiCall(() => iaioutliersv2025api.getIdentityOutliers(requestParameters));
-  },
-  // This API returns a most recent snapshot of each outlier type, each containing the number of identities that customer has, the number of outliers, and the type of outlier.
-  getLatestIdentityOutlierSnapshots: (requestParameters: sdk.IAIOutliersV2025ApiGetLatestIdentityOutlierSnapshotsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.LatestOutlierSummaryV2025>>> => {
-    const iaioutliersv2025api = new sdk.IAIOutliersV2025Api(apiConfig);
-    return handleApiCall(() => iaioutliersv2025api.getLatestIdentityOutlierSnapshots(requestParameters));
-  },
-  // This API returns a summary of a contributing feature for an identity outlier.  The object contains: contributing feature name (translated text or message key), identity outlier display name, feature values, feature definition and explanation (translated text or message key), peer display name and identityId, access item reference, translation messages object. 
-  getOutlierContributingFeatureSummary: (requestParameters: sdk.IAIOutliersV2025ApiGetOutlierContributingFeatureSummaryRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.OutlierFeatureSummaryV2025>> => {
-    const iaioutliersv2025api = new sdk.IAIOutliersV2025Api(apiConfig);
-    return handleApiCall(() => iaioutliersv2025api.getOutlierContributingFeatureSummary(requestParameters));
-  },
-  // This API returns a list of contributing feature objects for a single outlier.  The object contains: feature name, feature value type, value, importance, display name (translated text or message key), description (translated text or message key), translation messages object. 
-  getPeerGroupOutliersContributingFeatures: (requestParameters: sdk.IAIOutliersV2025ApiGetPeerGroupOutliersContributingFeaturesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.OutlierContributingFeatureV2025>>> => {
-    const iaioutliersv2025api = new sdk.IAIOutliersV2025Api(apiConfig);
-    return handleApiCall(() => iaioutliersv2025api.getPeerGroupOutliersContributingFeatures(requestParameters));
-  },
-  // This API receives a list of identity IDs in the request, changes the outliers to be ignored.
-  ignoreIdentityOutliers: (requestParameters: sdk.IAIOutliersV2025ApiIgnoreIdentityOutliersRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const iaioutliersv2025api = new sdk.IAIOutliersV2025Api(apiConfig);
-    return handleApiCall(() => iaioutliersv2025api.ignoreIdentityOutliers(requestParameters));
-  },
-  // This API returns a list of the enriched access items associated with each feature filtered by the access item type.  The object contains: accessItemId, display name (translated text or message key), description (translated text or message key), accessType, sourceName, extremelyRare. 
-  listOutliersContributingFeatureAccessItems: (requestParameters: sdk.IAIOutliersV2025ApiListOutliersContributingFeatureAccessItemsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.OutliersContributingFeatureAccessItemsV2025>>> => {
-    const iaioutliersv2025api = new sdk.IAIOutliersV2025Api(apiConfig);
-    return handleApiCall(() => iaioutliersv2025api.listOutliersContributingFeatureAccessItems(requestParameters));
-  },
-  // This API receives a list of identity IDs in the request, changes the outliers to be un-ignored.
-  unIgnoreIdentityOutliers: (requestParameters: sdk.IAIOutliersV2025ApiUnIgnoreIdentityOutliersRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const iaioutliersv2025api = new sdk.IAIOutliersV2025Api(apiConfig);
-    return handleApiCall(() => iaioutliersv2025api.unIgnoreIdentityOutliers(requestParameters));
-  },
-
-  // -- Deprecated : See \'IAI Outliers\' This API will be used by Identity Governance systems to identify identities that are not included in an organization\'s peer groups. By default, 250 identities are returned. You can specify between 1 and 1000 number of identities that can be returned.
-  getPeerGroupOutliers: (requestParameters: sdk.IAIPeerGroupStrategiesV2025ApiGetPeerGroupOutliersRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.PeerGroupMemberV2025>>> => {
-    const iaipeergroupstrategiesv2025api = new sdk.IAIPeerGroupStrategiesV2025Api(apiConfig);
-    return handleApiCall(() => iaipeergroupstrategiesv2025api.getPeerGroupOutliers(requestParameters));
-  },
-
-  // The getRecommendations API returns recommendations based on the requested object. The recommendations are invoked by IdentityIQ and IdentityNow plug-ins that retrieve recommendations based on the performed calculations.
-  getRecommendations: (requestParameters: sdk.IAIRecommendationsV2025ApiGetRecommendationsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RecommendationResponseDtoV2025>> => {
-    const iairecommendationsv2025api = new sdk.IAIRecommendationsV2025Api(apiConfig);
-    return handleApiCall(() => iairecommendationsv2025api.getRecommendations(requestParameters));
-  },
-  // Retrieves configuration attributes used by certification recommendations.
-  getRecommendationsConfig: (requestParameters: sdk.IAIRecommendationsV2025ApiGetRecommendationsConfigRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RecommendationConfigDtoV2025>> => {
-    const iairecommendationsv2025api = new sdk.IAIRecommendationsV2025Api(apiConfig);
-    return handleApiCall(() => iairecommendationsv2025api.getRecommendationsConfig(requestParameters));
-  },
-  // Updates configuration attributes used by certification recommendations.
-  updateRecommendationsConfig: (requestParameters: sdk.IAIRecommendationsV2025ApiUpdateRecommendationsConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RecommendationConfigDtoV2025>> => {
-    const iairecommendationsv2025api = new sdk.IAIRecommendationsV2025Api(apiConfig);
-    return handleApiCall(() => iairecommendationsv2025api.updateRecommendationsConfig(requestParameters));
-  },
-
-  // This method starts a job to provision a potential role
-  createPotentialRoleProvisionRequest: (requestParameters: sdk.IAIRoleMiningV2025ApiCreatePotentialRoleProvisionRequestRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RoleMiningPotentialRoleSummaryV2025>> => {
-    const iairoleminingv2025api = new sdk.IAIRoleMiningV2025Api(apiConfig);
-    return handleApiCall(() => iairoleminingv2025api.createPotentialRoleProvisionRequest(requestParameters));
-  },
-  // This submits a create role mining session request to the role mining application.
-  createRoleMiningSessions: (requestParameters: sdk.IAIRoleMiningV2025ApiCreateRoleMiningSessionsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RoleMiningSessionResponseV2025>> => {
-    const iairoleminingv2025api = new sdk.IAIRoleMiningV2025Api(apiConfig);
-    return handleApiCall(() => iairoleminingv2025api.createRoleMiningSessions(requestParameters));
-  },
-  // This endpoint downloads a completed export of information for a potential role in a role mining session.
-  downloadRoleMiningPotentialRoleZip: (requestParameters: sdk.IAIRoleMiningV2025ApiDownloadRoleMiningPotentialRoleZipRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<File>> => {
-    const iairoleminingv2025api = new sdk.IAIRoleMiningV2025Api(apiConfig);
-    return handleApiCall(() => iairoleminingv2025api.downloadRoleMiningPotentialRoleZip(requestParameters));
-  },
-  // This endpoint downloads all the information for a potential role in a role mining session. Includes identities and entitlements in the potential role.
-  exportRoleMiningPotentialRole: (requestParameters: sdk.IAIRoleMiningV2025ApiExportRoleMiningPotentialRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<File>> => {
-    const iairoleminingv2025api = new sdk.IAIRoleMiningV2025Api(apiConfig);
-    return handleApiCall(() => iairoleminingv2025api.exportRoleMiningPotentialRole(requestParameters));
-  },
-  // This endpoint uploads all the information for a potential role in a role mining session to S3 as a downloadable zip archive.  Includes identities and entitlements in the potential role.
-  exportRoleMiningPotentialRoleAsync: (requestParameters: sdk.IAIRoleMiningV2025ApiExportRoleMiningPotentialRoleAsyncRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RoleMiningPotentialRoleExportResponseV2025>> => {
-    const iairoleminingv2025api = new sdk.IAIRoleMiningV2025Api(apiConfig);
-    return handleApiCall(() => iairoleminingv2025api.exportRoleMiningPotentialRoleAsync(requestParameters));
-  },
-  // This endpoint retrieves information about the current status of a potential role export.
-  exportRoleMiningPotentialRoleStatus: (requestParameters: sdk.IAIRoleMiningV2025ApiExportRoleMiningPotentialRoleStatusRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RoleMiningPotentialRoleExportResponseV2025>> => {
-    const iairoleminingv2025api = new sdk.IAIRoleMiningV2025Api(apiConfig);
-    return handleApiCall(() => iairoleminingv2025api.exportRoleMiningPotentialRoleStatus(requestParameters));
-  },
-  // Returns all potential role summaries that match the query parameters
-  getAllPotentialRoleSummaries: (requestParameters: sdk.IAIRoleMiningV2025ApiGetAllPotentialRoleSummariesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.RoleMiningPotentialRoleSummaryV2025>>> => {
-    const iairoleminingv2025api = new sdk.IAIRoleMiningV2025Api(apiConfig);
-    return handleApiCall(() => iairoleminingv2025api.getAllPotentialRoleSummaries(requestParameters));
-  },
-  // This method returns entitlement popularity distribution for a potential role in a role mining session.
-  getEntitlementDistributionPotentialRole: (requestParameters: sdk.IAIRoleMiningV2025ApiGetEntitlementDistributionPotentialRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<{ [key: string]: number; }>> => {
-    const iairoleminingv2025api = new sdk.IAIRoleMiningV2025Api(apiConfig);
-    return handleApiCall(() => iairoleminingv2025api.getEntitlementDistributionPotentialRole(requestParameters));
-  },
-  // This method returns entitlements for a potential role in a role mining session.
-  getEntitlementsPotentialRole: (requestParameters: sdk.IAIRoleMiningV2025ApiGetEntitlementsPotentialRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.RoleMiningEntitlementV2025>>> => {
-    const iairoleminingv2025api = new sdk.IAIRoleMiningV2025Api(apiConfig);
-    return handleApiCall(() => iairoleminingv2025api.getEntitlementsPotentialRole(requestParameters));
-  },
-  // This method returns excluded entitlements for a potential role in a role mining session.
-  getExcludedEntitlementsPotentialRole: (requestParameters: sdk.IAIRoleMiningV2025ApiGetExcludedEntitlementsPotentialRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.RoleMiningEntitlementV2025>>> => {
-    const iairoleminingv2025api = new sdk.IAIRoleMiningV2025Api(apiConfig);
-    return handleApiCall(() => iairoleminingv2025api.getExcludedEntitlementsPotentialRole(requestParameters));
-  },
-  // This method returns identities for a potential role in a role mining session.
-  getIdentitiesPotentialRole: (requestParameters: sdk.IAIRoleMiningV2025ApiGetIdentitiesPotentialRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.RoleMiningIdentityV2025>>> => {
-    const iairoleminingv2025api = new sdk.IAIRoleMiningV2025Api(apiConfig);
-    return handleApiCall(() => iairoleminingv2025api.getIdentitiesPotentialRole(requestParameters));
-  },
-  // This method returns a specific potential role for a role mining session.
-  getPotentialRole: (requestParameters: sdk.IAIRoleMiningV2025ApiGetPotentialRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RoleMiningPotentialRoleV2025>> => {
-    const iairoleminingv2025api = new sdk.IAIRoleMiningV2025Api(apiConfig);
-    return handleApiCall(() => iairoleminingv2025api.getPotentialRole(requestParameters));
-  },
-  // This method returns the applications of a potential role for a role mining session.
-  getPotentialRoleApplications: (requestParameters: sdk.IAIRoleMiningV2025ApiGetPotentialRoleApplicationsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.RoleMiningPotentialRoleApplicationV2025>>> => {
-    const iairoleminingv2025api = new sdk.IAIRoleMiningV2025Api(apiConfig);
-    return handleApiCall(() => iairoleminingv2025api.getPotentialRoleApplications(requestParameters));
-  },
-  // This method returns the entitlements of a potential role for a role mining session.
-  getPotentialRoleEntitlements: (requestParameters: sdk.IAIRoleMiningV2025ApiGetPotentialRoleEntitlementsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.RoleMiningPotentialRoleEntitlementsV2025>>> => {
-    const iairoleminingv2025api = new sdk.IAIRoleMiningV2025Api(apiConfig);
-    return handleApiCall(() => iairoleminingv2025api.getPotentialRoleEntitlements(requestParameters));
-  },
-  // This method returns source usageCount (as number of days in the last 90 days) for each identity in a potential role.
-  getPotentialRoleSourceIdentityUsage: (requestParameters: sdk.IAIRoleMiningV2025ApiGetPotentialRoleSourceIdentityUsageRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.RoleMiningPotentialRoleSourceUsageV2025>>> => {
-    const iairoleminingv2025api = new sdk.IAIRoleMiningV2025Api(apiConfig);
-    return handleApiCall(() => iairoleminingv2025api.getPotentialRoleSourceIdentityUsage(requestParameters));
-  },
-  // This method returns the potential role summaries for a role mining session.
-  getPotentialRoleSummaries: (requestParameters: sdk.IAIRoleMiningV2025ApiGetPotentialRoleSummariesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.RoleMiningPotentialRoleSummaryV2025>>> => {
-    const iairoleminingv2025api = new sdk.IAIRoleMiningV2025Api(apiConfig);
-    return handleApiCall(() => iairoleminingv2025api.getPotentialRoleSummaries(requestParameters));
-  },
-  // This method returns a specific potential role.
-  getRoleMiningPotentialRole: (requestParameters: sdk.IAIRoleMiningV2025ApiGetRoleMiningPotentialRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RoleMiningPotentialRoleV2025>> => {
-    const iairoleminingv2025api = new sdk.IAIRoleMiningV2025Api(apiConfig);
-    return handleApiCall(() => iairoleminingv2025api.getRoleMiningPotentialRole(requestParameters));
-  },
-  // The method retrieves a role mining session.
-  getRoleMiningSession: (requestParameters: sdk.IAIRoleMiningV2025ApiGetRoleMiningSessionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RoleMiningSessionResponseV2025>> => {
-    const iairoleminingv2025api = new sdk.IAIRoleMiningV2025Api(apiConfig);
-    return handleApiCall(() => iairoleminingv2025api.getRoleMiningSession(requestParameters));
-  },
-  // This method returns a role mining session status for a customer.
-  getRoleMiningSessionStatus: (requestParameters: sdk.IAIRoleMiningV2025ApiGetRoleMiningSessionStatusRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RoleMiningSessionStatusV2025>> => {
-    const iairoleminingv2025api = new sdk.IAIRoleMiningV2025Api(apiConfig);
-    return handleApiCall(() => iairoleminingv2025api.getRoleMiningSessionStatus(requestParameters));
-  },
-  // Returns all role mining sessions that match the query parameters
-  getRoleMiningSessions: (requestParameters: sdk.IAIRoleMiningV2025ApiGetRoleMiningSessionsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.RoleMiningSessionDtoV2025>>> => {
-    const iairoleminingv2025api = new sdk.IAIRoleMiningV2025Api(apiConfig);
-    return handleApiCall(() => iairoleminingv2025api.getRoleMiningSessions(requestParameters));
-  },
-  // This method returns all saved potential roles (draft roles).
-  getSavedPotentialRoles: (requestParameters: sdk.IAIRoleMiningV2025ApiGetSavedPotentialRolesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.RoleMiningSessionDraftRoleDtoV2025>>> => {
-    const iairoleminingv2025api = new sdk.IAIRoleMiningV2025Api(apiConfig);
-    return handleApiCall(() => iairoleminingv2025api.getSavedPotentialRoles(requestParameters));
-  },
-  // The method updates an existing potential role using.  The following fields can be modified:  * `description`  * `name`  * `saved`   >**NOTE: All other fields cannot be modified.** 
-  patchPotentialRole: (requestParameters: sdk.IAIRoleMiningV2025ApiPatchPotentialRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const iairoleminingv2025api = new sdk.IAIRoleMiningV2025Api(apiConfig);
-    return handleApiCall(() => iairoleminingv2025api.patchPotentialRole(requestParameters));
-  },
-  // The method updates an existing potential role using.  The following fields can be modified:  * `description`  * `name`  * `saved`   >**NOTE: All other fields cannot be modified.** 
-  patchPotentialRoleSession: (requestParameters: sdk.IAIRoleMiningV2025ApiPatchPotentialRoleSessionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const iairoleminingv2025api = new sdk.IAIRoleMiningV2025Api(apiConfig);
-    return handleApiCall(() => iairoleminingv2025api.patchPotentialRoleSession(requestParameters));
-  },
-  // The  method updates an existing role mining session using PATCH. Supports op in {\"replace\"} and changes to pruneThreshold and/or minNumIdentitiesInPotentialRole. The potential roles in this role mining session is then re-calculated.
-  patchRoleMiningSession: (requestParameters: sdk.IAIRoleMiningV2025ApiPatchRoleMiningSessionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const iairoleminingv2025api = new sdk.IAIRoleMiningV2025Api(apiConfig);
-    return handleApiCall(() => iairoleminingv2025api.patchRoleMiningSession(requestParameters));
-  },
-  // This endpoint adds or removes entitlements from an exclusion list for a potential role.
-  updateEntitlementsPotentialRole: (requestParameters: sdk.IAIRoleMiningV2025ApiUpdateEntitlementsPotentialRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RoleMiningPotentialRoleV2025>> => {
-    const iairoleminingv2025api = new sdk.IAIRoleMiningV2025Api(apiConfig);
-    return handleApiCall(() => iairoleminingv2025api.updateEntitlementsPotentialRole(requestParameters));
-  },
-
-  // This API endpoint delete an icon by object type and object id. A token with ORG_ADMIN authority is required to call this API.
-  deleteIcon: (requestParameters: sdk.IconsV2025ApiDeleteIconRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const iconsv2025api = new sdk.IconsV2025Api(apiConfig);
-    return handleApiCall(() => iconsv2025api.deleteIcon(requestParameters));
-  },
-  // This API endpoint updates an icon by object type and object id. A token with ORG_ADMIN authority is required to call this API.
-  setIcon: (requestParameters: sdk.IconsV2025ApiSetIconRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SetIcon200ResponseV2025>> => {
-    const iconsv2025api = new sdk.IconsV2025Api(apiConfig);
-    return handleApiCall(() => iconsv2025api.setIcon(requestParameters));
-  },
-
-  // The API returns successful response if the requested identity was deleted.
-  deleteIdentity: (requestParameters: sdk.IdentitiesV2025ApiDeleteIdentityRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const identitiesv2025api = new sdk.IdentitiesV2025Api(apiConfig);
-    return handleApiCall(() => identitiesv2025api.deleteIdentity(requestParameters));
-  },
-  // This API returns a single identity using the Identity ID.
-  getIdentity: (requestParameters: sdk.IdentitiesV2025ApiGetIdentityRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.IdentityV2025>> => {
-    const identitiesv2025api = new sdk.IdentitiesV2025Api(apiConfig);
-    return handleApiCall(() => identitiesv2025api.getIdentity(requestParameters));
-  },
-  // Use this API to return an identity\'s owned objects that will cause problems for deleting the identity.  Use this API as a checklist of objects that you need to reassign to a different identity before you can delete the identity.  For a full list of objects owned by an identity, use the [Search API](https://developer.sailpoint.com/docs/api/v3/search-post/).  When you search for identities, the returned identities have a property, `owns`, that contains a more comprehensive list of identity\'s owned objects.
-  getIdentityOwnershipDetails: (requestParameters: sdk.IdentitiesV2025ApiGetIdentityOwnershipDetailsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.IdentityOwnershipAssociationDetailsV2025>> => {
-    const identitiesv2025api = new sdk.IdentitiesV2025Api(apiConfig);
-    return handleApiCall(() => identitiesv2025api.getIdentityOwnershipDetails(requestParameters));
-  },
-  // 
-  getRoleAssignment: (requestParameters: sdk.IdentitiesV2025ApiGetRoleAssignmentRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RoleAssignmentDtoV2025>> => {
-    const identitiesv2025api = new sdk.IdentitiesV2025Api(apiConfig);
-    return handleApiCall(() => identitiesv2025api.getRoleAssignment(requestParameters));
-  },
-  // This returns either a list of Role Assignments when querying with either a Role Id or Role Name, or a list of Role Assignment References if querying with only identity Id.
-  getRoleAssignments: (requestParameters: sdk.IdentitiesV2025ApiGetRoleAssignmentsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.GetRoleAssignments200ResponseInnerV2025>>> => {
-    const identitiesv2025api = new sdk.IdentitiesV2025Api(apiConfig);
-    return handleApiCall(() => identitiesv2025api.getRoleAssignments(requestParameters));
-  },
-  // The API returns a list of all entitlements assigned to an identity, either directly or through the role or access profile. A token with ORG_ADMIN or API authority is required to call this API.
-  listEntitlementsByIdentity: (requestParameters: sdk.IdentitiesV2025ApiListEntitlementsByIdentityRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.IdentityEntitlementsV2025>>> => {
-    const identitiesv2025api = new sdk.IdentitiesV2025Api(apiConfig);
-    return handleApiCall(() => identitiesv2025api.listEntitlementsByIdentity(requestParameters));
-  },
-  // This API returns a list of identities.
-  listIdentities: (requestParameters: sdk.IdentitiesV2025ApiListIdentitiesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.IdentityV2025>>> => {
-    const identitiesv2025api = new sdk.IdentitiesV2025Api(apiConfig);
-    return handleApiCall(() => identitiesv2025api.listIdentities(requestParameters));
-  },
-  // Use this endpoint to reset a user\'s identity if they have forgotten their authentication information like their answers to knowledge-based questions. Resetting an identity de-registers the user and removes any elevated user levels they have.
-  resetIdentity: (requestParameters: sdk.IdentitiesV2025ApiResetIdentityRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const identitiesv2025api = new sdk.IdentitiesV2025Api(apiConfig);
-    return handleApiCall(() => identitiesv2025api.resetIdentity(requestParameters));
-  },
-  // This API sends an email with the link to start Password Reset. After selecting the link an identity will be able to set up a new password. Emails expire after 2 hours. 
-  sendIdentityVerificationAccountToken: (requestParameters: sdk.IdentitiesV2025ApiSendIdentityVerificationAccountTokenRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const identitiesv2025api = new sdk.IdentitiesV2025Api(apiConfig);
-    return handleApiCall(() => identitiesv2025api.sendIdentityVerificationAccountToken(requestParameters));
-  },
-  // This API submits a task for inviting given identities via email to complete registration. The invitation email will include the link. After selecting the link an identity will be able to set up password and log in into the system. Invitations expire after 7 days. By default invitations send to the work identity email. It can be changed in Admin > Identities > Identity Profiles by selecting corresponding profile and editing Invitation Options.  This task will send an invitation email only for unregistered identities.  The executed task status can be checked by Task Management > [Get task status by ID](https://developer.sailpoint.com/docs/api/beta/get-task-status). 
-  startIdentitiesInvite: (requestParameters: sdk.IdentitiesV2025ApiStartIdentitiesInviteRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TaskStatusV2025>> => {
-    const identitiesv2025api = new sdk.IdentitiesV2025Api(apiConfig);
-    return handleApiCall(() => identitiesv2025api.startIdentitiesInvite(requestParameters));
-  },
-  // This operation should not be used to schedule your own identity processing or to perform system wide identity refreshes. The system will use a combination of [event-based processing](https://documentation.sailpoint.com/saas/help/setup/identity_processing.html?h=process#event-based-processing) and [scheduled processing](https://documentation.sailpoint.com/saas/help/setup/identity_processing.html?h=process#scheduled-processing) that runs every day at 8:00 AM and 8:00 PM in the tenant\'s timezone to keep your identities synchronized.   This endpoint will perform the following tasks: 1. Calculate identity attributes, including applying or running any rules or transforms (e.g. calculate Lifecycle State at a point-in-time it\'s expected to change). 2. Evaluate role assignments, leading to assignment of new roles and removal of existing roles. 3. Enforce provisioning for any assigned accesses that haven\'t been fulfilled (e.g. failure due to source health). 4. Recalculate manager relationships. 5. Potentially clean-up identity processing errors, assuming the error has been resolved.
-  startIdentityProcessing: (requestParameters: sdk.IdentitiesV2025ApiStartIdentityProcessingRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TaskResultResponseV2025>> => {
-    const identitiesv2025api = new sdk.IdentitiesV2025Api(apiConfig);
-    return handleApiCall(() => identitiesv2025api.startIdentityProcessing(requestParameters));
-  },
-  // This end-point performs attribute synchronization for a selected identity. The endpoint can be called once in 10 seconds per identity.
-  synchronizeAttributesForIdentity: (requestParameters: sdk.IdentitiesV2025ApiSynchronizeAttributesForIdentityRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.IdentitySyncJobV2025>> => {
-    const identitiesv2025api = new sdk.IdentitiesV2025Api(apiConfig);
-    return handleApiCall(() => identitiesv2025api.synchronizeAttributesForIdentity(requestParameters));
-  },
-
-  // Use this API to create a new identity attribute.
-  createIdentityAttribute: (requestParameters: sdk.IdentityAttributesV2025ApiCreateIdentityAttributeRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.IdentityAttributeV2025>> => {
-    const identityattributesv2025api = new sdk.IdentityAttributesV2025Api(apiConfig);
-    return handleApiCall(() => identityattributesv2025api.createIdentityAttribute(requestParameters));
-  },
-  // This deletes an identity attribute with the given name.  The `system` and `standard` properties must be set to false before you can delete an identity attribute.
-  deleteIdentityAttribute: (requestParameters: sdk.IdentityAttributesV2025ApiDeleteIdentityAttributeRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const identityattributesv2025api = new sdk.IdentityAttributesV2025Api(apiConfig);
-    return handleApiCall(() => identityattributesv2025api.deleteIdentityAttribute(requestParameters));
-  },
-  // Use this API to bulk delete identity attributes for a given set of names. Attributes that are currently mapped in an identity profile cannot be deleted.  The `system` and `standard` properties must be set to \'false\' before you can delete an identity attribute.
-  deleteIdentityAttributesInBulk: (requestParameters: sdk.IdentityAttributesV2025ApiDeleteIdentityAttributesInBulkRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const identityattributesv2025api = new sdk.IdentityAttributesV2025Api(apiConfig);
-    return handleApiCall(() => identityattributesv2025api.deleteIdentityAttributesInBulk(requestParameters));
-  },
-  // This gets an identity attribute for a given technical name.
-  getIdentityAttribute: (requestParameters: sdk.IdentityAttributesV2025ApiGetIdentityAttributeRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.IdentityAttributeV2025>> => {
-    const identityattributesv2025api = new sdk.IdentityAttributesV2025Api(apiConfig);
-    return handleApiCall(() => identityattributesv2025api.getIdentityAttribute(requestParameters));
-  },
-  // Use this API to get a collection of identity attributes.
-  listIdentityAttributes: (requestParameters: sdk.IdentityAttributesV2025ApiListIdentityAttributesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.IdentityAttributeV2025>>> => {
-    const identityattributesv2025api = new sdk.IdentityAttributesV2025Api(apiConfig);
-    return handleApiCall(() => identityattributesv2025api.listIdentityAttributes(requestParameters));
-  },
-  // This updates an existing identity attribute.  Making an attribute searchable requires that the `system`, `standard`, and `multi` properties be set to false.
-  putIdentityAttribute: (requestParameters: sdk.IdentityAttributesV2025ApiPutIdentityAttributeRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.IdentityAttributeV2025>> => {
-    const identityattributesv2025api = new sdk.IdentityAttributesV2025Api(apiConfig);
-    return handleApiCall(() => identityattributesv2025api.putIdentityAttribute(requestParameters));
-  },
-
-  // This method gets a difference of count for each access item types for the given identity between 2 snapshots Requires authorization scope of \'idn:identity-history:read\' 
-  compareIdentitySnapshots: (requestParameters: sdk.IdentityHistoryV2025ApiCompareIdentitySnapshotsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.IdentityCompareResponseV2025>>> => {
-    const identityhistoryv2025api = new sdk.IdentityHistoryV2025Api(apiConfig);
-    return handleApiCall(() => identityhistoryv2025api.compareIdentitySnapshots(requestParameters));
-  },
-  // This method gets a list of differences of specific accessType for the given identity between 2 snapshots Requires authorization scope of \'idn:identity-history:read\' 
-  compareIdentitySnapshotsAccessType: (requestParameters: sdk.IdentityHistoryV2025ApiCompareIdentitySnapshotsAccessTypeRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AccessItemDiffV2025>>> => {
-    const identityhistoryv2025api = new sdk.IdentityHistoryV2025Api(apiConfig);
-    return handleApiCall(() => identityhistoryv2025api.compareIdentitySnapshotsAccessType(requestParameters));
-  },
-  // This method retrieves a specified identity Requires authorization scope of \'idn:identity-history:read\'
-  getHistoricalIdentity: (requestParameters: sdk.IdentityHistoryV2025ApiGetHistoricalIdentityRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.IdentityHistoryResponseV2025>> => {
-    const identityhistoryv2025api = new sdk.IdentityHistoryV2025Api(apiConfig);
-    return handleApiCall(() => identityhistoryv2025api.getHistoricalIdentity(requestParameters));
-  },
-  // This method retrieves all access events for the identity Requires authorization scope of \'idn:identity-history:read\' 
-  getHistoricalIdentityEvents: (requestParameters: sdk.IdentityHistoryV2025ApiGetHistoricalIdentityEventsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.GetHistoricalIdentityEvents200ResponseInnerV2025>>> => {
-    const identityhistoryv2025api = new sdk.IdentityHistoryV2025Api(apiConfig);
-    return handleApiCall(() => identityhistoryv2025api.getHistoricalIdentityEvents(requestParameters));
-  },
-  // This method retrieves a specified identity snapshot at a given date Requires authorization scope of \'idn:identity-history:read\' 
-  getIdentitySnapshot: (requestParameters: sdk.IdentityHistoryV2025ApiGetIdentitySnapshotRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.IdentityHistoryResponseV2025>> => {
-    const identityhistoryv2025api = new sdk.IdentityHistoryV2025Api(apiConfig);
-    return handleApiCall(() => identityhistoryv2025api.getIdentitySnapshot(requestParameters));
-  },
-  // This method gets the summary for the event count for a specific identity by month/day Requires authorization scope of \'idn:identity-history:read\' 
-  getIdentitySnapshotSummary: (requestParameters: sdk.IdentityHistoryV2025ApiGetIdentitySnapshotSummaryRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.MetricResponseV2025>>> => {
-    const identityhistoryv2025api = new sdk.IdentityHistoryV2025Api(apiConfig);
-    return handleApiCall(() => identityhistoryv2025api.getIdentitySnapshotSummary(requestParameters));
-  },
-  // This method retrieves start date of the identity Requires authorization scope of \'idn:identity-history:read\' 
-  getIdentityStartDate: (requestParameters: sdk.IdentityHistoryV2025ApiGetIdentityStartDateRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<string>> => {
-    const identityhistoryv2025api = new sdk.IdentityHistoryV2025Api(apiConfig);
-    return handleApiCall(() => identityhistoryv2025api.getIdentityStartDate(requestParameters));
-  },
-  // This gets the list of identities for the customer. This list end point does not support count=true request param. The total  count of identities would never be returned even if the count param is specified in the request Requires authorization scope of \'idn:identity-history:read\'
-  listHistoricalIdentities: (requestParameters: sdk.IdentityHistoryV2025ApiListHistoricalIdentitiesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.IdentityListItemV2025>>> => {
-    const identityhistoryv2025api = new sdk.IdentityHistoryV2025Api(apiConfig);
-    return handleApiCall(() => identityhistoryv2025api.listHistoricalIdentities(requestParameters));
-  },
-  // This method retrieves a list of access item for the identity filtered by the access item type 
-  listIdentityAccessItems: (requestParameters: sdk.IdentityHistoryV2025ApiListIdentityAccessItemsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ListIdentityAccessItems200ResponseInnerV2025>>> => {
-    const identityhistoryv2025api = new sdk.IdentityHistoryV2025Api(apiConfig);
-    return handleApiCall(() => identityhistoryv2025api.listIdentityAccessItems(requestParameters));
-  },
-  // This method retrieves the list of identity access items at a given date filterd by item type Requires authorization scope of \'idn:identity-history:read\' 
-  listIdentitySnapshotAccessItems: (requestParameters: sdk.IdentityHistoryV2025ApiListIdentitySnapshotAccessItemsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ListIdentitySnapshotAccessItems200ResponseInnerV2025>>> => {
-    const identityhistoryv2025api = new sdk.IdentityHistoryV2025Api(apiConfig);
-    return handleApiCall(() => identityhistoryv2025api.listIdentitySnapshotAccessItems(requestParameters));
-  },
-  // This method retrieves all the snapshots for the identity Requires authorization scope of \'idn:identity-history:read\' 
-  listIdentitySnapshots: (requestParameters: sdk.IdentityHistoryV2025ApiListIdentitySnapshotsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.IdentitySnapshotSummaryResponseV2025>>> => {
-    const identityhistoryv2025api = new sdk.IdentityHistoryV2025Api(apiConfig);
-    return handleApiCall(() => identityhistoryv2025api.listIdentitySnapshots(requestParameters));
-  },
-
-  // Creates an identity profile.    
-  createIdentityProfile: (requestParameters: sdk.IdentityProfilesV2025ApiCreateIdentityProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.IdentityProfileV2025>> => {
-    const identityprofilesv2025api = new sdk.IdentityProfilesV2025Api(apiConfig);
-    return handleApiCall(() => identityprofilesv2025api.createIdentityProfile(requestParameters));
-  },
-  // Delete an identity profile by ID. On success, this endpoint will return a reference to the bulk delete task result.
-  deleteIdentityProfile: (requestParameters: sdk.IdentityProfilesV2025ApiDeleteIdentityProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TaskResultSimplifiedV2025>> => {
-    const identityprofilesv2025api = new sdk.IdentityProfilesV2025Api(apiConfig);
-    return handleApiCall(() => identityprofilesv2025api.deleteIdentityProfile(requestParameters));
-  },
-  // This deletes multiple Identity Profiles via a list of supplied IDs.  On success, this endpoint will return a reference to the bulk delete task result.  The following rights are required to access this endpoint: idn:identity-profile:delete
-  deleteIdentityProfiles: (requestParameters: sdk.IdentityProfilesV2025ApiDeleteIdentityProfilesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TaskResultSimplifiedV2025>> => {
-    const identityprofilesv2025api = new sdk.IdentityProfilesV2025Api(apiConfig);
-    return handleApiCall(() => identityprofilesv2025api.deleteIdentityProfiles(requestParameters));
-  },
-  // This exports existing identity profiles in the format specified by the sp-config service.
-  exportIdentityProfiles: (requestParameters: sdk.IdentityProfilesV2025ApiExportIdentityProfilesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.IdentityProfileExportedObjectV2025>>> => {
-    const identityprofilesv2025api = new sdk.IdentityProfilesV2025Api(apiConfig);
-    return handleApiCall(() => identityprofilesv2025api.exportIdentityProfiles(requestParameters));
-  },
-  // This generates a non-persisted IdentityDetails object that will represent as the preview of the identities attribute when the given policy\'\'s attribute config is applied.
-  generateIdentityPreview: (requestParameters: sdk.IdentityProfilesV2025ApiGenerateIdentityPreviewRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.IdentityPreviewResponseV2025>> => {
-    const identityprofilesv2025api = new sdk.IdentityProfilesV2025Api(apiConfig);
-    return handleApiCall(() => identityprofilesv2025api.generateIdentityPreview(requestParameters));
-  },
-  // This returns the default identity attribute config.
-  getDefaultIdentityAttributeConfig: (requestParameters: sdk.IdentityProfilesV2025ApiGetDefaultIdentityAttributeConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.IdentityAttributeConfigV2025>> => {
-    const identityprofilesv2025api = new sdk.IdentityProfilesV2025Api(apiConfig);
-    return handleApiCall(() => identityprofilesv2025api.getDefaultIdentityAttributeConfig(requestParameters));
-  },
-  // Get a single identity profile by ID.
-  getIdentityProfile: (requestParameters: sdk.IdentityProfilesV2025ApiGetIdentityProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.IdentityProfileV2025>> => {
-    const identityprofilesv2025api = new sdk.IdentityProfilesV2025Api(apiConfig);
-    return handleApiCall(() => identityprofilesv2025api.getIdentityProfile(requestParameters));
-  },
-  // This imports previously exported identity profiles.
-  importIdentityProfiles: (requestParameters: sdk.IdentityProfilesV2025ApiImportIdentityProfilesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ObjectImportResultV2025>> => {
-    const identityprofilesv2025api = new sdk.IdentityProfilesV2025Api(apiConfig);
-    return handleApiCall(() => identityprofilesv2025api.importIdentityProfiles(requestParameters));
-  },
-  // Get a list of identity profiles, based on the specified query parameters.
-  listIdentityProfiles: (requestParameters: sdk.IdentityProfilesV2025ApiListIdentityProfilesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.IdentityProfileV2025>>> => {
-    const identityprofilesv2025api = new sdk.IdentityProfilesV2025Api(apiConfig);
-    return handleApiCall(() => identityprofilesv2025api.listIdentityProfiles(requestParameters));
-  },
-  // Process identities under the profile This operation should not be used to schedule your own identity processing or to perform system wide identity refreshes. The system will use a combination of [event-based processing](https://documentation.sailpoint.com/saas/help/setup/identity_processing.html?h=process#event-based-processing) and [scheduled processing](https://documentation.sailpoint.com/saas/help/setup/identity_processing.html?h=process#scheduled-processing) that runs every day at 8:00 AM and 8:00 PM in the tenant\'s timezone to keep your identities synchronized.  This should only be run on identity profiles that have the `identityRefreshRequired` attribute set to `true`. If `identityRefreshRequired` is false, then there is no benefit to running this operation. Typically, this operation is performed when a change is made to the identity profile or its related lifecycle states that requires a refresh. This operation will perform the following activities on all identities under the identity profile. 1. Updates identity attribute according to the identity profile mappings. 2. Determines the identity\'s correct manager through manager correlation. 3. Updates the identity\'s access according to their assigned lifecycle state. 4. Updates the identity\'s access based on role assignment criteria.
-  syncIdentityProfile: (requestParameters: sdk.IdentityProfilesV2025ApiSyncIdentityProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const identityprofilesv2025api = new sdk.IdentityProfilesV2025Api(apiConfig);
-    return handleApiCall(() => identityprofilesv2025api.syncIdentityProfile(requestParameters));
-  },
-  // Update a specified identity profile with this PATCH request.    You cannot update these fields: * id * created * modified * identityCount * identityRefreshRequired * Authoritative Source and Identity Attribute Configuration cannot be modified at the same time.
-  updateIdentityProfile: (requestParameters: sdk.IdentityProfilesV2025ApiUpdateIdentityProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.IdentityProfileV2025>> => {
-    const identityprofilesv2025api = new sdk.IdentityProfilesV2025Api(apiConfig);
-    return handleApiCall(() => identityprofilesv2025api.updateIdentityProfile(requestParameters));
-  },
-
-  // Create a Launcher with given information
-  createLauncher: (requestParameters: sdk.LaunchersV2025ApiCreateLauncherRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.LauncherV2025>> => {
-    const launchersv2025api = new sdk.LaunchersV2025Api(apiConfig);
-    return handleApiCall(() => launchersv2025api.createLauncher(requestParameters));
-  },
-  // Delete the given Launcher ID
-  deleteLauncher: (requestParameters: sdk.LaunchersV2025ApiDeleteLauncherRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const launchersv2025api = new sdk.LaunchersV2025Api(apiConfig);
-    return handleApiCall(() => launchersv2025api.deleteLauncher(requestParameters));
-  },
-  // Get details for the given Launcher ID
-  getLauncher: (requestParameters: sdk.LaunchersV2025ApiGetLauncherRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.LauncherV2025>> => {
-    const launchersv2025api = new sdk.LaunchersV2025Api(apiConfig);
-    return handleApiCall(() => launchersv2025api.getLauncher(requestParameters));
-  },
-  // Return a list of Launchers for the authenticated tenant
-  getLaunchers: (requestParameters: sdk.LaunchersV2025ApiGetLaunchersRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetLaunchers200ResponseV2025>> => {
-    const launchersv2025api = new sdk.LaunchersV2025Api(apiConfig);
-    return handleApiCall(() => launchersv2025api.getLaunchers(requestParameters));
-  },
-  // Replace the given Launcher ID with given payload
-  putLauncher: (requestParameters: sdk.LaunchersV2025ApiPutLauncherRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.LauncherV2025>> => {
-    const launchersv2025api = new sdk.LaunchersV2025Api(apiConfig);
-    return handleApiCall(() => launchersv2025api.putLauncher(requestParameters));
-  },
-  // Launch the given Launcher ID
-  startLauncher: (requestParameters: sdk.LaunchersV2025ApiStartLauncherRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.StartLauncher200ResponseV2025>> => {
-    const launchersv2025api = new sdk.LaunchersV2025Api(apiConfig);
-    return handleApiCall(() => launchersv2025api.startLauncher(requestParameters));
-  },
-
-  // Use this endpoint to create a lifecycle state.
-  createLifecycleState: (requestParameters: sdk.LifecycleStatesV2025ApiCreateLifecycleStateRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.LifecycleStateV2025>> => {
-    const lifecyclestatesv2025api = new sdk.LifecycleStatesV2025Api(apiConfig);
-    return handleApiCall(() => lifecyclestatesv2025api.createLifecycleState(requestParameters));
-  },
-  // Use this endpoint to delete the lifecycle state by its ID.
-  deleteLifecycleState: (requestParameters: sdk.LifecycleStatesV2025ApiDeleteLifecycleStateRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.LifecyclestateDeletedV2025>> => {
-    const lifecyclestatesv2025api = new sdk.LifecycleStatesV2025Api(apiConfig);
-    return handleApiCall(() => lifecyclestatesv2025api.deleteLifecycleState(requestParameters));
-  },
-  // Use this endpoint to get a lifecycle state by its ID and its associated identity profile ID.
-  getLifecycleState: (requestParameters: sdk.LifecycleStatesV2025ApiGetLifecycleStateRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.LifecycleStateV2025>> => {
-    const lifecyclestatesv2025api = new sdk.LifecycleStatesV2025Api(apiConfig);
-    return handleApiCall(() => lifecyclestatesv2025api.getLifecycleState(requestParameters));
-  },
-  // Use this endpoint to list all lifecycle states by their associated identity profiles. 
-  getLifecycleStates: (requestParameters: sdk.LifecycleStatesV2025ApiGetLifecycleStatesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.LifecycleStateV2025>>> => {
-    const lifecyclestatesv2025api = new sdk.LifecycleStatesV2025Api(apiConfig);
-    return handleApiCall(() => lifecyclestatesv2025api.getLifecycleStates(requestParameters));
-  },
-  // Use this API to set/update an identity\'s lifecycle state to the one provided and update the corresponding identity profile.
-  setLifecycleState: (requestParameters: sdk.LifecycleStatesV2025ApiSetLifecycleStateRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SetLifecycleState200ResponseV2025>> => {
-    const lifecyclestatesv2025api = new sdk.LifecycleStatesV2025Api(apiConfig);
-    return handleApiCall(() => lifecyclestatesv2025api.setLifecycleState(requestParameters));
-  },
-  // Use this endpoint to update individual lifecycle state fields, using the [JSON Patch](https://tools.ietf.org/html/rfc6902) standard.
-  updateLifecycleStates: (requestParameters: sdk.LifecycleStatesV2025ApiUpdateLifecycleStatesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.LifecycleStateV2025>> => {
-    const lifecyclestatesv2025api = new sdk.LifecycleStatesV2025Api(apiConfig);
-    return handleApiCall(() => lifecyclestatesv2025api.updateLifecycleStates(requestParameters));
-  },
-
-  // This API returns the configuration of an Duo MFA method.
-  getMFADuoConfig: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.MfaDuoConfigV2025>> => {
-    const mfaconfigurationv2025api = new sdk.MFAConfigurationV2025Api(apiConfig);
-    return handleApiCall(() => mfaconfigurationv2025api.getMFADuoConfig());
-  },
-  // This API returns the KBA configuration for MFA.
-  getMFAKbaConfig: (requestParameters: sdk.MFAConfigurationV2025ApiGetMFAKbaConfigRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.KbaQuestionV2025>>> => {
-    const mfaconfigurationv2025api = new sdk.MFAConfigurationV2025Api(apiConfig);
-    return handleApiCall(() => mfaconfigurationv2025api.getMFAKbaConfig(requestParameters));
-  },
-  // This API returns the configuration of an Okta MFA method.
-  getMFAOktaConfig: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.MfaOktaConfigV2025>> => {
-    const mfaconfigurationv2025api = new sdk.MFAConfigurationV2025Api(apiConfig);
-    return handleApiCall(() => mfaconfigurationv2025api.getMFAOktaConfig());
-  },
-  // This API sets the configuration of an Duo MFA method.
-  setMFADuoConfig: (requestParameters: sdk.MFAConfigurationV2025ApiSetMFADuoConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.MfaDuoConfigV2025>> => {
-    const mfaconfigurationv2025api = new sdk.MFAConfigurationV2025Api(apiConfig);
-    return handleApiCall(() => mfaconfigurationv2025api.setMFADuoConfig(requestParameters));
-  },
-  // This API sets answers to challenge questions.  Any configured questions omitted from the request are removed from user KBA configuration.    
-  setMFAKBAConfig: (requestParameters: sdk.MFAConfigurationV2025ApiSetMFAKBAConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.KbaAnswerResponseItemV2025>>> => {
-    const mfaconfigurationv2025api = new sdk.MFAConfigurationV2025Api(apiConfig);
-    return handleApiCall(() => mfaconfigurationv2025api.setMFAKBAConfig(requestParameters));
-  },
-  // This API sets the configuration of an Okta MFA method.
-  setMFAOktaConfig: (requestParameters: sdk.MFAConfigurationV2025ApiSetMFAOktaConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.MfaOktaConfigV2025>> => {
-    const mfaconfigurationv2025api = new sdk.MFAConfigurationV2025Api(apiConfig);
-    return handleApiCall(() => mfaconfigurationv2025api.setMFAOktaConfig(requestParameters));
-  },
-  // This API validates that the configuration is valid and will properly authenticate with the MFA provider identified by the method path parameter.
-  testMFAConfig: (requestParameters: sdk.MFAConfigurationV2025ApiTestMFAConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.MfaConfigTestResponseV2025>> => {
-    const mfaconfigurationv2025api = new sdk.MFAConfigurationV2025Api(apiConfig);
-    return handleApiCall(() => mfaconfigurationv2025api.testMFAConfig(requestParameters));
-  },
-
-  // Use this API to classify a single machine account. A token with API, ORG_ADMIN, SOURCE_ADMIN, or SOURCE_SUBADMIN authority is required to call this API.
-  sendClassifyMachineAccount: (requestParameters: sdk.MachineAccountClassifyV2025ApiSendClassifyMachineAccountRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SendClassifyMachineAccount200ResponseV2025>> => {
-    const machineaccountclassifyv2025api = new sdk.MachineAccountClassifyV2025Api(apiConfig);
-    return handleApiCall(() => machineaccountclassifyv2025api.sendClassifyMachineAccount(requestParameters));
-  },
-
-  // Creates Machine Account Mappings for both identities and accounts for a source. A token with API, ORG_ADMIN, ROLE_ADMIN, ROLE_SUBADMIN, SOURCE_ADMIN, or SOURCE_SUBADMIN authority is required to call this API.
-  createMachineAccountMappings: (requestParameters: sdk.MachineAccountMappingsV2025ApiCreateMachineAccountMappingsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AttributeMappingsV2025>>> => {
-    const machineaccountmappingsv2025api = new sdk.MachineAccountMappingsV2025Api(apiConfig);
-    return handleApiCall(() => machineaccountmappingsv2025api.createMachineAccountMappings(requestParameters));
-  },
-  // Use this API to remove machine account attribute mappings for a Source.  A token with ORG_ADMIN, SOURCE_ADMIN, or SOURCE_SUBADMIN authority is required to call this API.
-  deleteMachineAccountMappings: (requestParameters: sdk.MachineAccountMappingsV2025ApiDeleteMachineAccountMappingsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const machineaccountmappingsv2025api = new sdk.MachineAccountMappingsV2025Api(apiConfig);
-    return handleApiCall(() => machineaccountmappingsv2025api.deleteMachineAccountMappings(requestParameters));
-  },
-  // Retrieves Machine account mappings for a specified source using Source ID.
-  listMachineAccountMappings: (requestParameters: sdk.MachineAccountMappingsV2025ApiListMachineAccountMappingsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AttributeMappingsV2025>>> => {
-    const machineaccountmappingsv2025api = new sdk.MachineAccountMappingsV2025Api(apiConfig);
-    return handleApiCall(() => machineaccountmappingsv2025api.listMachineAccountMappings(requestParameters));
-  },
-  // Use this API to update Machine Account Attribute Mapping for a Source. A token with ORG_ADMIN, SOURCE_ADMIN, or SOURCE_SUBADMIN authority is required to call this API.
-  setMachineAccountMappings: (requestParameters: sdk.MachineAccountMappingsV2025ApiSetMachineAccountMappingsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.AttributeMappingsV2025>>> => {
-    const machineaccountmappingsv2025api = new sdk.MachineAccountMappingsV2025Api(apiConfig);
-    return handleApiCall(() => machineaccountmappingsv2025api.setMachineAccountMappings(requestParameters));
-  },
-
-  // Create a new machine account subtype for a source.
-  createMachineAccountSubtype: (requestParameters: sdk.MachineAccountsV2025ApiCreateMachineAccountSubtypeRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SourceSubtypeV2025>> => {
-    const machineaccountsv2025api = new sdk.MachineAccountsV2025Api(apiConfig);
-    return handleApiCall(() => machineaccountsv2025api.createMachineAccountSubtype(requestParameters));
-  },
-  // Delete a machine account subtype by source ID and technical name.
-  deleteMachineAccountSubtype: (requestParameters: sdk.MachineAccountsV2025ApiDeleteMachineAccountSubtypeRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const machineaccountsv2025api = new sdk.MachineAccountsV2025Api(apiConfig);
-    return handleApiCall(() => machineaccountsv2025api.deleteMachineAccountSubtype(requestParameters));
-  },
-  // Use this API to return the details for a single machine account by its ID.  
-  getMachineAccount: (requestParameters: sdk.MachineAccountsV2025ApiGetMachineAccountRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.MachineAccountV2025>> => {
-    const machineaccountsv2025api = new sdk.MachineAccountsV2025Api(apiConfig);
-    return handleApiCall(() => machineaccountsv2025api.getMachineAccount(requestParameters));
-  },
-  // Get a machine account subtype by its unique ID.
-  getMachineAccountSubtypeById: (requestParameters: sdk.MachineAccountsV2025ApiGetMachineAccountSubtypeByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SourceSubtypeV2025>> => {
-    const machineaccountsv2025api = new sdk.MachineAccountsV2025Api(apiConfig);
-    return handleApiCall(() => machineaccountsv2025api.getMachineAccountSubtypeById(requestParameters));
-  },
-  // Get a machine account subtype by source ID and technical name.
-  getMachineAccountSubtypeByTechnicalName: (requestParameters: sdk.MachineAccountsV2025ApiGetMachineAccountSubtypeByTechnicalNameRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SourceSubtypeV2025>> => {
-    const machineaccountsv2025api = new sdk.MachineAccountsV2025Api(apiConfig);
-    return handleApiCall(() => machineaccountsv2025api.getMachineAccountSubtypeByTechnicalName(requestParameters));
-  },
-  // Get all machine account subtypes for a given source.
-  listMachineAccountSubtypes: (requestParameters: sdk.MachineAccountsV2025ApiListMachineAccountSubtypesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.SourceSubtypeV2025>>> => {
-    const machineaccountsv2025api = new sdk.MachineAccountsV2025Api(apiConfig);
-    return handleApiCall(() => machineaccountsv2025api.listMachineAccountSubtypes(requestParameters));
-  },
-  // This returns a list of machine accounts.  
-  listMachineAccounts: (requestParameters: sdk.MachineAccountsV2025ApiListMachineAccountsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.MachineAccountV2025>>> => {
-    const machineaccountsv2025api = new sdk.MachineAccountsV2025Api(apiConfig);
-    return handleApiCall(() => machineaccountsv2025api.listMachineAccounts(requestParameters));
-  },
-  // Update fields of a machine account subtype by source ID and technical name. Patchable fields include: `displayName`, `description`.
-  patchMachineAccountSubtype: (requestParameters: sdk.MachineAccountsV2025ApiPatchMachineAccountSubtypeRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SourceSubtypeV2025>> => {
-    const machineaccountsv2025api = new sdk.MachineAccountsV2025Api(apiConfig);
-    return handleApiCall(() => machineaccountsv2025api.patchMachineAccountSubtype(requestParameters));
-  },
-  // Use this API to update machine accounts details.  
-  updateMachineAccount: (requestParameters: sdk.MachineAccountsV2025ApiUpdateMachineAccountRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.MachineAccountV2025>> => {
-    const machineaccountsv2025api = new sdk.MachineAccountsV2025Api(apiConfig);
-    return handleApiCall(() => machineaccountsv2025api.updateMachineAccount(requestParameters));
-  },
-
-  // Use this API to remove Classification Config for a Source.  A token with ORG_ADMIN, SOURCE_ADMIN, or SOURCE_SUBADMIN authority is required to call this API.
-  deleteMachineClassificationConfig: (requestParameters: sdk.MachineClassificationConfigV2025ApiDeleteMachineClassificationConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const machineclassificationconfigv2025api = new sdk.MachineClassificationConfigV2025Api(apiConfig);
-    return handleApiCall(() => machineclassificationconfigv2025api.deleteMachineClassificationConfig(requestParameters));
-  },
-  // This API returns a Machine Classification Config for a Source using Source ID.
-  getMachineClassificationConfig: (requestParameters: sdk.MachineClassificationConfigV2025ApiGetMachineClassificationConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.MachineClassificationConfigV2025>> => {
-    const machineclassificationconfigv2025api = new sdk.MachineClassificationConfigV2025Api(apiConfig);
-    return handleApiCall(() => machineclassificationconfigv2025api.getMachineClassificationConfig(requestParameters));
-  },
-  // Use this API to update Classification Config for a Source. A token with ORG_ADMIN, SOURCE_ADMIN, or SOURCE_SUBADMIN authority is required to call this API.
-  setMachineClassificationConfig: (requestParameters: sdk.MachineClassificationConfigV2025ApiSetMachineClassificationConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.MachineClassificationConfigV2025>> => {
-    const machineclassificationconfigv2025api = new sdk.MachineClassificationConfigV2025Api(apiConfig);
-    return handleApiCall(() => machineclassificationconfigv2025api.setMachineClassificationConfig(requestParameters));
-  },
-
-  // Use this API to create a machine identity. The maximum supported length for the description field is 2000 characters.
-  createMachineIdentity: (requestParameters: sdk.MachineIdentitiesV2025ApiCreateMachineIdentityRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.MachineIdentityResponseV2025>> => {
-    const machineidentitiesv2025api = new sdk.MachineIdentitiesV2025Api(apiConfig);
-    return handleApiCall(() => machineidentitiesv2025api.createMachineIdentity(requestParameters));
-  },
-  // The API returns successful response if the requested machine identity was deleted.
-  deleteMachineIdentity: (requestParameters: sdk.MachineIdentitiesV2025ApiDeleteMachineIdentityRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const machineidentitiesv2025api = new sdk.MachineIdentitiesV2025Api(apiConfig);
-    return handleApiCall(() => machineidentitiesv2025api.deleteMachineIdentity(requestParameters));
-  },
-  // This API returns a single machine identity using the Machine Identity ID.
-  getMachineIdentity: (requestParameters: sdk.MachineIdentitiesV2025ApiGetMachineIdentityRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.MachineIdentityResponseV2025>> => {
-    const machineidentitiesv2025api = new sdk.MachineIdentitiesV2025Api(apiConfig);
-    return handleApiCall(() => machineidentitiesv2025api.getMachineIdentity(requestParameters));
-  },
-  // This API returns a list of machine identities.
-  listMachineIdentities: (requestParameters: sdk.MachineIdentitiesV2025ApiListMachineIdentitiesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.MachineIdentityResponseV2025>>> => {
-    const machineidentitiesv2025api = new sdk.MachineIdentitiesV2025Api(apiConfig);
-    return handleApiCall(() => machineidentitiesv2025api.listMachineIdentities(requestParameters));
-  },
-  // This API returns a list of user entitlements associated with machine identities.
-  listMachineIdentityUserEntitlements: (requestParameters: sdk.MachineIdentitiesV2025ApiListMachineIdentityUserEntitlementsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.MachineIdentityUserEntitlementResponseV2025>>> => {
-    const machineidentitiesv2025api = new sdk.MachineIdentitiesV2025Api(apiConfig);
-    return handleApiCall(() => machineidentitiesv2025api.listMachineIdentityUserEntitlements(requestParameters));
-  },
-  // Use this API to aggregate machine identities (AI Agents).
-  startMachineIdentityAggregation: (requestParameters: sdk.MachineIdentitiesV2025ApiStartMachineIdentityAggregationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.MachineIdentityAggregationResponseV2025>> => {
-    const machineidentitiesv2025api = new sdk.MachineIdentitiesV2025Api(apiConfig);
-    return handleApiCall(() => machineidentitiesv2025api.startMachineIdentityAggregation(requestParameters));
-  },
-  // Use this API to update machine identity details. 
-  updateMachineIdentity: (requestParameters: sdk.MachineIdentitiesV2025ApiUpdateMachineIdentityRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.MachineIdentityResponseV2025>> => {
-    const machineidentitiesv2025api = new sdk.MachineIdentitiesV2025Api(apiConfig);
-    return handleApiCall(() => machineidentitiesv2025api.updateMachineIdentity(requestParameters));
-  },
-
-  // Create a new managed client. The API returns a result that includes the managed client ID.
-  createManagedClient: (requestParameters: sdk.ManagedClientsV2025ApiCreateManagedClientRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ManagedClientV2025>> => {
-    const managedclientsv2025api = new sdk.ManagedClientsV2025Api(apiConfig);
-    return handleApiCall(() => managedclientsv2025api.createManagedClient(requestParameters));
-  },
-  // Delete an existing managed client.
-  deleteManagedClient: (requestParameters: sdk.ManagedClientsV2025ApiDeleteManagedClientRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const managedclientsv2025api = new sdk.ManagedClientsV2025Api(apiConfig);
-    return handleApiCall(() => managedclientsv2025api.deleteManagedClient(requestParameters));
-  },
-  // Get managed client by ID. 
-  getManagedClient: (requestParameters: sdk.ManagedClientsV2025ApiGetManagedClientRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ManagedClientV2025>> => {
-    const managedclientsv2025api = new sdk.ManagedClientsV2025Api(apiConfig);
-    return handleApiCall(() => managedclientsv2025api.getManagedClient(requestParameters));
-  },
-  // Get a managed client\'s health indicators, using its ID.
-  getManagedClientHealthIndicators: (requestParameters: sdk.ManagedClientsV2025ApiGetManagedClientHealthIndicatorsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ManagedClientHealthIndicatorsV2025>> => {
-    const managedclientsv2025api = new sdk.ManagedClientsV2025Api(apiConfig);
-    return handleApiCall(() => managedclientsv2025api.getManagedClientHealthIndicators(requestParameters));
-  },
-  // Get a managed client\'s status, using its ID.
-  getManagedClientStatus: (requestParameters: sdk.ManagedClientsV2025ApiGetManagedClientStatusRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ManagedClientStatusV2025>> => {
-    const managedclientsv2025api = new sdk.ManagedClientsV2025Api(apiConfig);
-    return handleApiCall(() => managedclientsv2025api.getManagedClientStatus(requestParameters));
-  },
-  // List managed clients.
-  getManagedClients: (requestParameters: sdk.ManagedClientsV2025ApiGetManagedClientsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ManagedClientV2025>>> => {
-    const managedclientsv2025api = new sdk.ManagedClientsV2025Api(apiConfig);
-    return handleApiCall(() => managedclientsv2025api.getManagedClients(requestParameters));
-  },
-  // Update an existing managed client.
-  updateManagedClient: (requestParameters: sdk.ManagedClientsV2025ApiUpdateManagedClientRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ManagedClientV2025>> => {
-    const managedclientsv2025api = new sdk.ManagedClientsV2025Api(apiConfig);
-    return handleApiCall(() => managedclientsv2025api.updateManagedClient(requestParameters));
-  },
-
-  // Create a new Managed Cluster Type.  The API returns a result that includes the Managed Cluster Type ID
-  createManagedClusterType: (requestParameters: sdk.ManagedClusterTypesV2025ApiCreateManagedClusterTypeRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ManagedClusterTypeV2025>> => {
-    const managedclustertypesv2025api = new sdk.ManagedClusterTypesV2025Api(apiConfig);
-    return handleApiCall(() => managedclustertypesv2025api.createManagedClusterType(requestParameters));
-  },
-  // Delete an existing Managed Cluster Type.
-  deleteManagedClusterType: (requestParameters: sdk.ManagedClusterTypesV2025ApiDeleteManagedClusterTypeRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const managedclustertypesv2025api = new sdk.ManagedClusterTypesV2025Api(apiConfig);
-    return handleApiCall(() => managedclustertypesv2025api.deleteManagedClusterType(requestParameters));
-  },
-  // Get a Managed Cluster Type.
-  getManagedClusterType: (requestParameters: sdk.ManagedClusterTypesV2025ApiGetManagedClusterTypeRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ManagedClusterTypeV2025>> => {
-    const managedclustertypesv2025api = new sdk.ManagedClusterTypesV2025Api(apiConfig);
-    return handleApiCall(() => managedclustertypesv2025api.getManagedClusterType(requestParameters));
-  },
-  // Get a list of Managed Cluster Types.
-  getManagedClusterTypes: (requestParameters: sdk.ManagedClusterTypesV2025ApiGetManagedClusterTypesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ManagedClusterTypeV2025>>> => {
-    const managedclustertypesv2025api = new sdk.ManagedClusterTypesV2025Api(apiConfig);
-    return handleApiCall(() => managedclustertypesv2025api.getManagedClusterTypes(requestParameters));
-  },
-  // Update an existing Managed Cluster Type.
-  updateManagedClusterType: (requestParameters: sdk.ManagedClusterTypesV2025ApiUpdateManagedClusterTypeRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ManagedClusterTypeV2025>> => {
-    const managedclustertypesv2025api = new sdk.ManagedClusterTypesV2025Api(apiConfig);
-    return handleApiCall(() => managedclustertypesv2025api.updateManagedClusterType(requestParameters));
-  },
-
-  // Create a new Managed Cluster. The API returns a result that includes the managed cluster ID.
-  createManagedCluster: (requestParameters: sdk.ManagedClustersV2025ApiCreateManagedClusterRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ManagedClusterV2025>> => {
-    const managedclustersv2025api = new sdk.ManagedClustersV2025Api(apiConfig);
-    return handleApiCall(() => managedclustersv2025api.createManagedCluster(requestParameters));
-  },
-  // Delete an existing managed cluster.
-  deleteManagedCluster: (requestParameters: sdk.ManagedClustersV2025ApiDeleteManagedClusterRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const managedclustersv2025api = new sdk.ManagedClustersV2025Api(apiConfig);
-    return handleApiCall(() => managedclustersv2025api.deleteManagedCluster(requestParameters));
-  },
-  // Get a managed cluster\'s log configuration.
-  getClientLogConfiguration: (requestParameters: sdk.ManagedClustersV2025ApiGetClientLogConfigurationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ClientLogConfigurationV2025>> => {
-    const managedclustersv2025api = new sdk.ManagedClustersV2025Api(apiConfig);
-    return handleApiCall(() => managedclustersv2025api.getClientLogConfiguration(requestParameters));
-  },
-  // Get a managed cluster by ID.
-  getManagedCluster: (requestParameters: sdk.ManagedClustersV2025ApiGetManagedClusterRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ManagedClusterV2025>> => {
-    const managedclustersv2025api = new sdk.ManagedClustersV2025Api(apiConfig);
-    return handleApiCall(() => managedclustersv2025api.getManagedCluster(requestParameters));
-  },
-  // List current organization\'s managed clusters, based on request context.
-  getManagedClusters: (requestParameters: sdk.ManagedClustersV2025ApiGetManagedClustersRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ManagedClusterV2025>>> => {
-    const managedclustersv2025api = new sdk.ManagedClustersV2025Api(apiConfig);
-    return handleApiCall(() => managedclustersv2025api.getManagedClusters(requestParameters));
-  },
-  // Update a managed cluster\'s log configuration. You may only specify one of `durationMinutes` or `expiration`, up to 1440 minutes (24 hours) in the future. If neither is specified, the default value for `durationMinutes` is 240.
-  putClientLogConfiguration: (requestParameters: sdk.ManagedClustersV2025ApiPutClientLogConfigurationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ClientLogConfigurationV2025>> => {
-    const managedclustersv2025api = new sdk.ManagedClustersV2025Api(apiConfig);
-    return handleApiCall(() => managedclustersv2025api.putClientLogConfiguration(requestParameters));
-  },
-  // Trigger Manual Upgrade for Managed Cluster. AMS Security: API, Internal A token with SYSTEM_ADMINISTRATOR authority is required to call this API.
-  update: (requestParameters: sdk.ManagedClustersV2025ApiUpdateRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ClusterManualUpgradeV2025>> => {
-    const managedclustersv2025api = new sdk.ManagedClustersV2025Api(apiConfig);
-    return handleApiCall(() => managedclustersv2025api.update(requestParameters));
-  },
-  // Update an existing managed cluster.
-  updateManagedCluster: (requestParameters: sdk.ManagedClustersV2025ApiUpdateManagedClusterRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ManagedClusterV2025>> => {
-    const managedclustersv2025api = new sdk.ManagedClustersV2025Api(apiConfig);
-    return handleApiCall(() => managedclustersv2025api.updateManagedCluster(requestParameters));
-  },
-
-  // This API is used to create Multi-Host Integration. Multi-host Integration holds similar types of sources.  A token with Org Admin or Multi-Host Admin authority is required to access this endpoint.
-  createMultiHostIntegration: (requestParameters: sdk.MultiHostIntegrationV2025ApiCreateMultiHostIntegrationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.MultiHostIntegrationsV2025>> => {
-    const multihostintegrationv2025api = new sdk.MultiHostIntegrationV2025Api(apiConfig);
-    return handleApiCall(() => multihostintegrationv2025api.createMultiHostIntegration(requestParameters));
-  },
-  // This API is used to create sources within Multi-Host Integration. Multi-Host Integration holds similar types of sources.  A token with Org Admin or Multi-Host Admin authority is required to access this endpoint.
-  createSourcesWithinMultiHost: (requestParameters: sdk.MultiHostIntegrationV2025ApiCreateSourcesWithinMultiHostRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const multihostintegrationv2025api = new sdk.MultiHostIntegrationV2025Api(apiConfig);
-    return handleApiCall(() => multihostintegrationv2025api.createSourcesWithinMultiHost(requestParameters));
-  },
-  // Delete an existing Multi-Host Integration by ID.    A token with Org Admin or Multi Host Admin authority is required to access this endpoint.
-  deleteMultiHost: (requestParameters: sdk.MultiHostIntegrationV2025ApiDeleteMultiHostRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const multihostintegrationv2025api = new sdk.MultiHostIntegrationV2025Api(apiConfig);
-    return handleApiCall(() => multihostintegrationv2025api.deleteMultiHost(requestParameters));
-  },
-  // This endpoint performs bulk sources delete within Multi-Host Integration via a list of supplied IDs.  The following rights are required to access this endpoint: idn:multihosts:delete, idn:sources:delete
-  deleteMultiHostSources: (requestParameters: sdk.MultiHostIntegrationV2025ApiDeleteMultiHostSourcesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const multihostintegrationv2025api = new sdk.MultiHostIntegrationV2025Api(apiConfig);
-    return handleApiCall(() => multihostintegrationv2025api.deleteMultiHostSources(requestParameters));
-  },
-  // This API will return array of account aggregation groups within provided Multi-Host Integration ID. A token with Org Admin or Multi-Host Admin authority is required to access this endpoint.
-  getAcctAggregationGroups: (requestParameters: sdk.MultiHostIntegrationV2025ApiGetAcctAggregationGroupsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.MultiHostIntegrationsAggScheduleUpdateV2025>>> => {
-    const multihostintegrationv2025api = new sdk.MultiHostIntegrationV2025Api(apiConfig);
-    return handleApiCall(() => multihostintegrationv2025api.getAcctAggregationGroups(requestParameters));
-  },
-  // This API will return array of aggregation groups within provided Multi-Host Integration ID.    A token with Org Admin or Multi-Host Admin authority is required to access this endpoint.
-  getEntitlementAggregationGroups: (requestParameters: sdk.MultiHostIntegrationV2025ApiGetEntitlementAggregationGroupsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.MultiHostIntegrationsAggScheduleUpdateV2025>>> => {
-    const multihostintegrationv2025api = new sdk.MultiHostIntegrationV2025Api(apiConfig);
-    return handleApiCall(() => multihostintegrationv2025api.getEntitlementAggregationGroups(requestParameters));
-  },
-  // Get an existing Multi-Host Integration.   A token with Org Admin or Multi-Host Integration Admin authority is required to access this endpoint.
-  getMultiHostIntegrations: (requestParameters: sdk.MultiHostIntegrationV2025ApiGetMultiHostIntegrationsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.MultiHostIntegrationsV2025>> => {
-    const multihostintegrationv2025api = new sdk.MultiHostIntegrationV2025Api(apiConfig);
-    return handleApiCall(() => multihostintegrationv2025api.getMultiHostIntegrations(requestParameters));
-  },
-  // Get a list of Multi-Host Integrations.    A token with Org Admin or Multi-Host Admin authority is required to access this endpoint.
-  getMultiHostIntegrationsList: (requestParameters: sdk.MultiHostIntegrationV2025ApiGetMultiHostIntegrationsListRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.MultiHostIntegrationsV2025>>> => {
-    const multihostintegrationv2025api = new sdk.MultiHostIntegrationV2025Api(apiConfig);
-    return handleApiCall(() => multihostintegrationv2025api.getMultiHostIntegrationsList(requestParameters));
-  },
-  // Get a list of sources creation errors within Multi-Host Integration ID.    A token with Org Admin or Multi-Host Admin authority is required to access this endpoint.
-  getMultiHostSourceCreationErrors: (requestParameters: sdk.MultiHostIntegrationV2025ApiGetMultiHostSourceCreationErrorsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.SourceCreationErrorsV2025>>> => {
-    const multihostintegrationv2025api = new sdk.MultiHostIntegrationV2025Api(apiConfig);
-    return handleApiCall(() => multihostintegrationv2025api.getMultiHostSourceCreationErrors(requestParameters));
-  },
-  // This API endpoint returns the current list of supported Multi-Host Integration types.    A token with Org Admin or Multi-Host Admin authority is required to access this endpoint.
-  getMultihostIntegrationTypes: (apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.MultiHostIntegrationTemplateTypeV2025>>> => {
-    const multihostintegrationv2025api = new sdk.MultiHostIntegrationV2025Api(apiConfig);
-    return handleApiCall(() => multihostintegrationv2025api.getMultihostIntegrationTypes());
-  },
-  // Get a list of sources within Multi-Host Integration ID.    A token with Org Admin or Multi-Host Admin authority is required to access this endpoint.
-  getSourcesWithinMultiHost: (requestParameters: sdk.MultiHostIntegrationV2025ApiGetSourcesWithinMultiHostRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.MultiHostSourcesV2025>>> => {
-    const multihostintegrationv2025api = new sdk.MultiHostIntegrationV2025Api(apiConfig);
-    return handleApiCall(() => multihostintegrationv2025api.getSourcesWithinMultiHost(requestParameters));
-  },
-  // This endpoint performs a more detailed validation of the Multi-Host Integration\'s configuration.  A token with Org Admin or Multi-Host Admin authority is required to access this endpoint.
-  testConnectionMultiHostSources: (requestParameters: sdk.MultiHostIntegrationV2025ApiTestConnectionMultiHostSourcesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const multihostintegrationv2025api = new sdk.MultiHostIntegrationV2025Api(apiConfig);
-    return handleApiCall(() => multihostintegrationv2025api.testConnectionMultiHostSources(requestParameters));
-  },
-  // This endpoint performs a more detailed validation of the source\'s configuration.    A token with Org Admin or Multi-Host Admin authority is required to access this endpoint.
-  testSourceConnectionMultihost: (requestParameters: sdk.MultiHostIntegrationV2025ApiTestSourceConnectionMultihostRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TestSourceConnectionMultihost200ResponseV2025>> => {
-    const multihostintegrationv2025api = new sdk.MultiHostIntegrationV2025Api(apiConfig);
-    return handleApiCall(() => multihostintegrationv2025api.testSourceConnectionMultihost(requestParameters));
-  },
-  // Update existing sources within Multi-Host Integration.  A token with Org Admin or Multi-Host Admin authority is required to access this endpoint.
-  updateMultiHostSources: (requestParameters: sdk.MultiHostIntegrationV2025ApiUpdateMultiHostSourcesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const multihostintegrationv2025api = new sdk.MultiHostIntegrationV2025Api(apiConfig);
-    return handleApiCall(() => multihostintegrationv2025api.updateMultiHostSources(requestParameters));
-  },
-
-  // Approves a non-employee approval request and notifies the next approver. The current user must be the requested approver.
-  approveNonEmployeeRequest: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiApproveNonEmployeeRequestRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.NonEmployeeApprovalItemV2025>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.approveNonEmployeeRequest(requestParameters));
-  },
-  // This request will create a non-employee record. Requires role context of `idn:nesr:create`
-  createNonEmployeeRecord: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiCreateNonEmployeeRecordRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.NonEmployeeRecordV2025>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.createNonEmployeeRecord(requestParameters));
-  },
-  // This request will create a non-employee request and notify the approver. Requires role context of `idn:nesr:create` or the user must own the source.
-  createNonEmployeeRequest: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiCreateNonEmployeeRequestRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.NonEmployeeRequestV2025>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.createNonEmployeeRequest(requestParameters));
-  },
-  // Create a non-employee source. 
-  createNonEmployeeSource: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiCreateNonEmployeeSourceRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.NonEmployeeSourceWithCloudExternalIdV2025>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.createNonEmployeeSource(requestParameters));
-  },
-  // This API creates a new schema attribute for Non-Employee Source. The schema technical name must be unique in the source. Attempts to create a schema attribute with an existing name will result in a \"400.1.409 Reference conflict\" response. At most, 10 custom attributes can be created per schema. Attempts to create more than 10 will result in a \"400.1.4 Limit violation\" response. Requires role context of `idn:nesr:create`
-  createNonEmployeeSourceSchemaAttributes: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiCreateNonEmployeeSourceSchemaAttributesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.NonEmployeeSchemaAttributeV2025>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.createNonEmployeeSourceSchemaAttributes(requestParameters));
-  },
-  // This request will delete a non-employee record. Requires role context of `idn:nesr:delete`
-  deleteNonEmployeeRecord: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiDeleteNonEmployeeRecordRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.deleteNonEmployeeRecord(requestParameters));
-  },
-  // This request will delete multiple non-employee records based on the non-employee ids provided. Requires role context of `idn:nesr:delete`
-  deleteNonEmployeeRecordsInBulk: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiDeleteNonEmployeeRecordsInBulkRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.deleteNonEmployeeRecordsInBulk(requestParameters));
-  },
-  // This request will delete a non-employee request.  Requires role context of `idn:nesr:delete`
-  deleteNonEmployeeRequest: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiDeleteNonEmployeeRequestRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.deleteNonEmployeeRequest(requestParameters));
-  },
-  // This end-point deletes a specific schema attribute for a non-employee source. Requires role context of `idn:nesr:delete` 
-  deleteNonEmployeeSchemaAttribute: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiDeleteNonEmployeeSchemaAttributeRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.deleteNonEmployeeSchemaAttribute(requestParameters));
-  },
-  // This request will delete a non-employee source. Requires role context of `idn:nesr:delete`.
-  deleteNonEmployeeSource: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiDeleteNonEmployeeSourceRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.deleteNonEmployeeSource(requestParameters));
-  },
-  // This end-point deletes all custom schema attributes for a non-employee source. Requires role context of `idn:nesr:delete`
-  deleteNonEmployeeSourceSchemaAttributes: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiDeleteNonEmployeeSourceSchemaAttributesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.deleteNonEmployeeSourceSchemaAttributes(requestParameters));
-  },
-  // This requests a CSV download for all non-employees from a provided source. Requires role context of `idn:nesr:read`
-  exportNonEmployeeRecords: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiExportNonEmployeeRecordsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.exportNonEmployeeRecords(requestParameters));
-  },
-  // This requests a download for the Source Schema Template for a provided source. Requires role context of `idn:nesr:read`
-  exportNonEmployeeSourceSchemaTemplate: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiExportNonEmployeeSourceSchemaTemplateRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.exportNonEmployeeSourceSchemaTemplate(requestParameters));
-  },
-  // Gets a non-employee approval item detail. There are two contextual uses for this endpoint:   1. The user has the role context of `idn:nesr:read`, in which case they can get any approval.   2. The user owns the requested approval.
-  getNonEmployeeApproval: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiGetNonEmployeeApprovalRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.NonEmployeeApprovalItemDetailV2025>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.getNonEmployeeApproval(requestParameters));
-  },
-  // This request will retrieve a summary of non-employee approval requests. There are two contextual uses for the `requested-for` path parameter:   1. The user has the role context of `idn:nesr:read`, in which case he or she may request a summary of all non-employee approval requests assigned to a particular approver by passing in that approver\'s id.   2. The current user is an approver, in which case \"me\" should be provided as the `requested-for` value. This will provide the approver with a summary of the approval items assigned to him or her.
-  getNonEmployeeApprovalSummary: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiGetNonEmployeeApprovalSummaryRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.NonEmployeeApprovalSummaryV2025>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.getNonEmployeeApprovalSummary(requestParameters));
-  },
-  // The nonEmployeeBulkUploadStatus API returns the status of the newest bulk upload job for the specified source. Requires role context of `idn:nesr:read` 
-  getNonEmployeeBulkUploadStatus: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiGetNonEmployeeBulkUploadStatusRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.NonEmployeeBulkUploadStatusV2025>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.getNonEmployeeBulkUploadStatus(requestParameters));
-  },
-  // This gets a non-employee record. Requires role context of `idn:nesr:read`
-  getNonEmployeeRecord: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiGetNonEmployeeRecordRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.NonEmployeeRecordV2025>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.getNonEmployeeRecord(requestParameters));
-  },
-  // This gets a non-employee request. There are two contextual uses for this endpoint:   1. The user has the role context of `idn:nesr:read`, in this case the user can get the non-employee request for any user.   2. The user must be the owner of the non-employee request.
-  getNonEmployeeRequest: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiGetNonEmployeeRequestRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.NonEmployeeRequestV2025>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.getNonEmployeeRequest(requestParameters));
-  },
-  // This request will retrieve a summary of non-employee requests. There are two contextual uses for the `requested-for` path parameter:   1. The user has the role context of `idn:nesr:read`, in which case he or she may request a summary of all non-employee approval requests assigned to a particular account manager by passing in that manager\'s id.   2. The current user is an account manager, in which case \"me\" should be provided as the `requested-for` value. This will provide the user with a summary of the non-employee requests in the source(s) he or she manages.
-  getNonEmployeeRequestSummary: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiGetNonEmployeeRequestSummaryRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.NonEmployeeRequestSummaryV2025>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.getNonEmployeeRequestSummary(requestParameters));
-  },
-  // This API gets a schema attribute by Id for the specified Non-Employee SourceId. Requires role context of `idn:nesr:read` or the user must be an account manager of the source.
-  getNonEmployeeSchemaAttribute: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiGetNonEmployeeSchemaAttributeRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.NonEmployeeSchemaAttributeV2025>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.getNonEmployeeSchemaAttribute(requestParameters));
-  },
-  // This gets a non-employee source. There are two contextual uses for the requested-for path parameter:    1. The user has the role context of `idn:nesr:read`, in which case he or she may request any source.   2. The current user is an account manager, in which case the user can only request sources that they own.
-  getNonEmployeeSource: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiGetNonEmployeeSourceRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.NonEmployeeSourceV2025>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.getNonEmployeeSource(requestParameters));
-  },
-  // This API gets the list of schema attributes for the specified Non-Employee SourceId. There are 8 mandatory attributes added to each new Non-Employee Source automatically. Additionaly, user can add up to 10 custom attributes. This interface returns all the mandatory attributes followed by any custom attributes. At most, a total of 18 attributes will be returned. Requires role context of `idn:nesr:read` or the user must be an account manager of the source.
-  getNonEmployeeSourceSchemaAttributes: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiGetNonEmployeeSourceSchemaAttributesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.NonEmployeeSchemaAttributeV2025>>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.getNonEmployeeSourceSchemaAttributes(requestParameters));
-  },
-  // This post will import, or update, Non-Employee records found in the CSV. Requires role context of `idn:nesr:create`
-  importNonEmployeeRecordsInBulk: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiImportNonEmployeeRecordsInBulkRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.NonEmployeeBulkUploadJobV2025>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.importNonEmployeeRecordsInBulk(requestParameters));
-  },
-  // This gets a list of non-employee approval requests. There are two contextual uses for this endpoint:   1. The user has the role context of `idn:nesr:read`, in which case they can list the approvals for any approver.   2. The user owns the requested approval.
-  listNonEmployeeApprovals: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiListNonEmployeeApprovalsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.NonEmployeeApprovalItemV2025>>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.listNonEmployeeApprovals(requestParameters));
-  },
-  // This gets a list of non-employee records. There are two contextual uses for this endpoint:   1. The user has the role context of `idn:nesr:read`, in which case they can get a list of all of the non-employees.   2. The user is an account manager, in which case they can get a list of the non-employees that they manage.
-  listNonEmployeeRecords: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiListNonEmployeeRecordsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.NonEmployeeRecordV2025>>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.listNonEmployeeRecords(requestParameters));
-  },
-  // This gets a list of non-employee requests. There are two contextual uses for the `requested-for` path parameter:   1. The user has the role context of `idn:nesr:read`, in which case he or she may request a list non-employee requests assigned to a particular account manager by passing in that manager\'s id.   2. The current user is an account manager, in which case \"me\" should be provided as the `requested-for` value. This will provide the user with a list of the non-employee requests in the source(s) he or she manages.
-  listNonEmployeeRequests: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiListNonEmployeeRequestsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.NonEmployeeRequestV2025>>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.listNonEmployeeRequests(requestParameters));
-  },
-  // Get a list of non-employee sources. There are two contextual uses for the `requested-for` path parameter:    1. If the user has the role context of `idn:nesr:read`, he or she may request a list sources assigned to a particular account manager by passing in that manager\'s `id`.   2. If the current user is an account manager, the user should provide \'me\' as the `requested-for` value. Doing so provide the user with a list of the sources he or she owns.
-  listNonEmployeeSources: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiListNonEmployeeSourcesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.NonEmployeeSourceWithNECountV2025>>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.listNonEmployeeSources(requestParameters));
-  },
-  // This request will patch a non-employee record. There are two contextual uses for this endpoint:   1. The user has the role context of `idn:nesr:update`, in which case they update all available fields.   2. The user is owner of the source, in this case they can only update the end date.
-  patchNonEmployeeRecord: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiPatchNonEmployeeRecordRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.NonEmployeeRecordV2025>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.patchNonEmployeeRecord(requestParameters));
-  },
-  // This end-point patches a specific schema attribute for a non-employee SourceId. Requires role context of `idn:nesr:update` 
-  patchNonEmployeeSchemaAttribute: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiPatchNonEmployeeSchemaAttributeRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.NonEmployeeSchemaAttributeV2025>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.patchNonEmployeeSchemaAttribute(requestParameters));
-  },
-  // patch a non-employee source. (partial update) <br/> Patchable field: **name, description, approvers, accountManagers** Requires role context of `idn:nesr:update`.
-  patchNonEmployeeSource: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiPatchNonEmployeeSourceRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.NonEmployeeSourceV2025>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.patchNonEmployeeSource(requestParameters));
-  },
-  // This endpoint will reject an approval item request and notify user. The current user must be the requested approver.
-  rejectNonEmployeeRequest: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiRejectNonEmployeeRequestRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.NonEmployeeApprovalItemV2025>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.rejectNonEmployeeRequest(requestParameters));
-  },
-  // This request will update a non-employee record. There are two contextual uses for this endpoint:   1. The user has the role context of `idn:nesr:update`, in which case they update all available fields.   2. The user is owner of the source, in this case they can only update the end date.
-  updateNonEmployeeRecord: (requestParameters: sdk.NonEmployeeLifecycleManagementV2025ApiUpdateNonEmployeeRecordRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.NonEmployeeRecordV2025>> => {
-    const nonemployeelifecyclemanagementv2025api = new sdk.NonEmployeeLifecycleManagementV2025Api(apiConfig);
-    return handleApiCall(() => nonemployeelifecyclemanagementv2025api.updateNonEmployeeRecord(requestParameters));
-  },
-
-  // Create a domain to be verified via DKIM (DomainKeys Identified Mail)
-  createDomainDkim: (requestParameters: sdk.NotificationsV2025ApiCreateDomainDkimRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DomainStatusDtoV2025>> => {
-    const notificationsv2025api = new sdk.NotificationsV2025Api(apiConfig);
-    return handleApiCall(() => notificationsv2025api.createDomainDkim(requestParameters));
-  },
-  // This will update notification templates that are available in your tenant.  Note that you cannot create new templates in your tenant, but you can use this to create custom notifications from existing templates.  First, copy the response body from the [get notification template endpoint](https://developer.sailpoint.com/idn/api/beta/get-notification-template) for a template you wish to update and paste it into the request body for this endpoint.   Modify the fields you want to change and submit the POST request when ready. 
-  createNotificationTemplate: (requestParameters: sdk.NotificationsV2025ApiCreateNotificationTemplateRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TemplateDtoV2025>> => {
-    const notificationsv2025api = new sdk.NotificationsV2025Api(apiConfig);
-    return handleApiCall(() => notificationsv2025api.createNotificationTemplate(requestParameters));
-  },
-  // Create a new sender email address and initiate verification process.
-  createVerifiedFromAddress: (requestParameters: sdk.NotificationsV2025ApiCreateVerifiedFromAddressRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.EmailStatusDtoV2025>> => {
-    const notificationsv2025api = new sdk.NotificationsV2025Api(apiConfig);
-    return handleApiCall(() => notificationsv2025api.createVerifiedFromAddress(requestParameters));
-  },
-  // This lets you bulk delete templates that you previously created for your site. Since this is a beta feature, please contact support to enable usage.
-  deleteNotificationTemplatesInBulk: (requestParameters: sdk.NotificationsV2025ApiDeleteNotificationTemplatesInBulkRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const notificationsv2025api = new sdk.NotificationsV2025Api(apiConfig);
-    return handleApiCall(() => notificationsv2025api.deleteNotificationTemplatesInBulk(requestParameters));
-  },
-  // Delete a verified sender email address
-  deleteVerifiedFromAddress: (requestParameters: sdk.NotificationsV2025ApiDeleteVerifiedFromAddressRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const notificationsv2025api = new sdk.NotificationsV2025Api(apiConfig);
-    return handleApiCall(() => notificationsv2025api.deleteVerifiedFromAddress(requestParameters));
-  },
-  // Retrieve DKIM (DomainKeys Identified Mail) attributes for all your tenants\' AWS SES identities. Limits retrieval to 100 identities per call.
-  getDkimAttributes: (requestParameters: sdk.NotificationsV2025ApiGetDkimAttributesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.DkimAttributesV2025>>> => {
-    const notificationsv2025api = new sdk.NotificationsV2025Api(apiConfig);
-    return handleApiCall(() => notificationsv2025api.getDkimAttributes(requestParameters));
-  },
-  // Retrieve MAIL FROM attributes for a given AWS SES identity.
-  getMailFromAttributes: (requestParameters: sdk.NotificationsV2025ApiGetMailFromAttributesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.MailFromAttributesV2025>> => {
-    const notificationsv2025api = new sdk.NotificationsV2025Api(apiConfig);
-    return handleApiCall(() => notificationsv2025api.getMailFromAttributes(requestParameters));
-  },
-  // This gets a template that you have modified for your site by Id.
-  getNotificationTemplate: (requestParameters: sdk.NotificationsV2025ApiGetNotificationTemplateRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TemplateDtoV2025>> => {
-    const notificationsv2025api = new sdk.NotificationsV2025Api(apiConfig);
-    return handleApiCall(() => notificationsv2025api.getNotificationTemplate(requestParameters));
-  },
-  // The notification service maintains metadata to construct the notification templates or supply any information during the event propagation. The data-store where this information is retrieved is called \"Global Context\" (a.k.a. notification template context). It defines a set of attributes  that will be available per tenant (organization).
-  getNotificationsTemplateContext: (requestParameters: sdk.NotificationsV2025ApiGetNotificationsTemplateContextRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.NotificationTemplateContextV2025>> => {
-    const notificationsv2025api = new sdk.NotificationsV2025Api(apiConfig);
-    return handleApiCall(() => notificationsv2025api.getNotificationsTemplateContext(requestParameters));
-  },
-  // Retrieve a list of sender email addresses and their verification statuses
-  listFromAddresses: (requestParameters: sdk.NotificationsV2025ApiListFromAddressesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.EmailStatusDtoV2025>>> => {
-    const notificationsv2025api = new sdk.NotificationsV2025Api(apiConfig);
-    return handleApiCall(() => notificationsv2025api.listFromAddresses(requestParameters));
-  },
-  // Returns a list of notification preferences for tenant.
-  listNotificationPreferences: (requestParameters: sdk.NotificationsV2025ApiListNotificationPreferencesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.PreferencesDtoV2025>> => {
-    const notificationsv2025api = new sdk.NotificationsV2025Api(apiConfig);
-    return handleApiCall(() => notificationsv2025api.listNotificationPreferences(requestParameters));
-  },
-  // This lists the default templates used for notifications, such as emails from IdentityNow.
-  listNotificationTemplateDefaults: (requestParameters: sdk.NotificationsV2025ApiListNotificationTemplateDefaultsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.TemplateDtoDefaultV2025>>> => {
-    const notificationsv2025api = new sdk.NotificationsV2025Api(apiConfig);
-    return handleApiCall(() => notificationsv2025api.listNotificationTemplateDefaults(requestParameters));
-  },
-  // This lists the templates that you have modified for your site.
-  listNotificationTemplates: (requestParameters: sdk.NotificationsV2025ApiListNotificationTemplatesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.TemplateDtoV2025>>> => {
-    const notificationsv2025api = new sdk.NotificationsV2025Api(apiConfig);
-    return handleApiCall(() => notificationsv2025api.listNotificationTemplates(requestParameters));
-  },
-  // Change the MAIL FROM domain of an AWS SES email identity and provide the MX and TXT records to be placed in the caller\'s DNS
-  putMailFromAttributes: (requestParameters: sdk.NotificationsV2025ApiPutMailFromAttributesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.MailFromAttributesV2025>> => {
-    const notificationsv2025api = new sdk.NotificationsV2025Api(apiConfig);
-    return handleApiCall(() => notificationsv2025api.putMailFromAttributes(requestParameters));
-  },
-  // Send a Test Notification
-  sendTestNotification: (requestParameters: sdk.NotificationsV2025ApiSendTestNotificationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const notificationsv2025api = new sdk.NotificationsV2025Api(apiConfig);
-    return handleApiCall(() => notificationsv2025api.sendTestNotification(requestParameters));
-  },
-
-  // This creates an OAuth client.
-  createOauthClient: (requestParameters: sdk.OAuthClientsV2025ApiCreateOauthClientRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateOAuthClientResponseV2025>> => {
-    const oauthclientsv2025api = new sdk.OAuthClientsV2025Api(apiConfig);
-    return handleApiCall(() => oauthclientsv2025api.createOauthClient(requestParameters));
-  },
-  // This deletes an OAuth client.
-  deleteOauthClient: (requestParameters: sdk.OAuthClientsV2025ApiDeleteOauthClientRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const oauthclientsv2025api = new sdk.OAuthClientsV2025Api(apiConfig);
-    return handleApiCall(() => oauthclientsv2025api.deleteOauthClient(requestParameters));
-  },
-  // This gets details of an OAuth client.
-  getOauthClient: (requestParameters: sdk.OAuthClientsV2025ApiGetOauthClientRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetOAuthClientResponseV2025>> => {
-    const oauthclientsv2025api = new sdk.OAuthClientsV2025Api(apiConfig);
-    return handleApiCall(() => oauthclientsv2025api.getOauthClient(requestParameters));
-  },
-  // This gets a list of OAuth clients.
-  listOauthClients: (requestParameters: sdk.OAuthClientsV2025ApiListOauthClientsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.GetOAuthClientResponseV2025>>> => {
-    const oauthclientsv2025api = new sdk.OAuthClientsV2025Api(apiConfig);
-    return handleApiCall(() => oauthclientsv2025api.listOauthClients(requestParameters));
-  },
-  // This performs a targeted update to the field(s) of an OAuth client.
-  patchOauthClient: (requestParameters: sdk.OAuthClientsV2025ApiPatchOauthClientRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetOAuthClientResponseV2025>> => {
-    const oauthclientsv2025api = new sdk.OAuthClientsV2025Api(apiConfig);
-    return handleApiCall(() => oauthclientsv2025api.patchOauthClient(requestParameters));
-  },
-
-  // Get the current organization\'s configuration settings, only external accessible properties.
-  getOrgConfig: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.OrgConfigV2025>> => {
-    const orgconfigv2025api = new sdk.OrgConfigV2025Api(apiConfig);
-    return handleApiCall(() => orgconfigv2025api.getOrgConfig());
-  },
-  // List the valid time zones that can be set in organization configurations.
-  getValidTimeZones: (requestParameters: sdk.OrgConfigV2025ApiGetValidTimeZonesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<string>>> => {
-    const orgconfigv2025api = new sdk.OrgConfigV2025Api(apiConfig);
-    return handleApiCall(() => orgconfigv2025api.getValidTimeZones(requestParameters));
-  },
-  // Patch the current organization\'s configuration, using http://jsonpatch.com/ syntax. This is commonly used to changing an organization\'s time zone.
-  patchOrgConfig: (requestParameters: sdk.OrgConfigV2025ApiPatchOrgConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.OrgConfigV2025>> => {
-    const orgconfigv2025api = new sdk.OrgConfigV2025Api(apiConfig);
-    return handleApiCall(() => orgconfigv2025api.patchOrgConfig(requestParameters));
-  },
-
-  // Add a new parameter.
-  createParameter: (requestParameters: sdk.ParameterStorageV2025ApiCreateParameterRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ParameterStorageParameterV2025>> => {
-    const parameterstoragev2025api = new sdk.ParameterStorageV2025Api(apiConfig);
-    return handleApiCall(() => parameterstoragev2025api.createParameter(requestParameters));
-  },
-  // Delete a parameter. Will only delete parameters without existing references.
-  deleteParameter: (requestParameters: sdk.ParameterStorageV2025ApiDeleteParameterRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const parameterstoragev2025api = new sdk.ParameterStorageV2025Api(apiConfig);
-    return handleApiCall(() => parameterstoragev2025api.deleteParameter(requestParameters));
-  },
-  // Get an attestation document containing a NIST P-384 service public key for an ECDHE handshake, enabling the end-to-end-encrypted transport of parameter private fields.
-  getAttestationDocument: (requestParameters: sdk.ParameterStorageV2025ApiGetAttestationDocumentRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ParameterStorageAttestationDocumentV2025>> => {
-    const parameterstoragev2025api = new sdk.ParameterStorageV2025Api(apiConfig);
-    return handleApiCall(() => parameterstoragev2025api.getAttestationDocument(requestParameters));
-  },
-  // Get a parameter by ID. This will only return the public fields for the parameter.
-  getParameter: (requestParameters: sdk.ParameterStorageV2025ApiGetParameterRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ParameterStorageParameterV2025>> => {
-    const parameterstoragev2025api = new sdk.ParameterStorageV2025Api(apiConfig);
-    return handleApiCall(() => parameterstoragev2025api.getParameter(requestParameters));
-  },
-  // Get the references for a given parameter.
-  getParameterReferences: (requestParameters: sdk.ParameterStorageV2025ApiGetParameterReferencesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ParameterStorageReferenceV2025>>> => {
-    const parameterstoragev2025api = new sdk.ParameterStorageV2025Api(apiConfig);
-    return handleApiCall(() => parameterstoragev2025api.getParameterReferences(requestParameters));
-  },
-  // Get the specifications for all parameter types. All parameters must conform to this specification document.
-  getParameterStorageSpecification: (requestParameters: sdk.ParameterStorageV2025ApiGetParameterStorageSpecificationRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const parameterstoragev2025api = new sdk.ParameterStorageV2025Api(apiConfig);
-    return handleApiCall(() => parameterstoragev2025api.getParameterStorageSpecification(requestParameters));
-  },
-  // Query a stored parameter.
-  searchParameters: (requestParameters: sdk.ParameterStorageV2025ApiSearchParametersRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ParameterStorageParameterV2025>>> => {
-    const parameterstoragev2025api = new sdk.ParameterStorageV2025Api(apiConfig);
-    return handleApiCall(() => parameterstoragev2025api.searchParameters(requestParameters));
-  },
-  // Update a parameter. You cannot change a parameter\'s type once set. Only the name, owner, description, public fields, and private fields can be updated. Private field updates are made via JWE AES256 encrypted blobs.
-  updateParameter: (requestParameters: sdk.ParameterStorageV2025ApiUpdateParameterRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ParameterStorageParameterV2025>> => {
-    const parameterstoragev2025api = new sdk.ParameterStorageV2025Api(apiConfig);
-    return handleApiCall(() => parameterstoragev2025api.updateParameter(requestParameters));
-  },
-
-  // This API creates the password org config. Unspecified fields will use default value. To be able to use the custom password instructions, you must set the `customInstructionsEnabled` field to \"true\". Requires ORG_ADMIN, API role or authorization scope of \'idn:password-org-config:write\'
-  createPasswordOrgConfig: (requestParameters: sdk.PasswordConfigurationV2025ApiCreatePasswordOrgConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.PasswordOrgConfigV2025>> => {
-    const passwordconfigurationv2025api = new sdk.PasswordConfigurationV2025Api(apiConfig);
-    return handleApiCall(() => passwordconfigurationv2025api.createPasswordOrgConfig(requestParameters));
-  },
-  // This API returns the password org config . Requires ORG_ADMIN, API role or authorization scope of \'idn:password-org-config:read\'
-  getPasswordOrgConfig: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.PasswordOrgConfigV2025>> => {
-    const passwordconfigurationv2025api = new sdk.PasswordConfigurationV2025Api(apiConfig);
-    return handleApiCall(() => passwordconfigurationv2025api.getPasswordOrgConfig());
-  },
-  // This API updates the password org config for specified fields. Other fields will keep original value. You must set the `customInstructionsEnabled` field to \"true\" to be able to use custom password instructions.  Requires ORG_ADMIN, API role or authorization scope of \'idn:password-org-config:write\'
-  putPasswordOrgConfig: (requestParameters: sdk.PasswordConfigurationV2025ApiPutPasswordOrgConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.PasswordOrgConfigV2025>> => {
-    const passwordconfigurationv2025api = new sdk.PasswordConfigurationV2025Api(apiConfig);
-    return handleApiCall(() => passwordconfigurationv2025api.putPasswordOrgConfig(requestParameters));
-  },
-
-  // This gets password dictionary for the organization. The password dictionary file can contain lines that are: 1. comment lines - the first character is \'#\', can be 128 Unicode codepoints in length, and are ignored during processing 2. empty lines 3. locale line - the first line that starts with \"locale=\" is considered to be locale line, the rest are treated as normal content lines 4. line containing the password dictionary word - it must start with non-whitespace character and only non-whitespace characters are allowed;         maximum length of the line is 128 Unicode codepoints   Password dictionary file may not contain more than 2,500 lines (not counting whitespace lines, comment lines and locale line).   Password dict file must contain UTF-8 characters only.  # Sample password text file  ```  # Password dictionary small test file  locale=en_US  # Password dictionary prohibited words  qwerty abcd aaaaa password qazxsws  ```
-  getPasswordDictionary: (apiConfig: sdk.Configuration): Promise<ApiResponse<string>> => {
-    const passworddictionaryv2025api = new sdk.PasswordDictionaryV2025Api(apiConfig);
-    return handleApiCall(() => passworddictionaryv2025api.getPasswordDictionary());
-  },
-  // This updates password dictionary for the organization. The password dictionary file can contain lines that are: 1. comment lines - the first character is \'#\', can be 128 Unicode codepoints in length, and are ignored during processing 2. empty lines 3. locale line - the first line that starts with \"locale=\" is considered to be locale line, the rest are treated as normal content lines 4. line containing the password dictionary word - it must start with non-whitespace character and only non-whitespace characters are allowed;         maximum length of the line is 128 Unicode codepoints   Password dictionary file may not contain more than 2,500 lines (not counting whitespace lines, comment lines and locale line).   Password dict file must contain UTF-8 characters only.  # Sample password text file  ```  # Password dictionary small test file  locale=en_US  # Password dictionary prohibited words  qwerty abcd aaaaa password qazxsws  ```
-  putPasswordDictionary: (requestParameters: sdk.PasswordDictionaryV2025ApiPutPasswordDictionaryRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const passworddictionaryv2025api = new sdk.PasswordDictionaryV2025Api(apiConfig);
-    return handleApiCall(() => passworddictionaryv2025api.putPasswordDictionary(requestParameters));
-  },
-
-  // This API is used to generate a digit token for password management. Requires authorization scope of \"idn:password-digit-token:create\".
-  createDigitToken: (requestParameters: sdk.PasswordManagementV2025ApiCreateDigitTokenRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.PasswordDigitTokenV2025>> => {
-    const passwordmanagementv2025api = new sdk.PasswordManagementV2025Api(apiConfig);
-    return handleApiCall(() => passwordmanagementv2025api.createDigitToken(requestParameters));
-  },
-  // This API returns the status of a password change request.
-  getPasswordChangeStatus: (requestParameters: sdk.PasswordManagementV2025ApiGetPasswordChangeStatusRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.PasswordStatusV2025>> => {
-    const passwordmanagementv2025api = new sdk.PasswordManagementV2025Api(apiConfig);
-    return handleApiCall(() => passwordmanagementv2025api.getPasswordChangeStatus(requestParameters));
-  },
-  // This API is used to query password related information.  
-  queryPasswordInfo: (requestParameters: sdk.PasswordManagementV2025ApiQueryPasswordInfoRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.PasswordInfoV2025>> => {
-    const passwordmanagementv2025api = new sdk.PasswordManagementV2025Api(apiConfig);
-    return handleApiCall(() => passwordmanagementv2025api.queryPasswordInfo(requestParameters));
-  },
-  // This API is used to set a password for an identity.   An identity can change their own password (as well as any of their accounts\' passwords) if they use a token generated by their ISC user, such as a [personal access token](https://developer.sailpoint.com/idn/api/authentication#personal-access-tokens) or [\"authorization_code\" derived OAuth token](https://developer.sailpoint.com/idn/api/authentication#authorization-code-grant-flow).  >**Note: If you want to set an identity\'s source account password, you must enable `PASSWORD` as one of the source\'s features. You can use the [PATCH Source endpoint](https://developer.sailpoint.com/docs/api/v3/update-source) to add the `PASSWORD` feature.**  To generate the encryptedPassword (RSA encrypted using publicKey) for the request body, run the following command:  ```bash echo -n \"myPassword\" | openssl pkeyutl -encrypt -inkey public_key.pem -pubin | base64 ```  In this example, myPassword is the plain text password being set and encrypted, and public_key.pem is the path to the public key file. You can retrieve the required publicKey, along with other information like identityId, sourceId, publicKeyId, accounts, and policies, using the Query Password Info endpoint.  To successfully run this command, you must have OpenSSL installed on your machine. If OpenSSL is unavailable, consider using the Virtual Appliance (VA), which has OpenSSL pre-installed and configured.  If you are using a Windows machine, refer to this [guide](https://tecadmin.net/install-openssl-on-windows/) for instructions on installing OpenSSL.  You can then use [Get Password Change Request Status](https://developer.sailpoint.com/idn/api/v3/get-password-change-status) to check the password change request status. To do so, you must provide the `requestId` from your earlier request to set the password.  
-  setPassword: (requestParameters: sdk.PasswordManagementV2025ApiSetPasswordRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.PasswordChangeResponseV2025>> => {
-    const passwordmanagementv2025api = new sdk.PasswordManagementV2025Api(apiConfig);
-    return handleApiCall(() => passwordmanagementv2025api.setPassword(requestParameters));
-  },
-
-  // This API creates the specified password policy.
-  createPasswordPolicy: (requestParameters: sdk.PasswordPoliciesV2025ApiCreatePasswordPolicyRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.PasswordPolicyV3DtoV2025>> => {
-    const passwordpoliciesv2025api = new sdk.PasswordPoliciesV2025Api(apiConfig);
-    return handleApiCall(() => passwordpoliciesv2025api.createPasswordPolicy(requestParameters));
-  },
-  // This API deletes the specified password policy.
-  deletePasswordPolicy: (requestParameters: sdk.PasswordPoliciesV2025ApiDeletePasswordPolicyRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const passwordpoliciesv2025api = new sdk.PasswordPoliciesV2025Api(apiConfig);
-    return handleApiCall(() => passwordpoliciesv2025api.deletePasswordPolicy(requestParameters));
-  },
-  // This API returns the password policy for the specified ID.
-  getPasswordPolicyById: (requestParameters: sdk.PasswordPoliciesV2025ApiGetPasswordPolicyByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.PasswordPolicyV3DtoV2025>> => {
-    const passwordpoliciesv2025api = new sdk.PasswordPoliciesV2025Api(apiConfig);
-    return handleApiCall(() => passwordpoliciesv2025api.getPasswordPolicyById(requestParameters));
-  },
-  // This gets list of all Password Policies. Requires role of ORG_ADMIN
-  listPasswordPolicies: (requestParameters: sdk.PasswordPoliciesV2025ApiListPasswordPoliciesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.PasswordPolicyV3DtoV2025>>> => {
-    const passwordpoliciesv2025api = new sdk.PasswordPoliciesV2025Api(apiConfig);
-    return handleApiCall(() => passwordpoliciesv2025api.listPasswordPolicies(requestParameters));
-  },
-  // This API updates the specified password policy.
-  setPasswordPolicy: (requestParameters: sdk.PasswordPoliciesV2025ApiSetPasswordPolicyRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.PasswordPolicyV3DtoV2025>> => {
-    const passwordpoliciesv2025api = new sdk.PasswordPoliciesV2025Api(apiConfig);
-    return handleApiCall(() => passwordpoliciesv2025api.setPasswordPolicy(requestParameters));
-  },
-
-  // This API creates a password sync group based on the specifications provided.
-  createPasswordSyncGroup: (requestParameters: sdk.PasswordSyncGroupsV2025ApiCreatePasswordSyncGroupRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.PasswordSyncGroupV2025>> => {
-    const passwordsyncgroupsv2025api = new sdk.PasswordSyncGroupsV2025Api(apiConfig);
-    return handleApiCall(() => passwordsyncgroupsv2025api.createPasswordSyncGroup(requestParameters));
-  },
-  // This API deletes the specified password sync group.
-  deletePasswordSyncGroup: (requestParameters: sdk.PasswordSyncGroupsV2025ApiDeletePasswordSyncGroupRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const passwordsyncgroupsv2025api = new sdk.PasswordSyncGroupsV2025Api(apiConfig);
-    return handleApiCall(() => passwordsyncgroupsv2025api.deletePasswordSyncGroup(requestParameters));
-  },
-  // This API returns the sync group for the specified ID.
-  getPasswordSyncGroup: (requestParameters: sdk.PasswordSyncGroupsV2025ApiGetPasswordSyncGroupRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.PasswordSyncGroupV2025>> => {
-    const passwordsyncgroupsv2025api = new sdk.PasswordSyncGroupsV2025Api(apiConfig);
-    return handleApiCall(() => passwordsyncgroupsv2025api.getPasswordSyncGroup(requestParameters));
-  },
-  // This API returns a list of password sync groups.
-  getPasswordSyncGroups: (requestParameters: sdk.PasswordSyncGroupsV2025ApiGetPasswordSyncGroupsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.PasswordSyncGroupV2025>>> => {
-    const passwordsyncgroupsv2025api = new sdk.PasswordSyncGroupsV2025Api(apiConfig);
-    return handleApiCall(() => passwordsyncgroupsv2025api.getPasswordSyncGroups(requestParameters));
-  },
-  // This API updates the specified password sync group.
-  updatePasswordSyncGroup: (requestParameters: sdk.PasswordSyncGroupsV2025ApiUpdatePasswordSyncGroupRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.PasswordSyncGroupV2025>> => {
-    const passwordsyncgroupsv2025api = new sdk.PasswordSyncGroupsV2025Api(apiConfig);
-    return handleApiCall(() => passwordsyncgroupsv2025api.updatePasswordSyncGroup(requestParameters));
-  },
-
-  // This creates a personal access token. **expirationDate and userAwareTokenNeverExpires Relationship:** **Important:** When `expirationDate` is `null` or empty (not included in the request body), the token will never expire. **Required Validation:** If `expirationDate` is `null` or empty, `userAwareTokenNeverExpires` must be set to `true`. This is a required validation rule. The valid values for `expirationDate` depend on the value provided for `userAwareTokenNeverExpires`: * **When `userAwareTokenNeverExpires` is `true` (or required to be `true`):** `expirationDate` can be `null` or omitted from the request body. When `expirationDate` is `null` or empty, the token will never expire. This creates a PAT that never expires and serves as an explicit acknowledgment that the user is aware of the security implications of creating a non-expiring token. * **When `userAwareTokenNeverExpires` is `false` or omitted:** `expirationDate` must be provided and must be a valid date-time string representing a future date (there is no upper limit). `expirationDate` cannot be `null` in this case. In this scenario, `userAwareTokenNeverExpires` can be omitted. **Validation Rules:** * **If `expirationDate` is `null` or not included in the request body:** `userAwareTokenNeverExpires` must be set to `true` (required). The token will never expire. * **If `expirationDate` is provided and is not `null`:** `userAwareTokenNeverExpires` can be omitted. **Security Considerations:** The `userAwareTokenNeverExpires` field is designed to ensure that users explicitly acknowledge the security implications of creating tokens that never expire. Setting this field to `true` indicates that the user understands the increased security risks and has made an informed decision to proceed. **Note:** The `userAwareTokenNeverExpires` field indicates that the user acknowledges they are creating a token that will never expire. It does not affect token behavior beyond indicating this acknowledgment.
-  createPersonalAccessToken: (requestParameters: sdk.PersonalAccessTokensV2025ApiCreatePersonalAccessTokenRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreatePersonalAccessTokenResponseV2025>> => {
-    const personalaccesstokensv2025api = new sdk.PersonalAccessTokensV2025Api(apiConfig);
-    return handleApiCall(() => personalaccesstokensv2025api.createPersonalAccessToken(requestParameters));
-  },
-  // This deletes a personal access token.
-  deletePersonalAccessToken: (requestParameters: sdk.PersonalAccessTokensV2025ApiDeletePersonalAccessTokenRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const personalaccesstokensv2025api = new sdk.PersonalAccessTokensV2025Api(apiConfig);
-    return handleApiCall(() => personalaccesstokensv2025api.deletePersonalAccessToken(requestParameters));
-  },
-  // This gets a collection of personal access tokens associated with the optional `owner-id`.  query parameter. If the `owner-id` query parameter is omitted, all personal access tokens  for a tenant will be retrieved, but the caller must have the \'idn:all-personal-access-tokens:read\' right.
-  listPersonalAccessTokens: (requestParameters: sdk.PersonalAccessTokensV2025ApiListPersonalAccessTokensRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.GetPersonalAccessTokenResponseV2025>>> => {
-    const personalaccesstokensv2025api = new sdk.PersonalAccessTokensV2025Api(apiConfig);
-    return handleApiCall(() => personalaccesstokensv2025api.listPersonalAccessTokens(requestParameters));
-  },
-  // This performs a targeted update to the field(s) of a Personal Access Token. Changing scopes for a Personal Access Token does not impact existing bearer tokens. You will need to create a new bearer token to have the new scopes. Please note that it can take up to 20 minutes for scope changes to be seen on new bearer tokens. **expirationDate and userAwareTokenNeverExpires Relationship:** **Important:** When `expirationDate` is `null` or empty (replaced to `null` or omitted from the patch request), the token will never expire. **Required Validation:** If `expirationDate` is being replaced to `null` or is empty, `userAwareTokenNeverExpires` must be set to `true` in the patch request. This is a required validation rule. When patching `expirationDate` and `userAwareTokenNeverExpires`, the valid values for `expirationDate` depend on the value provided for `userAwareTokenNeverExpires`: * **When `userAwareTokenNeverExpires` is being set to `true` (or required to be `true`):** `expirationDate` can be replaced to `null` or omitted from the patch request. When `expirationDate` is `null` or empty, the token will never expire. This sets the PAT to never expire and serves as an explicit acknowledgment that the user is aware of the security implications of creating a non-expiring token. * **When `userAwareTokenNeverExpires` is `false` or omitted:** `expirationDate` must be provided and must be a valid date-time string representing a future date (there is no upper limit). `expirationDate` cannot be `null` in this case. In this scenario, `userAwareTokenNeverExpires` can be omitted. **Validation Rules:** * **If `expirationDate` is being replaced to `null`:** `userAwareTokenNeverExpires` must also be present in the patch request with a value of `true` (required). The token will never expire. * **If `expirationDate` is not being replaced to `null` (i.e., set to a future date):** `userAwareTokenNeverExpires` can be omitted. **Security Considerations:** The `userAwareTokenNeverExpires` field is designed to ensure that users explicitly acknowledge the security implications of creating tokens that never expire. Setting this field to `true` indicates that the user understands the increased security risks and has made an informed decision to proceed. **Note:** The `userAwareTokenNeverExpires` field indicates that the user acknowledges they are creating a token that will never expire. It does not affect token behavior beyond indicating this acknowledgment.
-  patchPersonalAccessToken: (requestParameters: sdk.PersonalAccessTokensV2025ApiPatchPersonalAccessTokenRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPersonalAccessTokenResponseV2025>> => {
-    const personalaccesstokensv2025api = new sdk.PersonalAccessTokensV2025Api(apiConfig);
-    return handleApiCall(() => personalaccesstokensv2025api.patchPersonalAccessToken(requestParameters));
-  },
-
-  // Use this API to create a custom privilege criteria
-  createCustomPrivilegeCriteria: (requestParameters: sdk.PrivilegeCriteriaV2025ApiCreateCustomPrivilegeCriteriaRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.PrivilegeCriteriaDTOV2025>> => {
-    const privilegecriteriav2025api = new sdk.PrivilegeCriteriaV2025Api(apiConfig);
-    return handleApiCall(() => privilegecriteriav2025api.createCustomPrivilegeCriteria(requestParameters));
-  },
-  // Use this API to delete a specific custom privilege criteria.
-  deleteCustomPrivilegeCriteria: (requestParameters: sdk.PrivilegeCriteriaV2025ApiDeleteCustomPrivilegeCriteriaRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const privilegecriteriav2025api = new sdk.PrivilegeCriteriaV2025Api(apiConfig);
-    return handleApiCall(() => privilegecriteriav2025api.deleteCustomPrivilegeCriteria(requestParameters));
-  },
-  // Use this API to get a specific privilege criteria.
-  getPrivilegeCriteria: (requestParameters: sdk.PrivilegeCriteriaV2025ApiGetPrivilegeCriteriaRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.PrivilegeCriteriaDTOV2025>> => {
-    const privilegecriteriav2025api = new sdk.PrivilegeCriteriaV2025Api(apiConfig);
-    return handleApiCall(() => privilegecriteriav2025api.getPrivilegeCriteria(requestParameters));
-  },
-  // Use this API to list all privilege criteria matching a filter
-  listPrivilegeCriteria: (requestParameters: sdk.PrivilegeCriteriaV2025ApiListPrivilegeCriteriaRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.PrivilegeCriteriaDTOV2025>>> => {
-    const privilegecriteriav2025api = new sdk.PrivilegeCriteriaV2025Api(apiConfig);
-    return handleApiCall(() => privilegecriteriav2025api.listPrivilegeCriteria(requestParameters));
-  },
-  // Use this API to update a specific custom privilege criteria by overwriting the information with new information.
-  putCustomPrivilegeCriteriaValue: (requestParameters: sdk.PrivilegeCriteriaV2025ApiPutCustomPrivilegeCriteriaValueRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.PrivilegeCriteriaDTOV2025>> => {
-    const privilegecriteriav2025api = new sdk.PrivilegeCriteriaV2025Api(apiConfig);
-    return handleApiCall(() => privilegecriteriav2025api.putCustomPrivilegeCriteriaValue(requestParameters));
-  },
-
-  // Use this API to get the privilege criteria configuration by Id.
-  getPrivilegeCriteriaConfig: (requestParameters: sdk.PrivilegeCriteriaConfigurationV2025ApiGetPrivilegeCriteriaConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.PrivilegeCriteriaConfigDTOV2025>> => {
-    const privilegecriteriaconfigurationv2025api = new sdk.PrivilegeCriteriaConfigurationV2025Api(apiConfig);
-    return handleApiCall(() => privilegecriteriaconfigurationv2025api.getPrivilegeCriteriaConfig(requestParameters));
-  },
-  // Use this API to list the privilege criteria configuration.
-  listPrivilegeCriteriaConfig: (requestParameters: sdk.PrivilegeCriteriaConfigurationV2025ApiListPrivilegeCriteriaConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.PrivilegeCriteriaConfigDTOV2025>>> => {
-    const privilegecriteriaconfigurationv2025api = new sdk.PrivilegeCriteriaConfigurationV2025Api(apiConfig);
-    return handleApiCall(() => privilegecriteriaconfigurationv2025api.listPrivilegeCriteriaConfig(requestParameters));
-  },
-  // Use this API to update the privilege criteria configuration.
-  patchPrivilegeCriteriaConfig: (requestParameters: sdk.PrivilegeCriteriaConfigurationV2025ApiPatchPrivilegeCriteriaConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.PrivilegeCriteriaConfigDTOV2025>> => {
-    const privilegecriteriaconfigurationv2025api = new sdk.PrivilegeCriteriaConfigurationV2025Api(apiConfig);
-    return handleApiCall(() => privilegecriteriaconfigurationv2025api.patchPrivilegeCriteriaConfig(requestParameters));
-  },
-
-  // Get a list of public identities.  Set `add-core-filters` to `true` to exclude incomplete identities and uncorrelated accounts.
-  getPublicIdentities: (requestParameters: sdk.PublicIdentitiesV2025ApiGetPublicIdentitiesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.PublicIdentityV2025>>> => {
-    const publicidentitiesv2025api = new sdk.PublicIdentitiesV2025Api(apiConfig);
-    return handleApiCall(() => publicidentitiesv2025api.getPublicIdentities(requestParameters));
-  },
-
-  // Returns the publicly visible attributes of an identity available to request approvers for Access Requests and Certification Campaigns.
-  getPublicIdentityConfig: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.PublicIdentityConfigV2025>> => {
-    const publicidentitiesconfigv2025api = new sdk.PublicIdentitiesConfigV2025Api(apiConfig);
-    return handleApiCall(() => publicidentitiesconfigv2025api.getPublicIdentityConfig());
-  },
-  // Updates the publicly visible attributes of an identity available to request approvers for Access Requests and Certification Campaigns.
-  updatePublicIdentityConfig: (requestParameters: sdk.PublicIdentitiesConfigV2025ApiUpdatePublicIdentityConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.PublicIdentityConfigV2025>> => {
-    const publicidentitiesconfigv2025api = new sdk.PublicIdentitiesConfigV2025Api(apiConfig);
-    return handleApiCall(() => publicidentitiesconfigv2025api.updatePublicIdentityConfig(requestParameters));
-  },
-
-  // Cancels a running report.
-  cancelReport: (requestParameters: sdk.ReportsDataExtractionV2025ApiCancelReportRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const reportsdataextractionv2025api = new sdk.ReportsDataExtractionV2025Api(apiConfig);
-    return handleApiCall(() => reportsdataextractionv2025api.cancelReport(requestParameters));
-  },
-  // Gets a report in file format.
-  getReport: (requestParameters: sdk.ReportsDataExtractionV2025ApiGetReportRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<File>> => {
-    const reportsdataextractionv2025api = new sdk.ReportsDataExtractionV2025Api(apiConfig);
-    return handleApiCall(() => reportsdataextractionv2025api.getReport(requestParameters));
-  },
-  // Get the report results for a report that was run or is running. Returns empty report result in case there are no active task definitions with used in payload task definition name.
-  getReportResult: (requestParameters: sdk.ReportsDataExtractionV2025ApiGetReportResultRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ReportResultsV2025>> => {
-    const reportsdataextractionv2025api = new sdk.ReportsDataExtractionV2025Api(apiConfig);
-    return handleApiCall(() => reportsdataextractionv2025api.getReportResult(requestParameters));
-  },
-  // Use this API to run a report according to report input details. If non-concurrent task is already running then it returns, otherwise new task creates and returns.
-  startReport: (requestParameters: sdk.ReportsDataExtractionV2025ApiStartReportRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TaskResultDetailsV2025>> => {
-    const reportsdataextractionv2025api = new sdk.ReportsDataExtractionV2025Api(apiConfig);
-    return handleApiCall(() => reportsdataextractionv2025api.startReport(requestParameters));
-  },
-
-  // Get a list of acccess items that can be requested through the [Access Request endpoints](https://developer.sailpoint.com/docs/api/v2024/access-requests). Access items are marked with `AVAILABLE`, `PENDING` or `ASSIGNED` with respect to the identity provided using `identity-id` query parameter. This endpoint only lists roles and access profiles. For gathering requestable entitlements, the [Entitlements List API](https://developer.sailpoint.com/docs/api/v2025/list-entitlements) can be used with the segmented-for-identity parameter. Any authenticated token can call this endpoint to see their requestable access items.
-  listRequestableObjects: (requestParameters: sdk.RequestableObjectsV2025ApiListRequestableObjectsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.RequestableObjectV2025>>> => {
-    const requestableobjectsv2025api = new sdk.RequestableObjectsV2025Api(apiConfig);
-    return handleApiCall(() => requestableobjectsv2025api.listRequestableObjects(requestParameters));
-  },
-
-  // Submits a create role insights request to the role insights application. At this time there are no parameters. All business roles will be processed for the customer.
-  createRoleInsightRequests: (requestParameters: sdk.RoleInsightsV2025ApiCreateRoleInsightRequestsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RoleInsightsResponseV2025>> => {
-    const roleinsightsv2025api = new sdk.RoleInsightsV2025Api(apiConfig);
-    return handleApiCall(() => roleinsightsv2025api.createRoleInsightRequests(requestParameters));
-  },
-  // This endpoint returns the entitlement insights for a role.
-  downloadRoleInsightsEntitlementsChanges: (requestParameters: sdk.RoleInsightsV2025ApiDownloadRoleInsightsEntitlementsChangesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<string>> => {
-    const roleinsightsv2025api = new sdk.RoleInsightsV2025Api(apiConfig);
-    return handleApiCall(() => roleinsightsv2025api.downloadRoleInsightsEntitlementsChanges(requestParameters));
-  },
-  // Role insights suggests entitlements to be added for a role. This endpoint returns a list of identities in the role, with or without the entitlements, for a suggested entitlement so that the user can see which identities would be affected if the suggested entitlement were to be added to the role.
-  getEntitlementChangesIdentities: (requestParameters: sdk.RoleInsightsV2025ApiGetEntitlementChangesIdentitiesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.RoleInsightsIdentitiesV2025>>> => {
-    const roleinsightsv2025api = new sdk.RoleInsightsV2025Api(apiConfig);
-    return handleApiCall(() => roleinsightsv2025api.getEntitlementChangesIdentities(requestParameters));
-  },
-  // This endpoint gets role insights information for a role.
-  getRoleInsight: (requestParameters: sdk.RoleInsightsV2025ApiGetRoleInsightRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RoleInsightV2025>> => {
-    const roleinsightsv2025api = new sdk.RoleInsightsV2025Api(apiConfig);
-    return handleApiCall(() => roleinsightsv2025api.getRoleInsight(requestParameters));
-  },
-  // This method returns detailed role insights for each role.
-  getRoleInsights: (requestParameters: sdk.RoleInsightsV2025ApiGetRoleInsightsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.RoleInsightV2025>>> => {
-    const roleinsightsv2025api = new sdk.RoleInsightsV2025Api(apiConfig);
-    return handleApiCall(() => roleinsightsv2025api.getRoleInsights(requestParameters));
-  },
-  // This endpoint gets the entitlements for a role. The term \"current\" is to distinguish from the entitlement(s) an insight might recommend adding.
-  getRoleInsightsCurrentEntitlements: (requestParameters: sdk.RoleInsightsV2025ApiGetRoleInsightsCurrentEntitlementsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.RoleInsightsEntitlementV2025>>> => {
-    const roleinsightsv2025api = new sdk.RoleInsightsV2025Api(apiConfig);
-    return handleApiCall(() => roleinsightsv2025api.getRoleInsightsCurrentEntitlements(requestParameters));
-  },
-  // This endpoint returns entitlement insights for a role.
-  getRoleInsightsEntitlementsChanges: (requestParameters: sdk.RoleInsightsV2025ApiGetRoleInsightsEntitlementsChangesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.RoleInsightsEntitlementChangesV2025>>> => {
-    const roleinsightsv2025api = new sdk.RoleInsightsV2025Api(apiConfig);
-    return handleApiCall(() => roleinsightsv2025api.getRoleInsightsEntitlementsChanges(requestParameters));
-  },
-  // This endpoint returns details of a prior role insights request. 
-  getRoleInsightsRequests: (requestParameters: sdk.RoleInsightsV2025ApiGetRoleInsightsRequestsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RoleInsightsResponseV2025>> => {
-    const roleinsightsv2025api = new sdk.RoleInsightsV2025Api(apiConfig);
-    return handleApiCall(() => roleinsightsv2025api.getRoleInsightsRequests(requestParameters));
-  },
-  // This method returns high level summary information for role insights for a customer.
-  getRoleInsightsSummary: (requestParameters: sdk.RoleInsightsV2025ApiGetRoleInsightsSummaryRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RoleInsightsSummaryV2025>> => {
-    const roleinsightsv2025api = new sdk.RoleInsightsV2025Api(apiConfig);
-    return handleApiCall(() => roleinsightsv2025api.getRoleInsightsSummary(requestParameters));
-  },
-
-  // This endpoint terminates the ongoing role change propagation process for a tenant.
-  cancelRolePropagation: (requestParameters: sdk.RolePropagationV2025ApiCancelRolePropagationRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const rolepropagationv2025api = new sdk.RolePropagationV2025Api(apiConfig);
-    return handleApiCall(() => rolepropagationv2025api.cancelRolePropagation(requestParameters));
-  },
-  // This endpoint returns the information of ongoing role change propagation process for a tenant. It returns the information whether the role propagation process is currently running or not, If it is running it returns the details of the ongoing role propagation process. The execution stage of the role propagation process can be one of the following: - PENDING - The role propagation process is queued to be executed. - DATA_AGGREGATION_RUNNING - The role propagation process is currently aggregating data. - LAUNCH_PROVISIONING - The role propagation process has started to provision the access to the identities. - SUCCEEDED - The role propagation process has successfully completed. - FAILED - The role propagation process has failed. - TERMINATED - The role propagation process was externally terminated.
-  getOngoingRolePropagation: (requestParameters: sdk.RolePropagationV2025ApiGetOngoingRolePropagationRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RolePropagationOngoingResponseV2025>> => {
-    const rolepropagationv2025api = new sdk.RolePropagationV2025Api(apiConfig);
-    return handleApiCall(() => rolepropagationv2025api.getOngoingRolePropagation(requestParameters));
-  },
-  // This endpoint returns the information of the specified role change propagation process. The execution stage of the role propagation process can be one of the following:     - PENDING - The role propagation process is queued to be executed.     - DATA_AGGREGATION_RUNNING - The role propagation process is currently aggregating data.     - LAUNCH_PROVISIONING - The role propagation process has started to provision the access to the identities.     - SUCCEEDED - The role propagation process has successfully completed.     - FAILED - The role propagation process has failed.     - TERMINATED - The role propagation process was externally terminated.
-  getRolePropagationStatus: (requestParameters: sdk.RolePropagationV2025ApiGetRolePropagationStatusRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RolePropagationStatusResponseV2025>> => {
-    const rolepropagationv2025api = new sdk.RolePropagationV2025Api(apiConfig);
-    return handleApiCall(() => rolepropagationv2025api.getRolePropagationStatus(requestParameters));
-  },
-  // This endpoint initiates a role change propagation process for a tenant asynchronously.  If all preconditions are met, the request is accepted and a rolePropagationId is returned which  can be used to view the status. API throws 4xx if any of the following conditions are met - Role propagation feature is disabled  - There is an ongoing role propagation for the tenant - Role refresh needs to be kicked off as part of the role propagation (skipRoleRefresh=false) and there is an ongoing refresh for the tenant
-  startRolePropagation: (requestParameters: sdk.RolePropagationV2025ApiStartRolePropagationRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RolePropagationResponseV2025>> => {
-    const rolepropagationv2025api = new sdk.RolePropagationV2025Api(apiConfig);
-    return handleApiCall(() => rolepropagationv2025api.startRolePropagation(requestParameters));
-  },
-
-  // This API creates a role.  You must have a token with API, ORG_ADMIN, ROLE_ADMIN, or ROLE_SUBADMIN authority to call this API.   In addition, a ROLE_SUBADMIN may not create a role including an access profile if that access profile is associated with a source the ROLE_SUBADMIN is not associated with themselves.   The maximum supported length for the description field is 2000 characters. Longer descriptions will be preserved for existing roles. However, any new roles as well as any updates to existing descriptions will be limited to 2000 characters.
-  createRole: (requestParameters: sdk.RolesV2025ApiCreateRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RoleV2025>> => {
-    const rolesv2025api = new sdk.RolesV2025Api(apiConfig);
-    return handleApiCall(() => rolesv2025api.createRole(requestParameters));
-  },
-  // This endpoint initiates a bulk deletion of one or more roles. When the request is successful, the endpoint returns the bulk delete\'s task result ID.  To follow the task, you can use [Get Task Status by ID](https://developer.sailpoint.com/docs/api/beta/get-task-status), which will return the task result\'s status and information.  This endpoint can only bulk delete up to a limit of 50 roles per request.  A user with ROLE_SUBADMIN authority can only call this endpoint if all roles included in the request are associated with sources with management workgroups the ROLE_SUBADMIN is a member of.
-  deleteBulkRoles: (requestParameters: sdk.RolesV2025ApiDeleteBulkRolesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TaskResultDtoV2025>> => {
-    const rolesv2025api = new sdk.RolesV2025Api(apiConfig);
-    return handleApiCall(() => rolesv2025api.deleteBulkRoles(requestParameters));
-  },
-  // This API initialize a request to remove a single Access Model Metadata from a role by attribute key and value. A token with ORG_ADMIN, ROLE_ADMIN ROLE_SUBADMIN authority is required to call this API.
-  deleteMetadataFromRoleByKeyAndValue: (requestParameters: sdk.RolesV2025ApiDeleteMetadataFromRoleByKeyAndValueRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const rolesv2025api = new sdk.RolesV2025Api(apiConfig);
-    return handleApiCall(() => rolesv2025api.deleteMetadataFromRoleByKeyAndValue(requestParameters));
-  },
-  // This API deletes a Role by its ID.  A token with API, ORG_ADMIN, ROLE_ADMIN, or ROLE_SUBADMIN authority is required to call this API. In addition, a token with ROLE_SUBADMIN authority may only call this API if all Access Profiles included in the Role are associated to Sources with management workgroups of which the ROLE_SUBADMIN is a member.
-  deleteRole: (requestParameters: sdk.RolesV2025ApiDeleteRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const rolesv2025api = new sdk.RolesV2025Api(apiConfig);
-    return handleApiCall(() => rolesv2025api.deleteRole(requestParameters));
-  },
-  // This API returns a list of all unfinished bulk update process status of the tenant.
-  getBulkUpdateStatus: (apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.RoleGetAllBulkUpdateResponseV2025>>> => {
-    const rolesv2025api = new sdk.RolesV2025Api(apiConfig);
-    return handleApiCall(() => rolesv2025api.getBulkUpdateStatus());
-  },
-  //  This API initial a request for one bulk update\'s status by bulk update Id returns the status of the bulk update process. A token with ORG_ADMIN, ROLE_ADMIN ROLE_SUBADMIN authority is required to call this API. 
-  getBulkUpdateStatusById: (requestParameters: sdk.RolesV2025ApiGetBulkUpdateStatusByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RoleBulkUpdateResponseV2025>> => {
-    const rolesv2025api = new sdk.RolesV2025Api(apiConfig);
-    return handleApiCall(() => rolesv2025api.getBulkUpdateStatusById(requestParameters));
-  },
-  // This API returns a Role by its ID. A token with API, ORG_ADMIN, ROLE_ADMIN, or ROLE_SUBADMIN authority is required to call this API. In addition, a token with ROLE_SUBADMIN authority may only call this API if all Access Profiles included in the Role are associated to Sources with management workgroups of which the ROLE_SUBADMIN is a member.
-  getRole: (requestParameters: sdk.RolesV2025ApiGetRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RoleV2025>> => {
-    const rolesv2025api = new sdk.RolesV2025Api(apiConfig);
-    return handleApiCall(() => rolesv2025api.getRole(requestParameters));
-  },
-  // 
-  getRoleAssignedIdentities: (requestParameters: sdk.RolesV2025ApiGetRoleAssignedIdentitiesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.RoleIdentityV2025>>> => {
-    const rolesv2025api = new sdk.RolesV2025Api(apiConfig);
-    return handleApiCall(() => rolesv2025api.getRoleAssignedIdentities(requestParameters));
-  },
-  // Get a list of entitlements associated with a specified role.
-  getRoleEntitlements: (requestParameters: sdk.RolesV2025ApiGetRoleEntitlementsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.EntitlementV2025>>> => {
-    const rolesv2025api = new sdk.RolesV2025Api(apiConfig);
-    return handleApiCall(() => rolesv2025api.getRoleEntitlements(requestParameters));
-  },
-  // This API returns a list of Roles.  A token with API, ORG_ADMIN, ROLE_ADMIN, or ROLE_SUBADMIN authority is required to call this API.
-  listRoles: (requestParameters: sdk.RolesV2025ApiListRolesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.RoleV2025>>> => {
-    const rolesv2025api = new sdk.RolesV2025Api(apiConfig);
-    return handleApiCall(() => rolesv2025api.listRoles(requestParameters));
-  },
-  // This API updates an existing role using [JSON Patch](https://tools.ietf.org/html/rfc6902) syntax.  The following fields are patchable:  * name * description * enabled * owner * accessProfiles * entitlements * membership * requestable * accessRequestConfig * revokeRequestConfig * segments * accessModelMetadata    A token with API, ORG_ADMIN, ROLE_ADMIN, or ROLE_SUBADMIN authority is required to call this API. In addition, a token with ROLE_SUBADMIN authority may only call this API if all access profiles included in the role are associated to Sources with management workgroups of which the ROLE_SUBADMIN is a member.  The maximum supported length for the description field is 2000 characters. Longer descriptions will be preserved for existing roles, however, any new roles as well as any updates to existing descriptions will be limited to 2000 characters.  When you use this API to modify a role\'s membership identities, you can only modify up to a limit of 500 membership identities at a time.
-  patchRole: (requestParameters: sdk.RolesV2025ApiPatchRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RoleV2025>> => {
-    const rolesv2025api = new sdk.RolesV2025Api(apiConfig);
-    return handleApiCall(() => rolesv2025api.patchRole(requestParameters));
-  },
-  // This API returns a list of Role that filter by metadata and filter, it support filter by  both path parameter and attribute key and values. A token with API, ORG_ADMIN, ROLE_ADMIN, ROLE_SUBADMIN, HELPDESK, CERT_ADMIN, REPORT_ADMIN or SOURCE_ADMIN  authority is required to call this API. 
-  searchRolesByFilter: (requestParameters: sdk.RolesV2025ApiSearchRolesByFilterRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RoleV2025>> => {
-    const rolesv2025api = new sdk.RolesV2025Api(apiConfig);
-    return handleApiCall(() => rolesv2025api.searchRolesByFilter(requestParameters));
-  },
-  // This API initialize a request to add a single Access Model Metadata to a role by attribute key and attribute value. A token with ORG_ADMIN, ROLE_ADMIN ROLE_SUBADMIN authority is required to call this API. The maximum number of attributes in one role is 25. Custom metadata update, including ADD and REPLACE need suit licensed.
-  updateAttributeKeyAndValueToRole: (requestParameters: sdk.RolesV2025ApiUpdateAttributeKeyAndValueToRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RoleV2025>> => {
-    const rolesv2025api = new sdk.RolesV2025Api(apiConfig);
-    return handleApiCall(() => rolesv2025api.updateAttributeKeyAndValueToRole(requestParameters));
-  },
-  // This API initiates a bulk update of metadata for one or more Roles by filter. A token with ORG_ADMIN, ROLE_ADMIN ROLE_SUBADMIN authority is required to call this API. The maximum metadata value count for a single role is 25. Custom metadata update, including add, replace need suit licensed.
-  updateRolesMetadataByFilter: (requestParameters: sdk.RolesV2025ApiUpdateRolesMetadataByFilterRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RoleBulkUpdateResponseV2025>> => {
-    const rolesv2025api = new sdk.RolesV2025Api(apiConfig);
-    return handleApiCall(() => rolesv2025api.updateRolesMetadataByFilter(requestParameters));
-  },
-  // This API initiates a bulk update of metadata for one or more Roles by a list of Role Ids. A token with ORG_ADMIN, ROLE_ADMIN ROLE_SUBADMIN authority is required to call this API. The maximum role count in a single update request is 3000. The maximum metadata value count for a single role is 25. Custom metadata update, including add, replace need suit licensed.
-  updateRolesMetadataByIds: (requestParameters: sdk.RolesV2025ApiUpdateRolesMetadataByIdsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RoleBulkUpdateResponseV2025>> => {
-    const rolesv2025api = new sdk.RolesV2025Api(apiConfig);
-    return handleApiCall(() => rolesv2025api.updateRolesMetadataByIds(requestParameters));
-  },
-  // This API initiates a bulk update of metadata for one or more Roles by query. A token with ORG_ADMIN, ROLE_ADMIN ROLE_SUBADMIN authority is required to call this API. The maximum metadata value count for a single role is 25. Custom metadata update, including add, replace need suit licensed.
-  updateRolesMetadataByQuery: (requestParameters: sdk.RolesV2025ApiUpdateRolesMetadataByQueryRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.RoleBulkUpdateResponseV2025>> => {
-    const rolesv2025api = new sdk.RolesV2025Api(apiConfig);
-    return handleApiCall(() => rolesv2025api.updateRolesMetadataByQuery(requestParameters));
-  },
-
-  // Create a new SIM Integrations.
-  createSIMIntegration: (requestParameters: sdk.SIMIntegrationsV2025ApiCreateSIMIntegrationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ServiceDeskIntegrationDtoV2025>> => {
-    const simintegrationsv2025api = new sdk.SIMIntegrationsV2025Api(apiConfig);
-    return handleApiCall(() => simintegrationsv2025api.createSIMIntegration(requestParameters));
-  },
-  // Get the details of a SIM integration.
-  deleteSIMIntegration: (requestParameters: sdk.SIMIntegrationsV2025ApiDeleteSIMIntegrationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const simintegrationsv2025api = new sdk.SIMIntegrationsV2025Api(apiConfig);
-    return handleApiCall(() => simintegrationsv2025api.deleteSIMIntegration(requestParameters));
-  },
-  // Get the details of a SIM integration.
-  getSIMIntegration: (requestParameters: sdk.SIMIntegrationsV2025ApiGetSIMIntegrationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ServiceDeskIntegrationDtoV2025>> => {
-    const simintegrationsv2025api = new sdk.SIMIntegrationsV2025Api(apiConfig);
-    return handleApiCall(() => simintegrationsv2025api.getSIMIntegration(requestParameters));
-  },
-  // List the existing SIM integrations.
-  getSIMIntegrations: (requestParameters: sdk.SIMIntegrationsV2025ApiGetSIMIntegrationsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ServiceDeskIntegrationDtoV2025>>> => {
-    const simintegrationsv2025api = new sdk.SIMIntegrationsV2025Api(apiConfig);
-    return handleApiCall(() => simintegrationsv2025api.getSIMIntegrations(requestParameters));
-  },
-  // Patch a SIM beforeProvisioningRule attribute given a JsonPatch object.
-  patchBeforeProvisioningRule: (requestParameters: sdk.SIMIntegrationsV2025ApiPatchBeforeProvisioningRuleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ServiceDeskIntegrationDtoV2025>> => {
-    const simintegrationsv2025api = new sdk.SIMIntegrationsV2025Api(apiConfig);
-    return handleApiCall(() => simintegrationsv2025api.patchBeforeProvisioningRule(requestParameters));
-  },
-  // Patch a SIM attribute given a JsonPatch object.
-  patchSIMAttributes: (requestParameters: sdk.SIMIntegrationsV2025ApiPatchSIMAttributesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ServiceDeskIntegrationDtoV2025>> => {
-    const simintegrationsv2025api = new sdk.SIMIntegrationsV2025Api(apiConfig);
-    return handleApiCall(() => simintegrationsv2025api.patchSIMAttributes(requestParameters));
-  },
-  // Update an existing SIM integration.
-  putSIMIntegration: (requestParameters: sdk.SIMIntegrationsV2025ApiPutSIMIntegrationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ServiceDeskIntegrationDtoV2025>> => {
-    const simintegrationsv2025api = new sdk.SIMIntegrationsV2025Api(apiConfig);
-    return handleApiCall(() => simintegrationsv2025api.putSIMIntegration(requestParameters));
-  },
-
-  // This creates both General and Conflicting Access Based policy, with a limit of 50 entitlements for each (left & right) criteria for Conflicting Access Based SOD policy. Requires role of ORG_ADMIN.
-  createSodPolicy: (requestParameters: sdk.SODPoliciesV2025ApiCreateSodPolicyRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SodPolicyV2025>> => {
-    const sodpoliciesv2025api = new sdk.SODPoliciesV2025Api(apiConfig);
-    return handleApiCall(() => sodpoliciesv2025api.createSodPolicy(requestParameters));
-  },
-  // This deletes a specified SOD policy. Requires role of ORG_ADMIN.
-  deleteSodPolicy: (requestParameters: sdk.SODPoliciesV2025ApiDeleteSodPolicyRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const sodpoliciesv2025api = new sdk.SODPoliciesV2025Api(apiConfig);
-    return handleApiCall(() => sodpoliciesv2025api.deleteSodPolicy(requestParameters));
-  },
-  // This deletes schedule for a specified SOD policy by ID.
-  deleteSodPolicySchedule: (requestParameters: sdk.SODPoliciesV2025ApiDeleteSodPolicyScheduleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const sodpoliciesv2025api = new sdk.SODPoliciesV2025Api(apiConfig);
-    return handleApiCall(() => sodpoliciesv2025api.deleteSodPolicySchedule(requestParameters));
-  },
-  // This allows to download a specified named violation report for a given report reference.
-  getCustomViolationReport: (requestParameters: sdk.SODPoliciesV2025ApiGetCustomViolationReportRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<File>> => {
-    const sodpoliciesv2025api = new sdk.SODPoliciesV2025Api(apiConfig);
-    return handleApiCall(() => sodpoliciesv2025api.getCustomViolationReport(requestParameters));
-  },
-  // This allows to download a violation report for a given report reference.
-  getDefaultViolationReport: (requestParameters: sdk.SODPoliciesV2025ApiGetDefaultViolationReportRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<File>> => {
-    const sodpoliciesv2025api = new sdk.SODPoliciesV2025Api(apiConfig);
-    return handleApiCall(() => sodpoliciesv2025api.getDefaultViolationReport(requestParameters));
-  },
-  // This endpoint gets the status for a violation report for all policy run.
-  getSodAllReportRunStatus: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ReportResultReferenceV2025>> => {
-    const sodpoliciesv2025api = new sdk.SODPoliciesV2025Api(apiConfig);
-    return handleApiCall(() => sodpoliciesv2025api.getSodAllReportRunStatus());
-  },
-  // This gets specified SOD policy. Requires role of ORG_ADMIN.
-  getSodPolicy: (requestParameters: sdk.SODPoliciesV2025ApiGetSodPolicyRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SodPolicyV2025>> => {
-    const sodpoliciesv2025api = new sdk.SODPoliciesV2025Api(apiConfig);
-    return handleApiCall(() => sodpoliciesv2025api.getSodPolicy(requestParameters));
-  },
-  // This endpoint gets a specified SOD policy\'s schedule.
-  getSodPolicySchedule: (requestParameters: sdk.SODPoliciesV2025ApiGetSodPolicyScheduleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SodPolicyScheduleV2025>> => {
-    const sodpoliciesv2025api = new sdk.SODPoliciesV2025Api(apiConfig);
-    return handleApiCall(() => sodpoliciesv2025api.getSodPolicySchedule(requestParameters));
-  },
-  // This gets the status for a violation report run task that has already been invoked.
-  getSodViolationReportRunStatus: (requestParameters: sdk.SODPoliciesV2025ApiGetSodViolationReportRunStatusRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ReportResultReferenceV2025>> => {
-    const sodpoliciesv2025api = new sdk.SODPoliciesV2025Api(apiConfig);
-    return handleApiCall(() => sodpoliciesv2025api.getSodViolationReportRunStatus(requestParameters));
-  },
-  // This gets the status for a violation report run task that has already been invoked.
-  getSodViolationReportStatus: (requestParameters: sdk.SODPoliciesV2025ApiGetSodViolationReportStatusRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ReportResultReferenceV2025>> => {
-    const sodpoliciesv2025api = new sdk.SODPoliciesV2025Api(apiConfig);
-    return handleApiCall(() => sodpoliciesv2025api.getSodViolationReportStatus(requestParameters));
-  },
-  // This gets list of all SOD policies. Requires role of ORG_ADMIN
-  listSodPolicies: (requestParameters: sdk.SODPoliciesV2025ApiListSodPoliciesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.SodPolicyV2025>>> => {
-    const sodpoliciesv2025api = new sdk.SODPoliciesV2025Api(apiConfig);
-    return handleApiCall(() => sodpoliciesv2025api.listSodPolicies(requestParameters));
-  },
-  // Allows updating SOD Policy fields other than [\"id\",\"created\",\"creatorId\",\"policyQuery\",\"type\"] using the [JSON Patch](https://tools.ietf.org/html/rfc6902) standard. Requires role of ORG_ADMIN. This endpoint can only patch CONFLICTING_ACCESS_BASED type policies. Do not use this endpoint to patch general policies - doing so will build an API exception. 
-  patchSodPolicy: (requestParameters: sdk.SODPoliciesV2025ApiPatchSodPolicyRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SodPolicyV2025>> => {
-    const sodpoliciesv2025api = new sdk.SODPoliciesV2025Api(apiConfig);
-    return handleApiCall(() => sodpoliciesv2025api.patchSodPolicy(requestParameters));
-  },
-  // This updates schedule for a specified SOD policy.
-  putPolicySchedule: (requestParameters: sdk.SODPoliciesV2025ApiPutPolicyScheduleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SodPolicyScheduleV2025>> => {
-    const sodpoliciesv2025api = new sdk.SODPoliciesV2025Api(apiConfig);
-    return handleApiCall(() => sodpoliciesv2025api.putPolicySchedule(requestParameters));
-  },
-  // This updates a specified SOD policy. Requires role of ORG_ADMIN.
-  putSodPolicy: (requestParameters: sdk.SODPoliciesV2025ApiPutSodPolicyRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SodPolicyV2025>> => {
-    const sodpoliciesv2025api = new sdk.SODPoliciesV2025Api(apiConfig);
-    return handleApiCall(() => sodpoliciesv2025api.putSodPolicy(requestParameters));
-  },
-  // Runs the scheduled report for the policy retrieved by passed policy ID.  The report schedule is fetched from the policy retrieved by ID.
-  startEvaluateSodPolicy: (requestParameters: sdk.SODPoliciesV2025ApiStartEvaluateSodPolicyRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ReportResultReferenceV2025>> => {
-    const sodpoliciesv2025api = new sdk.SODPoliciesV2025Api(apiConfig);
-    return handleApiCall(() => sodpoliciesv2025api.startEvaluateSodPolicy(requestParameters));
-  },
-  // Runs multi-policy report for the org. If a policy reports more than 5000 violations, the report mentions that the violation limit was exceeded for that policy. If the request is empty, the report runs for all policies. Otherwise, the report runs for only the filtered policy list provided.
-  startSodAllPoliciesForOrg: (requestParameters: sdk.SODPoliciesV2025ApiStartSodAllPoliciesForOrgRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ReportResultReferenceV2025>> => {
-    const sodpoliciesv2025api = new sdk.SODPoliciesV2025Api(apiConfig);
-    return handleApiCall(() => sodpoliciesv2025api.startSodAllPoliciesForOrg(requestParameters));
-  },
-  // This invokes processing of violation report for given SOD policy. If the policy reports more than 5000 violations, the report returns with violation limit exceeded message.
-  startSodPolicy: (requestParameters: sdk.SODPoliciesV2025ApiStartSodPolicyRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ReportResultReferenceV2025>> => {
-    const sodpoliciesv2025api = new sdk.SODPoliciesV2025Api(apiConfig);
-    return handleApiCall(() => sodpoliciesv2025api.startSodPolicy(requestParameters));
-  },
-
-  // This API is used to check if granting some additional accesses would cause the subject to be in violation of any SOD policies. Returns the violations that would be caused.
-  startPredictSodViolations: (requestParameters: sdk.SODViolationsV2025ApiStartPredictSodViolationsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ViolationPredictionV2025>> => {
-    const sodviolationsv2025api = new sdk.SODViolationsV2025Api(apiConfig);
-    return handleApiCall(() => sodviolationsv2025api.startPredictSodViolations(requestParameters));
-  },
-  // This API initiates a SOD policy verification asynchronously.
-  startViolationCheck: (requestParameters: sdk.SODViolationsV2025ApiStartViolationCheckRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SodViolationCheckV2025>> => {
-    const sodviolationsv2025api = new sdk.SODViolationsV2025Api(apiConfig);
-    return handleApiCall(() => sodviolationsv2025api.startViolationCheck(requestParameters));
-  },
-
-  // This post will export objects from the tenant to a JSON configuration file. For more information about the object types that currently support export functionality, refer to [SaaS Configuration](https://developer.sailpoint.com/docs/extensibility/configuration-management/saas-configuration#supported-objects).
-  exportSpConfig: (requestParameters: sdk.SPConfigV2025ApiExportSpConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SpConfigExportJobV2025>> => {
-    const spconfigv2025api = new sdk.SPConfigV2025Api(apiConfig);
-    return handleApiCall(() => spconfigv2025api.exportSpConfig(requestParameters));
-  },
-  // This endpoint gets the export file resulting from the export job with the requested `id` and downloads it to a file. The request will need one of the following security scopes: - sp:config:read - sp:config:manage
-  getSpConfigExport: (requestParameters: sdk.SPConfigV2025ApiGetSpConfigExportRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SpConfigExportResultsV2025>> => {
-    const spconfigv2025api = new sdk.SPConfigV2025Api(apiConfig);
-    return handleApiCall(() => spconfigv2025api.getSpConfigExport(requestParameters));
-  },
-  // This gets the status of the export job identified by the `id` parameter. The request will need one of the following security scopes: - sp:config:read - sp:config:manage
-  getSpConfigExportStatus: (requestParameters: sdk.SPConfigV2025ApiGetSpConfigExportStatusRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SpConfigExportJobStatusV2025>> => {
-    const spconfigv2025api = new sdk.SPConfigV2025Api(apiConfig);
-    return handleApiCall(() => spconfigv2025api.getSpConfigExportStatus(requestParameters));
-  },
-  // This gets import file resulting from the import job with the requested id and downloads it to a file. The downloaded file will contain the results of the import operation, including any error, warning or informational messages associated with the import. The request will need the following security scope: - sp:config:manage
-  getSpConfigImport: (requestParameters: sdk.SPConfigV2025ApiGetSpConfigImportRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SpConfigImportResultsV2025>> => {
-    const spconfigv2025api = new sdk.SPConfigV2025Api(apiConfig);
-    return handleApiCall(() => spconfigv2025api.getSpConfigImport(requestParameters));
-  },
-  // \'This gets the status of the import job identified by the `id` parameter.   For more information about the object types that currently support import functionality,  refer to [SaaS Configuration](https://developer.sailpoint.com/docs/extensibility/configuration-management/saas-configuration#supported-objects).\' 
-  getSpConfigImportStatus: (requestParameters: sdk.SPConfigV2025ApiGetSpConfigImportStatusRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SpConfigImportJobStatusV2025>> => {
-    const spconfigv2025api = new sdk.SPConfigV2025Api(apiConfig);
-    return handleApiCall(() => spconfigv2025api.getSpConfigImportStatus(requestParameters));
-  },
-  // This post will import objects from a JSON configuration file into a tenant. By default, every import will first export all existing objects supported by sp-config as a backup before the import is attempted. The backup is provided so that the state of the configuration prior to the import is available for inspection or restore if needed. The backup can be skipped by setting \"excludeBackup\" to true in the import options. If a backup is performed, the id of the backup will be provided in the ImportResult as the \"exportJobId\". This can be downloaded  using the `/sp-config/export/{exportJobId}/download` endpoint.  You cannot currently import from the Non-Employee Lifecycle Management (NELM) source. You cannot use this endpoint to back up or store NELM data.   For more information about the object types that currently support import functionality, refer to [SaaS Configuration](https://developer.sailpoint.com/docs/extensibility/configuration-management/saas-configuration#supported-objects). 
-  importSpConfig: (requestParameters: sdk.SPConfigV2025ApiImportSpConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SpConfigJobV2025>> => {
-    const spconfigv2025api = new sdk.SPConfigV2025Api(apiConfig);
-    return handleApiCall(() => spconfigv2025api.importSpConfig(requestParameters, { headers: { 'Content-Type': null } } as any));
-  },
-  // Get a list of object configurations that the tenant export/import service knows.
-  listSpConfigObjects: (apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.SpConfigObjectV2025>>> => {
-    const spconfigv2025api = new sdk.SPConfigV2025Api(apiConfig);
-    return handleApiCall(() => spconfigv2025api.listSpConfigObjects());
-  },
-
-  // Creates a new saved search. 
-  createSavedSearch: (requestParameters: sdk.SavedSearchV2025ApiCreateSavedSearchRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SavedSearchV2025>> => {
-    const savedsearchv2025api = new sdk.SavedSearchV2025Api(apiConfig);
-    return handleApiCall(() => savedsearchv2025api.createSavedSearch(requestParameters));
-  },
-  // Deletes the specified saved search. 
-  deleteSavedSearch: (requestParameters: sdk.SavedSearchV2025ApiDeleteSavedSearchRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const savedsearchv2025api = new sdk.SavedSearchV2025Api(apiConfig);
-    return handleApiCall(() => savedsearchv2025api.deleteSavedSearch(requestParameters));
-  },
-  // Executes the specified saved search. 
-  executeSavedSearch: (requestParameters: sdk.SavedSearchV2025ApiExecuteSavedSearchRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const savedsearchv2025api = new sdk.SavedSearchV2025Api(apiConfig);
-    return handleApiCall(() => savedsearchv2025api.executeSavedSearch(requestParameters));
-  },
-  // Returns the specified saved search. 
-  getSavedSearch: (requestParameters: sdk.SavedSearchV2025ApiGetSavedSearchRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SavedSearchV2025>> => {
-    const savedsearchv2025api = new sdk.SavedSearchV2025Api(apiConfig);
-    return handleApiCall(() => savedsearchv2025api.getSavedSearch(requestParameters));
-  },
-  // Returns a list of saved searches. 
-  listSavedSearches: (requestParameters: sdk.SavedSearchV2025ApiListSavedSearchesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.SavedSearchV2025>>> => {
-    const savedsearchv2025api = new sdk.SavedSearchV2025Api(apiConfig);
-    return handleApiCall(() => savedsearchv2025api.listSavedSearches(requestParameters));
-  },
-  // Updates an existing saved search.   >**NOTE: You cannot update the `owner` of the saved search.** 
-  putSavedSearch: (requestParameters: sdk.SavedSearchV2025ApiPutSavedSearchRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SavedSearchV2025>> => {
-    const savedsearchv2025api = new sdk.SavedSearchV2025Api(apiConfig);
-    return handleApiCall(() => savedsearchv2025api.putSavedSearch(requestParameters));
-  },
-
-  // Creates a new scheduled search. 
-  createScheduledSearch: (requestParameters: sdk.ScheduledSearchV2025ApiCreateScheduledSearchRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ScheduledSearchV2025>> => {
-    const scheduledsearchv2025api = new sdk.ScheduledSearchV2025Api(apiConfig);
-    return handleApiCall(() => scheduledsearchv2025api.createScheduledSearch(requestParameters));
-  },
-  // Deletes the specified scheduled search. 
-  deleteScheduledSearch: (requestParameters: sdk.ScheduledSearchV2025ApiDeleteScheduledSearchRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const scheduledsearchv2025api = new sdk.ScheduledSearchV2025Api(apiConfig);
-    return handleApiCall(() => scheduledsearchv2025api.deleteScheduledSearch(requestParameters));
-  },
-  // Returns the specified scheduled search.
-  getScheduledSearch: (requestParameters: sdk.ScheduledSearchV2025ApiGetScheduledSearchRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ScheduledSearchV2025>> => {
-    const scheduledsearchv2025api = new sdk.ScheduledSearchV2025Api(apiConfig);
-    return handleApiCall(() => scheduledsearchv2025api.getScheduledSearch(requestParameters));
-  },
-  // Returns a list of scheduled searches. 
-  listScheduledSearch: (requestParameters: sdk.ScheduledSearchV2025ApiListScheduledSearchRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ScheduledSearchV2025>>> => {
-    const scheduledsearchv2025api = new sdk.ScheduledSearchV2025Api(apiConfig);
-    return handleApiCall(() => scheduledsearchv2025api.listScheduledSearch(requestParameters));
-  },
-  // Unsubscribes a recipient from the specified scheduled search. 
-  unsubscribeScheduledSearch: (requestParameters: sdk.ScheduledSearchV2025ApiUnsubscribeScheduledSearchRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const scheduledsearchv2025api = new sdk.ScheduledSearchV2025Api(apiConfig);
-    return handleApiCall(() => scheduledsearchv2025api.unsubscribeScheduledSearch(requestParameters));
-  },
-  // Updates an existing scheduled search. 
-  updateScheduledSearch: (requestParameters: sdk.ScheduledSearchV2025ApiUpdateScheduledSearchRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ScheduledSearchV2025>> => {
-    const scheduledsearchv2025api = new sdk.ScheduledSearchV2025Api(apiConfig);
-    return handleApiCall(() => scheduledsearchv2025api.updateScheduledSearch(requestParameters));
-  },
-
-  // Performs a search query aggregation and returns the aggregation result. By default, you can page a maximum of 10,000 search result records.  To page past 10,000 records, you can use searchAfter paging.  Refer to [Paginating Search Queries](https://developer.sailpoint.com/idn/api/standard-collection-parameters#paginating-search-queries) for more information about how to implement searchAfter paging. 
-  searchAggregate: (requestParameters: sdk.SearchV2025ApiSearchAggregateRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AggregationResultV2025>> => {
-    const searchv2025api = new sdk.SearchV2025Api(apiConfig);
-    return handleApiCall(() => searchv2025api.searchAggregate(requestParameters));
-  },
-  // Performs a search with a provided query and returns the count of results in the X-Total-Count header.
-  searchCount: (requestParameters: sdk.SearchV2025ApiSearchCountRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const searchv2025api = new sdk.SearchV2025Api(apiConfig);
-    return handleApiCall(() => searchv2025api.searchCount(requestParameters));
-  },
-  // Fetches a single document from the specified index, using the specified document ID.
-  searchGet: (requestParameters: sdk.SearchV2025ApiSearchGetRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SearchDocumentV2025>> => {
-    const searchv2025api = new sdk.SearchV2025Api(apiConfig);
-    return handleApiCall(() => searchv2025api.searchGet(requestParameters));
-  },
-  // Perform a search with the provided query and return a matching result collection. To page past 10,000 records, you can use `searchAfter` paging.  Refer to [Paginating Search Queries](https://developer.sailpoint.com/idn/api/standard-collection-parameters#paginating-search-queries) for more information about how to implement `searchAfter` paging. The search query itself has a size limitation of approximately 800 objects when filtering by large lists of IDs or values (e.g., using `terms` filters with extensive lists).
-  searchPost: (requestParameters: sdk.SearchV2025ApiSearchPostRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.SearchDocumentsV2025>>> => {
-    const searchv2025api = new sdk.SearchV2025Api(apiConfig);
-    return handleApiCall(() => searchv2025api.searchPost(requestParameters));
-  },
-
-  // Create and configure extended search attributes.  This API accepts an attribute name, an attribute display name and a list of name/value pair associates of application IDs to attribute names.  It will then validate the inputs and configure/create the attribute promotion configuration in the Link ObjectConfig. >**Note: Give searchable attributes unique names.  Do not give them the same names used for account attributes or source attributes.  Also, do not give them the same names present in account schema for a current or future source, regardless of whether that source is included in the searchable attributes\' `applicationAttributes`.**
-  createSearchAttributeConfig: (requestParameters: sdk.SearchAttributeConfigurationV2025ApiCreateSearchAttributeConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const searchattributeconfigurationv2025api = new sdk.SearchAttributeConfigurationV2025Api(apiConfig);
-    return handleApiCall(() => searchattributeconfigurationv2025api.createSearchAttributeConfig(requestParameters));
-  },
-  // Delete an extended attribute configuration by name.
-  deleteSearchAttributeConfig: (requestParameters: sdk.SearchAttributeConfigurationV2025ApiDeleteSearchAttributeConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const searchattributeconfigurationv2025api = new sdk.SearchAttributeConfigurationV2025Api(apiConfig);
-    return handleApiCall(() => searchattributeconfigurationv2025api.deleteSearchAttributeConfig(requestParameters));
-  },
-  // Get a list of attribute/application attributes currently configured in Identity Security Cloud (ISC).
-  getSearchAttributeConfig: (requestParameters: sdk.SearchAttributeConfigurationV2025ApiGetSearchAttributeConfigRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.SearchAttributeConfigV2025>>> => {
-    const searchattributeconfigurationv2025api = new sdk.SearchAttributeConfigurationV2025Api(apiConfig);
-    return handleApiCall(() => searchattributeconfigurationv2025api.getSearchAttributeConfig(requestParameters));
-  },
-  // Get an extended attribute configuration by name.
-  getSingleSearchAttributeConfig: (requestParameters: sdk.SearchAttributeConfigurationV2025ApiGetSingleSearchAttributeConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SearchAttributeConfigV2025>> => {
-    const searchattributeconfigurationv2025api = new sdk.SearchAttributeConfigurationV2025Api(apiConfig);
-    return handleApiCall(() => searchattributeconfigurationv2025api.getSingleSearchAttributeConfig(requestParameters));
-  },
-  // Update an existing search attribute configuration.  You can patch these fields: * name  * displayName * applicationAttributes
-  patchSearchAttributeConfig: (requestParameters: sdk.SearchAttributeConfigurationV2025ApiPatchSearchAttributeConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SearchAttributeConfigV2025>> => {
-    const searchattributeconfigurationv2025api = new sdk.SearchAttributeConfigurationV2025Api(apiConfig);
-    return handleApiCall(() => searchattributeconfigurationv2025api.patchSearchAttributeConfig(requestParameters));
-  },
-
-  // This API creates a segment.  >**Note:** Segment definitions may take time to propagate to all identities.
-  createSegment: (requestParameters: sdk.SegmentsV2025ApiCreateSegmentRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SegmentV2025>> => {
-    const segmentsv2025api = new sdk.SegmentsV2025Api(apiConfig);
-    return handleApiCall(() => segmentsv2025api.createSegment(requestParameters));
-  },
-  // This API deletes the segment specified by the given ID. >**Note:** that segment deletion may take some time to become effective.    
-  deleteSegment: (requestParameters: sdk.SegmentsV2025ApiDeleteSegmentRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const segmentsv2025api = new sdk.SegmentsV2025Api(apiConfig);
-    return handleApiCall(() => segmentsv2025api.deleteSegment(requestParameters));
-  },
-  // This API returns the segment specified by the given ID.
-  getSegment: (requestParameters: sdk.SegmentsV2025ApiGetSegmentRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SegmentV2025>> => {
-    const segmentsv2025api = new sdk.SegmentsV2025Api(apiConfig);
-    return handleApiCall(() => segmentsv2025api.getSegment(requestParameters));
-  },
-  // This API returns a list of all segments. 
-  listSegments: (requestParameters: sdk.SegmentsV2025ApiListSegmentsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.SegmentV2025>>> => {
-    const segmentsv2025api = new sdk.SegmentsV2025Api(apiConfig);
-    return handleApiCall(() => segmentsv2025api.listSegments(requestParameters));
-  },
-  // Use this API to update segment fields by using the [JSON Patch](https://tools.ietf.org/html/rfc6902) standard. >**Note:** Changes to a segment may take some time to propagate to all identities.
-  patchSegment: (requestParameters: sdk.SegmentsV2025ApiPatchSegmentRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SegmentV2025>> => {
-    const segmentsv2025api = new sdk.SegmentsV2025Api(apiConfig);
-    return handleApiCall(() => segmentsv2025api.patchSegment(requestParameters));
-  },
-
-  // Create a new Service Desk integration.
-  createServiceDeskIntegration: (requestParameters: sdk.ServiceDeskIntegrationV2025ApiCreateServiceDeskIntegrationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ServiceDeskIntegrationDtoV2025>> => {
-    const servicedeskintegrationv2025api = new sdk.ServiceDeskIntegrationV2025Api(apiConfig);
-    return handleApiCall(() => servicedeskintegrationv2025api.createServiceDeskIntegration(requestParameters));
-  },
-  // Delete an existing Service Desk integration by ID.
-  deleteServiceDeskIntegration: (requestParameters: sdk.ServiceDeskIntegrationV2025ApiDeleteServiceDeskIntegrationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const servicedeskintegrationv2025api = new sdk.ServiceDeskIntegrationV2025Api(apiConfig);
-    return handleApiCall(() => servicedeskintegrationv2025api.deleteServiceDeskIntegration(requestParameters));
-  },
-  // Get an existing Service Desk integration by ID.
-  getServiceDeskIntegration: (requestParameters: sdk.ServiceDeskIntegrationV2025ApiGetServiceDeskIntegrationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ServiceDeskIntegrationDtoV2025>> => {
-    const servicedeskintegrationv2025api = new sdk.ServiceDeskIntegrationV2025Api(apiConfig);
-    return handleApiCall(() => servicedeskintegrationv2025api.getServiceDeskIntegration(requestParameters));
-  },
-  // This API endpoint returns an existing Service Desk integration template by scriptName.
-  getServiceDeskIntegrationTemplate: (requestParameters: sdk.ServiceDeskIntegrationV2025ApiGetServiceDeskIntegrationTemplateRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ServiceDeskIntegrationTemplateDtoV2025>> => {
-    const servicedeskintegrationv2025api = new sdk.ServiceDeskIntegrationV2025Api(apiConfig);
-    return handleApiCall(() => servicedeskintegrationv2025api.getServiceDeskIntegrationTemplate(requestParameters));
-  },
-  // This API endpoint returns the current list of supported Service Desk integration types.
-  getServiceDeskIntegrationTypes: (apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ServiceDeskIntegrationTemplateTypeV2025>>> => {
-    const servicedeskintegrationv2025api = new sdk.ServiceDeskIntegrationV2025Api(apiConfig);
-    return handleApiCall(() => servicedeskintegrationv2025api.getServiceDeskIntegrationTypes());
-  },
-  // Get a list of Service Desk integration objects.
-  getServiceDeskIntegrations: (requestParameters: sdk.ServiceDeskIntegrationV2025ApiGetServiceDeskIntegrationsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ServiceDeskIntegrationDtoV2025>>> => {
-    const servicedeskintegrationv2025api = new sdk.ServiceDeskIntegrationV2025Api(apiConfig);
-    return handleApiCall(() => servicedeskintegrationv2025api.getServiceDeskIntegrations(requestParameters));
-  },
-  // Get the time check configuration of queued SDIM tickets.
-  getStatusCheckDetails: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.QueuedCheckConfigDetailsV2025>> => {
-    const servicedeskintegrationv2025api = new sdk.ServiceDeskIntegrationV2025Api(apiConfig);
-    return handleApiCall(() => servicedeskintegrationv2025api.getStatusCheckDetails());
-  },
-  // Update an existing Service Desk integration by ID with a PATCH request.
-  patchServiceDeskIntegration: (requestParameters: sdk.ServiceDeskIntegrationV2025ApiPatchServiceDeskIntegrationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ServiceDeskIntegrationDtoV2025>> => {
-    const servicedeskintegrationv2025api = new sdk.ServiceDeskIntegrationV2025Api(apiConfig);
-    return handleApiCall(() => servicedeskintegrationv2025api.patchServiceDeskIntegration(requestParameters));
-  },
-  // Update an existing Service Desk integration by ID.
-  putServiceDeskIntegration: (requestParameters: sdk.ServiceDeskIntegrationV2025ApiPutServiceDeskIntegrationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ServiceDeskIntegrationDtoV2025>> => {
-    const servicedeskintegrationv2025api = new sdk.ServiceDeskIntegrationV2025Api(apiConfig);
-    return handleApiCall(() => servicedeskintegrationv2025api.putServiceDeskIntegration(requestParameters));
-  },
-  // Update the time check configuration of queued SDIM tickets.
-  updateStatusCheckDetails: (requestParameters: sdk.ServiceDeskIntegrationV2025ApiUpdateStatusCheckDetailsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.QueuedCheckConfigDetailsV2025>> => {
-    const servicedeskintegrationv2025api = new sdk.ServiceDeskIntegrationV2025Api(apiConfig);
-    return handleApiCall(() => servicedeskintegrationv2025api.updateStatusCheckDetails(requestParameters));
-  },
-
-  // An SSF stream is associated with the client ID of the OAuth 2.0 access token used to create the stream. One SSF stream is allowed for each client ID.  You can create a maximum of 10 SSF stream configurations for one org. 
-  createStream: (requestParameters: sdk.SharedSignalsFrameworkSSFV2025ApiCreateStreamRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.StreamConfigResponseV2025>> => {
-    const sharedsignalsframeworkssfv2025api = new sdk.SharedSignalsFrameworkSSFV2025Api(apiConfig);
-    return handleApiCall(() => sharedsignalsframeworkssfv2025api.createStream(requestParameters));
-  },
-  // Deletes a stream by its ID. There is no request body; the stream is identified by the required query parameter `stream_id`. On success the response has no body (204 No Content).  The associated stream with the client ID (through the request OAuth 2.0 access token) is deleted. 
-  deleteStream: (requestParameters: sdk.SharedSignalsFrameworkSSFV2025ApiDeleteStreamRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const sharedsignalsframeworkssfv2025api = new sdk.SharedSignalsFrameworkSSFV2025Api(apiConfig);
-    return handleApiCall(() => sharedsignalsframeworkssfv2025api.deleteStream(requestParameters));
-  },
-  // Returns the transmitter\'s JSON Web Key Set (JWKS) for verifying signed delivery requests.
-  getJWKSData: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.JWKSV2025>> => {
-    const sharedsignalsframeworkssfv2025api = new sdk.SharedSignalsFrameworkSSFV2025Api(apiConfig);
-    return handleApiCall(() => sharedsignalsframeworkssfv2025api.getJWKSData());
-  },
-  // Returns the SSF transmitter discovery metadata (well-known configuration).
-  getSSFConfiguration: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TransmitterMetadataV2025>> => {
-    const sharedsignalsframeworkssfv2025api = new sdk.SharedSignalsFrameworkSSFV2025Api(apiConfig);
-    return handleApiCall(() => sharedsignalsframeworkssfv2025api.getSSFConfiguration());
-  },
-  // Retrieves either a list of all SSF stream configurations or the individual configuration if specified by ID.  As stream configurations are tied to a client ID, you can only view the stream associated with the client ID of the request OAuth 2.0 access token.  Query parameter `aud` (co filter) can be used to filter by audience. 
-  getStream: (requestParameters: sdk.SharedSignalsFrameworkSSFV2025ApiGetStreamRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetStream200ResponseV2025>> => {
-    const sharedsignalsframeworkssfv2025api = new sdk.SharedSignalsFrameworkSSFV2025Api(apiConfig);
-    return handleApiCall(() => sharedsignalsframeworkssfv2025api.getStream(requestParameters));
-  },
-  // Returns the status (enabled, paused, disabled) and optional reason for the stream associated with the client ID of the request\'s OAuth 2.0 access token. The stream_id query parameter is required.
-  getStreamStatus: (requestParameters: sdk.SharedSignalsFrameworkSSFV2025ApiGetStreamStatusRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.StreamStatusResponseV2025>> => {
-    const sharedsignalsframeworkssfv2025api = new sdk.SharedSignalsFrameworkSSFV2025Api(apiConfig);
-    return handleApiCall(() => sharedsignalsframeworkssfv2025api.getStreamStatus(requestParameters));
-  },
-  // Verifies an SSF stream by publishing a verification event requested by a security events provider.
-  sendStreamVerification: (requestParameters: sdk.SharedSignalsFrameworkSSFV2025ApiSendStreamVerificationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const sharedsignalsframeworkssfv2025api = new sdk.SharedSignalsFrameworkSSFV2025Api(apiConfig);
-    return handleApiCall(() => sharedsignalsframeworkssfv2025api.sendStreamVerification(requestParameters));
-  },
-  // Replaces a stream\'s configuration (PUT). stream_id and delivery are required; full receiver-supplied properties.  The associated stream with the client ID (through the request OAuth 2.0 access token) is replaced. 
-  setStreamConfiguration: (requestParameters: sdk.SharedSignalsFrameworkSSFV2025ApiSetStreamConfigurationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.UpdateStreamConfigResponseV2025>> => {
-    const sharedsignalsframeworkssfv2025api = new sdk.SharedSignalsFrameworkSSFV2025Api(apiConfig);
-    return handleApiCall(() => sharedsignalsframeworkssfv2025api.setStreamConfiguration(requestParameters));
-  },
-  // Partially updates a stream\'s configuration (PATCH). Only provided fields are updated.  The associated stream with the client ID (through the request OAuth 2.0 access token) is updated. 
-  updateStreamConfiguration: (requestParameters: sdk.SharedSignalsFrameworkSSFV2025ApiUpdateStreamConfigurationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.UpdateStreamConfigResponseV2025>> => {
-    const sharedsignalsframeworkssfv2025api = new sdk.SharedSignalsFrameworkSSFV2025Api(apiConfig);
-    return handleApiCall(() => sharedsignalsframeworkssfv2025api.updateStreamConfiguration(requestParameters));
-  },
-  // Updates the operational status (enabled, paused, disabled) with an optional reason for the stream associated with the client ID of the request\'s OAuth 2.0 access token.
-  updateStreamStatus: (requestParameters: sdk.SharedSignalsFrameworkSSFV2025ApiUpdateStreamStatusRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.StreamStatusResponseV2025>> => {
-    const sharedsignalsframeworkssfv2025api = new sdk.SharedSignalsFrameworkSSFV2025Api(apiConfig);
-    return handleApiCall(() => sharedsignalsframeworkssfv2025api.updateStreamStatus(requestParameters));
-  },
-
-  // This API returns the status of the source usage insights setup by IDN source ID.
-  getStatusBySourceId: (requestParameters: sdk.SourceUsagesV2025ApiGetStatusBySourceIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SourceUsageStatusV2025>> => {
-    const sourceusagesv2025api = new sdk.SourceUsagesV2025Api(apiConfig);
-    return handleApiCall(() => sourceusagesv2025api.getStatusBySourceId(requestParameters));
-  },
-  // This API returns a summary of source usage insights for past 12 months.
-  getUsagesBySourceId: (requestParameters: sdk.SourceUsagesV2025ApiGetUsagesBySourceIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.SourceUsageV2025>>> => {
-    const sourceusagesv2025api = new sdk.SourceUsagesV2025Api(apiConfig);
-    return handleApiCall(() => sourceusagesv2025api.getUsagesBySourceId(requestParameters));
-  },
-
-  // This API generates a create policy/template based on field value transforms. This API is intended for use when setting up JDBC Provisioning type sources, but it will also work on other source types. Transforms can be used in the provisioning policy to create a new attribute that you only need during provisioning. Refer to [Transforms in Provisioning Policies](https://developer.sailpoint.com/docs/extensibility/transforms/guides/transforms-in-provisioning-policies) for more information.
-  createProvisioningPolicy: (requestParameters: sdk.SourcesV2025ApiCreateProvisioningPolicyRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ProvisioningPolicyDtoV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.createProvisioningPolicy(requestParameters));
-  },
-  // This creates a specific source with a full source JSON representation. Any passwords are submitted as plain-text and encrypted upon receipt in IdentityNow.
-  createSource: (requestParameters: sdk.SourcesV2025ApiCreateSourceRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SourceV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.createSource(requestParameters));
-  },
-  // Use this API to create a new schedule for a type on the specified source in Identity Security Cloud (ISC). 
-  createSourceSchedule: (requestParameters: sdk.SourcesV2025ApiCreateSourceScheduleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.Schedule1V2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.createSourceSchedule(requestParameters));
-  },
-  // Use this API to create a new schema on the specified source in Identity Security Cloud (ISC). 
-  createSourceSchema: (requestParameters: sdk.SourcesV2025ApiCreateSourceSchemaRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SchemaV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.createSourceSchema(requestParameters));
-  },
-  // Use this endpoint to remove all accounts from the system without provisioning changes to the source. Accounts that are removed could be re-created during the next aggregation.  This endpoint is good for: * Removing accounts that no longer exist on the source. * Removing accounts that won\'t be aggregated following updates to the source configuration. * Forcing accounts to be re-created following the next aggregation to re-run account processing, support testing, etc. 
-  deleteAccountsAsync: (requestParameters: sdk.SourcesV2025ApiDeleteAccountsAsyncRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TaskResultDtoV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.deleteAccountsAsync(requestParameters));
-  },
-  // Deletes the native change detection configuration for the source specified by the given ID.
-  deleteNativeChangeDetectionConfig: (requestParameters: sdk.SourcesV2025ApiDeleteNativeChangeDetectionConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.deleteNativeChangeDetectionConfig(requestParameters));
-  },
-  // Deletes the provisioning policy with the specified usage on an application.
-  deleteProvisioningPolicy: (requestParameters: sdk.SourcesV2025ApiDeleteProvisioningPolicyRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.deleteProvisioningPolicy(requestParameters));
-  },
-  // Use this API to delete a specific source in Identity Security Cloud (ISC). The API removes all the accounts on the source first, and then it deletes the source. You can retrieve the actual task execution status with this method: GET `/task-status/{id}`
-  deleteSource: (requestParameters: sdk.SourcesV2025ApiDeleteSourceRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DeleteSource202ResponseV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.deleteSource(requestParameters));
-  },
-  // 
-  deleteSourceSchedule: (requestParameters: sdk.SourcesV2025ApiDeleteSourceScheduleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.deleteSourceSchedule(requestParameters));
-  },
-  // 
-  deleteSourceSchema: (requestParameters: sdk.SourcesV2025ApiDeleteSourceSchemaRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.deleteSourceSchema(requestParameters));
-  },
-  // This API downloads the CSV schema that defines the account attributes on a source. >**NOTE: This API is designated only for Delimited File sources.**
-  getAccountsSchema: (requestParameters: sdk.SourcesV2025ApiGetAccountsSchemaRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.getAccountsSchema(requestParameters));
-  },
-  // This API returns the existing correlation configuration for a source specified by the given ID.
-  getCorrelationConfig: (requestParameters: sdk.SourcesV2025ApiGetCorrelationConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CorrelationConfigV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.getCorrelationConfig(requestParameters));
-  },
-  // This API downloads the CSV schema that defines the entitlement attributes on a source.  >**NOTE: This API is designated only for Delimited File sources.**
-  getEntitlementsSchema: (requestParameters: sdk.SourcesV2025ApiGetEntitlementsSchemaRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.getEntitlementsSchema(requestParameters));
-  },
-  // This API returns the existing native change detection configuration for a source specified by the given ID.
-  getNativeChangeDetectionConfig: (requestParameters: sdk.SourcesV2025ApiGetNativeChangeDetectionConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.NativeChangeDetectionConfigV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.getNativeChangeDetectionConfig(requestParameters));
-  },
-  // This end-point retrieves the ProvisioningPolicy with the specified usage on the specified Source in IdentityNow.
-  getProvisioningPolicy: (requestParameters: sdk.SourcesV2025ApiGetProvisioningPolicyRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ProvisioningPolicyDtoV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.getProvisioningPolicy(requestParameters));
-  },
-  // Use this API to get a source by a specified ID in Identity Security Cloud (ISC).
-  getSource: (requestParameters: sdk.SourcesV2025ApiGetSourceRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SourceV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.getSource(requestParameters));
-  },
-  // This API returns the existing attribute synchronization configuration for a source specified by the given ID. The response contains all attributes, regardless of whether they enabled or not.
-  getSourceAttrSyncConfig: (requestParameters: sdk.SourcesV2025ApiGetSourceAttrSyncConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AttrSyncSourceConfigV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.getSourceAttrSyncConfig(requestParameters));
-  },
-  // Looks up and returns the source config for the requested source id after populating the source config values and applying language translations.
-  getSourceConfig: (requestParameters: sdk.SourcesV2025ApiGetSourceConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ConnectorDetailV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.getSourceConfig(requestParameters));
-  },
-  // Use this API to get all dependent Profiles, Attributes, Applications and Custom Transforms for a source by a specified ID in Identity Security Cloud (ISC).
-  getSourceConnections: (requestParameters: sdk.SourcesV2025ApiGetSourceConnectionsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SourceConnectionsDtoV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.getSourceConnections(requestParameters));
-  },
-  // This API gets the current entitlement request configuration for a source. This source-level configuration should apply for all the entitlements in the source.  Access request to any entitlements in the source should follow this configuration unless a separate entitlement-level configuration is defined. - During access request, this source-level entitlement request configuration overrides the global organization-level configuration. - However, the entitlement-level configuration (if defined) overrides this source-level configuration.
-  getSourceEntitlementRequestConfig: (requestParameters: sdk.SourcesV2025ApiGetSourceEntitlementRequestConfigRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SourceEntitlementRequestConfigV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.getSourceEntitlementRequestConfig(requestParameters));
-  },
-  // This endpoint fetches source health by source\'s id
-  getSourceHealth: (requestParameters: sdk.SourcesV2025ApiGetSourceHealthRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SourceHealthDtoV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.getSourceHealth(requestParameters));
-  },
-  // Get the source schedule by type in Identity Security Cloud (ISC). 
-  getSourceSchedule: (requestParameters: sdk.SourcesV2025ApiGetSourceScheduleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.Schedule1V2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.getSourceSchedule(requestParameters));
-  },
-  // Use this API to list the schedules that exist on the specified source in Identity Security Cloud (ISC). :::info This endpoint uses a **cron expression** to schedule a task, following standard **cron job syntax**.  For example, `0 0 12 1/1 * ? *` runs the task **daily at 12:00 PM**.  **Days of the week are represented as 1-7 (Sunday-Saturday).** ::: 
-  getSourceSchedules: (requestParameters: sdk.SourcesV2025ApiGetSourceSchedulesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.Schedule1V2025>>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.getSourceSchedules(requestParameters));
-  },
-  // Get the Source Schema by ID in IdentityNow. 
-  getSourceSchema: (requestParameters: sdk.SourcesV2025ApiGetSourceSchemaRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SchemaV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.getSourceSchema(requestParameters));
-  },
-  // Use this API to list the schemas that exist on the specified source in Identity Security Cloud (ISC).
-  getSourceSchemas: (requestParameters: sdk.SourcesV2025ApiGetSourceSchemasRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.SchemaV2025>>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.getSourceSchemas(requestParameters));
-  },
-  // Starts an account aggregation on the specified source.  If the target source is a delimited file source, then the CSV file needs to be included in the request body. You will also need to set the Content-Type header to `multipart/form-data`.
-  importAccounts: (requestParameters: sdk.SourcesV2025ApiImportAccountsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.LoadAccountsTaskV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.importAccounts(requestParameters));
-  },
-  // This API uploads a source schema template file to configure a source\'s account attributes.  To retrieve the file to modify and upload, log into Identity Now.   Click **Admin** -> **Connections** -> **Sources** -> **`{SourceName}`** -> **Import Data** -> **Account Schema** -> **Options** -> **Download Schema**  >**NOTE: This API is designated only for Delimited File sources.**
-  importAccountsSchema: (requestParameters: sdk.SourcesV2025ApiImportAccountsSchemaRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SchemaV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.importAccountsSchema(requestParameters));
-  },
-  // This uploads a supplemental source connector file (like jdbc driver jars) to a source\'s S3 bucket. This also sends ETS and Audit events.
-  importConnectorFile: (requestParameters: sdk.SourcesV2025ApiImportConnectorFileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SourceV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.importConnectorFile(requestParameters));
-  },
-  // Starts an entitlement aggregation on the specified source.  If the target source is a delimited file source, then the CSV file needs to be included in the request body.  You will also need to set the Content-Type header to `multipart/form-data`. A token with ORG_ADMIN, SOURCE_ADMIN, or SOURCE_SUBADMIN authority is required to call this API.
-  importEntitlements: (requestParameters: sdk.SourcesV2025ApiImportEntitlementsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.LoadEntitlementTaskV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.importEntitlements(requestParameters));
-  },
-  // This API uploads a source schema template file to configure a source\'s entitlement attributes.  To retrieve the file to modify and upload, log into Identity Now.   Click **Admin** -> **Connections** -> **Sources** -> **`{SourceName}`** -> **Import Data** -> **Import Entitlements** -> **Download**  >**NOTE: This API is designated only for Delimited File sources.**
-  importEntitlementsSchema: (requestParameters: sdk.SourcesV2025ApiImportEntitlementsSchemaRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SchemaV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.importEntitlementsSchema(requestParameters));
-  },
-  // File is required for upload. You will also need to set the Content-Type header to `multipart/form-data`
-  importUncorrelatedAccounts: (requestParameters: sdk.SourcesV2025ApiImportUncorrelatedAccountsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.LoadUncorrelatedAccountsTaskV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.importUncorrelatedAccounts(requestParameters));
-  },
-  // This API can be used to get Password Policy in IdentityNow for the specified Source. Source must support PASSWORD feature. 
-  listPasswordPolicyHoldersOnSource: (requestParameters: sdk.SourcesV2025ApiListPasswordPolicyHoldersOnSourceRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.PasswordPolicyHoldersDtoInnerV2025>>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.listPasswordPolicyHoldersOnSource(requestParameters));
-  },
-  // This end-point lists all the ProvisioningPolicies in IdentityNow.
-  listProvisioningPolicies: (requestParameters: sdk.SourcesV2025ApiListProvisioningPoliciesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ProvisioningPolicyDtoV2025>>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.listProvisioningPolicies(requestParameters));
-  },
-  // This end-point lists all the sources in IdentityNow.
-  listSources: (requestParameters: sdk.SourcesV2025ApiListSourcesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.SourceV2025>>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.listSources(requestParameters));
-  },
-  // This endpoint validates that the cluster being used by the source is reachable from IdentityNow.
-  pingCluster: (requestParameters: sdk.SourcesV2025ApiPingClusterRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.StatusResponseV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.pingCluster(requestParameters));
-  },
-  // Replaces the correlation configuration for the source specified by the given ID with the configuration provided in the request body.
-  putCorrelationConfig: (requestParameters: sdk.SourcesV2025ApiPutCorrelationConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CorrelationConfigV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.putCorrelationConfig(requestParameters));
-  },
-  // Replaces the native change detection configuration for the source specified by the given ID with the configuration provided in the request body.
-  putNativeChangeDetectionConfig: (requestParameters: sdk.SourcesV2025ApiPutNativeChangeDetectionConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.NativeChangeDetectionConfigV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.putNativeChangeDetectionConfig(requestParameters));
-  },
-  // This end-point updates the provisioning policy with the specified usage on the specified source in IdentityNow. Transforms can be used in the provisioning policy to create a new attribute that you only need during provisioning. Refer to [Transforms in Provisioning Policies](https://developer.sailpoint.com/docs/extensibility/transforms/guides/transforms-in-provisioning-policies) for more information.
-  putProvisioningPolicy: (requestParameters: sdk.SourcesV2025ApiPutProvisioningPolicyRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ProvisioningPolicyDtoV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.putProvisioningPolicy(requestParameters));
-  },
-  // Use this API to update a source in Identity Security Cloud (ISC), using a full object representation. This means that when you use this API, it completely replaces the existing source configuration.  These fields are immutable, so they cannot be changed:  * id * type * authoritative * connector * connectorClass * passwordPolicies  Attempts to modify these fields will result in a 400 error. 
-  putSource: (requestParameters: sdk.SourcesV2025ApiPutSourceRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SourceV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.putSource(requestParameters));
-  },
-  // Replaces the attribute synchronization configuration for the source specified by the given ID with the configuration provided in the request body. Only the \"enabled\" field of the values in the \"attributes\" array is mutable. Attempting to change other attributes or add new values to the \"attributes\" array will result in an error. 
-  putSourceAttrSyncConfig: (requestParameters: sdk.SourcesV2025ApiPutSourceAttrSyncConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.AttrSyncSourceConfigV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.putSourceAttrSyncConfig(requestParameters));
-  },
-  // This API will completely replace an existing Schema with the submitted payload. Some fields of the Schema cannot be updated. These fields are listed below.  * id * name * created * modified  Any attempt to modify these fields will result in an error response with a status code of 400.  > `id` must remain in the request body, but it cannot be changed.  If `id` is omitted from the request body, the result will be a 400 error. 
-  putSourceSchema: (requestParameters: sdk.SourcesV2025ApiPutSourceSchemaRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SchemaV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.putSourceSchema(requestParameters));
-  },
-  // Retrieves a sample of data returned from account and group aggregation requests.
-  searchResourceObjects: (requestParameters: sdk.SourcesV2025ApiSearchResourceObjectsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ResourceObjectsResponseV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.searchResourceObjects(requestParameters));
-  },
-  // This end-point performs attribute synchronization for a selected source.
-  syncAttributesForSource: (requestParameters: sdk.SourcesV2025ApiSyncAttributesForSourceRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SourceSyncJobV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.syncAttributesForSource(requestParameters));
-  },
-  // This endpoint performs a more detailed validation of the source\'\'s configuration that can take longer than the lighter weight credential validation performed by the checkConnection API.
-  testSourceConfiguration: (requestParameters: sdk.SourcesV2025ApiTestSourceConfigurationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.StatusResponseV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.testSourceConfiguration(requestParameters));
-  },
-  // This endpoint validates that the configured credentials are valid and will properly authenticate with the source identified by the sourceId path parameter.
-  testSourceConnection: (requestParameters: sdk.SourcesV2025ApiTestSourceConnectionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.StatusResponseV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.testSourceConnection(requestParameters));
-  },
-  // This API can be used to set up or update Password Policy in IdentityNow for the specified Source. Source must support PASSWORD feature. 
-  updatePasswordPolicyHolders: (requestParameters: sdk.SourcesV2025ApiUpdatePasswordPolicyHoldersRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.PasswordPolicyHoldersDtoInnerV2025>>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.updatePasswordPolicyHolders(requestParameters));
-  },
-  // This end-point updates a list of provisioning policies on the specified source in IdentityNow.
-  updateProvisioningPoliciesInBulk: (requestParameters: sdk.SourcesV2025ApiUpdateProvisioningPoliciesInBulkRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ProvisioningPolicyDtoV2025>>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.updateProvisioningPoliciesInBulk(requestParameters));
-  },
-  // This API selectively updates an existing Provisioning Policy using a JSONPatch payload. Transforms can be used in the provisioning policy to create a new attribute that you only need during provisioning. Refer to [Transforms in Provisioning Policies](https://developer.sailpoint.com/docs/extensibility/transforms/guides/transforms-in-provisioning-policies) for more information.
-  updateProvisioningPolicy: (requestParameters: sdk.SourcesV2025ApiUpdateProvisioningPolicyRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ProvisioningPolicyDtoV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.updateProvisioningPolicy(requestParameters));
-  },
-  // Use this API to partially update a source in Identity Security Cloud (ISC), using a list of patch operations according to the [JSON Patch](https://tools.ietf.org/html/rfc6902) standard.  These fields are immutable, so they cannot be changed:  * id * type * authoritative * created * modified * connector * connectorClass * passwordPolicies  Attempts to modify these fields will result in a 400 error. 
-  updateSource: (requestParameters: sdk.SourcesV2025ApiUpdateSourceRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SourceV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.updateSource(requestParameters));
-  },
-  // This API replaces the current entitlement request configuration for a source. This source-level configuration should apply for all the entitlements in the source.  Access request to any entitlements in the source should follow this configuration unless a separate entitlement-level configuration is defined. - During access request, this source-level entitlement request configuration overrides the global organization-level configuration. - However, the entitlement-level configuration (if defined) overrides this source-level configuration.
-  updateSourceEntitlementRequestConfig: (requestParameters: sdk.SourcesV2025ApiUpdateSourceEntitlementRequestConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SourceEntitlementRequestConfigV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.updateSourceEntitlementRequestConfig(requestParameters));
-  },
-  // Use this API to selectively update an existing Schedule using a JSONPatch payload.   The following schedule fields are immutable and cannot be updated:  - type 
-  updateSourceSchedule: (requestParameters: sdk.SourcesV2025ApiUpdateSourceScheduleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.Schedule1V2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.updateSourceSchedule(requestParameters));
-  },
-  // Use this API to selectively update an existing Schema using a JSONPatch payload.   The following schema fields are immutable and cannot be updated:  - id - name - created - modified   To switch an account attribute to a group entitlement, you need to have the following in place:  - `isEntitlement: true` - Must define a schema for the group and [add it to the source](https://developer.sailpoint.com/idn/api/v3/create-source-schema) before updating the `isGroup` flag.  For example, here is the `group` account attribute referencing a schema that defines the group: ```json {     \"name\": \"groups\",     \"type\": \"STRING\",     \"schema\": {         \"type\": \"CONNECTOR_SCHEMA\",         \"id\": \"2c9180887671ff8c01767b4671fc7d60\",         \"name\": \"group\"     },     \"description\": \"The groups, roles etc. that reference account group objects\",     \"isMulti\": true,     \"isEntitlement\": true,     \"isGroup\": true } ``` 
-  updateSourceSchema: (requestParameters: sdk.SourcesV2025ApiUpdateSourceSchemaRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SchemaV2025>> => {
-    const sourcesv2025api = new sdk.SourcesV2025Api(apiConfig);
-    return handleApiCall(() => sourcesv2025api.updateSourceSchema(requestParameters));
-  },
-
-  // \'Submit Sed Batch Stats Request.   Submits batchId in the path param `(e.g. {batchId}/stats)`. API responses with stats  of the batchId.\' 
-  getSedBatchStats: (requestParameters: sdk.SuggestedEntitlementDescriptionV2025ApiGetSedBatchStatsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SedBatchStatsV2025>> => {
-    const suggestedentitlementdescriptionv2025api = new sdk.SuggestedEntitlementDescriptionV2025Api(apiConfig);
-    return handleApiCall(() => suggestedentitlementdescriptionv2025api.getSedBatchStats(requestParameters));
-  },
-  // List Sed Batches. API responses with Sed Batch Records
-  getSedBatches: (requestParameters: sdk.SuggestedEntitlementDescriptionV2025ApiGetSedBatchesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.SedBatchRecordV2025>>> => {
-    const suggestedentitlementdescriptionv2025api = new sdk.SuggestedEntitlementDescriptionV2025Api(apiConfig);
-    return handleApiCall(() => suggestedentitlementdescriptionv2025api.getSedBatches(requestParameters));
-  },
-  // List of Suggested Entitlement Descriptions (SED)  SED field descriptions:  **batchId**: the ID of the batch of entitlements that are submitted for description generation  **displayName**: the display name of the entitlement that we are generating a description for  **sourceName**: the name of the source associated with the entitlement that we are generating the description for  **sourceId**: the ID of the source associated with the entitlement that we are generating the description for  **status**: the status of the suggested entitlement description, valid status options: \"requested\", \"suggested\", \"not_suggested\", \"failed\", \"assigned\", \"approved\", \"denied\"  **fullText**: will filter suggested entitlement description records by text found in any of the following fields: entitlement name, entitlement display name, suggested description, source name
-  listSeds: (requestParameters: sdk.SuggestedEntitlementDescriptionV2025ApiListSedsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.SedV2025>>> => {
-    const suggestedentitlementdescriptionv2025api = new sdk.SuggestedEntitlementDescriptionV2025Api(apiConfig);
-    return handleApiCall(() => suggestedentitlementdescriptionv2025api.listSeds(requestParameters));
-  },
-  // Patch Suggested Entitlement Description
-  patchSed: (requestParameters: sdk.SuggestedEntitlementDescriptionV2025ApiPatchSedRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SedV2025>> => {
-    const suggestedentitlementdescriptionv2025api = new sdk.SuggestedEntitlementDescriptionV2025Api(apiConfig);
-    return handleApiCall(() => suggestedentitlementdescriptionv2025api.patchSed(requestParameters));
-  },
-  // Submit Bulk Approval Request for SED. Request body takes list of SED Ids. API responses with list of SED Approval Status
-  submitSedApproval: (requestParameters: sdk.SuggestedEntitlementDescriptionV2025ApiSubmitSedApprovalRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.SedApprovalStatusV2025>>> => {
-    const suggestedentitlementdescriptionv2025api = new sdk.SuggestedEntitlementDescriptionV2025Api(apiConfig);
-    return handleApiCall(() => suggestedentitlementdescriptionv2025api.submitSedApproval(requestParameters));
-  },
-  // Submit Assignment Request. Request body has an assignee, and list of SED Ids that are assigned to that assignee API responses with batchId that groups all approval requests together
-  submitSedAssignment: (requestParameters: sdk.SuggestedEntitlementDescriptionV2025ApiSubmitSedAssignmentRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SedAssignmentResponseV2025>> => {
-    const suggestedentitlementdescriptionv2025api = new sdk.SuggestedEntitlementDescriptionV2025Api(apiConfig);
-    return handleApiCall(() => suggestedentitlementdescriptionv2025api.submitSedAssignment(requestParameters));
-  },
-  // Submit Sed Batch Request. Request body has one of the following: - a list of entitlement Ids - a list of SED Ids that user wants to have description generated by LLM.  API responses with batchId that groups Ids together
-  submitSedBatchRequest: (requestParameters: sdk.SuggestedEntitlementDescriptionV2025ApiSubmitSedBatchRequestRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SedBatchResponseV2025>> => {
-    const suggestedentitlementdescriptionv2025api = new sdk.SuggestedEntitlementDescriptionV2025Api(apiConfig);
-    return handleApiCall(() => suggestedentitlementdescriptionv2025api.submitSedBatchRequest(requestParameters));
-  },
-
-  // Delete all tags from a tagged object.
-  deleteTaggedObject: (requestParameters: sdk.TaggedObjectsV2025ApiDeleteTaggedObjectRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const taggedobjectsv2025api = new sdk.TaggedObjectsV2025Api(apiConfig);
-    return handleApiCall(() => taggedobjectsv2025api.deleteTaggedObject(requestParameters));
-  },
-  // This API removes tags from multiple objects.
-  deleteTagsToManyObject: (requestParameters: sdk.TaggedObjectsV2025ApiDeleteTagsToManyObjectRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const taggedobjectsv2025api = new sdk.TaggedObjectsV2025Api(apiConfig);
-    return handleApiCall(() => taggedobjectsv2025api.deleteTagsToManyObject(requestParameters));
-  },
-  // This gets a tagged object for the specified type.
-  getTaggedObject: (requestParameters: sdk.TaggedObjectsV2025ApiGetTaggedObjectRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TaggedObjectV2025>> => {
-    const taggedobjectsv2025api = new sdk.TaggedObjectsV2025Api(apiConfig);
-    return handleApiCall(() => taggedobjectsv2025api.getTaggedObject(requestParameters));
-  },
-  // This API returns a list of all tagged objects.
-  listTaggedObjects: (requestParameters: sdk.TaggedObjectsV2025ApiListTaggedObjectsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.TaggedObjectV2025>>> => {
-    const taggedobjectsv2025api = new sdk.TaggedObjectsV2025Api(apiConfig);
-    return handleApiCall(() => taggedobjectsv2025api.listTaggedObjects(requestParameters));
-  },
-  // This API returns a list of all tagged objects by type.
-  listTaggedObjectsByType: (requestParameters: sdk.TaggedObjectsV2025ApiListTaggedObjectsByTypeRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.TaggedObjectV2025>>> => {
-    const taggedobjectsv2025api = new sdk.TaggedObjectsV2025Api(apiConfig);
-    return handleApiCall(() => taggedobjectsv2025api.listTaggedObjectsByType(requestParameters));
-  },
-  // This updates a tagged object for the specified type.
-  putTaggedObject: (requestParameters: sdk.TaggedObjectsV2025ApiPutTaggedObjectRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TaggedObjectV2025>> => {
-    const taggedobjectsv2025api = new sdk.TaggedObjectsV2025Api(apiConfig);
-    return handleApiCall(() => taggedobjectsv2025api.putTaggedObject(requestParameters));
-  },
-  // This adds a tag to an object.
-  setTagToObject: (requestParameters: sdk.TaggedObjectsV2025ApiSetTagToObjectRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const taggedobjectsv2025api = new sdk.TaggedObjectsV2025Api(apiConfig);
-    return handleApiCall(() => taggedobjectsv2025api.setTagToObject(requestParameters));
-  },
-  // This API adds tags to multiple objects.
-  setTagsToManyObjects: (requestParameters: sdk.TaggedObjectsV2025ApiSetTagsToManyObjectsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.BulkTaggedObjectResponseV2025>>> => {
-    const taggedobjectsv2025api = new sdk.TaggedObjectsV2025Api(apiConfig);
-    return handleApiCall(() => taggedobjectsv2025api.setTagsToManyObjects(requestParameters));
-  },
-
-  // This API creates new tag.  A token with API, ORG_ADMIN, CERT_ADMIN, REPORT_ADMIN, ROLE_ADMIN, ROLE_SUBADMIN, SOURCE_ADMIN, or SOURCE_SUBADMIN authority is required to call this API.
-  createTag: (requestParameters: sdk.TagsV2025ApiCreateTagRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TagV2025>> => {
-    const tagsv2025api = new sdk.TagsV2025Api(apiConfig);
-    return handleApiCall(() => tagsv2025api.createTag(requestParameters));
-  },
-  // This API deletes a tag by specified id.  A token with API, ORG_ADMIN, CERT_ADMIN, REPORT_ADMIN, ROLE_ADMIN, ROLE_SUBADMIN, SOURCE_ADMIN, or SOURCE_SUBADMIN authority is required to call this API.
-  deleteTagById: (requestParameters: sdk.TagsV2025ApiDeleteTagByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const tagsv2025api = new sdk.TagsV2025Api(apiConfig);
-    return handleApiCall(() => tagsv2025api.deleteTagById(requestParameters));
-  },
-  // Returns a tag by its id.  A token with API, ORG_ADMIN, CERT_ADMIN, REPORT_ADMIN, ROLE_ADMIN, ROLE_SUBADMIN, SOURCE_ADMIN, or SOURCE_SUBADMIN authority is required to call this API.
-  getTagById: (requestParameters: sdk.TagsV2025ApiGetTagByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TagV2025>> => {
-    const tagsv2025api = new sdk.TagsV2025Api(apiConfig);
-    return handleApiCall(() => tagsv2025api.getTagById(requestParameters));
-  },
-  // This API returns a list of tags.  A token with API, ORG_ADMIN, CERT_ADMIN, REPORT_ADMIN, ROLE_ADMIN, ROLE_SUBADMIN, SOURCE_ADMIN, or SOURCE_SUBADMIN authority is required to call this API.
-  listTags: (requestParameters: sdk.TagsV2025ApiListTagsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.TagV2025>>> => {
-    const tagsv2025api = new sdk.TagsV2025Api(apiConfig);
-    return handleApiCall(() => tagsv2025api.listTags(requestParameters));
-  },
-
-  // This API is being deprecated. Please use the [task-status-list](https://developer.sailpoint.com/docs/api/v2025/get-task-status-list) endpoint with isnull filtering on the completionStatus field and count=true. Example: /v2025/task-status?count=true&filters=completionStatus isnull  Responds with headers only for list of task statuses for pending tasks. 
-  getPendingTaskHeaders: (requestParameters: sdk.TaskManagementV2025ApiGetPendingTaskHeadersRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const taskmanagementv2025api = new sdk.TaskManagementV2025Api(apiConfig);
-    return handleApiCall(() => taskmanagementv2025api.getPendingTaskHeaders(requestParameters));
-  },
-  // This API is being deprecated. Please use the [task-status-list](https://developer.sailpoint.com/docs/api/v2025/get-task-status-list) endpoint with isnull filtering on the completionStatus field to retrieve pending tasks. Example: /v2025/task-status?filters=completionStatus isnull  Retrieve a list of statuses for pending tasks. Types of tasks include account and entitlement aggregation and other general background processing tasks.  Data for tasks older than 90 days will not be returned. 
-  getPendingTasks: (requestParameters: sdk.TaskManagementV2025ApiGetPendingTasksRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.TaskStatusV2025>>> => {
-    const taskmanagementv2025api = new sdk.TaskManagementV2025Api(apiConfig);
-    return handleApiCall(() => taskmanagementv2025api.getPendingTasks(requestParameters));
-  },
-  // Get task status by task ID. Types of tasks include account and entitlement aggregation and other general background processing tasks.  Data for tasks older than 90 days will not be returned.
-  getTaskStatus: (requestParameters: sdk.TaskManagementV2025ApiGetTaskStatusRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TaskStatusV2025>> => {
-    const taskmanagementv2025api = new sdk.TaskManagementV2025Api(apiConfig);
-    return handleApiCall(() => taskmanagementv2025api.getTaskStatus(requestParameters));
-  },
-  // Use this endpoint to get a list of statuses for **all** tasks, including completed, in-progress, terminated, and errored tasks. Types of tasks include account and entitlement aggregation and other general background processing tasks. Data for tasks older than 90 days will not be returned. For a list of **in-progress** tasks, use the [retrieve pending task status list](https://developer.sailpoint.com/docs/api/v2025/get-pending-tasks) endpoint or apply the isnull filter to the Completion Status field. 
-  getTaskStatusList: (requestParameters: sdk.TaskManagementV2025ApiGetTaskStatusListRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.TaskStatusV2025>>> => {
-    const taskmanagementv2025api = new sdk.TaskManagementV2025Api(apiConfig);
-    return handleApiCall(() => taskmanagementv2025api.getTaskStatusList(requestParameters));
-  },
-  // Update a current task status by task ID. Use this API to clear a pending task by updating the completionStatus and completed attributes.
-  updateTaskStatus: (requestParameters: sdk.TaskManagementV2025ApiUpdateTaskStatusRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TaskStatusV2025>> => {
-    const taskmanagementv2025api = new sdk.TaskManagementV2025Api(apiConfig);
-    return handleApiCall(() => taskmanagementv2025api.updateTaskStatus(requestParameters));
-  },
-
-  // This rest endpoint can be used to retrieve tenant details.
-  getTenant: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TenantV2025>> => {
-    const tenantv2025api = new sdk.TenantV2025Api(apiConfig);
-    return handleApiCall(() => tenantv2025api.getTenant());
-  },
-
-  // Returns a list of key-value pairs representing the current state of the tenant\'s context. 
-  getTenantContext: (requestParameters: sdk.TenantContextV2025ApiGetTenantContextRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.GetTenantContext200ResponseInnerV2025>>> => {
-    const tenantcontextv2025api = new sdk.TenantContextV2025Api(apiConfig);
-    return handleApiCall(() => tenantcontextv2025api.getTenantContext(requestParameters));
-  },
-  // Allows the user to make incremental updates to tenant context records using [JSON Patch](https://tools.ietf.org/html/rfc6902) syntax.  This endpoint is specifically designed to modify the `/Key/_*` field, supporting operations such as `add`, `remove`, or `replace` to manage key-value pairs.   Note that each tenant is limited to a maximum of 100 key-value pairs. 
-  patchTenantContext: (requestParameters: sdk.TenantContextV2025ApiPatchTenantContextRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const tenantcontextv2025api = new sdk.TenantContextV2025Api(apiConfig);
-    return handleApiCall(() => tenantcontextv2025api.patchTenantContext(requestParameters));
-  },
-
-  // Creates a new transform object immediately. By default, the internal flag is set to false to indicate that this is a custom transform. Only SailPoint employees have the ability to create a transform with internal set to true. Newly created Transforms can be used in the Identity Profile mappings within the UI.
-  createTransform: (requestParameters: sdk.TransformsV2025ApiCreateTransformRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TransformReadV2025>> => {
-    const transformsv2025api = new sdk.TransformsV2025Api(apiConfig);
-    return handleApiCall(() => transformsv2025api.createTransform(requestParameters));
-  },
-  // Deletes the transform specified by the given ID. Attempting to delete a transform that is used in one or more Identity Profile mappings will result in an error. If this occurs, you must first remove the transform from all mappings before deleting the transform.
-  deleteTransform: (requestParameters: sdk.TransformsV2025ApiDeleteTransformRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const transformsv2025api = new sdk.TransformsV2025Api(apiConfig);
-    return handleApiCall(() => transformsv2025api.deleteTransform(requestParameters));
-  },
-  // This API returns the transform specified by the given ID.
-  getTransform: (requestParameters: sdk.TransformsV2025ApiGetTransformRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TransformReadV2025>> => {
-    const transformsv2025api = new sdk.TransformsV2025Api(apiConfig);
-    return handleApiCall(() => transformsv2025api.getTransform(requestParameters));
-  },
-  // Gets a list of all saved transform objects.
-  listTransforms: (requestParameters: sdk.TransformsV2025ApiListTransformsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.TransformReadV2025>>> => {
-    const transformsv2025api = new sdk.TransformsV2025Api(apiConfig);
-    return handleApiCall(() => transformsv2025api.listTransforms(requestParameters));
-  },
-  // Replaces the transform specified by the given ID with the transform provided in the request body. Only the \"attributes\" field is mutable. Attempting to change other properties (ex. \"name\" and \"type\") will result in an error.
-  updateTransform: (requestParameters: sdk.TransformsV2025ApiUpdateTransformRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TransformReadV2025>> => {
-    const transformsv2025api = new sdk.TransformsV2025Api(apiConfig);
-    return handleApiCall(() => transformsv2025api.updateTransform(requestParameters));
-  },
-
-  // Completes an invocation to a REQUEST_RESPONSE type trigger.
-  completeTriggerInvocation: (requestParameters: sdk.TriggersV2025ApiCompleteTriggerInvocationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const triggersv2025api = new sdk.TriggersV2025Api(apiConfig);
-    return handleApiCall(() => triggersv2025api.completeTriggerInvocation(requestParameters));
-  },
-  // This API creates a new subscription to a trigger and defines trigger invocation details. The type of subscription determines which config object is required: * HTTP subscriptions require httpConfig * EventBridge subscriptions require eventBridgeConfig
-  createSubscription: (requestParameters: sdk.TriggersV2025ApiCreateSubscriptionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubscriptionV2025>> => {
-    const triggersv2025api = new sdk.TriggersV2025Api(apiConfig);
-    return handleApiCall(() => triggersv2025api.createSubscription(requestParameters));
-  },
-  // Deletes an existing subscription to a trigger.
-  deleteSubscription: (requestParameters: sdk.TriggersV2025ApiDeleteSubscriptionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const triggersv2025api = new sdk.TriggersV2025Api(apiConfig);
-    return handleApiCall(() => triggersv2025api.deleteSubscription(requestParameters));
-  },
-  // Gets a list of all trigger subscriptions.
-  listSubscriptions: (requestParameters: sdk.TriggersV2025ApiListSubscriptionsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.SubscriptionV2025>>> => {
-    const triggersv2025api = new sdk.TriggersV2025Api(apiConfig);
-    return handleApiCall(() => triggersv2025api.listSubscriptions(requestParameters));
-  },
-  // Gets a list of latest invocation statuses. Statuses of successful invocations are available for up to 24 hours. Statuses of failed invocations are available for up to 48 hours. This endpoint may only fetch up to 2000 invocations, and should not be treated as a representation of the full history of invocations.
-  listTriggerInvocationStatus: (requestParameters: sdk.TriggersV2025ApiListTriggerInvocationStatusRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.InvocationStatusV2025>>> => {
-    const triggersv2025api = new sdk.TriggersV2025Api(apiConfig);
-    return handleApiCall(() => triggersv2025api.listTriggerInvocationStatus(requestParameters));
-  },
-  // Gets a list of triggers that are available in the tenant.
-  listTriggers: (requestParameters: sdk.TriggersV2025ApiListTriggersRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.TriggerV2025>>> => {
-    const triggersv2025api = new sdk.TriggersV2025Api(apiConfig);
-    return handleApiCall(() => triggersv2025api.listTriggers(requestParameters));
-  },
-  // This API updates a trigger subscription in IdentityNow, using a set of instructions to modify a subscription partially. The following fields are patchable:  **name**, **description**, **enabled**, **type**, **filter**, **responseDeadline**, **httpConfig**, **eventBridgeConfig**, **workflowConfig**
-  patchSubscription: (requestParameters: sdk.TriggersV2025ApiPatchSubscriptionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubscriptionV2025>> => {
-    const triggersv2025api = new sdk.TriggersV2025Api(apiConfig);
-    return handleApiCall(() => triggersv2025api.patchSubscription(requestParameters));
-  },
-  // Initiate a test event for all subscribers of the specified event trigger.  If there are no subscribers to the specified trigger in the tenant, then no test event will be sent.
-  startTestTriggerInvocation: (requestParameters: sdk.TriggersV2025ApiStartTestTriggerInvocationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.InvocationV2025>>> => {
-    const triggersv2025api = new sdk.TriggersV2025Api(apiConfig);
-    return handleApiCall(() => triggersv2025api.startTestTriggerInvocation(requestParameters));
-  },
-  // Validates a JSONPath filter expression against a provided mock input. Request requires a security scope of: 
-  testSubscriptionFilter: (requestParameters: sdk.TriggersV2025ApiTestSubscriptionFilterRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ValidateFilterOutputDtoV2025>> => {
-    const triggersv2025api = new sdk.TriggersV2025Api(apiConfig);
-    return handleApiCall(() => triggersv2025api.testSubscriptionFilter(requestParameters));
-  },
-  // This API updates a trigger subscription in IdentityNow, using a full object representation. In other words, the existing   Subscription is completely replaced. The following fields are immutable:     * id    * triggerId     Attempts to modify these fields result in 400.
-  updateSubscription: (requestParameters: sdk.TriggersV2025ApiUpdateSubscriptionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubscriptionV2025>> => {
-    const triggersv2025api = new sdk.TriggersV2025Api(apiConfig);
-    return handleApiCall(() => triggersv2025api.updateSubscription(requestParameters));
-  },
-
-  // This API endpoint retrieves UI metadata configured for your tenant.
-  getTenantUiMetadata: (requestParameters: sdk.UIMetadataV2025ApiGetTenantUiMetadataRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TenantUiMetadataItemResponseV2025>> => {
-    const uimetadatav2025api = new sdk.UIMetadataV2025Api(apiConfig);
-    return handleApiCall(() => uimetadatav2025api.getTenantUiMetadata(requestParameters));
-  },
-  // This API endpoint updates UI metadata for your tenant. These changes may require up to 5 minutes to take effect on the UI.
-  setTenantUiMetadata: (requestParameters: sdk.UIMetadataV2025ApiSetTenantUiMetadataRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TenantUiMetadataItemResponseV2025>> => {
-    const uimetadatav2025api = new sdk.UIMetadataV2025Api(apiConfig);
-    return handleApiCall(() => uimetadatav2025api.setTenantUiMetadata(requestParameters));
-  },
-
-  // This API approves an Approval Item. Either an admin, or the owning/current user must make this request.
-  approveApprovalItem: (requestParameters: sdk.WorkItemsV2025ApiApproveApprovalItemRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.WorkItemsV2025>> => {
-    const workitemsv2025api = new sdk.WorkItemsV2025Api(apiConfig);
-    return handleApiCall(() => workitemsv2025api.approveApprovalItem(requestParameters));
-  },
-  // This API bulk approves Approval Items. Either an admin, or the owning/current user must make this request.
-  approveApprovalItemsInBulk: (requestParameters: sdk.WorkItemsV2025ApiApproveApprovalItemsInBulkRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.WorkItemsV2025>> => {
-    const workitemsv2025api = new sdk.WorkItemsV2025Api(apiConfig);
-    return handleApiCall(() => workitemsv2025api.approveApprovalItemsInBulk(requestParameters));
-  },
-  // This API completes a work item. Either an admin, or the owning/current user must make this request.
-  completeWorkItem: (requestParameters: sdk.WorkItemsV2025ApiCompleteWorkItemRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.WorkItemsV2025>> => {
-    const workitemsv2025api = new sdk.WorkItemsV2025Api(apiConfig);
-    return handleApiCall(() => workitemsv2025api.completeWorkItem(requestParameters));
-  },
-  // This API forwards a work item to a new owner. Either an admin, or the owning/current user must make this request.
-  forwardWorkItem: (requestParameters: sdk.WorkItemsV2025ApiForwardWorkItemRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const workitemsv2025api = new sdk.WorkItemsV2025Api(apiConfig);
-    return handleApiCall(() => workitemsv2025api.forwardWorkItem(requestParameters));
-  },
-  // This gets a collection of completed work items belonging to either the specified user(admin required), or the current user.
-  getCompletedWorkItems: (requestParameters: sdk.WorkItemsV2025ApiGetCompletedWorkItemsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.WorkItemsV2025>>> => {
-    const workitemsv2025api = new sdk.WorkItemsV2025Api(apiConfig);
-    return handleApiCall(() => workitemsv2025api.getCompletedWorkItems(requestParameters));
-  },
-  // This gets a count of completed work items belonging to either the specified user(admin required), or the current user.
-  getCountCompletedWorkItems: (requestParameters: sdk.WorkItemsV2025ApiGetCountCompletedWorkItemsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.WorkItemsCountV2025>> => {
-    const workitemsv2025api = new sdk.WorkItemsV2025Api(apiConfig);
-    return handleApiCall(() => workitemsv2025api.getCountCompletedWorkItems(requestParameters));
-  },
-  // This gets a count of work items belonging to either the specified user(admin required), or the current user.
-  getCountWorkItems: (requestParameters: sdk.WorkItemsV2025ApiGetCountWorkItemsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.WorkItemsCountV2025>> => {
-    const workitemsv2025api = new sdk.WorkItemsV2025Api(apiConfig);
-    return handleApiCall(() => workitemsv2025api.getCountWorkItems(requestParameters));
-  },
-  // This gets the details of a Work Item belonging to either the specified user(admin required), or the current user.
-  getWorkItem: (requestParameters: sdk.WorkItemsV2025ApiGetWorkItemRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.WorkItemsV2025>> => {
-    const workitemsv2025api = new sdk.WorkItemsV2025Api(apiConfig);
-    return handleApiCall(() => workitemsv2025api.getWorkItem(requestParameters));
-  },
-  // This gets a summary of work items belonging to either the specified user(admin required), or the current user.
-  getWorkItemsSummary: (requestParameters: sdk.WorkItemsV2025ApiGetWorkItemsSummaryRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.WorkItemsSummaryV2025>> => {
-    const workitemsv2025api = new sdk.WorkItemsV2025Api(apiConfig);
-    return handleApiCall(() => workitemsv2025api.getWorkItemsSummary(requestParameters));
-  },
-  // This gets a collection of work items belonging to either the specified user(admin required), or the current user.
-  listWorkItems: (requestParameters: sdk.WorkItemsV2025ApiListWorkItemsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.WorkItemsV2025>>> => {
-    const workitemsv2025api = new sdk.WorkItemsV2025Api(apiConfig);
-    return handleApiCall(() => workitemsv2025api.listWorkItems(requestParameters));
-  },
-  // This API rejects an Approval Item. Either an admin, or the owning/current user must make this request.
-  rejectApprovalItem: (requestParameters: sdk.WorkItemsV2025ApiRejectApprovalItemRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.WorkItemsV2025>> => {
-    const workitemsv2025api = new sdk.WorkItemsV2025Api(apiConfig);
-    return handleApiCall(() => workitemsv2025api.rejectApprovalItem(requestParameters));
-  },
-  // This API bulk rejects Approval Items. Either an admin, or the owning/current user must make this request.
-  rejectApprovalItemsInBulk: (requestParameters: sdk.WorkItemsV2025ApiRejectApprovalItemsInBulkRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.WorkItemsV2025>> => {
-    const workitemsv2025api = new sdk.WorkItemsV2025Api(apiConfig);
-    return handleApiCall(() => workitemsv2025api.rejectApprovalItemsInBulk(requestParameters));
-  },
-  // This API submits account selections. Either an admin, or the owning/current user must make this request.
-  submitAccountSelection: (requestParameters: sdk.WorkItemsV2025ApiSubmitAccountSelectionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.WorkItemsV2025>> => {
-    const workitemsv2025api = new sdk.WorkItemsV2025Api(apiConfig);
-    return handleApiCall(() => workitemsv2025api.submitAccountSelection(requestParameters));
-  },
-
-  // Creates a new Reassignment Configuration for the specified identity.
-  createReassignmentConfiguration: (requestParameters: sdk.WorkReassignmentV2025ApiCreateReassignmentConfigurationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ConfigurationItemResponseV2025>> => {
-    const workreassignmentv2025api = new sdk.WorkReassignmentV2025Api(apiConfig);
-    return handleApiCall(() => workreassignmentv2025api.createReassignmentConfiguration(requestParameters));
-  },
-  // Deletes a single reassignment configuration for the specified identity
-  deleteReassignmentConfiguration: (requestParameters: sdk.WorkReassignmentV2025ApiDeleteReassignmentConfigurationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const workreassignmentv2025api = new sdk.WorkReassignmentV2025Api(apiConfig);
-    return handleApiCall(() => workreassignmentv2025api.deleteReassignmentConfiguration(requestParameters));
-  },
-  // Evaluates the Reassignment Configuration for an `Identity` to determine if work items for the specified type should be reassigned. If a valid Reassignment Configuration is found for the identity & work type, then a lookup is initiated which recursively fetches the Reassignment Configuration for the next `TargetIdentity` until no more results are found or a max depth of 5. That lookup trail is provided in the response and the final reassigned identity in the lookup list is returned as the `reassignToId` property. If no Reassignment Configuration is found for the specified identity & config type then the requested Identity ID will be used as the `reassignToId` value and the lookupTrail node will be empty.
-  getEvaluateReassignmentConfiguration: (requestParameters: sdk.WorkReassignmentV2025ApiGetEvaluateReassignmentConfigurationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.EvaluateResponseV2025>>> => {
-    const workreassignmentv2025api = new sdk.WorkReassignmentV2025Api(apiConfig);
-    return handleApiCall(() => workreassignmentv2025api.getEvaluateReassignmentConfiguration(requestParameters));
-  },
-  // Gets a collection of types which are available in the Reassignment Configuration UI.
-  getReassignmentConfigTypes: (requestParameters: sdk.WorkReassignmentV2025ApiGetReassignmentConfigTypesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ConfigTypeV2025>>> => {
-    const workreassignmentv2025api = new sdk.WorkReassignmentV2025Api(apiConfig);
-    return handleApiCall(() => workreassignmentv2025api.getReassignmentConfigTypes(requestParameters));
-  },
-  // Gets the Reassignment Configuration for an identity.
-  getReassignmentConfiguration: (requestParameters: sdk.WorkReassignmentV2025ApiGetReassignmentConfigurationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ConfigurationResponseV2025>> => {
-    const workreassignmentv2025api = new sdk.WorkReassignmentV2025Api(apiConfig);
-    return handleApiCall(() => workreassignmentv2025api.getReassignmentConfiguration(requestParameters));
-  },
-  // Gets the global Reassignment Configuration settings for the requestor\'s tenant.
-  getTenantConfigConfiguration: (requestParameters: sdk.WorkReassignmentV2025ApiGetTenantConfigConfigurationRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TenantConfigurationResponseV2025>> => {
-    const workreassignmentv2025api = new sdk.WorkReassignmentV2025Api(apiConfig);
-    return handleApiCall(() => workreassignmentv2025api.getTenantConfigConfiguration(requestParameters));
-  },
-  // Gets all Reassignment configuration for the current org.
-  listReassignmentConfigurations: (requestParameters: sdk.WorkReassignmentV2025ApiListReassignmentConfigurationsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ConfigurationResponseV2025>>> => {
-    const workreassignmentv2025api = new sdk.WorkReassignmentV2025Api(apiConfig);
-    return handleApiCall(() => workreassignmentv2025api.listReassignmentConfigurations(requestParameters));
-  },
-  // Replaces existing Reassignment configuration for an identity with the newly provided configuration.
-  putReassignmentConfig: (requestParameters: sdk.WorkReassignmentV2025ApiPutReassignmentConfigRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.ConfigurationItemResponseV2025>> => {
-    const workreassignmentv2025api = new sdk.WorkReassignmentV2025Api(apiConfig);
-    return handleApiCall(() => workreassignmentv2025api.putReassignmentConfig(requestParameters));
-  },
-  // Replaces existing Tenant-wide Reassignment Configuration settings with the newly provided settings.
-  putTenantConfiguration: (requestParameters: sdk.WorkReassignmentV2025ApiPutTenantConfigurationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TenantConfigurationResponseV2025>> => {
-    const workreassignmentv2025api = new sdk.WorkReassignmentV2025Api(apiConfig);
-    return handleApiCall(() => workreassignmentv2025api.putTenantConfiguration(requestParameters));
-  },
-
-  // Use this API to cancel a running workflow execution.
-  cancelWorkflowExecution: (requestParameters: sdk.WorkflowsV2025ApiCancelWorkflowExecutionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const workflowsv2025api = new sdk.WorkflowsV2025Api(apiConfig);
-    return handleApiCall(() => workflowsv2025api.cancelWorkflowExecution(requestParameters));
-  },
-  // This endpoint allows a service outside of IdentityNow to initiate a workflow that uses the \"External Trigger\" step.  The external service will invoke this endpoint with the input data it wants to send to the workflow in the body.
-  createExternalExecuteWorkflow: (requestParameters: sdk.WorkflowsV2025ApiCreateExternalExecuteWorkflowRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateExternalExecuteWorkflow200ResponseV2025>> => {
-    const workflowsv2025api = new sdk.WorkflowsV2025Api(apiConfig);
-    return handleApiCall(() => workflowsv2025api.createExternalExecuteWorkflow(requestParameters));
-  },
-  // Create a new workflow with the desired trigger and steps specified in the request body.
-  createWorkflow: (requestParameters: sdk.WorkflowsV2025ApiCreateWorkflowRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.WorkflowV2025>> => {
-    const workflowsv2025api = new sdk.WorkflowsV2025Api(apiConfig);
-    return handleApiCall(() => workflowsv2025api.createWorkflow(requestParameters));
-  },
-  // Create OAuth client ID, client secret, and callback URL for use in an external trigger.  External triggers will need this information to generate an access token to authenticate to the callback URL and submit a trigger payload that will initiate the workflow.
-  createWorkflowExternalTrigger: (requestParameters: sdk.WorkflowsV2025ApiCreateWorkflowExternalTriggerRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.WorkflowOAuthClientV2025>> => {
-    const workflowsv2025api = new sdk.WorkflowsV2025Api(apiConfig);
-    return handleApiCall(() => workflowsv2025api.createWorkflowExternalTrigger(requestParameters));
-  },
-  // Delete a workflow.  **Enabled workflows cannot be deleted**.  They must first be disabled.
-  deleteWorkflow: (requestParameters: sdk.WorkflowsV2025ApiDeleteWorkflowRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const workflowsv2025api = new sdk.WorkflowsV2025Api(apiConfig);
-    return handleApiCall(() => workflowsv2025api.deleteWorkflow(requestParameters));
-  },
-  // Get a single workflow by id.
-  getWorkflow: (requestParameters: sdk.WorkflowsV2025ApiGetWorkflowRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.WorkflowV2025>> => {
-    const workflowsv2025api = new sdk.WorkflowsV2025Api(apiConfig);
-    return handleApiCall(() => workflowsv2025api.getWorkflow(requestParameters));
-  },
-  // Use this API to get a single workflow execution. Workflow executions are available for up to 90 days before being archived. If you attempt to access a workflow execution that has been archived, you will receive a \"404 Not Found\" response.
-  getWorkflowExecution: (requestParameters: sdk.WorkflowsV2025ApiGetWorkflowExecutionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const workflowsv2025api = new sdk.WorkflowsV2025Api(apiConfig);
-    return handleApiCall(() => workflowsv2025api.getWorkflowExecution(requestParameters));
-  },
-  // Get a detailed history of a single workflow execution.  Workflow executions are available for up to 90 days before being archived.  If you attempt to access a workflow execution that has been archived, you will receive a 404 Not Found.
-  getWorkflowExecutionHistory: (requestParameters: sdk.WorkflowsV2025ApiGetWorkflowExecutionHistoryRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.WorkflowExecutionEventV2025>>> => {
-    const workflowsv2025api = new sdk.WorkflowsV2025Api(apiConfig);
-    return handleApiCall(() => workflowsv2025api.getWorkflowExecutionHistory(requestParameters));
-  },
-  // Gets a workflow execution history, trigger input, and workflow definition of a single workflow execution.  Workflow executions are available for up to 90 days before being archived.  If you attempt to access a workflow execution that has been archived, you will receive a 404 Not Found.
-  getWorkflowExecutionHistoryV2: (requestParameters: sdk.WorkflowsV2025ApiGetWorkflowExecutionHistoryV2Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.WorkflowExecutionHistoryV2025>> => {
-    const workflowsv2025api = new sdk.WorkflowsV2025Api(apiConfig);
-    return handleApiCall(() => workflowsv2025api.getWorkflowExecutionHistoryV2(requestParameters));
-  },
-  // Use this API to list a specified workflow\'s executions. Workflow executions are available for up to 90 days before being archived. By default, you can get a maximum of 250 executions. To get executions past the first 250 records, you can do the following: 1. Use the [Get Workflows](https://developer.sailpoint.com/idn/api/beta/list-workflows) endpoint to get your workflows. 2. Get your workflow ID from the response. 3. You can then do either of the following:    - Filter to find relevant workflow executions.   For example, you can filter for failed workflow executions: `GET /workflows/:workflowID/executions?filters=status eq \"Failed\"`    - Paginate through results with the `offset` parameter.   For example, you can page through 50 executions per page and use that as a way to get to the records past the first 250.   Refer to [Paginating Results](https://developer.sailpoint.com/idn/api/standard-collection-parameters#paginating-results) for more information about the query parameters you can use to achieve pagination.
-  getWorkflowExecutions: (requestParameters: sdk.WorkflowsV2025ApiGetWorkflowExecutionsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.WorkflowExecutionV2025>>> => {
-    const workflowsv2025api = new sdk.WorkflowsV2025Api(apiConfig);
-    return handleApiCall(() => workflowsv2025api.getWorkflowExecutions(requestParameters));
-  },
-  // This lists all triggers, actions, and operators in the library
-  listCompleteWorkflowLibrary: (requestParameters: sdk.WorkflowsV2025ApiListCompleteWorkflowLibraryRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.ListCompleteWorkflowLibrary200ResponseInnerV2025>>> => {
-    const workflowsv2025api = new sdk.WorkflowsV2025Api(apiConfig);
-    return handleApiCall(() => workflowsv2025api.listCompleteWorkflowLibrary(requestParameters));
-  },
-  // This lists the workflow actions available to you.
-  listWorkflowLibraryActions: (requestParameters: sdk.WorkflowsV2025ApiListWorkflowLibraryActionsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.WorkflowLibraryActionV2025>>> => {
-    const workflowsv2025api = new sdk.WorkflowsV2025Api(apiConfig);
-    return handleApiCall(() => workflowsv2025api.listWorkflowLibraryActions(requestParameters));
-  },
-  // This lists the workflow operators available to you
-  listWorkflowLibraryOperators: (apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.WorkflowLibraryOperatorV2025>>> => {
-    const workflowsv2025api = new sdk.WorkflowsV2025Api(apiConfig);
-    return handleApiCall(() => workflowsv2025api.listWorkflowLibraryOperators());
-  },
-  // This lists the workflow triggers available to you
-  listWorkflowLibraryTriggers: (requestParameters: sdk.WorkflowsV2025ApiListWorkflowLibraryTriggersRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.WorkflowLibraryTriggerV2025>>> => {
-    const workflowsv2025api = new sdk.WorkflowsV2025Api(apiConfig);
-    return handleApiCall(() => workflowsv2025api.listWorkflowLibraryTriggers(requestParameters));
-  },
-  // List all workflows in the tenant.
-  listWorkflows: (apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sdk.WorkflowV2025>>> => {
-    const workflowsv2025api = new sdk.WorkflowsV2025Api(apiConfig);
-    return handleApiCall(() => workflowsv2025api.listWorkflows());
-  },
-  // Partially update an existing Workflow using [JSON Patch](https://tools.ietf.org/html/rfc6902) syntax.
-  patchWorkflow: (requestParameters: sdk.WorkflowsV2025ApiPatchWorkflowRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.WorkflowV2025>> => {
-    const workflowsv2025api = new sdk.WorkflowsV2025Api(apiConfig);
-    return handleApiCall(() => workflowsv2025api.patchWorkflow(requestParameters));
-  },
-  // Perform a full update of a workflow.  The updated workflow object is returned in the response.
-  putWorkflow: (requestParameters: sdk.WorkflowsV2025ApiPutWorkflowRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.WorkflowV2025>> => {
-    const workflowsv2025api = new sdk.WorkflowsV2025Api(apiConfig);
-    return handleApiCall(() => workflowsv2025api.putWorkflow(requestParameters));
-  },
-  // Validate a workflow with an \"External Trigger\" can receive input.  The response includes the input that the workflow received, which can be used to validate that the input is intact when it reaches the workflow.
-  testExternalExecuteWorkflow: (requestParameters: sdk.WorkflowsV2025ApiTestExternalExecuteWorkflowRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TestExternalExecuteWorkflow200ResponseV2025>> => {
-    const workflowsv2025api = new sdk.WorkflowsV2025Api(apiConfig);
-    return handleApiCall(() => workflowsv2025api.testExternalExecuteWorkflow(requestParameters));
-  },
-  // :::info  Workflow must be disabled in order to use this endpoint.  :::  Test a workflow with the provided input data.  The input data should resemble the input that the trigger will send the workflow.  See the [event trigger documentation](https://developer.sailpoint.com/docs/extensibility/event-triggers/available) for an example input for the trigger that initiates this workflow.  This endpoint will return an execution ID, which can be used to lookup more information about the execution using the `Get a Workflow Execution` endpoint.  **This will cause a live run of the workflow, which could result in unintended modifications to your IDN tenant.** 
-  testWorkflow: (requestParameters: sdk.WorkflowsV2025ApiTestWorkflowRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.TestWorkflow200ResponseV2025>> => {
-    const workflowsv2025api = new sdk.WorkflowsV2025Api(apiConfig);
-    return handleApiCall(() => workflowsv2025api.testWorkflow(requestParameters));
-  },
-
-
-
-  // Get saved advanced search queries
-  getAdvancedSearchNerm: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetAdvancedSearch200ResponseNERM>> => {
-    const advancedsearchnermapi = new sdk.AdvancedSearchNERMApi(apiConfig);
-    return handleApiCall(() => advancedsearchnermapi.getAdvancedSearch());
-  },
-  // Update a saved advanced search query
-  patchAdvancedSearchNerm: (requestParameters: sdk.AdvancedSearchNERMApiPatchAdvancedSearchRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitAdvancedSearch200ResponseNERM>> => {
-    const advancedsearchnermapi = new sdk.AdvancedSearchNERMApi(apiConfig);
-    return handleApiCall(() => advancedsearchnermapi.patchAdvancedSearch(requestParameters));
-  },
-  // Run an advanced search for profiles, without saving the query
-  searchAdvancedSearchNerm: (requestParameters: sdk.AdvancedSearchNERMApiSearchAdvancedSearchRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SearchAdvancedSearch200ResponseNERM>> => {
-    const advancedsearchnermapi = new sdk.AdvancedSearchNERMApi(apiConfig);
-    return handleApiCall(() => advancedsearchnermapi.searchAdvancedSearch(requestParameters));
-  },
-  // Run a saved advanced search query
-  searchAdvancedSearchbyIDNerm: (requestParameters: sdk.AdvancedSearchNERMApiSearchAdvancedSearchbyIDRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SearchAdvancedSearch200ResponseNERM>> => {
-    const advancedsearchnermapi = new sdk.AdvancedSearchNERMApi(apiConfig);
-    return handleApiCall(() => advancedsearchnermapi.searchAdvancedSearchbyID(requestParameters));
-  },
-  // Save an advanced search query for later use
-  submitAdvancedSearchNerm: (requestParameters: sdk.AdvancedSearchNERMApiSubmitAdvancedSearchRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitAdvancedSearch200ResponseNERM>> => {
-    const advancedsearchnermapi = new sdk.AdvancedSearchNERMApi(apiConfig);
-    return handleApiCall(() => advancedsearchnermapi.submitAdvancedSearch(requestParameters));
-  },
-
-  // Delete a option based attribute value by id
-  deleteAttributeOptionByIdNerm: (requestParameters: sdk.AttributeOptionsNERMApiDeleteAttributeOptionByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DeleteAttributeOptionById200ResponseNERM>> => {
-    const attributeoptionsnermapi = new sdk.AttributeOptionsNERMApi(apiConfig);
-    return handleApiCall(() => attributeoptionsnermapi.deleteAttributeOptionById(requestParameters));
-  },
-  // Delete a option based attribute value by UID (user-specified identifier)
-  deleteAttributeOptionByUidNerm: (requestParameters: sdk.AttributeOptionsNERMApiDeleteAttributeOptionByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DeleteAttributeOptionById200ResponseNERM>> => {
-    const attributeoptionsnermapi = new sdk.AttributeOptionsNERMApi(apiConfig);
-    return handleApiCall(() => attributeoptionsnermapi.deleteAttributeOptionByUid(requestParameters));
-  },
-  // Info for a specific option based attribute value by id
-  getAttributeOptionByIdNerm: (requestParameters: sdk.AttributeOptionsNERMApiGetAttributeOptionByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitAttributeOption200ResponseNERM>> => {
-    const attributeoptionsnermapi = new sdk.AttributeOptionsNERMApi(apiConfig);
-    return handleApiCall(() => attributeoptionsnermapi.getAttributeOptionById(requestParameters));
-  },
-  // Get a specific option based attribute value by UID (user-specified identifier)
-  getAttributeOptionByUidNerm: (requestParameters: sdk.AttributeOptionsNERMApiGetAttributeOptionByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitAttributeOption200ResponseNERM>> => {
-    const attributeoptionsnermapi = new sdk.AttributeOptionsNERMApi(apiConfig);
-    return handleApiCall(() => attributeoptionsnermapi.getAttributeOptionByUid(requestParameters));
-  },
-  // Get option based attribute values
-  getAttributeOptionsNerm: (requestParameters: sdk.AttributeOptionsNERMApiGetAttributeOptionsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetAttributeOptions200ResponseNERM>> => {
-    const attributeoptionsnermapi = new sdk.AttributeOptionsNERMApi(apiConfig);
-    return handleApiCall(() => attributeoptionsnermapi.getAttributeOptions(requestParameters));
-  },
-  // Update a option based attribute value by id
-  patchAttributeOptionByIdNerm: (requestParameters: sdk.AttributeOptionsNERMApiPatchAttributeOptionByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitAttributeOption200ResponseNERM>> => {
-    const attributeoptionsnermapi = new sdk.AttributeOptionsNERMApi(apiConfig);
-    return handleApiCall(() => attributeoptionsnermapi.patchAttributeOptionById(requestParameters));
-  },
-  // Update a option based attribute value by UID (user-specified identifier)
-  patchAttributeOptionByUidNerm: (requestParameters: sdk.AttributeOptionsNERMApiPatchAttributeOptionByUidRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitAttributeOption200ResponseNERM>> => {
-    const attributeoptionsnermapi = new sdk.AttributeOptionsNERMApi(apiConfig);
-    return handleApiCall(() => attributeoptionsnermapi.patchAttributeOptionByUid(requestParameters));
-  },
-  // Update multiple option based attribute values
-  patchAttributeOptionsNerm: (requestParameters: sdk.AttributeOptionsNERMApiPatchAttributeOptionsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitAttributeOptions200ResponseNERM>> => {
-    const attributeoptionsnermapi = new sdk.AttributeOptionsNERMApi(apiConfig);
-    return handleApiCall(() => attributeoptionsnermapi.patchAttributeOptions(requestParameters));
-  },
-  // Adds a value to an option based attribute
-  submitAttributeOptionNerm: (requestParameters: sdk.AttributeOptionsNERMApiSubmitAttributeOptionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitAttributeOption200ResponseNERM>> => {
-    const attributeoptionsnermapi = new sdk.AttributeOptionsNERMApi(apiConfig);
-    return handleApiCall(() => attributeoptionsnermapi.submitAttributeOption(requestParameters));
-  },
-  // Create multiple new option based attribute values
-  submitAttributeOptionsNerm: (requestParameters: sdk.AttributeOptionsNERMApiSubmitAttributeOptionsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitAttributeOptions200ResponseNERM>> => {
-    const attributeoptionsnermapi = new sdk.AttributeOptionsNERMApi(apiConfig);
-    return handleApiCall(() => attributeoptionsnermapi.submitAttributeOptions(requestParameters));
-  },
-
-  // This endpoint can create an attribute
-  createAttributeNerm: (requestParameters: sdk.AttributesNERMApiCreateAttributeRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateAttribute201ResponseNERM>> => {
-    const attributesnermapi = new sdk.AttributesNERMApi(apiConfig);
-    return handleApiCall(() => attributesnermapi.createAttribute(requestParameters));
-  },
-  // Delete attribute by id
-  deleteAttributeByIdNerm: (requestParameters: sdk.AttributesNERMApiDeleteAttributeByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateAttribute201ResponseNERM>> => {
-    const attributesnermapi = new sdk.AttributesNERMApi(apiConfig);
-    return handleApiCall(() => attributesnermapi.deleteAttributeById(requestParameters));
-  },
-  // Delete attribute by UID (user-specified identifier)
-  deleteAttributeByUidNerm: (requestParameters: sdk.AttributesNERMApiDeleteAttributeByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateAttribute201ResponseNERM>> => {
-    const attributesnermapi = new sdk.AttributesNERMApi(apiConfig);
-    return handleApiCall(() => attributesnermapi.deleteAttributeByUid(requestParameters));
-  },
-  // Info for a specific attribute
-  getAttributeByIdNerm: (requestParameters: sdk.AttributesNERMApiGetAttributeByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateAttribute201ResponseNERM>> => {
-    const attributesnermapi = new sdk.AttributesNERMApi(apiConfig);
-    return handleApiCall(() => attributesnermapi.getAttributeById(requestParameters));
-  },
-  // Info for a specific attribute by UID (user-specified identifier)
-  getAttributeByUidNerm: (requestParameters: sdk.AttributesNERMApiGetAttributeByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateAttribute201ResponseNERM>> => {
-    const attributesnermapi = new sdk.AttributesNERMApi(apiConfig);
-    return handleApiCall(() => attributesnermapi.getAttributeByUid(requestParameters));
-  },
-  // This endpoint can retrieve attribute data in bulk from Lifecycle or you can search for attributes using parameters
-  getAttributesNerm: (requestParameters: sdk.AttributesNERMApiGetAttributesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetAttributes200ResponseNERM>> => {
-    const attributesnermapi = new sdk.AttributesNERMApi(apiConfig);
-    return handleApiCall(() => attributesnermapi.getAttributes(requestParameters));
-  },
-  // Update info for a specific attribute
-  updateAttributeByIdNerm: (requestParameters: sdk.AttributesNERMApiUpdateAttributeByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateAttribute201ResponseNERM>> => {
-    const attributesnermapi = new sdk.AttributesNERMApi(apiConfig);
-    return handleApiCall(() => attributesnermapi.updateAttributeById(requestParameters));
-  },
-  // Update info for a specific attribute by UID (user-specified identifier)
-  updateAttributeByUidNerm: (requestParameters: sdk.AttributesNERMApiUpdateAttributeByUidRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateAttribute201ResponseNERM>> => {
-    const attributesnermapi = new sdk.AttributesNERMApi(apiConfig);
-    return handleApiCall(() => attributesnermapi.updateAttributeByUid(requestParameters));
-  },
-
-  // This endpoint provides a search engine for Audit Events by optionally combining subject_type, type, and subject_id to narrow down the audit events. A Subject Type of Profile links up to the AuditableProfile types. An Subject Type of WorkflowSession links up to the AuditableWorkflow types. An Subject Type of Get/Post/Patch/Delete links up to the AuditableApi types. The remaining Subject Types link up to the ActiveRecord types (configuration changes).  - Any workflow audit event created as of 10/11/2024 will be able to be queried by workflow name, workflow uid, or workflow profile type. - Any profile audit event created as of 10/11/2024 will be able to be queried by profile type. - The entity_type parameter has been updated to subject_type, which now matches what is in the response object. - With the additional query filters added, there is a max of 5 filter parameters at one time (aside from pagination parameters)  To accommodate these changes, an API contract change was required.  Please read the updated API documentation for the new request syntax.
-  searchNerm: (requestParameters: sdk.AuditsNERMApiSearchRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.Search200ResponseNERM>> => {
-    const auditsnermapi = new sdk.AuditsNERMApi(apiConfig);
-    return handleApiCall(() => auditsnermapi.search(requestParameters));
-  },
-
-  // Consolidation is a deprecated feature, this endpoint provides a mechanism to delete a master record to assist customers.
-  deleteMasterRecordNerm: (requestParameters: sdk.ConsolidationNERMApiDeleteMasterRecordRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const consolidationnermapi = new sdk.ConsolidationNERMApi(apiConfig);
-    return handleApiCall(() => consolidationnermapi.deleteMasterRecord(requestParameters));
-  },
-  // Consolidation is a deprecated feature, this endpoint provides a mechanism to reassign a data record to a new master record to assist customers.
-  patchDataRecordNerm: (requestParameters: sdk.ConsolidationNERMApiPatchDataRecordRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const consolidationnermapi = new sdk.ConsolidationNERMApi(apiConfig);
-    return handleApiCall(() => consolidationnermapi.patchDataRecord(requestParameters));
-  },
-
-  // Returns a list of delegation records, optionally filtered by delegate, delegator, or expiration status.
-  delegationsGetNerm: (requestParameters: sdk.DelegationsNERMApiDelegationsGetRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DelegationsGet200ResponseNERM>> => {
-    const delegationsnermapi = new sdk.DelegationsNERMApi(apiConfig);
-    return handleApiCall(() => delegationsnermapi.delegationsGet(requestParameters));
-  },
-  // Delete an existing delegation record.
-  delegationsIdDeleteNerm: (requestParameters: sdk.DelegationsNERMApiDelegationsIdDeleteRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const delegationsnermapi = new sdk.DelegationsNERMApi(apiConfig);
-    return handleApiCall(() => delegationsnermapi.delegationsIdDelete(requestParameters));
-  },
-  // Returns a single delegation record by its ID.
-  delegationsIdGetNerm: (requestParameters: sdk.DelegationsNERMApiDelegationsIdGetRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DelegationsPost201ResponseNERM>> => {
-    const delegationsnermapi = new sdk.DelegationsNERMApi(apiConfig);
-    return handleApiCall(() => delegationsnermapi.delegationsIdGet(requestParameters));
-  },
-  // Update an existing delegation record.
-  delegationsIdPatchNerm: (requestParameters: sdk.DelegationsNERMApiDelegationsIdPatchRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DelegationsPost201ResponseNERM>> => {
-    const delegationsnermapi = new sdk.DelegationsNERMApi(apiConfig);
-    return handleApiCall(() => delegationsnermapi.delegationsIdPatch(requestParameters));
-  },
-  // Create a new delegation record.
-  delegationsPostNerm: (requestParameters: sdk.DelegationsNERMApiDelegationsPostRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DelegationsPost201ResponseNERM>> => {
-    const delegationsnermapi = new sdk.DelegationsNERMApi(apiConfig);
-    return handleApiCall(() => delegationsnermapi.delegationsPost(requestParameters));
-  },
-
-  // This endpoint can create a form attribute
-  createFormAttributeNerm: (requestParameters: sdk.FormAttributesNERMApiCreateFormAttributeRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetFormAttributes200ResponseNERM>> => {
-    const formattributesnermapi = new sdk.FormAttributesNERMApi(apiConfig);
-    return handleApiCall(() => formattributesnermapi.createFormAttribute(requestParameters));
-  },
-  // Delete form attribute by id
-  deleteFormAttributeByIdNerm: (requestParameters: sdk.FormAttributesNERMApiDeleteFormAttributeByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetFormAttributes200ResponseNERM>> => {
-    const formattributesnermapi = new sdk.FormAttributesNERMApi(apiConfig);
-    return handleApiCall(() => formattributesnermapi.deleteFormAttributeById(requestParameters));
-  },
-  // Delete form attribute by UID
-  deleteFormAttributeByUidNerm: (requestParameters: sdk.FormAttributesNERMApiDeleteFormAttributeByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetFormAttributes200ResponseNERM>> => {
-    const formattributesnermapi = new sdk.FormAttributesNERMApi(apiConfig);
-    return handleApiCall(() => formattributesnermapi.deleteFormAttributeByUid(requestParameters));
-  },
-  // Gets info for a specific form attribute by ID
-  getFormAttributeByIdNerm: (requestParameters: sdk.FormAttributesNERMApiGetFormAttributeByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetFormAttributes200ResponseNERM>> => {
-    const formattributesnermapi = new sdk.FormAttributesNERMApi(apiConfig);
-    return handleApiCall(() => formattributesnermapi.getFormAttributeById(requestParameters));
-  },
-  // Get info for a specific form attribute by UID
-  getFormAttributeByUidNerm: (requestParameters: sdk.FormAttributesNERMApiGetFormAttributeByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetFormAttributes200ResponseNERM>> => {
-    const formattributesnermapi = new sdk.FormAttributesNERMApi(apiConfig);
-    return handleApiCall(() => formattributesnermapi.getFormAttributeByUid(requestParameters));
-  },
-  // Get defined form attribute in the system
-  getFormAttributesNerm: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetFormAttributes200ResponseNERM>> => {
-    const formattributesnermapi = new sdk.FormAttributesNERMApi(apiConfig);
-    return handleApiCall(() => formattributesnermapi.getFormAttributes());
-  },
-  // Update info for a specific form attribute by ID
-  updateFormAttributeByIdNerm: (requestParameters: sdk.FormAttributesNERMApiUpdateFormAttributeByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetFormAttributes200ResponseNERM>> => {
-    const formattributesnermapi = new sdk.FormAttributesNERMApi(apiConfig);
-    return handleApiCall(() => formattributesnermapi.updateFormAttributeById(requestParameters));
-  },
-  // Update info for a specific form attribute by UID
-  updateFormAttributeByUidNerm: (requestParameters: sdk.FormAttributesNERMApiUpdateFormAttributeByUidRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetFormAttributes200ResponseNERM>> => {
-    const formattributesnermapi = new sdk.FormAttributesNERMApi(apiConfig);
-    return handleApiCall(() => formattributesnermapi.updateFormAttributeByUid(requestParameters));
-  },
-
-  // This endpoint can create a form
-  createFormNerm: (requestParameters: sdk.FormsNERMApiCreateFormRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetForms200ResponseNERM>> => {
-    const formsnermapi = new sdk.FormsNERMApi(apiConfig);
-    return handleApiCall(() => formsnermapi.createForm(requestParameters));
-  },
-  // Delete form by id
-  deleteFormByIdNerm: (requestParameters: sdk.FormsNERMApiDeleteFormByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateAttribute201ResponseNERM>> => {
-    const formsnermapi = new sdk.FormsNERMApi(apiConfig);
-    return handleApiCall(() => formsnermapi.deleteFormById(requestParameters));
-  },
-  // Delete form by UID
-  deleteFormByUidNerm: (requestParameters: sdk.FormsNERMApiDeleteFormByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateAttribute201ResponseNERM>> => {
-    const formsnermapi = new sdk.FormsNERMApi(apiConfig);
-    return handleApiCall(() => formsnermapi.deleteFormByUid(requestParameters));
-  },
-  // Info for a specific form
-  getFormByIdNerm: (requestParameters: sdk.FormsNERMApiGetFormByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetForms200ResponseNERM>> => {
-    const formsnermapi = new sdk.FormsNERMApi(apiConfig);
-    return handleApiCall(() => formsnermapi.getFormById(requestParameters));
-  },
-  // Info for a specific form
-  getFormByUidNerm: (requestParameters: sdk.FormsNERMApiGetFormByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetForms200ResponseNERM>> => {
-    const formsnermapi = new sdk.FormsNERMApi(apiConfig);
-    return handleApiCall(() => formsnermapi.getFormByUid(requestParameters));
-  },
-  // Get defined forms in the system
-  getFormsNerm: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetForms200ResponseNERM>> => {
-    const formsnermapi = new sdk.FormsNERMApi(apiConfig);
-    return handleApiCall(() => formsnermapi.getForms());
-  },
-  // Update info for a specific form
-  updateFormByIdNerm: (requestParameters: sdk.FormsNERMApiUpdateFormByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateAttribute201ResponseNERM>> => {
-    const formsnermapi = new sdk.FormsNERMApi(apiConfig);
-    return handleApiCall(() => formsnermapi.updateFormById(requestParameters));
-  },
-  // Update info for a specific form
-  updateFormByUidNerm: (requestParameters: sdk.FormsNERMApiUpdateFormByUidRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateAttribute201ResponseNERM>> => {
-    const formsnermapi = new sdk.FormsNERMApi(apiConfig);
-    return handleApiCall(() => formsnermapi.updateFormByUid(requestParameters));
-  },
-
-  // Retrieves identity proofing result data in bulk from Lifecycle
-  getIdentityProofingResultsNerm: (requestParameters: sdk.IdentityProofingResultsNERMApiGetIdentityProofingResultsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetIdentityProofingResults200ResponseNERM>> => {
-    const identityproofingresultsnermapi = new sdk.IdentityProofingResultsNERMApi(apiConfig);
-    return handleApiCall(() => identityproofingresultsnermapi.getIdentityProofingResults(requestParameters));
-  },
-
-  // Retrieve schema-mapped profiles collection. It returns a collection of stored profiles, optionally using schema-mapped field names if requested.
-  getSchemaMappedProfilesCollectionNerm: (requestParameters: sdk.IscAccountsNERMApiGetSchemaMappedProfilesCollectionRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetSchemaMappedProfilesCollection200ResponseNERM>> => {
-    const iscaccountsnermapi = new sdk.IscAccountsNERMApi(apiConfig);
-    return handleApiCall(() => iscaccountsnermapi.getSchemaMappedProfilesCollection(requestParameters));
-  },
-  // It returns a single stored profile, optionally with schema-mapped field names.
-  getSingleSchemaMappedProfileNerm: (requestParameters: sdk.IscAccountsNERMApiGetSingleSchemaMappedProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetSingleSchemaMappedProfile200ResponseNERM>> => {
-    const iscaccountsnermapi = new sdk.IscAccountsNERMApi(apiConfig);
-    return handleApiCall(() => iscaccountsnermapi.getSingleSchemaMappedProfile(requestParameters));
-  },
-  // Updates a profile only through ISC schema-mapped attributes, performs a reverse mapping to match the NERM attributes to update.
-  updateProfileNerm: (requestParameters: sdk.IscAccountsNERMApiUpdateProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetSingleSchemaMappedProfile200ResponseNERM>> => {
-    const iscaccountsnermapi = new sdk.IscAccountsNERMApi(apiConfig);
-    return handleApiCall(() => iscaccountsnermapi.updateProfile(requestParameters));
-  },
-
-  // Retrieve the status of a bulk job
-  getJobStatusNerm: (requestParameters: sdk.JobStatusNERMApiGetJobStatusRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetJobStatus200ResponseNERM>> => {
-    const jobstatusnermapi = new sdk.JobStatusNERMApi(apiConfig);
-    return handleApiCall(() => jobstatusnermapi.getJobStatus(requestParameters));
-  },
-
-  // Update a language by locale
-  patchLanguageNerm: (requestParameters: sdk.LanguagesNERMApiPatchLanguageRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.PatchLanguageRequestNERM>> => {
-    const languagesnermapi = new sdk.LanguagesNERMApi(apiConfig);
-    return handleApiCall(() => languagesnermapi.patchLanguage(requestParameters));
-  },
-
-  // Create a page content translation record.
-  createPageContentTranslationNerm: (requestParameters: sdk.PageContentTranslationsNERMApiCreatePageContentTranslationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContentTranslation200ResponseNERM>> => {
-    const pagecontenttranslationsnermapi = new sdk.PageContentTranslationsNERMApi(apiConfig);
-    return handleApiCall(() => pagecontenttranslationsnermapi.createPageContentTranslation(requestParameters));
-  },
-  // Delete page content translation by id
-  deletePageContentTranslationByIdNerm: (requestParameters: sdk.PageContentTranslationsNERMApiDeletePageContentTranslationByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContentTranslation200ResponseNERM>> => {
-    const pagecontenttranslationsnermapi = new sdk.PageContentTranslationsNERMApi(apiConfig);
-    return handleApiCall(() => pagecontenttranslationsnermapi.deletePageContentTranslationById(requestParameters));
-  },
-  // Delete page content translation by UID (user-specified identifier)
-  deletePageContentTranslationByUidNerm: (requestParameters: sdk.PageContentTranslationsNERMApiDeletePageContentTranslationByUidRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContentTranslation200ResponseNERM>> => {
-    const pagecontenttranslationsnermapi = new sdk.PageContentTranslationsNERMApi(apiConfig);
-    return handleApiCall(() => pagecontenttranslationsnermapi.deletePageContentTranslationByUid(requestParameters));
-  },
-  // This endpoint can retrieve page content translation data.
-  getPageContentTranslationNerm: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContentTranslation200ResponseNERM>> => {
-    const pagecontenttranslationsnermapi = new sdk.PageContentTranslationsNERMApi(apiConfig);
-    return handleApiCall(() => pagecontenttranslationsnermapi.getPageContentTranslation());
-  },
-  // Info for a specific page content translation record by Id
-  getPageContentTranslationByIdNerm: (requestParameters: sdk.PageContentTranslationsNERMApiGetPageContentTranslationByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContentTranslation200ResponseNERM>> => {
-    const pagecontenttranslationsnermapi = new sdk.PageContentTranslationsNERMApi(apiConfig);
-    return handleApiCall(() => pagecontenttranslationsnermapi.getPageContentTranslationById(requestParameters));
-  },
-  // Info for a specific page content translation record by UID (user-specified identifier)
-  getPageContentTranslationByUidNerm: (requestParameters: sdk.PageContentTranslationsNERMApiGetPageContentTranslationByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContentTranslation200ResponseNERM>> => {
-    const pagecontenttranslationsnermapi = new sdk.PageContentTranslationsNERMApi(apiConfig);
-    return handleApiCall(() => pagecontenttranslationsnermapi.getPageContentTranslationByUid(requestParameters));
-  },
-  // Update info for a specific page content translation record by id
-  updatePageContentTranslationByIdNerm: (requestParameters: sdk.PageContentTranslationsNERMApiUpdatePageContentTranslationByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContentTranslation200ResponseNERM>> => {
-    const pagecontenttranslationsnermapi = new sdk.PageContentTranslationsNERMApi(apiConfig);
-    return handleApiCall(() => pagecontenttranslationsnermapi.updatePageContentTranslationById(requestParameters));
-  },
-  // Update info for a specific page content translation record by UID (user-specified identifier)
-  updatePageContentTranslationByUidNerm: (requestParameters: sdk.PageContentTranslationsNERMApiUpdatePageContentTranslationByUidRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContentTranslation200ResponseNERM>> => {
-    const pagecontenttranslationsnermapi = new sdk.PageContentTranslationsNERMApi(apiConfig);
-    return handleApiCall(() => pagecontenttranslationsnermapi.updatePageContentTranslationByUid(requestParameters));
-  },
-
-  // This endpoint can create page content
-  createPageContentNerm: (requestParameters: sdk.PageContentsNERMApiCreatePageContentRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContents200ResponseNERM>> => {
-    const pagecontentsnermapi = new sdk.PageContentsNERMApi(apiConfig);
-    return handleApiCall(() => pagecontentsnermapi.createPageContent(requestParameters));
-  },
-  // Delete page content by id
-  deletePageContentByIdNerm: (requestParameters: sdk.PageContentsNERMApiDeletePageContentByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContents200ResponseNERM>> => {
-    const pagecontentsnermapi = new sdk.PageContentsNERMApi(apiConfig);
-    return handleApiCall(() => pagecontentsnermapi.deletePageContentById(requestParameters));
-  },
-  // Delete page content by by UID (user-specified identifier)
-  deletePageContentByUidNerm: (requestParameters: sdk.PageContentsNERMApiDeletePageContentByUidRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContents200ResponseNERM>> => {
-    const pagecontentsnermapi = new sdk.PageContentsNERMApi(apiConfig);
-    return handleApiCall(() => pagecontentsnermapi.deletePageContentByUid(requestParameters));
-  },
-  // Info for a specific page content record
-  getPageContentByIdNerm: (requestParameters: sdk.PageContentsNERMApiGetPageContentByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContents200ResponseNERM>> => {
-    const pagecontentsnermapi = new sdk.PageContentsNERMApi(apiConfig);
-    return handleApiCall(() => pagecontentsnermapi.getPageContentById(requestParameters));
-  },
-  // Info for a specific page content record by UID (user-specified identifier)
-  getPageContentByUidNerm: (requestParameters: sdk.PageContentsNERMApiGetPageContentByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContents200ResponseNERM>> => {
-    const pagecontentsnermapi = new sdk.PageContentsNERMApi(apiConfig);
-    return handleApiCall(() => pagecontentsnermapi.getPageContentByUid(requestParameters));
-  },
-  // This endpoint can retrieve page content data.
-  getPageContentsNerm: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContents200ResponseNERM>> => {
-    const pagecontentsnermapi = new sdk.PageContentsNERMApi(apiConfig);
-    return handleApiCall(() => pagecontentsnermapi.getPageContents());
-  },
-  // Update info for a specific page content record by id
-  updatePageContentByIdNerm: (requestParameters: sdk.PageContentsNERMApiUpdatePageContentByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContents200ResponseNERM>> => {
-    const pagecontentsnermapi = new sdk.PageContentsNERMApi(apiConfig);
-    return handleApiCall(() => pagecontentsnermapi.updatePageContentById(requestParameters));
-  },
-  // Update info for a specific page content record by UID (user-specified identifier)
-  updatePageContentByUidNerm: (requestParameters: sdk.PageContentsNERMApiUpdatePageContentByUidRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContents200ResponseNERM>> => {
-    const pagecontentsnermapi = new sdk.PageContentsNERMApi(apiConfig);
-    return handleApiCall(() => pagecontentsnermapi.updatePageContentByUid(requestParameters));
-  },
-
-  // Creates a page element.
-  createPageElementNerm: (requestParameters: sdk.PageElementsNERMApiCreatePageElementRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageElements200ResponseNERM>> => {
-    const pageelementsnermapi = new sdk.PageElementsNERMApi(apiConfig);
-    return handleApiCall(() => pageelementsnermapi.createPageElement(requestParameters));
-  },
-  // Delete page element by id
-  deletePageElementByIdNerm: (requestParameters: sdk.PageElementsNERMApiDeletePageElementByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageElements200ResponseNERM>> => {
-    const pageelementsnermapi = new sdk.PageElementsNERMApi(apiConfig);
-    return handleApiCall(() => pageelementsnermapi.deletePageElementById(requestParameters));
-  },
-  // Delete page element by UID (user-specified identifier)
-  deletePageElementByUidNerm: (requestParameters: sdk.PageElementsNERMApiDeletePageElementByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageElements200ResponseNERM>> => {
-    const pageelementsnermapi = new sdk.PageElementsNERMApi(apiConfig);
-    return handleApiCall(() => pageelementsnermapi.deletePageElementByUid(requestParameters));
-  },
-  // Info for a specific page element record
-  getPageElementByIdNerm: (requestParameters: sdk.PageElementsNERMApiGetPageElementByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageElements200ResponseNERM>> => {
-    const pageelementsnermapi = new sdk.PageElementsNERMApi(apiConfig);
-    return handleApiCall(() => pageelementsnermapi.getPageElementById(requestParameters));
-  },
-  // Info for a specific page element record by UID (user-specified identifier)
-  getPageElementByUidNerm: (requestParameters: sdk.PageElementsNERMApiGetPageElementByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageElements200ResponseNERM>> => {
-    const pageelementsnermapi = new sdk.PageElementsNERMApi(apiConfig);
-    return handleApiCall(() => pageelementsnermapi.getPageElementByUid(requestParameters));
-  },
-  // Retrieves page elements data.
-  getPageElementsNerm: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageElements200ResponseNERM>> => {
-    const pageelementsnermapi = new sdk.PageElementsNERMApi(apiConfig);
-    return handleApiCall(() => pageelementsnermapi.getPageElements());
-  },
-  // Update info for a specific page element record by id
-  updatePageElementByIdNerm: (requestParameters: sdk.PageElementsNERMApiUpdatePageElementByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageElements200ResponseNERM>> => {
-    const pageelementsnermapi = new sdk.PageElementsNERMApi(apiConfig);
-    return handleApiCall(() => pageelementsnermapi.updatePageElementById(requestParameters));
-  },
-  // Update info for a specific page element record by UID (user-specified identifier)
-  updatePageElementByUidNerm: (requestParameters: sdk.PageElementsNERMApiUpdatePageElementByUidRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageElements200ResponseNERM>> => {
-    const pageelementsnermapi = new sdk.PageElementsNERMApi(apiConfig);
-    return handleApiCall(() => pageelementsnermapi.updatePageElementByUid(requestParameters));
-  },
-
-  // Create a profile page
-  createProfilePageNerm: (requestParameters: sdk.PagesNERMApiCreateProfilePageRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateProfilePage200ResponseNERM>> => {
-    const pagesnermapi = new sdk.PagesNERMApi(apiConfig);
-    return handleApiCall(() => pagesnermapi.createProfilePage(requestParameters));
-  },
-  // Create a workflow page
-  createWorkflowPageNerm: (requestParameters: sdk.PagesNERMApiCreateWorkflowPageRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateProfilePage200ResponseNERM>> => {
-    const pagesnermapi = new sdk.PagesNERMApi(apiConfig);
-    return handleApiCall(() => pagesnermapi.createWorkflowPage(requestParameters));
-  },
-
-  // This endpoint can create permissions for Lifecycle, Consolidation, and Collaboration
-  createPermissionNerm: (requestParameters: sdk.PermissionsNERMApiCreatePermissionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreatePermission200ResponseNERM>> => {
-    const permissionsnermapi = new sdk.PermissionsNERMApi(apiConfig);
-    return handleApiCall(() => permissionsnermapi.createPermission(requestParameters));
-  },
-
-  // This endpoint can create a profile type role. NOTE- The ability to toggle Allow/Block is done through the Profile Type
-  createProfileTypeRoleNerm: (requestParameters: sdk.ProfileTypeRolesNERMApiCreateProfileTypeRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateProfileTypeRole200ResponseNERM>> => {
-    const profiletyperolesnermapi = new sdk.ProfileTypeRolesNERMApi(apiConfig);
-    return handleApiCall(() => profiletyperolesnermapi.createProfileTypeRole(requestParameters));
-  },
-
-  // Delete a profile type. All profiles of that type must first be destroyed before the profile type can be destroyed.
-  deleteProfileTypeByIdNerm: (requestParameters: sdk.ProfileTypesNERMApiDeleteProfileTypeByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DeleteProfileTypeById200ResponseNERM>> => {
-    const profiletypesnermapi = new sdk.ProfileTypesNERMApi(apiConfig);
-    return handleApiCall(() => profiletypesnermapi.deleteProfileTypeById(requestParameters));
-  },
-  // Delete a profile type by UID (user-specified identifier). All profiles of that type must first be destroyed before the profile type can be destroyed.
-  deleteProfileTypeByUidNerm: (requestParameters: sdk.ProfileTypesNERMApiDeleteProfileTypeByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DeleteProfileTypeById200ResponseNERM>> => {
-    const profiletypesnermapi = new sdk.ProfileTypesNERMApi(apiConfig);
-    return handleApiCall(() => profiletypesnermapi.deleteProfileTypeByUid(requestParameters));
-  },
-  // Find profile type by id
-  getProfileTypeByIdNerm: (requestParameters: sdk.ProfileTypesNERMApiGetProfileTypeByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitProfileType200ResponseNERM>> => {
-    const profiletypesnermapi = new sdk.ProfileTypesNERMApi(apiConfig);
-    return handleApiCall(() => profiletypesnermapi.getProfileTypeById(requestParameters));
-  },
-  // Find profile type by UID (user-specified identifier)
-  getProfileTypeByUidNerm: (requestParameters: sdk.ProfileTypesNERMApiGetProfileTypeByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitProfileType200ResponseNERM>> => {
-    const profiletypesnermapi = new sdk.ProfileTypesNERMApi(apiConfig);
-    return handleApiCall(() => profiletypesnermapi.getProfileTypeByUid(requestParameters));
-  },
-  // Get option based attribute values
-  getProfileTypesNerm: (requestParameters: sdk.ProfileTypesNERMApiGetProfileTypesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetProfileTypes200ResponseNERM>> => {
-    const profiletypesnermapi = new sdk.ProfileTypesNERMApi(apiConfig);
-    return handleApiCall(() => profiletypesnermapi.getProfileTypes(requestParameters));
-  },
-  // Update a profile type by id
-  patchProfileTypeByIdNerm: (requestParameters: sdk.ProfileTypesNERMApiPatchProfileTypeByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitProfileType200ResponseNERM>> => {
-    const profiletypesnermapi = new sdk.ProfileTypesNERMApi(apiConfig);
-    return handleApiCall(() => profiletypesnermapi.patchProfileTypeById(requestParameters));
-  },
-  // Update a profile type by UID (user-specified identifier)
-  patchProfileTypeByUidNerm: (requestParameters: sdk.ProfileTypesNERMApiPatchProfileTypeByUidRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitProfileType200ResponseNERM>> => {
-    const profiletypesnermapi = new sdk.ProfileTypesNERMApi(apiConfig);
-    return handleApiCall(() => profiletypesnermapi.patchProfileTypeByUid(requestParameters));
-  },
-  // Create a profile type
-  submitProfileTypeNerm: (requestParameters: sdk.ProfileTypesNERMApiSubmitProfileTypeRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitProfileType200ResponseNERM>> => {
-    const profiletypesnermapi = new sdk.ProfileTypesNERMApi(apiConfig);
-    return handleApiCall(() => profiletypesnermapi.submitProfileType(requestParameters));
-  },
-
-  // Create multiple profiles
-  createProfilesNerm: (requestParameters: sdk.ProfilesNERMApiCreateProfilesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SearchAdvancedSearch200ResponseNERM>> => {
-    const profilesnermapi = new sdk.ProfilesNERMApi(apiConfig);
-    return handleApiCall(() => profilesnermapi.createProfiles(requestParameters));
-  },
-  // Delete a single profile
-  deleteProfileByIdNerm: (requestParameters: sdk.ProfilesNERMApiDeleteProfileByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
-    const profilesnermapi = new sdk.ProfilesNERMApi(apiConfig);
-    return handleApiCall(() => profilesnermapi.deleteProfileById(requestParameters));
-  },
-  // Delete multiple profiles
-  deleteProfilesNerm: (requestParameters: sdk.ProfilesNERMApiDeleteProfilesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DeleteProfiles200ResponseNERM>> => {
-    const profilesnermapi = new sdk.ProfilesNERMApi(apiConfig);
-    return handleApiCall(() => profilesnermapi.deleteProfiles(requestParameters));
-  },
-  // Retrieves the URL of the profile avatar
-  getProfileAvatarNerm: (requestParameters: sdk.ProfilesNERMApiGetProfileAvatarRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.UrlNERM>> => {
-    const profilesnermapi = new sdk.ProfilesNERMApi(apiConfig);
-    return handleApiCall(() => profilesnermapi.getProfileAvatar(requestParameters));
-  },
-  // Find profile by id
-  getProfileByIdNerm: (requestParameters: sdk.ProfilesNERMApiGetProfileByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetSingleSchemaMappedProfile200ResponseNERM>> => {
-    const profilesnermapi = new sdk.ProfilesNERMApi(apiConfig);
-    return handleApiCall(() => profilesnermapi.getProfileById(requestParameters));
-  },
-  // Retrieves the URL of an attachment attribute value from a profile
-  getProfileUploadNerm: (requestParameters: sdk.ProfilesNERMApiGetProfileUploadRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.UrlNERM>> => {
-    const profilesnermapi = new sdk.ProfilesNERMApi(apiConfig);
-    return handleApiCall(() => profilesnermapi.getProfileUpload(requestParameters));
-  },
-  // Get profiles
-  getProfilesNerm: (requestParameters: sdk.ProfilesNERMApiGetProfilesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetSchemaMappedProfilesCollection200ResponseNERM>> => {
-    const profilesnermapi = new sdk.ProfilesNERMApi(apiConfig);
-    return handleApiCall(() => profilesnermapi.getProfiles(requestParameters));
-  },
-  // Update a profile by id
-  patchProfileByIdNerm: (requestParameters: sdk.ProfilesNERMApiPatchProfileByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetSingleSchemaMappedProfile200ResponseNERM>> => {
-    const profilesnermapi = new sdk.ProfilesNERMApi(apiConfig);
-    return handleApiCall(() => profilesnermapi.patchProfileById(requestParameters));
-  },
-  // Update multiple profiles
-  patchProfilesNerm: (requestParameters: sdk.ProfilesNERMApiPatchProfilesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SearchAdvancedSearch200ResponseNERM>> => {
-    const profilesnermapi = new sdk.ProfilesNERMApi(apiConfig);
-    return handleApiCall(() => profilesnermapi.patchProfiles(requestParameters));
-  },
-  // Create a profile
-  submitProfileNerm: (requestParameters: sdk.ProfilesNERMApiSubmitProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetSingleSchemaMappedProfile200ResponseNERM>> => {
-    const profilesnermapi = new sdk.ProfilesNERMApi(apiConfig);
-    return handleApiCall(() => profilesnermapi.submitProfile(requestParameters));
-  },
-  // Uploads a new profile avatar
-  submitProfileAvatarNerm: (requestParameters: sdk.ProfilesNERMApiSubmitProfileAvatarRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.UrlNERM>> => {
-    const profilesnermapi = new sdk.ProfilesNERMApi(apiConfig);
-    return handleApiCall(() => profilesnermapi.submitProfileAvatar(requestParameters));
-  },
-  // Uploads a new attachment attribute value to a profile. The upload must be a FORM data type; this is not a JSON API. The upload must include the binary content of the payload under the \'file\' named form element. The upload must not attempt to include the file name or its content type as a other form or JSON as parameters. The upload must not attempt to upload the file body as the POST body payload; it has to arrive as a FORM parameter. Do not use a `File/Binary` payload type for the POST operation in your API client. 
-  submitProfileUploadNerm: (requestParameters: sdk.ProfilesNERMApiSubmitProfileUploadRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.UrlNERM>> => {
-    const profilesnermapi = new sdk.ProfilesNERMApi(apiConfig);
-    return handleApiCall(() => profilesnermapi.submitProfileUpload(requestParameters));
-  },
-
-  // Find risk level data by id
-  getRiskLevelNerm: (requestParameters: sdk.RiskLevelsNERMApiGetRiskLevelRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetRiskLevel200ResponseNERM>> => {
-    const risklevelsnermapi = new sdk.RiskLevelsNERMApi(apiConfig);
-    return handleApiCall(() => risklevelsnermapi.getRiskLevel(requestParameters));
-  },
-  // This endpoint can retrieve risk level data in bulk from Lifecycle
-  getRiskLevelsNerm: (requestParameters: sdk.RiskLevelsNERMApiGetRiskLevelsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetRiskLevels200ResponseNERM>> => {
-    const risklevelsnermapi = new sdk.RiskLevelsNERMApi(apiConfig);
-    return handleApiCall(() => risklevelsnermapi.getRiskLevels(requestParameters));
-  },
-
-  // Find risk score data by id
-  getRiskScoreNerm: (requestParameters: sdk.RiskScoresNERMApiGetRiskScoreRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetRiskScore200ResponseNERM>> => {
-    const riskscoresnermapi = new sdk.RiskScoresNERMApi(apiConfig);
-    return handleApiCall(() => riskscoresnermapi.getRiskScore(requestParameters));
-  },
-  // This endpoint can retrieve risk score data in bulk from Lifecycle
-  getRiskScoresNerm: (requestParameters: sdk.RiskScoresNERMApiGetRiskScoresRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetRiskScores200ResponseNERM>> => {
-    const riskscoresnermapi = new sdk.RiskScoresNERMApi(apiConfig);
-    return handleApiCall(() => riskscoresnermapi.getRiskScores(requestParameters));
-  },
-
-  // Delete a role profile assignment
-  deleteRoleProfileNerm: (requestParameters: sdk.RoleProfilesNERMApiDeleteRoleProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const roleprofilesnermapi = new sdk.RoleProfilesNERMApi(apiConfig);
-    return handleApiCall(() => roleprofilesnermapi.deleteRoleProfile(requestParameters));
-  },
-  // Find role-profile contributor relationship by id
-  getRoleProfileNerm: (requestParameters: sdk.RoleProfilesNERMApiGetRoleProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitRoleProfile200ResponseNERM>> => {
-    const roleprofilesnermapi = new sdk.RoleProfilesNERMApi(apiConfig);
-    return handleApiCall(() => roleprofilesnermapi.getRoleProfile(requestParameters));
-  },
-  // Get role-profile contributor relationships
-  getRoleProfilesNerm: (requestParameters: sdk.RoleProfilesNERMApiGetRoleProfilesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetRoleProfiles200ResponseNERM>> => {
-    const roleprofilesnermapi = new sdk.RoleProfilesNERMApi(apiConfig);
-    return handleApiCall(() => roleprofilesnermapi.getRoleProfiles(requestParameters));
-  },
-  // Update a role-profile contributor relationship by id
-  patchRoleProfileNerm: (requestParameters: sdk.RoleProfilesNERMApiPatchRoleProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitRoleProfile200ResponseNERM>> => {
-    const roleprofilesnermapi = new sdk.RoleProfilesNERMApi(apiConfig);
-    return handleApiCall(() => roleprofilesnermapi.patchRoleProfile(requestParameters));
-  },
-  // Update multiple role-profile contributor relationships
-  patchRoleProfilesNerm: (requestParameters: sdk.RoleProfilesNERMApiPatchRoleProfilesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitRoleProfiles200ResponseNERM>> => {
-    const roleprofilesnermapi = new sdk.RoleProfilesNERMApi(apiConfig);
-    return handleApiCall(() => roleprofilesnermapi.patchRoleProfiles(requestParameters));
-  },
-  // Create a role-profile contributor relationship
-  submitRoleProfileNerm: (requestParameters: sdk.RoleProfilesNERMApiSubmitRoleProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitRoleProfile200ResponseNERM>> => {
-    const roleprofilesnermapi = new sdk.RoleProfilesNERMApi(apiConfig);
-    return handleApiCall(() => roleprofilesnermapi.submitRoleProfile(requestParameters));
-  },
-  // Create multiple role-profile contributor relationships
-  submitRoleProfilesNerm: (requestParameters: sdk.RoleProfilesNERMApiSubmitRoleProfilesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitRoleProfiles200ResponseNERM>> => {
-    const roleprofilesnermapi = new sdk.RoleProfilesNERMApi(apiConfig);
-    return handleApiCall(() => roleprofilesnermapi.submitRoleProfiles(requestParameters));
-  },
-
-  // Info for a specific user role
-  getRoleNerm: (requestParameters: sdk.RolesNERMApiGetRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitRole200ResponseNERM>> => {
-    const rolesnermapi = new sdk.RolesNERMApi(apiConfig);
-    return handleApiCall(() => rolesnermapi.getRole(requestParameters));
-  },
-  // This endpoint can retrieve roles from NERM. Optionally you can provide parameters to filter results.
-  getRolesNerm: (requestParameters: sdk.RolesNERMApiGetRolesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetRoles200ResponseNERM>> => {
-    const rolesnermapi = new sdk.RolesNERMApi(apiConfig);
-    return handleApiCall(() => rolesnermapi.getRoles(requestParameters));
-  },
-  // Update an existing role
-  patchRoleNerm: (requestParameters: sdk.RolesNERMApiPatchRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitRole200ResponseNERM>> => {
-    const rolesnermapi = new sdk.RolesNERMApi(apiConfig);
-    return handleApiCall(() => rolesnermapi.patchRole(requestParameters));
-  },
-  // Update multiple users
-  patchRolesNerm: (requestParameters: sdk.RolesNERMApiPatchRolesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitRoles200ResponseNERM>> => {
-    const rolesnermapi = new sdk.RolesNERMApi(apiConfig);
-    return handleApiCall(() => rolesnermapi.patchRoles(requestParameters));
-  },
-  // Create a new role
-  submitRoleNerm: (requestParameters: sdk.RolesNERMApiSubmitRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitRole200ResponseNERM>> => {
-    const rolesnermapi = new sdk.RolesNERMApi(apiConfig);
-    return handleApiCall(() => rolesnermapi.submitRole(requestParameters));
-  },
-  // Create multiple new users
-  submitRolesNerm: (requestParameters: sdk.RolesNERMApiSubmitRolesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitRoles200ResponseNERM>> => {
-    const rolesnermapi = new sdk.RolesNERMApi(apiConfig);
-    return handleApiCall(() => rolesnermapi.submitRoles(requestParameters));
-  },
-
-  // Create synced attribute
-  createSyncedAttributeNerm: (requestParameters: sdk.SyncedAttributesNERMApiCreateSyncedAttributeRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateSyncedAttribute201ResponseNERM>> => {
-    const syncedattributesnermapi = new sdk.SyncedAttributesNERMApi(apiConfig);
-    return handleApiCall(() => syncedattributesnermapi.createSyncedAttribute(requestParameters));
-  },
-  // Delete a synced attribute.
-  deleteSyncedAttributeNerm: (requestParameters: sdk.SyncedAttributesNERMApiDeleteSyncedAttributeRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DeleteProfileTypeById200ResponseNERM>> => {
-    const syncedattributesnermapi = new sdk.SyncedAttributesNERMApi(apiConfig);
-    return handleApiCall(() => syncedattributesnermapi.deleteSyncedAttribute(requestParameters));
-  },
-  // Get ne attributes and synced attribute relationship to profile type.
-  getProfileTypeAttributesNerm: (requestParameters: sdk.SyncedAttributesNERMApiGetProfileTypeAttributesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetProfileTypeAttributes200ResponseNERM>> => {
-    const syncedattributesnermapi = new sdk.SyncedAttributesNERMApi(apiConfig);
-    return handleApiCall(() => syncedattributesnermapi.getProfileTypeAttributes(requestParameters));
-  },
-
-  // This endpoint can create system role permissions for Lifecycle System Roles
-  createSystemRolePermissionNerm: (requestParameters: sdk.SystemRolePermissionsNERMApiCreateSystemRolePermissionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateSystemRolePermission200ResponseNERM>> => {
-    const systemrolepermissionsnermapi = new sdk.SystemRolePermissionsNERMApi(apiConfig);
-    return handleApiCall(() => systemrolepermissionsnermapi.createSystemRolePermission(requestParameters));
-  },
-
-  // This endpoint can retrieve system roles from NERM. Optionally you can provide parameters to filter results.
-  getSystemRolesNerm: (requestParameters: sdk.SystemRolesNERMApiGetSystemRolesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetSystemRoles200ResponseNERM>> => {
-    const systemrolesnermapi = new sdk.SystemRolesNERMApi(apiConfig);
-    return handleApiCall(() => systemrolesnermapi.getSystemRoles(requestParameters));
-  },
-
-  // Info for a specific user-manager relationship
-  getUserManagerNerm: (requestParameters: sdk.UserManagersNERMApiGetUserManagerRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUserManager200ResponseNERM>> => {
-    const usermanagersnermapi = new sdk.UserManagersNERMApi(apiConfig);
-    return handleApiCall(() => usermanagersnermapi.getUserManager(requestParameters));
-  },
-  // This endpoint can retrieve user-manager relationships from Lifecycle or you can search for user-manager relationships using parameters
-  getUserManagersNerm: (requestParameters: sdk.UserManagersNERMApiGetUserManagersRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetUserManagers200ResponseNERM>> => {
-    const usermanagersnermapi = new sdk.UserManagersNERMApi(apiConfig);
-    return handleApiCall(() => usermanagersnermapi.getUserManagers(requestParameters));
-  },
-  // Update a user-manager relationship by id
-  patchUserManagerNerm: (requestParameters: sdk.UserManagersNERMApiPatchUserManagerRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUserManager200ResponseNERM>> => {
-    const usermanagersnermapi = new sdk.UserManagersNERMApi(apiConfig);
-    return handleApiCall(() => usermanagersnermapi.patchUserManager(requestParameters));
-  },
-  // Update multiple user-manager relationships
-  patchUserManagersNerm: (requestParameters: sdk.UserManagersNERMApiPatchUserManagersRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUserManagers200ResponseNERM>> => {
-    const usermanagersnermapi = new sdk.UserManagersNERMApi(apiConfig);
-    return handleApiCall(() => usermanagersnermapi.patchUserManagers(requestParameters));
-  },
-  // Create a new user-manager relationship
-  submitUserManagerNerm: (requestParameters: sdk.UserManagersNERMApiSubmitUserManagerRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUserManager200ResponseNERM>> => {
-    const usermanagersnermapi = new sdk.UserManagersNERMApi(apiConfig);
-    return handleApiCall(() => usermanagersnermapi.submitUserManager(requestParameters));
-  },
-  // Create multiple new user-manager relationships
-  submitUserManagersNerm: (requestParameters: sdk.UserManagersNERMApiSubmitUserManagersRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUserManagers200ResponseNERM>> => {
-    const usermanagersnermapi = new sdk.UserManagersNERMApi(apiConfig);
-    return handleApiCall(() => usermanagersnermapi.submitUserManagers(requestParameters));
-  },
-
-  // Create multiple user-profile contributor relationships
-  createUserProfilesNerm: (requestParameters: sdk.UserProfilesNERMApiCreateUserProfilesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateUserProfiles200ResponseNERM>> => {
-    const userprofilesnermapi = new sdk.UserProfilesNERMApi(apiConfig);
-    return handleApiCall(() => userprofilesnermapi.createUserProfiles(requestParameters));
-  },
-  // Delete a user profile assignment
-  deleteUserProfileNerm: (requestParameters: sdk.UserProfilesNERMApiDeleteUserProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const userprofilesnermapi = new sdk.UserProfilesNERMApi(apiConfig);
-    return handleApiCall(() => userprofilesnermapi.deleteUserProfile(requestParameters));
-  },
-  // Delete multiple user-profile contributor relationships
-  deleteUserProfilesNerm: (requestParameters: sdk.UserProfilesNERMApiDeleteUserProfilesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateUserProfiles200ResponseNERM>> => {
-    const userprofilesnermapi = new sdk.UserProfilesNERMApi(apiConfig);
-    return handleApiCall(() => userprofilesnermapi.deleteUserProfiles(requestParameters));
-  },
-  // Find user-profile contributor relationship by id
-  getUserProfileNerm: (requestParameters: sdk.UserProfilesNERMApiGetUserProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUserProfile200ResponseNERM>> => {
-    const userprofilesnermapi = new sdk.UserProfilesNERMApi(apiConfig);
-    return handleApiCall(() => userprofilesnermapi.getUserProfile(requestParameters));
-  },
-  // Get user-profile contributor relationships
-  getUserProfilesNerm: (requestParameters: sdk.UserProfilesNERMApiGetUserProfilesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetUserProfiles200ResponseNERM>> => {
-    const userprofilesnermapi = new sdk.UserProfilesNERMApi(apiConfig);
-    return handleApiCall(() => userprofilesnermapi.getUserProfiles(requestParameters));
-  },
-  // Update a user-profile contributor relationship by id
-  patchUserProfileNerm: (requestParameters: sdk.UserProfilesNERMApiPatchUserProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUserProfile200ResponseNERM>> => {
-    const userprofilesnermapi = new sdk.UserProfilesNERMApi(apiConfig);
-    return handleApiCall(() => userprofilesnermapi.patchUserProfile(requestParameters));
-  },
-  // Update multiple user-profile contributor relationships
-  patchUserProfilesNerm: (requestParameters: sdk.UserProfilesNERMApiPatchUserProfilesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateUserProfiles200ResponseNERM>> => {
-    const userprofilesnermapi = new sdk.UserProfilesNERMApi(apiConfig);
-    return handleApiCall(() => userprofilesnermapi.patchUserProfiles(requestParameters));
-  },
-  // Create a user-profile contributor relationship
-  submitUserProfileNerm: (requestParameters: sdk.UserProfilesNERMApiSubmitUserProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUserProfile200ResponseNERM>> => {
-    const userprofilesnermapi = new sdk.UserProfilesNERMApi(apiConfig);
-    return handleApiCall(() => userprofilesnermapi.submitUserProfile(requestParameters));
-  },
-
-  // Delete a user role assignment
-  deleteUserRoleNerm: (requestParameters: sdk.UserRolesNERMApiDeleteUserRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<object>> => {
-    const userrolesnermapi = new sdk.UserRolesNERMApi(apiConfig);
-    return handleApiCall(() => userrolesnermapi.deleteUserRole(requestParameters));
-  },
-  // Info for a specific user role pairing
-  getUserRoleNerm: (requestParameters: sdk.UserRolesNERMApiGetUserRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUserRole200ResponseNERM>> => {
-    const userrolesnermapi = new sdk.UserRolesNERMApi(apiConfig);
-    return handleApiCall(() => userrolesnermapi.getUserRole(requestParameters));
-  },
-  // This endpoint can retrieve user role pairings from Lifecycle or you can search for user role pairings using parameters
-  getUserRolesNerm: (requestParameters: sdk.UserRolesNERMApiGetUserRolesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetUserRoles200ResponseNERM>> => {
-    const userrolesnermapi = new sdk.UserRolesNERMApi(apiConfig);
-    return handleApiCall(() => userrolesnermapi.getUserRoles(requestParameters));
-  },
-  // Update a user role pairing by id
-  patchUserRoleNerm: (requestParameters: sdk.UserRolesNERMApiPatchUserRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUserRole200ResponseNERM>> => {
-    const userrolesnermapi = new sdk.UserRolesNERMApi(apiConfig);
-    return handleApiCall(() => userrolesnermapi.patchUserRole(requestParameters));
-  },
-  // Update multiple user role pairings
-  patchUserRolesNerm: (requestParameters: sdk.UserRolesNERMApiPatchUserRolesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUserRoles200ResponseNERM>> => {
-    const userrolesnermapi = new sdk.UserRolesNERMApi(apiConfig);
-    return handleApiCall(() => userrolesnermapi.patchUserRoles(requestParameters));
-  },
-  // Assign a new role to a user
-  submitUserRoleNerm: (requestParameters: sdk.UserRolesNERMApiSubmitUserRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUserRole200ResponseNERM>> => {
-    const userrolesnermapi = new sdk.UserRolesNERMApi(apiConfig);
-    return handleApiCall(() => userrolesnermapi.submitUserRole(requestParameters));
-  },
-  // Create multiple new user role pairings
-  submitUserRolesNerm: (requestParameters: sdk.UserRolesNERMApiSubmitUserRolesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUserRoles200ResponseNERM>> => {
-    const userrolesnermapi = new sdk.UserRolesNERMApi(apiConfig);
-    return handleApiCall(() => userrolesnermapi.submitUserRoles(requestParameters));
-  },
-
-  // Delete a user
-  deleteUserNerm: (requestParameters: sdk.UsersNERMApiDeleteUserRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DeleteProfileTypeById200ResponseNERM>> => {
-    const usersnermapi = new sdk.UsersNERMApi(apiConfig);
-    return handleApiCall(() => usersnermapi.deleteUser(requestParameters));
-  },
-  // Info for a specific user
-  getUserNerm: (requestParameters: sdk.UsersNERMApiGetUserRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUser200ResponseNERM>> => {
-    const usersnermapi = new sdk.UsersNERMApi(apiConfig);
-    return handleApiCall(() => usersnermapi.getUser(requestParameters));
-  },
-  // Retrieves the URL of the user avatar
-  getUserAvatarNerm: (requestParameters: sdk.UsersNERMApiGetUserAvatarRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.UrlNERM>> => {
-    const usersnermapi = new sdk.UsersNERMApi(apiConfig);
-    return handleApiCall(() => usersnermapi.getUserAvatar(requestParameters));
-  },
-  // This endpoint can retrieve users from Lifecycle or you can search for users using parameters
-  getUsersNerm: (requestParameters: sdk.UsersNERMApiGetUsersRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetUsers200ResponseNERM>> => {
-    const usersnermapi = new sdk.UsersNERMApi(apiConfig);
-    return handleApiCall(() => usersnermapi.getUsers(requestParameters));
-  },
-  // Update a user by id
-  patchUserNerm: (requestParameters: sdk.UsersNERMApiPatchUserRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUser200ResponseNERM>> => {
-    const usersnermapi = new sdk.UsersNERMApi(apiConfig);
-    return handleApiCall(() => usersnermapi.patchUser(requestParameters));
-  },
-  // Update multiple users
-  patchUsersNerm: (requestParameters: sdk.UsersNERMApiPatchUsersRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUsers200ResponseNERM>> => {
-    const usersnermapi = new sdk.UsersNERMApi(apiConfig);
-    return handleApiCall(() => usersnermapi.patchUsers(requestParameters));
-  },
-  // Create a new user
-  submitUserNerm: (requestParameters: sdk.UsersNERMApiSubmitUserRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUser200ResponseNERM>> => {
-    const usersnermapi = new sdk.UsersNERMApi(apiConfig);
-    return handleApiCall(() => usersnermapi.submitUser(requestParameters));
-  },
-  // Uploads a new user avatar
-  submitUserAvatarNerm: (requestParameters: sdk.UsersNERMApiSubmitUserAvatarRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.UrlNERM>> => {
-    const usersnermapi = new sdk.UsersNERMApi(apiConfig);
-    return handleApiCall(() => usersnermapi.submitUserAvatar(requestParameters));
-  },
-  // Create multiple new users
-  submitUsersNerm: (requestParameters: sdk.UsersNERMApiSubmitUsersRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUsers200ResponseNERM>> => {
-    const usersnermapi = new sdk.UsersNERMApi(apiConfig);
-    return handleApiCall(() => usersnermapi.submitUsers(requestParameters));
-  },
-
-  // Create a workflow action performer for an existing workflow action
-  createWorkflowActionPerformerNerm: (requestParameters: sdk.WorkflowActionPerformerNERMApiCreateWorkflowActionPerformerRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateWorkflowActionPerformer200ResponseNERM>> => {
-    const workflowactionperformernermapi = new sdk.WorkflowActionPerformerNERMApi(apiConfig);
-    return handleApiCall(() => workflowactionperformernermapi.createWorkflowActionPerformer(requestParameters));
-  },
-
-  // Create an approval action. The following supporting objects will need to be created after this action is created (which are tied together via workflow_action_id) - workflow_action_performers, workflow_action_roles, workflow_action_performer_notification_email, workflow_action_approval_email, workflow_action_rejection_email. These supporting objects must be created for this action to be complete (APIs for these supporting objects not yet implemented, use UI).
   createApprovalActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateApprovalActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
     const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
     return handleApiCall(() => workflowactionsnermapi.createApprovalAction(requestParameters));
   },
-  // Create an ask security question action
   createAskSecurityQuestionActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateAskSecurityQuestionActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
     const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
     return handleApiCall(() => workflowactionsnermapi.createAskSecurityQuestionAction(requestParameters));
   },
-  // Create an auto assign action. The following supporting objects will need to be created after this action is created (which are tied together via workflow_action_id) - workflow_action_roles. These supporting objects must be created for this action to be complete (APIs for these supporting objects not yet implemented, use UI).
+  createAttributeNerm: (requestParameters: sdk.AttributesNERMApiCreateAttributeRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateAttribute201ResponseNERM>> => {
+    const attributesnermapi = new sdk.AttributesNERMApi(apiConfig);
+    return handleApiCall(() => attributesnermapi.createAttribute(requestParameters));
+  },
+  createAuthOrgNetworkConfigV1: (requestParameters: globalTenantSecuritySettingsTypes.GlobalTenantSecuritySettingsApiCreateAuthOrgNetworkConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<globalTenantSecuritySettingsTypes.NetworkConfiguration>> => {
+    const globaltenantsecuritysettingsapi = new sdk.GlobalTenantSecuritySettingsApi(apiConfig);
+    return handleApiCall(() => globaltenantsecuritysettingsapi.createAuthOrgNetworkConfigV1(requestParameters));
+  },
   createAutoAssignActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateAutoAssignActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
     const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
     return handleApiCall(() => workflowactionsnermapi.createAutoAssignAction(requestParameters));
   },
-  // Create a batch update action
-  createBatchUpdateActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateBatchUpdateActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
-    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowactionsnermapi.createBatchUpdateAction(requestParameters));
-  },
-  // Create a close session action
-  createCloseSessionActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateCloseSessionActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
-    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowactionsnermapi.createCloseSessionAction(requestParameters));
-  },
-  // Create a contributors action. The following supporting objects will need to be created after this action is created (which are tied together via workflow_action_id) - workflow_action_performers, workflow_action_roles, workflow_action_performer_notification_email. These supporting objects must be created for this action to be complete (APIs for these supporting objects not yet implemented, use UI).
-  createContributorsActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateContributorsActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
-    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowactionsnermapi.createContributorsAction(requestParameters));
-  },
-  // Create a create profile action
-  createCreateProfileActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateCreateProfileActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
-    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowactionsnermapi.createCreateProfileAction(requestParameters));
-  },
-  // Create a duplicate prevention action. The following supporting objects will need to be created after this action is created (which are tied together via workflow_action_id) - duplicatation_prevention_attributes, workflow_action_performers, workflow_action_roles, workflow_action_performer_notification_email. These supporting objects must be created for this action to be complete (APIs for these supporting objects not yet implemented, use UI).
-  createDuplicatePreventionActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateDuplicatePreventionActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
-    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowactionsnermapi.createDuplicatePreventionAction(requestParameters));
-  },
-  // Create an email verification action
-  createEmailVerificationActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateEmailVerificationActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
-    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowactionsnermapi.createEmailVerificationAction(requestParameters));
-  },
-  // Create a fulfillment action. The following supporting objects will need to be created after this action is created (which are tied together via workflow_action_id) - workflow_action_performers, workflow_action_roles, workflow_action_performer_notification_email. These supporting objects must be created for this action to be complete (APIs for these supporting objects not yet implemented, use UI).
-  createFulfillmentActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateFulfillmentActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
-    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowactionsnermapi.createFulfillmentAction(requestParameters));
-  },
-  // Create an identity proofing action. The following supporting objects will need to be created after this action is created (which are tied together via workflow_action_id) - identity_proofing_action_configuration, identity_proofing_action_mappings. These supporting objects must be created for this action to be complete (APIs for these supporting objects not yet implemented, use UI).
-  createIdentityProofingActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateIdentityProofingActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
-    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowactionsnermapi.createIdentityProofingAction(requestParameters));
-  },
-  // Create an invitation action. The following supporting objects will need to be created after this action is created (which are tied together via workflow_action_id) - workflow_action_pause_action. These supporting objects must be created for this action to be complete (APIs for these supporting objects not yet implemented, use UI).
-  createInvitationActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateInvitationActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
-    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowactionsnermapi.createInvitationAction(requestParameters));
-  },
-  // Create a ldap action. The following supporting objects will need to be created after this action is created (which are tied together via workflow_action_id) - workflow_action_performers, workflow_action_roles. These supporting objects must be created for this action to be complete (APIs for these supporting objects not yet implemented, use UI).
-  createLdapActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateLdapActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
-    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowactionsnermapi.createLdapAction(requestParameters));
-  },
-  // Create a notification action
-  createNotificationActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateNotificationActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
-    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowactionsnermapi.createNotificationAction(requestParameters));
-  },
-  // Create a password reset action
-  createPasswordResetActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreatePasswordResetActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
-    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowactionsnermapi.createPasswordResetAction(requestParameters));
-  },
-  // Create a profile check action
-  createProfileCheckActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateProfileCheckActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
-    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowactionsnermapi.createProfileCheckAction(requestParameters));
-  },
-  // Create a profile select action
-  createProfileSelectActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateProfileSelectActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
-    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowactionsnermapi.createProfileSelectAction(requestParameters));
-  },
-  // Create a request action
-  createRequestActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateRequestActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
-    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowactionsnermapi.createRequestAction(requestParameters));
-  },
-  // Create a REST API action. The following supporting objects will need to be created after this action is created (which are tied together via workflow_action_id) - rest_api_action_configuration, api_configuration_attributes. These supporting objects must be created for this action to be complete (APIs for these supporting objects not yet implemented, use UI).
-  createRestApiActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateRestApiActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
-    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowactionsnermapi.createRestApiAction(requestParameters));
-  },
-  // Create a review action. The following supporting objects will need to be created after this action is created (which are tied together via workflow_action_id) - workflow_action_performer_notification_email. These supporting objects must be created for this action to be complete (APIs for these supporting objects not yet implemented, use UI).
-  createReviewActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateReviewActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
-    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowactionsnermapi.createReviewAction(requestParameters));
-  },
-  // Create a run workflow action. The following supporting objects will need to be created after this action is created (which are tied together via workflow_action_id) - configuration_profile_attribute. These supporting objects must be created for this action to be complete (APIs for these supporting objects not yet implemented, use UI).
-  createRunWorkflowActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateRunWorkflowActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
-    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowactionsnermapi.createRunWorkflowAction(requestParameters));
-  },
-  // Create a set attributes action. The following supporting objects will need to be created after this action is created (which are tied together via workflow_action_id) - workflow_action_set_attributes. These supporting objects must be created for this action to be complete (APIs for these supporting objects not yet implemented, use UI).
-  createSetAttributesActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateSetAttributesActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
-    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowactionsnermapi.createSetAttributesAction(requestParameters));
-  },
-  // Create a set security question action
-  createSetSecurityQuestionActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateSetSecurityQuestionActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
-    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowactionsnermapi.createSetSecurityQuestionAction(requestParameters));
-  },
-  // Create a SOAP API action. The following supporting objects will need to be created after this action is created (which are tied together via workflow_action_id) - soap_api_action_configuration, api_configuration_attributes. These supporting objects must be created for this action to be complete (APIs for these supporting objects not yet implemented, use UI).
-  createSoapApiActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateSoapApiActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
-    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowactionsnermapi.createSoapApiAction(requestParameters));
-  },
-  // Create a status change action
-  createStatusChangeActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateStatusChangeActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
-    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowactionsnermapi.createStatusChangeAction(requestParameters));
-  },
-  // Create an unassign action. The following supporting objects will need to be created after this action is created (which are tied together via workflow_action_id) - workflow_action_roles. These supporting objects must be created for this action to be complete (APIs for these supporting objects not yet implemented, use UI).
-  createUnassignActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateUnassignActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
-    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowactionsnermapi.createUnassignAction(requestParameters));
-  },
-  // Create an update profile action
-  createUpdateProfileActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateUpdateProfileActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
-    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowactionsnermapi.createUpdateProfileAction(requestParameters));
-  },
-  // Create a username password action
-  createUsernamePasswordActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateUsernamePasswordActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
-    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowactionsnermapi.createUsernamePasswordAction(requestParameters));
-  },
-  // This endpoint can retrieve workflow actions
-  getWorkflowActionsNerm: (requestParameters: sdk.WorkflowActionsNERMApiGetWorkflowActionsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetWorkflowActions200ResponseNERM>> => {
-    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowactionsnermapi.getWorkflowActions(requestParameters));
-  },
-
-  // Find workflow session by id
-  getWorkflowSessionNerm: (requestParameters: sdk.WorkflowSessionsNERMApiGetWorkflowSessionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitWorkflowSession200ResponseNERM>> => {
-    const workflowsessionsnermapi = new sdk.WorkflowSessionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowsessionsnermapi.getWorkflowSession(requestParameters));
-  },
-  // Retrieves the URL of an attachment attribute value from a workflow session
-  getWorkflowSessionUploadNerm: (requestParameters: sdk.WorkflowSessionsNERMApiGetWorkflowSessionUploadRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.UrlNERM>> => {
-    const workflowsessionsnermapi = new sdk.WorkflowSessionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowsessionsnermapi.getWorkflowSessionUpload(requestParameters));
-  },
-  // Get workflow sessions
-  getWorkflowSessionsNerm: (requestParameters: sdk.WorkflowSessionsNERMApiGetWorkflowSessionsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetWorkflowSessions200ResponseNERM>> => {
-    const workflowsessionsnermapi = new sdk.WorkflowSessionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowsessionsnermapi.getWorkflowSessions(requestParameters));
-  },
-  // Update a workflow session by id
-  patchWorkflowSessionNerm: (requestParameters: sdk.WorkflowSessionsNERMApiPatchWorkflowSessionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitWorkflowSession200ResponseNERM>> => {
-    const workflowsessionsnermapi = new sdk.WorkflowSessionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowsessionsnermapi.patchWorkflowSession(requestParameters));
-  },
-  // Create a workflow session
-  submitWorkflowSessionNerm: (requestParameters: sdk.WorkflowSessionsNERMApiSubmitWorkflowSessionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitWorkflowSession200ResponseNERM>> => {
-    const workflowsessionsnermapi = new sdk.WorkflowSessionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowsessionsnermapi.submitWorkflowSession(requestParameters));
-  },
-  // Uploads a new attachment attribute value to a workflow session. The upload must be a FORM data type; this is not a JSON API. The upload must include the binary content of the payload under the \'file\' named form element. The upload must not attempt to include the file name or its content type as a other form or JSON as parameters. The upload must not attempt to upload the file body as the POST body payload; it has to arrive as a FORM parameter. Do not use a `File/Binary` payload type for the POST operation in your API client. 
-  submitWorkflowSessionUploadNerm: (requestParameters: sdk.WorkflowSessionsNERMApiSubmitWorkflowSessionUploadRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.UrlNERM>> => {
-    const workflowsessionsnermapi = new sdk.WorkflowSessionsNERMApi(apiConfig);
-    return handleApiCall(() => workflowsessionsnermapi.submitWorkflowSessionUpload(requestParameters));
-  },
-
-  // Create an automated workflow
   createAutomatedWorkflowNerm: (requestParameters: sdk.WorkflowsNERMApiCreateAutomatedWorkflowRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateCreateWorkflow200ResponseNERM>> => {
     const workflowsnermapi = new sdk.WorkflowsNERMApi(apiConfig);
     return handleApiCall(() => workflowsnermapi.createAutomatedWorkflow(requestParameters));
   },
-  // Create a batch workflow
+  createAutoWriteSettingsV1: (requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiCreateAutoWriteSettingsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<suggestedEntitlementDescriptionTypes.AutoWriteSettingResponse>> => {
+    const suggestedentitlementdescriptionapi = new sdk.SuggestedEntitlementDescriptionApi(apiConfig);
+    return handleApiCall(() => suggestedentitlementdescriptionapi.createAutoWriteSettingsV1(requestParameters));
+  },
+  createBatchUpdateActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateBatchUpdateActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
+    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowactionsnermapi.createBatchUpdateAction(requestParameters));
+  },
   createBatchWorkflowNerm: (requestParameters: sdk.WorkflowsNERMApiCreateBatchWorkflowRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateCreateWorkflow200ResponseNERM>> => {
     const workflowsnermapi = new sdk.WorkflowsNERMApi(apiConfig);
     return handleApiCall(() => workflowsnermapi.createBatchWorkflow(requestParameters));
   },
-  // Create a create workflow
+  createBrandingItemV1: (requestParameters: brandingTypes.BrandingApiCreateBrandingItemV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<brandingTypes.BrandingItem>> => {
+    const brandingapi = new sdk.BrandingApi(apiConfig);
+    return handleApiCall(() => brandingapi.createBrandingItemV1(requestParameters));
+  },
+  createCampaignFilterV1: (requestParameters: certificationCampaignFiltersTypes.CertificationCampaignFiltersApiCreateCampaignFilterV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<certificationCampaignFiltersTypes.CampaignFilterDetails>> => {
+    const certificationcampaignfiltersapi = new sdk.CertificationCampaignFiltersApi(apiConfig);
+    return handleApiCall(() => certificationcampaignfiltersapi.createCampaignFilterV1(requestParameters));
+  },
+  createCampaignTemplateV1: (requestParameters: certificationCampaignsTypes.CertificationCampaignsApiCreateCampaignTemplateV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<certificationCampaignsTypes.CampaignTemplate>> => {
+    const certificationcampaignsapi = new sdk.CertificationCampaignsApi(apiConfig);
+    return handleApiCall(() => certificationcampaignsapi.createCampaignTemplateV1(requestParameters));
+  },
+  createCampaignV1: (requestParameters: certificationCampaignsTypes.CertificationCampaignsApiCreateCampaignV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<certificationCampaignsTypes.Campaign2>> => {
+    const certificationcampaignsapi = new sdk.CertificationCampaignsApi(apiConfig);
+    return handleApiCall(() => certificationcampaignsapi.createCampaignV1(requestParameters));
+  },
+  createCloseSessionActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateCloseSessionActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
+    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowactionsnermapi.createCloseSessionAction(requestParameters));
+  },
+  createCommonAccessV1: (requestParameters: iaiCommonAccessTypes.IAICommonAccessApiCreateCommonAccessV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<iaiCommonAccessTypes.CommonAccessItemResponse>> => {
+    const iaicommonaccessapi = new sdk.IAICommonAccessApi(apiConfig);
+    return handleApiCall(() => iaicommonaccessapi.createCommonAccessV1(requestParameters));
+  },
+  createConnectorCustomizerV1: (requestParameters: connectorCustomizersTypes.ConnectorCustomizersApiCreateConnectorCustomizerV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<connectorCustomizersTypes.ConnectorCustomizerCreateResponse>> => {
+    const connectorcustomizersapi = new sdk.ConnectorCustomizersApi(apiConfig);
+    return handleApiCall(() => connectorcustomizersapi.createConnectorCustomizerV1(requestParameters));
+  },
+  createConnectorCustomizerVersionV1: (requestParameters: connectorCustomizersTypes.ConnectorCustomizersApiCreateConnectorCustomizerVersionV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<connectorCustomizersTypes.ConnectorCustomizerVersionCreateResponse>> => {
+    const connectorcustomizersapi = new sdk.ConnectorCustomizersApi(apiConfig);
+    return handleApiCall(() => connectorcustomizersapi.createConnectorCustomizerVersionV1(requestParameters));
+  },
+  createConnectorRuleV1: (requestParameters: connectorRuleManagementTypes.ConnectorRuleManagementApiCreateConnectorRuleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<connectorRuleManagementTypes.ConnectorRuleResponse>> => {
+    const connectorrulemanagementapi = new sdk.ConnectorRuleManagementApi(apiConfig);
+    return handleApiCall(() => connectorrulemanagementapi.createConnectorRuleV1(requestParameters));
+  },
+  createContributorsActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateContributorsActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
+    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowactionsnermapi.createContributorsAction(requestParameters));
+  },
+  createCreateProfileActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateCreateProfileActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
+    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowactionsnermapi.createCreateProfileAction(requestParameters));
+  },
   createCreateWorkflowNerm: (requestParameters: sdk.WorkflowsNERMApiCreateCreateWorkflowRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateCreateWorkflow200ResponseNERM>> => {
     const workflowsnermapi = new sdk.WorkflowsNERMApi(apiConfig);
     return handleApiCall(() => workflowsnermapi.createCreateWorkflow(requestParameters));
   },
-  // Create a login workflow
+  createCustomConnectorV1: (requestParameters: connectorsTypes.ConnectorsApiCreateCustomConnectorV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<connectorsTypes.V3ConnectorDto>> => {
+    const connectorsapi = new sdk.ConnectorsApi(apiConfig);
+    return handleApiCall(() => connectorsapi.createCustomConnectorV1(requestParameters));
+  },
+  createCustomPasswordInstructionsV1: (requestParameters: customPasswordInstructionsTypes.CustomPasswordInstructionsApiCreateCustomPasswordInstructionsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<customPasswordInstructionsTypes.CustomPasswordInstruction>> => {
+    const custompasswordinstructionsapi = new sdk.CustomPasswordInstructionsApi(apiConfig);
+    return handleApiCall(() => custompasswordinstructionsapi.createCustomPasswordInstructionsV1(requestParameters));
+  },
+  createCustomPrivilegeCriteriaV1: (requestParameters: privilegeCriteriaTypes.PrivilegeCriteriaApiCreateCustomPrivilegeCriteriaV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<privilegeCriteriaTypes.PrivilegeCriteriaDTO>> => {
+    const privilegecriteriaapi = new sdk.PrivilegeCriteriaApi(apiConfig);
+    return handleApiCall(() => privilegecriteriaapi.createCustomPrivilegeCriteriaV1(requestParameters));
+  },
+  createCustomUserLevelV1: (requestParameters: customUserLevelsTypes.CustomUserLevelsApiCreateCustomUserLevelV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<customUserLevelsTypes.UserLevelSummaryDTO>> => {
+    const customuserlevelsapi = new sdk.CustomUserLevelsApi(apiConfig);
+    return handleApiCall(() => customuserlevelsapi.createCustomUserLevelV1(requestParameters));
+  },
+  createDataSegmentV1: (requestParameters: dataSegmentationTypes.DataSegmentationApiCreateDataSegmentV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<dataSegmentationTypes.DataSegment>> => {
+    const datasegmentationapi = new sdk.DataSegmentationApi(apiConfig);
+    return handleApiCall(() => datasegmentationapi.createDataSegmentV1(requestParameters));
+  },
+  createDeployV1: (requestParameters: configurationHubTypes.ConfigurationHubApiCreateDeployV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<configurationHubTypes.DeployResponse>> => {
+    const configurationhubapi = new sdk.ConfigurationHubApi(apiConfig);
+    return handleApiCall(() => configurationhubapi.createDeployV1(requestParameters));
+  },
+  createDigitTokenV1: (requestParameters: passwordManagementTypes.PasswordManagementApiCreateDigitTokenV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<passwordManagementTypes.PasswordDigitToken>> => {
+    const passwordmanagementapi = new sdk.PasswordManagementApi(apiConfig);
+    return handleApiCall(() => passwordmanagementapi.createDigitTokenV1(requestParameters));
+  },
+  createDimensionV1: (requestParameters: dimensionsTypes.DimensionsApiCreateDimensionV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<dimensionsTypes.Dimension>> => {
+    const dimensionsapi = new sdk.DimensionsApi(apiConfig);
+    return handleApiCall(() => dimensionsapi.createDimensionV1(requestParameters));
+  },
+  createDomainDkimV1: (requestParameters: notificationsTypes.NotificationsApiCreateDomainDkimV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<notificationsTypes.DomainStatusDto>> => {
+    const notificationsapi = new sdk.NotificationsApi(apiConfig);
+    return handleApiCall(() => notificationsapi.createDomainDkimV1(requestParameters));
+  },
+  createDuplicatePreventionActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateDuplicatePreventionActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
+    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowactionsnermapi.createDuplicatePreventionAction(requestParameters));
+  },
+  createEmailVerificationActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateEmailVerificationActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
+    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowactionsnermapi.createEmailVerificationAction(requestParameters));
+  },
+  createExternalExecuteWorkflowV1: (requestParameters: workflowsTypes.WorkflowsApiCreateExternalExecuteWorkflowV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<workflowsTypes.CreateExternalExecuteWorkflowV1200Response>> => {
+    const workflowsapi = new sdk.WorkflowsApi(apiConfig);
+    return handleApiCall(() => workflowsapi.createExternalExecuteWorkflowV1(requestParameters));
+  },
+  createFormAttributeNerm: (requestParameters: sdk.FormAttributesNERMApiCreateFormAttributeRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetFormAttributes200ResponseNERM>> => {
+    const formattributesnermapi = new sdk.FormAttributesNERMApi(apiConfig);
+    return handleApiCall(() => formattributesnermapi.createFormAttribute(requestParameters));
+  },
+  createFormDefinitionDynamicSchemaV1: (requestParameters: customFormsTypes.CustomFormsApiCreateFormDefinitionDynamicSchemaV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<customFormsTypes.FormDefinitionDynamicSchemaResponse>> => {
+    const customformsapi = new sdk.CustomFormsApi(apiConfig);
+    return handleApiCall(() => customformsapi.createFormDefinitionDynamicSchemaV1(requestParameters));
+  },
+  createFormDefinitionFileRequestV1: (requestParameters: customFormsTypes.CustomFormsApiCreateFormDefinitionFileRequestV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<customFormsTypes.FormDefinitionFileUploadResponse>> => {
+    const customformsapi = new sdk.CustomFormsApi(apiConfig);
+    return handleApiCall(() => customformsapi.createFormDefinitionFileRequestV1(requestParameters));
+  },
+  createFormDefinitionV1: (requestParameters: customFormsTypes.CustomFormsApiCreateFormDefinitionV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<customFormsTypes.FormDefinitionResponse>> => {
+    const customformsapi = new sdk.CustomFormsApi(apiConfig);
+    return handleApiCall(() => customformsapi.createFormDefinitionV1(requestParameters));
+  },
+  createFormInstanceV1: (requestParameters: customFormsTypes.CustomFormsApiCreateFormInstanceV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<customFormsTypes.FormInstanceResponse>> => {
+    const customformsapi = new sdk.CustomFormsApi(apiConfig);
+    return handleApiCall(() => customformsapi.createFormInstanceV1(requestParameters));
+  },
+  createFormNerm: (requestParameters: sdk.FormsNERMApiCreateFormRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetForms200ResponseNERM>> => {
+    const formsnermapi = new sdk.FormsNERMApi(apiConfig);
+    return handleApiCall(() => formsnermapi.createForm(requestParameters));
+  },
+  createFulfillmentActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateFulfillmentActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
+    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowactionsnermapi.createFulfillmentAction(requestParameters));
+  },
+  createIdentityAttributeV1: (requestParameters: identityAttributesTypes.IdentityAttributesApiCreateIdentityAttributeV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<identityAttributesTypes.IdentityAttribute2>> => {
+    const identityattributesapi = new sdk.IdentityAttributesApi(apiConfig);
+    return handleApiCall(() => identityattributesapi.createIdentityAttributeV1(requestParameters));
+  },
+  createIdentityCollectorV1: (requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiCreateIdentityCollectorV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<dataAccessSecurityTypes.CreateIdentityCollectorV1200Response>> => {
+    const dataaccesssecurityapi = new sdk.DataAccessSecurityApi(apiConfig);
+    return handleApiCall(() => dataaccesssecurityapi.createIdentityCollectorV1(requestParameters));
+  },
+  createIdentityProfileV1: (requestParameters: identityProfilesTypes.IdentityProfilesApiCreateIdentityProfileV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<identityProfilesTypes.IdentityProfile>> => {
+    const identityprofilesapi = new sdk.IdentityProfilesApi(apiConfig);
+    return handleApiCall(() => identityprofilesapi.createIdentityProfileV1(requestParameters));
+  },
+  createIdentityProofingActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateIdentityProofingActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
+    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowactionsnermapi.createIdentityProofingAction(requestParameters));
+  },
+  createInvitationActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateInvitationActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
+    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowactionsnermapi.createInvitationAction(requestParameters));
+  },
+  createLauncherV1: (requestParameters: launchersTypes.LaunchersApiCreateLauncherV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<launchersTypes.Launcher>> => {
+    const launchersapi = new sdk.LaunchersApi(apiConfig);
+    return handleApiCall(() => launchersapi.createLauncherV1(requestParameters));
+  },
+  createLdapActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateLdapActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
+    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowactionsnermapi.createLdapAction(requestParameters));
+  },
+  createLifecycleStateV1: (requestParameters: lifecycleStatesTypes.LifecycleStatesApiCreateLifecycleStateV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<lifecycleStatesTypes.LifecycleState>> => {
+    const lifecyclestatesapi = new sdk.LifecycleStatesApi(apiConfig);
+    return handleApiCall(() => lifecyclestatesapi.createLifecycleStateV1(requestParameters));
+  },
   createLoginWorkflowNerm: (requestParameters: sdk.WorkflowsNERMApiCreateLoginWorkflowRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateCreateWorkflow200ResponseNERM>> => {
     const workflowsnermapi = new sdk.WorkflowsNERMApi(apiConfig);
     return handleApiCall(() => workflowsnermapi.createLoginWorkflow(requestParameters));
   },
-  // Create a password reset workflow
+  createMachineAccountMappingsV1: (requestParameters: machineAccountMappingsTypes.MachineAccountMappingsApiCreateMachineAccountMappingsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<machineAccountMappingsTypes.AttributeMappings>>> => {
+    const machineaccountmappingsapi = new sdk.MachineAccountMappingsApi(apiConfig);
+    return handleApiCall(() => machineaccountmappingsapi.createMachineAccountMappingsV1(requestParameters));
+  },
+  createMachineAccountRequestV1: (requestParameters: machineAccountCreationRequestTypes.MachineAccountCreationRequestApiCreateMachineAccountRequestV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<machineAccountCreationRequestTypes.AccountRequestAsyncResult>> => {
+    const machineaccountcreationrequestapi = new sdk.MachineAccountCreationRequestApi(apiConfig);
+    return handleApiCall(() => machineaccountcreationrequestapi.createMachineAccountRequestV1(requestParameters));
+  },
+  createMachineAccountSubtypeV1: (requestParameters: machineAccountsTypes.MachineAccountsApiCreateMachineAccountSubtypeV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<machineAccountsTypes.SourceSubtype>> => {
+    const machineaccountsapi = new sdk.MachineAccountsApi(apiConfig);
+    return handleApiCall(() => machineaccountsapi.createMachineAccountSubtypeV1(requestParameters));
+  },
+  createMachineIdentityV1: (requestParameters: machineIdentitiesTypes.MachineIdentitiesApiCreateMachineIdentityV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<machineIdentitiesTypes.MachineIdentityResponse>> => {
+    const machineidentitiesapi = new sdk.MachineIdentitiesApi(apiConfig);
+    return handleApiCall(() => machineidentitiesapi.createMachineIdentityV1(requestParameters));
+  },
+  createMachineIdentityV2: (requestParameters: machineIdentitiesTypes.MachineIdentitiesApiCreateMachineIdentityV2Request, apiConfig: sdk.Configuration): Promise<ApiResponse<machineIdentitiesTypes.Machineidentityv2>> => {
+    const machineidentitiesapi = new sdk.MachineIdentitiesApi(apiConfig);
+    return handleApiCall(() => machineidentitiesapi.createMachineIdentityV2(requestParameters));
+  },
+  createManagedClientV1: (requestParameters: managedClientsTypes.ManagedClientsApiCreateManagedClientV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<managedClientsTypes.ManagedClient>> => {
+    const managedclientsapi = new sdk.ManagedClientsApi(apiConfig);
+    return handleApiCall(() => managedclientsapi.createManagedClientV1(requestParameters));
+  },
+  createManagedClusterTypeV1: (requestParameters: managedClusterTypesTypes.ManagedClusterTypesApiCreateManagedClusterTypeV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<managedClusterTypesTypes.ManagedClusterType>> => {
+    const managedclustertypesapi = new sdk.ManagedClusterTypesApi(apiConfig);
+    return handleApiCall(() => managedclustertypesapi.createManagedClusterTypeV1(requestParameters));
+  },
+  createManagedClusterV1: (requestParameters: managedClustersTypes.ManagedClustersApiCreateManagedClusterV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<managedClustersTypes.ManagedCluster>> => {
+    const managedclustersapi = new sdk.ManagedClustersApi(apiConfig);
+    return handleApiCall(() => managedclustersapi.createManagedClusterV1(requestParameters));
+  },
+  createMultiHostIntegrationV1: (requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiCreateMultiHostIntegrationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<multiHostIntegrationTypes.MultiHostIntegrations>> => {
+    const multihostintegrationapi = new sdk.MultiHostIntegrationApi(apiConfig);
+    return handleApiCall(() => multihostintegrationapi.createMultiHostIntegrationV1(requestParameters));
+  },
+  createNonEmployeeRecordV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiCreateNonEmployeeRecordV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeRecord>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.createNonEmployeeRecordV1(requestParameters));
+  },
+  createNonEmployeeRequestV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiCreateNonEmployeeRequestV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeRequest>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.createNonEmployeeRequestV1(requestParameters));
+  },
+  createNonEmployeeSourceSchemaAttributesV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiCreateNonEmployeeSourceSchemaAttributesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeSchemaAttribute>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.createNonEmployeeSourceSchemaAttributesV1(requestParameters));
+  },
+  createNonEmployeeSourceV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiCreateNonEmployeeSourceV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeSourceWithCloudExternalId>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.createNonEmployeeSourceV1(requestParameters));
+  },
+  createNotificationActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateNotificationActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
+    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowactionsnermapi.createNotificationAction(requestParameters));
+  },
+  createNotificationTemplateV1: (requestParameters: notificationsTypes.NotificationsApiCreateNotificationTemplateV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<notificationsTypes.TemplateDto>> => {
+    const notificationsapi = new sdk.NotificationsApi(apiConfig);
+    return handleApiCall(() => notificationsapi.createNotificationTemplateV1(requestParameters));
+  },
+  createOauthClientV1: (requestParameters: oauthClientsTypes.OAuthClientsApiCreateOauthClientV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<oauthClientsTypes.CreateOAuthClientResponse>> => {
+    const oauthclientsapi = new sdk.OAuthClientsApi(apiConfig);
+    return handleApiCall(() => oauthclientsapi.createOauthClientV1(requestParameters));
+  },
+  createObjectMappingsV1: (requestParameters: configurationHubTypes.ConfigurationHubApiCreateObjectMappingsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<configurationHubTypes.ObjectMappingBulkCreateResponse>> => {
+    const configurationhubapi = new sdk.ConfigurationHubApi(apiConfig);
+    return handleApiCall(() => configurationhubapi.createObjectMappingsV1(requestParameters));
+  },
+  createObjectMappingV1: (requestParameters: configurationHubTypes.ConfigurationHubApiCreateObjectMappingV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<configurationHubTypes.ObjectMappingResponse>> => {
+    const configurationhubapi = new sdk.ConfigurationHubApi(apiConfig);
+    return handleApiCall(() => configurationhubapi.createObjectMappingV1(requestParameters));
+  },
+  createPageContentNerm: (requestParameters: sdk.PageContentsNERMApiCreatePageContentRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContents200ResponseNERM>> => {
+    const pagecontentsnermapi = new sdk.PageContentsNERMApi(apiConfig);
+    return handleApiCall(() => pagecontentsnermapi.createPageContent(requestParameters));
+  },
+  createPageContentTranslationNerm: (requestParameters: sdk.PageContentTranslationsNERMApiCreatePageContentTranslationRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContentTranslation200ResponseNERM>> => {
+    const pagecontenttranslationsnermapi = new sdk.PageContentTranslationsNERMApi(apiConfig);
+    return handleApiCall(() => pagecontenttranslationsnermapi.createPageContentTranslation(requestParameters));
+  },
+  createPageElementNerm: (requestParameters: sdk.PageElementsNERMApiCreatePageElementRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageElements200ResponseNERM>> => {
+    const pageelementsnermapi = new sdk.PageElementsNERMApi(apiConfig);
+    return handleApiCall(() => pageelementsnermapi.createPageElement(requestParameters));
+  },
+  createParameterV1: (requestParameters: parameterStorageTypes.ParameterStorageApiCreateParameterV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<parameterStorageTypes.ParameterStorageParameter>> => {
+    const parameterstorageapi = new sdk.ParameterStorageApi(apiConfig);
+    return handleApiCall(() => parameterstorageapi.createParameterV1(requestParameters));
+  },
+  createPasswordOrgConfigV1: (requestParameters: passwordConfigurationTypes.PasswordConfigurationApiCreatePasswordOrgConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<passwordConfigurationTypes.PasswordOrgConfig>> => {
+    const passwordconfigurationapi = new sdk.PasswordConfigurationApi(apiConfig);
+    return handleApiCall(() => passwordconfigurationapi.createPasswordOrgConfigV1(requestParameters));
+  },
+  createPasswordPolicyV1: (requestParameters: passwordPoliciesTypes.PasswordPoliciesApiCreatePasswordPolicyV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<passwordPoliciesTypes.PasswordPolicyV3Dto>> => {
+    const passwordpoliciesapi = new sdk.PasswordPoliciesApi(apiConfig);
+    return handleApiCall(() => passwordpoliciesapi.createPasswordPolicyV1(requestParameters));
+  },
+  createPasswordResetActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreatePasswordResetActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
+    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowactionsnermapi.createPasswordResetAction(requestParameters));
+  },
+  createPasswordSyncGroupV1: (requestParameters: passwordSyncGroupsTypes.PasswordSyncGroupsApiCreatePasswordSyncGroupV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<passwordSyncGroupsTypes.PasswordSyncGroup>> => {
+    const passwordsyncgroupsapi = new sdk.PasswordSyncGroupsApi(apiConfig);
+    return handleApiCall(() => passwordsyncgroupsapi.createPasswordSyncGroupV1(requestParameters));
+  },
   createPasswordUpdateWorkflowNerm: (requestParameters: sdk.WorkflowsNERMApiCreatePasswordUpdateWorkflowRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateCreateWorkflow200ResponseNERM>> => {
     const workflowsnermapi = new sdk.WorkflowsNERMApi(apiConfig);
     return handleApiCall(() => workflowsnermapi.createPasswordUpdateWorkflow(requestParameters));
   },
-  // Create a registration workflow
+  createPermissionNerm: (requestParameters: sdk.PermissionsNERMApiCreatePermissionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreatePermission200ResponseNERM>> => {
+    const permissionsnermapi = new sdk.PermissionsNERMApi(apiConfig);
+    return handleApiCall(() => permissionsnermapi.createPermission(requestParameters));
+  },
+  createPersonalAccessTokenV1: (requestParameters: personalAccessTokensTypes.PersonalAccessTokensApiCreatePersonalAccessTokenV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<personalAccessTokensTypes.CreatePersonalAccessTokenResponse>> => {
+    const personalaccesstokensapi = new sdk.PersonalAccessTokensApi(apiConfig);
+    return handleApiCall(() => personalaccesstokensapi.createPersonalAccessTokenV1(requestParameters));
+  },
+  createPotentialRoleProvisionRequestV1: (requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiCreatePotentialRoleProvisionRequestV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<iaiRoleMiningTypes.RoleMiningPotentialRoleSummary>> => {
+    const iairoleminingapi = new sdk.IAIRoleMiningApi(apiConfig);
+    return handleApiCall(() => iairoleminingapi.createPotentialRoleProvisionRequestV1(requestParameters));
+  },
+  createProfileCheckActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateProfileCheckActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
+    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowactionsnermapi.createProfileCheckAction(requestParameters));
+  },
+  createProfilePageNerm: (requestParameters: sdk.PagesNERMApiCreateProfilePageRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateProfilePage200ResponseNERM>> => {
+    const pagesnermapi = new sdk.PagesNERMApi(apiConfig);
+    return handleApiCall(() => pagesnermapi.createProfilePage(requestParameters));
+  },
+  createProfileSelectActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateProfileSelectActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
+    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowactionsnermapi.createProfileSelectAction(requestParameters));
+  },
+  createProfilesNerm: (requestParameters: sdk.ProfilesNERMApiCreateProfilesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SearchAdvancedSearch200ResponseNERM>> => {
+    const profilesnermapi = new sdk.ProfilesNERMApi(apiConfig);
+    return handleApiCall(() => profilesnermapi.createProfiles(requestParameters));
+  },
+  createProfileTypeRoleNerm: (requestParameters: sdk.ProfileTypeRolesNERMApiCreateProfileTypeRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateProfileTypeRole200ResponseNERM>> => {
+    const profiletyperolesnermapi = new sdk.ProfileTypeRolesNERMApi(apiConfig);
+    return handleApiCall(() => profiletyperolesnermapi.createProfileTypeRole(requestParameters));
+  },
+  createProvisioningPolicyV1: (requestParameters: sourcesTypes.SourcesApiCreateProvisioningPolicyV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.ProvisioningPolicyDto>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.createProvisioningPolicyV1(requestParameters));
+  },
+  createProvisioningPolicyV2: (requestParameters: sourcesTypes.SourcesApiCreateProvisioningPolicyV2Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.ProvisioningPolicyDtoV2>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.createProvisioningPolicyV2(requestParameters));
+  },
+  createReassignmentConfigurationV1: (requestParameters: workReassignmentTypes.WorkReassignmentApiCreateReassignmentConfigurationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<workReassignmentTypes.ConfigurationItemResponse>> => {
+    const workreassignmentapi = new sdk.WorkReassignmentApi(apiConfig);
+    return handleApiCall(() => workreassignmentapi.createReassignmentConfigurationV1(requestParameters));
+  },
   createRegistrationWorkflowNerm: (requestParameters: sdk.WorkflowsNERMApiCreateRegistrationWorkflowRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateCreateWorkflow200ResponseNERM>> => {
     const workflowsnermapi = new sdk.WorkflowsNERMApi(apiConfig);
     return handleApiCall(() => workflowsnermapi.createRegistrationWorkflow(requestParameters));
   },
-  // Create an update workflow
+  createRequestActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateRequestActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
+    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowactionsnermapi.createRequestAction(requestParameters));
+  },
+  createRestApiActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateRestApiActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
+    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowactionsnermapi.createRestApiAction(requestParameters));
+  },
+  createReviewActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateReviewActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
+    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowactionsnermapi.createReviewAction(requestParameters));
+  },
+  createRoleInsightRequestsV1: (requestParameters: roleInsightsTypes.RoleInsightsApiCreateRoleInsightRequestsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<roleInsightsTypes.RoleInsightsResponse>> => {
+    const roleinsightsapi = new sdk.RoleInsightsApi(apiConfig);
+    return handleApiCall(() => roleinsightsapi.createRoleInsightRequestsV1(requestParameters));
+  },
+  createRoleMiningSessionsV1: (requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiCreateRoleMiningSessionsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<iaiRoleMiningTypes.RoleMiningSessionResponse>> => {
+    const iairoleminingapi = new sdk.IAIRoleMiningApi(apiConfig);
+    return handleApiCall(() => iairoleminingapi.createRoleMiningSessionsV1(requestParameters));
+  },
+  createRoleV1: (requestParameters: rolesTypes.RolesApiCreateRoleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<rolesTypes.Role>> => {
+    const rolesapi = new sdk.RolesApi(apiConfig);
+    return handleApiCall(() => rolesapi.createRoleV1(requestParameters));
+  },
+  createRunWorkflowActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateRunWorkflowActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
+    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowactionsnermapi.createRunWorkflowAction(requestParameters));
+  },
+  createSavedSearchV1: (requestParameters: savedSearchTypes.SavedSearchApiCreateSavedSearchV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<savedSearchTypes.SavedSearch>> => {
+    const savedsearchapi = new sdk.SavedSearchApi(apiConfig);
+    return handleApiCall(() => savedsearchapi.createSavedSearchV1(requestParameters));
+  },
+  createScheduledActionV1: (requestParameters: configurationHubTypes.ConfigurationHubApiCreateScheduledActionV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<configurationHubTypes.ScheduledActionResponse>> => {
+    const configurationhubapi = new sdk.ConfigurationHubApi(apiConfig);
+    return handleApiCall(() => configurationhubapi.createScheduledActionV1(requestParameters));
+  },
+  createScheduledSearchV1: (requestParameters: scheduledSearchTypes.ScheduledSearchApiCreateScheduledSearchV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<scheduledSearchTypes.ScheduledSearch>> => {
+    const scheduledsearchapi = new sdk.ScheduledSearchApi(apiConfig);
+    return handleApiCall(() => scheduledsearchapi.createScheduledSearchV1(requestParameters));
+  },
+  createScheduleV1: (requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiCreateScheduleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<number>> => {
+    const dataaccesssecurityapi = new sdk.DataAccessSecurityApi(apiConfig);
+    return handleApiCall(() => dataaccesssecurityapi.createScheduleV1(requestParameters));
+  },
+  createSearchAttributeConfigV1: (requestParameters: searchAttributeConfigurationTypes.SearchAttributeConfigurationApiCreateSearchAttributeConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const searchattributeconfigurationapi = new sdk.SearchAttributeConfigurationApi(apiConfig);
+    return handleApiCall(() => searchattributeconfigurationapi.createSearchAttributeConfigV1(requestParameters));
+  },
+  createSegmentV1: (requestParameters: segmentsTypes.SegmentsApiCreateSegmentV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<segmentsTypes.Segment>> => {
+    const segmentsapi = new sdk.SegmentsApi(apiConfig);
+    return handleApiCall(() => segmentsapi.createSegmentV1(requestParameters));
+  },
+  createServiceDeskIntegrationV1: (requestParameters: serviceDeskIntegrationTypes.ServiceDeskIntegrationApiCreateServiceDeskIntegrationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<serviceDeskIntegrationTypes.ServiceDeskIntegrationDto>> => {
+    const servicedeskintegrationapi = new sdk.ServiceDeskIntegrationApi(apiConfig);
+    return handleApiCall(() => servicedeskintegrationapi.createServiceDeskIntegrationV1(requestParameters));
+  },
+  createSetAttributesActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateSetAttributesActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
+    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowactionsnermapi.createSetAttributesAction(requestParameters));
+  },
+  createSetSecurityQuestionActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateSetSecurityQuestionActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
+    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowactionsnermapi.createSetSecurityQuestionAction(requestParameters));
+  },
+  createSIMIntegrationV1: (requestParameters: simIntegrationsTypes.SIMIntegrationsApiCreateSIMIntegrationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<simIntegrationsTypes.ServiceDeskIntegrationDto>> => {
+    const simintegrationsapi = new sdk.SIMIntegrationsApi(apiConfig);
+    return handleApiCall(() => simintegrationsapi.createSIMIntegrationV1(requestParameters));
+  },
+  createSoapApiActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateSoapApiActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
+    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowactionsnermapi.createSoapApiAction(requestParameters));
+  },
+  createSodPolicyV1: (requestParameters: sodPoliciesTypes.SODPoliciesApiCreateSodPolicyV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sodPoliciesTypes.SodPolicy>> => {
+    const sodpoliciesapi = new sdk.SODPoliciesApi(apiConfig);
+    return handleApiCall(() => sodpoliciesapi.createSodPolicyV1(requestParameters));
+  },
+  createSourceAppV1: (requestParameters: appsTypes.AppsApiCreateSourceAppV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<appsTypes.SourceApp>> => {
+    const appsapi = new sdk.AppsApi(apiConfig);
+    return handleApiCall(() => appsapi.createSourceAppV1(requestParameters));
+  },
+  createSourceScheduleV1: (requestParameters: sourcesTypes.SourcesApiCreateSourceScheduleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.Schedule3>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.createSourceScheduleV1(requestParameters));
+  },
+  createSourceSchemaV1: (requestParameters: sourcesTypes.SourcesApiCreateSourceSchemaV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.Schema>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.createSourceSchemaV1(requestParameters));
+  },
+  createSourceSubtypeV1: (requestParameters: machineAccountSubtypesTypes.MachineAccountSubtypesApiCreateSourceSubtypeV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<machineAccountSubtypesTypes.SourceSubtypeWithSource>> => {
+    const machineaccountsubtypesapi = new sdk.MachineAccountSubtypesApi(apiConfig);
+    return handleApiCall(() => machineaccountsubtypesapi.createSourceSubtypeV1(requestParameters));
+  },
+  createSourcesWithinMultiHostV1: (requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiCreateSourcesWithinMultiHostV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const multihostintegrationapi = new sdk.MultiHostIntegrationApi(apiConfig);
+    return handleApiCall(() => multihostintegrationapi.createSourcesWithinMultiHostV1(requestParameters));
+  },
+  createSourceV1: (requestParameters: sourcesTypes.SourcesApiCreateSourceV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.Source>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.createSourceV1(requestParameters));
+  },
+  createStatusChangeActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateStatusChangeActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
+    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowactionsnermapi.createStatusChangeAction(requestParameters));
+  },
+  createStreamV1: (requestParameters: sharedSignalsFrameworkSsfTypes.SharedSignalsFrameworkSSFApiCreateStreamV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sharedSignalsFrameworkSsfTypes.StreamConfigResponse>> => {
+    const sharedsignalsframeworkssfapi = new sdk.SharedSignalsFrameworkSSFApi(apiConfig);
+    return handleApiCall(() => sharedsignalsframeworkssfapi.createStreamV1(requestParameters));
+  },
+  createSubscriptionV1: (requestParameters: triggersTypes.TriggersApiCreateSubscriptionV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<triggersTypes.Subscription>> => {
+    const triggersapi = new sdk.TriggersApi(apiConfig);
+    return handleApiCall(() => triggersapi.createSubscriptionV1(requestParameters));
+  },
+  createSyncedAttributeNerm: (requestParameters: sdk.SyncedAttributesNERMApiCreateSyncedAttributeRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateSyncedAttribute201ResponseNERM>> => {
+    const syncedattributesnermapi = new sdk.SyncedAttributesNERMApi(apiConfig);
+    return handleApiCall(() => syncedattributesnermapi.createSyncedAttribute(requestParameters));
+  },
+  createSystemRolePermissionNerm: (requestParameters: sdk.SystemRolePermissionsNERMApiCreateSystemRolePermissionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateSystemRolePermission200ResponseNERM>> => {
+    const systemrolepermissionsnermapi = new sdk.SystemRolePermissionsNERMApi(apiConfig);
+    return handleApiCall(() => systemrolepermissionsnermapi.createSystemRolePermission(requestParameters));
+  },
+  createTagV1: (requestParameters: tagsTypes.TagsApiCreateTagV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<tagsTypes.Tag2>> => {
+    const tagsapi = new sdk.TagsApi(apiConfig);
+    return handleApiCall(() => tagsapi.createTagV1(requestParameters));
+  },
+  createTransformV1: (requestParameters: transformsTypes.TransformsApiCreateTransformV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<transformsTypes.TransformRead>> => {
+    const transformsapi = new sdk.TransformsApi(apiConfig);
+    return handleApiCall(() => transformsapi.createTransformV1(requestParameters));
+  },
+  createUnassignActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateUnassignActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
+    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowactionsnermapi.createUnassignAction(requestParameters));
+  },
+  createUpdateProfileActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateUpdateProfileActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
+    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowactionsnermapi.createUpdateProfileAction(requestParameters));
+  },
   createUpdateWorkflowNerm: (requestParameters: sdk.WorkflowsNERMApiCreateUpdateWorkflowRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateCreateWorkflow200ResponseNERM>> => {
     const workflowsnermapi = new sdk.WorkflowsNERMApi(apiConfig);
     return handleApiCall(() => workflowsnermapi.createUpdateWorkflow(requestParameters));
   },
-
+  createUploadedConfigurationV1: (requestParameters: configurationHubTypes.ConfigurationHubApiCreateUploadedConfigurationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<configurationHubTypes.BackupResponse>> => {
+    const configurationhubapi = new sdk.ConfigurationHubApi(apiConfig);
+    return handleApiCall(() => configurationhubapi.createUploadedConfigurationV1(requestParameters));
+  },
+  createUsernamePasswordActionNerm: (requestParameters: sdk.WorkflowActionsNERMApiCreateUsernamePasswordActionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateApprovalAction200ResponseNERM>> => {
+    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowactionsnermapi.createUsernamePasswordAction(requestParameters));
+  },
+  createUserProfilesNerm: (requestParameters: sdk.UserProfilesNERMApiCreateUserProfilesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateUserProfiles200ResponseNERM>> => {
+    const userprofilesnermapi = new sdk.UserProfilesNERMApi(apiConfig);
+    return handleApiCall(() => userprofilesnermapi.createUserProfiles(requestParameters));
+  },
+  createVerifiedFromAddressV1: (requestParameters: notificationsTypes.NotificationsApiCreateVerifiedFromAddressV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<notificationsTypes.EmailStatusDto>> => {
+    const notificationsapi = new sdk.NotificationsApi(apiConfig);
+    return handleApiCall(() => notificationsapi.createVerifiedFromAddressV1(requestParameters));
+  },
+  createWorkflowActionPerformerNerm: (requestParameters: sdk.WorkflowActionPerformerNERMApiCreateWorkflowActionPerformerRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateWorkflowActionPerformer200ResponseNERM>> => {
+    const workflowactionperformernermapi = new sdk.WorkflowActionPerformerNERMApi(apiConfig);
+    return handleApiCall(() => workflowactionperformernermapi.createWorkflowActionPerformer(requestParameters));
+  },
+  createWorkflowExternalTriggerV1: (requestParameters: workflowsTypes.WorkflowsApiCreateWorkflowExternalTriggerV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<workflowsTypes.WorkflowOAuthClient>> => {
+    const workflowsapi = new sdk.WorkflowsApi(apiConfig);
+    return handleApiCall(() => workflowsapi.createWorkflowExternalTriggerV1(requestParameters));
+  },
+  createWorkflowPageNerm: (requestParameters: sdk.PagesNERMApiCreateWorkflowPageRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateProfilePage200ResponseNERM>> => {
+    const pagesnermapi = new sdk.PagesNERMApi(apiConfig);
+    return handleApiCall(() => pagesnermapi.createWorkflowPage(requestParameters));
+  },
+  createWorkflowV1: (requestParameters: workflowsTypes.WorkflowsApiCreateWorkflowV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<workflowsTypes.Workflow>> => {
+    const workflowsapi = new sdk.WorkflowsApi(apiConfig);
+    return handleApiCall(() => workflowsapi.createWorkflowV1(requestParameters));
+  },
+  createWorkgroupV1: (requestParameters: governanceGroupsTypes.GovernanceGroupsApiCreateWorkgroupV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<governanceGroupsTypes.WorkgroupDto>> => {
+    const governancegroupsapi = new sdk.GovernanceGroupsApi(apiConfig);
+    return handleApiCall(() => governancegroupsapi.createWorkgroupV1(requestParameters));
+  },
+  dasV1OwnersAssignPost: (requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiDasV1OwnersAssignPostRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<number>> => {
+    const dataaccesssecurityapi = new sdk.DataAccessSecurityApi(apiConfig);
+    return handleApiCall(() => dataaccesssecurityapi.dasV1OwnersAssignPost(requestParameters));
+  },
+  dasV1OwnersOwnerIdentityIdResourcesGet: (requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiDasV1OwnersOwnerIdentityIdResourcesGetRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<dataAccessSecurityTypes.ResourceModel>>> => {
+    const dataaccesssecurityapi = new sdk.DataAccessSecurityApi(apiConfig);
+    return handleApiCall(() => dataaccesssecurityapi.dasV1OwnersOwnerIdentityIdResourcesGet(requestParameters));
+  },
+  dasV1OwnersReelectPost: (requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiDasV1OwnersReelectPostRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<number>> => {
+    const dataaccesssecurityapi = new sdk.DataAccessSecurityApi(apiConfig);
+    return handleApiCall(() => dataaccesssecurityapi.dasV1OwnersReelectPost(requestParameters));
+  },
+  dasV1OwnersResourcesResourceIdGet: (requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiDasV1OwnersResourcesResourceIdGetRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<string>>> => {
+    const dataaccesssecurityapi = new sdk.DataAccessSecurityApi(apiConfig);
+    return handleApiCall(() => dataaccesssecurityapi.dasV1OwnersResourcesResourceIdGet(requestParameters));
+  },
+  dasV1OwnersSourceIdentityIdReassignDestinationIdentityIdPost: (requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiDasV1OwnersSourceIdentityIdReassignDestinationIdentityIdPostRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<number>> => {
+    const dataaccesssecurityapi = new sdk.DataAccessSecurityApi(apiConfig);
+    return handleApiCall(() => dataaccesssecurityapi.dasV1OwnersSourceIdentityIdReassignDestinationIdentityIdPost(requestParameters));
+  },
+  delegationsGetNerm: (requestParameters: sdk.DelegationsNERMApiDelegationsGetRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DelegationsGet200ResponseNERM>> => {
+    const delegationsnermapi = new sdk.DelegationsNERMApi(apiConfig);
+    return handleApiCall(() => delegationsnermapi.delegationsGet(requestParameters));
+  },
+  delegationsGetNermV2025: (requestParameters: sdk.DelegationsNERMV2025ApiDelegationsGetRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DelegationsGet200ResponseNERMV2025>> => {
+    const delegationsnermv2025api = new sdk.DelegationsNERMV2025Api(apiConfig);
+    return handleApiCall(() => delegationsnermv2025api.delegationsGet(requestParameters));
+  },
+  delegationsIdDeleteNerm: (requestParameters: sdk.DelegationsNERMApiDelegationsIdDeleteRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const delegationsnermapi = new sdk.DelegationsNERMApi(apiConfig);
+    return handleApiCall(() => delegationsnermapi.delegationsIdDelete(requestParameters));
+  },
+  delegationsIdDeleteNermV2025: (requestParameters: sdk.DelegationsNERMV2025ApiDelegationsIdDeleteRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const delegationsnermv2025api = new sdk.DelegationsNERMV2025Api(apiConfig);
+    return handleApiCall(() => delegationsnermv2025api.delegationsIdDelete(requestParameters));
+  },
+  delegationsIdGetNerm: (requestParameters: sdk.DelegationsNERMApiDelegationsIdGetRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DelegationsPost201ResponseNERM>> => {
+    const delegationsnermapi = new sdk.DelegationsNERMApi(apiConfig);
+    return handleApiCall(() => delegationsnermapi.delegationsIdGet(requestParameters));
+  },
+  delegationsIdGetNermV2025: (requestParameters: sdk.DelegationsNERMV2025ApiDelegationsIdGetRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DelegationsPost201ResponseNERMV2025>> => {
+    const delegationsnermv2025api = new sdk.DelegationsNERMV2025Api(apiConfig);
+    return handleApiCall(() => delegationsnermv2025api.delegationsIdGet(requestParameters));
+  },
+  delegationsIdPatchNerm: (requestParameters: sdk.DelegationsNERMApiDelegationsIdPatchRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DelegationsPost201ResponseNERM>> => {
+    const delegationsnermapi = new sdk.DelegationsNERMApi(apiConfig);
+    return handleApiCall(() => delegationsnermapi.delegationsIdPatch(requestParameters));
+  },
+  delegationsIdPatchNermV2025: (requestParameters: sdk.DelegationsNERMV2025ApiDelegationsIdPatchRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DelegationsPost201ResponseNERMV2025>> => {
+    const delegationsnermv2025api = new sdk.DelegationsNERMV2025Api(apiConfig);
+    return handleApiCall(() => delegationsnermv2025api.delegationsIdPatch(requestParameters));
+  },
+  delegationsPostNerm: (requestParameters: sdk.DelegationsNERMApiDelegationsPostRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DelegationsPost201ResponseNERM>> => {
+    const delegationsnermapi = new sdk.DelegationsNERMApi(apiConfig);
+    return handleApiCall(() => delegationsnermapi.delegationsPost(requestParameters));
+  },
+  delegationsPostNermV2025: (requestParameters: sdk.DelegationsNERMV2025ApiDelegationsPostRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DelegationsPost201ResponseNERMV2025>> => {
+    const delegationsnermv2025api = new sdk.DelegationsNERMV2025Api(apiConfig);
+    return handleApiCall(() => delegationsnermv2025api.delegationsPost(requestParameters));
+  },
+  deleteAccessModelMetadataFromEntitlementV1: (requestParameters: entitlementsTypes.EntitlementsApiDeleteAccessModelMetadataFromEntitlementV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const entitlementsapi = new sdk.EntitlementsApi(apiConfig);
+    return handleApiCall(() => entitlementsapi.deleteAccessModelMetadataFromEntitlementV1(requestParameters));
+  },
+  deleteAccessProfilesFromSourceAppByBulkV1: (requestParameters: appsTypes.AppsApiDeleteAccessProfilesFromSourceAppByBulkV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<appsTypes.AccessProfileDetails>>> => {
+    const appsapi = new sdk.AppsApi(apiConfig);
+    return handleApiCall(() => appsapi.deleteAccessProfilesFromSourceAppByBulkV1(requestParameters));
+  },
+  deleteAccessProfilesInBulkV1: (requestParameters: accessProfilesTypes.AccessProfilesApiDeleteAccessProfilesInBulkV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accessProfilesTypes.AccessProfileBulkDeleteResponse>> => {
+    const accessprofilesapi = new sdk.AccessProfilesApi(apiConfig);
+    return handleApiCall(() => accessprofilesapi.deleteAccessProfilesInBulkV1(requestParameters));
+  },
+  deleteAccessProfileV1: (requestParameters: accessProfilesTypes.AccessProfilesApiDeleteAccessProfileV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const accessprofilesapi = new sdk.AccessProfilesApi(apiConfig);
+    return handleApiCall(() => accessprofilesapi.deleteAccessProfileV1(requestParameters));
+  },
+  deleteAccountAsyncV1: (requestParameters: accountsTypes.AccountsApiDeleteAccountAsyncV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accountsTypes.TaskResultDto>> => {
+    const accountsapi = new sdk.AccountsApi(apiConfig);
+    return handleApiCall(() => accountsapi.deleteAccountAsyncV1(requestParameters));
+  },
+  deleteAccountRequestV1: (requestParameters: accountDeletionRequestsTypes.AccountDeletionRequestsApiDeleteAccountRequestV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accountDeletionRequestsTypes.AccountRequestAsyncResult>> => {
+    const accountdeletionrequestsapi = new sdk.AccountDeletionRequestsApi(apiConfig);
+    return handleApiCall(() => accountdeletionrequestsapi.deleteAccountRequestV1(requestParameters));
+  },
+  deleteAccountsAsyncV1: (requestParameters: sourcesTypes.SourcesApiDeleteAccountsAsyncV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.TaskResultDto>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.deleteAccountsAsyncV1(requestParameters));
+  },
+  deleteAccountV1: (requestParameters: accountsTypes.AccountsApiDeleteAccountV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accountsTypes.AccountsAsyncResult>> => {
+    const accountsapi = new sdk.AccountsApi(apiConfig);
+    return handleApiCall(() => accountsapi.deleteAccountV1(requestParameters));
+  },
+  deleteApplicationV1: (requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiDeleteApplicationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const dataaccesssecurityapi = new sdk.DataAccessSecurityApi(apiConfig);
+    return handleApiCall(() => dataaccesssecurityapi.deleteApplicationV1(requestParameters));
+  },
+  deleteApprovalConfigRequestV1: (requestParameters: approvalsTypes.ApprovalsApiDeleteApprovalConfigRequestV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const approvalsapi = new sdk.ApprovalsApi(apiConfig);
+    return handleApiCall(() => approvalsapi.deleteApprovalConfigRequestV1(requestParameters));
+  },
+  deleteAttributeByIdNerm: (requestParameters: sdk.AttributesNERMApiDeleteAttributeByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateAttribute201ResponseNERM>> => {
+    const attributesnermapi = new sdk.AttributesNERMApi(apiConfig);
+    return handleApiCall(() => attributesnermapi.deleteAttributeById(requestParameters));
+  },
+  deleteAttributeByUidNerm: (requestParameters: sdk.AttributesNERMApiDeleteAttributeByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateAttribute201ResponseNERM>> => {
+    const attributesnermapi = new sdk.AttributesNERMApi(apiConfig);
+    return handleApiCall(() => attributesnermapi.deleteAttributeByUid(requestParameters));
+  },
+  deleteAttributeOptionByIdNerm: (requestParameters: sdk.AttributeOptionsNERMApiDeleteAttributeOptionByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DeleteAttributeOptionById200ResponseNERM>> => {
+    const attributeoptionsnermapi = new sdk.AttributeOptionsNERMApi(apiConfig);
+    return handleApiCall(() => attributeoptionsnermapi.deleteAttributeOptionById(requestParameters));
+  },
+  deleteAttributeOptionByUidNerm: (requestParameters: sdk.AttributeOptionsNERMApiDeleteAttributeOptionByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DeleteAttributeOptionById200ResponseNERM>> => {
+    const attributeoptionsnermapi = new sdk.AttributeOptionsNERMApi(apiConfig);
+    return handleApiCall(() => attributeoptionsnermapi.deleteAttributeOptionByUid(requestParameters));
+  },
+  deleteBackupV1: (requestParameters: configurationHubTypes.ConfigurationHubApiDeleteBackupV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const configurationhubapi = new sdk.ConfigurationHubApi(apiConfig);
+    return handleApiCall(() => configurationhubapi.deleteBackupV1(requestParameters));
+  },
+  deleteBrandingV1: (requestParameters: brandingTypes.BrandingApiDeleteBrandingV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const brandingapi = new sdk.BrandingApi(apiConfig);
+    return handleApiCall(() => brandingapi.deleteBrandingV1(requestParameters));
+  },
+  deleteBulkDimensionsV1: (requestParameters: dimensionsTypes.DimensionsApiDeleteBulkDimensionsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<dimensionsTypes.TaskResultDto>> => {
+    const dimensionsapi = new sdk.DimensionsApi(apiConfig);
+    return handleApiCall(() => dimensionsapi.deleteBulkDimensionsV1(requestParameters));
+  },
+  deleteBulkRolesV1: (requestParameters: rolesTypes.RolesApiDeleteBulkRolesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<rolesTypes.TaskResultDto>> => {
+    const rolesapi = new sdk.RolesApi(apiConfig);
+    return handleApiCall(() => rolesapi.deleteBulkRolesV1(requestParameters));
+  },
+  deleteCampaignFiltersV1: (requestParameters: certificationCampaignFiltersTypes.CertificationCampaignFiltersApiDeleteCampaignFiltersV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const certificationcampaignfiltersapi = new sdk.CertificationCampaignFiltersApi(apiConfig);
+    return handleApiCall(() => certificationcampaignfiltersapi.deleteCampaignFiltersV1(requestParameters));
+  },
+  deleteCampaignsV1: (requestParameters: certificationCampaignsTypes.CertificationCampaignsApiDeleteCampaignsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const certificationcampaignsapi = new sdk.CertificationCampaignsApi(apiConfig);
+    return handleApiCall(() => certificationcampaignsapi.deleteCampaignsV1(requestParameters));
+  },
+  deleteCampaignTemplateScheduleV1: (requestParameters: certificationCampaignsTypes.CertificationCampaignsApiDeleteCampaignTemplateScheduleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const certificationcampaignsapi = new sdk.CertificationCampaignsApi(apiConfig);
+    return handleApiCall(() => certificationcampaignsapi.deleteCampaignTemplateScheduleV1(requestParameters));
+  },
+  deleteCampaignTemplateV1: (requestParameters: certificationCampaignsTypes.CertificationCampaignsApiDeleteCampaignTemplateV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const certificationcampaignsapi = new sdk.CertificationCampaignsApi(apiConfig);
+    return handleApiCall(() => certificationcampaignsapi.deleteCampaignTemplateV1(requestParameters));
+  },
+  deleteClassifyMachineAccountFromSourceV1: (requestParameters: classifySourceTypes.ClassifySourceApiDeleteClassifyMachineAccountFromSourceV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const classifysourceapi = new sdk.ClassifySourceApi(apiConfig);
+    return handleApiCall(() => classifysourceapi.deleteClassifyMachineAccountFromSourceV1(requestParameters));
+  },
+  deleteConnectorCustomizerV1: (requestParameters: connectorCustomizersTypes.ConnectorCustomizersApiDeleteConnectorCustomizerV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const connectorcustomizersapi = new sdk.ConnectorCustomizersApi(apiConfig);
+    return handleApiCall(() => connectorcustomizersapi.deleteConnectorCustomizerV1(requestParameters));
+  },
+  deleteConnectorRuleV1: (requestParameters: connectorRuleManagementTypes.ConnectorRuleManagementApiDeleteConnectorRuleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const connectorrulemanagementapi = new sdk.ConnectorRuleManagementApi(apiConfig);
+    return handleApiCall(() => connectorrulemanagementapi.deleteConnectorRuleV1(requestParameters));
+  },
+  deleteCustomConnectorV1: (requestParameters: connectorsTypes.ConnectorsApiDeleteCustomConnectorV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const connectorsapi = new sdk.ConnectorsApi(apiConfig);
+    return handleApiCall(() => connectorsapi.deleteCustomConnectorV1(requestParameters));
+  },
+  deleteCustomPasswordInstructionsV1: (requestParameters: customPasswordInstructionsTypes.CustomPasswordInstructionsApiDeleteCustomPasswordInstructionsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const custompasswordinstructionsapi = new sdk.CustomPasswordInstructionsApi(apiConfig);
+    return handleApiCall(() => custompasswordinstructionsapi.deleteCustomPasswordInstructionsV1(requestParameters));
+  },
+  deleteCustomPrivilegeCriteriaV1: (requestParameters: privilegeCriteriaTypes.PrivilegeCriteriaApiDeleteCustomPrivilegeCriteriaV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const privilegecriteriaapi = new sdk.PrivilegeCriteriaApi(apiConfig);
+    return handleApiCall(() => privilegecriteriaapi.deleteCustomPrivilegeCriteriaV1(requestParameters));
+  },
+  deleteDataSegmentV1: (requestParameters: dataSegmentationTypes.DataSegmentationApiDeleteDataSegmentV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const datasegmentationapi = new sdk.DataSegmentationApi(apiConfig);
+    return handleApiCall(() => datasegmentationapi.deleteDataSegmentV1(requestParameters));
+  },
+  deleteDimensionV1: (requestParameters: dimensionsTypes.DimensionsApiDeleteDimensionV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const dimensionsapi = new sdk.DimensionsApi(apiConfig);
+    return handleApiCall(() => dimensionsapi.deleteDimensionV1(requestParameters));
+  },
+  deleteDraftV1: (requestParameters: configurationHubTypes.ConfigurationHubApiDeleteDraftV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const configurationhubapi = new sdk.ConfigurationHubApi(apiConfig);
+    return handleApiCall(() => configurationhubapi.deleteDraftV1(requestParameters));
+  },
+  deleteFormAttributeByIdNerm: (requestParameters: sdk.FormAttributesNERMApiDeleteFormAttributeByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetFormAttributes200ResponseNERM>> => {
+    const formattributesnermapi = new sdk.FormAttributesNERMApi(apiConfig);
+    return handleApiCall(() => formattributesnermapi.deleteFormAttributeById(requestParameters));
+  },
+  deleteFormAttributeByUidNerm: (requestParameters: sdk.FormAttributesNERMApiDeleteFormAttributeByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetFormAttributes200ResponseNERM>> => {
+    const formattributesnermapi = new sdk.FormAttributesNERMApi(apiConfig);
+    return handleApiCall(() => formattributesnermapi.deleteFormAttributeByUid(requestParameters));
+  },
+  deleteFormByIdNerm: (requestParameters: sdk.FormsNERMApiDeleteFormByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateAttribute201ResponseNERM>> => {
+    const formsnermapi = new sdk.FormsNERMApi(apiConfig);
+    return handleApiCall(() => formsnermapi.deleteFormById(requestParameters));
+  },
+  deleteFormByUidNerm: (requestParameters: sdk.FormsNERMApiDeleteFormByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateAttribute201ResponseNERM>> => {
+    const formsnermapi = new sdk.FormsNERMApi(apiConfig);
+    return handleApiCall(() => formsnermapi.deleteFormByUid(requestParameters));
+  },
+  deleteFormDefinitionV1: (requestParameters: customFormsTypes.CustomFormsApiDeleteFormDefinitionV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const customformsapi = new sdk.CustomFormsApi(apiConfig);
+    return handleApiCall(() => customformsapi.deleteFormDefinitionV1(requestParameters));
+  },
+  deleteIconV1: (requestParameters: iconsTypes.IconsApiDeleteIconV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const iconsapi = new sdk.IconsApi(apiConfig);
+    return handleApiCall(() => iconsapi.deleteIconV1(requestParameters));
+  },
+  deleteIdentityAttributesInBulkV1: (requestParameters: identityAttributesTypes.IdentityAttributesApiDeleteIdentityAttributesInBulkV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const identityattributesapi = new sdk.IdentityAttributesApi(apiConfig);
+    return handleApiCall(() => identityattributesapi.deleteIdentityAttributesInBulkV1(requestParameters));
+  },
+  deleteIdentityAttributeV1: (requestParameters: identityAttributesTypes.IdentityAttributesApiDeleteIdentityAttributeV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const identityattributesapi = new sdk.IdentityAttributesApi(apiConfig);
+    return handleApiCall(() => identityattributesapi.deleteIdentityAttributeV1(requestParameters));
+  },
+  deleteIdentityCollectorV1: (requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiDeleteIdentityCollectorV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const dataaccesssecurityapi = new sdk.DataAccessSecurityApi(apiConfig);
+    return handleApiCall(() => dataaccesssecurityapi.deleteIdentityCollectorV1(requestParameters));
+  },
+  deleteIdentityProfilesV1: (requestParameters: identityProfilesTypes.IdentityProfilesApiDeleteIdentityProfilesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<identityProfilesTypes.TaskResultSimplified>> => {
+    const identityprofilesapi = new sdk.IdentityProfilesApi(apiConfig);
+    return handleApiCall(() => identityprofilesapi.deleteIdentityProfilesV1(requestParameters));
+  },
+  deleteIdentityProfileV1: (requestParameters: identityProfilesTypes.IdentityProfilesApiDeleteIdentityProfileV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<identityProfilesTypes.TaskResultSimplified>> => {
+    const identityprofilesapi = new sdk.IdentityProfilesApi(apiConfig);
+    return handleApiCall(() => identityprofilesapi.deleteIdentityProfileV1(requestParameters));
+  },
+  deleteIdentityV1: (requestParameters: identitiesTypes.IdentitiesApiDeleteIdentityV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const identitiesapi = new sdk.IdentitiesApi(apiConfig);
+    return handleApiCall(() => identitiesapi.deleteIdentityV1(requestParameters));
+  },
+  deleteLauncherV1: (requestParameters: launchersTypes.LaunchersApiDeleteLauncherV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const launchersapi = new sdk.LaunchersApi(apiConfig);
+    return handleApiCall(() => launchersapi.deleteLauncherV1(requestParameters));
+  },
+  deleteLifecycleStateV1: (requestParameters: lifecycleStatesTypes.LifecycleStatesApiDeleteLifecycleStateV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<lifecycleStatesTypes.LifecyclestateDeleted>> => {
+    const lifecyclestatesapi = new sdk.LifecycleStatesApi(apiConfig);
+    return handleApiCall(() => lifecyclestatesapi.deleteLifecycleStateV1(requestParameters));
+  },
+  deleteMachineAccountMappingsV1: (requestParameters: machineAccountMappingsTypes.MachineAccountMappingsApiDeleteMachineAccountMappingsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const machineaccountmappingsapi = new sdk.MachineAccountMappingsApi(apiConfig);
+    return handleApiCall(() => machineaccountmappingsapi.deleteMachineAccountMappingsV1(requestParameters));
+  },
+  deleteMachineAccountSubtypeByTechnicalNameV1: (requestParameters: machineAccountsTypes.MachineAccountsApiDeleteMachineAccountSubtypeByTechnicalNameV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const machineaccountsapi = new sdk.MachineAccountsApi(apiConfig);
+    return handleApiCall(() => machineaccountsapi.deleteMachineAccountSubtypeByTechnicalNameV1(requestParameters));
+  },
+  deleteMachineAccountSubtypeV1: (requestParameters: machineAccountSubtypesTypes.MachineAccountSubtypesApiDeleteMachineAccountSubtypeV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const machineaccountsubtypesapi = new sdk.MachineAccountSubtypesApi(apiConfig);
+    return handleApiCall(() => machineaccountsubtypesapi.deleteMachineAccountSubtypeV1(requestParameters));
+  },
+  deleteMachineClassificationConfigV1: (requestParameters: machineClassificationConfigTypes.MachineClassificationConfigApiDeleteMachineClassificationConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const machineclassificationconfigapi = new sdk.MachineClassificationConfigApi(apiConfig);
+    return handleApiCall(() => machineclassificationconfigapi.deleteMachineClassificationConfigV1(requestParameters));
+  },
+  deleteMachineIdentityV1: (requestParameters: machineIdentitiesTypes.MachineIdentitiesApiDeleteMachineIdentityV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const machineidentitiesapi = new sdk.MachineIdentitiesApi(apiConfig);
+    return handleApiCall(() => machineidentitiesapi.deleteMachineIdentityV1(requestParameters));
+  },
+  deleteMachineIdentityV2: (requestParameters: machineIdentitiesTypes.MachineIdentitiesApiDeleteMachineIdentityV2Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const machineidentitiesapi = new sdk.MachineIdentitiesApi(apiConfig);
+    return handleApiCall(() => machineidentitiesapi.deleteMachineIdentityV2(requestParameters));
+  },
+  deleteManagedClientV1: (requestParameters: managedClientsTypes.ManagedClientsApiDeleteManagedClientV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const managedclientsapi = new sdk.ManagedClientsApi(apiConfig);
+    return handleApiCall(() => managedclientsapi.deleteManagedClientV1(requestParameters));
+  },
+  deleteManagedClusterTypeV1: (requestParameters: managedClusterTypesTypes.ManagedClusterTypesApiDeleteManagedClusterTypeV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const managedclustertypesapi = new sdk.ManagedClusterTypesApi(apiConfig);
+    return handleApiCall(() => managedclustertypesapi.deleteManagedClusterTypeV1(requestParameters));
+  },
+  deleteManagedClusterV1: (requestParameters: managedClustersTypes.ManagedClustersApiDeleteManagedClusterV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const managedclustersapi = new sdk.ManagedClustersApi(apiConfig);
+    return handleApiCall(() => managedclustersapi.deleteManagedClusterV1(requestParameters));
+  },
+  deleteMasterRecordNerm: (requestParameters: sdk.ConsolidationNERMApiDeleteMasterRecordRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const consolidationnermapi = new sdk.ConsolidationNERMApi(apiConfig);
+    return handleApiCall(() => consolidationnermapi.deleteMasterRecord(requestParameters));
+  },
+  deleteMetadataFromRoleByKeyAndValueV1: (requestParameters: rolesTypes.RolesApiDeleteMetadataFromRoleByKeyAndValueV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const rolesapi = new sdk.RolesApi(apiConfig);
+    return handleApiCall(() => rolesapi.deleteMetadataFromRoleByKeyAndValueV1(requestParameters));
+  },
+  deleteMultiHostSourcesV1: (requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiDeleteMultiHostSourcesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const multihostintegrationapi = new sdk.MultiHostIntegrationApi(apiConfig);
+    return handleApiCall(() => multihostintegrationapi.deleteMultiHostSourcesV1(requestParameters));
+  },
+  deleteMultiHostV1: (requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiDeleteMultiHostV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const multihostintegrationapi = new sdk.MultiHostIntegrationApi(apiConfig);
+    return handleApiCall(() => multihostintegrationapi.deleteMultiHostV1(requestParameters));
+  },
+  deleteNativeChangeDetectionConfigV1: (requestParameters: sourcesTypes.SourcesApiDeleteNativeChangeDetectionConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.deleteNativeChangeDetectionConfigV1(requestParameters));
+  },
+  deleteNonEmployeeRecordsInBulkV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiDeleteNonEmployeeRecordsInBulkV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.deleteNonEmployeeRecordsInBulkV1(requestParameters));
+  },
+  deleteNonEmployeeRecordV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiDeleteNonEmployeeRecordV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.deleteNonEmployeeRecordV1(requestParameters));
+  },
+  deleteNonEmployeeRequestV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiDeleteNonEmployeeRequestV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.deleteNonEmployeeRequestV1(requestParameters));
+  },
+  deleteNonEmployeeSchemaAttributeV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiDeleteNonEmployeeSchemaAttributeV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.deleteNonEmployeeSchemaAttributeV1(requestParameters));
+  },
+  deleteNonEmployeeSourceSchemaAttributesV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiDeleteNonEmployeeSourceSchemaAttributesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.deleteNonEmployeeSourceSchemaAttributesV1(requestParameters));
+  },
+  deleteNonEmployeeSourceV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiDeleteNonEmployeeSourceV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.deleteNonEmployeeSourceV1(requestParameters));
+  },
+  deleteNotificationTemplatesInBulkV1: (requestParameters: notificationsTypes.NotificationsApiDeleteNotificationTemplatesInBulkV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const notificationsapi = new sdk.NotificationsApi(apiConfig);
+    return handleApiCall(() => notificationsapi.deleteNotificationTemplatesInBulkV1(requestParameters));
+  },
+  deleteOauthClientV1: (requestParameters: oauthClientsTypes.OAuthClientsApiDeleteOauthClientV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const oauthclientsapi = new sdk.OAuthClientsApi(apiConfig);
+    return handleApiCall(() => oauthclientsapi.deleteOauthClientV1(requestParameters));
+  },
+  deleteObjectMappingV1: (requestParameters: configurationHubTypes.ConfigurationHubApiDeleteObjectMappingV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const configurationhubapi = new sdk.ConfigurationHubApi(apiConfig);
+    return handleApiCall(() => configurationhubapi.deleteObjectMappingV1(requestParameters));
+  },
+  deleteOwnershipCorrelationConfigV1: (requestParameters: machineIdentitiesTypes.MachineIdentitiesApiDeleteOwnershipCorrelationConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const machineidentitiesapi = new sdk.MachineIdentitiesApi(apiConfig);
+    return handleApiCall(() => machineidentitiesapi.deleteOwnershipCorrelationConfigV1(requestParameters));
+  },
+  deletePageContentByIdNerm: (requestParameters: sdk.PageContentsNERMApiDeletePageContentByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContents200ResponseNERM>> => {
+    const pagecontentsnermapi = new sdk.PageContentsNERMApi(apiConfig);
+    return handleApiCall(() => pagecontentsnermapi.deletePageContentById(requestParameters));
+  },
+  deletePageContentByUidNerm: (requestParameters: sdk.PageContentsNERMApiDeletePageContentByUidRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContents200ResponseNERM>> => {
+    const pagecontentsnermapi = new sdk.PageContentsNERMApi(apiConfig);
+    return handleApiCall(() => pagecontentsnermapi.deletePageContentByUid(requestParameters));
+  },
+  deletePageContentTranslationByIdNerm: (requestParameters: sdk.PageContentTranslationsNERMApiDeletePageContentTranslationByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContentTranslation200ResponseNERM>> => {
+    const pagecontenttranslationsnermapi = new sdk.PageContentTranslationsNERMApi(apiConfig);
+    return handleApiCall(() => pagecontenttranslationsnermapi.deletePageContentTranslationById(requestParameters));
+  },
+  deletePageContentTranslationByUidNerm: (requestParameters: sdk.PageContentTranslationsNERMApiDeletePageContentTranslationByUidRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContentTranslation200ResponseNERM>> => {
+    const pagecontenttranslationsnermapi = new sdk.PageContentTranslationsNERMApi(apiConfig);
+    return handleApiCall(() => pagecontenttranslationsnermapi.deletePageContentTranslationByUid(requestParameters));
+  },
+  deletePageElementByIdNerm: (requestParameters: sdk.PageElementsNERMApiDeletePageElementByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageElements200ResponseNERM>> => {
+    const pageelementsnermapi = new sdk.PageElementsNERMApi(apiConfig);
+    return handleApiCall(() => pageelementsnermapi.deletePageElementById(requestParameters));
+  },
+  deletePageElementByUidNerm: (requestParameters: sdk.PageElementsNERMApiDeletePageElementByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageElements200ResponseNERM>> => {
+    const pageelementsnermapi = new sdk.PageElementsNERMApi(apiConfig);
+    return handleApiCall(() => pageelementsnermapi.deletePageElementByUid(requestParameters));
+  },
+  deleteParameterV1: (requestParameters: parameterStorageTypes.ParameterStorageApiDeleteParameterV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const parameterstorageapi = new sdk.ParameterStorageApi(apiConfig);
+    return handleApiCall(() => parameterstorageapi.deleteParameterV1(requestParameters));
+  },
+  deletePasswordPolicyV1: (requestParameters: passwordPoliciesTypes.PasswordPoliciesApiDeletePasswordPolicyV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const passwordpoliciesapi = new sdk.PasswordPoliciesApi(apiConfig);
+    return handleApiCall(() => passwordpoliciesapi.deletePasswordPolicyV1(requestParameters));
+  },
+  deletePasswordSyncGroupV1: (requestParameters: passwordSyncGroupsTypes.PasswordSyncGroupsApiDeletePasswordSyncGroupV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const passwordsyncgroupsapi = new sdk.PasswordSyncGroupsApi(apiConfig);
+    return handleApiCall(() => passwordsyncgroupsapi.deletePasswordSyncGroupV1(requestParameters));
+  },
+  deletePersonalAccessTokenV1: (requestParameters: personalAccessTokensTypes.PersonalAccessTokensApiDeletePersonalAccessTokenV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const personalaccesstokensapi = new sdk.PersonalAccessTokensApi(apiConfig);
+    return handleApiCall(() => personalaccesstokensapi.deletePersonalAccessTokenV1(requestParameters));
+  },
+  deleteProfileByIdNerm: (requestParameters: sdk.ProfilesNERMApiDeleteProfileByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const profilesnermapi = new sdk.ProfilesNERMApi(apiConfig);
+    return handleApiCall(() => profilesnermapi.deleteProfileById(requestParameters));
+  },
+  deleteProfilesNerm: (requestParameters: sdk.ProfilesNERMApiDeleteProfilesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DeleteProfiles200ResponseNERM>> => {
+    const profilesnermapi = new sdk.ProfilesNERMApi(apiConfig);
+    return handleApiCall(() => profilesnermapi.deleteProfiles(requestParameters));
+  },
+  deleteProfileTypeByIdNerm: (requestParameters: sdk.ProfileTypesNERMApiDeleteProfileTypeByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DeleteProfileTypeById200ResponseNERM>> => {
+    const profiletypesnermapi = new sdk.ProfileTypesNERMApi(apiConfig);
+    return handleApiCall(() => profiletypesnermapi.deleteProfileTypeById(requestParameters));
+  },
+  deleteProfileTypeByUidNerm: (requestParameters: sdk.ProfileTypesNERMApiDeleteProfileTypeByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DeleteProfileTypeById200ResponseNERM>> => {
+    const profiletypesnermapi = new sdk.ProfileTypesNERMApi(apiConfig);
+    return handleApiCall(() => profiletypesnermapi.deleteProfileTypeByUid(requestParameters));
+  },
+  deleteProvisioningPolicyV1: (requestParameters: sourcesTypes.SourcesApiDeleteProvisioningPolicyV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.deleteProvisioningPolicyV1(requestParameters));
+  },
+  deleteProvisioningPolicyV2: (requestParameters: sourcesTypes.SourcesApiDeleteProvisioningPolicyV2Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.deleteProvisioningPolicyV2(requestParameters));
+  },
+  deleteReassignmentConfigurationV1: (requestParameters: workReassignmentTypes.WorkReassignmentApiDeleteReassignmentConfigurationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const workreassignmentapi = new sdk.WorkReassignmentApi(apiConfig);
+    return handleApiCall(() => workreassignmentapi.deleteReassignmentConfigurationV1(requestParameters));
+  },
+  deleteRoleProfileNerm: (requestParameters: sdk.RoleProfilesNERMApiDeleteRoleProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const roleprofilesnermapi = new sdk.RoleProfilesNERMApi(apiConfig);
+    return handleApiCall(() => roleprofilesnermapi.deleteRoleProfile(requestParameters));
+  },
+  deleteRoleV1: (requestParameters: rolesTypes.RolesApiDeleteRoleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const rolesapi = new sdk.RolesApi(apiConfig);
+    return handleApiCall(() => rolesapi.deleteRoleV1(requestParameters));
+  },
+  deleteSavedSearchV1: (requestParameters: savedSearchTypes.SavedSearchApiDeleteSavedSearchV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const savedsearchapi = new sdk.SavedSearchApi(apiConfig);
+    return handleApiCall(() => savedsearchapi.deleteSavedSearchV1(requestParameters));
+  },
+  deleteScheduledActionV1: (requestParameters: configurationHubTypes.ConfigurationHubApiDeleteScheduledActionV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const configurationhubapi = new sdk.ConfigurationHubApi(apiConfig);
+    return handleApiCall(() => configurationhubapi.deleteScheduledActionV1(requestParameters));
+  },
+  deleteScheduledSearchV1: (requestParameters: scheduledSearchTypes.ScheduledSearchApiDeleteScheduledSearchV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const scheduledsearchapi = new sdk.ScheduledSearchApi(apiConfig);
+    return handleApiCall(() => scheduledsearchapi.deleteScheduledSearchV1(requestParameters));
+  },
+  deleteScheduleV1: (requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiDeleteScheduleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const dataaccesssecurityapi = new sdk.DataAccessSecurityApi(apiConfig);
+    return handleApiCall(() => dataaccesssecurityapi.deleteScheduleV1(requestParameters));
+  },
+  deleteSearchAttributeConfigV1: (requestParameters: searchAttributeConfigurationTypes.SearchAttributeConfigurationApiDeleteSearchAttributeConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const searchattributeconfigurationapi = new sdk.SearchAttributeConfigurationApi(apiConfig);
+    return handleApiCall(() => searchattributeconfigurationapi.deleteSearchAttributeConfigV1(requestParameters));
+  },
+  deleteSegmentV1: (requestParameters: segmentsTypes.SegmentsApiDeleteSegmentV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const segmentsapi = new sdk.SegmentsApi(apiConfig);
+    return handleApiCall(() => segmentsapi.deleteSegmentV1(requestParameters));
+  },
+  deleteServiceDeskIntegrationV1: (requestParameters: serviceDeskIntegrationTypes.ServiceDeskIntegrationApiDeleteServiceDeskIntegrationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const servicedeskintegrationapi = new sdk.ServiceDeskIntegrationApi(apiConfig);
+    return handleApiCall(() => servicedeskintegrationapi.deleteServiceDeskIntegrationV1(requestParameters));
+  },
+  deleteSIMIntegrationV1: (requestParameters: simIntegrationsTypes.SIMIntegrationsApiDeleteSIMIntegrationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const simintegrationsapi = new sdk.SIMIntegrationsApi(apiConfig);
+    return handleApiCall(() => simintegrationsapi.deleteSIMIntegrationV1(requestParameters));
+  },
+  deleteSodPolicyScheduleV1: (requestParameters: sodPoliciesTypes.SODPoliciesApiDeleteSodPolicyScheduleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const sodpoliciesapi = new sdk.SODPoliciesApi(apiConfig);
+    return handleApiCall(() => sodpoliciesapi.deleteSodPolicyScheduleV1(requestParameters));
+  },
+  deleteSodPolicyV1: (requestParameters: sodPoliciesTypes.SODPoliciesApiDeleteSodPolicyV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const sodpoliciesapi = new sdk.SODPoliciesApi(apiConfig);
+    return handleApiCall(() => sodpoliciesapi.deleteSodPolicyV1(requestParameters));
+  },
+  deleteSourceAppV1: (requestParameters: appsTypes.AppsApiDeleteSourceAppV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<appsTypes.SourceApp>> => {
+    const appsapi = new sdk.AppsApi(apiConfig);
+    return handleApiCall(() => appsapi.deleteSourceAppV1(requestParameters));
+  },
+  deleteSourceScheduleV1: (requestParameters: sourcesTypes.SourcesApiDeleteSourceScheduleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.deleteSourceScheduleV1(requestParameters));
+  },
+  deleteSourceSchemaV1: (requestParameters: sourcesTypes.SourcesApiDeleteSourceSchemaV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.deleteSourceSchemaV1(requestParameters));
+  },
+  deleteSourceV1: (requestParameters: sourcesTypes.SourcesApiDeleteSourceV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.DeleteSourceV1202Response>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.deleteSourceV1(requestParameters));
+  },
+  deleteStreamV1: (requestParameters: sharedSignalsFrameworkSsfTypes.SharedSignalsFrameworkSSFApiDeleteStreamV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const sharedsignalsframeworkssfapi = new sdk.SharedSignalsFrameworkSSFApi(apiConfig);
+    return handleApiCall(() => sharedsignalsframeworkssfapi.deleteStreamV1(requestParameters));
+  },
+  deleteSubscriptionV1: (requestParameters: triggersTypes.TriggersApiDeleteSubscriptionV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const triggersapi = new sdk.TriggersApi(apiConfig);
+    return handleApiCall(() => triggersapi.deleteSubscriptionV1(requestParameters));
+  },
+  deleteSyncedAttributeNerm: (requestParameters: sdk.SyncedAttributesNERMApiDeleteSyncedAttributeRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DeleteProfileTypeById200ResponseNERM>> => {
+    const syncedattributesnermapi = new sdk.SyncedAttributesNERMApi(apiConfig);
+    return handleApiCall(() => syncedattributesnermapi.deleteSyncedAttribute(requestParameters));
+  },
+  deleteTagByIdV1: (requestParameters: tagsTypes.TagsApiDeleteTagByIdV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const tagsapi = new sdk.TagsApi(apiConfig);
+    return handleApiCall(() => tagsapi.deleteTagByIdV1(requestParameters));
+  },
+  deleteTaggedObjectV1: (requestParameters: taggedObjectsTypes.TaggedObjectsApiDeleteTaggedObjectV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const taggedobjectsapi = new sdk.TaggedObjectsApi(apiConfig);
+    return handleApiCall(() => taggedobjectsapi.deleteTaggedObjectV1(requestParameters));
+  },
+  deleteTagsToManyObjectV1: (requestParameters: taggedObjectsTypes.TaggedObjectsApiDeleteTagsToManyObjectV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const taggedobjectsapi = new sdk.TaggedObjectsApi(apiConfig);
+    return handleApiCall(() => taggedobjectsapi.deleteTagsToManyObjectV1(requestParameters));
+  },
+  deleteTaskV1: (requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiDeleteTaskV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const dataaccesssecurityapi = new sdk.DataAccessSecurityApi(apiConfig);
+    return handleApiCall(() => dataaccesssecurityapi.deleteTaskV1(requestParameters));
+  },
+  deleteTransformV1: (requestParameters: transformsTypes.TransformsApiDeleteTransformV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const transformsapi = new sdk.TransformsApi(apiConfig);
+    return handleApiCall(() => transformsapi.deleteTransformV1(requestParameters));
+  },
+  deleteUploadedConfigurationV1: (requestParameters: configurationHubTypes.ConfigurationHubApiDeleteUploadedConfigurationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const configurationhubapi = new sdk.ConfigurationHubApi(apiConfig);
+    return handleApiCall(() => configurationhubapi.deleteUploadedConfigurationV1(requestParameters));
+  },
+  deleteUserLevelV1: (requestParameters: customUserLevelsTypes.CustomUserLevelsApiDeleteUserLevelV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const customuserlevelsapi = new sdk.CustomUserLevelsApi(apiConfig);
+    return handleApiCall(() => customuserlevelsapi.deleteUserLevelV1(requestParameters));
+  },
+  deleteUserNerm: (requestParameters: sdk.UsersNERMApiDeleteUserRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.DeleteProfileTypeById200ResponseNERM>> => {
+    const usersnermapi = new sdk.UsersNERMApi(apiConfig);
+    return handleApiCall(() => usersnermapi.deleteUser(requestParameters));
+  },
+  deleteUserProfileNerm: (requestParameters: sdk.UserProfilesNERMApiDeleteUserProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const userprofilesnermapi = new sdk.UserProfilesNERMApi(apiConfig);
+    return handleApiCall(() => userprofilesnermapi.deleteUserProfile(requestParameters));
+  },
+  deleteUserProfilesNerm: (requestParameters: sdk.UserProfilesNERMApiDeleteUserProfilesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateUserProfiles200ResponseNERM>> => {
+    const userprofilesnermapi = new sdk.UserProfilesNERMApi(apiConfig);
+    return handleApiCall(() => userprofilesnermapi.deleteUserProfiles(requestParameters));
+  },
+  deleteUserRoleNerm: (requestParameters: sdk.UserRolesNERMApiDeleteUserRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const userrolesnermapi = new sdk.UserRolesNERMApi(apiConfig);
+    return handleApiCall(() => userrolesnermapi.deleteUserRole(requestParameters));
+  },
+  deleteVerifiedFromAddressV1: (requestParameters: notificationsTypes.NotificationsApiDeleteVerifiedFromAddressV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const notificationsapi = new sdk.NotificationsApi(apiConfig);
+    return handleApiCall(() => notificationsapi.deleteVerifiedFromAddressV1(requestParameters));
+  },
+  deleteWorkflowV1: (requestParameters: workflowsTypes.WorkflowsApiDeleteWorkflowV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const workflowsapi = new sdk.WorkflowsApi(apiConfig);
+    return handleApiCall(() => workflowsapi.deleteWorkflowV1(requestParameters));
+  },
+  deleteWorkgroupMembersV1: (requestParameters: governanceGroupsTypes.GovernanceGroupsApiDeleteWorkgroupMembersV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<governanceGroupsTypes.WorkgroupMemberDeleteItem>>> => {
+    const governancegroupsapi = new sdk.GovernanceGroupsApi(apiConfig);
+    return handleApiCall(() => governancegroupsapi.deleteWorkgroupMembersV1(requestParameters));
+  },
+  deleteWorkgroupsInBulkV1: (requestParameters: governanceGroupsTypes.GovernanceGroupsApiDeleteWorkgroupsInBulkV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<governanceGroupsTypes.WorkgroupDeleteItem>>> => {
+    const governancegroupsapi = new sdk.GovernanceGroupsApi(apiConfig);
+    return handleApiCall(() => governancegroupsapi.deleteWorkgroupsInBulkV1(requestParameters));
+  },
+  deleteWorkgroupV1: (requestParameters: governanceGroupsTypes.GovernanceGroupsApiDeleteWorkgroupV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const governancegroupsapi = new sdk.GovernanceGroupsApi(apiConfig);
+    return handleApiCall(() => governancegroupsapi.deleteWorkgroupV1(requestParameters));
+  },
+  disableAccountForIdentityV1: (requestParameters: accountsTypes.AccountsApiDisableAccountForIdentityV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const accountsapi = new sdk.AccountsApi(apiConfig);
+    return handleApiCall(() => accountsapi.disableAccountForIdentityV1(requestParameters));
+  },
+  disableAccountsForIdentitiesV1: (requestParameters: accountsTypes.AccountsApiDisableAccountsForIdentitiesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<accountsTypes.BulkIdentitiesAccountsResponse>>> => {
+    const accountsapi = new sdk.AccountsApi(apiConfig);
+    return handleApiCall(() => accountsapi.disableAccountsForIdentitiesV1(requestParameters));
+  },
+  disableAccountV1: (requestParameters: accountsTypes.AccountsApiDisableAccountV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accountsTypes.AccountsAsyncResult>> => {
+    const accountsapi = new sdk.AccountsApi(apiConfig);
+    return handleApiCall(() => accountsapi.disableAccountV1(requestParameters));
+  },
+  downloadRoleInsightsEntitlementsChangesV1: (requestParameters: roleInsightsTypes.RoleInsightsApiDownloadRoleInsightsEntitlementsChangesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<string>> => {
+    const roleinsightsapi = new sdk.RoleInsightsApi(apiConfig);
+    return handleApiCall(() => roleinsightsapi.downloadRoleInsightsEntitlementsChangesV1(requestParameters));
+  },
+  downloadRoleMiningPotentialRoleZipV1: (requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiDownloadRoleMiningPotentialRoleZipV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<File>> => {
+    const iairoleminingapi = new sdk.IAIRoleMiningApi(apiConfig);
+    return handleApiCall(() => iairoleminingapi.downloadRoleMiningPotentialRoleZipV1(requestParameters));
+  },
+  enableAccountForIdentityV1: (requestParameters: accountsTypes.AccountsApiEnableAccountForIdentityV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const accountsapi = new sdk.AccountsApi(apiConfig);
+    return handleApiCall(() => accountsapi.enableAccountForIdentityV1(requestParameters));
+  },
+  enableAccountsForIdentitiesV1: (requestParameters: accountsTypes.AccountsApiEnableAccountsForIdentitiesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<accountsTypes.BulkIdentitiesAccountsResponse>>> => {
+    const accountsapi = new sdk.AccountsApi(apiConfig);
+    return handleApiCall(() => accountsapi.enableAccountsForIdentitiesV1(requestParameters));
+  },
+  enableAccountV1: (requestParameters: accountsTypes.AccountsApiEnableAccountV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accountsTypes.AccountsAsyncResult>> => {
+    const accountsapi = new sdk.AccountsApi(apiConfig);
+    return handleApiCall(() => accountsapi.enableAccountV1(requestParameters));
+  },
+  executeSavedSearchV1: (requestParameters: savedSearchTypes.SavedSearchApiExecuteSavedSearchV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const savedsearchapi = new sdk.SavedSearchApi(apiConfig);
+    return handleApiCall(() => savedsearchapi.executeSavedSearchV1(requestParameters));
+  },
+  exportFormDefinitionsByTenantV1: (requestParameters: customFormsTypes.CustomFormsApiExportFormDefinitionsByTenantV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<customFormsTypes.ExportFormDefinitionsByTenantV1200ResponseInner>>> => {
+    const customformsapi = new sdk.CustomFormsApi(apiConfig);
+    return handleApiCall(() => customformsapi.exportFormDefinitionsByTenantV1(requestParameters));
+  },
+  exportIdentityProfilesV1: (requestParameters: identityProfilesTypes.IdentityProfilesApiExportIdentityProfilesV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<identityProfilesTypes.IdentityProfileExportedObject>>> => {
+    const identityprofilesapi = new sdk.IdentityProfilesApi(apiConfig);
+    return handleApiCall(() => identityprofilesapi.exportIdentityProfilesV1(requestParameters));
+  },
+  exportNonEmployeeRecordsV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiExportNonEmployeeRecordsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.exportNonEmployeeRecordsV1(requestParameters));
+  },
+  exportNonEmployeeSourceSchemaTemplateV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiExportNonEmployeeSourceSchemaTemplateV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.exportNonEmployeeSourceSchemaTemplateV1(requestParameters));
+  },
+  exportOutliersZipV1: (requestParameters: iaiOutliersTypes.IAIOutliersApiExportOutliersZipV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<File>> => {
+    const iaioutliersapi = new sdk.IAIOutliersApi(apiConfig);
+    return handleApiCall(() => iaioutliersapi.exportOutliersZipV1(requestParameters));
+  },
+  exportRoleMiningPotentialRoleAsyncV1: (requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiExportRoleMiningPotentialRoleAsyncV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<iaiRoleMiningTypes.RoleMiningPotentialRoleExportResponse>> => {
+    const iairoleminingapi = new sdk.IAIRoleMiningApi(apiConfig);
+    return handleApiCall(() => iairoleminingapi.exportRoleMiningPotentialRoleAsyncV1(requestParameters));
+  },
+  exportRoleMiningPotentialRoleStatusV1: (requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiExportRoleMiningPotentialRoleStatusV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<iaiRoleMiningTypes.RoleMiningPotentialRoleExportResponse>> => {
+    const iairoleminingapi = new sdk.IAIRoleMiningApi(apiConfig);
+    return handleApiCall(() => iairoleminingapi.exportRoleMiningPotentialRoleStatusV1(requestParameters));
+  },
+  exportRoleMiningPotentialRoleV1: (requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiExportRoleMiningPotentialRoleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<File>> => {
+    const iairoleminingapi = new sdk.IAIRoleMiningApi(apiConfig);
+    return handleApiCall(() => iairoleminingapi.exportRoleMiningPotentialRoleV1(requestParameters));
+  },
+  exportSpConfigV1: (requestParameters: spConfigTypes.SPConfigApiExportSpConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<spConfigTypes.SpConfigExportJob>> => {
+    const spconfigapi = new sdk.SPConfigApi(apiConfig);
+    return handleApiCall(() => spconfigapi.exportSpConfigV1(requestParameters));
+  },
+  forwardAccessRequestV1: (requestParameters: accessRequestApprovalsTypes.AccessRequestApprovalsApiForwardAccessRequestV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const accessrequestapprovalsapi = new sdk.AccessRequestApprovalsApi(apiConfig);
+    return handleApiCall(() => accessrequestapprovalsapi.forwardAccessRequestV1(requestParameters));
+  },
+  forwardWorkItemV1: (requestParameters: workItemsTypes.WorkItemsApiForwardWorkItemV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const workitemsapi = new sdk.WorkItemsApi(apiConfig);
+    return handleApiCall(() => workitemsapi.forwardWorkItemV1(requestParameters));
+  },
+  generateIdentityPreviewV1: (requestParameters: identityProfilesTypes.IdentityProfilesApiGenerateIdentityPreviewV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<identityProfilesTypes.IdentityPreviewResponse>> => {
+    const identityprofilesapi = new sdk.IdentityProfilesApi(apiConfig);
+    return handleApiCall(() => identityprofilesapi.generateIdentityPreviewV1(requestParameters));
+  },
+  getAccessModelMetadataAttributeV1: (requestParameters: accessModelMetadataTypes.AccessModelMetadataApiGetAccessModelMetadataAttributeV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accessModelMetadataTypes.AttributeDTO>> => {
+    const accessmodelmetadataapi = new sdk.AccessModelMetadataApi(apiConfig);
+    return handleApiCall(() => accessmodelmetadataapi.getAccessModelMetadataAttributeV1(requestParameters));
+  },
+  getAccessModelMetadataAttributeValueV1: (requestParameters: accessModelMetadataTypes.AccessModelMetadataApiGetAccessModelMetadataAttributeValueV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accessModelMetadataTypes.AttributeValueDTO>> => {
+    const accessmodelmetadataapi = new sdk.AccessModelMetadataApi(apiConfig);
+    return handleApiCall(() => accessmodelmetadataapi.getAccessModelMetadataAttributeValueV1(requestParameters));
+  },
+  getAccessProfileEntitlementsV1: (requestParameters: accessProfilesTypes.AccessProfilesApiGetAccessProfileEntitlementsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<accessProfilesTypes.Entitlement>>> => {
+    const accessprofilesapi = new sdk.AccessProfilesApi(apiConfig);
+    return handleApiCall(() => accessprofilesapi.getAccessProfileEntitlementsV1(requestParameters));
+  },
+  getAccessProfileV1: (requestParameters: accessProfilesTypes.AccessProfilesApiGetAccessProfileV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accessProfilesTypes.AccessProfile>> => {
+    const accessprofilesapi = new sdk.AccessProfilesApi(apiConfig);
+    return handleApiCall(() => accessprofilesapi.getAccessProfileV1(requestParameters));
+  },
+  getAccessRequestApprovalSummaryV1: (requestParameters: accessRequestApprovalsTypes.AccessRequestApprovalsApiGetAccessRequestApprovalSummaryV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<accessRequestApprovalsTypes.ApprovalSummary>> => {
+    const accessrequestapprovalsapi = new sdk.AccessRequestApprovalsApi(apiConfig);
+    return handleApiCall(() => accessrequestapprovalsapi.getAccessRequestApprovalSummaryV1(requestParameters));
+  },
+  getAccessRequestConfigV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<accessRequestsTypes.AccessRequestConfig>> => {
+    const accessrequestsapi = new sdk.AccessRequestsApi(apiConfig);
+    return handleApiCall(() => accessrequestsapi.getAccessRequestConfigV1());
+  },
+  getAccessRequestConfigV2: (apiConfig: sdk.Configuration): Promise<ApiResponse<accessRequestsTypes.AccessRequestConfig2>> => {
+    const accessrequestsapi = new sdk.AccessRequestsApi(apiConfig);
+    return handleApiCall(() => accessrequestsapi.getAccessRequestConfigV2());
+  },
+  getAccessRequestIdentityMetricsV1: (requestParameters: accessRequestIdentityMetricsTypes.AccessRequestIdentityMetricsApiGetAccessRequestIdentityMetricsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const accessrequestidentitymetricsapi = new sdk.AccessRequestIdentityMetricsApi(apiConfig);
+    return handleApiCall(() => accessrequestidentitymetricsapi.getAccessRequestIdentityMetricsV1(requestParameters));
+  },
+  getAccessRequestRecommendationsConfigV1: (requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiGetAccessRequestRecommendationsConfigV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationConfigDto>> => {
+    const iaiaccessrequestrecommendationsapi = new sdk.IAIAccessRequestRecommendationsApi(apiConfig);
+    return handleApiCall(() => iaiaccessrequestrecommendationsapi.getAccessRequestRecommendationsConfigV1(requestParameters));
+  },
+  getAccessRequestRecommendationsIgnoredItemsV1: (requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiGetAccessRequestRecommendationsIgnoredItemsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationActionItemResponseDto>>> => {
+    const iaiaccessrequestrecommendationsapi = new sdk.IAIAccessRequestRecommendationsApi(apiConfig);
+    return handleApiCall(() => iaiaccessrequestrecommendationsapi.getAccessRequestRecommendationsIgnoredItemsV1(requestParameters));
+  },
+  getAccessRequestRecommendationsRequestedItemsV1: (requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiGetAccessRequestRecommendationsRequestedItemsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationActionItemResponseDto>>> => {
+    const iaiaccessrequestrecommendationsapi = new sdk.IAIAccessRequestRecommendationsApi(apiConfig);
+    return handleApiCall(() => iaiaccessrequestrecommendationsapi.getAccessRequestRecommendationsRequestedItemsV1(requestParameters));
+  },
+  getAccessRequestRecommendationsV1: (requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiGetAccessRequestRecommendationsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationItemDetail>>> => {
+    const iaiaccessrequestrecommendationsapi = new sdk.IAIAccessRequestRecommendationsApi(apiConfig);
+    return handleApiCall(() => iaiaccessrequestrecommendationsapi.getAccessRequestRecommendationsV1(requestParameters));
+  },
+  getAccessRequestRecommendationsViewedItemsV1: (requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiGetAccessRequestRecommendationsViewedItemsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationActionItemResponseDto>>> => {
+    const iaiaccessrequestrecommendationsapi = new sdk.IAIAccessRequestRecommendationsApi(apiConfig);
+    return handleApiCall(() => iaiaccessrequestrecommendationsapi.getAccessRequestRecommendationsViewedItemsV1(requestParameters));
+  },
+  getAccountActivityV1: (requestParameters: accountActivitiesTypes.AccountActivitiesApiGetAccountActivityV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accountActivitiesTypes.AccountActivity>> => {
+    const accountactivitiesapi = new sdk.AccountActivitiesApi(apiConfig);
+    return handleApiCall(() => accountactivitiesapi.getAccountActivityV1(requestParameters));
+  },
+  getAccountAggregationStatusV1: (requestParameters: accountAggregationsTypes.AccountAggregationsApiGetAccountAggregationStatusV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accountAggregationsTypes.AccountAggregationStatus>> => {
+    const accountaggregationsapi = new sdk.AccountAggregationsApi(apiConfig);
+    return handleApiCall(() => accountaggregationsapi.getAccountAggregationStatusV1(requestParameters));
+  },
+  getAccountDeleteApprovalConfigV1: (requestParameters: sourcesTypes.SourcesApiGetAccountDeleteApprovalConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.AccountDeleteConfigDto>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.getAccountDeleteApprovalConfigV1(requestParameters));
+  },
+  getAccountDeletionRequestsV1: (requestParameters: accountDeletionRequestsTypes.AccountDeletionRequestsApiGetAccountDeletionRequestsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<accountDeletionRequestsTypes.AccountActionRequestDto>>> => {
+    const accountdeletionrequestsapi = new sdk.AccountDeletionRequestsApi(apiConfig);
+    return handleApiCall(() => accountdeletionrequestsapi.getAccountDeletionRequestsV1(requestParameters));
+  },
+  getAccountEntitlementsV1: (requestParameters: accountsTypes.AccountsApiGetAccountEntitlementsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<accountsTypes.Entitlement>>> => {
+    const accountsapi = new sdk.AccountsApi(apiConfig);
+    return handleApiCall(() => accountsapi.getAccountEntitlementsV1(requestParameters));
+  },
+  getAccountsSchemaV1: (requestParameters: sourcesTypes.SourcesApiGetAccountsSchemaV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.getAccountsSchemaV1(requestParameters));
+  },
+  getAccountV1: (requestParameters: accountsTypes.AccountsApiGetAccountV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accountsTypes.Account>> => {
+    const accountsapi = new sdk.AccountsApi(apiConfig);
+    return handleApiCall(() => accountsapi.getAccountV1(requestParameters));
+  },
+  getAcctAggregationGroupsV1: (requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiGetAcctAggregationGroupsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<multiHostIntegrationTypes.MultiHostIntegrationsAggScheduleUpdate>>> => {
+    const multihostintegrationapi = new sdk.MultiHostIntegrationApi(apiConfig);
+    return handleApiCall(() => multihostintegrationapi.getAcctAggregationGroupsV1(requestParameters));
+  },
+  getActiveCampaignsV1: (requestParameters: certificationCampaignsTypes.CertificationCampaignsApiGetActiveCampaignsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<certificationCampaignsTypes.GetActiveCampaignsV1200ResponseInner>>> => {
+    const certificationcampaignsapi = new sdk.CertificationCampaignsApi(apiConfig);
+    return handleApiCall(() => certificationcampaignsapi.getActiveCampaignsV1(requestParameters));
+  },
+  getAdvancedSearchNerm: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetAdvancedSearch200ResponseNERM>> => {
+    const advancedsearchnermapi = new sdk.AdvancedSearchNERMApi(apiConfig);
+    return handleApiCall(() => advancedsearchnermapi.getAdvancedSearch());
+  },
+  getAllPotentialRoleSummariesV1: (requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetAllPotentialRoleSummariesV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<iaiRoleMiningTypes.RoleMiningPotentialRoleSummary>>> => {
+    const iairoleminingapi = new sdk.IAIRoleMiningApi(apiConfig);
+    return handleApiCall(() => iairoleminingapi.getAllPotentialRoleSummariesV1(requestParameters));
+  },
+  getApplicationsV1: (requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiGetApplicationsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<dataAccessSecurityTypes.ApplicationItem>>> => {
+    const dataaccesssecurityapi = new sdk.DataAccessSecurityApi(apiConfig);
+    return handleApiCall(() => dataaccesssecurityapi.getApplicationsV1(requestParameters));
+  },
+  getApplicationV1: (requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiGetApplicationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<dataAccessSecurityTypes.ApplicationItem>> => {
+    const dataaccesssecurityapi = new sdk.DataAccessSecurityApi(apiConfig);
+    return handleApiCall(() => dataaccesssecurityapi.getApplicationV1(requestParameters));
+  },
+  getApprovalsConfigV1: (requestParameters: approvalsTypes.ApprovalsApiGetApprovalsConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<approvalsTypes.ApprovalConfig>> => {
+    const approvalsapi = new sdk.ApprovalsApi(apiConfig);
+    return handleApiCall(() => approvalsapi.getApprovalsConfigV1(requestParameters));
+  },
+  getApprovalsV1: (requestParameters: approvalsTypes.ApprovalsApiGetApprovalsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<approvalsTypes.Approval2>>> => {
+    const approvalsapi = new sdk.ApprovalsApi(apiConfig);
+    return handleApiCall(() => approvalsapi.getApprovalsV1(requestParameters));
+  },
+  getApprovalV1: (requestParameters: approvalsTypes.ApprovalsApiGetApprovalV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<approvalsTypes.Approval2>> => {
+    const approvalsapi = new sdk.ApprovalsApi(apiConfig);
+    return handleApiCall(() => approvalsapi.getApprovalV1(requestParameters));
+  },
+  getAttestationDocumentV1: (requestParameters: parameterStorageTypes.ParameterStorageApiGetAttestationDocumentV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<parameterStorageTypes.ParameterStorageAttestationDocument>> => {
+    const parameterstorageapi = new sdk.ParameterStorageApi(apiConfig);
+    return handleApiCall(() => parameterstorageapi.getAttestationDocumentV1(requestParameters));
+  },
+  getAttributeByIdNerm: (requestParameters: sdk.AttributesNERMApiGetAttributeByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateAttribute201ResponseNERM>> => {
+    const attributesnermapi = new sdk.AttributesNERMApi(apiConfig);
+    return handleApiCall(() => attributesnermapi.getAttributeById(requestParameters));
+  },
+  getAttributeByUidNerm: (requestParameters: sdk.AttributesNERMApiGetAttributeByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateAttribute201ResponseNERM>> => {
+    const attributesnermapi = new sdk.AttributesNERMApi(apiConfig);
+    return handleApiCall(() => attributesnermapi.getAttributeByUid(requestParameters));
+  },
+  getAttributeOptionByIdNerm: (requestParameters: sdk.AttributeOptionsNERMApiGetAttributeOptionByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitAttributeOption200ResponseNERM>> => {
+    const attributeoptionsnermapi = new sdk.AttributeOptionsNERMApi(apiConfig);
+    return handleApiCall(() => attributeoptionsnermapi.getAttributeOptionById(requestParameters));
+  },
+  getAttributeOptionByUidNerm: (requestParameters: sdk.AttributeOptionsNERMApiGetAttributeOptionByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitAttributeOption200ResponseNERM>> => {
+    const attributeoptionsnermapi = new sdk.AttributeOptionsNERMApi(apiConfig);
+    return handleApiCall(() => attributeoptionsnermapi.getAttributeOptionByUid(requestParameters));
+  },
+  getAttributeOptionsNerm: (requestParameters: sdk.AttributeOptionsNERMApiGetAttributeOptionsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetAttributeOptions200ResponseNERM>> => {
+    const attributeoptionsnermapi = new sdk.AttributeOptionsNERMApi(apiConfig);
+    return handleApiCall(() => attributeoptionsnermapi.getAttributeOptions(requestParameters));
+  },
+  getAttributesNerm: (requestParameters: sdk.AttributesNERMApiGetAttributesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetAttributes200ResponseNERM>> => {
+    const attributesnermapi = new sdk.AttributesNERMApi(apiConfig);
+    return handleApiCall(() => attributesnermapi.getAttributes(requestParameters));
+  },
+  getAuthOrgLockoutConfigV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<globalTenantSecuritySettingsTypes.LockoutConfiguration>> => {
+    const globaltenantsecuritysettingsapi = new sdk.GlobalTenantSecuritySettingsApi(apiConfig);
+    return handleApiCall(() => globaltenantsecuritysettingsapi.getAuthOrgLockoutConfigV1());
+  },
+  getAuthOrgNetworkConfigV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<globalTenantSecuritySettingsTypes.NetworkConfiguration>> => {
+    const globaltenantsecuritysettingsapi = new sdk.GlobalTenantSecuritySettingsApi(apiConfig);
+    return handleApiCall(() => globaltenantsecuritysettingsapi.getAuthOrgNetworkConfigV1());
+  },
+  getAuthOrgServiceProviderConfigV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<globalTenantSecuritySettingsTypes.ServiceProviderConfiguration>> => {
+    const globaltenantsecuritysettingsapi = new sdk.GlobalTenantSecuritySettingsApi(apiConfig);
+    return handleApiCall(() => globaltenantsecuritysettingsapi.getAuthOrgServiceProviderConfigV1());
+  },
+  getAuthOrgSessionConfigV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<globalTenantSecuritySettingsTypes.SessionConfiguration>> => {
+    const globaltenantsecuritysettingsapi = new sdk.GlobalTenantSecuritySettingsApi(apiConfig);
+    return handleApiCall(() => globaltenantsecuritysettingsapi.getAuthOrgSessionConfigV1());
+  },
+  getAuthUserV1: (requestParameters: authUsersTypes.AuthUsersApiGetAuthUserV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<authUsersTypes.AuthUser>> => {
+    const authusersapi = new sdk.AuthUsersApi(apiConfig);
+    return handleApiCall(() => authusersapi.getAuthUserV1(requestParameters));
+  },
+  getAutoWriteSettingsV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<suggestedEntitlementDescriptionTypes.AutoWriteSettingResponse>> => {
+    const suggestedentitlementdescriptionapi = new sdk.SuggestedEntitlementDescriptionApi(apiConfig);
+    return handleApiCall(() => suggestedentitlementdescriptionapi.getAutoWriteSettingsV1());
+  },
+  getBrandingListV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<Array<brandingTypes.BrandingItem>>> => {
+    const brandingapi = new sdk.BrandingApi(apiConfig);
+    return handleApiCall(() => brandingapi.getBrandingListV1());
+  },
+  getBrandingV1: (requestParameters: brandingTypes.BrandingApiGetBrandingV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<brandingTypes.BrandingItem>> => {
+    const brandingapi = new sdk.BrandingApi(apiConfig);
+    return handleApiCall(() => brandingapi.getBrandingV1(requestParameters));
+  },
+  getBulkUpdateStatusByIdV1: (requestParameters: rolesTypes.RolesApiGetBulkUpdateStatusByIdV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<rolesTypes.RoleBulkUpdateResponse>> => {
+    const rolesapi = new sdk.RolesApi(apiConfig);
+    return handleApiCall(() => rolesapi.getBulkUpdateStatusByIdV1(requestParameters));
+  },
+  getBulkUpdateStatusV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<Array<rolesTypes.RoleGetAllBulkUpdateResponse>>> => {
+    const rolesapi = new sdk.RolesApi(apiConfig);
+    return handleApiCall(() => rolesapi.getBulkUpdateStatusV1());
+  },
+  getCampaignFilterByIdV1: (requestParameters: certificationCampaignFiltersTypes.CertificationCampaignFiltersApiGetCampaignFilterByIdV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<certificationCampaignFiltersTypes.CampaignFilterDetails>> => {
+    const certificationcampaignfiltersapi = new sdk.CertificationCampaignFiltersApi(apiConfig);
+    return handleApiCall(() => certificationcampaignfiltersapi.getCampaignFilterByIdV1(requestParameters));
+  },
+  getCampaignReportsConfigV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<certificationCampaignsTypes.CampaignReportsConfig>> => {
+    const certificationcampaignsapi = new sdk.CertificationCampaignsApi(apiConfig);
+    return handleApiCall(() => certificationcampaignsapi.getCampaignReportsConfigV1());
+  },
+  getCampaignReportsV1: (requestParameters: certificationCampaignsTypes.CertificationCampaignsApiGetCampaignReportsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<certificationCampaignsTypes.CampaignReport>>> => {
+    const certificationcampaignsapi = new sdk.CertificationCampaignsApi(apiConfig);
+    return handleApiCall(() => certificationcampaignsapi.getCampaignReportsV1(requestParameters));
+  },
+  getCampaignTemplateScheduleV1: (requestParameters: certificationCampaignsTypes.CertificationCampaignsApiGetCampaignTemplateScheduleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<certificationCampaignsTypes.Schedule2>> => {
+    const certificationcampaignsapi = new sdk.CertificationCampaignsApi(apiConfig);
+    return handleApiCall(() => certificationcampaignsapi.getCampaignTemplateScheduleV1(requestParameters));
+  },
+  getCampaignTemplatesV1: (requestParameters: certificationCampaignsTypes.CertificationCampaignsApiGetCampaignTemplatesV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<certificationCampaignsTypes.CampaignTemplate>>> => {
+    const certificationcampaignsapi = new sdk.CertificationCampaignsApi(apiConfig);
+    return handleApiCall(() => certificationcampaignsapi.getCampaignTemplatesV1(requestParameters));
+  },
+  getCampaignTemplateV1: (requestParameters: certificationCampaignsTypes.CertificationCampaignsApiGetCampaignTemplateV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<certificationCampaignsTypes.CampaignTemplate>> => {
+    const certificationcampaignsapi = new sdk.CertificationCampaignsApi(apiConfig);
+    return handleApiCall(() => certificationcampaignsapi.getCampaignTemplateV1(requestParameters));
+  },
+  getCampaignV1: (requestParameters: certificationCampaignsTypes.CertificationCampaignsApiGetCampaignV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<certificationCampaignsTypes.GetCampaignV1200Response>> => {
+    const certificationcampaignsapi = new sdk.CertificationCampaignsApi(apiConfig);
+    return handleApiCall(() => certificationcampaignsapi.getCampaignV1(requestParameters));
+  },
+  getCertificationTaskV1: (requestParameters: certificationsTypes.CertificationsApiGetCertificationTaskV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<certificationsTypes.CertificationTask>> => {
+    const certificationsapi = new sdk.CertificationsApi(apiConfig);
+    return handleApiCall(() => certificationsapi.getCertificationTaskV1(requestParameters));
+  },
+  getClassifyMachineAccountFromSourceStatusV1: (requestParameters: classifySourceTypes.ClassifySourceApiGetClassifyMachineAccountFromSourceStatusV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<classifySourceTypes.SourceClassificationStatus>> => {
+    const classifysourceapi = new sdk.ClassifySourceApi(apiConfig);
+    return handleApiCall(() => classifysourceapi.getClassifyMachineAccountFromSourceStatusV1(requestParameters));
+  },
+  getClientLogConfigurationV1: (requestParameters: managedClustersTypes.ManagedClustersApiGetClientLogConfigurationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<managedClustersTypes.ClientLogConfiguration>> => {
+    const managedclustersapi = new sdk.ManagedClustersApi(apiConfig);
+    return handleApiCall(() => managedclustersapi.getClientLogConfigurationV1(requestParameters));
+  },
+  getCommonAccessV1: (requestParameters: iaiCommonAccessTypes.IAICommonAccessApiGetCommonAccessV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<iaiCommonAccessTypes.CommonAccessResponse>>> => {
+    const iaicommonaccessapi = new sdk.IAICommonAccessApi(apiConfig);
+    return handleApiCall(() => iaicommonaccessapi.getCommonAccessV1(requestParameters));
+  },
+  getCompletedWorkItemsV1: (requestParameters: workItemsTypes.WorkItemsApiGetCompletedWorkItemsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<workItemsTypes.WorkItems>>> => {
+    const workitemsapi = new sdk.WorkItemsApi(apiConfig);
+    return handleApiCall(() => workitemsapi.getCompletedWorkItemsV1(requestParameters));
+  },
+  getConnectorCorrelationConfigV1: (requestParameters: connectorsTypes.ConnectorsApiGetConnectorCorrelationConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<string>> => {
+    const connectorsapi = new sdk.ConnectorsApi(apiConfig);
+    return handleApiCall(() => connectorsapi.getConnectorCorrelationConfigV1(requestParameters));
+  },
+  getConnectorCustomizerV1: (requestParameters: connectorCustomizersTypes.ConnectorCustomizersApiGetConnectorCustomizerV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<connectorCustomizersTypes.ConnectorCustomizersResponse>> => {
+    const connectorcustomizersapi = new sdk.ConnectorCustomizersApi(apiConfig);
+    return handleApiCall(() => connectorcustomizersapi.getConnectorCustomizerV1(requestParameters));
+  },
+  getConnectorListV1: (requestParameters: connectorsTypes.ConnectorsApiGetConnectorListV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<connectorsTypes.V3ConnectorDto>>> => {
+    const connectorsapi = new sdk.ConnectorsApi(apiConfig);
+    return handleApiCall(() => connectorsapi.getConnectorListV1(requestParameters));
+  },
+  getConnectorRuleListV1: (requestParameters: connectorRuleManagementTypes.ConnectorRuleManagementApiGetConnectorRuleListV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<connectorRuleManagementTypes.ConnectorRuleResponse>>> => {
+    const connectorrulemanagementapi = new sdk.ConnectorRuleManagementApi(apiConfig);
+    return handleApiCall(() => connectorrulemanagementapi.getConnectorRuleListV1(requestParameters));
+  },
+  getConnectorRuleV1: (requestParameters: connectorRuleManagementTypes.ConnectorRuleManagementApiGetConnectorRuleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<connectorRuleManagementTypes.ConnectorRuleResponse>> => {
+    const connectorrulemanagementapi = new sdk.ConnectorRuleManagementApi(apiConfig);
+    return handleApiCall(() => connectorrulemanagementapi.getConnectorRuleV1(requestParameters));
+  },
+  getConnectorSourceConfigV1: (requestParameters: connectorsTypes.ConnectorsApiGetConnectorSourceConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<string>> => {
+    const connectorsapi = new sdk.ConnectorsApi(apiConfig);
+    return handleApiCall(() => connectorsapi.getConnectorSourceConfigV1(requestParameters));
+  },
+  getConnectorSourceTemplateV1: (requestParameters: connectorsTypes.ConnectorsApiGetConnectorSourceTemplateV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<string>> => {
+    const connectorsapi = new sdk.ConnectorsApi(apiConfig);
+    return handleApiCall(() => connectorsapi.getConnectorSourceTemplateV1(requestParameters));
+  },
+  getConnectorTranslationsV1: (requestParameters: connectorsTypes.ConnectorsApiGetConnectorTranslationsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<string>> => {
+    const connectorsapi = new sdk.ConnectorsApi(apiConfig);
+    return handleApiCall(() => connectorsapi.getConnectorTranslationsV1(requestParameters));
+  },
+  getConnectorV1: (requestParameters: connectorsTypes.ConnectorsApiGetConnectorV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<connectorsTypes.ConnectorDetail>> => {
+    const connectorsapi = new sdk.ConnectorsApi(apiConfig);
+    return handleApiCall(() => connectorsapi.getConnectorV1(requestParameters));
+  },
+  getCorrelationConfigV1: (requestParameters: sourcesTypes.SourcesApiGetCorrelationConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.CorrelationConfig>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.getCorrelationConfigV1(requestParameters));
+  },
+  getCountCompletedWorkItemsV1: (requestParameters: workItemsTypes.WorkItemsApiGetCountCompletedWorkItemsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<workItemsTypes.WorkItemsCount>> => {
+    const workitemsapi = new sdk.WorkItemsApi(apiConfig);
+    return handleApiCall(() => workitemsapi.getCountCompletedWorkItemsV1(requestParameters));
+  },
+  getCountWorkItemsV1: (requestParameters: workItemsTypes.WorkItemsApiGetCountWorkItemsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<workItemsTypes.WorkItemsCount>> => {
+    const workitemsapi = new sdk.WorkItemsApi(apiConfig);
+    return handleApiCall(() => workitemsapi.getCountWorkItemsV1(requestParameters));
+  },
+  getCreateMachineAccountRequestV1: (requestParameters: machineAccountCreationRequestTypes.MachineAccountCreationRequestApiGetCreateMachineAccountRequestV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<machineAccountCreationRequestTypes.AccountRequestDetailsDto>> => {
+    const machineaccountcreationrequestapi = new sdk.MachineAccountCreationRequestApi(apiConfig);
+    return handleApiCall(() => machineaccountcreationrequestapi.getCreateMachineAccountRequestV1(requestParameters));
+  },
+  getCustomPasswordInstructionsV1: (requestParameters: customPasswordInstructionsTypes.CustomPasswordInstructionsApiGetCustomPasswordInstructionsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<customPasswordInstructionsTypes.CustomPasswordInstruction>> => {
+    const custompasswordinstructionsapi = new sdk.CustomPasswordInstructionsApi(apiConfig);
+    return handleApiCall(() => custompasswordinstructionsapi.getCustomPasswordInstructionsV1(requestParameters));
+  },
+  getCustomViolationReportV1: (requestParameters: sodPoliciesTypes.SODPoliciesApiGetCustomViolationReportV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<File>> => {
+    const sodpoliciesapi = new sdk.SODPoliciesApi(apiConfig);
+    return handleApiCall(() => sodpoliciesapi.getCustomViolationReportV1(requestParameters));
+  },
+  getDataSegmentationEnabledForUserV1: (requestParameters: dataSegmentationTypes.DataSegmentationApiGetDataSegmentationEnabledForUserV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<boolean>> => {
+    const datasegmentationapi = new sdk.DataSegmentationApi(apiConfig);
+    return handleApiCall(() => datasegmentationapi.getDataSegmentationEnabledForUserV1(requestParameters));
+  },
+  getDataSegmentIdentityMembershipV1: (requestParameters: dataSegmentationTypes.DataSegmentationApiGetDataSegmentIdentityMembershipV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<dataSegmentationTypes.SegmentMembership>>> => {
+    const datasegmentationapi = new sdk.DataSegmentationApi(apiConfig);
+    return handleApiCall(() => datasegmentationapi.getDataSegmentIdentityMembershipV1(requestParameters));
+  },
+  getDataSegmentV1: (requestParameters: dataSegmentationTypes.DataSegmentationApiGetDataSegmentV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<dataSegmentationTypes.DataSegment>> => {
+    const datasegmentationapi = new sdk.DataSegmentationApi(apiConfig);
+    return handleApiCall(() => datasegmentationapi.getDataSegmentV1(requestParameters));
+  },
+  getDefaultIdentityAttributeConfigV1: (requestParameters: identityProfilesTypes.IdentityProfilesApiGetDefaultIdentityAttributeConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<identityProfilesTypes.IdentityAttributeConfig>> => {
+    const identityprofilesapi = new sdk.IdentityProfilesApi(apiConfig);
+    return handleApiCall(() => identityprofilesapi.getDefaultIdentityAttributeConfigV1(requestParameters));
+  },
+  getDefaultViolationReportV1: (requestParameters: sodPoliciesTypes.SODPoliciesApiGetDefaultViolationReportV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<File>> => {
+    const sodpoliciesapi = new sdk.SODPoliciesApi(apiConfig);
+    return handleApiCall(() => sodpoliciesapi.getDefaultViolationReportV1(requestParameters));
+  },
+  getDeployV1: (requestParameters: configurationHubTypes.ConfigurationHubApiGetDeployV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<configurationHubTypes.DeployResponse>> => {
+    const configurationhubapi = new sdk.ConfigurationHubApi(apiConfig);
+    return handleApiCall(() => configurationhubapi.getDeployV1(requestParameters));
+  },
+  getDimensionEntitlementsV1: (requestParameters: dimensionsTypes.DimensionsApiGetDimensionEntitlementsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<dimensionsTypes.Entitlement>>> => {
+    const dimensionsapi = new sdk.DimensionsApi(apiConfig);
+    return handleApiCall(() => dimensionsapi.getDimensionEntitlementsV1(requestParameters));
+  },
+  getDimensionV1: (requestParameters: dimensionsTypes.DimensionsApiGetDimensionV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<dimensionsTypes.Dimension>> => {
+    const dimensionsapi = new sdk.DimensionsApi(apiConfig);
+    return handleApiCall(() => dimensionsapi.getDimensionV1(requestParameters));
+  },
+  getDiscoveredApplicationsV1: (requestParameters: applicationDiscoveryTypes.ApplicationDiscoveryApiGetDiscoveredApplicationsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<applicationDiscoveryTypes.GetDiscoveredApplicationsV1200ResponseInner>>> => {
+    const applicationdiscoveryapi = new sdk.ApplicationDiscoveryApi(apiConfig);
+    return handleApiCall(() => applicationdiscoveryapi.getDiscoveredApplicationsV1(requestParameters));
+  },
+  getDkimAttributesV1: (requestParameters: notificationsTypes.NotificationsApiGetDkimAttributesV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<notificationsTypes.DkimAttributes>>> => {
+    const notificationsapi = new sdk.NotificationsApi(apiConfig);
+    return handleApiCall(() => notificationsapi.getDkimAttributesV1(requestParameters));
+  },
+  getEntitlementAggregationGroupsV1: (requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiGetEntitlementAggregationGroupsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<multiHostIntegrationTypes.MultiHostIntegrationsAggScheduleUpdate>>> => {
+    const multihostintegrationapi = new sdk.MultiHostIntegrationApi(apiConfig);
+    return handleApiCall(() => multihostintegrationapi.getEntitlementAggregationGroupsV1(requestParameters));
+  },
+  getEntitlementChangesIdentitiesV1: (requestParameters: roleInsightsTypes.RoleInsightsApiGetEntitlementChangesIdentitiesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<roleInsightsTypes.RoleInsightsIdentities>>> => {
+    const roleinsightsapi = new sdk.RoleInsightsApi(apiConfig);
+    return handleApiCall(() => roleinsightsapi.getEntitlementChangesIdentitiesV1(requestParameters));
+  },
+  getEntitlementDetailsForIdentityV1: (requestParameters: accessRequestsTypes.AccessRequestsApiGetEntitlementDetailsForIdentityV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accessRequestsTypes.IdentityEntitlementDetails>> => {
+    const accessrequestsapi = new sdk.AccessRequestsApi(apiConfig);
+    return handleApiCall(() => accessrequestsapi.getEntitlementDetailsForIdentityV1(requestParameters));
+  },
+  getEntitlementDistributionPotentialRoleV1: (requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetEntitlementDistributionPotentialRoleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const iairoleminingapi = new sdk.IAIRoleMiningApi(apiConfig);
+    return handleApiCall(() => iairoleminingapi.getEntitlementDistributionPotentialRoleV1(requestParameters));
+  },
+  getEntitlementRequestConfigV1: (requestParameters: entitlementsTypes.EntitlementsApiGetEntitlementRequestConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<entitlementsTypes.EntitlementRequestConfig>> => {
+    const entitlementsapi = new sdk.EntitlementsApi(apiConfig);
+    return handleApiCall(() => entitlementsapi.getEntitlementRequestConfigV1(requestParameters));
+  },
+  getEntitlementsPotentialRoleV1: (requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetEntitlementsPotentialRoleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<iaiRoleMiningTypes.RoleMiningEntitlement>>> => {
+    const iairoleminingapi = new sdk.IAIRoleMiningApi(apiConfig);
+    return handleApiCall(() => iairoleminingapi.getEntitlementsPotentialRoleV1(requestParameters));
+  },
+  getEntitlementsSchemaV1: (requestParameters: sourcesTypes.SourcesApiGetEntitlementsSchemaV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.getEntitlementsSchemaV1(requestParameters));
+  },
+  getEntitlementV1: (requestParameters: entitlementsTypes.EntitlementsApiGetEntitlementV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<entitlementsTypes.EntitlementV2>> => {
+    const entitlementsapi = new sdk.EntitlementsApi(apiConfig);
+    return handleApiCall(() => entitlementsapi.getEntitlementV1(requestParameters));
+  },
+  getEvaluateReassignmentConfigurationV1: (requestParameters: workReassignmentTypes.WorkReassignmentApiGetEvaluateReassignmentConfigurationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<workReassignmentTypes.EvaluateResponse>>> => {
+    const workreassignmentapi = new sdk.WorkReassignmentApi(apiConfig);
+    return handleApiCall(() => workreassignmentapi.getEvaluateReassignmentConfigurationV1(requestParameters));
+  },
+  getExcludedEntitlementsPotentialRoleV1: (requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetExcludedEntitlementsPotentialRoleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<iaiRoleMiningTypes.RoleMiningEntitlement>>> => {
+    const iairoleminingapi = new sdk.IAIRoleMiningApi(apiConfig);
+    return handleApiCall(() => iairoleminingapi.getExcludedEntitlementsPotentialRoleV1(requestParameters));
+  },
+  getFileFromS3V1: (requestParameters: customFormsTypes.CustomFormsApiGetFileFromS3V1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<File>> => {
+    const customformsapi = new sdk.CustomFormsApi(apiConfig);
+    return handleApiCall(() => customformsapi.getFileFromS3V1(requestParameters));
+  },
+  getFormAttributeByIdNerm: (requestParameters: sdk.FormAttributesNERMApiGetFormAttributeByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetFormAttributes200ResponseNERM>> => {
+    const formattributesnermapi = new sdk.FormAttributesNERMApi(apiConfig);
+    return handleApiCall(() => formattributesnermapi.getFormAttributeById(requestParameters));
+  },
+  getFormAttributeByUidNerm: (requestParameters: sdk.FormAttributesNERMApiGetFormAttributeByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetFormAttributes200ResponseNERM>> => {
+    const formattributesnermapi = new sdk.FormAttributesNERMApi(apiConfig);
+    return handleApiCall(() => formattributesnermapi.getFormAttributeByUid(requestParameters));
+  },
+  getFormAttributesNerm: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetFormAttributes200ResponseNERM>> => {
+    const formattributesnermapi = new sdk.FormAttributesNERMApi(apiConfig);
+    return handleApiCall(() => formattributesnermapi.getFormAttributes());
+  },
+  getFormByIdNerm: (requestParameters: sdk.FormsNERMApiGetFormByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetForms200ResponseNERM>> => {
+    const formsnermapi = new sdk.FormsNERMApi(apiConfig);
+    return handleApiCall(() => formsnermapi.getFormById(requestParameters));
+  },
+  getFormByUidNerm: (requestParameters: sdk.FormsNERMApiGetFormByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetForms200ResponseNERM>> => {
+    const formsnermapi = new sdk.FormsNERMApi(apiConfig);
+    return handleApiCall(() => formsnermapi.getFormByUid(requestParameters));
+  },
+  getFormDefinitionByKeyV1: (requestParameters: customFormsTypes.CustomFormsApiGetFormDefinitionByKeyV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<customFormsTypes.FormDefinitionResponse>> => {
+    const customformsapi = new sdk.CustomFormsApi(apiConfig);
+    return handleApiCall(() => customformsapi.getFormDefinitionByKeyV1(requestParameters));
+  },
+  getFormInstanceByKeyV1: (requestParameters: customFormsTypes.CustomFormsApiGetFormInstanceByKeyV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<customFormsTypes.FormInstanceResponse>> => {
+    const customformsapi = new sdk.CustomFormsApi(apiConfig);
+    return handleApiCall(() => customformsapi.getFormInstanceByKeyV1(requestParameters));
+  },
+  getFormInstanceFileV1: (requestParameters: customFormsTypes.CustomFormsApiGetFormInstanceFileV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<File>> => {
+    const customformsapi = new sdk.CustomFormsApi(apiConfig);
+    return handleApiCall(() => customformsapi.getFormInstanceFileV1(requestParameters));
+  },
+  getFormsNerm: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetForms200ResponseNERM>> => {
+    const formsnermapi = new sdk.FormsNERMApi(apiConfig);
+    return handleApiCall(() => formsnermapi.getForms());
+  },
+  getHistoricalIdentityEventsV1: (requestParameters: identityHistoryTypes.IdentityHistoryApiGetHistoricalIdentityEventsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<identityHistoryTypes.GetHistoricalIdentityEventsV1200ResponseInner>>> => {
+    const identityhistoryapi = new sdk.IdentityHistoryApi(apiConfig);
+    return handleApiCall(() => identityhistoryapi.getHistoricalIdentityEventsV1(requestParameters));
+  },
+  getHistoricalIdentityV1: (requestParameters: identityHistoryTypes.IdentityHistoryApiGetHistoricalIdentityV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<identityHistoryTypes.IdentityHistoryResponse>> => {
+    const identityhistoryapi = new sdk.IdentityHistoryApi(apiConfig);
+    return handleApiCall(() => identityhistoryapi.getHistoricalIdentityV1(requestParameters));
+  },
+  getIdentitiesPotentialRoleV1: (requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetIdentitiesPotentialRoleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<iaiRoleMiningTypes.RoleMiningIdentity>>> => {
+    const iairoleminingapi = new sdk.IAIRoleMiningApi(apiConfig);
+    return handleApiCall(() => iairoleminingapi.getIdentitiesPotentialRoleV1(requestParameters));
+  },
+  getIdentityAccessSummariesV1: (requestParameters: certificationSummariesTypes.CertificationSummariesApiGetIdentityAccessSummariesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<certificationSummariesTypes.AccessSummary>>> => {
+    const certificationsummariesapi = new sdk.CertificationSummariesApi(apiConfig);
+    return handleApiCall(() => certificationsummariesapi.getIdentityAccessSummariesV1(requestParameters));
+  },
+  getIdentityAttributeV1: (requestParameters: identityAttributesTypes.IdentityAttributesApiGetIdentityAttributeV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<identityAttributesTypes.IdentityAttribute2>> => {
+    const identityattributesapi = new sdk.IdentityAttributesApi(apiConfig);
+    return handleApiCall(() => identityattributesapi.getIdentityAttributeV1(requestParameters));
+  },
+  getIdentityCertificationItemPermissionsV1: (requestParameters: certificationsTypes.CertificationsApiGetIdentityCertificationItemPermissionsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<certificationsTypes.PermissionDTO>>> => {
+    const certificationsapi = new sdk.CertificationsApi(apiConfig);
+    return handleApiCall(() => certificationsapi.getIdentityCertificationItemPermissionsV1(requestParameters));
+  },
+  getIdentityCertificationV1: (requestParameters: certificationsTypes.CertificationsApiGetIdentityCertificationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<certificationsTypes.IdentityCertificationDto>> => {
+    const certificationsapi = new sdk.CertificationsApi(apiConfig);
+    return handleApiCall(() => certificationsapi.getIdentityCertificationV1(requestParameters));
+  },
+  getIdentityDecisionSummaryV1: (requestParameters: certificationSummariesTypes.CertificationSummariesApiGetIdentityDecisionSummaryV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<certificationSummariesTypes.IdentityCertDecisionSummary>> => {
+    const certificationsummariesapi = new sdk.CertificationSummariesApi(apiConfig);
+    return handleApiCall(() => certificationsummariesapi.getIdentityDecisionSummaryV1(requestParameters));
+  },
+  getIdentityIntelligenceV1: (requestParameters: intelligenceTypes.IntelligenceApiGetIdentityIntelligenceV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<intelligenceTypes.IntelIdentityAggregate>> => {
+    const intelligenceapi = new sdk.IntelligenceApi(apiConfig);
+    return handleApiCall(() => intelligenceapi.getIdentityIntelligenceV1(requestParameters));
+  },
+  getIdentityOutlierSnapshotsV1: (requestParameters: iaiOutliersTypes.IAIOutliersApiGetIdentityOutlierSnapshotsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<iaiOutliersTypes.OutlierSummary>>> => {
+    const iaioutliersapi = new sdk.IAIOutliersApi(apiConfig);
+    return handleApiCall(() => iaioutliersapi.getIdentityOutlierSnapshotsV1(requestParameters));
+  },
+  getIdentityOutliersV1: (requestParameters: iaiOutliersTypes.IAIOutliersApiGetIdentityOutliersV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<iaiOutliersTypes.Outlier>>> => {
+    const iaioutliersapi = new sdk.IAIOutliersApi(apiConfig);
+    return handleApiCall(() => iaioutliersapi.getIdentityOutliersV1(requestParameters));
+  },
+  getIdentityOwnershipDetailsV1: (requestParameters: identitiesTypes.IdentitiesApiGetIdentityOwnershipDetailsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<identitiesTypes.IdentityOwnershipAssociationDetails>> => {
+    const identitiesapi = new sdk.IdentitiesApi(apiConfig);
+    return handleApiCall(() => identitiesapi.getIdentityOwnershipDetailsV1(requestParameters));
+  },
+  getIdentityProfileV1: (requestParameters: identityProfilesTypes.IdentityProfilesApiGetIdentityProfileV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<identityProfilesTypes.IdentityProfile>> => {
+    const identityprofilesapi = new sdk.IdentityProfilesApi(apiConfig);
+    return handleApiCall(() => identityprofilesapi.getIdentityProfileV1(requestParameters));
+  },
+  getIdentityProofingResultsNerm: (requestParameters: sdk.IdentityProofingResultsNERMApiGetIdentityProofingResultsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetIdentityProofingResults200ResponseNERM>> => {
+    const identityproofingresultsnermapi = new sdk.IdentityProofingResultsNERMApi(apiConfig);
+    return handleApiCall(() => identityproofingresultsnermapi.getIdentityProofingResults(requestParameters));
+  },
+  getIdentitySnapshotSummaryV1: (requestParameters: identityHistoryTypes.IdentityHistoryApiGetIdentitySnapshotSummaryV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<identityHistoryTypes.MetricResponse>>> => {
+    const identityhistoryapi = new sdk.IdentityHistoryApi(apiConfig);
+    return handleApiCall(() => identityhistoryapi.getIdentitySnapshotSummaryV1(requestParameters));
+  },
+  getIdentitySnapshotV1: (requestParameters: identityHistoryTypes.IdentityHistoryApiGetIdentitySnapshotV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<identityHistoryTypes.IdentityHistoryResponse>> => {
+    const identityhistoryapi = new sdk.IdentityHistoryApi(apiConfig);
+    return handleApiCall(() => identityhistoryapi.getIdentitySnapshotV1(requestParameters));
+  },
+  getIdentityStartDateV1: (requestParameters: identityHistoryTypes.IdentityHistoryApiGetIdentityStartDateV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<string>> => {
+    const identityhistoryapi = new sdk.IdentityHistoryApi(apiConfig);
+    return handleApiCall(() => identityhistoryapi.getIdentityStartDateV1(requestParameters));
+  },
+  getIdentitySummariesV1: (requestParameters: certificationSummariesTypes.CertificationSummariesApiGetIdentitySummariesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<certificationSummariesTypes.CertificationIdentitySummary>>> => {
+    const certificationsummariesapi = new sdk.CertificationSummariesApi(apiConfig);
+    return handleApiCall(() => certificationsummariesapi.getIdentitySummariesV1(requestParameters));
+  },
+  getIdentitySummaryV1: (requestParameters: certificationSummariesTypes.CertificationSummariesApiGetIdentitySummaryV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<certificationSummariesTypes.CertificationIdentitySummary>> => {
+    const certificationsummariesapi = new sdk.CertificationSummariesApi(apiConfig);
+    return handleApiCall(() => certificationsummariesapi.getIdentitySummaryV1(requestParameters));
+  },
+  getIdentityV1: (requestParameters: identitiesTypes.IdentitiesApiGetIdentityV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<identitiesTypes.Identity>> => {
+    const identitiesapi = new sdk.IdentitiesApi(apiConfig);
+    return handleApiCall(() => identitiesapi.getIdentityV1(requestParameters));
+  },
+  getIntelIdentityAccessItemHistoryV1: (requestParameters: intelligenceTypes.IntelligenceApiGetIntelIdentityAccessItemHistoryV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<intelligenceTypes.IntelAccessItemHistoryEvent>>> => {
+    const intelligenceapi = new sdk.IntelligenceApi(apiConfig);
+    return handleApiCall(() => intelligenceapi.getIntelIdentityAccessItemHistoryV1(requestParameters));
+  },
+  getIntelIdentityAccountsV1: (requestParameters: intelligenceTypes.IntelligenceApiGetIntelIdentityAccountsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<intelligenceTypes.IntelAccessAccountWire>>> => {
+    const intelligenceapi = new sdk.IntelligenceApi(apiConfig);
+    return handleApiCall(() => intelligenceapi.getIntelIdentityAccountsV1(requestParameters));
+  },
+  getIntelIdentityCertificationHistoryV1: (requestParameters: intelligenceTypes.IntelligenceApiGetIntelIdentityCertificationHistoryV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<intelligenceTypes.IntelCertificationHistoryEvent>>> => {
+    const intelligenceapi = new sdk.IntelligenceApi(apiConfig);
+    return handleApiCall(() => intelligenceapi.getIntelIdentityCertificationHistoryV1(requestParameters));
+  },
+  getIntelIdentityRareAccessV1: (requestParameters: intelligenceTypes.IntelligenceApiGetIntelIdentityRareAccessV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<intelligenceTypes.IntelOutlierAccessItem>>> => {
+    const intelligenceapi = new sdk.IntelligenceApi(apiConfig);
+    return handleApiCall(() => intelligenceapi.getIntelIdentityRareAccessV1(requestParameters));
+  },
+  getJitActivationConfigV1: (requestParameters: jitAccessTypes.JITAccessApiGetJitActivationConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<jitAccessTypes.JITActivationConfigResponse>> => {
+    const jitaccessapi = new sdk.JITAccessApi(apiConfig);
+    return handleApiCall(() => jitaccessapi.getJitActivationConfigV1(requestParameters));
+  },
+  getJobStatusNerm: (requestParameters: sdk.JobStatusNERMApiGetJobStatusRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetJobStatus200ResponseNERM>> => {
+    const jobstatusnermapi = new sdk.JobStatusNERMApi(apiConfig);
+    return handleApiCall(() => jobstatusnermapi.getJobStatus(requestParameters));
+  },
+  getJWKSDataV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<sharedSignalsFrameworkSsfTypes.JWKS>> => {
+    const sharedsignalsframeworkssfapi = new sdk.SharedSignalsFrameworkSSFApi(apiConfig);
+    return handleApiCall(() => sharedsignalsframeworkssfapi.getJWKSDataV1());
+  },
+  getLatestIdentityOutlierSnapshotsV1: (requestParameters: iaiOutliersTypes.IAIOutliersApiGetLatestIdentityOutlierSnapshotsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<iaiOutliersTypes.LatestOutlierSummary>>> => {
+    const iaioutliersapi = new sdk.IAIOutliersApi(apiConfig);
+    return handleApiCall(() => iaioutliersapi.getLatestIdentityOutlierSnapshotsV1(requestParameters));
+  },
+  getLaunchersV1: (requestParameters: launchersTypes.LaunchersApiGetLaunchersV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<launchersTypes.GetLaunchersV1200Response>> => {
+    const launchersapi = new sdk.LaunchersApi(apiConfig);
+    return handleApiCall(() => launchersapi.getLaunchersV1(requestParameters));
+  },
+  getLauncherV1: (requestParameters: launchersTypes.LaunchersApiGetLauncherV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<launchersTypes.Launcher>> => {
+    const launchersapi = new sdk.LaunchersApi(apiConfig);
+    return handleApiCall(() => launchersapi.getLauncherV1(requestParameters));
+  },
+  getLifecycleStatesV1: (requestParameters: lifecycleStatesTypes.LifecycleStatesApiGetLifecycleStatesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<lifecycleStatesTypes.LifecycleState>>> => {
+    const lifecyclestatesapi = new sdk.LifecycleStatesApi(apiConfig);
+    return handleApiCall(() => lifecyclestatesapi.getLifecycleStatesV1(requestParameters));
+  },
+  getLifecycleStateV1: (requestParameters: lifecycleStatesTypes.LifecycleStatesApiGetLifecycleStateV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<lifecycleStatesTypes.LifecycleState>> => {
+    const lifecyclestatesapi = new sdk.LifecycleStatesApi(apiConfig);
+    return handleApiCall(() => lifecyclestatesapi.getLifecycleStateV1(requestParameters));
+  },
+  getMachineAccountCreateAccessInfoV1: (requestParameters: machineAccountCreationRequestTypes.MachineAccountCreationRequestApiGetMachineAccountCreateAccessInfoV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<machineAccountCreationRequestTypes.MachineAccountCreateAccessDto>>> => {
+    const machineaccountcreationrequestapi = new sdk.MachineAccountCreationRequestApi(apiConfig);
+    return handleApiCall(() => machineaccountcreationrequestapi.getMachineAccountCreateAccessInfoV1(requestParameters));
+  },
+  getMachineAccountDeletionApprovalConfigBySourceV1: (requestParameters: sourcesTypes.SourcesApiGetMachineAccountDeletionApprovalConfigBySourceV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.AccountDeleteConfigDto>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.getMachineAccountDeletionApprovalConfigBySourceV1(requestParameters));
+  },
+  getMachineAccountSubtypeApprovalConfigV1: (requestParameters: machineAccountSubtypesTypes.MachineAccountSubtypesApiGetMachineAccountSubtypeApprovalConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<machineAccountSubtypesTypes.MachineAccountSubtypeConfigDto>> => {
+    const machineaccountsubtypesapi = new sdk.MachineAccountSubtypesApi(apiConfig);
+    return handleApiCall(() => machineaccountsubtypesapi.getMachineAccountSubtypeApprovalConfigV1(requestParameters));
+  },
+  getMachineAccountSubtypeByIdV1: (requestParameters: machineAccountsTypes.MachineAccountsApiGetMachineAccountSubtypeByIdV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<machineAccountsTypes.SourceSubtype>> => {
+    const machineaccountsapi = new sdk.MachineAccountsApi(apiConfig);
+    return handleApiCall(() => machineaccountsapi.getMachineAccountSubtypeByIdV1(requestParameters));
+  },
+  getMachineAccountSubtypeByTechnicalNameV1: (requestParameters: machineAccountsTypes.MachineAccountsApiGetMachineAccountSubtypeByTechnicalNameV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<machineAccountsTypes.SourceSubtype>> => {
+    const machineaccountsapi = new sdk.MachineAccountsApi(apiConfig);
+    return handleApiCall(() => machineaccountsapi.getMachineAccountSubtypeByTechnicalNameV1(requestParameters));
+  },
+  getMachineAccountV1: (requestParameters: machineAccountsTypes.MachineAccountsApiGetMachineAccountV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<machineAccountsTypes.MachineAccount>> => {
+    const machineaccountsapi = new sdk.MachineAccountsApi(apiConfig);
+    return handleApiCall(() => machineaccountsapi.getMachineAccountV1(requestParameters));
+  },
+  getMachineClassificationConfigV1: (requestParameters: machineClassificationConfigTypes.MachineClassificationConfigApiGetMachineClassificationConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<machineClassificationConfigTypes.MachineClassificationConfig>> => {
+    const machineclassificationconfigapi = new sdk.MachineClassificationConfigApi(apiConfig);
+    return handleApiCall(() => machineclassificationconfigapi.getMachineClassificationConfigV1(requestParameters));
+  },
+  getMachineIdentityV1: (requestParameters: machineIdentitiesTypes.MachineIdentitiesApiGetMachineIdentityV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<machineIdentitiesTypes.MachineIdentityResponse>> => {
+    const machineidentitiesapi = new sdk.MachineIdentitiesApi(apiConfig);
+    return handleApiCall(() => machineidentitiesapi.getMachineIdentityV1(requestParameters));
+  },
+  getMachineIdentityV2: (requestParameters: machineIdentitiesTypes.MachineIdentitiesApiGetMachineIdentityV2Request, apiConfig: sdk.Configuration): Promise<ApiResponse<machineIdentitiesTypes.Machineidentityv2>> => {
+    const machineidentitiesapi = new sdk.MachineIdentitiesApi(apiConfig);
+    return handleApiCall(() => machineidentitiesapi.getMachineIdentityV2(requestParameters));
+  },
+  getMailFromAttributesV1: (requestParameters: notificationsTypes.NotificationsApiGetMailFromAttributesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<notificationsTypes.MailFromAttributes>> => {
+    const notificationsapi = new sdk.NotificationsApi(apiConfig);
+    return handleApiCall(() => notificationsapi.getMailFromAttributesV1(requestParameters));
+  },
+  getManagedClientHealthIndicatorsV1: (requestParameters: managedClientsTypes.ManagedClientsApiGetManagedClientHealthIndicatorsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<managedClientsTypes.ManagedClientHealthIndicators>> => {
+    const managedclientsapi = new sdk.ManagedClientsApi(apiConfig);
+    return handleApiCall(() => managedclientsapi.getManagedClientHealthIndicatorsV1(requestParameters));
+  },
+  getManagedClientStatusV1: (requestParameters: managedClientsTypes.ManagedClientsApiGetManagedClientStatusV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<managedClientsTypes.ManagedClientStatus>> => {
+    const managedclientsapi = new sdk.ManagedClientsApi(apiConfig);
+    return handleApiCall(() => managedclientsapi.getManagedClientStatusV1(requestParameters));
+  },
+  getManagedClientsV1: (requestParameters: managedClientsTypes.ManagedClientsApiGetManagedClientsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<managedClientsTypes.ManagedClient>>> => {
+    const managedclientsapi = new sdk.ManagedClientsApi(apiConfig);
+    return handleApiCall(() => managedclientsapi.getManagedClientsV1(requestParameters));
+  },
+  getManagedClientV1: (requestParameters: managedClientsTypes.ManagedClientsApiGetManagedClientV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<managedClientsTypes.ManagedClient>> => {
+    const managedclientsapi = new sdk.ManagedClientsApi(apiConfig);
+    return handleApiCall(() => managedclientsapi.getManagedClientV1(requestParameters));
+  },
+  getManagedClustersV1: (requestParameters: managedClustersTypes.ManagedClustersApiGetManagedClustersV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<managedClustersTypes.ManagedCluster>>> => {
+    const managedclustersapi = new sdk.ManagedClustersApi(apiConfig);
+    return handleApiCall(() => managedclustersapi.getManagedClustersV1(requestParameters));
+  },
+  getManagedClusterTypesV1: (requestParameters: managedClusterTypesTypes.ManagedClusterTypesApiGetManagedClusterTypesV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<managedClusterTypesTypes.ManagedClusterType>>> => {
+    const managedclustertypesapi = new sdk.ManagedClusterTypesApi(apiConfig);
+    return handleApiCall(() => managedclustertypesapi.getManagedClusterTypesV1(requestParameters));
+  },
+  getManagedClusterTypeV1: (requestParameters: managedClusterTypesTypes.ManagedClusterTypesApiGetManagedClusterTypeV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<managedClusterTypesTypes.ManagedClusterType>> => {
+    const managedclustertypesapi = new sdk.ManagedClusterTypesApi(apiConfig);
+    return handleApiCall(() => managedclustertypesapi.getManagedClusterTypeV1(requestParameters));
+  },
+  getManagedClusterV1: (requestParameters: managedClustersTypes.ManagedClustersApiGetManagedClusterV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<managedClustersTypes.ManagedCluster>> => {
+    const managedclustersapi = new sdk.ManagedClustersApi(apiConfig);
+    return handleApiCall(() => managedclustersapi.getManagedClusterV1(requestParameters));
+  },
+  getManualDiscoverApplicationsCsvTemplateV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<applicationDiscoveryTypes.ManualDiscoverApplicationsTemplate>> => {
+    const applicationdiscoveryapi = new sdk.ApplicationDiscoveryApi(apiConfig);
+    return handleApiCall(() => applicationdiscoveryapi.getManualDiscoverApplicationsCsvTemplateV1());
+  },
+  getMFADuoConfigV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<mfaConfigurationTypes.MfaDuoConfig>> => {
+    const mfaconfigurationapi = new sdk.MFAConfigurationApi(apiConfig);
+    return handleApiCall(() => mfaconfigurationapi.getMFADuoConfigV1());
+  },
+  getMFAKbaConfigV1: (requestParameters: mfaConfigurationTypes.MFAConfigurationApiGetMFAKbaConfigV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<mfaConfigurationTypes.KbaQuestion>>> => {
+    const mfaconfigurationapi = new sdk.MFAConfigurationApi(apiConfig);
+    return handleApiCall(() => mfaconfigurationapi.getMFAKbaConfigV1(requestParameters));
+  },
+  getMFAOktaConfigV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<mfaConfigurationTypes.MfaOktaConfig>> => {
+    const mfaconfigurationapi = new sdk.MFAConfigurationApi(apiConfig);
+    return handleApiCall(() => mfaconfigurationapi.getMFAOktaConfigV1());
+  },
+  getMultiHostIntegrationsListV1: (requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiGetMultiHostIntegrationsListV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<multiHostIntegrationTypes.MultiHostIntegrations>>> => {
+    const multihostintegrationapi = new sdk.MultiHostIntegrationApi(apiConfig);
+    return handleApiCall(() => multihostintegrationapi.getMultiHostIntegrationsListV1(requestParameters));
+  },
+  getMultiHostIntegrationsV1: (requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiGetMultiHostIntegrationsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<multiHostIntegrationTypes.MultiHostIntegrations>> => {
+    const multihostintegrationapi = new sdk.MultiHostIntegrationApi(apiConfig);
+    return handleApiCall(() => multihostintegrationapi.getMultiHostIntegrationsV1(requestParameters));
+  },
+  getMultihostIntegrationTypesV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<Array<multiHostIntegrationTypes.MultiHostIntegrationTemplateType>>> => {
+    const multihostintegrationapi = new sdk.MultiHostIntegrationApi(apiConfig);
+    return handleApiCall(() => multihostintegrationapi.getMultihostIntegrationTypesV1());
+  },
+  getMultiHostSourceCreationErrorsV1: (requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiGetMultiHostSourceCreationErrorsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<multiHostIntegrationTypes.SourceCreationErrors>>> => {
+    const multihostintegrationapi = new sdk.MultiHostIntegrationApi(apiConfig);
+    return handleApiCall(() => multihostintegrationapi.getMultiHostSourceCreationErrorsV1(requestParameters));
+  },
+  getNativeChangeDetectionConfigV1: (requestParameters: sourcesTypes.SourcesApiGetNativeChangeDetectionConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.NativeChangeDetectionConfig>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.getNativeChangeDetectionConfigV1(requestParameters));
+  },
+  getNonEmployeeApprovalSummaryV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiGetNonEmployeeApprovalSummaryV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeApprovalSummary>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.getNonEmployeeApprovalSummaryV1(requestParameters));
+  },
+  getNonEmployeeApprovalV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiGetNonEmployeeApprovalV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeApprovalItemDetail>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.getNonEmployeeApprovalV1(requestParameters));
+  },
+  getNonEmployeeBulkUploadStatusV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiGetNonEmployeeBulkUploadStatusV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeBulkUploadStatus>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.getNonEmployeeBulkUploadStatusV1(requestParameters));
+  },
+  getNonEmployeeRecordV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiGetNonEmployeeRecordV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeRecord>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.getNonEmployeeRecordV1(requestParameters));
+  },
+  getNonEmployeeRequestSummaryV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiGetNonEmployeeRequestSummaryV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeRequestSummary>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.getNonEmployeeRequestSummaryV1(requestParameters));
+  },
+  getNonEmployeeRequestV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiGetNonEmployeeRequestV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeRequest>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.getNonEmployeeRequestV1(requestParameters));
+  },
+  getNonEmployeeSchemaAttributeV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiGetNonEmployeeSchemaAttributeV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeSchemaAttribute>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.getNonEmployeeSchemaAttributeV1(requestParameters));
+  },
+  getNonEmployeeSourceSchemaAttributesV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiGetNonEmployeeSourceSchemaAttributesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<nonEmployeeLifecycleManagementTypes.NonEmployeeSchemaAttribute>>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.getNonEmployeeSourceSchemaAttributesV1(requestParameters));
+  },
+  getNonEmployeeSourceV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiGetNonEmployeeSourceV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeSource>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.getNonEmployeeSourceV1(requestParameters));
+  },
+  getNotificationPreferencesV1: (requestParameters: notificationsTypes.NotificationsApiGetNotificationPreferencesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<notificationsTypes.PreferencesDto>> => {
+    const notificationsapi = new sdk.NotificationsApi(apiConfig);
+    return handleApiCall(() => notificationsapi.getNotificationPreferencesV1(requestParameters));
+  },
+  getNotificationsTemplateContextV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<notificationsTypes.NotificationTemplateContext>> => {
+    const notificationsapi = new sdk.NotificationsApi(apiConfig);
+    return handleApiCall(() => notificationsapi.getNotificationsTemplateContextV1());
+  },
+  getNotificationTemplateV1: (requestParameters: notificationsTypes.NotificationsApiGetNotificationTemplateV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<notificationsTypes.TemplateDto>> => {
+    const notificationsapi = new sdk.NotificationsApi(apiConfig);
+    return handleApiCall(() => notificationsapi.getNotificationTemplateV1(requestParameters));
+  },
+  getNotificationTemplateVariablesV1: (requestParameters: notificationsTypes.NotificationsApiGetNotificationTemplateVariablesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<notificationsTypes.TemplateVariablesDto>> => {
+    const notificationsapi = new sdk.NotificationsApi(apiConfig);
+    return handleApiCall(() => notificationsapi.getNotificationTemplateVariablesV1(requestParameters));
+  },
+  getOauthClientV1: (requestParameters: oauthClientsTypes.OAuthClientsApiGetOauthClientV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<oauthClientsTypes.GetOAuthClientResponse>> => {
+    const oauthclientsapi = new sdk.OAuthClientsApi(apiConfig);
+    return handleApiCall(() => oauthclientsapi.getOauthClientV1(requestParameters));
+  },
+  getObjectMappingsV1: (requestParameters: configurationHubTypes.ConfigurationHubApiGetObjectMappingsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<configurationHubTypes.ObjectMappingResponse>>> => {
+    const configurationhubapi = new sdk.ConfigurationHubApi(apiConfig);
+    return handleApiCall(() => configurationhubapi.getObjectMappingsV1(requestParameters));
+  },
+  getOngoingRolePropagationV1: (requestParameters: rolePropagationTypes.RolePropagationApiGetOngoingRolePropagationV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<rolePropagationTypes.Rolepropagationongoingresponse>> => {
+    const rolepropagationapi = new sdk.RolePropagationApi(apiConfig);
+    return handleApiCall(() => rolepropagationapi.getOngoingRolePropagationV1(requestParameters));
+  },
+  getOrgConfigV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<orgConfigTypes.OrgConfig>> => {
+    const orgconfigapi = new sdk.OrgConfigApi(apiConfig);
+    return handleApiCall(() => orgconfigapi.getOrgConfigV1());
+  },
+  getOutlierContributingFeatureSummaryV1: (requestParameters: iaiOutliersTypes.IAIOutliersApiGetOutlierContributingFeatureSummaryV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<iaiOutliersTypes.OutlierFeatureSummary>> => {
+    const iaioutliersapi = new sdk.IAIOutliersApi(apiConfig);
+    return handleApiCall(() => iaioutliersapi.getOutlierContributingFeatureSummaryV1(requestParameters));
+  },
+  getOwnershipCorrelationConfigV1: (requestParameters: machineIdentitiesTypes.MachineIdentitiesApiGetOwnershipCorrelationConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<machineIdentitiesTypes.CorrelationConfig>> => {
+    const machineidentitiesapi = new sdk.MachineIdentitiesApi(apiConfig);
+    return handleApiCall(() => machineidentitiesapi.getOwnershipCorrelationConfigV1(requestParameters));
+  },
+  getOwnersV1: (requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiGetOwnersV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<dataAccessSecurityTypes.DataOwnerModel>>> => {
+    const dataaccesssecurityapi = new sdk.DataAccessSecurityApi(apiConfig);
+    return handleApiCall(() => dataaccesssecurityapi.getOwnersV1(requestParameters));
+  },
+  getPageContentByIdNerm: (requestParameters: sdk.PageContentsNERMApiGetPageContentByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContents200ResponseNERM>> => {
+    const pagecontentsnermapi = new sdk.PageContentsNERMApi(apiConfig);
+    return handleApiCall(() => pagecontentsnermapi.getPageContentById(requestParameters));
+  },
+  getPageContentByUidNerm: (requestParameters: sdk.PageContentsNERMApiGetPageContentByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContents200ResponseNERM>> => {
+    const pagecontentsnermapi = new sdk.PageContentsNERMApi(apiConfig);
+    return handleApiCall(() => pagecontentsnermapi.getPageContentByUid(requestParameters));
+  },
+  getPageContentsNerm: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContents200ResponseNERM>> => {
+    const pagecontentsnermapi = new sdk.PageContentsNERMApi(apiConfig);
+    return handleApiCall(() => pagecontentsnermapi.getPageContents());
+  },
+  getPageContentTranslationByIdNerm: (requestParameters: sdk.PageContentTranslationsNERMApiGetPageContentTranslationByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContentTranslation200ResponseNERM>> => {
+    const pagecontenttranslationsnermapi = new sdk.PageContentTranslationsNERMApi(apiConfig);
+    return handleApiCall(() => pagecontenttranslationsnermapi.getPageContentTranslationById(requestParameters));
+  },
+  getPageContentTranslationByUidNerm: (requestParameters: sdk.PageContentTranslationsNERMApiGetPageContentTranslationByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContentTranslation200ResponseNERM>> => {
+    const pagecontenttranslationsnermapi = new sdk.PageContentTranslationsNERMApi(apiConfig);
+    return handleApiCall(() => pagecontenttranslationsnermapi.getPageContentTranslationByUid(requestParameters));
+  },
+  getPageContentTranslationNerm: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContentTranslation200ResponseNERM>> => {
+    const pagecontenttranslationsnermapi = new sdk.PageContentTranslationsNERMApi(apiConfig);
+    return handleApiCall(() => pagecontenttranslationsnermapi.getPageContentTranslation());
+  },
+  getPageElementByIdNerm: (requestParameters: sdk.PageElementsNERMApiGetPageElementByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageElements200ResponseNERM>> => {
+    const pageelementsnermapi = new sdk.PageElementsNERMApi(apiConfig);
+    return handleApiCall(() => pageelementsnermapi.getPageElementById(requestParameters));
+  },
+  getPageElementByUidNerm: (requestParameters: sdk.PageElementsNERMApiGetPageElementByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageElements200ResponseNERM>> => {
+    const pageelementsnermapi = new sdk.PageElementsNERMApi(apiConfig);
+    return handleApiCall(() => pageelementsnermapi.getPageElementByUid(requestParameters));
+  },
+  getPageElementsNerm: (apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageElements200ResponseNERM>> => {
+    const pageelementsnermapi = new sdk.PageElementsNERMApi(apiConfig);
+    return handleApiCall(() => pageelementsnermapi.getPageElements());
+  },
+  getParameterReferencesV1: (requestParameters: parameterStorageTypes.ParameterStorageApiGetParameterReferencesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<parameterStorageTypes.ParameterStorageReference>>> => {
+    const parameterstorageapi = new sdk.ParameterStorageApi(apiConfig);
+    return handleApiCall(() => parameterstorageapi.getParameterReferencesV1(requestParameters));
+  },
+  getParameterStorageSpecificationV1: (requestParameters: parameterStorageTypes.ParameterStorageApiGetParameterStorageSpecificationV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const parameterstorageapi = new sdk.ParameterStorageApi(apiConfig);
+    return handleApiCall(() => parameterstorageapi.getParameterStorageSpecificationV1(requestParameters));
+  },
+  getParameterV1: (requestParameters: parameterStorageTypes.ParameterStorageApiGetParameterV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<parameterStorageTypes.ParameterStorageParameter>> => {
+    const parameterstorageapi = new sdk.ParameterStorageApi(apiConfig);
+    return handleApiCall(() => parameterstorageapi.getParameterV1(requestParameters));
+  },
+  getPasswordChangeStatusV1: (requestParameters: passwordManagementTypes.PasswordManagementApiGetPasswordChangeStatusV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<passwordManagementTypes.PasswordStatus>> => {
+    const passwordmanagementapi = new sdk.PasswordManagementApi(apiConfig);
+    return handleApiCall(() => passwordmanagementapi.getPasswordChangeStatusV1(requestParameters));
+  },
+  getPasswordDictionaryV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<string>> => {
+    const passworddictionaryapi = new sdk.PasswordDictionaryApi(apiConfig);
+    return handleApiCall(() => passworddictionaryapi.getPasswordDictionaryV1());
+  },
+  getPasswordOrgConfigV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<passwordConfigurationTypes.PasswordOrgConfig>> => {
+    const passwordconfigurationapi = new sdk.PasswordConfigurationApi(apiConfig);
+    return handleApiCall(() => passwordconfigurationapi.getPasswordOrgConfigV1());
+  },
+  getPasswordPolicyByIdV1: (requestParameters: passwordPoliciesTypes.PasswordPoliciesApiGetPasswordPolicyByIdV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<passwordPoliciesTypes.PasswordPolicyV3Dto>> => {
+    const passwordpoliciesapi = new sdk.PasswordPoliciesApi(apiConfig);
+    return handleApiCall(() => passwordpoliciesapi.getPasswordPolicyByIdV1(requestParameters));
+  },
+  getPasswordSyncGroupsV1: (requestParameters: passwordSyncGroupsTypes.PasswordSyncGroupsApiGetPasswordSyncGroupsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<passwordSyncGroupsTypes.PasswordSyncGroup>>> => {
+    const passwordsyncgroupsapi = new sdk.PasswordSyncGroupsApi(apiConfig);
+    return handleApiCall(() => passwordsyncgroupsapi.getPasswordSyncGroupsV1(requestParameters));
+  },
+  getPasswordSyncGroupV1: (requestParameters: passwordSyncGroupsTypes.PasswordSyncGroupsApiGetPasswordSyncGroupV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<passwordSyncGroupsTypes.PasswordSyncGroup>> => {
+    const passwordsyncgroupsapi = new sdk.PasswordSyncGroupsApi(apiConfig);
+    return handleApiCall(() => passwordsyncgroupsapi.getPasswordSyncGroupV1(requestParameters));
+  },
+  getPeerGroupOutliersContributingFeaturesV1: (requestParameters: iaiOutliersTypes.IAIOutliersApiGetPeerGroupOutliersContributingFeaturesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<iaiOutliersTypes.OutlierContributingFeature>>> => {
+    const iaioutliersapi = new sdk.IAIOutliersApi(apiConfig);
+    return handleApiCall(() => iaioutliersapi.getPeerGroupOutliersContributingFeaturesV1(requestParameters));
+  },
+  getPeerGroupOutliersV1: (requestParameters: iaiPeerGroupStrategiesTypes.IAIPeerGroupStrategiesApiGetPeerGroupOutliersV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<iaiPeerGroupStrategiesTypes.PeerGroupMember>>> => {
+    const iaipeergroupstrategiesapi = new sdk.IAIPeerGroupStrategiesApi(apiConfig);
+    return handleApiCall(() => iaipeergroupstrategiesapi.getPeerGroupOutliersV1(requestParameters));
+  },
+  getPendingCertificationTasksV1: (requestParameters: certificationsTypes.CertificationsApiGetPendingCertificationTasksV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<certificationsTypes.CertificationTask>>> => {
+    const certificationsapi = new sdk.CertificationsApi(apiConfig);
+    return handleApiCall(() => certificationsapi.getPendingCertificationTasksV1(requestParameters));
+  },
+  getPotentialRoleApplicationsV1: (requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetPotentialRoleApplicationsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<iaiRoleMiningTypes.RoleMiningPotentialRoleApplication>>> => {
+    const iairoleminingapi = new sdk.IAIRoleMiningApi(apiConfig);
+    return handleApiCall(() => iairoleminingapi.getPotentialRoleApplicationsV1(requestParameters));
+  },
+  getPotentialRoleEntitlementsV1: (requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetPotentialRoleEntitlementsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<iaiRoleMiningTypes.RoleMiningPotentialRoleEntitlements>>> => {
+    const iairoleminingapi = new sdk.IAIRoleMiningApi(apiConfig);
+    return handleApiCall(() => iairoleminingapi.getPotentialRoleEntitlementsV1(requestParameters));
+  },
+  getPotentialRoleSourceIdentityUsageV1: (requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetPotentialRoleSourceIdentityUsageV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<iaiRoleMiningTypes.RoleMiningPotentialRoleSourceUsage>>> => {
+    const iairoleminingapi = new sdk.IAIRoleMiningApi(apiConfig);
+    return handleApiCall(() => iairoleminingapi.getPotentialRoleSourceIdentityUsageV1(requestParameters));
+  },
+  getPotentialRoleSummariesV1: (requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetPotentialRoleSummariesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<iaiRoleMiningTypes.RoleMiningPotentialRoleSummary>>> => {
+    const iairoleminingapi = new sdk.IAIRoleMiningApi(apiConfig);
+    return handleApiCall(() => iairoleminingapi.getPotentialRoleSummariesV1(requestParameters));
+  },
+  getPotentialRoleV1: (requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetPotentialRoleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<iaiRoleMiningTypes.RoleMiningPotentialRole>> => {
+    const iairoleminingapi = new sdk.IAIRoleMiningApi(apiConfig);
+    return handleApiCall(() => iairoleminingapi.getPotentialRoleV1(requestParameters));
+  },
+  getPrivilegeCriteriaConfigV1: (requestParameters: privilegeCriteriaConfigurationTypes.PrivilegeCriteriaConfigurationApiGetPrivilegeCriteriaConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<privilegeCriteriaConfigurationTypes.PrivilegeCriteriaConfigDTO>> => {
+    const privilegecriteriaconfigurationapi = new sdk.PrivilegeCriteriaConfigurationApi(apiConfig);
+    return handleApiCall(() => privilegecriteriaconfigurationapi.getPrivilegeCriteriaConfigV1(requestParameters));
+  },
+  getPrivilegeCriteriaV1: (requestParameters: privilegeCriteriaTypes.PrivilegeCriteriaApiGetPrivilegeCriteriaV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<privilegeCriteriaTypes.PrivilegeCriteriaDTO>> => {
+    const privilegecriteriaapi = new sdk.PrivilegeCriteriaApi(apiConfig);
+    return handleApiCall(() => privilegecriteriaapi.getPrivilegeCriteriaV1(requestParameters));
+  },
+  getProfileAvatarNerm: (requestParameters: sdk.ProfilesNERMApiGetProfileAvatarRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.UrlNERM>> => {
+    const profilesnermapi = new sdk.ProfilesNERMApi(apiConfig);
+    return handleApiCall(() => profilesnermapi.getProfileAvatar(requestParameters));
+  },
+  getProfileByIdNerm: (requestParameters: sdk.ProfilesNERMApiGetProfileByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetSingleSchemaMappedProfile200ResponseNERM>> => {
+    const profilesnermapi = new sdk.ProfilesNERMApi(apiConfig);
+    return handleApiCall(() => profilesnermapi.getProfileById(requestParameters));
+  },
+  getProfileConfigListV1: (requestParameters: authProfileTypes.AuthProfileApiGetProfileConfigListV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<authProfileTypes.AuthProfileSummary>>> => {
+    const authprofileapi = new sdk.AuthProfileApi(apiConfig);
+    return handleApiCall(() => authprofileapi.getProfileConfigListV1(requestParameters));
+  },
+  getProfileConfigV1: (requestParameters: authProfileTypes.AuthProfileApiGetProfileConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<authProfileTypes.AuthProfile>> => {
+    const authprofileapi = new sdk.AuthProfileApi(apiConfig);
+    return handleApiCall(() => authprofileapi.getProfileConfigV1(requestParameters));
+  },
+  getProfilesNerm: (requestParameters: sdk.ProfilesNERMApiGetProfilesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetSchemaMappedProfilesCollection200ResponseNERM>> => {
+    const profilesnermapi = new sdk.ProfilesNERMApi(apiConfig);
+    return handleApiCall(() => profilesnermapi.getProfiles(requestParameters));
+  },
+  getProfileTypeAttributesNerm: (requestParameters: sdk.SyncedAttributesNERMApiGetProfileTypeAttributesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetProfileTypeAttributes200ResponseNERM>> => {
+    const syncedattributesnermapi = new sdk.SyncedAttributesNERMApi(apiConfig);
+    return handleApiCall(() => syncedattributesnermapi.getProfileTypeAttributes(requestParameters));
+  },
+  getProfileTypeByIdNerm: (requestParameters: sdk.ProfileTypesNERMApiGetProfileTypeByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitProfileType200ResponseNERM>> => {
+    const profiletypesnermapi = new sdk.ProfileTypesNERMApi(apiConfig);
+    return handleApiCall(() => profiletypesnermapi.getProfileTypeById(requestParameters));
+  },
+  getProfileTypeByUidNerm: (requestParameters: sdk.ProfileTypesNERMApiGetProfileTypeByUidRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitProfileType200ResponseNERM>> => {
+    const profiletypesnermapi = new sdk.ProfileTypesNERMApi(apiConfig);
+    return handleApiCall(() => profiletypesnermapi.getProfileTypeByUid(requestParameters));
+  },
+  getProfileTypesNerm: (requestParameters: sdk.ProfileTypesNERMApiGetProfileTypesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetProfileTypes200ResponseNERM>> => {
+    const profiletypesnermapi = new sdk.ProfileTypesNERMApi(apiConfig);
+    return handleApiCall(() => profiletypesnermapi.getProfileTypes(requestParameters));
+  },
+  getProfileUploadNerm: (requestParameters: sdk.ProfilesNERMApiGetProfileUploadRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.UrlNERM>> => {
+    const profilesnermapi = new sdk.ProfilesNERMApi(apiConfig);
+    return handleApiCall(() => profilesnermapi.getProfileUpload(requestParameters));
+  },
+  getProvisioningPolicyV1: (requestParameters: sourcesTypes.SourcesApiGetProvisioningPolicyV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.ProvisioningPolicyDto>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.getProvisioningPolicyV1(requestParameters));
+  },
+  getProvisioningPolicyV2: (requestParameters: sourcesTypes.SourcesApiGetProvisioningPolicyV2Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.ProvisioningPolicyDtoV2>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.getProvisioningPolicyV2(requestParameters));
+  },
+  getPublicIdentitiesV1: (requestParameters: publicIdentitiesTypes.PublicIdentitiesApiGetPublicIdentitiesV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<publicIdentitiesTypes.PublicIdentity>>> => {
+    const publicidentitiesapi = new sdk.PublicIdentitiesApi(apiConfig);
+    return handleApiCall(() => publicidentitiesapi.getPublicIdentitiesV1(requestParameters));
+  },
+  getPublicIdentityConfigV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<publicIdentitiesConfigTypes.PublicIdentityConfig>> => {
+    const publicidentitiesconfigapi = new sdk.PublicIdentitiesConfigApi(apiConfig);
+    return handleApiCall(() => publicidentitiesconfigapi.getPublicIdentityConfigV1());
+  },
+  getReassignmentConfigTypesV1: (requestParameters: workReassignmentTypes.WorkReassignmentApiGetReassignmentConfigTypesV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<workReassignmentTypes.ConfigType>>> => {
+    const workreassignmentapi = new sdk.WorkReassignmentApi(apiConfig);
+    return handleApiCall(() => workreassignmentapi.getReassignmentConfigTypesV1(requestParameters));
+  },
+  getReassignmentConfigurationV1: (requestParameters: workReassignmentTypes.WorkReassignmentApiGetReassignmentConfigurationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<workReassignmentTypes.ConfigurationResponse>> => {
+    const workreassignmentapi = new sdk.WorkReassignmentApi(apiConfig);
+    return handleApiCall(() => workreassignmentapi.getReassignmentConfigurationV1(requestParameters));
+  },
+  getRecommendationsConfigV1: (requestParameters: iaiRecommendationsTypes.IAIRecommendationsApiGetRecommendationsConfigV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<iaiRecommendationsTypes.RecommendationConfigDto>> => {
+    const iairecommendationsapi = new sdk.IAIRecommendationsApi(apiConfig);
+    return handleApiCall(() => iairecommendationsapi.getRecommendationsConfigV1(requestParameters));
+  },
+  getRecommendationsV1: (requestParameters: iaiRecommendationsTypes.IAIRecommendationsApiGetRecommendationsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<iaiRecommendationsTypes.RecommendationResponseDto>> => {
+    const iairecommendationsapi = new sdk.IAIRecommendationsApi(apiConfig);
+    return handleApiCall(() => iairecommendationsapi.getRecommendationsV1(requestParameters));
+  },
+  getReportResultV1: (requestParameters: reportsDataExtractionTypes.ReportsDataExtractionApiGetReportResultV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<reportsDataExtractionTypes.ReportResults>> => {
+    const reportsdataextractionapi = new sdk.ReportsDataExtractionApi(apiConfig);
+    return handleApiCall(() => reportsdataextractionapi.getReportResultV1(requestParameters));
+  },
+  getReportV1: (requestParameters: reportsDataExtractionTypes.ReportsDataExtractionApiGetReportV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<File>> => {
+    const reportsdataextractionapi = new sdk.ReportsDataExtractionApi(apiConfig);
+    return handleApiCall(() => reportsdataextractionapi.getReportV1(requestParameters));
+  },
+  getRiskLevelNerm: (requestParameters: sdk.RiskLevelsNERMApiGetRiskLevelRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetRiskLevel200ResponseNERM>> => {
+    const risklevelsnermapi = new sdk.RiskLevelsNERMApi(apiConfig);
+    return handleApiCall(() => risklevelsnermapi.getRiskLevel(requestParameters));
+  },
+  getRiskLevelsNerm: (requestParameters: sdk.RiskLevelsNERMApiGetRiskLevelsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetRiskLevels200ResponseNERM>> => {
+    const risklevelsnermapi = new sdk.RiskLevelsNERMApi(apiConfig);
+    return handleApiCall(() => risklevelsnermapi.getRiskLevels(requestParameters));
+  },
+  getRiskScoreNerm: (requestParameters: sdk.RiskScoresNERMApiGetRiskScoreRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetRiskScore200ResponseNERM>> => {
+    const riskscoresnermapi = new sdk.RiskScoresNERMApi(apiConfig);
+    return handleApiCall(() => riskscoresnermapi.getRiskScore(requestParameters));
+  },
+  getRiskScoresNerm: (requestParameters: sdk.RiskScoresNERMApiGetRiskScoresRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetRiskScores200ResponseNERM>> => {
+    const riskscoresnermapi = new sdk.RiskScoresNERMApi(apiConfig);
+    return handleApiCall(() => riskscoresnermapi.getRiskScores(requestParameters));
+  },
+  getRoleAssignedIdentitiesV1: (requestParameters: rolesTypes.RolesApiGetRoleAssignedIdentitiesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<rolesTypes.RoleIdentity>>> => {
+    const rolesapi = new sdk.RolesApi(apiConfig);
+    return handleApiCall(() => rolesapi.getRoleAssignedIdentitiesV1(requestParameters));
+  },
+  getRoleAssignmentsV1: (requestParameters: identitiesTypes.IdentitiesApiGetRoleAssignmentsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<identitiesTypes.GetRoleAssignmentsV1200ResponseInner>>> => {
+    const identitiesapi = new sdk.IdentitiesApi(apiConfig);
+    return handleApiCall(() => identitiesapi.getRoleAssignmentsV1(requestParameters));
+  },
+  getRoleAssignmentV1: (requestParameters: identitiesTypes.IdentitiesApiGetRoleAssignmentV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<identitiesTypes.RoleAssignmentDto>> => {
+    const identitiesapi = new sdk.IdentitiesApi(apiConfig);
+    return handleApiCall(() => identitiesapi.getRoleAssignmentV1(requestParameters));
+  },
+  getRoleEntitlementsV1: (requestParameters: rolesTypes.RolesApiGetRoleEntitlementsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<rolesTypes.Entitlement>>> => {
+    const rolesapi = new sdk.RolesApi(apiConfig);
+    return handleApiCall(() => rolesapi.getRoleEntitlementsV1(requestParameters));
+  },
+  getRoleInsightsCurrentEntitlementsV1: (requestParameters: roleInsightsTypes.RoleInsightsApiGetRoleInsightsCurrentEntitlementsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<roleInsightsTypes.RoleInsightsEntitlement>>> => {
+    const roleinsightsapi = new sdk.RoleInsightsApi(apiConfig);
+    return handleApiCall(() => roleinsightsapi.getRoleInsightsCurrentEntitlementsV1(requestParameters));
+  },
+  getRoleInsightsEntitlementsChangesV1: (requestParameters: roleInsightsTypes.RoleInsightsApiGetRoleInsightsEntitlementsChangesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<roleInsightsTypes.RoleInsightsEntitlementChanges>>> => {
+    const roleinsightsapi = new sdk.RoleInsightsApi(apiConfig);
+    return handleApiCall(() => roleinsightsapi.getRoleInsightsEntitlementsChangesV1(requestParameters));
+  },
+  getRoleInsightsRequestsV1: (requestParameters: roleInsightsTypes.RoleInsightsApiGetRoleInsightsRequestsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<roleInsightsTypes.RoleInsightsResponse>> => {
+    const roleinsightsapi = new sdk.RoleInsightsApi(apiConfig);
+    return handleApiCall(() => roleinsightsapi.getRoleInsightsRequestsV1(requestParameters));
+  },
+  getRoleInsightsSummaryV1: (requestParameters: roleInsightsTypes.RoleInsightsApiGetRoleInsightsSummaryV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<roleInsightsTypes.RoleInsightsSummary>> => {
+    const roleinsightsapi = new sdk.RoleInsightsApi(apiConfig);
+    return handleApiCall(() => roleinsightsapi.getRoleInsightsSummaryV1(requestParameters));
+  },
+  getRoleInsightsV1: (requestParameters: roleInsightsTypes.RoleInsightsApiGetRoleInsightsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<roleInsightsTypes.RoleInsight>>> => {
+    const roleinsightsapi = new sdk.RoleInsightsApi(apiConfig);
+    return handleApiCall(() => roleinsightsapi.getRoleInsightsV1(requestParameters));
+  },
+  getRoleInsightV1: (requestParameters: roleInsightsTypes.RoleInsightsApiGetRoleInsightV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<roleInsightsTypes.RoleInsight>> => {
+    const roleinsightsapi = new sdk.RoleInsightsApi(apiConfig);
+    return handleApiCall(() => roleinsightsapi.getRoleInsightV1(requestParameters));
+  },
+  getRoleMiningPotentialRoleV1: (requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetRoleMiningPotentialRoleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<iaiRoleMiningTypes.RoleMiningPotentialRole>> => {
+    const iairoleminingapi = new sdk.IAIRoleMiningApi(apiConfig);
+    return handleApiCall(() => iairoleminingapi.getRoleMiningPotentialRoleV1(requestParameters));
+  },
+  getRoleMiningSessionStatusV1: (requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetRoleMiningSessionStatusV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<iaiRoleMiningTypes.RoleMiningSessionStatus>> => {
+    const iairoleminingapi = new sdk.IAIRoleMiningApi(apiConfig);
+    return handleApiCall(() => iairoleminingapi.getRoleMiningSessionStatusV1(requestParameters));
+  },
+  getRoleMiningSessionsV1: (requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetRoleMiningSessionsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<iaiRoleMiningTypes.RoleMiningSessionDto>>> => {
+    const iairoleminingapi = new sdk.IAIRoleMiningApi(apiConfig);
+    return handleApiCall(() => iairoleminingapi.getRoleMiningSessionsV1(requestParameters));
+  },
+  getRoleMiningSessionV1: (requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetRoleMiningSessionV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<iaiRoleMiningTypes.RoleMiningSessionResponse>> => {
+    const iairoleminingapi = new sdk.IAIRoleMiningApi(apiConfig);
+    return handleApiCall(() => iairoleminingapi.getRoleMiningSessionV1(requestParameters));
+  },
+  getRoleNerm: (requestParameters: sdk.RolesNERMApiGetRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitRole200ResponseNERM>> => {
+    const rolesnermapi = new sdk.RolesNERMApi(apiConfig);
+    return handleApiCall(() => rolesnermapi.getRole(requestParameters));
+  },
+  getRoleProfileNerm: (requestParameters: sdk.RoleProfilesNERMApiGetRoleProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitRoleProfile200ResponseNERM>> => {
+    const roleprofilesnermapi = new sdk.RoleProfilesNERMApi(apiConfig);
+    return handleApiCall(() => roleprofilesnermapi.getRoleProfile(requestParameters));
+  },
+  getRoleProfilesNerm: (requestParameters: sdk.RoleProfilesNERMApiGetRoleProfilesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetRoleProfiles200ResponseNERM>> => {
+    const roleprofilesnermapi = new sdk.RoleProfilesNERMApi(apiConfig);
+    return handleApiCall(() => roleprofilesnermapi.getRoleProfiles(requestParameters));
+  },
+  getRolePropagationConfigV1: (requestParameters: rolePropagationTypes.RolePropagationApiGetRolePropagationConfigV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<rolePropagationTypes.Rolepropagationconfigresponse>> => {
+    const rolepropagationapi = new sdk.RolePropagationApi(apiConfig);
+    return handleApiCall(() => rolepropagationapi.getRolePropagationConfigV1(requestParameters));
+  },
+  getRolePropagationStatusV1: (requestParameters: rolePropagationTypes.RolePropagationApiGetRolePropagationStatusV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<rolePropagationTypes.Rolepropagationstatusresponse>> => {
+    const rolepropagationapi = new sdk.RolePropagationApi(apiConfig);
+    return handleApiCall(() => rolepropagationapi.getRolePropagationStatusV1(requestParameters));
+  },
+  getRolesNerm: (requestParameters: sdk.RolesNERMApiGetRolesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetRoles200ResponseNERM>> => {
+    const rolesnermapi = new sdk.RolesNERMApi(apiConfig);
+    return handleApiCall(() => rolesnermapi.getRoles(requestParameters));
+  },
+  getRoleV1: (requestParameters: rolesTypes.RolesApiGetRoleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<rolesTypes.Role>> => {
+    const rolesapi = new sdk.RolesApi(apiConfig);
+    return handleApiCall(() => rolesapi.getRoleV1(requestParameters));
+  },
+  getSavedPotentialRolesV1: (requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiGetSavedPotentialRolesV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<iaiRoleMiningTypes.RoleMiningSessionDraftRoleDto>>> => {
+    const iairoleminingapi = new sdk.IAIRoleMiningApi(apiConfig);
+    return handleApiCall(() => iairoleminingapi.getSavedPotentialRolesV1(requestParameters));
+  },
+  getSavedSearchV1: (requestParameters: savedSearchTypes.SavedSearchApiGetSavedSearchV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<savedSearchTypes.SavedSearch>> => {
+    const savedsearchapi = new sdk.SavedSearchApi(apiConfig);
+    return handleApiCall(() => savedsearchapi.getSavedSearchV1(requestParameters));
+  },
+  getScheduledSearchV1: (requestParameters: scheduledSearchTypes.ScheduledSearchApiGetScheduledSearchV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<scheduledSearchTypes.ScheduledSearch>> => {
+    const scheduledsearchapi = new sdk.ScheduledSearchApi(apiConfig);
+    return handleApiCall(() => scheduledsearchapi.getScheduledSearchV1(requestParameters));
+  },
+  getSchedulesV1: (requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiGetSchedulesV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<dataAccessSecurityTypes.ScheduleInfo>>> => {
+    const dataaccesssecurityapi = new sdk.DataAccessSecurityApi(apiConfig);
+    return handleApiCall(() => dataaccesssecurityapi.getSchedulesV1(requestParameters));
+  },
+  getScheduleV1: (requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiGetScheduleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<dataAccessSecurityTypes.ScheduleInfo>> => {
+    const dataaccesssecurityapi = new sdk.DataAccessSecurityApi(apiConfig);
+    return handleApiCall(() => dataaccesssecurityapi.getScheduleV1(requestParameters));
+  },
+  getSchemaMappedProfilesCollectionNerm: (requestParameters: sdk.IscAccountsNERMApiGetSchemaMappedProfilesCollectionRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetSchemaMappedProfilesCollection200ResponseNERM>> => {
+    const iscaccountsnermapi = new sdk.IscAccountsNERMApi(apiConfig);
+    return handleApiCall(() => iscaccountsnermapi.getSchemaMappedProfilesCollection(requestParameters));
+  },
+  getSearchAttributeConfigV1: (requestParameters: searchAttributeConfigurationTypes.SearchAttributeConfigurationApiGetSearchAttributeConfigV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<searchAttributeConfigurationTypes.SearchAttributeConfig>>> => {
+    const searchattributeconfigurationapi = new sdk.SearchAttributeConfigurationApi(apiConfig);
+    return handleApiCall(() => searchattributeconfigurationapi.getSearchAttributeConfigV1(requestParameters));
+  },
+  getSedBatchesV1: (requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiGetSedBatchesV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<suggestedEntitlementDescriptionTypes.SedBatchRecord>>> => {
+    const suggestedentitlementdescriptionapi = new sdk.SuggestedEntitlementDescriptionApi(apiConfig);
+    return handleApiCall(() => suggestedentitlementdescriptionapi.getSedBatchesV1(requestParameters));
+  },
+  getSedBatchStatsV1: (requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiGetSedBatchStatsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<suggestedEntitlementDescriptionTypes.SedBatchStats>> => {
+    const suggestedentitlementdescriptionapi = new sdk.SuggestedEntitlementDescriptionApi(apiConfig);
+    return handleApiCall(() => suggestedentitlementdescriptionapi.getSedBatchStatsV1(requestParameters));
+  },
+  getSegmentV1: (requestParameters: segmentsTypes.SegmentsApiGetSegmentV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<segmentsTypes.Segment>> => {
+    const segmentsapi = new sdk.SegmentsApi(apiConfig);
+    return handleApiCall(() => segmentsapi.getSegmentV1(requestParameters));
+  },
+  getServiceDeskIntegrationsV1: (requestParameters: serviceDeskIntegrationTypes.ServiceDeskIntegrationApiGetServiceDeskIntegrationsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<serviceDeskIntegrationTypes.ServiceDeskIntegrationDto>>> => {
+    const servicedeskintegrationapi = new sdk.ServiceDeskIntegrationApi(apiConfig);
+    return handleApiCall(() => servicedeskintegrationapi.getServiceDeskIntegrationsV1(requestParameters));
+  },
+  getServiceDeskIntegrationTemplateV1: (requestParameters: serviceDeskIntegrationTypes.ServiceDeskIntegrationApiGetServiceDeskIntegrationTemplateV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<serviceDeskIntegrationTypes.ServiceDeskIntegrationTemplateDto>> => {
+    const servicedeskintegrationapi = new sdk.ServiceDeskIntegrationApi(apiConfig);
+    return handleApiCall(() => servicedeskintegrationapi.getServiceDeskIntegrationTemplateV1(requestParameters));
+  },
+  getServiceDeskIntegrationTypesV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<Array<serviceDeskIntegrationTypes.ServiceDeskIntegrationTemplateType>>> => {
+    const servicedeskintegrationapi = new sdk.ServiceDeskIntegrationApi(apiConfig);
+    return handleApiCall(() => servicedeskintegrationapi.getServiceDeskIntegrationTypesV1());
+  },
+  getServiceDeskIntegrationV1: (requestParameters: serviceDeskIntegrationTypes.ServiceDeskIntegrationApiGetServiceDeskIntegrationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<serviceDeskIntegrationTypes.ServiceDeskIntegrationDto>> => {
+    const servicedeskintegrationapi = new sdk.ServiceDeskIntegrationApi(apiConfig);
+    return handleApiCall(() => servicedeskintegrationapi.getServiceDeskIntegrationV1(requestParameters));
+  },
+  getSIMIntegrationsV1: (requestParameters: simIntegrationsTypes.SIMIntegrationsApiGetSIMIntegrationsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<simIntegrationsTypes.ServiceDeskIntegrationDto>>> => {
+    const simintegrationsapi = new sdk.SIMIntegrationsApi(apiConfig);
+    return handleApiCall(() => simintegrationsapi.getSIMIntegrationsV1(requestParameters));
+  },
+  getSIMIntegrationV1: (requestParameters: simIntegrationsTypes.SIMIntegrationsApiGetSIMIntegrationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<simIntegrationsTypes.ServiceDeskIntegrationDto>> => {
+    const simintegrationsapi = new sdk.SIMIntegrationsApi(apiConfig);
+    return handleApiCall(() => simintegrationsapi.getSIMIntegrationV1(requestParameters));
+  },
+  getSingleSchemaMappedProfileNerm: (requestParameters: sdk.IscAccountsNERMApiGetSingleSchemaMappedProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetSingleSchemaMappedProfile200ResponseNERM>> => {
+    const iscaccountsnermapi = new sdk.IscAccountsNERMApi(apiConfig);
+    return handleApiCall(() => iscaccountsnermapi.getSingleSchemaMappedProfile(requestParameters));
+  },
+  getSingleSearchAttributeConfigV1: (requestParameters: searchAttributeConfigurationTypes.SearchAttributeConfigurationApiGetSingleSearchAttributeConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<searchAttributeConfigurationTypes.SearchAttributeConfig>> => {
+    const searchattributeconfigurationapi = new sdk.SearchAttributeConfigurationApi(apiConfig);
+    return handleApiCall(() => searchattributeconfigurationapi.getSingleSearchAttributeConfigV1(requestParameters));
+  },
+  getSodAllReportRunStatusV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<sodPoliciesTypes.ReportResultReference>> => {
+    const sodpoliciesapi = new sdk.SODPoliciesApi(apiConfig);
+    return handleApiCall(() => sodpoliciesapi.getSodAllReportRunStatusV1());
+  },
+  getSodPolicyScheduleV1: (requestParameters: sodPoliciesTypes.SODPoliciesApiGetSodPolicyScheduleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sodPoliciesTypes.SodPolicySchedule>> => {
+    const sodpoliciesapi = new sdk.SODPoliciesApi(apiConfig);
+    return handleApiCall(() => sodpoliciesapi.getSodPolicyScheduleV1(requestParameters));
+  },
+  getSodPolicyV1: (requestParameters: sodPoliciesTypes.SODPoliciesApiGetSodPolicyV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sodPoliciesTypes.SodPolicy>> => {
+    const sodpoliciesapi = new sdk.SODPoliciesApi(apiConfig);
+    return handleApiCall(() => sodpoliciesapi.getSodPolicyV1(requestParameters));
+  },
+  getSodViolationReportRunStatusV1: (requestParameters: sodPoliciesTypes.SODPoliciesApiGetSodViolationReportRunStatusV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sodPoliciesTypes.ReportResultReference>> => {
+    const sodpoliciesapi = new sdk.SODPoliciesApi(apiConfig);
+    return handleApiCall(() => sodpoliciesapi.getSodViolationReportRunStatusV1(requestParameters));
+  },
+  getSodViolationReportStatusV1: (requestParameters: sodPoliciesTypes.SODPoliciesApiGetSodViolationReportStatusV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sodPoliciesTypes.ReportResultReference>> => {
+    const sodpoliciesapi = new sdk.SODPoliciesApi(apiConfig);
+    return handleApiCall(() => sodpoliciesapi.getSodViolationReportStatusV1(requestParameters));
+  },
+  getSourceAppV1: (requestParameters: appsTypes.AppsApiGetSourceAppV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<appsTypes.SourceApp>> => {
+    const appsapi = new sdk.AppsApi(apiConfig);
+    return handleApiCall(() => appsapi.getSourceAppV1(requestParameters));
+  },
+  getSourceAttrSyncConfigV1: (requestParameters: sourcesTypes.SourcesApiGetSourceAttrSyncConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.AttrSyncSourceConfig>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.getSourceAttrSyncConfigV1(requestParameters));
+  },
+  getSourceConfigV1: (requestParameters: sourcesTypes.SourcesApiGetSourceConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.ConnectorDetail>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.getSourceConfigV1(requestParameters));
+  },
+  getSourceConnectionsV1: (requestParameters: sourcesTypes.SourcesApiGetSourceConnectionsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.SourceConnectionsDto>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.getSourceConnectionsV1(requestParameters));
+  },
+  getSourceEntitlementRequestConfigV1: (requestParameters: sourcesTypes.SourcesApiGetSourceEntitlementRequestConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.SourceEntitlementRequestConfig>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.getSourceEntitlementRequestConfigV1(requestParameters));
+  },
+  getSourceHealthV1: (requestParameters: sourcesTypes.SourcesApiGetSourceHealthV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.SourceHealthDto>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.getSourceHealthV1(requestParameters));
+  },
+  getSourceSchedulesV1: (requestParameters: sourcesTypes.SourcesApiGetSourceSchedulesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sourcesTypes.Schedule3>>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.getSourceSchedulesV1(requestParameters));
+  },
+  getSourceScheduleV1: (requestParameters: sourcesTypes.SourcesApiGetSourceScheduleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.Schedule3>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.getSourceScheduleV1(requestParameters));
+  },
+  getSourceSchemasV1: (requestParameters: sourcesTypes.SourcesApiGetSourceSchemasV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sourcesTypes.Schema>>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.getSourceSchemasV1(requestParameters));
+  },
+  getSourceSchemaV1: (requestParameters: sourcesTypes.SourcesApiGetSourceSchemaV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.Schema>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.getSourceSchemaV1(requestParameters));
+  },
+  getSourceSubtypeByIdV1: (requestParameters: machineAccountSubtypesTypes.MachineAccountSubtypesApiGetSourceSubtypeByIdV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<machineAccountSubtypesTypes.SourceSubtypeWithSource>> => {
+    const machineaccountsubtypesapi = new sdk.MachineAccountSubtypesApi(apiConfig);
+    return handleApiCall(() => machineaccountsubtypesapi.getSourceSubtypeByIdV1(requestParameters));
+  },
+  getSourcesWithinMultiHostV1: (requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiGetSourcesWithinMultiHostV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<multiHostIntegrationTypes.MultiHostSources>>> => {
+    const multihostintegrationapi = new sdk.MultiHostIntegrationApi(apiConfig);
+    return handleApiCall(() => multihostintegrationapi.getSourcesWithinMultiHostV1(requestParameters));
+  },
+  getSourceV1: (requestParameters: sourcesTypes.SourcesApiGetSourceV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.Source>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.getSourceV1(requestParameters));
+  },
+  getSpConfigExportStatusV1: (requestParameters: spConfigTypes.SPConfigApiGetSpConfigExportStatusV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<spConfigTypes.SpConfigExportJobStatus>> => {
+    const spconfigapi = new sdk.SPConfigApi(apiConfig);
+    return handleApiCall(() => spconfigapi.getSpConfigExportStatusV1(requestParameters));
+  },
+  getSpConfigExportV1: (requestParameters: spConfigTypes.SPConfigApiGetSpConfigExportV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<spConfigTypes.SpConfigExportResults>> => {
+    const spconfigapi = new sdk.SPConfigApi(apiConfig);
+    return handleApiCall(() => spconfigapi.getSpConfigExportV1(requestParameters));
+  },
+  getSpConfigImportStatusV1: (requestParameters: spConfigTypes.SPConfigApiGetSpConfigImportStatusV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<spConfigTypes.SpConfigImportJobStatus>> => {
+    const spconfigapi = new sdk.SPConfigApi(apiConfig);
+    return handleApiCall(() => spconfigapi.getSpConfigImportStatusV1(requestParameters));
+  },
+  getSpConfigImportV1: (requestParameters: spConfigTypes.SPConfigApiGetSpConfigImportV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<spConfigTypes.SpConfigImportResults>> => {
+    const spconfigapi = new sdk.SPConfigApi(apiConfig);
+    return handleApiCall(() => spconfigapi.getSpConfigImportV1(requestParameters));
+  },
+  getSSFConfigurationV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<sharedSignalsFrameworkSsfTypes.TransmitterMetadata>> => {
+    const sharedsignalsframeworkssfapi = new sdk.SharedSignalsFrameworkSSFApi(apiConfig);
+    return handleApiCall(() => sharedsignalsframeworkssfapi.getSSFConfigurationV1());
+  },
+  getStatusBySourceIdV1: (requestParameters: sourceUsagesTypes.SourceUsagesApiGetStatusBySourceIdV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourceUsagesTypes.SourceUsageStatus>> => {
+    const sourceusagesapi = new sdk.SourceUsagesApi(apiConfig);
+    return handleApiCall(() => sourceusagesapi.getStatusBySourceIdV1(requestParameters));
+  },
+  getStatusCheckDetailsV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<serviceDeskIntegrationTypes.QueuedCheckConfigDetails>> => {
+    const servicedeskintegrationapi = new sdk.ServiceDeskIntegrationApi(apiConfig);
+    return handleApiCall(() => servicedeskintegrationapi.getStatusCheckDetailsV1());
+  },
+  getStreamStatusV1: (requestParameters: sharedSignalsFrameworkSsfTypes.SharedSignalsFrameworkSSFApiGetStreamStatusV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sharedSignalsFrameworkSsfTypes.StreamStatusResponse>> => {
+    const sharedsignalsframeworkssfapi = new sdk.SharedSignalsFrameworkSSFApi(apiConfig);
+    return handleApiCall(() => sharedsignalsframeworkssfapi.getStreamStatusV1(requestParameters));
+  },
+  getStreamV1: (requestParameters: sharedSignalsFrameworkSsfTypes.SharedSignalsFrameworkSSFApiGetStreamV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sharedSignalsFrameworkSsfTypes.GetStreamV1200Response>> => {
+    const sharedsignalsframeworkssfapi = new sdk.SharedSignalsFrameworkSSFApi(apiConfig);
+    return handleApiCall(() => sharedsignalsframeworkssfapi.getStreamV1(requestParameters));
+  },
+  getSystemRolesNerm: (requestParameters: sdk.SystemRolesNERMApiGetSystemRolesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetSystemRoles200ResponseNERM>> => {
+    const systemrolesnermapi = new sdk.SystemRolesNERMApi(apiConfig);
+    return handleApiCall(() => systemrolesnermapi.getSystemRoles(requestParameters));
+  },
+  getTagByIdV1: (requestParameters: tagsTypes.TagsApiGetTagByIdV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<tagsTypes.Tag2>> => {
+    const tagsapi = new sdk.TagsApi(apiConfig);
+    return handleApiCall(() => tagsapi.getTagByIdV1(requestParameters));
+  },
+  getTaggedObjectV1: (requestParameters: taggedObjectsTypes.TaggedObjectsApiGetTaggedObjectV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<taggedObjectsTypes.TaggedObject>> => {
+    const taggedobjectsapi = new sdk.TaggedObjectsApi(apiConfig);
+    return handleApiCall(() => taggedobjectsapi.getTaggedObjectV1(requestParameters));
+  },
+  getTaskStatusListV1: (requestParameters: taskManagementTypes.TaskManagementApiGetTaskStatusListV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<taskManagementTypes.TaskStatus>>> => {
+    const taskmanagementapi = new sdk.TaskManagementApi(apiConfig);
+    return handleApiCall(() => taskmanagementapi.getTaskStatusListV1(requestParameters));
+  },
+  getTaskStatusV1: (requestParameters: taskManagementTypes.TaskManagementApiGetTaskStatusV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<taskManagementTypes.TaskStatus>> => {
+    const taskmanagementapi = new sdk.TaskManagementApi(apiConfig);
+    return handleApiCall(() => taskmanagementapi.getTaskStatusV1(requestParameters));
+  },
+  getTasksV1: (requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiGetTasksV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<dataAccessSecurityTypes.TaskInfo>>> => {
+    const dataaccesssecurityapi = new sdk.DataAccessSecurityApi(apiConfig);
+    return handleApiCall(() => dataaccesssecurityapi.getTasksV1(requestParameters));
+  },
+  getTaskV1: (requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiGetTaskV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<dataAccessSecurityTypes.TaskInfo>> => {
+    const dataaccesssecurityapi = new sdk.DataAccessSecurityApi(apiConfig);
+    return handleApiCall(() => dataaccesssecurityapi.getTaskV1(requestParameters));
+  },
+  getTenantConfigConfigurationV1: (requestParameters: workReassignmentTypes.WorkReassignmentApiGetTenantConfigConfigurationV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<workReassignmentTypes.TenantConfigurationResponse>> => {
+    const workreassignmentapi = new sdk.WorkReassignmentApi(apiConfig);
+    return handleApiCall(() => workreassignmentapi.getTenantConfigConfigurationV1(requestParameters));
+  },
+  getTenantContextV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<Array<tenantContextTypes.GetTenantContextV1200ResponseInner>>> => {
+    const tenantcontextapi = new sdk.TenantContextApi(apiConfig);
+    return handleApiCall(() => tenantcontextapi.getTenantContextV1());
+  },
+  getTenantUiMetadataV1: (requestParameters: uiMetadataTypes.UIMetadataApiGetTenantUiMetadataV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<uiMetadataTypes.TenantUiMetadataItemResponse>> => {
+    const uimetadataapi = new sdk.UIMetadataApi(apiConfig);
+    return handleApiCall(() => uimetadataapi.getTenantUiMetadataV1(requestParameters));
+  },
+  getTenantV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<tenantTypes.Tenant>> => {
+    const tenantapi = new sdk.TenantApi(apiConfig);
+    return handleApiCall(() => tenantapi.getTenantV1());
+  },
+  getTotalCountV1: (requestParameters: apiUsageTypes.ApiUsageApiGetTotalCountV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const apiusageapi = new sdk.ApiUsageApi(apiConfig);
+    return handleApiCall(() => apiusageapi.getTotalCountV1(requestParameters));
+  },
+  getTransformV1: (requestParameters: transformsTypes.TransformsApiGetTransformV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<transformsTypes.TransformRead>> => {
+    const transformsapi = new sdk.TransformsApi(apiConfig);
+    return handleApiCall(() => transformsapi.getTransformV1(requestParameters));
+  },
+  getUploadedConfigurationV1: (requestParameters: configurationHubTypes.ConfigurationHubApiGetUploadedConfigurationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<configurationHubTypes.BackupResponse>> => {
+    const configurationhubapi = new sdk.ConfigurationHubApi(apiConfig);
+    return handleApiCall(() => configurationhubapi.getUploadedConfigurationV1(requestParameters));
+  },
+  getUsagesByAccountIdV1: (requestParameters: accountUsagesTypes.AccountUsagesApiGetUsagesByAccountIdV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<accountUsagesTypes.AccountUsage>>> => {
+    const accountusagesapi = new sdk.AccountUsagesApi(apiConfig);
+    return handleApiCall(() => accountusagesapi.getUsagesByAccountIdV1(requestParameters));
+  },
+  getUsagesBySourceIdV1: (requestParameters: sourceUsagesTypes.SourceUsagesApiGetUsagesBySourceIdV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sourceUsagesTypes.SourceUsage>>> => {
+    const sourceusagesapi = new sdk.SourceUsagesApi(apiConfig);
+    return handleApiCall(() => sourceusagesapi.getUsagesBySourceIdV1(requestParameters));
+  },
+  getUserAvatarNerm: (requestParameters: sdk.UsersNERMApiGetUserAvatarRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.UrlNERM>> => {
+    const usersnermapi = new sdk.UsersNERMApi(apiConfig);
+    return handleApiCall(() => usersnermapi.getUserAvatar(requestParameters));
+  },
+  getUserLevelV1: (requestParameters: customUserLevelsTypes.CustomUserLevelsApiGetUserLevelV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<customUserLevelsTypes.UserLevelSummaryDTO>> => {
+    const customuserlevelsapi = new sdk.CustomUserLevelsApi(apiConfig);
+    return handleApiCall(() => customuserlevelsapi.getUserLevelV1(requestParameters));
+  },
+  getUserManagerNerm: (requestParameters: sdk.UserManagersNERMApiGetUserManagerRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUserManager200ResponseNERM>> => {
+    const usermanagersnermapi = new sdk.UserManagersNERMApi(apiConfig);
+    return handleApiCall(() => usermanagersnermapi.getUserManager(requestParameters));
+  },
+  getUserManagersNerm: (requestParameters: sdk.UserManagersNERMApiGetUserManagersRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetUserManagers200ResponseNERM>> => {
+    const usermanagersnermapi = new sdk.UserManagersNERMApi(apiConfig);
+    return handleApiCall(() => usermanagersnermapi.getUserManagers(requestParameters));
+  },
+  getUserNerm: (requestParameters: sdk.UsersNERMApiGetUserRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUser200ResponseNERM>> => {
+    const usersnermapi = new sdk.UsersNERMApi(apiConfig);
+    return handleApiCall(() => usersnermapi.getUser(requestParameters));
+  },
+  getUserProfileNerm: (requestParameters: sdk.UserProfilesNERMApiGetUserProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUserProfile200ResponseNERM>> => {
+    const userprofilesnermapi = new sdk.UserProfilesNERMApi(apiConfig);
+    return handleApiCall(() => userprofilesnermapi.getUserProfile(requestParameters));
+  },
+  getUserProfilesNerm: (requestParameters: sdk.UserProfilesNERMApiGetUserProfilesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetUserProfiles200ResponseNERM>> => {
+    const userprofilesnermapi = new sdk.UserProfilesNERMApi(apiConfig);
+    return handleApiCall(() => userprofilesnermapi.getUserProfiles(requestParameters));
+  },
+  getUserRoleNerm: (requestParameters: sdk.UserRolesNERMApiGetUserRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUserRole200ResponseNERM>> => {
+    const userrolesnermapi = new sdk.UserRolesNERMApi(apiConfig);
+    return handleApiCall(() => userrolesnermapi.getUserRole(requestParameters));
+  },
+  getUserRolesNerm: (requestParameters: sdk.UserRolesNERMApiGetUserRolesRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetUserRoles200ResponseNERM>> => {
+    const userrolesnermapi = new sdk.UserRolesNERMApi(apiConfig);
+    return handleApiCall(() => userrolesnermapi.getUserRoles(requestParameters));
+  },
+  getUsersNerm: (requestParameters: sdk.UsersNERMApiGetUsersRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetUsers200ResponseNERM>> => {
+    const usersnermapi = new sdk.UsersNERMApi(apiConfig);
+    return handleApiCall(() => usersnermapi.getUsers(requestParameters));
+  },
+  getValidTimeZonesV1: (requestParameters: orgConfigTypes.OrgConfigApiGetValidTimeZonesV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<string>>> => {
+    const orgconfigapi = new sdk.OrgConfigApi(apiConfig);
+    return handleApiCall(() => orgconfigapi.getValidTimeZonesV1(requestParameters));
+  },
+  getWorkflowActionsNerm: (requestParameters: sdk.WorkflowActionsNERMApiGetWorkflowActionsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetWorkflowActions200ResponseNERM>> => {
+    const workflowactionsnermapi = new sdk.WorkflowActionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowactionsnermapi.getWorkflowActions(requestParameters));
+  },
+  getWorkflowExecutionHistoryV1: (requestParameters: workflowsTypes.WorkflowsApiGetWorkflowExecutionHistoryV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<workflowsTypes.WorkflowExecutionEvent>>> => {
+    const workflowsapi = new sdk.WorkflowsApi(apiConfig);
+    return handleApiCall(() => workflowsapi.getWorkflowExecutionHistoryV1(requestParameters));
+  },
+  getWorkflowExecutionHistoryV2: (requestParameters: workflowsTypes.WorkflowsApiGetWorkflowExecutionHistoryV2Request, apiConfig: sdk.Configuration): Promise<ApiResponse<workflowsTypes.WorkflowExecutionHistory>> => {
+    const workflowsapi = new sdk.WorkflowsApi(apiConfig);
+    return handleApiCall(() => workflowsapi.getWorkflowExecutionHistoryV2(requestParameters));
+  },
+  getWorkflowExecutionsV1: (requestParameters: workflowsTypes.WorkflowsApiGetWorkflowExecutionsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<workflowsTypes.WorkflowExecution>>> => {
+    const workflowsapi = new sdk.WorkflowsApi(apiConfig);
+    return handleApiCall(() => workflowsapi.getWorkflowExecutionsV1(requestParameters));
+  },
+  getWorkflowExecutionV1: (requestParameters: workflowsTypes.WorkflowsApiGetWorkflowExecutionV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<workflowsTypes.WorkflowExecution>>> => {
+    const workflowsapi = new sdk.WorkflowsApi(apiConfig);
+    return handleApiCall(() => workflowsapi.getWorkflowExecutionV1(requestParameters));
+  },
+  getWorkflowSessionNerm: (requestParameters: sdk.WorkflowSessionsNERMApiGetWorkflowSessionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitWorkflowSession200ResponseNERM>> => {
+    const workflowsessionsnermapi = new sdk.WorkflowSessionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowsessionsnermapi.getWorkflowSession(requestParameters));
+  },
+  getWorkflowSessionsNerm: (requestParameters: sdk.WorkflowSessionsNERMApiGetWorkflowSessionsRequest = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetWorkflowSessions200ResponseNERM>> => {
+    const workflowsessionsnermapi = new sdk.WorkflowSessionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowsessionsnermapi.getWorkflowSessions(requestParameters));
+  },
+  getWorkflowSessionUploadNerm: (requestParameters: sdk.WorkflowSessionsNERMApiGetWorkflowSessionUploadRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.UrlNERM>> => {
+    const workflowsessionsnermapi = new sdk.WorkflowSessionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowsessionsnermapi.getWorkflowSessionUpload(requestParameters));
+  },
+  getWorkflowV1: (requestParameters: workflowsTypes.WorkflowsApiGetWorkflowV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<workflowsTypes.Workflow>> => {
+    const workflowsapi = new sdk.WorkflowsApi(apiConfig);
+    return handleApiCall(() => workflowsapi.getWorkflowV1(requestParameters));
+  },
+  getWorkgroupV1: (requestParameters: governanceGroupsTypes.GovernanceGroupsApiGetWorkgroupV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<governanceGroupsTypes.WorkgroupDto>> => {
+    const governancegroupsapi = new sdk.GovernanceGroupsApi(apiConfig);
+    return handleApiCall(() => governancegroupsapi.getWorkgroupV1(requestParameters));
+  },
+  getWorkItemsSummaryV1: (requestParameters: workItemsTypes.WorkItemsApiGetWorkItemsSummaryV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<workItemsTypes.WorkItemsSummary>> => {
+    const workitemsapi = new sdk.WorkItemsApi(apiConfig);
+    return handleApiCall(() => workitemsapi.getWorkItemsSummaryV1(requestParameters));
+  },
+  getWorkItemV1: (requestParameters: workItemsTypes.WorkItemsApiGetWorkItemV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<workItemsTypes.WorkItems>> => {
+    const workitemsapi = new sdk.WorkItemsApi(apiConfig);
+    return handleApiCall(() => workitemsapi.getWorkItemV1(requestParameters));
+  },
+  ignoreIdentityOutliersV1: (requestParameters: iaiOutliersTypes.IAIOutliersApiIgnoreIdentityOutliersV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const iaioutliersapi = new sdk.IAIOutliersApi(apiConfig);
+    return handleApiCall(() => iaioutliersapi.ignoreIdentityOutliersV1(requestParameters));
+  },
+  importAccountsSchemaV1: (requestParameters: sourcesTypes.SourcesApiImportAccountsSchemaV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.Schema>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.importAccountsSchemaV1(requestParameters));
+  },
+  importAccountsV1: (requestParameters: sourcesTypes.SourcesApiImportAccountsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.LoadAccountsTask>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.importAccountsV1(requestParameters));
+  },
+  importConnectorFileV1: (requestParameters: sourcesTypes.SourcesApiImportConnectorFileV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.Source>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.importConnectorFileV1(requestParameters));
+  },
+  importEntitlementsBySourceV1: (requestParameters: entitlementsTypes.EntitlementsApiImportEntitlementsBySourceV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<entitlementsTypes.LoadEntitlementTask>> => {
+    const entitlementsapi = new sdk.EntitlementsApi(apiConfig);
+    return handleApiCall(() => entitlementsapi.importEntitlementsBySourceV1(requestParameters));
+  },
+  importEntitlementsSchemaV1: (requestParameters: sourcesTypes.SourcesApiImportEntitlementsSchemaV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.Schema>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.importEntitlementsSchemaV1(requestParameters));
+  },
+  importEntitlementsV1: (requestParameters: sourcesTypes.SourcesApiImportEntitlementsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.LoadEntitlementTask>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.importEntitlementsV1(requestParameters));
+  },
+  importFormDefinitionsV1: (requestParameters: customFormsTypes.CustomFormsApiImportFormDefinitionsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<customFormsTypes.ImportFormDefinitionsV1202Response>> => {
+    const customformsapi = new sdk.CustomFormsApi(apiConfig);
+    return handleApiCall(() => customformsapi.importFormDefinitionsV1(requestParameters));
+  },
+  importIdentityProfilesV1: (requestParameters: identityProfilesTypes.IdentityProfilesApiImportIdentityProfilesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<identityProfilesTypes.ObjectImportResult>> => {
+    const identityprofilesapi = new sdk.IdentityProfilesApi(apiConfig);
+    return handleApiCall(() => identityprofilesapi.importIdentityProfilesV1(requestParameters));
+  },
+  importNonEmployeeRecordsInBulkV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiImportNonEmployeeRecordsInBulkV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeBulkUploadJob>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.importNonEmployeeRecordsInBulkV1(requestParameters));
+  },
+  importSpConfigV1: (requestParameters: spConfigTypes.SPConfigApiImportSpConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<spConfigTypes.SpConfigJob>> => {
+    const spconfigapi = new sdk.SPConfigApi(apiConfig);
+    return handleApiCall(() => spconfigapi.importSpConfigV1(requestParameters, { headers: { 'Content-Type': null } } as any));
+  },
+  importUncorrelatedAccountsV1: (requestParameters: sourcesTypes.SourcesApiImportUncorrelatedAccountsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.LoadUncorrelatedAccountsTask>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.importUncorrelatedAccountsV1(requestParameters));
+  },
+  listAccessModelMetadataAttributeV1: (requestParameters: accessModelMetadataTypes.AccessModelMetadataApiListAccessModelMetadataAttributeV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<accessModelMetadataTypes.AttributeDTO>>> => {
+    const accessmodelmetadataapi = new sdk.AccessModelMetadataApi(apiConfig);
+    return handleApiCall(() => accessmodelmetadataapi.listAccessModelMetadataAttributeV1(requestParameters));
+  },
+  listAccessModelMetadataAttributeValueV1: (requestParameters: accessModelMetadataTypes.AccessModelMetadataApiListAccessModelMetadataAttributeValueV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<accessModelMetadataTypes.AttributeValueDTO>>> => {
+    const accessmodelmetadataapi = new sdk.AccessModelMetadataApi(apiConfig);
+    return handleApiCall(() => accessmodelmetadataapi.listAccessModelMetadataAttributeValueV1(requestParameters));
+  },
+  listAccessProfilesForSourceAppV1: (requestParameters: appsTypes.AppsApiListAccessProfilesForSourceAppV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<appsTypes.AccessProfileDetails>>> => {
+    const appsapi = new sdk.AppsApi(apiConfig);
+    return handleApiCall(() => appsapi.listAccessProfilesForSourceAppV1(requestParameters));
+  },
+  listAccessProfilesV1: (requestParameters: accessProfilesTypes.AccessProfilesApiListAccessProfilesV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<accessProfilesTypes.AccessProfile>>> => {
+    const accessprofilesapi = new sdk.AccessProfilesApi(apiConfig);
+    return handleApiCall(() => accessprofilesapi.listAccessProfilesV1(requestParameters));
+  },
+  listAccessRequestApproversV1: (requestParameters: accessRequestApprovalsTypes.AccessRequestApprovalsApiListAccessRequestApproversV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<accessRequestApprovalsTypes.AccessRequestApproversListResponse>>> => {
+    const accessrequestapprovalsapi = new sdk.AccessRequestApprovalsApi(apiConfig);
+    return handleApiCall(() => accessrequestapprovalsapi.listAccessRequestApproversV1(requestParameters));
+  },
+  listAccessRequestStatusV1: (requestParameters: accessRequestsTypes.AccessRequestsApiListAccessRequestStatusV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<accessRequestsTypes.RequestedItemStatus>>> => {
+    const accessrequestsapi = new sdk.AccessRequestsApi(apiConfig);
+    return handleApiCall(() => accessrequestsapi.listAccessRequestStatusV1(requestParameters));
+  },
+  listAccountActivitiesV1: (requestParameters: accountActivitiesTypes.AccountActivitiesApiListAccountActivitiesV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<accountActivitiesTypes.AccountActivity>>> => {
+    const accountactivitiesapi = new sdk.AccountActivitiesApi(apiConfig);
+    return handleApiCall(() => accountactivitiesapi.listAccountActivitiesV1(requestParameters));
+  },
+  listAccountsV1: (requestParameters: accountsTypes.AccountsApiListAccountsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<accountsTypes.Account>>> => {
+    const accountsapi = new sdk.AccountsApi(apiConfig);
+    return handleApiCall(() => accountsapi.listAccountsV1(requestParameters));
+  },
+  listAdministratorsAccessRequestStatusV1: (requestParameters: accessRequestsTypes.AccessRequestsApiListAdministratorsAccessRequestStatusV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<accessRequestsTypes.AccessRequestAdminItemStatus>>> => {
+    const accessrequestsapi = new sdk.AccessRequestsApi(apiConfig);
+    return handleApiCall(() => accessrequestsapi.listAdministratorsAccessRequestStatusV1(requestParameters));
+  },
+  listAllAuthorizationRightSetsV1: (requestParameters: customUserLevelsTypes.CustomUserLevelsApiListAllAuthorizationRightSetsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<customUserLevelsTypes.HierarchicalRightSet>>> => {
+    const customuserlevelsapi = new sdk.CustomUserLevelsApi(apiConfig);
+    return handleApiCall(() => customuserlevelsapi.listAllAuthorizationRightSetsV1(requestParameters));
+  },
+  listAllSourceAppV1: (requestParameters: appsTypes.AppsApiListAllSourceAppV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<appsTypes.SourceApp>>> => {
+    const appsapi = new sdk.AppsApi(apiConfig);
+    return handleApiCall(() => appsapi.listAllSourceAppV1(requestParameters));
+  },
+  listAllUserAppsV1: (requestParameters: appsTypes.AppsApiListAllUserAppsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<appsTypes.UserApp>>> => {
+    const appsapi = new sdk.AppsApi(apiConfig);
+    return handleApiCall(() => appsapi.listAllUserAppsV1(requestParameters));
+  },
+  listApiSummaryV1: (requestParameters: apiUsageTypes.ApiUsageApiListApiSummaryV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<apiUsageTypes.SummaryResponse>>> => {
+    const apiusageapi = new sdk.ApiUsageApi(apiConfig);
+    return handleApiCall(() => apiusageapi.listApiSummaryV1(requestParameters));
+  },
+  listAssignedSourceAppV1: (requestParameters: appsTypes.AppsApiListAssignedSourceAppV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<appsTypes.SourceApp>>> => {
+    const appsapi = new sdk.AppsApi(apiConfig);
+    return handleApiCall(() => appsapi.listAssignedSourceAppV1(requestParameters));
+  },
+  listAvailableAccountsForUserAppV1: (requestParameters: appsTypes.AppsApiListAvailableAccountsForUserAppV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<appsTypes.AppAccountDetails>>> => {
+    const appsapi = new sdk.AppsApi(apiConfig);
+    return handleApiCall(() => appsapi.listAvailableAccountsForUserAppV1(requestParameters));
+  },
+  listAvailableSourceAppsV1: (requestParameters: appsTypes.AppsApiListAvailableSourceAppsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<appsTypes.SourceApp>>> => {
+    const appsapi = new sdk.AppsApi(apiConfig);
+    return handleApiCall(() => appsapi.listAvailableSourceAppsV1(requestParameters));
+  },
+  listBackupsV1: (requestParameters: configurationHubTypes.ConfigurationHubApiListBackupsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<configurationHubTypes.BackupResponse>>> => {
+    const configurationhubapi = new sdk.ConfigurationHubApi(apiConfig);
+    return handleApiCall(() => configurationhubapi.listBackupsV1(requestParameters));
+  },
+  listCampaignFiltersV1: (requestParameters: certificationCampaignFiltersTypes.CertificationCampaignFiltersApiListCampaignFiltersV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<certificationCampaignFiltersTypes.ListCampaignFiltersV1200Response>> => {
+    const certificationcampaignfiltersapi = new sdk.CertificationCampaignFiltersApi(apiConfig);
+    return handleApiCall(() => certificationcampaignfiltersapi.listCampaignFiltersV1(requestParameters));
+  },
+  listCertificationReviewersV1: (requestParameters: certificationsTypes.CertificationsApiListCertificationReviewersV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<certificationsTypes.IdentityReferenceWithNameAndEmail>>> => {
+    const certificationsapi = new sdk.CertificationsApi(apiConfig);
+    return handleApiCall(() => certificationsapi.listCertificationReviewersV1(requestParameters));
+  },
+  listCompletedApprovalsV1: (requestParameters: accessRequestApprovalsTypes.AccessRequestApprovalsApiListCompletedApprovalsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<accessRequestApprovalsTypes.CompletedApproval>>> => {
+    const accessrequestapprovalsapi = new sdk.AccessRequestApprovalsApi(apiConfig);
+    return handleApiCall(() => accessrequestapprovalsapi.listCompletedApprovalsV1(requestParameters));
+  },
+  listCompleteWorkflowLibraryV1: (requestParameters: workflowsTypes.WorkflowsApiListCompleteWorkflowLibraryV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<workflowsTypes.ListCompleteWorkflowLibraryV1200ResponseInner>>> => {
+    const workflowsapi = new sdk.WorkflowsApi(apiConfig);
+    return handleApiCall(() => workflowsapi.listCompleteWorkflowLibraryV1(requestParameters));
+  },
+  listConnectionsV1: (requestParameters: governanceGroupsTypes.GovernanceGroupsApiListConnectionsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<governanceGroupsTypes.WorkgroupConnectionDto>>> => {
+    const governancegroupsapi = new sdk.GovernanceGroupsApi(apiConfig);
+    return handleApiCall(() => governancegroupsapi.listConnectionsV1(requestParameters));
+  },
+  listConnectorCustomizersV1: (requestParameters: connectorCustomizersTypes.ConnectorCustomizersApiListConnectorCustomizersV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<connectorCustomizersTypes.ConnectorCustomizersResponse>>> => {
+    const connectorcustomizersapi = new sdk.ConnectorCustomizersApi(apiConfig);
+    return handleApiCall(() => connectorcustomizersapi.listConnectorCustomizersV1(requestParameters));
+  },
+  listDataSegmentsV1: (requestParameters: dataSegmentationTypes.DataSegmentationApiListDataSegmentsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<dataSegmentationTypes.DataSegment>>> => {
+    const datasegmentationapi = new sdk.DataSegmentationApi(apiConfig);
+    return handleApiCall(() => datasegmentationapi.listDataSegmentsV1(requestParameters));
+  },
+  listDeploysV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<configurationHubTypes.ListDeploysV1200Response>> => {
+    const configurationhubapi = new sdk.ConfigurationHubApi(apiConfig);
+    return handleApiCall(() => configurationhubapi.listDeploysV1());
+  },
+  listDimensionAccessProfilesV1: (requestParameters: dimensionsTypes.DimensionsApiListDimensionAccessProfilesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<dimensionsTypes.AccessProfile>>> => {
+    const dimensionsapi = new sdk.DimensionsApi(apiConfig);
+    return handleApiCall(() => dimensionsapi.listDimensionAccessProfilesV1(requestParameters));
+  },
+  listDimensionsV1: (requestParameters: dimensionsTypes.DimensionsApiListDimensionsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<dimensionsTypes.Dimension>>> => {
+    const dimensionsapi = new sdk.DimensionsApi(apiConfig);
+    return handleApiCall(() => dimensionsapi.listDimensionsV1(requestParameters));
+  },
+  listDraftsV1: (requestParameters: configurationHubTypes.ConfigurationHubApiListDraftsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<configurationHubTypes.DraftResponse>>> => {
+    const configurationhubapi = new sdk.ConfigurationHubApi(apiConfig);
+    return handleApiCall(() => configurationhubapi.listDraftsV1(requestParameters));
+  },
+  listEntitlementChildrenV1: (requestParameters: entitlementsTypes.EntitlementsApiListEntitlementChildrenV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<entitlementsTypes.EntitlementV2>>> => {
+    const entitlementsapi = new sdk.EntitlementsApi(apiConfig);
+    return handleApiCall(() => entitlementsapi.listEntitlementChildrenV1(requestParameters));
+  },
+  listEntitlementConnectionsForCurrentIdentityV1: (requestParameters: entitlementConnectionsTypes.EntitlementConnectionsApiListEntitlementConnectionsForCurrentIdentityV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<entitlementConnectionsTypes.EntitlementConnectionSearchHit>>> => {
+    const entitlementconnectionsapi = new sdk.EntitlementConnectionsApi(apiConfig);
+    return handleApiCall(() => entitlementconnectionsapi.listEntitlementConnectionsForCurrentIdentityV1(requestParameters));
+  },
+  listEntitlementConnectionsV1: (requestParameters: entitlementConnectionsTypes.EntitlementConnectionsApiListEntitlementConnectionsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<entitlementConnectionsTypes.EntitlementConnectionSearchHit>>> => {
+    const entitlementconnectionsapi = new sdk.EntitlementConnectionsApi(apiConfig);
+    return handleApiCall(() => entitlementconnectionsapi.listEntitlementConnectionsV1(requestParameters));
+  },
+  listEntitlementParentsV1: (requestParameters: entitlementsTypes.EntitlementsApiListEntitlementParentsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<entitlementsTypes.EntitlementV2>>> => {
+    const entitlementsapi = new sdk.EntitlementsApi(apiConfig);
+    return handleApiCall(() => entitlementsapi.listEntitlementParentsV1(requestParameters));
+  },
+  listEntitlementsByAccountV1: (requestParameters: entitlementsTypes.EntitlementsApiListEntitlementsByAccountV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<entitlementsTypes.EntitlementV2>>> => {
+    const entitlementsapi = new sdk.EntitlementsApi(apiConfig);
+    return handleApiCall(() => entitlementsapi.listEntitlementsByAccountV1(requestParameters));
+  },
+  listEntitlementsByIdentityV1: (requestParameters: identitiesTypes.IdentitiesApiListEntitlementsByIdentityV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<identitiesTypes.IdentityEntitlements>>> => {
+    const identitiesapi = new sdk.IdentitiesApi(apiConfig);
+    return handleApiCall(() => identitiesapi.listEntitlementsByIdentityV1(requestParameters));
+  },
+  listEntitlementsV1: (requestParameters: entitlementsTypes.EntitlementsApiListEntitlementsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<entitlementsTypes.EntitlementV2>>> => {
+    const entitlementsapi = new sdk.EntitlementsApi(apiConfig);
+    return handleApiCall(() => entitlementsapi.listEntitlementsV1(requestParameters));
+  },
+  listFromAddressesV1: (requestParameters: notificationsTypes.NotificationsApiListFromAddressesV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<notificationsTypes.EmailStatusDto>>> => {
+    const notificationsapi = new sdk.NotificationsApi(apiConfig);
+    return handleApiCall(() => notificationsapi.listFromAddressesV1(requestParameters));
+  },
+  listHistoricalIdentitiesV1: (requestParameters: identityHistoryTypes.IdentityHistoryApiListHistoricalIdentitiesV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<identityHistoryTypes.IdentityListItem>>> => {
+    const identityhistoryapi = new sdk.IdentityHistoryApi(apiConfig);
+    return handleApiCall(() => identityhistoryapi.listHistoricalIdentitiesV1(requestParameters));
+  },
+  listIdentitiesV1: (requestParameters: identitiesTypes.IdentitiesApiListIdentitiesV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<identitiesTypes.Identity>>> => {
+    const identitiesapi = new sdk.IdentitiesApi(apiConfig);
+    return handleApiCall(() => identitiesapi.listIdentitiesV1(requestParameters));
+  },
+  listIdentityAccessItemsV1: (requestParameters: identityHistoryTypes.IdentityHistoryApiListIdentityAccessItemsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<identityHistoryTypes.ListIdentityAccessItemsV1200ResponseInner>>> => {
+    const identityhistoryapi = new sdk.IdentityHistoryApi(apiConfig);
+    return handleApiCall(() => identityhistoryapi.listIdentityAccessItemsV1(requestParameters));
+  },
+  listIdentityAccessReviewItemsV1: (requestParameters: certificationsTypes.CertificationsApiListIdentityAccessReviewItemsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<certificationsTypes.AccessReviewItem>>> => {
+    const certificationsapi = new sdk.CertificationsApi(apiConfig);
+    return handleApiCall(() => certificationsapi.listIdentityAccessReviewItemsV1(requestParameters));
+  },
+  listIdentityAttributesV1: (requestParameters: identityAttributesTypes.IdentityAttributesApiListIdentityAttributesV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<identityAttributesTypes.IdentityAttribute2>>> => {
+    const identityattributesapi = new sdk.IdentityAttributesApi(apiConfig);
+    return handleApiCall(() => identityattributesapi.listIdentityAttributesV1(requestParameters));
+  },
+  listIdentityCertificationsV1: (requestParameters: certificationsTypes.CertificationsApiListIdentityCertificationsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<certificationsTypes.IdentityCertificationDto>>> => {
+    const certificationsapi = new sdk.CertificationsApi(apiConfig);
+    return handleApiCall(() => certificationsapi.listIdentityCertificationsV1(requestParameters));
+  },
+  listIdentityCollectorsV1: (requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiListIdentityCollectorsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<dataAccessSecurityTypes.Identitycollectorlistitem>>> => {
+    const dataaccesssecurityapi = new sdk.DataAccessSecurityApi(apiConfig);
+    return handleApiCall(() => dataaccesssecurityapi.listIdentityCollectorsV1(requestParameters));
+  },
+  listIdentityProfilesV1: (requestParameters: identityProfilesTypes.IdentityProfilesApiListIdentityProfilesV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<identityProfilesTypes.IdentityProfile>>> => {
+    const identityprofilesapi = new sdk.IdentityProfilesApi(apiConfig);
+    return handleApiCall(() => identityprofilesapi.listIdentityProfilesV1(requestParameters));
+  },
+  listIdentitySnapshotAccessItemsV1: (requestParameters: identityHistoryTypes.IdentityHistoryApiListIdentitySnapshotAccessItemsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<identityHistoryTypes.ListIdentitySnapshotAccessItemsV1200ResponseInner>>> => {
+    const identityhistoryapi = new sdk.IdentityHistoryApi(apiConfig);
+    return handleApiCall(() => identityhistoryapi.listIdentitySnapshotAccessItemsV1(requestParameters));
+  },
+  listIdentitySnapshotsV1: (requestParameters: identityHistoryTypes.IdentityHistoryApiListIdentitySnapshotsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<identityHistoryTypes.IdentitySnapshotSummaryResponse>>> => {
+    const identityhistoryapi = new sdk.IdentityHistoryApi(apiConfig);
+    return handleApiCall(() => identityhistoryapi.listIdentitySnapshotsV1(requestParameters));
+  },
+  listMachineAccountMappingsV1: (requestParameters: machineAccountMappingsTypes.MachineAccountMappingsApiListMachineAccountMappingsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<machineAccountMappingsTypes.AttributeMappings>>> => {
+    const machineaccountmappingsapi = new sdk.MachineAccountMappingsApi(apiConfig);
+    return handleApiCall(() => machineaccountmappingsapi.listMachineAccountMappingsV1(requestParameters));
+  },
+  listMachineAccountSubtypesV1: (requestParameters: machineAccountsTypes.MachineAccountsApiListMachineAccountSubtypesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<machineAccountsTypes.SourceSubtype>>> => {
+    const machineaccountsapi = new sdk.MachineAccountsApi(apiConfig);
+    return handleApiCall(() => machineaccountsapi.listMachineAccountSubtypesV1(requestParameters));
+  },
+  listMachineAccountsV1: (requestParameters: machineAccountsTypes.MachineAccountsApiListMachineAccountsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<machineAccountsTypes.MachineAccount>>> => {
+    const machineaccountsapi = new sdk.MachineAccountsApi(apiConfig);
+    return handleApiCall(() => machineaccountsapi.listMachineAccountsV1(requestParameters));
+  },
+  listMachineIdentitiesV1: (requestParameters: machineIdentitiesTypes.MachineIdentitiesApiListMachineIdentitiesV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<machineIdentitiesTypes.MachineIdentityResponse>>> => {
+    const machineidentitiesapi = new sdk.MachineIdentitiesApi(apiConfig);
+    return handleApiCall(() => machineidentitiesapi.listMachineIdentitiesV1(requestParameters));
+  },
+  listMachineIdentitiesV2: (requestParameters: machineIdentitiesTypes.MachineIdentitiesApiListMachineIdentitiesV2Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<machineIdentitiesTypes.Machineidentityv2>>> => {
+    const machineidentitiesapi = new sdk.MachineIdentitiesApi(apiConfig);
+    return handleApiCall(() => machineidentitiesapi.listMachineIdentitiesV2(requestParameters));
+  },
+  listMachineIdentityUserEntitlementsV1: (requestParameters: machineIdentitiesTypes.MachineIdentitiesApiListMachineIdentityUserEntitlementsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<machineIdentitiesTypes.MachineIdentityUserEntitlementResponse>>> => {
+    const machineidentitiesapi = new sdk.MachineIdentitiesApi(apiConfig);
+    return handleApiCall(() => machineidentitiesapi.listMachineIdentityUserEntitlementsV1(requestParameters));
+  },
+  listNonEmployeeApprovalsV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiListNonEmployeeApprovalsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<nonEmployeeLifecycleManagementTypes.NonEmployeeApprovalItem>>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.listNonEmployeeApprovalsV1(requestParameters));
+  },
+  listNonEmployeeRecordsV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiListNonEmployeeRecordsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<nonEmployeeLifecycleManagementTypes.NonEmployeeRecord>>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.listNonEmployeeRecordsV1(requestParameters));
+  },
+  listNonEmployeeRequestsV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiListNonEmployeeRequestsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<nonEmployeeLifecycleManagementTypes.NonEmployeeRequest>>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.listNonEmployeeRequestsV1(requestParameters));
+  },
+  listNonEmployeeSourcesV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiListNonEmployeeSourcesV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<nonEmployeeLifecycleManagementTypes.NonEmployeeSourceWithNECount>>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.listNonEmployeeSourcesV1(requestParameters));
+  },
+  listNotificationTemplateDefaultsV1: (requestParameters: notificationsTypes.NotificationsApiListNotificationTemplateDefaultsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<notificationsTypes.TemplateDtoDefault>>> => {
+    const notificationsapi = new sdk.NotificationsApi(apiConfig);
+    return handleApiCall(() => notificationsapi.listNotificationTemplateDefaultsV1(requestParameters));
+  },
+  listNotificationTemplatesV1: (requestParameters: notificationsTypes.NotificationsApiListNotificationTemplatesV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<notificationsTypes.TemplateDto>>> => {
+    const notificationsapi = new sdk.NotificationsApi(apiConfig);
+    return handleApiCall(() => notificationsapi.listNotificationTemplatesV1(requestParameters));
+  },
+  listOauthClientsV1: (requestParameters: oauthClientsTypes.OAuthClientsApiListOauthClientsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<oauthClientsTypes.GetOAuthClientResponse>>> => {
+    const oauthclientsapi = new sdk.OAuthClientsApi(apiConfig);
+    return handleApiCall(() => oauthclientsapi.listOauthClientsV1(requestParameters));
+  },
+  listOutliersContributingFeatureAccessItemsV1: (requestParameters: iaiOutliersTypes.IAIOutliersApiListOutliersContributingFeatureAccessItemsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<iaiOutliersTypes.OutliersContributingFeatureAccessItems>>> => {
+    const iaioutliersapi = new sdk.IAIOutliersApi(apiConfig);
+    return handleApiCall(() => iaioutliersapi.listOutliersContributingFeatureAccessItemsV1(requestParameters));
+  },
+  listOwnedUserAppsV1: (requestParameters: appsTypes.AppsApiListOwnedUserAppsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<appsTypes.UserApp>>> => {
+    const appsapi = new sdk.AppsApi(apiConfig);
+    return handleApiCall(() => appsapi.listOwnedUserAppsV1(requestParameters));
+  },
+  listOwnershipCorrelationConfigsV1: (requestParameters: machineIdentitiesTypes.MachineIdentitiesApiListOwnershipCorrelationConfigsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<machineIdentitiesTypes.CorrelationConfig>>> => {
+    const machineidentitiesapi = new sdk.MachineIdentitiesApi(apiConfig);
+    return handleApiCall(() => machineidentitiesapi.listOwnershipCorrelationConfigsV1(requestParameters));
+  },
+  listPasswordPoliciesV1: (requestParameters: passwordPoliciesTypes.PasswordPoliciesApiListPasswordPoliciesV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<passwordPoliciesTypes.PasswordPolicyV3Dto>>> => {
+    const passwordpoliciesapi = new sdk.PasswordPoliciesApi(apiConfig);
+    return handleApiCall(() => passwordpoliciesapi.listPasswordPoliciesV1(requestParameters));
+  },
+  listPasswordPolicyHoldersOnSourceV1: (requestParameters: sourcesTypes.SourcesApiListPasswordPolicyHoldersOnSourceV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sourcesTypes.PasswordPolicyHoldersDtoInner>>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.listPasswordPolicyHoldersOnSourceV1(requestParameters));
+  },
+  listPendingApprovalsV1: (requestParameters: accessRequestApprovalsTypes.AccessRequestApprovalsApiListPendingApprovalsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<accessRequestApprovalsTypes.PendingApproval>>> => {
+    const accessrequestapprovalsapi = new sdk.AccessRequestApprovalsApi(apiConfig);
+    return handleApiCall(() => accessrequestapprovalsapi.listPendingApprovalsV1(requestParameters));
+  },
+  listPendingEntitlementRecommendationApprovalsV1: (requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiListPendingEntitlementRecommendationApprovalsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<suggestedEntitlementDescriptionTypes.EntitlementRecommendationRecord>>> => {
+    const suggestedentitlementdescriptionapi = new sdk.SuggestedEntitlementDescriptionApi(apiConfig);
+    return handleApiCall(() => suggestedentitlementdescriptionapi.listPendingEntitlementRecommendationApprovalsV1(requestParameters));
+  },
+  listPersonalAccessTokensV1: (requestParameters: personalAccessTokensTypes.PersonalAccessTokensApiListPersonalAccessTokensV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<personalAccessTokensTypes.GetPersonalAccessTokenResponse>>> => {
+    const personalaccesstokensapi = new sdk.PersonalAccessTokensApi(apiConfig);
+    return handleApiCall(() => personalaccesstokensapi.listPersonalAccessTokensV1(requestParameters));
+  },
+  listPrivilegeCriteriaConfigV1: (requestParameters: privilegeCriteriaConfigurationTypes.PrivilegeCriteriaConfigurationApiListPrivilegeCriteriaConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<privilegeCriteriaConfigurationTypes.PrivilegeCriteriaConfigDTO>>> => {
+    const privilegecriteriaconfigurationapi = new sdk.PrivilegeCriteriaConfigurationApi(apiConfig);
+    return handleApiCall(() => privilegecriteriaconfigurationapi.listPrivilegeCriteriaConfigV1(requestParameters));
+  },
+  listPrivilegeCriteriaV1: (requestParameters: privilegeCriteriaTypes.PrivilegeCriteriaApiListPrivilegeCriteriaV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<privilegeCriteriaTypes.PrivilegeCriteriaDTO>>> => {
+    const privilegecriteriaapi = new sdk.PrivilegeCriteriaApi(apiConfig);
+    return handleApiCall(() => privilegecriteriaapi.listPrivilegeCriteriaV1(requestParameters));
+  },
+  listPrivilegedEntitlementRecommendationsV1: (requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiListPrivilegedEntitlementRecommendationsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<suggestedEntitlementDescriptionTypes.PrivilegedRecommendationGroup>>> => {
+    const suggestedentitlementdescriptionapi = new sdk.SuggestedEntitlementDescriptionApi(apiConfig);
+    return handleApiCall(() => suggestedentitlementdescriptionapi.listPrivilegedEntitlementRecommendationsV1(requestParameters));
+  },
+  listProvisioningPoliciesV1: (requestParameters: sourcesTypes.SourcesApiListProvisioningPoliciesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sourcesTypes.ProvisioningPolicyDto>>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.listProvisioningPoliciesV1(requestParameters));
+  },
+  listProvisioningPoliciesV2: (requestParameters: sourcesTypes.SourcesApiListProvisioningPoliciesV2Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sourcesTypes.ProvisioningPolicyDtoV2>>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.listProvisioningPoliciesV2(requestParameters));
+  },
+  listReassignmentConfigurationsV1: (requestParameters: workReassignmentTypes.WorkReassignmentApiListReassignmentConfigurationsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<workReassignmentTypes.ConfigurationResponse>>> => {
+    const workreassignmentapi = new sdk.WorkReassignmentApi(apiConfig);
+    return handleApiCall(() => workreassignmentapi.listReassignmentConfigurationsV1(requestParameters));
+  },
+  listRequestableObjectsV1: (requestParameters: requestableObjectsTypes.RequestableObjectsApiListRequestableObjectsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<requestableObjectsTypes.RequestableObject>>> => {
+    const requestableobjectsapi = new sdk.RequestableObjectsApi(apiConfig);
+    return handleApiCall(() => requestableobjectsapi.listRequestableObjectsV1(requestParameters));
+  },
+  listRolesV1: (requestParameters: rolesTypes.RolesApiListRolesV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<rolesTypes.Role>>> => {
+    const rolesapi = new sdk.RolesApi(apiConfig);
+    return handleApiCall(() => rolesapi.listRolesV1(requestParameters));
+  },
+  listSavedSearchesV1: (requestParameters: savedSearchTypes.SavedSearchApiListSavedSearchesV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<savedSearchTypes.SavedSearch>>> => {
+    const savedsearchapi = new sdk.SavedSearchApi(apiConfig);
+    return handleApiCall(() => savedsearchapi.listSavedSearchesV1(requestParameters));
+  },
+  listScheduledActionsV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<Array<configurationHubTypes.ScheduledActionResponse>>> => {
+    const configurationhubapi = new sdk.ConfigurationHubApi(apiConfig);
+    return handleApiCall(() => configurationhubapi.listScheduledActionsV1());
+  },
+  listScheduledSearchV1: (requestParameters: scheduledSearchTypes.ScheduledSearchApiListScheduledSearchV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<scheduledSearchTypes.ScheduledSearch>>> => {
+    const scheduledsearchapi = new sdk.ScheduledSearchApi(apiConfig);
+    return handleApiCall(() => scheduledsearchapi.listScheduledSearchV1(requestParameters));
+  },
+  listSedsV1: (requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiListSedsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<suggestedEntitlementDescriptionTypes.Sed>>> => {
+    const suggestedentitlementdescriptionapi = new sdk.SuggestedEntitlementDescriptionApi(apiConfig);
+    return handleApiCall(() => suggestedentitlementdescriptionapi.listSedsV1(requestParameters));
+  },
+  listSegmentsV1: (requestParameters: segmentsTypes.SegmentsApiListSegmentsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<segmentsTypes.Segment>>> => {
+    const segmentsapi = new sdk.SegmentsApi(apiConfig);
+    return handleApiCall(() => segmentsapi.listSegmentsV1(requestParameters));
+  },
+  listSodPoliciesV1: (requestParameters: sodPoliciesTypes.SODPoliciesApiListSodPoliciesV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sodPoliciesTypes.SodPolicy>>> => {
+    const sodpoliciesapi = new sdk.SODPoliciesApi(apiConfig);
+    return handleApiCall(() => sodpoliciesapi.listSodPoliciesV1(requestParameters));
+  },
+  listSourceSubtypesV1: (requestParameters: machineAccountSubtypesTypes.MachineAccountSubtypesApiListSourceSubtypesV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<machineAccountSubtypesTypes.SourceSubtypeWithSource>>> => {
+    const machineaccountsubtypesapi = new sdk.MachineAccountSubtypesApi(apiConfig);
+    return handleApiCall(() => machineaccountsubtypesapi.listSourceSubtypesV1(requestParameters));
+  },
+  listSourcesV1: (requestParameters: sourcesTypes.SourcesApiListSourcesV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sourcesTypes.Source>>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.listSourcesV1(requestParameters));
+  },
+  listSpConfigObjectsV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<Array<spConfigTypes.SpConfigObject>>> => {
+    const spconfigapi = new sdk.SPConfigApi(apiConfig);
+    return handleApiCall(() => spconfigapi.listSpConfigObjectsV1());
+  },
+  listSubscriptionsV1: (requestParameters: triggersTypes.TriggersApiListSubscriptionsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<triggersTypes.Subscription>>> => {
+    const triggersapi = new sdk.TriggersApi(apiConfig);
+    return handleApiCall(() => triggersapi.listSubscriptionsV1(requestParameters));
+  },
+  listTaggedObjectsByTypeV1: (requestParameters: taggedObjectsTypes.TaggedObjectsApiListTaggedObjectsByTypeV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<taggedObjectsTypes.TaggedObject>>> => {
+    const taggedobjectsapi = new sdk.TaggedObjectsApi(apiConfig);
+    return handleApiCall(() => taggedobjectsapi.listTaggedObjectsByTypeV1(requestParameters));
+  },
+  listTaggedObjectsV1: (requestParameters: taggedObjectsTypes.TaggedObjectsApiListTaggedObjectsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<taggedObjectsTypes.TaggedObject>>> => {
+    const taggedobjectsapi = new sdk.TaggedObjectsApi(apiConfig);
+    return handleApiCall(() => taggedobjectsapi.listTaggedObjectsV1(requestParameters));
+  },
+  listTagsV1: (requestParameters: tagsTypes.TagsApiListTagsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<tagsTypes.Tag2>>> => {
+    const tagsapi = new sdk.TagsApi(apiConfig);
+    return handleApiCall(() => tagsapi.listTagsV1(requestParameters));
+  },
+  listTransformsV1: (requestParameters: transformsTypes.TransformsApiListTransformsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<transformsTypes.TransformRead>>> => {
+    const transformsapi = new sdk.TransformsApi(apiConfig);
+    return handleApiCall(() => transformsapi.listTransformsV1(requestParameters));
+  },
+  listTriggerInvocationStatusV1: (requestParameters: triggersTypes.TriggersApiListTriggerInvocationStatusV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<triggersTypes.InvocationStatus>>> => {
+    const triggersapi = new sdk.TriggersApi(apiConfig);
+    return handleApiCall(() => triggersapi.listTriggerInvocationStatusV1(requestParameters));
+  },
+  listTriggersV1: (requestParameters: triggersTypes.TriggersApiListTriggersV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<triggersTypes.Trigger>>> => {
+    const triggersapi = new sdk.TriggersApi(apiConfig);
+    return handleApiCall(() => triggersapi.listTriggersV1(requestParameters));
+  },
+  listUploadedConfigurationsV1: (requestParameters: configurationHubTypes.ConfigurationHubApiListUploadedConfigurationsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<configurationHubTypes.BackupResponse>>> => {
+    const configurationhubapi = new sdk.ConfigurationHubApi(apiConfig);
+    return handleApiCall(() => configurationhubapi.listUploadedConfigurationsV1(requestParameters));
+  },
+  listUserLevelIdentitiesV1: (requestParameters: customUserLevelsTypes.CustomUserLevelsApiListUserLevelIdentitiesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<customUserLevelsTypes.AuthUserSlimResponse>>> => {
+    const customuserlevelsapi = new sdk.CustomUserLevelsApi(apiConfig);
+    return handleApiCall(() => customuserlevelsapi.listUserLevelIdentitiesV1(requestParameters));
+  },
+  listUserLevelsV1: (requestParameters: customUserLevelsTypes.CustomUserLevelsApiListUserLevelsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<customUserLevelsTypes.UserLevelSummaryDTO>>> => {
+    const customuserlevelsapi = new sdk.CustomUserLevelsApi(apiConfig);
+    return handleApiCall(() => customuserlevelsapi.listUserLevelsV1(requestParameters));
+  },
+  listWorkflowLibraryActionsV1: (requestParameters: workflowsTypes.WorkflowsApiListWorkflowLibraryActionsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<workflowsTypes.WorkflowLibraryAction>>> => {
+    const workflowsapi = new sdk.WorkflowsApi(apiConfig);
+    return handleApiCall(() => workflowsapi.listWorkflowLibraryActionsV1(requestParameters));
+  },
+  listWorkflowLibraryOperatorsV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<Array<workflowsTypes.WorkflowLibraryOperator>>> => {
+    const workflowsapi = new sdk.WorkflowsApi(apiConfig);
+    return handleApiCall(() => workflowsapi.listWorkflowLibraryOperatorsV1());
+  },
+  listWorkflowLibraryTriggersV1: (requestParameters: workflowsTypes.WorkflowsApiListWorkflowLibraryTriggersV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<workflowsTypes.WorkflowLibraryTrigger>>> => {
+    const workflowsapi = new sdk.WorkflowsApi(apiConfig);
+    return handleApiCall(() => workflowsapi.listWorkflowLibraryTriggersV1(requestParameters));
+  },
+  listWorkflowsV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<Array<workflowsTypes.Workflow>>> => {
+    const workflowsapi = new sdk.WorkflowsApi(apiConfig);
+    return handleApiCall(() => workflowsapi.listWorkflowsV1());
+  },
+  listWorkgroupMembersV1: (requestParameters: governanceGroupsTypes.GovernanceGroupsApiListWorkgroupMembersV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<governanceGroupsTypes.ListWorkgroupMembersV1200ResponseInner>>> => {
+    const governancegroupsapi = new sdk.GovernanceGroupsApi(apiConfig);
+    return handleApiCall(() => governancegroupsapi.listWorkgroupMembersV1(requestParameters));
+  },
+  listWorkgroupsV1: (requestParameters: governanceGroupsTypes.GovernanceGroupsApiListWorkgroupsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<governanceGroupsTypes.WorkgroupDto>>> => {
+    const governancegroupsapi = new sdk.GovernanceGroupsApi(apiConfig);
+    return handleApiCall(() => governancegroupsapi.listWorkgroupsV1(requestParameters));
+  },
+  listWorkItemsV1: (requestParameters: workItemsTypes.WorkItemsApiListWorkItemsV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<workItemsTypes.WorkItems>>> => {
+    const workitemsapi = new sdk.WorkItemsApi(apiConfig);
+    return handleApiCall(() => workitemsapi.listWorkItemsV1(requestParameters));
+  },
+  loadAccountSelectionsV1: (requestParameters: accessRequestsTypes.AccessRequestsApiLoadAccountSelectionsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accessRequestsTypes.AccountsSelectionResponse>> => {
+    const accessrequestsapi = new sdk.AccessRequestsApi(apiConfig);
+    return handleApiCall(() => accessrequestsapi.loadAccountSelectionsV1(requestParameters));
+  },
+  loadBulkSourceSubtypesV1: (requestParameters: machineAccountSubtypesTypes.MachineAccountSubtypesApiLoadBulkSourceSubtypesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<machineAccountSubtypesTypes.SourceSubtypeWithSource>>> => {
+    const machineaccountsubtypesapi = new sdk.MachineAccountSubtypesApi(apiConfig);
+    return handleApiCall(() => machineaccountsubtypesapi.loadBulkSourceSubtypesV1(requestParameters));
+  },
+  makeIdentityDecisionV1: (requestParameters: certificationsTypes.CertificationsApiMakeIdentityDecisionV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<certificationsTypes.IdentityCertificationDto>> => {
+    const certificationsapi = new sdk.CertificationsApi(apiConfig);
+    return handleApiCall(() => certificationsapi.makeIdentityDecisionV1(requestParameters));
+  },
+  moveApprovalV1: (requestParameters: approvalsTypes.ApprovalsApiMoveApprovalV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const approvalsapi = new sdk.ApprovalsApi(apiConfig);
+    return handleApiCall(() => approvalsapi.moveApprovalV1(requestParameters));
+  },
+  moveV1: (requestParameters: certificationCampaignsTypes.CertificationCampaignsApiMoveV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<certificationCampaignsTypes.CertificationTask>> => {
+    const certificationcampaignsapi = new sdk.CertificationCampaignsApi(apiConfig);
+    return handleApiCall(() => certificationcampaignsapi.moveV1(requestParameters));
+  },
+  patchAccessProfileV1: (requestParameters: accessProfilesTypes.AccessProfilesApiPatchAccessProfileV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accessProfilesTypes.AccessProfile>> => {
+    const accessprofilesapi = new sdk.AccessProfilesApi(apiConfig);
+    return handleApiCall(() => accessprofilesapi.patchAccessProfileV1(requestParameters));
+  },
+  patchAdvancedSearchNerm: (requestParameters: sdk.AdvancedSearchNERMApiPatchAdvancedSearchRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitAdvancedSearch200ResponseNERM>> => {
+    const advancedsearchnermapi = new sdk.AdvancedSearchNERMApi(apiConfig);
+    return handleApiCall(() => advancedsearchnermapi.patchAdvancedSearch(requestParameters));
+  },
+  patchAttributeOptionByIdNerm: (requestParameters: sdk.AttributeOptionsNERMApiPatchAttributeOptionByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitAttributeOption200ResponseNERM>> => {
+    const attributeoptionsnermapi = new sdk.AttributeOptionsNERMApi(apiConfig);
+    return handleApiCall(() => attributeoptionsnermapi.patchAttributeOptionById(requestParameters));
+  },
+  patchAttributeOptionByUidNerm: (requestParameters: sdk.AttributeOptionsNERMApiPatchAttributeOptionByUidRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitAttributeOption200ResponseNERM>> => {
+    const attributeoptionsnermapi = new sdk.AttributeOptionsNERMApi(apiConfig);
+    return handleApiCall(() => attributeoptionsnermapi.patchAttributeOptionByUid(requestParameters));
+  },
+  patchAttributeOptionsNerm: (requestParameters: sdk.AttributeOptionsNERMApiPatchAttributeOptionsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitAttributeOptions200ResponseNERM>> => {
+    const attributeoptionsnermapi = new sdk.AttributeOptionsNERMApi(apiConfig);
+    return handleApiCall(() => attributeoptionsnermapi.patchAttributeOptions(requestParameters));
+  },
+  patchAuthOrgLockoutConfigV1: (requestParameters: globalTenantSecuritySettingsTypes.GlobalTenantSecuritySettingsApiPatchAuthOrgLockoutConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<globalTenantSecuritySettingsTypes.LockoutConfiguration>> => {
+    const globaltenantsecuritysettingsapi = new sdk.GlobalTenantSecuritySettingsApi(apiConfig);
+    return handleApiCall(() => globaltenantsecuritysettingsapi.patchAuthOrgLockoutConfigV1(requestParameters));
+  },
+  patchAuthOrgNetworkConfigV1: (requestParameters: globalTenantSecuritySettingsTypes.GlobalTenantSecuritySettingsApiPatchAuthOrgNetworkConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<globalTenantSecuritySettingsTypes.NetworkConfiguration>> => {
+    const globaltenantsecuritysettingsapi = new sdk.GlobalTenantSecuritySettingsApi(apiConfig);
+    return handleApiCall(() => globaltenantsecuritysettingsapi.patchAuthOrgNetworkConfigV1(requestParameters));
+  },
+  patchAuthOrgServiceProviderConfigV1: (requestParameters: globalTenantSecuritySettingsTypes.GlobalTenantSecuritySettingsApiPatchAuthOrgServiceProviderConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<globalTenantSecuritySettingsTypes.ServiceProviderConfiguration>> => {
+    const globaltenantsecuritysettingsapi = new sdk.GlobalTenantSecuritySettingsApi(apiConfig);
+    return handleApiCall(() => globaltenantsecuritysettingsapi.patchAuthOrgServiceProviderConfigV1(requestParameters));
+  },
+  patchAuthOrgSessionConfigV1: (requestParameters: globalTenantSecuritySettingsTypes.GlobalTenantSecuritySettingsApiPatchAuthOrgSessionConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<globalTenantSecuritySettingsTypes.SessionConfiguration>> => {
+    const globaltenantsecuritysettingsapi = new sdk.GlobalTenantSecuritySettingsApi(apiConfig);
+    return handleApiCall(() => globaltenantsecuritysettingsapi.patchAuthOrgSessionConfigV1(requestParameters));
+  },
+  patchAuthUserV1: (requestParameters: authUsersTypes.AuthUsersApiPatchAuthUserV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<authUsersTypes.AuthUser>> => {
+    const authusersapi = new sdk.AuthUsersApi(apiConfig);
+    return handleApiCall(() => authusersapi.patchAuthUserV1(requestParameters));
+  },
+  patchBeforeProvisioningRuleV1: (requestParameters: simIntegrationsTypes.SIMIntegrationsApiPatchBeforeProvisioningRuleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<simIntegrationsTypes.ServiceDeskIntegrationDto>> => {
+    const simintegrationsapi = new sdk.SIMIntegrationsApi(apiConfig);
+    return handleApiCall(() => simintegrationsapi.patchBeforeProvisioningRuleV1(requestParameters));
+  },
+  patchCampaignTemplateV1: (requestParameters: certificationCampaignsTypes.CertificationCampaignsApiPatchCampaignTemplateV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<certificationCampaignsTypes.CampaignTemplate>> => {
+    const certificationcampaignsapi = new sdk.CertificationCampaignsApi(apiConfig);
+    return handleApiCall(() => certificationcampaignsapi.patchCampaignTemplateV1(requestParameters));
+  },
+  patchDataRecordNerm: (requestParameters: sdk.ConsolidationNERMApiPatchDataRecordRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const consolidationnermapi = new sdk.ConsolidationNERMApi(apiConfig);
+    return handleApiCall(() => consolidationnermapi.patchDataRecord(requestParameters));
+  },
+  patchDataSegmentV1: (requestParameters: dataSegmentationTypes.DataSegmentationApiPatchDataSegmentV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<dataSegmentationTypes.DataSegment>> => {
+    const datasegmentationapi = new sdk.DataSegmentationApi(apiConfig);
+    return handleApiCall(() => datasegmentationapi.patchDataSegmentV1(requestParameters));
+  },
+  patchDimensionV1: (requestParameters: dimensionsTypes.DimensionsApiPatchDimensionV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<dimensionsTypes.Dimension>> => {
+    const dimensionsapi = new sdk.DimensionsApi(apiConfig);
+    return handleApiCall(() => dimensionsapi.patchDimensionV1(requestParameters));
+  },
+  patchEntitlementConnectionByIdV1: (requestParameters: entitlementConnectionsTypes.EntitlementConnectionsApiPatchEntitlementConnectionByIdV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<entitlementConnectionsTypes.EntitlementConnection>> => {
+    const entitlementconnectionsapi = new sdk.EntitlementConnectionsApi(apiConfig);
+    return handleApiCall(() => entitlementconnectionsapi.patchEntitlementConnectionByIdV1(requestParameters));
+  },
+  patchEntitlementConnectionByQueryV1: (requestParameters: entitlementConnectionsTypes.EntitlementConnectionsApiPatchEntitlementConnectionByQueryV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<entitlementConnectionsTypes.EntitlementConnection>> => {
+    const entitlementconnectionsapi = new sdk.EntitlementConnectionsApi(apiConfig);
+    return handleApiCall(() => entitlementconnectionsapi.patchEntitlementConnectionByQueryV1(requestParameters));
+  },
+  patchEntitlementRecommendationV1: (requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiPatchEntitlementRecommendationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<suggestedEntitlementDescriptionTypes.EntitlementRecommendationRecord>> => {
+    const suggestedentitlementdescriptionapi = new sdk.SuggestedEntitlementDescriptionApi(apiConfig);
+    return handleApiCall(() => suggestedentitlementdescriptionapi.patchEntitlementRecommendationV1(requestParameters));
+  },
+  patchEntitlementV1: (requestParameters: entitlementsTypes.EntitlementsApiPatchEntitlementV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<entitlementsTypes.EntitlementV2>> => {
+    const entitlementsapi = new sdk.EntitlementsApi(apiConfig);
+    return handleApiCall(() => entitlementsapi.patchEntitlementV1(requestParameters));
+  },
+  patchFormDefinitionV1: (requestParameters: customFormsTypes.CustomFormsApiPatchFormDefinitionV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<customFormsTypes.FormDefinitionResponse>> => {
+    const customformsapi = new sdk.CustomFormsApi(apiConfig);
+    return handleApiCall(() => customformsapi.patchFormDefinitionV1(requestParameters));
+  },
+  patchFormInstanceV1: (requestParameters: customFormsTypes.CustomFormsApiPatchFormInstanceV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<customFormsTypes.FormInstanceResponse>> => {
+    const customformsapi = new sdk.CustomFormsApi(apiConfig);
+    return handleApiCall(() => customformsapi.patchFormInstanceV1(requestParameters));
+  },
+  patchJitActivationConfigV1: (requestParameters: jitAccessTypes.JITAccessApiPatchJitActivationConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<jitAccessTypes.JITActivationConfigResponse>> => {
+    const jitaccessapi = new sdk.JITAccessApi(apiConfig);
+    return handleApiCall(() => jitaccessapi.patchJitActivationConfigV1(requestParameters));
+  },
+  patchLanguageNerm: (requestParameters: sdk.LanguagesNERMApiPatchLanguageRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.PatchLanguageRequestNERM>> => {
+    const languagesnermapi = new sdk.LanguagesNERMApi(apiConfig);
+    return handleApiCall(() => languagesnermapi.patchLanguage(requestParameters));
+  },
+  patchMachineAccountSubtypeByTechnicalNameV1: (requestParameters: machineAccountsTypes.MachineAccountsApiPatchMachineAccountSubtypeByTechnicalNameV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<machineAccountsTypes.SourceSubtype>> => {
+    const machineaccountsapi = new sdk.MachineAccountsApi(apiConfig);
+    return handleApiCall(() => machineaccountsapi.patchMachineAccountSubtypeByTechnicalNameV1(requestParameters));
+  },
+  patchMachineAccountSubtypeV1: (requestParameters: machineAccountSubtypesTypes.MachineAccountSubtypesApiPatchMachineAccountSubtypeV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<machineAccountSubtypesTypes.SourceSubtypeWithSource>> => {
+    const machineaccountsubtypesapi = new sdk.MachineAccountSubtypesApi(apiConfig);
+    return handleApiCall(() => machineaccountsubtypesapi.patchMachineAccountSubtypeV1(requestParameters));
+  },
+  patchNonEmployeeRecordV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiPatchNonEmployeeRecordV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeRecord>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.patchNonEmployeeRecordV1(requestParameters));
+  },
+  patchNonEmployeeSchemaAttributeV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiPatchNonEmployeeSchemaAttributeV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeSchemaAttribute>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.patchNonEmployeeSchemaAttributeV1(requestParameters));
+  },
+  patchNonEmployeeSourceV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiPatchNonEmployeeSourceV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeSource>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.patchNonEmployeeSourceV1(requestParameters));
+  },
+  patchOauthClientV1: (requestParameters: oauthClientsTypes.OAuthClientsApiPatchOauthClientV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<oauthClientsTypes.GetOAuthClientResponse>> => {
+    const oauthclientsapi = new sdk.OAuthClientsApi(apiConfig);
+    return handleApiCall(() => oauthclientsapi.patchOauthClientV1(requestParameters));
+  },
+  patchOrgConfigV1: (requestParameters: orgConfigTypes.OrgConfigApiPatchOrgConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<orgConfigTypes.OrgConfig>> => {
+    const orgconfigapi = new sdk.OrgConfigApi(apiConfig);
+    return handleApiCall(() => orgconfigapi.patchOrgConfigV1(requestParameters));
+  },
+  patchOwnershipCorrelationConfigV1: (requestParameters: machineIdentitiesTypes.MachineIdentitiesApiPatchOwnershipCorrelationConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<machineIdentitiesTypes.CorrelationConfig>> => {
+    const machineidentitiesapi = new sdk.MachineIdentitiesApi(apiConfig);
+    return handleApiCall(() => machineidentitiesapi.patchOwnershipCorrelationConfigV1(requestParameters));
+  },
+  patchPersonalAccessTokenV1: (requestParameters: personalAccessTokensTypes.PersonalAccessTokensApiPatchPersonalAccessTokenV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<personalAccessTokensTypes.GetPersonalAccessTokenResponse>> => {
+    const personalaccesstokensapi = new sdk.PersonalAccessTokensApi(apiConfig);
+    return handleApiCall(() => personalaccesstokensapi.patchPersonalAccessTokenV1(requestParameters));
+  },
+  patchPotentialRoleSessionV1: (requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiPatchPotentialRoleSessionV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const iairoleminingapi = new sdk.IAIRoleMiningApi(apiConfig);
+    return handleApiCall(() => iairoleminingapi.patchPotentialRoleSessionV1(requestParameters));
+  },
+  patchPotentialRoleV1: (requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiPatchPotentialRoleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const iairoleminingapi = new sdk.IAIRoleMiningApi(apiConfig);
+    return handleApiCall(() => iairoleminingapi.patchPotentialRoleV1(requestParameters));
+  },
+  patchPrivilegeCriteriaConfigV1: (requestParameters: privilegeCriteriaConfigurationTypes.PrivilegeCriteriaConfigurationApiPatchPrivilegeCriteriaConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<privilegeCriteriaConfigurationTypes.PrivilegeCriteriaConfigDTO>> => {
+    const privilegecriteriaconfigurationapi = new sdk.PrivilegeCriteriaConfigurationApi(apiConfig);
+    return handleApiCall(() => privilegecriteriaconfigurationapi.patchPrivilegeCriteriaConfigV1(requestParameters));
+  },
+  patchProfileByIdNerm: (requestParameters: sdk.ProfilesNERMApiPatchProfileByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetSingleSchemaMappedProfile200ResponseNERM>> => {
+    const profilesnermapi = new sdk.ProfilesNERMApi(apiConfig);
+    return handleApiCall(() => profilesnermapi.patchProfileById(requestParameters));
+  },
+  patchProfileConfigV1: (requestParameters: authProfileTypes.AuthProfileApiPatchProfileConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<authProfileTypes.AuthProfile>> => {
+    const authprofileapi = new sdk.AuthProfileApi(apiConfig);
+    return handleApiCall(() => authprofileapi.patchProfileConfigV1(requestParameters));
+  },
+  patchProfilesNerm: (requestParameters: sdk.ProfilesNERMApiPatchProfilesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SearchAdvancedSearch200ResponseNERM>> => {
+    const profilesnermapi = new sdk.ProfilesNERMApi(apiConfig);
+    return handleApiCall(() => profilesnermapi.patchProfiles(requestParameters));
+  },
+  patchProfileTypeByIdNerm: (requestParameters: sdk.ProfileTypesNERMApiPatchProfileTypeByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitProfileType200ResponseNERM>> => {
+    const profiletypesnermapi = new sdk.ProfileTypesNERMApi(apiConfig);
+    return handleApiCall(() => profiletypesnermapi.patchProfileTypeById(requestParameters));
+  },
+  patchProfileTypeByUidNerm: (requestParameters: sdk.ProfileTypesNERMApiPatchProfileTypeByUidRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitProfileType200ResponseNERM>> => {
+    const profiletypesnermapi = new sdk.ProfileTypesNERMApi(apiConfig);
+    return handleApiCall(() => profiletypesnermapi.patchProfileTypeByUid(requestParameters));
+  },
+  patchRoleMiningSessionV1: (requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiPatchRoleMiningSessionV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const iairoleminingapi = new sdk.IAIRoleMiningApi(apiConfig);
+    return handleApiCall(() => iairoleminingapi.patchRoleMiningSessionV1(requestParameters));
+  },
+  patchRoleNerm: (requestParameters: sdk.RolesNERMApiPatchRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitRole200ResponseNERM>> => {
+    const rolesnermapi = new sdk.RolesNERMApi(apiConfig);
+    return handleApiCall(() => rolesnermapi.patchRole(requestParameters));
+  },
+  patchRoleProfileNerm: (requestParameters: sdk.RoleProfilesNERMApiPatchRoleProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitRoleProfile200ResponseNERM>> => {
+    const roleprofilesnermapi = new sdk.RoleProfilesNERMApi(apiConfig);
+    return handleApiCall(() => roleprofilesnermapi.patchRoleProfile(requestParameters));
+  },
+  patchRoleProfilesNerm: (requestParameters: sdk.RoleProfilesNERMApiPatchRoleProfilesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitRoleProfiles200ResponseNERM>> => {
+    const roleprofilesnermapi = new sdk.RoleProfilesNERMApi(apiConfig);
+    return handleApiCall(() => roleprofilesnermapi.patchRoleProfiles(requestParameters));
+  },
+  patchRolesNerm: (requestParameters: sdk.RolesNERMApiPatchRolesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitRoles200ResponseNERM>> => {
+    const rolesnermapi = new sdk.RolesNERMApi(apiConfig);
+    return handleApiCall(() => rolesnermapi.patchRoles(requestParameters));
+  },
+  patchRoleV1: (requestParameters: rolesTypes.RolesApiPatchRoleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<rolesTypes.Role>> => {
+    const rolesapi = new sdk.RolesApi(apiConfig);
+    return handleApiCall(() => rolesapi.patchRoleV1(requestParameters));
+  },
+  patchSearchAttributeConfigV1: (requestParameters: searchAttributeConfigurationTypes.SearchAttributeConfigurationApiPatchSearchAttributeConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<searchAttributeConfigurationTypes.SearchAttributeConfig>> => {
+    const searchattributeconfigurationapi = new sdk.SearchAttributeConfigurationApi(apiConfig);
+    return handleApiCall(() => searchattributeconfigurationapi.patchSearchAttributeConfigV1(requestParameters));
+  },
+  patchSedV1: (requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiPatchSedV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<suggestedEntitlementDescriptionTypes.Sed>> => {
+    const suggestedentitlementdescriptionapi = new sdk.SuggestedEntitlementDescriptionApi(apiConfig);
+    return handleApiCall(() => suggestedentitlementdescriptionapi.patchSedV1(requestParameters));
+  },
+  patchSegmentV1: (requestParameters: segmentsTypes.SegmentsApiPatchSegmentV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<segmentsTypes.Segment>> => {
+    const segmentsapi = new sdk.SegmentsApi(apiConfig);
+    return handleApiCall(() => segmentsapi.patchSegmentV1(requestParameters));
+  },
+  patchServiceDeskIntegrationV1: (requestParameters: serviceDeskIntegrationTypes.ServiceDeskIntegrationApiPatchServiceDeskIntegrationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<serviceDeskIntegrationTypes.ServiceDeskIntegrationDto>> => {
+    const servicedeskintegrationapi = new sdk.ServiceDeskIntegrationApi(apiConfig);
+    return handleApiCall(() => servicedeskintegrationapi.patchServiceDeskIntegrationV1(requestParameters));
+  },
+  patchSIMAttributesV1: (requestParameters: simIntegrationsTypes.SIMIntegrationsApiPatchSIMAttributesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<simIntegrationsTypes.ServiceDeskIntegrationDto>> => {
+    const simintegrationsapi = new sdk.SIMIntegrationsApi(apiConfig);
+    return handleApiCall(() => simintegrationsapi.patchSIMAttributesV1(requestParameters));
+  },
+  patchSodPolicyV1: (requestParameters: sodPoliciesTypes.SODPoliciesApiPatchSodPolicyV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sodPoliciesTypes.SodPolicy>> => {
+    const sodpoliciesapi = new sdk.SODPoliciesApi(apiConfig);
+    return handleApiCall(() => sodpoliciesapi.patchSodPolicyV1(requestParameters));
+  },
+  patchSourceAppV1: (requestParameters: appsTypes.AppsApiPatchSourceAppV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<appsTypes.SourceAppPatchDto>> => {
+    const appsapi = new sdk.AppsApi(apiConfig);
+    return handleApiCall(() => appsapi.patchSourceAppV1(requestParameters));
+  },
+  patchSubscriptionV1: (requestParameters: triggersTypes.TriggersApiPatchSubscriptionV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<triggersTypes.Subscription>> => {
+    const triggersapi = new sdk.TriggersApi(apiConfig);
+    return handleApiCall(() => triggersapi.patchSubscriptionV1(requestParameters));
+  },
+  patchTenantContextV1: (requestParameters: tenantContextTypes.TenantContextApiPatchTenantContextV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const tenantcontextapi = new sdk.TenantContextApi(apiConfig);
+    return handleApiCall(() => tenantcontextapi.patchTenantContextV1(requestParameters));
+  },
+  patchUserAppV1: (requestParameters: appsTypes.AppsApiPatchUserAppV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<appsTypes.UserApp>> => {
+    const appsapi = new sdk.AppsApi(apiConfig);
+    return handleApiCall(() => appsapi.patchUserAppV1(requestParameters));
+  },
+  patchUserManagerNerm: (requestParameters: sdk.UserManagersNERMApiPatchUserManagerRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUserManager200ResponseNERM>> => {
+    const usermanagersnermapi = new sdk.UserManagersNERMApi(apiConfig);
+    return handleApiCall(() => usermanagersnermapi.patchUserManager(requestParameters));
+  },
+  patchUserManagersNerm: (requestParameters: sdk.UserManagersNERMApiPatchUserManagersRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUserManagers200ResponseNERM>> => {
+    const usermanagersnermapi = new sdk.UserManagersNERMApi(apiConfig);
+    return handleApiCall(() => usermanagersnermapi.patchUserManagers(requestParameters));
+  },
+  patchUserNerm: (requestParameters: sdk.UsersNERMApiPatchUserRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUser200ResponseNERM>> => {
+    const usersnermapi = new sdk.UsersNERMApi(apiConfig);
+    return handleApiCall(() => usersnermapi.patchUser(requestParameters));
+  },
+  patchUserProfileNerm: (requestParameters: sdk.UserProfilesNERMApiPatchUserProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUserProfile200ResponseNERM>> => {
+    const userprofilesnermapi = new sdk.UserProfilesNERMApi(apiConfig);
+    return handleApiCall(() => userprofilesnermapi.patchUserProfile(requestParameters));
+  },
+  patchUserProfilesNerm: (requestParameters: sdk.UserProfilesNERMApiPatchUserProfilesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateUserProfiles200ResponseNERM>> => {
+    const userprofilesnermapi = new sdk.UserProfilesNERMApi(apiConfig);
+    return handleApiCall(() => userprofilesnermapi.patchUserProfiles(requestParameters));
+  },
+  patchUserRoleNerm: (requestParameters: sdk.UserRolesNERMApiPatchUserRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUserRole200ResponseNERM>> => {
+    const userrolesnermapi = new sdk.UserRolesNERMApi(apiConfig);
+    return handleApiCall(() => userrolesnermapi.patchUserRole(requestParameters));
+  },
+  patchUserRolesNerm: (requestParameters: sdk.UserRolesNERMApiPatchUserRolesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUserRoles200ResponseNERM>> => {
+    const userrolesnermapi = new sdk.UserRolesNERMApi(apiConfig);
+    return handleApiCall(() => userrolesnermapi.patchUserRoles(requestParameters));
+  },
+  patchUsersNerm: (requestParameters: sdk.UsersNERMApiPatchUsersRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUsers200ResponseNERM>> => {
+    const usersnermapi = new sdk.UsersNERMApi(apiConfig);
+    return handleApiCall(() => usersnermapi.patchUsers(requestParameters));
+  },
+  patchWorkflowSessionNerm: (requestParameters: sdk.WorkflowSessionsNERMApiPatchWorkflowSessionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitWorkflowSession200ResponseNERM>> => {
+    const workflowsessionsnermapi = new sdk.WorkflowSessionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowsessionsnermapi.patchWorkflowSession(requestParameters));
+  },
+  patchWorkflowV1: (requestParameters: workflowsTypes.WorkflowsApiPatchWorkflowV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<workflowsTypes.Workflow>> => {
+    const workflowsapi = new sdk.WorkflowsApi(apiConfig);
+    return handleApiCall(() => workflowsapi.patchWorkflowV1(requestParameters));
+  },
+  patchWorkgroupV1: (requestParameters: governanceGroupsTypes.GovernanceGroupsApiPatchWorkgroupV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<governanceGroupsTypes.WorkgroupDto>> => {
+    const governancegroupsapi = new sdk.GovernanceGroupsApi(apiConfig);
+    return handleApiCall(() => governancegroupsapi.patchWorkgroupV1(requestParameters));
+  },
+  pingClusterV1: (requestParameters: sourcesTypes.SourcesApiPingClusterV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.StatusResponse>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.pingClusterV1(requestParameters));
+  },
+  publishCustomUserLevelV1: (requestParameters: customUserLevelsTypes.CustomUserLevelsApiPublishCustomUserLevelV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<customUserLevelsTypes.UserLevelPublishSummary>> => {
+    const customuserlevelsapi = new sdk.CustomUserLevelsApi(apiConfig);
+    return handleApiCall(() => customuserlevelsapi.publishCustomUserLevelV1(requestParameters));
+  },
+  publishDataSegmentV1: (requestParameters: dataSegmentationTypes.DataSegmentationApiPublishDataSegmentV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const datasegmentationapi = new sdk.DataSegmentationApi(apiConfig);
+    return handleApiCall(() => datasegmentationapi.publishDataSegmentV1(requestParameters));
+  },
+  putAccountV1: (requestParameters: accountsTypes.AccountsApiPutAccountV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accountsTypes.AccountsAsyncResult>> => {
+    const accountsapi = new sdk.AccountsApi(apiConfig);
+    return handleApiCall(() => accountsapi.putAccountV1(requestParameters));
+  },
+  putApplicationV1: (requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiPutApplicationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const dataaccesssecurityapi = new sdk.DataAccessSecurityApi(apiConfig);
+    return handleApiCall(() => dataaccesssecurityapi.putApplicationV1(requestParameters));
+  },
+  putApprovalsConfigV1: (requestParameters: approvalsTypes.ApprovalsApiPutApprovalsConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<approvalsTypes.ApprovalConfig>> => {
+    const approvalsapi = new sdk.ApprovalsApi(apiConfig);
+    return handleApiCall(() => approvalsapi.putApprovalsConfigV1(requestParameters));
+  },
+  putClientLogConfigurationV1: (requestParameters: managedClustersTypes.ManagedClustersApiPutClientLogConfigurationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<managedClustersTypes.ClientLogConfiguration>> => {
+    const managedclustersapi = new sdk.ManagedClustersApi(apiConfig);
+    return handleApiCall(() => managedclustersapi.putClientLogConfigurationV1(requestParameters));
+  },
+  putConnectorCorrelationConfigV1: (requestParameters: connectorsTypes.ConnectorsApiPutConnectorCorrelationConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<connectorsTypes.UpdateDetail>> => {
+    const connectorsapi = new sdk.ConnectorsApi(apiConfig);
+    return handleApiCall(() => connectorsapi.putConnectorCorrelationConfigV1(requestParameters));
+  },
+  putConnectorCustomizerV1: (requestParameters: connectorCustomizersTypes.ConnectorCustomizersApiPutConnectorCustomizerV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<connectorCustomizersTypes.ConnectorCustomizerUpdateResponse>> => {
+    const connectorcustomizersapi = new sdk.ConnectorCustomizersApi(apiConfig);
+    return handleApiCall(() => connectorcustomizersapi.putConnectorCustomizerV1(requestParameters));
+  },
+  putConnectorRuleV1: (requestParameters: connectorRuleManagementTypes.ConnectorRuleManagementApiPutConnectorRuleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<connectorRuleManagementTypes.ConnectorRuleResponse>> => {
+    const connectorrulemanagementapi = new sdk.ConnectorRuleManagementApi(apiConfig);
+    return handleApiCall(() => connectorrulemanagementapi.putConnectorRuleV1(requestParameters));
+  },
+  putConnectorSourceConfigV1: (requestParameters: connectorsTypes.ConnectorsApiPutConnectorSourceConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<connectorsTypes.UpdateDetail>> => {
+    const connectorsapi = new sdk.ConnectorsApi(apiConfig);
+    return handleApiCall(() => connectorsapi.putConnectorSourceConfigV1(requestParameters));
+  },
+  putConnectorSourceTemplateV1: (requestParameters: connectorsTypes.ConnectorsApiPutConnectorSourceTemplateV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<connectorsTypes.UpdateDetail>> => {
+    const connectorsapi = new sdk.ConnectorsApi(apiConfig);
+    return handleApiCall(() => connectorsapi.putConnectorSourceTemplateV1(requestParameters));
+  },
+  putConnectorTranslationsV1: (requestParameters: connectorsTypes.ConnectorsApiPutConnectorTranslationsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<connectorsTypes.UpdateDetail>> => {
+    const connectorsapi = new sdk.ConnectorsApi(apiConfig);
+    return handleApiCall(() => connectorsapi.putConnectorTranslationsV1(requestParameters));
+  },
+  putCorrelationConfigV1: (requestParameters: sourcesTypes.SourcesApiPutCorrelationConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.CorrelationConfig>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.putCorrelationConfigV1(requestParameters));
+  },
+  putCustomPrivilegeCriteriaValueV1: (requestParameters: privilegeCriteriaTypes.PrivilegeCriteriaApiPutCustomPrivilegeCriteriaValueV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<privilegeCriteriaTypes.PrivilegeCriteriaDTO>> => {
+    const privilegecriteriaapi = new sdk.PrivilegeCriteriaApi(apiConfig);
+    return handleApiCall(() => privilegecriteriaapi.putCustomPrivilegeCriteriaValueV1(requestParameters));
+  },
+  putEntitlementRequestConfigV1: (requestParameters: entitlementsTypes.EntitlementsApiPutEntitlementRequestConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<entitlementsTypes.EntitlementRequestConfig>> => {
+    const entitlementsapi = new sdk.EntitlementsApi(apiConfig);
+    return handleApiCall(() => entitlementsapi.putEntitlementRequestConfigV1(requestParameters));
+  },
+  putIdentityAttributeV1: (requestParameters: identityAttributesTypes.IdentityAttributesApiPutIdentityAttributeV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<identityAttributesTypes.IdentityAttribute2>> => {
+    const identityattributesapi = new sdk.IdentityAttributesApi(apiConfig);
+    return handleApiCall(() => identityattributesapi.putIdentityAttributeV1(requestParameters));
+  },
+  putIdentityCollectorV1: (requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiPutIdentityCollectorV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const dataaccesssecurityapi = new sdk.DataAccessSecurityApi(apiConfig);
+    return handleApiCall(() => dataaccesssecurityapi.putIdentityCollectorV1(requestParameters));
+  },
+  putLauncherV1: (requestParameters: launchersTypes.LaunchersApiPutLauncherV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<launchersTypes.Launcher>> => {
+    const launchersapi = new sdk.LaunchersApi(apiConfig);
+    return handleApiCall(() => launchersapi.putLauncherV1(requestParameters));
+  },
+  putMailFromAttributesV1: (requestParameters: notificationsTypes.NotificationsApiPutMailFromAttributesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<notificationsTypes.MailFromAttributes>> => {
+    const notificationsapi = new sdk.NotificationsApi(apiConfig);
+    return handleApiCall(() => notificationsapi.putMailFromAttributesV1(requestParameters));
+  },
+  putNativeChangeDetectionConfigV1: (requestParameters: sourcesTypes.SourcesApiPutNativeChangeDetectionConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.NativeChangeDetectionConfig>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.putNativeChangeDetectionConfigV1(requestParameters));
+  },
+  putPasswordDictionaryV1: (requestParameters: passwordDictionaryTypes.PasswordDictionaryApiPutPasswordDictionaryV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const passworddictionaryapi = new sdk.PasswordDictionaryApi(apiConfig);
+    return handleApiCall(() => passworddictionaryapi.putPasswordDictionaryV1(requestParameters));
+  },
+  putPasswordOrgConfigV1: (requestParameters: passwordConfigurationTypes.PasswordConfigurationApiPutPasswordOrgConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<passwordConfigurationTypes.PasswordOrgConfig>> => {
+    const passwordconfigurationapi = new sdk.PasswordConfigurationApi(apiConfig);
+    return handleApiCall(() => passwordconfigurationapi.putPasswordOrgConfigV1(requestParameters));
+  },
+  putPolicyScheduleV1: (requestParameters: sodPoliciesTypes.SODPoliciesApiPutPolicyScheduleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sodPoliciesTypes.SodPolicySchedule>> => {
+    const sodpoliciesapi = new sdk.SODPoliciesApi(apiConfig);
+    return handleApiCall(() => sodpoliciesapi.putPolicyScheduleV1(requestParameters));
+  },
+  putProvisioningPolicyV1: (requestParameters: sourcesTypes.SourcesApiPutProvisioningPolicyV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.ProvisioningPolicyDto>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.putProvisioningPolicyV1(requestParameters));
+  },
+  putProvisioningPolicyV2: (requestParameters: sourcesTypes.SourcesApiPutProvisioningPolicyV2Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.ProvisioningPolicyDtoV2>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.putProvisioningPolicyV2(requestParameters));
+  },
+  putReassignmentConfigV1: (requestParameters: workReassignmentTypes.WorkReassignmentApiPutReassignmentConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<workReassignmentTypes.ConfigurationItemResponse>> => {
+    const workreassignmentapi = new sdk.WorkReassignmentApi(apiConfig);
+    return handleApiCall(() => workreassignmentapi.putReassignmentConfigV1(requestParameters));
+  },
+  putSavedSearchV1: (requestParameters: savedSearchTypes.SavedSearchApiPutSavedSearchV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<savedSearchTypes.SavedSearch>> => {
+    const savedsearchapi = new sdk.SavedSearchApi(apiConfig);
+    return handleApiCall(() => savedsearchapi.putSavedSearchV1(requestParameters));
+  },
+  putScheduleV1: (requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiPutScheduleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const dataaccesssecurityapi = new sdk.DataAccessSecurityApi(apiConfig);
+    return handleApiCall(() => dataaccesssecurityapi.putScheduleV1(requestParameters));
+  },
+  putServiceDeskIntegrationV1: (requestParameters: serviceDeskIntegrationTypes.ServiceDeskIntegrationApiPutServiceDeskIntegrationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<serviceDeskIntegrationTypes.ServiceDeskIntegrationDto>> => {
+    const servicedeskintegrationapi = new sdk.ServiceDeskIntegrationApi(apiConfig);
+    return handleApiCall(() => servicedeskintegrationapi.putServiceDeskIntegrationV1(requestParameters));
+  },
+  putSIMIntegrationV1: (requestParameters: simIntegrationsTypes.SIMIntegrationsApiPutSIMIntegrationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<simIntegrationsTypes.ServiceDeskIntegrationDto>> => {
+    const simintegrationsapi = new sdk.SIMIntegrationsApi(apiConfig);
+    return handleApiCall(() => simintegrationsapi.putSIMIntegrationV1(requestParameters));
+  },
+  putSodPolicyV1: (requestParameters: sodPoliciesTypes.SODPoliciesApiPutSodPolicyV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sodPoliciesTypes.SodPolicy>> => {
+    const sodpoliciesapi = new sdk.SODPoliciesApi(apiConfig);
+    return handleApiCall(() => sodpoliciesapi.putSodPolicyV1(requestParameters));
+  },
+  putSourceAttrSyncConfigV1: (requestParameters: sourcesTypes.SourcesApiPutSourceAttrSyncConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.AttrSyncSourceConfig>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.putSourceAttrSyncConfigV1(requestParameters));
+  },
+  putSourceSchemaV1: (requestParameters: sourcesTypes.SourcesApiPutSourceSchemaV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.Schema>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.putSourceSchemaV1(requestParameters));
+  },
+  putSourceV1: (requestParameters: sourcesTypes.SourcesApiPutSourceV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.Source>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.putSourceV1(requestParameters));
+  },
+  putTaggedObjectV1: (requestParameters: taggedObjectsTypes.TaggedObjectsApiPutTaggedObjectV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<taggedObjectsTypes.TaggedObject>> => {
+    const taggedobjectsapi = new sdk.TaggedObjectsApi(apiConfig);
+    return handleApiCall(() => taggedobjectsapi.putTaggedObjectV1(requestParameters));
+  },
+  putTenantConfigurationV1: (requestParameters: workReassignmentTypes.WorkReassignmentApiPutTenantConfigurationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<workReassignmentTypes.TenantConfigurationResponse>> => {
+    const workreassignmentapi = new sdk.WorkReassignmentApi(apiConfig);
+    return handleApiCall(() => workreassignmentapi.putTenantConfigurationV1(requestParameters));
+  },
+  putWorkflowV1: (requestParameters: workflowsTypes.WorkflowsApiPutWorkflowV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<workflowsTypes.Workflow>> => {
+    const workflowsapi = new sdk.WorkflowsApi(apiConfig);
+    return handleApiCall(() => workflowsapi.putWorkflowV1(requestParameters));
+  },
+  queryPasswordInfoV1: (requestParameters: passwordManagementTypes.PasswordManagementApiQueryPasswordInfoV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<passwordManagementTypes.PasswordInfo>> => {
+    const passwordmanagementapi = new sdk.PasswordManagementApi(apiConfig);
+    return handleApiCall(() => passwordmanagementapi.queryPasswordInfoV1(requestParameters));
+  },
+  reassignIdentityCertificationsV1: (requestParameters: certificationsTypes.CertificationsApiReassignIdentityCertificationsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<certificationsTypes.IdentityCertificationDto>> => {
+    const certificationsapi = new sdk.CertificationsApi(apiConfig);
+    return handleApiCall(() => certificationsapi.reassignIdentityCertificationsV1(requestParameters));
+  },
+  rejectAccessRequestV1: (requestParameters: accessRequestApprovalsTypes.AccessRequestApprovalsApiRejectAccessRequestV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const accessrequestapprovalsapi = new sdk.AccessRequestApprovalsApi(apiConfig);
+    return handleApiCall(() => accessrequestapprovalsapi.rejectAccessRequestV1(requestParameters));
+  },
+  rejectApprovalInBulkV1: (requestParameters: approvalsTypes.ApprovalsApiRejectApprovalInBulkV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const approvalsapi = new sdk.ApprovalsApi(apiConfig);
+    return handleApiCall(() => approvalsapi.rejectApprovalInBulkV1(requestParameters));
+  },
+  rejectApprovalItemsInBulkV1: (requestParameters: workItemsTypes.WorkItemsApiRejectApprovalItemsInBulkV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<workItemsTypes.WorkItems>> => {
+    const workitemsapi = new sdk.WorkItemsApi(apiConfig);
+    return handleApiCall(() => workitemsapi.rejectApprovalItemsInBulkV1(requestParameters));
+  },
+  rejectApprovalItemV1: (requestParameters: workItemsTypes.WorkItemsApiRejectApprovalItemV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<workItemsTypes.WorkItems>> => {
+    const workitemsapi = new sdk.WorkItemsApi(apiConfig);
+    return handleApiCall(() => workitemsapi.rejectApprovalItemV1(requestParameters));
+  },
+  rejectApprovalV1: (requestParameters: approvalsTypes.ApprovalsApiRejectApprovalV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const approvalsapi = new sdk.ApprovalsApi(apiConfig);
+    return handleApiCall(() => approvalsapi.rejectApprovalV1(requestParameters));
+  },
+  rejectNonEmployeeRequestV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiRejectNonEmployeeRequestV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeApprovalItem>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.rejectNonEmployeeRequestV1(requestParameters));
+  },
+  resetIdentityV1: (requestParameters: identitiesTypes.IdentitiesApiResetIdentityV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const identitiesapi = new sdk.IdentitiesApi(apiConfig);
+    return handleApiCall(() => identitiesapi.resetIdentityV1(requestParameters));
+  },
+  resetSourceEntitlementsV1: (requestParameters: entitlementsTypes.EntitlementsApiResetSourceEntitlementsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<entitlementsTypes.EntitlementSourceResetBaseReferenceDto>> => {
+    const entitlementsapi = new sdk.EntitlementsApi(apiConfig);
+    return handleApiCall(() => entitlementsapi.resetSourceEntitlementsV1(requestParameters));
+  },
+  searchAdvancedSearchbyIDNerm: (requestParameters: sdk.AdvancedSearchNERMApiSearchAdvancedSearchbyIDRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SearchAdvancedSearch200ResponseNERM>> => {
+    const advancedsearchnermapi = new sdk.AdvancedSearchNERMApi(apiConfig);
+    return handleApiCall(() => advancedsearchnermapi.searchAdvancedSearchbyID(requestParameters));
+  },
+  searchAdvancedSearchNerm: (requestParameters: sdk.AdvancedSearchNERMApiSearchAdvancedSearchRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SearchAdvancedSearch200ResponseNERM>> => {
+    const advancedsearchnermapi = new sdk.AdvancedSearchNERMApi(apiConfig);
+    return handleApiCall(() => advancedsearchnermapi.searchAdvancedSearch(requestParameters));
+  },
+  searchAggregateV1: (requestParameters: searchTypes.SearchApiSearchAggregateV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<searchTypes.AggregationResult>> => {
+    const searchapi = new sdk.SearchApi(apiConfig);
+    return handleApiCall(() => searchapi.searchAggregateV1(requestParameters));
+  },
+  searchCountV1: (requestParameters: searchTypes.SearchApiSearchCountV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const searchapi = new sdk.SearchApi(apiConfig);
+    return handleApiCall(() => searchapi.searchCountV1(requestParameters));
+  },
+  searchFormDefinitionsByTenantV1: (requestParameters: customFormsTypes.CustomFormsApiSearchFormDefinitionsByTenantV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<customFormsTypes.ListFormDefinitionsByTenantResponse>> => {
+    const customformsapi = new sdk.CustomFormsApi(apiConfig);
+    return handleApiCall(() => customformsapi.searchFormDefinitionsByTenantV1(requestParameters));
+  },
+  searchFormElementDataByElementIDV1: (requestParameters: customFormsTypes.CustomFormsApiSearchFormElementDataByElementIDV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<customFormsTypes.ListFormElementDataByElementIDResponse>> => {
+    const customformsapi = new sdk.CustomFormsApi(apiConfig);
+    return handleApiCall(() => customformsapi.searchFormElementDataByElementIDV1(requestParameters));
+  },
+  searchFormInstancesByTenantV1: (requestParameters: customFormsTypes.CustomFormsApiSearchFormInstancesByTenantV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<customFormsTypes.ListFormInstancesByTenantResponse>>> => {
+    const customformsapi = new sdk.CustomFormsApi(apiConfig);
+    return handleApiCall(() => customformsapi.searchFormInstancesByTenantV1(requestParameters));
+  },
+  searchGetV1: (requestParameters: searchTypes.SearchApiSearchGetV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const searchapi = new sdk.SearchApi(apiConfig);
+    return handleApiCall(() => searchapi.searchGetV1(requestParameters));
+  },
+  searchNerm: (requestParameters: sdk.AuditsNERMApiSearchRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.Search200ResponseNERM>> => {
+    const auditsnermapi = new sdk.AuditsNERMApi(apiConfig);
+    return handleApiCall(() => auditsnermapi.search(requestParameters));
+  },
+  searchParametersV1: (requestParameters: parameterStorageTypes.ParameterStorageApiSearchParametersV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<parameterStorageTypes.ParameterStorageParameter>>> => {
+    const parameterstorageapi = new sdk.ParameterStorageApi(apiConfig);
+    return handleApiCall(() => parameterstorageapi.searchParametersV1(requestParameters));
+  },
+  searchPostV1: (requestParameters: searchTypes.SearchApiSearchPostV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<any>>> => {
+    const searchapi = new sdk.SearchApi(apiConfig);
+    return handleApiCall(() => searchapi.searchPostV1(requestParameters));
+  },
+  searchPreDefinedSelectOptionsV1: (apiConfig: sdk.Configuration): Promise<ApiResponse<customFormsTypes.ListPredefinedSelectOptionsResponse>> => {
+    const customformsapi = new sdk.CustomFormsApi(apiConfig);
+    return handleApiCall(() => customformsapi.searchPreDefinedSelectOptionsV1());
+  },
+  searchResourceObjectsV1: (requestParameters: sourcesTypes.SourcesApiSearchResourceObjectsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.ResourceObjectsResponse>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.searchResourceObjectsV1(requestParameters));
+  },
+  searchRolesByFilterV1: (requestParameters: rolesTypes.RolesApiSearchRolesByFilterV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<rolesTypes.Role>>> => {
+    const rolesapi = new sdk.RolesApi(apiConfig);
+    return handleApiCall(() => rolesapi.searchRolesByFilterV1(requestParameters));
+  },
+  sendClassifyMachineAccountFromSourceV1: (requestParameters: classifySourceTypes.ClassifySourceApiSendClassifyMachineAccountFromSourceV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<classifySourceTypes.SendClassifyMachineAccountFromSourceV1200Response>> => {
+    const classifysourceapi = new sdk.ClassifySourceApi(apiConfig);
+    return handleApiCall(() => classifysourceapi.sendClassifyMachineAccountFromSourceV1(requestParameters));
+  },
+  sendClassifyMachineAccountV1: (requestParameters: machineAccountClassifyTypes.MachineAccountClassifyApiSendClassifyMachineAccountV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<machineAccountClassifyTypes.SendClassifyMachineAccountV1200Response>> => {
+    const machineaccountclassifyapi = new sdk.MachineAccountClassifyApi(apiConfig);
+    return handleApiCall(() => machineaccountclassifyapi.sendClassifyMachineAccountV1(requestParameters));
+  },
+  sendDeclassifyMachineAccountFromSourceV1: (requestParameters: declassifySourceTypes.DeclassifySourceApiSendDeclassifyMachineAccountFromSourceV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const declassifysourceapi = new sdk.DeclassifySourceApi(apiConfig);
+    return handleApiCall(() => declassifysourceapi.sendDeclassifyMachineAccountFromSourceV1(requestParameters));
+  },
+  sendIdentityVerificationAccountTokenV1: (requestParameters: identitiesTypes.IdentitiesApiSendIdentityVerificationAccountTokenV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const identitiesapi = new sdk.IdentitiesApi(apiConfig);
+    return handleApiCall(() => identitiesapi.sendIdentityVerificationAccountTokenV1(requestParameters));
+  },
+  sendManualDiscoverApplicationsCsvTemplateV1: (requestParameters: applicationDiscoveryTypes.ApplicationDiscoveryApiSendManualDiscoverApplicationsCsvTemplateV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const applicationdiscoveryapi = new sdk.ApplicationDiscoveryApi(apiConfig);
+    return handleApiCall(() => applicationdiscoveryapi.sendManualDiscoverApplicationsCsvTemplateV1(requestParameters));
+  },
+  sendStreamVerificationV1: (requestParameters: sharedSignalsFrameworkSsfTypes.SharedSignalsFrameworkSSFApiSendStreamVerificationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const sharedsignalsframeworkssfapi = new sdk.SharedSignalsFrameworkSSFApi(apiConfig);
+    return handleApiCall(() => sharedsignalsframeworkssfapi.sendStreamVerificationV1(requestParameters));
+  },
+  sendTestNotificationV1: (requestParameters: notificationsTypes.NotificationsApiSendTestNotificationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const notificationsapi = new sdk.NotificationsApi(apiConfig);
+    return handleApiCall(() => notificationsapi.sendTestNotificationV1(requestParameters));
+  },
+  setAccessRequestConfigV1: (requestParameters: accessRequestsTypes.AccessRequestsApiSetAccessRequestConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accessRequestsTypes.AccessRequestConfig>> => {
+    const accessrequestsapi = new sdk.AccessRequestsApi(apiConfig);
+    return handleApiCall(() => accessrequestsapi.setAccessRequestConfigV1(requestParameters));
+  },
+  setAccessRequestConfigV2: (requestParameters: accessRequestsTypes.AccessRequestsApiSetAccessRequestConfigV2Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accessRequestsTypes.AccessRequestConfig2>> => {
+    const accessrequestsapi = new sdk.AccessRequestsApi(apiConfig);
+    return handleApiCall(() => accessrequestsapi.setAccessRequestConfigV2(requestParameters));
+  },
+  setAccessRequestRecommendationsConfigV1: (requestParameters: iaiAccessRequestRecommendationsTypes.IAIAccessRequestRecommendationsApiSetAccessRequestRecommendationsConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<iaiAccessRequestRecommendationsTypes.AccessRequestRecommendationConfigDto>> => {
+    const iaiaccessrequestrecommendationsapi = new sdk.IAIAccessRequestRecommendationsApi(apiConfig);
+    return handleApiCall(() => iaiaccessrequestrecommendationsapi.setAccessRequestRecommendationsConfigV1(requestParameters));
+  },
+  setBrandingItemV1: (requestParameters: brandingTypes.BrandingApiSetBrandingItemV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<brandingTypes.BrandingItem>> => {
+    const brandingapi = new sdk.BrandingApi(apiConfig);
+    return handleApiCall(() => brandingapi.setBrandingItemV1(requestParameters));
+  },
+  setCampaignReportsConfigV1: (requestParameters: certificationCampaignsTypes.CertificationCampaignsApiSetCampaignReportsConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<certificationCampaignsTypes.CampaignReportsConfig>> => {
+    const certificationcampaignsapi = new sdk.CertificationCampaignsApi(apiConfig);
+    return handleApiCall(() => certificationcampaignsapi.setCampaignReportsConfigV1(requestParameters));
+  },
+  setCampaignTemplateScheduleV1: (requestParameters: certificationCampaignsTypes.CertificationCampaignsApiSetCampaignTemplateScheduleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const certificationcampaignsapi = new sdk.CertificationCampaignsApi(apiConfig);
+    return handleApiCall(() => certificationcampaignsapi.setCampaignTemplateScheduleV1(requestParameters));
+  },
+  setIconV1: (requestParameters: iconsTypes.IconsApiSetIconV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<iconsTypes.SetIconV1200Response>> => {
+    const iconsapi = new sdk.IconsApi(apiConfig);
+    return handleApiCall(() => iconsapi.setIconV1(requestParameters));
+  },
+  setLifecycleStateV1: (requestParameters: lifecycleStatesTypes.LifecycleStatesApiSetLifecycleStateV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<lifecycleStatesTypes.SetLifecycleStateV1200Response>> => {
+    const lifecyclestatesapi = new sdk.LifecycleStatesApi(apiConfig);
+    return handleApiCall(() => lifecyclestatesapi.setLifecycleStateV1(requestParameters));
+  },
+  setMachineAccountMappingsV1: (requestParameters: machineAccountMappingsTypes.MachineAccountMappingsApiSetMachineAccountMappingsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<machineAccountMappingsTypes.AttributeMappings>>> => {
+    const machineaccountmappingsapi = new sdk.MachineAccountMappingsApi(apiConfig);
+    return handleApiCall(() => machineaccountmappingsapi.setMachineAccountMappingsV1(requestParameters));
+  },
+  setMachineClassificationConfigV1: (requestParameters: machineClassificationConfigTypes.MachineClassificationConfigApiSetMachineClassificationConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<machineClassificationConfigTypes.MachineClassificationConfig>> => {
+    const machineclassificationconfigapi = new sdk.MachineClassificationConfigApi(apiConfig);
+    return handleApiCall(() => machineclassificationconfigapi.setMachineClassificationConfigV1(requestParameters));
+  },
+  setMFADuoConfigV1: (requestParameters: mfaConfigurationTypes.MFAConfigurationApiSetMFADuoConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<mfaConfigurationTypes.MfaDuoConfig>> => {
+    const mfaconfigurationapi = new sdk.MFAConfigurationApi(apiConfig);
+    return handleApiCall(() => mfaconfigurationapi.setMFADuoConfigV1(requestParameters));
+  },
+  setMFAKBAConfigV1: (requestParameters: mfaConfigurationTypes.MFAConfigurationApiSetMFAKBAConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<mfaConfigurationTypes.KbaAnswerResponseItem>>> => {
+    const mfaconfigurationapi = new sdk.MFAConfigurationApi(apiConfig);
+    return handleApiCall(() => mfaconfigurationapi.setMFAKBAConfigV1(requestParameters));
+  },
+  setMFAOktaConfigV1: (requestParameters: mfaConfigurationTypes.MFAConfigurationApiSetMFAOktaConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<mfaConfigurationTypes.MfaOktaConfig>> => {
+    const mfaconfigurationapi = new sdk.MFAConfigurationApi(apiConfig);
+    return handleApiCall(() => mfaconfigurationapi.setMFAOktaConfigV1(requestParameters));
+  },
+  setPasswordPolicyV1: (requestParameters: passwordPoliciesTypes.PasswordPoliciesApiSetPasswordPolicyV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<passwordPoliciesTypes.PasswordPolicyV3Dto>> => {
+    const passwordpoliciesapi = new sdk.PasswordPoliciesApi(apiConfig);
+    return handleApiCall(() => passwordpoliciesapi.setPasswordPolicyV1(requestParameters));
+  },
+  setPasswordV1: (requestParameters: passwordManagementTypes.PasswordManagementApiSetPasswordV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<passwordManagementTypes.PasswordChangeResponse>> => {
+    const passwordmanagementapi = new sdk.PasswordManagementApi(apiConfig);
+    return handleApiCall(() => passwordmanagementapi.setPasswordV1(requestParameters));
+  },
+  setRolePropagationConfigV1: (requestParameters: rolePropagationTypes.RolePropagationApiSetRolePropagationConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<rolePropagationTypes.Rolepropagationconfigresponse>> => {
+    const rolepropagationapi = new sdk.RolePropagationApi(apiConfig);
+    return handleApiCall(() => rolepropagationapi.setRolePropagationConfigV1(requestParameters));
+  },
+  setStreamConfigurationV1: (requestParameters: sharedSignalsFrameworkSsfTypes.SharedSignalsFrameworkSSFApiSetStreamConfigurationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sharedSignalsFrameworkSsfTypes.UpdateStreamConfigResponse>> => {
+    const sharedsignalsframeworkssfapi = new sdk.SharedSignalsFrameworkSSFApi(apiConfig);
+    return handleApiCall(() => sharedsignalsframeworkssfapi.setStreamConfigurationV1(requestParameters));
+  },
+  setTagsToManyObjectsV1: (requestParameters: taggedObjectsTypes.TaggedObjectsApiSetTagsToManyObjectsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<taggedObjectsTypes.BulkTaggedObjectResponse>>> => {
+    const taggedobjectsapi = new sdk.TaggedObjectsApi(apiConfig);
+    return handleApiCall(() => taggedobjectsapi.setTagsToManyObjectsV1(requestParameters));
+  },
+  setTagToObjectV1: (requestParameters: taggedObjectsTypes.TaggedObjectsApiSetTagToObjectV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const taggedobjectsapi = new sdk.TaggedObjectsApi(apiConfig);
+    return handleApiCall(() => taggedobjectsapi.setTagToObjectV1(requestParameters));
+  },
+  setTenantUiMetadataV1: (requestParameters: uiMetadataTypes.UIMetadataApiSetTenantUiMetadataV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<uiMetadataTypes.TenantUiMetadataItemResponse>> => {
+    const uimetadataapi = new sdk.UIMetadataApi(apiConfig);
+    return handleApiCall(() => uimetadataapi.setTenantUiMetadataV1(requestParameters));
+  },
+  showPreviewDataSourceV1: (requestParameters: customFormsTypes.CustomFormsApiShowPreviewDataSourceV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<customFormsTypes.PreviewDataSourceResponse>> => {
+    const customformsapi = new sdk.CustomFormsApi(apiConfig);
+    return handleApiCall(() => customformsapi.showPreviewDataSourceV1(requestParameters));
+  },
+  showUserLevelCountsV1: (requestParameters: customUserLevelsTypes.CustomUserLevelsApiShowUserLevelCountsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<customUserLevelsTypes.AuthUserLevelsIdentityCount>>> => {
+    const customuserlevelsapi = new sdk.CustomUserLevelsApi(apiConfig);
+    return handleApiCall(() => customuserlevelsapi.showUserLevelCountsV1(requestParameters));
+  },
+  signOffIdentityCertificationV1: (requestParameters: certificationsTypes.CertificationsApiSignOffIdentityCertificationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<certificationsTypes.IdentityCertificationDto>> => {
+    const certificationsapi = new sdk.CertificationsApi(apiConfig);
+    return handleApiCall(() => certificationsapi.signOffIdentityCertificationV1(requestParameters));
+  },
+  startActivateWorkflowV1: (requestParameters: jitActivationsTypes.JITActivationsApiStartActivateWorkflowV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<jitActivationsTypes.JitActivationActivateResponse>> => {
+    const jitactivationsapi = new sdk.JITActivationsApi(apiConfig);
+    return handleApiCall(() => jitactivationsapi.startActivateWorkflowV1(requestParameters));
+  },
+  startApplicationDiscoveryV1: (requestParameters: applicationDiscoveryTypes.ApplicationDiscoveryApiStartApplicationDiscoveryV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<applicationDiscoveryTypes.ApplicationDiscoveryResponse>> => {
+    const applicationdiscoveryapi = new sdk.ApplicationDiscoveryApi(apiConfig);
+    return handleApiCall(() => applicationdiscoveryapi.startApplicationDiscoveryV1(requestParameters));
+  },
+  startCampaignRemediationScanV1: (requestParameters: certificationCampaignsTypes.CertificationCampaignsApiStartCampaignRemediationScanV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const certificationcampaignsapi = new sdk.CertificationCampaignsApi(apiConfig);
+    return handleApiCall(() => certificationcampaignsapi.startCampaignRemediationScanV1(requestParameters));
+  },
+  startCampaignReportV1: (requestParameters: certificationCampaignsTypes.CertificationCampaignsApiStartCampaignReportV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const certificationcampaignsapi = new sdk.CertificationCampaignsApi(apiConfig);
+    return handleApiCall(() => certificationcampaignsapi.startCampaignReportV1(requestParameters));
+  },
+  startCampaignV1: (requestParameters: certificationCampaignsTypes.CertificationCampaignsApiStartCampaignV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const certificationcampaignsapi = new sdk.CertificationCampaignsApi(apiConfig);
+    return handleApiCall(() => certificationcampaignsapi.startCampaignV1(requestParameters));
+  },
+  startDeactivateWorkflowV1: (requestParameters: jitActivationsTypes.JITActivationsApiStartDeactivateWorkflowV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<jitActivationsTypes.JitActivationDeactivateResponse>> => {
+    const jitactivationsapi = new sdk.JITActivationsApi(apiConfig);
+    return handleApiCall(() => jitactivationsapi.startDeactivateWorkflowV1(requestParameters));
+  },
+  startEvaluateSodPolicyV1: (requestParameters: sodPoliciesTypes.SODPoliciesApiStartEvaluateSodPolicyV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sodPoliciesTypes.ReportResultReference>> => {
+    const sodpoliciesapi = new sdk.SODPoliciesApi(apiConfig);
+    return handleApiCall(() => sodpoliciesapi.startEvaluateSodPolicyV1(requestParameters));
+  },
+  startExtendWorkflowV1: (requestParameters: jitActivationsTypes.JITActivationsApiStartExtendWorkflowV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<jitActivationsTypes.JitActivationExtendResponse>> => {
+    const jitactivationsapi = new sdk.JITActivationsApi(apiConfig);
+    return handleApiCall(() => jitactivationsapi.startExtendWorkflowV1(requestParameters));
+  },
+  startGenerateCampaignTemplateV1: (requestParameters: certificationCampaignsTypes.CertificationCampaignsApiStartGenerateCampaignTemplateV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<certificationCampaignsTypes.CampaignReference>> => {
+    const certificationcampaignsapi = new sdk.CertificationCampaignsApi(apiConfig);
+    return handleApiCall(() => certificationcampaignsapi.startGenerateCampaignTemplateV1(requestParameters));
+  },
+  startIdentitiesInviteV1: (requestParameters: identitiesTypes.IdentitiesApiStartIdentitiesInviteV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<identitiesTypes.TaskStatus>> => {
+    const identitiesapi = new sdk.IdentitiesApi(apiConfig);
+    return handleApiCall(() => identitiesapi.startIdentitiesInviteV1(requestParameters));
+  },
+  startIdentityProcessingV1: (requestParameters: identitiesTypes.IdentitiesApiStartIdentityProcessingV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<identitiesTypes.TaskResultResponse>> => {
+    const identitiesapi = new sdk.IdentitiesApi(apiConfig);
+    return handleApiCall(() => identitiesapi.startIdentityProcessingV1(requestParameters));
+  },
+  startLauncherV1: (requestParameters: launchersTypes.LaunchersApiStartLauncherV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<launchersTypes.StartLauncherV1200Response>> => {
+    const launchersapi = new sdk.LaunchersApi(apiConfig);
+    return handleApiCall(() => launchersapi.startLauncherV1(requestParameters));
+  },
+  startMachineIdentityAggregationV1: (requestParameters: machineIdentitiesTypes.MachineIdentitiesApiStartMachineIdentityAggregationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<machineIdentitiesTypes.MachineIdentityAggregationResponse>> => {
+    const machineidentitiesapi = new sdk.MachineIdentitiesApi(apiConfig);
+    return handleApiCall(() => machineidentitiesapi.startMachineIdentityAggregationV1(requestParameters));
+  },
+  startPredictSodViolationsV1: (requestParameters: sodViolationsTypes.SODViolationsApiStartPredictSodViolationsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sodViolationsTypes.ViolationPrediction>> => {
+    const sodviolationsapi = new sdk.SODViolationsApi(apiConfig);
+    return handleApiCall(() => sodviolationsapi.startPredictSodViolationsV1(requestParameters));
+  },
+  startReportV1: (requestParameters: reportsDataExtractionTypes.ReportsDataExtractionApiStartReportV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<reportsDataExtractionTypes.TaskResultDetails>> => {
+    const reportsdataextractionapi = new sdk.ReportsDataExtractionApi(apiConfig);
+    return handleApiCall(() => reportsdataextractionapi.startReportV1(requestParameters));
+  },
+  startRolePropagationV1: (requestParameters: rolePropagationTypes.RolePropagationApiStartRolePropagationV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<rolePropagationTypes.Rolepropagationresponse>> => {
+    const rolepropagationapi = new sdk.RolePropagationApi(apiConfig);
+    return handleApiCall(() => rolepropagationapi.startRolePropagationV1(requestParameters));
+  },
+  startSodAllPoliciesForOrgV1: (requestParameters: sodPoliciesTypes.SODPoliciesApiStartSodAllPoliciesForOrgV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<sodPoliciesTypes.ReportResultReference>> => {
+    const sodpoliciesapi = new sdk.SODPoliciesApi(apiConfig);
+    return handleApiCall(() => sodpoliciesapi.startSodAllPoliciesForOrgV1(requestParameters));
+  },
+  startSodPolicyV1: (requestParameters: sodPoliciesTypes.SODPoliciesApiStartSodPolicyV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sodPoliciesTypes.ReportResultReference>> => {
+    const sodpoliciesapi = new sdk.SODPoliciesApi(apiConfig);
+    return handleApiCall(() => sodpoliciesapi.startSodPolicyV1(requestParameters));
+  },
+  startTaskRerunV1: (requestParameters: dataAccessSecurityTypes.DataAccessSecurityApiStartTaskRerunV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const dataaccesssecurityapi = new sdk.DataAccessSecurityApi(apiConfig);
+    return handleApiCall(() => dataaccesssecurityapi.startTaskRerunV1(requestParameters));
+  },
+  startTestTriggerInvocationV1: (requestParameters: triggersTypes.TriggersApiStartTestTriggerInvocationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<triggersTypes.Invocation>>> => {
+    const triggersapi = new sdk.TriggersApi(apiConfig);
+    return handleApiCall(() => triggersapi.startTestTriggerInvocationV1(requestParameters));
+  },
+  startViolationCheckV1: (requestParameters: sodViolationsTypes.SODViolationsApiStartViolationCheckV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sodViolationsTypes.SodViolationCheck>> => {
+    const sodviolationsapi = new sdk.SODViolationsApi(apiConfig);
+    return handleApiCall(() => sodviolationsapi.startViolationCheckV1(requestParameters));
+  },
+  submitAccountSelectionV1: (requestParameters: workItemsTypes.WorkItemsApiSubmitAccountSelectionV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<workItemsTypes.WorkItems>> => {
+    const workitemsapi = new sdk.WorkItemsApi(apiConfig);
+    return handleApiCall(() => workitemsapi.submitAccountSelectionV1(requestParameters));
+  },
+  submitAdvancedSearchNerm: (requestParameters: sdk.AdvancedSearchNERMApiSubmitAdvancedSearchRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitAdvancedSearch200ResponseNERM>> => {
+    const advancedsearchnermapi = new sdk.AdvancedSearchNERMApi(apiConfig);
+    return handleApiCall(() => advancedsearchnermapi.submitAdvancedSearch(requestParameters));
+  },
+  submitAttributeOptionNerm: (requestParameters: sdk.AttributeOptionsNERMApiSubmitAttributeOptionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitAttributeOption200ResponseNERM>> => {
+    const attributeoptionsnermapi = new sdk.AttributeOptionsNERMApi(apiConfig);
+    return handleApiCall(() => attributeoptionsnermapi.submitAttributeOption(requestParameters));
+  },
+  submitAttributeOptionsNerm: (requestParameters: sdk.AttributeOptionsNERMApiSubmitAttributeOptionsRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitAttributeOptions200ResponseNERM>> => {
+    const attributeoptionsnermapi = new sdk.AttributeOptionsNERMApi(apiConfig);
+    return handleApiCall(() => attributeoptionsnermapi.submitAttributeOptions(requestParameters));
+  },
+  submitEntitlementRecommendationsAssignmentV1: (requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiSubmitEntitlementRecommendationsAssignmentV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<suggestedEntitlementDescriptionTypes.EntitlementRecommendationAssignResult>> => {
+    const suggestedentitlementdescriptionapi = new sdk.SuggestedEntitlementDescriptionApi(apiConfig);
+    return handleApiCall(() => suggestedentitlementdescriptionapi.submitEntitlementRecommendationsAssignmentV1(requestParameters));
+  },
+  submitProfileAvatarNerm: (requestParameters: sdk.ProfilesNERMApiSubmitProfileAvatarRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.UrlNERM>> => {
+    const profilesnermapi = new sdk.ProfilesNERMApi(apiConfig);
+    return handleApiCall(() => profilesnermapi.submitProfileAvatar(requestParameters));
+  },
+  submitProfileNerm: (requestParameters: sdk.ProfilesNERMApiSubmitProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetSingleSchemaMappedProfile200ResponseNERM>> => {
+    const profilesnermapi = new sdk.ProfilesNERMApi(apiConfig);
+    return handleApiCall(() => profilesnermapi.submitProfile(requestParameters));
+  },
+  submitProfileTypeNerm: (requestParameters: sdk.ProfileTypesNERMApiSubmitProfileTypeRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitProfileType200ResponseNERM>> => {
+    const profiletypesnermapi = new sdk.ProfileTypesNERMApi(apiConfig);
+    return handleApiCall(() => profiletypesnermapi.submitProfileType(requestParameters));
+  },
+  submitProfileUploadNerm: (requestParameters: sdk.ProfilesNERMApiSubmitProfileUploadRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.UrlNERM>> => {
+    const profilesnermapi = new sdk.ProfilesNERMApi(apiConfig);
+    return handleApiCall(() => profilesnermapi.submitProfileUpload(requestParameters));
+  },
+  submitReassignCertsAsyncV1: (requestParameters: certificationsTypes.CertificationsApiSubmitReassignCertsAsyncV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<certificationsTypes.CertificationTask>> => {
+    const certificationsapi = new sdk.CertificationsApi(apiConfig);
+    return handleApiCall(() => certificationsapi.submitReassignCertsAsyncV1(requestParameters));
+  },
+  submitReloadAccountV1: (requestParameters: accountsTypes.AccountsApiSubmitReloadAccountV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accountsTypes.AccountsAsyncResult>> => {
+    const accountsapi = new sdk.AccountsApi(apiConfig);
+    return handleApiCall(() => accountsapi.submitReloadAccountV1(requestParameters));
+  },
+  submitRoleNerm: (requestParameters: sdk.RolesNERMApiSubmitRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitRole200ResponseNERM>> => {
+    const rolesnermapi = new sdk.RolesNERMApi(apiConfig);
+    return handleApiCall(() => rolesnermapi.submitRole(requestParameters));
+  },
+  submitRoleProfileNerm: (requestParameters: sdk.RoleProfilesNERMApiSubmitRoleProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitRoleProfile200ResponseNERM>> => {
+    const roleprofilesnermapi = new sdk.RoleProfilesNERMApi(apiConfig);
+    return handleApiCall(() => roleprofilesnermapi.submitRoleProfile(requestParameters));
+  },
+  submitRoleProfilesNerm: (requestParameters: sdk.RoleProfilesNERMApiSubmitRoleProfilesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitRoleProfiles200ResponseNERM>> => {
+    const roleprofilesnermapi = new sdk.RoleProfilesNERMApi(apiConfig);
+    return handleApiCall(() => roleprofilesnermapi.submitRoleProfiles(requestParameters));
+  },
+  submitRolesNerm: (requestParameters: sdk.RolesNERMApiSubmitRolesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitRoles200ResponseNERM>> => {
+    const rolesnermapi = new sdk.RolesNERMApi(apiConfig);
+    return handleApiCall(() => rolesnermapi.submitRoles(requestParameters));
+  },
+  submitSedApprovalV1: (requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiSubmitSedApprovalV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<suggestedEntitlementDescriptionTypes.SedApprovalStatus>>> => {
+    const suggestedentitlementdescriptionapi = new sdk.SuggestedEntitlementDescriptionApi(apiConfig);
+    return handleApiCall(() => suggestedentitlementdescriptionapi.submitSedApprovalV1(requestParameters));
+  },
+  submitSedAssignmentV1: (requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiSubmitSedAssignmentV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<suggestedEntitlementDescriptionTypes.SedAssignmentResponse>> => {
+    const suggestedentitlementdescriptionapi = new sdk.SuggestedEntitlementDescriptionApi(apiConfig);
+    return handleApiCall(() => suggestedentitlementdescriptionapi.submitSedAssignmentV1(requestParameters));
+  },
+  submitSedBatchRequestV1: (requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiSubmitSedBatchRequestV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<suggestedEntitlementDescriptionTypes.SedBatchResponse>> => {
+    const suggestedentitlementdescriptionapi = new sdk.SuggestedEntitlementDescriptionApi(apiConfig);
+    return handleApiCall(() => suggestedentitlementdescriptionapi.submitSedBatchRequestV1(requestParameters));
+  },
+  submitUserAvatarNerm: (requestParameters: sdk.UsersNERMApiSubmitUserAvatarRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.UrlNERM>> => {
+    const usersnermapi = new sdk.UsersNERMApi(apiConfig);
+    return handleApiCall(() => usersnermapi.submitUserAvatar(requestParameters));
+  },
+  submitUserManagerNerm: (requestParameters: sdk.UserManagersNERMApiSubmitUserManagerRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUserManager200ResponseNERM>> => {
+    const usermanagersnermapi = new sdk.UserManagersNERMApi(apiConfig);
+    return handleApiCall(() => usermanagersnermapi.submitUserManager(requestParameters));
+  },
+  submitUserManagersNerm: (requestParameters: sdk.UserManagersNERMApiSubmitUserManagersRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUserManagers200ResponseNERM>> => {
+    const usermanagersnermapi = new sdk.UserManagersNERMApi(apiConfig);
+    return handleApiCall(() => usermanagersnermapi.submitUserManagers(requestParameters));
+  },
+  submitUserNerm: (requestParameters: sdk.UsersNERMApiSubmitUserRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUser200ResponseNERM>> => {
+    const usersnermapi = new sdk.UsersNERMApi(apiConfig);
+    return handleApiCall(() => usersnermapi.submitUser(requestParameters));
+  },
+  submitUserProfileNerm: (requestParameters: sdk.UserProfilesNERMApiSubmitUserProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUserProfile200ResponseNERM>> => {
+    const userprofilesnermapi = new sdk.UserProfilesNERMApi(apiConfig);
+    return handleApiCall(() => userprofilesnermapi.submitUserProfile(requestParameters));
+  },
+  submitUserRoleNerm: (requestParameters: sdk.UserRolesNERMApiSubmitUserRoleRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUserRole200ResponseNERM>> => {
+    const userrolesnermapi = new sdk.UserRolesNERMApi(apiConfig);
+    return handleApiCall(() => userrolesnermapi.submitUserRole(requestParameters));
+  },
+  submitUserRolesNerm: (requestParameters: sdk.UserRolesNERMApiSubmitUserRolesRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUserRoles200ResponseNERM>> => {
+    const userrolesnermapi = new sdk.UserRolesNERMApi(apiConfig);
+    return handleApiCall(() => userrolesnermapi.submitUserRoles(requestParameters));
+  },
+  submitUsersNerm: (requestParameters: sdk.UsersNERMApiSubmitUsersRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitUsers200ResponseNERM>> => {
+    const usersnermapi = new sdk.UsersNERMApi(apiConfig);
+    return handleApiCall(() => usersnermapi.submitUsers(requestParameters));
+  },
+  submitWorkflowSessionNerm: (requestParameters: sdk.WorkflowSessionsNERMApiSubmitWorkflowSessionRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.SubmitWorkflowSession200ResponseNERM>> => {
+    const workflowsessionsnermapi = new sdk.WorkflowSessionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowsessionsnermapi.submitWorkflowSession(requestParameters));
+  },
+  submitWorkflowSessionUploadNerm: (requestParameters: sdk.WorkflowSessionsNERMApiSubmitWorkflowSessionUploadRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.UrlNERM>> => {
+    const workflowsessionsnermapi = new sdk.WorkflowSessionsNERMApi(apiConfig);
+    return handleApiCall(() => workflowsessionsnermapi.submitWorkflowSessionUpload(requestParameters));
+  },
+  syncAttributesForSourceV1: (requestParameters: sourcesTypes.SourcesApiSyncAttributesForSourceV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.SourceSyncJob>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.syncAttributesForSourceV1(requestParameters));
+  },
+  synchronizeAttributesForIdentityV1: (requestParameters: identitiesTypes.IdentitiesApiSynchronizeAttributesForIdentityV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<identitiesTypes.IdentitySyncJob>> => {
+    const identitiesapi = new sdk.IdentitiesApi(apiConfig);
+    return handleApiCall(() => identitiesapi.synchronizeAttributesForIdentityV1(requestParameters));
+  },
+  syncIdentityProfileV1: (requestParameters: identityProfilesTypes.IdentityProfilesApiSyncIdentityProfileV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const identityprofilesapi = new sdk.IdentityProfilesApi(apiConfig);
+    return handleApiCall(() => identityprofilesapi.syncIdentityProfileV1(requestParameters));
+  },
+  testConnectionMultiHostSourcesV1: (requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiTestConnectionMultiHostSourcesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const multihostintegrationapi = new sdk.MultiHostIntegrationApi(apiConfig);
+    return handleApiCall(() => multihostintegrationapi.testConnectionMultiHostSourcesV1(requestParameters));
+  },
+  testConnectorRuleV1: (requestParameters: connectorRuleManagementTypes.ConnectorRuleManagementApiTestConnectorRuleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<connectorRuleManagementTypes.ConnectorRuleValidationResponse>> => {
+    const connectorrulemanagementapi = new sdk.ConnectorRuleManagementApi(apiConfig);
+    return handleApiCall(() => connectorrulemanagementapi.testConnectorRuleV1(requestParameters));
+  },
+  testExternalExecuteWorkflowV1: (requestParameters: workflowsTypes.WorkflowsApiTestExternalExecuteWorkflowV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<workflowsTypes.TestExternalExecuteWorkflowV1200Response>> => {
+    const workflowsapi = new sdk.WorkflowsApi(apiConfig);
+    return handleApiCall(() => workflowsapi.testExternalExecuteWorkflowV1(requestParameters));
+  },
+  testMFAConfigV1: (requestParameters: mfaConfigurationTypes.MFAConfigurationApiTestMFAConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<mfaConfigurationTypes.MfaConfigTestResponse>> => {
+    const mfaconfigurationapi = new sdk.MFAConfigurationApi(apiConfig);
+    return handleApiCall(() => mfaconfigurationapi.testMFAConfigV1(requestParameters));
+  },
+  testSourceConfigurationV1: (requestParameters: sourcesTypes.SourcesApiTestSourceConfigurationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.StatusResponse>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.testSourceConfigurationV1(requestParameters));
+  },
+  testSourceConnectionMultihostV1: (requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiTestSourceConnectionMultihostV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<multiHostIntegrationTypes.TestSourceConnectionMultihostV1200Response>> => {
+    const multihostintegrationapi = new sdk.MultiHostIntegrationApi(apiConfig);
+    return handleApiCall(() => multihostintegrationapi.testSourceConnectionMultihostV1(requestParameters));
+  },
+  testSourceConnectionV1: (requestParameters: sourcesTypes.SourcesApiTestSourceConnectionV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.StatusResponse>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.testSourceConnectionV1(requestParameters));
+  },
+  testSubscriptionFilterV1: (requestParameters: triggersTypes.TriggersApiTestSubscriptionFilterV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<triggersTypes.ValidateFilterOutputDto>> => {
+    const triggersapi = new sdk.TriggersApi(apiConfig);
+    return handleApiCall(() => triggersapi.testSubscriptionFilterV1(requestParameters));
+  },
+  testWorkflowV1: (requestParameters: workflowsTypes.WorkflowsApiTestWorkflowV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<workflowsTypes.TestWorkflowV1200Response>> => {
+    const workflowsapi = new sdk.WorkflowsApi(apiConfig);
+    return handleApiCall(() => workflowsapi.testWorkflowV1(requestParameters));
+  },
+  unIgnoreIdentityOutliersV1: (requestParameters: iaiOutliersTypes.IAIOutliersApiUnIgnoreIdentityOutliersV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const iaioutliersapi = new sdk.IAIOutliersApi(apiConfig);
+    return handleApiCall(() => iaioutliersapi.unIgnoreIdentityOutliersV1(requestParameters));
+  },
+  unlockAccountV1: (requestParameters: accountsTypes.AccountsApiUnlockAccountV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accountsTypes.AccountsAsyncResult>> => {
+    const accountsapi = new sdk.AccountsApi(apiConfig);
+    return handleApiCall(() => accountsapi.unlockAccountV1(requestParameters));
+  },
+  unsubscribeScheduledSearchV1: (requestParameters: scheduledSearchTypes.ScheduledSearchApiUnsubscribeScheduledSearchV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const scheduledsearchapi = new sdk.ScheduledSearchApi(apiConfig);
+    return handleApiCall(() => scheduledsearchapi.unsubscribeScheduledSearchV1(requestParameters));
+  },
+  updateAccessModelMetadataAttributeV1: (requestParameters: accessModelMetadataTypes.AccessModelMetadataApiUpdateAccessModelMetadataAttributeV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accessModelMetadataTypes.AttributeDTO>> => {
+    const accessmodelmetadataapi = new sdk.AccessModelMetadataApi(apiConfig);
+    return handleApiCall(() => accessmodelmetadataapi.updateAccessModelMetadataAttributeV1(requestParameters));
+  },
+  updateAccessModelMetadataAttributeValueV1: (requestParameters: accessModelMetadataTypes.AccessModelMetadataApiUpdateAccessModelMetadataAttributeValueV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accessModelMetadataTypes.AttributeValueDTO>> => {
+    const accessmodelmetadataapi = new sdk.AccessModelMetadataApi(apiConfig);
+    return handleApiCall(() => accessmodelmetadataapi.updateAccessModelMetadataAttributeValueV1(requestParameters));
+  },
+  updateAccessModelMetadataByFilterV1: (requestParameters: accessModelMetadataTypes.AccessModelMetadataApiUpdateAccessModelMetadataByFilterV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accessModelMetadataTypes.AccessModelMetadataBulkUpdateResponse>> => {
+    const accessmodelmetadataapi = new sdk.AccessModelMetadataApi(apiConfig);
+    return handleApiCall(() => accessmodelmetadataapi.updateAccessModelMetadataByFilterV1(requestParameters));
+  },
+  updateAccessModelMetadataByIdsV1: (requestParameters: accessModelMetadataTypes.AccessModelMetadataApiUpdateAccessModelMetadataByIdsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accessModelMetadataTypes.AccessModelMetadataBulkUpdateResponse>> => {
+    const accessmodelmetadataapi = new sdk.AccessModelMetadataApi(apiConfig);
+    return handleApiCall(() => accessmodelmetadataapi.updateAccessModelMetadataByIdsV1(requestParameters));
+  },
+  updateAccessModelMetadataByQueryV1: (requestParameters: accessModelMetadataTypes.AccessModelMetadataApiUpdateAccessModelMetadataByQueryV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<accessModelMetadataTypes.AccessModelMetadataBulkUpdateResponse>> => {
+    const accessmodelmetadataapi = new sdk.AccessModelMetadataApi(apiConfig);
+    return handleApiCall(() => accessmodelmetadataapi.updateAccessModelMetadataByQueryV1(requestParameters));
+  },
+  updateAccessProfilesInBulkV1: (requestParameters: accessProfilesTypes.AccessProfilesApiUpdateAccessProfilesInBulkV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<accessProfilesTypes.AccessProfileUpdateItem>>> => {
+    const accessprofilesapi = new sdk.AccessProfilesApi(apiConfig);
+    return handleApiCall(() => accessprofilesapi.updateAccessProfilesInBulkV1(requestParameters));
+  },
+  updateAccountDeletionApprovalConfigV1: (requestParameters: sourcesTypes.SourcesApiUpdateAccountDeletionApprovalConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.AccountDeleteConfigDto>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.updateAccountDeletionApprovalConfigV1(requestParameters));
+  },
+  updateAccountV1: (requestParameters: accountsTypes.AccountsApiUpdateAccountV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const accountsapi = new sdk.AccountsApi(apiConfig);
+    return handleApiCall(() => accountsapi.updateAccountV1(requestParameters));
+  },
+  updateApprovalsAttributesV1: (requestParameters: approvalsTypes.ApprovalsApiUpdateApprovalsAttributesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<approvalsTypes.Approval2>> => {
+    const approvalsapi = new sdk.ApprovalsApi(apiConfig);
+    return handleApiCall(() => approvalsapi.updateApprovalsAttributesV1(requestParameters));
+  },
+  updateApprovalsCommentsV1: (requestParameters: approvalsTypes.ApprovalsApiUpdateApprovalsCommentsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<approvalsTypes.Approval2>> => {
+    const approvalsapi = new sdk.ApprovalsApi(apiConfig);
+    return handleApiCall(() => approvalsapi.updateApprovalsCommentsV1(requestParameters));
+  },
+  updateApprovalsReassignV1: (requestParameters: approvalsTypes.ApprovalsApiUpdateApprovalsReassignV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const approvalsapi = new sdk.ApprovalsApi(apiConfig);
+    return handleApiCall(() => approvalsapi.updateApprovalsReassignV1(requestParameters));
+  },
+  updateAttributeByIdNerm: (requestParameters: sdk.AttributesNERMApiUpdateAttributeByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateAttribute201ResponseNERM>> => {
+    const attributesnermapi = new sdk.AttributesNERMApi(apiConfig);
+    return handleApiCall(() => attributesnermapi.updateAttributeById(requestParameters));
+  },
+  updateAttributeByUidNerm: (requestParameters: sdk.AttributesNERMApiUpdateAttributeByUidRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateAttribute201ResponseNERM>> => {
+    const attributesnermapi = new sdk.AttributesNERMApi(apiConfig);
+    return handleApiCall(() => attributesnermapi.updateAttributeByUid(requestParameters));
+  },
+  updateAttributeKeyAndValueToRoleV1: (requestParameters: rolesTypes.RolesApiUpdateAttributeKeyAndValueToRoleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<rolesTypes.Role>> => {
+    const rolesapi = new sdk.RolesApi(apiConfig);
+    return handleApiCall(() => rolesapi.updateAttributeKeyAndValueToRoleV1(requestParameters));
+  },
+  updateAutoWriteSettingsV1: (requestParameters: suggestedEntitlementDescriptionTypes.SuggestedEntitlementDescriptionApiUpdateAutoWriteSettingsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<suggestedEntitlementDescriptionTypes.AutoWriteSettingResponse>> => {
+    const suggestedentitlementdescriptionapi = new sdk.SuggestedEntitlementDescriptionApi(apiConfig);
+    return handleApiCall(() => suggestedentitlementdescriptionapi.updateAutoWriteSettingsV1(requestParameters));
+  },
+  updateCampaignFilterV1: (requestParameters: certificationCampaignFiltersTypes.CertificationCampaignFiltersApiUpdateCampaignFilterV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<certificationCampaignFiltersTypes.CampaignFilterDetails>> => {
+    const certificationcampaignfiltersapi = new sdk.CertificationCampaignFiltersApi(apiConfig);
+    return handleApiCall(() => certificationcampaignfiltersapi.updateCampaignFilterV1(requestParameters));
+  },
+  updateCampaignV1: (requestParameters: certificationCampaignsTypes.CertificationCampaignsApiUpdateCampaignV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<certificationCampaignsTypes.SlimCampaign>> => {
+    const certificationcampaignsapi = new sdk.CertificationCampaignsApi(apiConfig);
+    return handleApiCall(() => certificationcampaignsapi.updateCampaignV1(requestParameters));
+  },
+  updateCommonAccessStatusInBulkV1: (requestParameters: iaiCommonAccessTypes.IAICommonAccessApiUpdateCommonAccessStatusInBulkV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<any>> => {
+    const iaicommonaccessapi = new sdk.IAICommonAccessApi(apiConfig);
+    return handleApiCall(() => iaicommonaccessapi.updateCommonAccessStatusInBulkV1(requestParameters));
+  },
+  updateConnectorV1: (requestParameters: connectorsTypes.ConnectorsApiUpdateConnectorV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<connectorsTypes.ConnectorDetail>> => {
+    const connectorsapi = new sdk.ConnectorsApi(apiConfig);
+    return handleApiCall(() => connectorsapi.updateConnectorV1(requestParameters));
+  },
+  updateEntitlementConnectionsBulkV1: (requestParameters: entitlementConnectionsTypes.EntitlementConnectionsApiUpdateEntitlementConnectionsBulkV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<entitlementConnectionsTypes.EntitlementConnectionBulkUpdateResultItem>>> => {
+    const entitlementconnectionsapi = new sdk.EntitlementConnectionsApi(apiConfig);
+    return handleApiCall(() => entitlementconnectionsapi.updateEntitlementConnectionsBulkV1(requestParameters));
+  },
+  updateEntitlementsInBulkV1: (requestParameters: entitlementsTypes.EntitlementsApiUpdateEntitlementsInBulkV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const entitlementsapi = new sdk.EntitlementsApi(apiConfig);
+    return handleApiCall(() => entitlementsapi.updateEntitlementsInBulkV1(requestParameters));
+  },
+  updateEntitlementsPotentialRoleV1: (requestParameters: iaiRoleMiningTypes.IAIRoleMiningApiUpdateEntitlementsPotentialRoleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<iaiRoleMiningTypes.RoleMiningPotentialRole>> => {
+    const iairoleminingapi = new sdk.IAIRoleMiningApi(apiConfig);
+    return handleApiCall(() => iairoleminingapi.updateEntitlementsPotentialRoleV1(requestParameters));
+  },
+  updateFormAttributeByIdNerm: (requestParameters: sdk.FormAttributesNERMApiUpdateFormAttributeByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetFormAttributes200ResponseNERM>> => {
+    const formattributesnermapi = new sdk.FormAttributesNERMApi(apiConfig);
+    return handleApiCall(() => formattributesnermapi.updateFormAttributeById(requestParameters));
+  },
+  updateFormAttributeByUidNerm: (requestParameters: sdk.FormAttributesNERMApiUpdateFormAttributeByUidRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetFormAttributes200ResponseNERM>> => {
+    const formattributesnermapi = new sdk.FormAttributesNERMApi(apiConfig);
+    return handleApiCall(() => formattributesnermapi.updateFormAttributeByUid(requestParameters));
+  },
+  updateFormByIdNerm: (requestParameters: sdk.FormsNERMApiUpdateFormByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateAttribute201ResponseNERM>> => {
+    const formsnermapi = new sdk.FormsNERMApi(apiConfig);
+    return handleApiCall(() => formsnermapi.updateFormById(requestParameters));
+  },
+  updateFormByUidNerm: (requestParameters: sdk.FormsNERMApiUpdateFormByUidRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.CreateAttribute201ResponseNERM>> => {
+    const formsnermapi = new sdk.FormsNERMApi(apiConfig);
+    return handleApiCall(() => formsnermapi.updateFormByUid(requestParameters));
+  },
+  updateIdentityProfileV1: (requestParameters: identityProfilesTypes.IdentityProfilesApiUpdateIdentityProfileV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<identityProfilesTypes.IdentityProfile>> => {
+    const identityprofilesapi = new sdk.IdentityProfilesApi(apiConfig);
+    return handleApiCall(() => identityprofilesapi.updateIdentityProfileV1(requestParameters));
+  },
+  updateLifecycleStatesV1: (requestParameters: lifecycleStatesTypes.LifecycleStatesApiUpdateLifecycleStatesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<lifecycleStatesTypes.LifecycleState>> => {
+    const lifecyclestatesapi = new sdk.LifecycleStatesApi(apiConfig);
+    return handleApiCall(() => lifecyclestatesapi.updateLifecycleStatesV1(requestParameters));
+  },
+  updateMachineAccountDeletionApprovalConfigV1: (requestParameters: sourcesTypes.SourcesApiUpdateMachineAccountDeletionApprovalConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.AccountDeleteConfigDto>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.updateMachineAccountDeletionApprovalConfigV1(requestParameters));
+  },
+  updateMachineAccountSubtypeApprovalConfigV1: (requestParameters: machineAccountSubtypesTypes.MachineAccountSubtypesApiUpdateMachineAccountSubtypeApprovalConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<machineAccountSubtypesTypes.MachineAccountSubtypeConfigDto>> => {
+    const machineaccountsubtypesapi = new sdk.MachineAccountSubtypesApi(apiConfig);
+    return handleApiCall(() => machineaccountsubtypesapi.updateMachineAccountSubtypeApprovalConfigV1(requestParameters));
+  },
+  updateMachineAccountV1: (requestParameters: machineAccountsTypes.MachineAccountsApiUpdateMachineAccountV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<machineAccountsTypes.MachineAccount>> => {
+    const machineaccountsapi = new sdk.MachineAccountsApi(apiConfig);
+    return handleApiCall(() => machineaccountsapi.updateMachineAccountV1(requestParameters));
+  },
+  updateMachineIdentityV1: (requestParameters: machineIdentitiesTypes.MachineIdentitiesApiUpdateMachineIdentityV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<machineIdentitiesTypes.MachineIdentityResponse>> => {
+    const machineidentitiesapi = new sdk.MachineIdentitiesApi(apiConfig);
+    return handleApiCall(() => machineidentitiesapi.updateMachineIdentityV1(requestParameters));
+  },
+  updateMachineIdentityV2: (requestParameters: machineIdentitiesTypes.MachineIdentitiesApiUpdateMachineIdentityV2Request, apiConfig: sdk.Configuration): Promise<ApiResponse<machineIdentitiesTypes.Machineidentityv2>> => {
+    const machineidentitiesapi = new sdk.MachineIdentitiesApi(apiConfig);
+    return handleApiCall(() => machineidentitiesapi.updateMachineIdentityV2(requestParameters));
+  },
+  updateManagedClientV1: (requestParameters: managedClientsTypes.ManagedClientsApiUpdateManagedClientV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<managedClientsTypes.ManagedClient>> => {
+    const managedclientsapi = new sdk.ManagedClientsApi(apiConfig);
+    return handleApiCall(() => managedclientsapi.updateManagedClientV1(requestParameters));
+  },
+  updateManagedClusterTypeV1: (requestParameters: managedClusterTypesTypes.ManagedClusterTypesApiUpdateManagedClusterTypeV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<managedClusterTypesTypes.ManagedClusterType>> => {
+    const managedclustertypesapi = new sdk.ManagedClusterTypesApi(apiConfig);
+    return handleApiCall(() => managedclustertypesapi.updateManagedClusterTypeV1(requestParameters));
+  },
+  updateManagedClusterV1: (requestParameters: managedClustersTypes.ManagedClustersApiUpdateManagedClusterV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<managedClustersTypes.ManagedCluster>> => {
+    const managedclustersapi = new sdk.ManagedClustersApi(apiConfig);
+    return handleApiCall(() => managedclustersapi.updateManagedClusterV1(requestParameters));
+  },
+  updateMultiHostSourcesV1: (requestParameters: multiHostIntegrationTypes.MultiHostIntegrationApiUpdateMultiHostSourcesV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const multihostintegrationapi = new sdk.MultiHostIntegrationApi(apiConfig);
+    return handleApiCall(() => multihostintegrationapi.updateMultiHostSourcesV1(requestParameters));
+  },
+  updateNonEmployeeRecordV1: (requestParameters: nonEmployeeLifecycleManagementTypes.NonEmployeeLifecycleManagementApiUpdateNonEmployeeRecordV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<nonEmployeeLifecycleManagementTypes.NonEmployeeRecord>> => {
+    const nonemployeelifecyclemanagementapi = new sdk.NonEmployeeLifecycleManagementApi(apiConfig);
+    return handleApiCall(() => nonemployeelifecyclemanagementapi.updateNonEmployeeRecordV1(requestParameters));
+  },
+  updateObjectMappingsV1: (requestParameters: configurationHubTypes.ConfigurationHubApiUpdateObjectMappingsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<configurationHubTypes.ObjectMappingBulkPatchResponse>> => {
+    const configurationhubapi = new sdk.ConfigurationHubApi(apiConfig);
+    return handleApiCall(() => configurationhubapi.updateObjectMappingsV1(requestParameters));
+  },
+  updatePageContentByIdNerm: (requestParameters: sdk.PageContentsNERMApiUpdatePageContentByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContents200ResponseNERM>> => {
+    const pagecontentsnermapi = new sdk.PageContentsNERMApi(apiConfig);
+    return handleApiCall(() => pagecontentsnermapi.updatePageContentById(requestParameters));
+  },
+  updatePageContentByUidNerm: (requestParameters: sdk.PageContentsNERMApiUpdatePageContentByUidRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContents200ResponseNERM>> => {
+    const pagecontentsnermapi = new sdk.PageContentsNERMApi(apiConfig);
+    return handleApiCall(() => pagecontentsnermapi.updatePageContentByUid(requestParameters));
+  },
+  updatePageContentTranslationByIdNerm: (requestParameters: sdk.PageContentTranslationsNERMApiUpdatePageContentTranslationByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContentTranslation200ResponseNERM>> => {
+    const pagecontenttranslationsnermapi = new sdk.PageContentTranslationsNERMApi(apiConfig);
+    return handleApiCall(() => pagecontenttranslationsnermapi.updatePageContentTranslationById(requestParameters));
+  },
+  updatePageContentTranslationByUidNerm: (requestParameters: sdk.PageContentTranslationsNERMApiUpdatePageContentTranslationByUidRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageContentTranslation200ResponseNERM>> => {
+    const pagecontenttranslationsnermapi = new sdk.PageContentTranslationsNERMApi(apiConfig);
+    return handleApiCall(() => pagecontenttranslationsnermapi.updatePageContentTranslationByUid(requestParameters));
+  },
+  updatePageElementByIdNerm: (requestParameters: sdk.PageElementsNERMApiUpdatePageElementByIdRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageElements200ResponseNERM>> => {
+    const pageelementsnermapi = new sdk.PageElementsNERMApi(apiConfig);
+    return handleApiCall(() => pageelementsnermapi.updatePageElementById(requestParameters));
+  },
+  updatePageElementByUidNerm: (requestParameters: sdk.PageElementsNERMApiUpdatePageElementByUidRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetPageElements200ResponseNERM>> => {
+    const pageelementsnermapi = new sdk.PageElementsNERMApi(apiConfig);
+    return handleApiCall(() => pageelementsnermapi.updatePageElementByUid(requestParameters));
+  },
+  updateParameterV1: (requestParameters: parameterStorageTypes.ParameterStorageApiUpdateParameterV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<parameterStorageTypes.ParameterStorageParameter>> => {
+    const parameterstorageapi = new sdk.ParameterStorageApi(apiConfig);
+    return handleApiCall(() => parameterstorageapi.updateParameterV1(requestParameters));
+  },
+  updatePasswordPolicyHoldersV1: (requestParameters: sourcesTypes.SourcesApiUpdatePasswordPolicyHoldersV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sourcesTypes.PasswordPolicyHoldersDtoInner>>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.updatePasswordPolicyHoldersV1(requestParameters));
+  },
+  updatePasswordSyncGroupV1: (requestParameters: passwordSyncGroupsTypes.PasswordSyncGroupsApiUpdatePasswordSyncGroupV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<passwordSyncGroupsTypes.PasswordSyncGroup>> => {
+    const passwordsyncgroupsapi = new sdk.PasswordSyncGroupsApi(apiConfig);
+    return handleApiCall(() => passwordsyncgroupsapi.updatePasswordSyncGroupV1(requestParameters));
+  },
+  updateProfileNerm: (requestParameters: sdk.IscAccountsNERMApiUpdateProfileRequest, apiConfig: sdk.Configuration): Promise<ApiResponse<sdk.GetSingleSchemaMappedProfile200ResponseNERM>> => {
+    const iscaccountsnermapi = new sdk.IscAccountsNERMApi(apiConfig);
+    return handleApiCall(() => iscaccountsnermapi.updateProfile(requestParameters));
+  },
+  updateProvisioningPoliciesInBulkV1: (requestParameters: sourcesTypes.SourcesApiUpdateProvisioningPoliciesInBulkV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<sourcesTypes.ProvisioningPolicyDto>>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.updateProvisioningPoliciesInBulkV1(requestParameters));
+  },
+  updateProvisioningPolicyV1: (requestParameters: sourcesTypes.SourcesApiUpdateProvisioningPolicyV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.ProvisioningPolicyDto>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.updateProvisioningPolicyV1(requestParameters));
+  },
+  updateProvisioningPolicyV2: (requestParameters: sourcesTypes.SourcesApiUpdateProvisioningPolicyV2Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.ProvisioningPolicyDtoV2>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.updateProvisioningPolicyV2(requestParameters));
+  },
+  updatePublicIdentityConfigV1: (requestParameters: publicIdentitiesConfigTypes.PublicIdentitiesConfigApiUpdatePublicIdentityConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<publicIdentitiesConfigTypes.PublicIdentityConfig>> => {
+    const publicidentitiesconfigapi = new sdk.PublicIdentitiesConfigApi(apiConfig);
+    return handleApiCall(() => publicidentitiesconfigapi.updatePublicIdentityConfigV1(requestParameters));
+  },
+  updateRecommendationsConfigV1: (requestParameters: iaiRecommendationsTypes.IAIRecommendationsApiUpdateRecommendationsConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<iaiRecommendationsTypes.RecommendationConfigDto>> => {
+    const iairecommendationsapi = new sdk.IAIRecommendationsApi(apiConfig);
+    return handleApiCall(() => iairecommendationsapi.updateRecommendationsConfigV1(requestParameters));
+  },
+  updateRolesMetadataByFilterV1: (requestParameters: rolesTypes.RolesApiUpdateRolesMetadataByFilterV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<rolesTypes.RoleBulkUpdateResponse>> => {
+    const rolesapi = new sdk.RolesApi(apiConfig);
+    return handleApiCall(() => rolesapi.updateRolesMetadataByFilterV1(requestParameters));
+  },
+  updateRolesMetadataByIdsV1: (requestParameters: rolesTypes.RolesApiUpdateRolesMetadataByIdsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<rolesTypes.RoleBulkUpdateResponse>> => {
+    const rolesapi = new sdk.RolesApi(apiConfig);
+    return handleApiCall(() => rolesapi.updateRolesMetadataByIdsV1(requestParameters));
+  },
+  updateRolesMetadataByQueryV1: (requestParameters: rolesTypes.RolesApiUpdateRolesMetadataByQueryV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<rolesTypes.RoleBulkUpdateResponse>> => {
+    const rolesapi = new sdk.RolesApi(apiConfig);
+    return handleApiCall(() => rolesapi.updateRolesMetadataByQueryV1(requestParameters));
+  },
+  updateScheduledActionV1: (requestParameters: configurationHubTypes.ConfigurationHubApiUpdateScheduledActionV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<configurationHubTypes.ScheduledActionResponse>> => {
+    const configurationhubapi = new sdk.ConfigurationHubApi(apiConfig);
+    return handleApiCall(() => configurationhubapi.updateScheduledActionV1(requestParameters));
+  },
+  updateScheduledSearchV1: (requestParameters: scheduledSearchTypes.ScheduledSearchApiUpdateScheduledSearchV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<scheduledSearchTypes.ScheduledSearch>> => {
+    const scheduledsearchapi = new sdk.ScheduledSearchApi(apiConfig);
+    return handleApiCall(() => scheduledsearchapi.updateScheduledSearchV1(requestParameters));
+  },
+  updateSourceAppsInBulkV1: (requestParameters: appsTypes.AppsApiUpdateSourceAppsInBulkV1Request = {}, apiConfig: sdk.Configuration): Promise<ApiResponse<void>> => {
+    const appsapi = new sdk.AppsApi(apiConfig);
+    return handleApiCall(() => appsapi.updateSourceAppsInBulkV1(requestParameters));
+  },
+  updateSourceEntitlementRequestConfigV1: (requestParameters: sourcesTypes.SourcesApiUpdateSourceEntitlementRequestConfigV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.SourceEntitlementRequestConfig>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.updateSourceEntitlementRequestConfigV1(requestParameters));
+  },
+  updateSourceScheduleV1: (requestParameters: sourcesTypes.SourcesApiUpdateSourceScheduleV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.Schedule3>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.updateSourceScheduleV1(requestParameters));
+  },
+  updateSourceSchemaV1: (requestParameters: sourcesTypes.SourcesApiUpdateSourceSchemaV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.Schema>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.updateSourceSchemaV1(requestParameters));
+  },
+  updateSourceV1: (requestParameters: sourcesTypes.SourcesApiUpdateSourceV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sourcesTypes.Source>> => {
+    const sourcesapi = new sdk.SourcesApi(apiConfig);
+    return handleApiCall(() => sourcesapi.updateSourceV1(requestParameters));
+  },
+  updateStatusCheckDetailsV1: (requestParameters: serviceDeskIntegrationTypes.ServiceDeskIntegrationApiUpdateStatusCheckDetailsV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<serviceDeskIntegrationTypes.QueuedCheckConfigDetails>> => {
+    const servicedeskintegrationapi = new sdk.ServiceDeskIntegrationApi(apiConfig);
+    return handleApiCall(() => servicedeskintegrationapi.updateStatusCheckDetailsV1(requestParameters));
+  },
+  updateStreamConfigurationV1: (requestParameters: sharedSignalsFrameworkSsfTypes.SharedSignalsFrameworkSSFApiUpdateStreamConfigurationV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sharedSignalsFrameworkSsfTypes.UpdateStreamConfigResponse>> => {
+    const sharedsignalsframeworkssfapi = new sdk.SharedSignalsFrameworkSSFApi(apiConfig);
+    return handleApiCall(() => sharedsignalsframeworkssfapi.updateStreamConfigurationV1(requestParameters));
+  },
+  updateStreamStatusV1: (requestParameters: sharedSignalsFrameworkSsfTypes.SharedSignalsFrameworkSSFApiUpdateStreamStatusV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<sharedSignalsFrameworkSsfTypes.StreamStatusResponse>> => {
+    const sharedsignalsframeworkssfapi = new sdk.SharedSignalsFrameworkSSFApi(apiConfig);
+    return handleApiCall(() => sharedsignalsframeworkssfapi.updateStreamStatusV1(requestParameters));
+  },
+  updateSubscriptionV1: (requestParameters: triggersTypes.TriggersApiUpdateSubscriptionV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<triggersTypes.Subscription>> => {
+    const triggersapi = new sdk.TriggersApi(apiConfig);
+    return handleApiCall(() => triggersapi.updateSubscriptionV1(requestParameters));
+  },
+  updateTaskStatusV1: (requestParameters: taskManagementTypes.TaskManagementApiUpdateTaskStatusV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<taskManagementTypes.TaskStatus>> => {
+    const taskmanagementapi = new sdk.TaskManagementApi(apiConfig);
+    return handleApiCall(() => taskmanagementapi.updateTaskStatusV1(requestParameters));
+  },
+  updateTransformV1: (requestParameters: transformsTypes.TransformsApiUpdateTransformV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<transformsTypes.TransformRead>> => {
+    const transformsapi = new sdk.TransformsApi(apiConfig);
+    return handleApiCall(() => transformsapi.updateTransformV1(requestParameters));
+  },
+  updateUserLevelV1: (requestParameters: customUserLevelsTypes.CustomUserLevelsApiUpdateUserLevelV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<customUserLevelsTypes.UserLevelSummaryDTO>> => {
+    const customuserlevelsapi = new sdk.CustomUserLevelsApi(apiConfig);
+    return handleApiCall(() => customuserlevelsapi.updateUserLevelV1(requestParameters));
+  },
+  updateV1: (requestParameters: managedClustersTypes.ManagedClustersApiUpdateV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<managedClustersTypes.ClusterManualUpgrade>> => {
+    const managedclustersapi = new sdk.ManagedClustersApi(apiConfig);
+    return handleApiCall(() => managedclustersapi.updateV1(requestParameters));
+  },
+  updateWorkgroupMembersV1: (requestParameters: governanceGroupsTypes.GovernanceGroupsApiUpdateWorkgroupMembersV1Request, apiConfig: sdk.Configuration): Promise<ApiResponse<Array<governanceGroupsTypes.WorkgroupMemberAddItem>>> => {
+    const governancegroupsapi = new sdk.GovernanceGroupsApi(apiConfig);
+    return handleApiCall(() => governancegroupsapi.updateWorkgroupMembersV1(requestParameters));
+  },
 // --- GENERATED SDK METHODS END ---
 
   // Generic REST operations
@@ -5288,9 +4519,9 @@ Object.entries(sdkFunctionsObject).forEach(([key, value]) => {
  * Uses secure Map lookup to prevent prototype pollution attacks
  */
 export async function executeSdkMethod(
-  methodName: string, 
-  params: any, 
-  accessToken: string, 
+  methodName: string,
+  params: any,
+  accessToken: string,
   basePath: string
 ): Promise<ApiResponse<any>> {
   // SECURITY: Use Map.has() to safely check if the method exists
@@ -5306,7 +4537,7 @@ export async function executeSdkMethod(
 
   // SECURITY: Use Map.get() for safe method retrieval
   const sdkFunction = sdkFunctions.get(methodName);
-  
+
   // Additional type safety check
   if (typeof sdkFunction !== 'function') {
     return {
@@ -5318,11 +4549,11 @@ export async function executeSdkMethod(
   }
 
   const config = createSdkConfiguration(accessToken, basePath);
-  
+
   // Check the function signature to determine how to call it
   // Some functions take (params, config), others take just (config)
   const functionLength = sdkFunction.length;
-  
+
   let result: ApiResponse<any>;
   if (functionLength === 1) {
     // Function only takes config parameter: (config: Configuration)
@@ -5333,19 +4564,20 @@ export async function executeSdkMethod(
     console.log('Calling SDK function with params and config');
     result = await sdkFunction(params, config);
   }
-  
+
   return result;
 }
+
 // =========================================================================
 // Patches applied by mustache_templates/postscript.js — do not edit manually.
 // Re-run `npm run build:sdk` to regenerate with these patches applied.
 // =========================================================================
 
 // Override: replace the generated stub with a fetch-based implementation.
-sdkFunctionsObject.createUploadedConfiguration = async (
-    requestParameters: sdk.ConfigurationHubV2025ApiCreateUploadedConfigurationRequest,
+sdkFunctionsObject.createUploadedConfigurationV1 = async (
+    requestParameters: configurationHubTypes.ConfigurationHubApiCreateUploadedConfigurationV1Request,
     apiConfig: sdk.Configuration
-): Promise<ApiResponse<sdk.BackupResponseV2025>> => {
+): Promise<ApiResponse<configurationHubTypes.BackupResponse>> => {
     // Uses fetch() directly to avoid Axios multipart boundary issues in Node.js
     // and IPC Blob serialisation limitations.  Mirrors the restore.mjs approach.
     console.log('[createUploadedConfiguration] Starting upload:', {
@@ -5413,9 +4645,9 @@ sdkFunctionsObject.createUploadedConfiguration = async (
         form.append('name', requestParameters.name);
         console.log('[createUploadedConfiguration] FormData built — file:', fileName,
             'size:', blob.size, 'bytes, POSTing to:',
-            `${basePath}/v2025/configuration-hub/backups/uploads`);
+            `${basePath}/configuration-hub/v1/backups/uploads`);
 
-        const response = await fetch(`${basePath}/v2025/configuration-hub/backups/uploads`, {
+        const response = await fetch(`${basePath}/configuration-hub/v1/backups/uploads`, {
             method: 'POST',
             headers: {
                 Authorization: `Bearer ${accessToken}`,
@@ -5429,9 +4661,9 @@ sdkFunctionsObject.createUploadedConfiguration = async (
         const responseText = await response.text();
         console.log('[createUploadedConfiguration] Response body:', responseText);
 
-        let responseData: sdk.BackupResponseV2025;
+        let responseData: configurationHubTypes.BackupResponse;
         try { responseData = JSON.parse(responseText); }
-        catch { responseData = {} as sdk.BackupResponseV2025; }
+        catch { responseData = {} as configurationHubTypes.BackupResponse; }
 
         return {
             data: responseData,
@@ -5445,4 +4677,4 @@ sdkFunctionsObject.createUploadedConfiguration = async (
     }
 };
 // Keep the Map in sync so executeSdkMethod routes to the new implementation.
-sdkFunctions.set('createUploadedConfiguration', sdkFunctionsObject.createUploadedConfiguration as any);
+sdkFunctions.set('createUploadedConfigurationV1', sdkFunctionsObject.createUploadedConfigurationV1 as any);

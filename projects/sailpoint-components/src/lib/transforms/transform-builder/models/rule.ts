@@ -1,10 +1,11 @@
-import { SPConfigV2025ApiExportSpConfigRequest, SPConfigV2025ApiGetSpConfigExportRequest, SPConfigV2025ApiGetSpConfigExportStatusRequest } from 'sailpoint-api-client';
+
 import { Step, Uid } from 'sequential-workflow-designer';
 import {
   createChoiceValueModel,
   createStepModel
 } from 'sequential-workflow-editor-model';
 import { SailPointSDKService } from '../../../sailpoint-sdk.service';
+import type { SPConfigApiExportSpConfigV1Request, SPConfigApiGetSpConfigExportStatusV1Request, SPConfigApiGetSpConfigExportV1Request } from 'sailpoint-api-client/dist/sp_config/api';
 
 let description = 'The rule transform allows you to reuse logic that has already been written for a previous use case. However, you can use the rule transform to reuse code contained within a Transform rule that either is not possible through only transforms';
 
@@ -44,15 +45,15 @@ export function createRuleStepModel(rules: string[]) {
 }
 
 export async function getAvailableRules(sdk: SailPointSDKService): Promise<string[]> {
-  const request: SPConfigV2025ApiExportSpConfigRequest = {
-    exportPayloadV2025: {
+  const request: SPConfigApiExportSpConfigV1Request = {
+    exportPayload: {
       description: 'Export rules',
       includeTypes: ['RULE'],
       objectOptions: {}
     }
   };
   
-  const job = await sdk.exportSpConfig(request);
+  const job = await sdk.exportSpConfigV1(request);
 
   if (job.status !== 202) {
     console.error('Error fetching rules:', job.data);
@@ -62,20 +63,20 @@ export async function getAvailableRules(sdk: SailPointSDKService): Promise<strin
   while (true) {
     console.log('Waiting for job to complete...');
     
-    const statusRequest: SPConfigV2025ApiGetSpConfigExportStatusRequest = {
+    const statusRequest: SPConfigApiGetSpConfigExportStatusV1Request = {
       id: job.data.jobId
     };
-    const { data: response } = await sdk.getSpConfigExportStatus(statusRequest);
+    const { data: response } = await sdk.getSpConfigExportStatusV1(statusRequest);
 
     if (response.status === 'NOT_STARTED' || response.status === 'IN_PROGRESS') {
       await new Promise(resolve => setTimeout(resolve, 3000));
     } else {
       switch (response.status) {
         case 'COMPLETE': {
-          const downloadRequest: SPConfigV2025ApiGetSpConfigExportRequest = {
+          const downloadRequest: SPConfigApiGetSpConfigExportV1Request = {
             id: job.data.jobId
           };
-          const { data: exportData } = await sdk.getSpConfigExport(downloadRequest);
+          const { data: exportData } = await sdk.getSpConfigExportV1(downloadRequest);
           const rules: string[] = [];
 
           for (const obj of exportData.objects ?? []) {
@@ -94,7 +95,6 @@ export async function getAvailableRules(sdk: SailPointSDKService): Promise<strin
     }
   }
 }
-
 
 export function serializeRule(step: RuleStep){
     return {
@@ -119,12 +119,9 @@ export function deserializeRule(data: any): RuleStep {
     }
 }
 
-
-
   export function isRuleStep(step: Step): step is RuleStep {
     return step.type === 'rule';
 }
-
 
 export function getRuleIcon(): string {
     const svg = `

@@ -308,10 +308,10 @@ export class SourceActionsDialogComponent implements OnInit {
                 this.debugLog(`Patch operations: ${JSON.stringify(patchOps)}`, 'apiCalls');
 
                 this.debugLog(`Updating existing schedule with ${patchOps.length} patch operations`, 'apiCalls');
-                const updateResult = await this.sdk.updateSourceSchedule({
+                const updateResult = await this.sdk.updateSourceScheduleV1({
                     sourceId: this.data.sourceId,
                     scheduleType: 'ACCOUNT_AGGREGATION',
-                    jsonPatchOperationV2025: patchOps
+                    jsonPatchOperation: patchOps
                 });
                 
                 this.debugLog(`Update result status: ${updateResult?.status}`, 'apiCalls');
@@ -323,9 +323,9 @@ export class SourceActionsDialogComponent implements OnInit {
                 }
             } else {
                 this.debugLog(`Creating new schedule via API call`, 'apiCalls');
-                const createResult = await this.sdk.createSourceSchedule({
+                const createResult = await this.sdk.createSourceScheduleV1({
                     sourceId: this.data.sourceId,
-                    schedule1V2025: {
+                    schedule3: {
                         type: "ACCOUNT_AGGREGATION",
                         cronExpression: cronExpression
                     }
@@ -375,7 +375,7 @@ export class SourceActionsDialogComponent implements OnInit {
             }
 
             this.debugLog(`Deleting schedule via API call`, 'apiCalls');
-            const deleteResult = await this.sdk.deleteSourceSchedule({
+            const deleteResult = await this.sdk.deleteSourceScheduleV1({
                 sourceId: this.data.sourceId,
                 scheduleType: 'ACCOUNT_AGGREGATION'
             });
@@ -417,7 +417,7 @@ export class SourceActionsDialogComponent implements OnInit {
                 options.disableOptimization = 'true';
             }
             
-            const resp = await this.sdk.importAccounts(options);
+            const resp = await this.sdk.importAccountsV1(options);
             const task = resp?.data as any;
             const taskId = task?.id ?? task?.task?.id ?? '—';
             const optimizationText = this.unoptimizedAccount ? ' (unoptimized)' : '';
@@ -435,7 +435,7 @@ export class SourceActionsDialogComponent implements OnInit {
     async runEntitlementAgg(): Promise<void> {
         this.busy.set(true);
         try {
-            const resp = await this.sdk.importEntitlements({ sourceId: this.data.sourceId });
+            const resp = await this.sdk.importEntitlementsV1({ sourceId: this.data.sourceId });
             const task = resp?.data as any;
             const taskId = task?.id ?? task?.task?.id ?? '—';
             this.snack.open(`Entitlement aggregation started (task ${taskId})`, 'OK', { duration: 3000 });

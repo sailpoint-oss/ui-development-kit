@@ -17,10 +17,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Observable, Subject, of } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, switchMap, takeUntil } from 'rxjs/operators';
-import { IdentityDocumentsV2025 } from 'sailpoint-api-client';
+
 import { SailPointSDKService } from '../../../sailpoint-sdk.service';
 import { IdentityService } from './identity-service';
-
+import type { IdentityDocument } from './identity-document';
 
 @Component({
   selector: 'app-identity-search',
@@ -51,12 +51,12 @@ export class IdentitySearchComponent implements OnInit, OnChanges, OnDestroy {
   @Input() profileId: string | null = null;
   @Input()
     sdkService!: SailPointSDKService;
-  @Output() identitiesSelected = new EventEmitter<IdentityDocumentsV2025[]>();
+  @Output() identitiesSelected = new EventEmitter<IdentityDocument[]>();
 
   searchControl = new FormControl('');
-  identities: IdentityDocumentsV2025[] = [];
-  filteredIdentities: IdentityDocumentsV2025[] = [];
-  selectedIdentities: IdentityDocumentsV2025[] = [];
+  identities: IdentityDocument[] = [];
+  filteredIdentities: IdentityDocument[] = [];
+  selectedIdentities: IdentityDocument[] = [];
   
   loading = false;
   error = '';
@@ -143,7 +143,7 @@ export class IdentitySearchComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * Search for identities by query
    */
-  searchIdentities(query: string): Observable<IdentityDocumentsV2025[]> {
+  searchIdentities(query: string): Observable<IdentityDocument[]> {
     if (!this.profileId) {
       return of([]);
     }
@@ -192,14 +192,14 @@ export class IdentitySearchComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * Check if an identity is selected
    */
-  isSelected(identity: IdentityDocumentsV2025): boolean {
+  isSelected(identity: IdentityDocument): boolean {
     return this.selectedIdentities.some(item => item.id === identity.id);
   }
 
   /**
    * Get display value for identity
    */
-  getIdentityDisplay(identity: IdentityDocumentsV2025): string {
+  getIdentityDisplay(identity: IdentityDocument): string {
     return `${identity.name} (ID: ${identity.id})`;
   }
 

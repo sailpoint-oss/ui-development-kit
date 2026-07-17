@@ -11,7 +11,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { NavigationStackService } from '../navigation-stack';
 import { SailPointSDKService } from '../../sailpoint-sdk.service';
-import { IdentityV2025 } from 'sailpoint-api-client';
+import type { Identity } from 'sailpoint-api-client/dist/identities/api';
 
 @Component({
   selector: 'app-identity-info',
@@ -32,7 +32,7 @@ import { IdentityV2025 } from 'sailpoint-api-client';
 export class IdentityInfoComponent implements OnInit, OnDestroy {
   @Input() identityId: string = '';
 
-  identity: IdentityV2025 | null = null;
+  identity: Identity | null = null;
   loading = false;
   error: string | null = null;
   breadcrumbItems: any[] = [];
@@ -91,7 +91,7 @@ export class IdentityInfoComponent implements OnInit, OnDestroy {
     console.log('Starting API call for identity:', this.identityId);
 
     try {
-      const response = await this.sailPointSDKService.getIdentity({
+      const response = await this.sailPointSDKService.getIdentityV1({
         id: this.identityId,
       });
       console.log('API response received:', response);

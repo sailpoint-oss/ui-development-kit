@@ -50,8 +50,8 @@ export class ConfigHubApiService {
       // clone — pass a plain object; the SDK wrapper reconstructs a Blob from it.
       const fileProxy: any = { content: jsonStr, name: `${name}.json`, type: 'application/json' };
 
-      console.log('[ConfigHubApiService] Calling sdkService.createUploadedConfiguration…');
-      const response = await this.sdkService.createUploadedConfiguration({ data: fileProxy as File, name });
+      console.log('[ConfigHubApiService] Calling sdkService.createUploadedConfigurationV1…');
+      const response = await this.sdkService.createUploadedConfigurationV1({ data: fileProxy as File, name });
       console.log('[ConfigHubApiService] SDK response:', response);
 
       if (!(response?.status && response.status >= 200 && response.status < 300)) {
@@ -99,7 +99,7 @@ export class ConfigHubApiService {
     for (let attempt = 1; attempt <= MAX_POLLS; attempt++) {
       await new Promise<void>(resolve => setTimeout(resolve, POLL_INTERVAL_MS));
       try {
-        const res = await this.sdkService.getUploadedConfiguration({ id: jobId });
+        const res = await this.sdkService.getUploadedConfigurationV1({ id: jobId });
         const status = (res?.data as any)?.status as string | undefined;
         console.log(`[ConfigHubApiService] Poll ${attempt}/${MAX_POLLS}: status =`, status);
         this.restoreStatusMessage.set(`Processing… ${status ?? 'checking'} (${attempt}/${MAX_POLLS})`);
