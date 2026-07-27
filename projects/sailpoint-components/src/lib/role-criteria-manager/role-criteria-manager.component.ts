@@ -300,7 +300,7 @@ export class RoleCriteriaManagerComponent {
     this.roleCache.clear();
     this.cdr.detectChanges();
 
-    const escaped = text.replace(/"/g, '\\"');
+    const escaped = text.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
     const filter =
       this.mode === 'single' ? `name eq "${escaped}"` : `name co "${escaped}"`;
 
