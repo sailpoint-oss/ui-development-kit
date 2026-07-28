@@ -31,6 +31,28 @@ export interface ElectronAPIInterface {
   readConfig: () => Promise<any>;
   writeConfig: (config: any) => Promise<any>;
 
+  // File dialogs/downloads
+  saveFile: (options: { defaultPath?: string; content: string }) => Promise<{
+    success: boolean;
+    canceled?: boolean;
+    filePath?: string;
+    error?: string;
+  }>;
+  browseForJsonFile: () => Promise<{
+    success: boolean;
+    canceled?: boolean;
+    content?: string;
+    filePath?: string;
+    error?: string;
+  }>;
+  browseForCsvFile: () => Promise<{
+    success: boolean;
+    canceled?: boolean;
+    content?: string;
+    filePath?: string;
+    error?: string;
+  }>;
+
   // Discourse/CoLab marketplace
   getColabPosts: (filter: FilterConfig, limit?: number) => Promise<ColabPostsResponse>;
   getColabPostsByCategory: (category: ColabCategory, limit?: number) => Promise<ColabPostsResponse>;
@@ -474,6 +496,126 @@ export class WebApiService implements ElectronAPIInterface, OnDestroy {
 
   async writeConfig(config: any): Promise<any> {
     return this.apiCall('config', 'POST', { config });
+  }
+
+  // File save — browser fallback triggers a client-side Blob download since
+  // there is no native save dialog outside Electron.
+  saveFile(options: { defaultPath?: string; content: string }): Promise<{
+    success: boolean;
+    canceled?: boolean;
+    filePath?: string;
+    error?: string;
+  }> {
+    try {
+      const blob = new Blob([options.content], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement('a');
+      anchor.href = url;
+      anchor.download = options.defaultPath || 'download.json';
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
+      URL.revokeObjectURL(url);
+      return Promise.resolve({ success: true, filePath: anchor.download });
+    } catch (error) {
+      return Promise.resolve({
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to save file',
+      });
+    }
+  }
+
+  browseForJsonFile(): Promise<{
+    success: boolean;
+    canceled?: boolean;
+    content?: string;
+    filePath?: string;
+    error?: string;
+  }> {
+    return this.browseForTextFile('.json');
+  }
+
+  browseForCsvFile(): Promise<{
+    success: boolean;
+    canceled?: boolean;
+    content?: string;
+    filePath?: string;
+    error?: string;
+  }> {
+    return this.browseForTextFile('.csv,text/csv');
+  }
+
+  private browseForTextFile(accept: string): Promise<{
+    success: boolean;
+    canceled?: boolean;
+    content?: string;
+    filePath?: string;
+    error?: string;
+  }> {
+    return new Promise((resolve) => {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = accept;
+      input.style.display = 'none';
+      let settled = false;
+
+      const cleanup = () => {
+        window.removeEventListener('focus', handleFocus);
+        if (document.body.contains(input)) {
+          document.body.removeChild(input);
+        }
+      };
+      const finish = (result: {
+        success: boolean;
+        canceled?: boolean;
+        content?: string;
+        filePath?: string;
+        error?: string;
+      }) => {
+        if (settled) {
+          return;
+        }
+        settled = true;
+        cleanup();
+        resolve(result);
+      };
+      const handleFocus = () => {
+        setTimeout(() => {
+          if (!settled && !input.files?.length) {
+            finish({ success: false, canceled: true });
+          }
+        }, 500);
+      };
+
+      input.addEventListener('change', () => {
+        const file = input.files?.[0];
+        if (!file) {
+          finish({ success: false, canceled: true });
+          return;
+        }
+        if (file.size > 5_000_000) {
+          finish({ success: false, error: 'File too large (> 5 MB)' });
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = () => {
+          finish({
+            success: true,
+            filePath: file.name,
+            content: typeof reader.result === 'string' ? reader.result : '',
+          });
+        };
+        reader.onerror = () => {
+          finish({ success: false, error: 'Failed to read file' });
+        };
+        reader.readAsText(file);
+      }, { once: true });
+
+      document.body.appendChild(input);
+      window.addEventListener('focus', handleFocus);
+      input.click();
+    });
   }
 
   // Discourse/CoLab Marketplace methods

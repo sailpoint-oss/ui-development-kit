@@ -144,6 +144,7 @@
     "eslint-plugin-jsdoc": "50.6.11",
     "eslint-plugin-prefer-arrow": "1.2.3",
     "globals": "16.4.0",
+    "jasmine-core": "5.13.0",
     "jest": "^30.0.0",
     "jest-environment-jsdom": "^30.0.0",
     "jest-preset-angular": "^16.1.1",

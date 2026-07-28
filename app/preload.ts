@@ -30,6 +30,10 @@ contextBridge.exposeInMainWorld('electronAPI', {
   
   // file browser
   browseForFile: () => ipcMain.invoke('browse-for-file'),
+  browseForJsonFile: () => ipcMain.invoke('browse-for-json-file'),
+  browseForCsvFile: () => ipcMain.invoke('browse-for-csv-file'),
+  saveFile: (options: { defaultPath?: string; content: string }) =>
+    ipcMain.invoke('save-file', options),
 
   // Modular preloaders
   ...discoursePreloader,

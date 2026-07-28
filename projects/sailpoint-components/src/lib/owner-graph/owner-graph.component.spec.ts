@@ -21,6 +21,6 @@ describe('OwnerGraphComponent', () => {
   });
 
   it('should have correct title', () => {
-    expect(component.title).toBe('Owner Graph');
+    expect(component.title).toBe('OwnerShip');
   });
 });
