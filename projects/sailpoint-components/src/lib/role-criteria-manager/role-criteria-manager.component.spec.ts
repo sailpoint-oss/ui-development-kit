@@ -8,9 +8,9 @@ import { RoleCriteriaManagerComponent } from './role-criteria-manager.component'
  */
 describe('RoleCriteriaManagerComponent', () => {
   let sdk: {
-    listRoles: jasmine.Spy;
-    getRole: jasmine.Spy;
-    patchRole: jasmine.Spy;
+    listRolesV1: jasmine.Spy;
+    getRoleV1: jasmine.Spy;
+    patchRoleV1: jasmine.Spy;
   };
   let saveFile: jasmine.Spy;
   let apiFactory: { getApi: jasmine.Spy };
@@ -33,9 +33,9 @@ describe('RoleCriteriaManagerComponent', () => {
 
   beforeEach(() => {
     sdk = {
-      listRoles: jasmine.createSpy('listRoles'),
-      getRole: jasmine.createSpy('getRole'),
-      patchRole: jasmine.createSpy('patchRole').and.resolveTo({ data: {} }),
+      listRolesV1: jasmine.createSpy('listRolesV1'),
+      getRoleV1: jasmine.createSpy('getRoleV1'),
+      patchRoleV1: jasmine.createSpy('patchRoleV1').and.resolveTo({ data: {} }),
     };
     saveFile = jasmine.createSpy('saveFile').and.resolveTo({ success: true, filePath: '/tmp/s.json' });
     apiFactory = { getApi: jasmine.createSpy('getApi').and.returnValue({ saveFile }) };
@@ -63,13 +63,13 @@ describe('RoleCriteriaManagerComponent', () => {
         key: { type: 'IDENTITY', property: 'attribute.dept' },
         stringValue: 'eng',
       });
-      sdk.listRoles.and.resolveTo({ data: [role] });
+      sdk.listRolesV1.and.resolveTo({ data: [role] });
 
       component.mode = 'single';
       component.searchText = 'Engineering';
       await component.findRoles();
 
-      expect(sdk.listRoles).toHaveBeenCalledWith({
+      expect(sdk.listRolesV1).toHaveBeenCalledWith({
         filters: 'name eq "Engineering"',
         limit: 250,
         offset: 0,
@@ -81,7 +81,7 @@ describe('RoleCriteriaManagerComponent', () => {
     });
 
     it('clamps single mode to the first role when several match', async () => {
-      sdk.listRoles.and.resolveTo({
+      sdk.listRolesV1.and.resolveTo({
         data: [makeRole('a', 'Dup', null), makeRole('b', 'Dup', null)],
       });
       component.mode = 'single';
@@ -94,11 +94,11 @@ describe('RoleCriteriaManagerComponent', () => {
     });
 
     it('uses a contains filter in bulk mode', async () => {
-      sdk.listRoles.and.resolveTo({ data: [] });
+      sdk.listRolesV1.and.resolveTo({ data: [] });
       component.mode = 'bulk';
       component.searchText = 'DL';
       await component.findRoles();
-      expect(sdk.listRoles).toHaveBeenCalledWith({
+      expect(sdk.listRolesV1).toHaveBeenCalledWith({
         filters: 'name co "DL"',
         limit: 250,
         offset: 0,
@@ -160,7 +160,7 @@ describe('RoleCriteriaManagerComponent', () => {
           role: makeRole('r1', 'Eng', null) as never,
         },
       ];
-      // seed the cache via getRole-equivalent path
+      // seed the cache via getRoleV1-equivalent path
       (component as never as { roleCache: Map<string, unknown> }).roleCache.set(
         'r1',
         makeRole('r1', 'Eng', {
@@ -330,16 +330,16 @@ describe('RoleCriteriaManagerComponent', () => {
     it('is blocked while dry run is on', async () => {
       component.dryRun = true;
       await component.execute();
-      expect(sdk.patchRole).not.toHaveBeenCalled();
+      expect(sdk.patchRoleV1).not.toHaveBeenCalled();
     });
 
     it('saves a snapshot and patches each role', async () => {
       await component.execute();
 
       expect(saveFile).toHaveBeenCalledTimes(1);
-      expect(sdk.patchRole).toHaveBeenCalledWith(jasmine.objectContaining({
+      expect(sdk.patchRoleV1).toHaveBeenCalledWith(jasmine.objectContaining({
         id: 'r1',
-        jsonPatchOperationV2025: jasmine.arrayContaining([
+        jsonPatchOperation: jasmine.arrayContaining([
           jasmine.objectContaining({ op: 'replace', path: '/membership' }),
         ]),
       }));
@@ -351,12 +351,12 @@ describe('RoleCriteriaManagerComponent', () => {
     it('aborts the run when the snapshot save is cancelled', async () => {
       saveFile.and.resolveTo({ success: false, canceled: true });
       await component.execute();
-      expect(sdk.patchRole).not.toHaveBeenCalled();
+      expect(sdk.patchRoleV1).not.toHaveBeenCalled();
       expect(component.results).toEqual([]);
     });
 
-    it('records an ISC error with detail when patchRole fails', async () => {
-      sdk.patchRole.and.rejectWith({
+    it('records an ISC error with detail when patchRoleV1 fails', async () => {
+      sdk.patchRoleV1.and.rejectWith({
         response: {
           data: {
             messages: [{ text: 'Bad criteria' }],
@@ -377,7 +377,7 @@ describe('RoleCriteriaManagerComponent', () => {
       component.snapshot = false;
       await component.execute();
       expect(saveFile).not.toHaveBeenCalled();
-      expect(sdk.patchRole).toHaveBeenCalled();
+      expect(sdk.patchRoleV1).toHaveBeenCalled();
     });
   });
 
@@ -429,7 +429,7 @@ describe('RoleCriteriaManagerComponent', () => {
       const eng = makeRole('r1', 'Engineering', null);
       const sales = makeRole('r2', 'Sales', null);
       // fetchAllRoles pages until an empty page: one page, then undefined -> stop.
-      sdk.listRoles.and.resolveTo({ data: [eng, sales] });
+      sdk.listRolesV1.and.resolveTo({ data: [eng, sales] });
       setBrowse(
         jasmine.createSpy('browseForCsvFile').and.resolveTo({
           success: true,
@@ -445,7 +445,7 @@ describe('RoleCriteriaManagerComponent', () => {
       expect(component.roleRows.every((r) => r.selected)).toBe(true);
       expect(component.csvUnmatched).toEqual(['Ghost']);
       expect(component.csvFileName).toBe('roles.csv');
-      expect(sdk.listRoles).toHaveBeenCalledWith({
+      expect(sdk.listRolesV1).toHaveBeenCalledWith({
         filters: undefined,
         limit: 250,
         offset: 0,
@@ -468,7 +468,7 @@ describe('RoleCriteriaManagerComponent', () => {
       expect(component.csvErrors).toEqual([
         { row: 2, message: 'row has neither a role name nor a role id' },
       ]);
-      expect(sdk.listRoles).not.toHaveBeenCalled();
+      expect(sdk.listRolesV1).not.toHaveBeenCalled();
     });
 
     it('does nothing when the file picker is canceled', async () => {
@@ -478,7 +478,7 @@ describe('RoleCriteriaManagerComponent', () => {
       await component.pickCsv();
 
       expect(component.roleRows.length).toBe(0);
-      expect(sdk.listRoles).not.toHaveBeenCalled();
+      expect(sdk.listRolesV1).not.toHaveBeenCalled();
     });
   });
 });

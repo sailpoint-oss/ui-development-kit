@@ -18,7 +18,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import type { RoleV2025 } from 'sailpoint-api-client';
+import type { Role } from 'sailpoint-api-client/dist/roles/api';
 
 import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
 import { SailPointSDKService } from '../sailpoint-sdk.service';
@@ -59,7 +59,7 @@ interface RoleRow {
   membershipType: string;
   nodeCount: number;
   selected: boolean;
-  role: RoleV2025;
+  role: Role;
 }
 
 /** Per-role computed preview for the Preview panel. */
@@ -179,7 +179,7 @@ export class RoleCriteriaManagerComponent {
   /** All distinct values for the currently-selected "Update" attribute, for the oldValue dropdown. */
   oldValueOptions: string[] = [];
   loadingDetails = false;
-  private readonly roleCache = new Map<string, RoleV2025>();
+  private readonly roleCache = new Map<string, Role>();
 
   readonly leafOperations: readonly LeafOperation[] = LEAF_OPERATIONS;
 
@@ -573,13 +573,13 @@ export class RoleCriteriaManagerComponent {
    * one trailing empty request. Prompts for confirmation once the result set
    * grows beyond ~1000.
    */
-  private async fetchAllRoles(filters: string | undefined): Promise<RoleV2025[]> {
-    const all: RoleV2025[] = [];
+  private async fetchAllRoles(filters: string | undefined): Promise<Role[]> {
+    const all: Role[] = [];
     let offset = 0;
     let confirmedLarge = false;
 
     for (let guard = 0; guard < 2000; guard++) {
-      const resp = await this.sdk.listRoles({
+      const resp = await this.sdk.listRolesV1({
         filters,
         limit: PAGE_SIZE,
         offset,
@@ -636,7 +636,7 @@ export class RoleCriteriaManagerComponent {
       for (const row of this.selectedRoles()) {
         if (!this.roleCache.has(row.id)) {
           try {
-            const resp = await this.sdk.getRole({ id: row.id });
+            const resp = await this.sdk.getRoleV1({ id: row.id });
             if (resp?.data) {
               this.roleCache.set(row.id, resp.data);
             }
@@ -703,7 +703,7 @@ export class RoleCriteriaManagerComponent {
     if (this.identityAttributesLoaded) return;
     this.identityAttributesLoaded = true;
     try {
-      const resp = await this.sdk.listIdentityAttributes({});
+      const resp = await this.sdk.listIdentityAttributesV1({});
       this.identityAttributeSuggestions = (resp.data ?? []).map(
         (a) => `attribute.${a.name}`
       );
@@ -724,8 +724,8 @@ export class RoleCriteriaManagerComponent {
     this.accessSuggestionsLoaded = true;
     try {
       const [apResp, entResp] = await Promise.all([
-        this.sdk.listAccessProfiles({ limit: 250 }),
-        this.sdk.listEntitlements({ limit: 250 }),
+        this.sdk.listAccessProfilesV1({ limit: 250 }),
+        this.sdk.listEntitlementsV1({ limit: 250 }),
       ]);
       this.accessProfileSuggestions = (apResp.data ?? [])
         .map((ap) => ap.name ?? '')
@@ -878,8 +878,8 @@ export class RoleCriteriaManagerComponent {
     try {
       const query = this.criteriaTreeToSearchQuery(tree);
       if (!query) return null;
-      const resp = await this.sdk.searchCount({
-        searchV2025: { query: { query }, indices: ['identities'] },
+      const resp = await this.sdk.searchCountV1({
+        search: { query: { query }, indices: ['identities'] },
       } as never);
       return Number(resp?.headers?.['x-total-count'] ?? null);
     } catch {
@@ -1037,9 +1037,9 @@ export class RoleCriteriaManagerComponent {
     for (const preview of actionable) {
       const nodesBefore = countNodes(preview.before);
       try {
-        await this.sdk.patchRole({
+        await this.sdk.patchRoleV1({
           id: preview.row.id,
-          jsonPatchOperationV2025: preview.result.patch as never,
+          jsonPatchOperation: preview.result.patch as never,
         });
         const result: RunResult = {
           role: preview.row.name,
@@ -1052,7 +1052,7 @@ export class RoleCriteriaManagerComponent {
         this.cdr.detectChanges();
 
         // Fire verification async — don't block the loop
-        Promise.resolve(this.sdk.getRole({ id: preview.row.id })).then((resp) => {
+        Promise.resolve(this.sdk.getRoleV1({ id: preview.row.id })).then((resp) => {
           if (resp?.data) {
             const afterTree = parseCriteria(resp.data.membership?.criteria ?? null);
             result.nodesAfter = countNodes(afterTree);
@@ -1169,7 +1169,7 @@ export class RoleCriteriaManagerComponent {
       for (const row of selected) {
         if (!this.roleCache.has(row.id)) {
           try {
-            const resp = await this.sdk.getRole({ id: row.id });
+            const resp = await this.sdk.getRoleV1({ id: row.id });
             if (resp?.data) this.roleCache.set(row.id, resp.data);
           } catch { /* skip unfetchable roles */ }
         }
@@ -1225,10 +1225,10 @@ export class RoleCriteriaManagerComponent {
     // Fetch current state for each snapshot entry
     const rows: RoleRow[] = [];
     for (const entry of entries) {
-      let current: import('sailpoint-api-client').RoleV2025 | undefined = this.roleCache.get(entry.id);
+      let current: import('sailpoint-api-client/dist/roles/api').Role | undefined = this.roleCache.get(entry.id);
       if (!current) {
         try {
-          const resp = await this.sdk.getRole({ id: entry.id });
+          const resp = await this.sdk.getRoleV1({ id: entry.id });
           if (resp?.data) {
             current = resp.data;
             this.roleCache.set(entry.id, current);
