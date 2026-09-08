@@ -1,8 +1,17 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { GitRepoSettings, GitCommit, BackupObject, BackupObjectType, CommitFile } from '../models/config-hub.models';
 import type { TokenPathsConfig } from './config-hub-token.service';
+import { ElectronService } from '../../services/electron.service';
 
 const SETTINGS_KEY = 'config-hub-git-settings';
+const GITHUB_API_ORIGIN = 'https://api.github.com';
+
+/**
+ * Settings shape that was persisted by older builds. The `pat` field was stored
+ * in plaintext localStorage; it is migrated into safeStorage and stripped on
+ * load. See `loadSettings`.
+ */
+type LegacyGitRepoSettings = GitRepoSettings & { pat?: string };
 
 @Injectable({ providedIn: 'root' })
 export class ConfigHubGitService {
@@ -10,24 +19,127 @@ export class ConfigHubGitService {
   readonly branches = signal<string[]>([]);
   readonly loading = signal(false);
 
-  loadSettings(): Promise<void> {
+  /** True once a GitHub token is available for API calls. */
+  readonly hasToken = signal(false);
+
+  /**
+   * Set when a plaintext token was found in localStorage and migrated out of
+   * it. The token was readable by any local process, so the user is asked to
+   * rotate it.
+   */
+  readonly migratedPlaintextToken = signal(false);
+
+  private readonly electronService = inject(ElectronService);
+
+  /**
+   * Web-mode fallback. Browsers have no OS keychain, so the token is held in
+   * memory for the lifetime of the page and never persisted.
+   */
+  private sessionToken: string | null = null;
+
+  private get isElectron(): boolean {
+    return this.electronService.isElectron && !!this.electronService.electronAPI;
+  }
+
+  async loadSettings(): Promise<void> {
+    let parsed: LegacyGitRepoSettings | null = null;
     try {
       const raw = localStorage.getItem(SETTINGS_KEY);
-      this.settings.set(raw ? (JSON.parse(raw) as GitRepoSettings) : null);
+      parsed = raw ? (JSON.parse(raw) as LegacyGitRepoSettings) : null;
     } catch {
-      this.settings.set(null);
+      parsed = null;
     }
-    return Promise.resolve();
+
+    if (!parsed) {
+      this.settings.set(null);
+      await this.refreshTokenState();
+      return;
+    }
+
+    const legacyToken = typeof parsed.pat === 'string' ? parsed.pat.trim() : '';
+    const settings = this.stripCredentials(parsed);
+    this.settings.set(settings);
+
+    if (legacyToken) {
+      // Move the token behind safeStorage and remove the plaintext copy,
+      // regardless of whether the migration itself succeeds.
+      const result = await this.saveToken(legacyToken);
+      this.persist(settings);
+      this.migratedPlaintextToken.set(result.success);
+    }
+
+    await this.refreshTokenState();
   }
 
   saveSettings(settings: GitRepoSettings): Promise<{ success: boolean; error?: string }> {
+    const sanitized = this.stripCredentials(settings);
     try {
-      localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
-      this.settings.set(settings);
+      this.persist(sanitized);
+      this.settings.set(sanitized);
       return Promise.resolve({ success: true });
     } catch (error) {
       const msg = error instanceof Error ? error.message : 'Failed to save settings';
       return Promise.resolve({ success: false, error: msg });
+    }
+  }
+
+  // ── Credential handling ───────────────────────────────────────────────────
+
+  /** Store the GitHub token in OS-backed safe storage (Electron only). */
+  async saveToken(token: string): Promise<{ success: boolean; error?: string }> {
+    const trimmed = token.trim();
+    if (!trimmed) return { success: false, error: 'Token is empty' };
+
+    if (!this.isElectron) {
+      this.sessionToken = trimmed;
+      this.hasToken.set(true);
+      return { success: true };
+    }
+
+    try {
+      const result = await this.electronService.electronAPI.setConfigHubGitToken(trimmed) as
+        { success: boolean; error?: string };
+      await this.refreshTokenState();
+      return result;
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : 'Failed to store token';
+      return { success: false, error: msg };
+    }
+  }
+
+  /** Remove the stored GitHub token. */
+  async deleteToken(): Promise<{ success: boolean; error?: string }> {
+    this.sessionToken = null;
+    if (!this.isElectron) {
+      this.hasToken.set(false);
+      return { success: true };
+    }
+
+    try {
+      const result = await this.electronService.electronAPI.deleteConfigHubGitToken() as
+        { success: boolean; error?: string };
+      await this.refreshTokenState();
+      return result;
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : 'Failed to remove token';
+      return { success: false, error: msg };
+    }
+  }
+
+  /** True when credentials survive an app restart (Electron safeStorage). */
+  get tokenIsPersisted(): boolean {
+    return this.isElectron;
+  }
+
+  async refreshTokenState(): Promise<void> {
+    if (!this.isElectron) {
+      this.hasToken.set(!!this.sessionToken);
+      return;
+    }
+    try {
+      this.hasToken.set(await this.electronService.electronAPI.hasConfigHubGitToken() === true);
+    } catch {
+      this.hasToken.set(false);
     }
   }
 
@@ -36,15 +148,8 @@ export class ConfigHubGitService {
     if (!s) return;
     const { owner, repo } = this.parseRepoUrl(s.repoUrl);
     if (!owner || !repo) return;
-    try {
-      const url = `https://api.github.com/repos/${owner}/${repo}/branches?per_page=100`;
-      const res = await fetch(url, { headers: this.githubHeaders(s) });
-      if (!res.ok) return;
-      const data = await res.json() as any[];
-      this.branches.set(data.map((b: any) => b.name as string));
-    } catch {
-      this.branches.set([]);
-    }
+    const data = await this.githubGet<any[]>(`/repos/${owner}/${repo}/branches?per_page=100`);
+    this.branches.set(data ? data.map((b: any) => b.name as string) : []);
   }
 
   async getObjectTypes(): Promise<BackupObjectType[]> {
@@ -52,18 +157,14 @@ export class ConfigHubGitService {
     if (!s) return [];
     const { owner, repo } = this.parseRepoUrl(s.repoUrl);
     if (!owner || !repo) return [];
-    try {
-      const basePath = s.backupsPath.replace(/^\/|\/$/g, '');
-      const url = `https://api.github.com/repos/${owner}/${repo}/contents/${basePath}?ref=${encodeURIComponent(s.defaultBranch)}`;
-      const res = await fetch(url, { headers: this.githubHeaders(s) });
-      if (!res.ok) return [];
-      const items = await res.json() as any[];
-      return items
-        .filter((i: any) => i.type === 'dir')
-        .map((i: any) => ({ name: i.name as string, objectCount: 0 }));
-    } catch {
-      return [];
-    }
+    const basePath = s.backupsPath.replace(/^\/|\/$/g, '');
+    const items = await this.githubGet<any[]>(
+      `/repos/${owner}/${repo}/contents/${basePath}?ref=${encodeURIComponent(s.defaultBranch)}`,
+    );
+    if (!items) return [];
+    return items
+      .filter((i: any) => i.type === 'dir')
+      .map((i: any) => ({ name: i.name as string, objectCount: 0 }));
   }
 
   async getObjectsForType(objectType: string): Promise<BackupObject[]> {
@@ -71,23 +172,19 @@ export class ConfigHubGitService {
     if (!s) return [];
     const { owner, repo } = this.parseRepoUrl(s.repoUrl);
     if (!owner || !repo) return [];
-    try {
-      const basePath = s.backupsPath.replace(/^\/|\/$/g, '');
-      const dirPath = `${basePath}/${objectType}`;
-      const url = `https://api.github.com/repos/${owner}/${repo}/contents/${dirPath}?ref=${encodeURIComponent(s.defaultBranch)}`;
-      const res = await fetch(url, { headers: this.githubHeaders(s) });
-      if (!res.ok) return [];
-      const items = await res.json() as any[];
-      return items
-        .filter((i: any) => i.type === 'file' && (i.name as string).endsWith('.json'))
-        .map((i: any) => ({
-          objectType,
-          objectId: (i.name as string).replace('.json', ''),
-          name: (i.name as string).replace('.json', ''),
-        }));
-    } catch {
-      return [];
-    }
+    const basePath = s.backupsPath.replace(/^\/|\/$/g, '');
+    const dirPath = `${basePath}/${objectType}`;
+    const items = await this.githubGet<any[]>(
+      `/repos/${owner}/${repo}/contents/${dirPath}?ref=${encodeURIComponent(s.defaultBranch)}`,
+    );
+    if (!items) return [];
+    return items
+      .filter((i: any) => i.type === 'file' && (i.name as string).endsWith('.json'))
+      .map((i: any) => ({
+        objectType,
+        objectId: (i.name as string).replace('.json', ''),
+        name: (i.name as string).replace('.json', ''),
+      }));
   }
 
   async getCommitHistory(objectType: string, objectId: string, branch?: string, limit = 30): Promise<GitCommit[]> {
@@ -95,24 +192,12 @@ export class ConfigHubGitService {
     if (!s) return [];
     const { owner, repo } = this.parseRepoUrl(s.repoUrl);
     if (!owner || !repo) return [];
-    try {
-      const basePath = s.backupsPath.replace(/^\/|\/$/g, '');
-      const filePath = `${basePath}/${objectType}/${objectId}.json`;
-      const params = new URLSearchParams({ path: filePath, per_page: String(limit) });
-      params.set('sha', branch ?? s.defaultBranch);
-      const url = `https://api.github.com/repos/${owner}/${repo}/commits?${params}`;
-      const res = await fetch(url, { headers: this.githubHeaders(s) });
-      if (!res.ok) return [];
-      const data = await res.json() as any[];
-      return (data || []).map((c: any) => ({
-        sha: c.sha as string,
-        message: ((c.commit?.message as string) || '').split('\n')[0],
-        author: (c.commit?.author?.name || c.author?.login || 'Unknown') as string,
-        timestamp: (c.commit?.author?.date || '') as string,
-      }));
-    } catch {
-      return [];
-    }
+    const basePath = s.backupsPath.replace(/^\/|\/$/g, '');
+    const filePath = `${basePath}/${objectType}/${objectId}.json`;
+    const params = new URLSearchParams({ path: filePath, per_page: String(limit) });
+    params.set('sha', branch ?? s.defaultBranch);
+    const data = await this.githubGet<any[]>(`/repos/${owner}/${repo}/commits?${params}`);
+    return this.mapCommits(data);
   }
 
   async getFileAtCommit(objectType: string, objectId: string, ref: string): Promise<string> {
@@ -120,17 +205,12 @@ export class ConfigHubGitService {
     if (!s) return '';
     const { owner, repo } = this.parseRepoUrl(s.repoUrl);
     if (!owner || !repo) return '';
-    try {
-      const basePath = s.backupsPath.replace(/^\/|\/$/g, '');
-      const filePath = `${basePath}/${objectType}/${objectId}.json`;
-      const url = `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}?ref=${encodeURIComponent(ref)}`;
-      const res = await fetch(url, { headers: this.githubHeaders(s) });
-      if (!res.ok) return '';
-      const data = await res.json();
-      return atob((data.content as string).replace(/\n/g, ''));
-    } catch {
-      return '';
-    }
+    const basePath = s.backupsPath.replace(/^\/|\/$/g, '');
+    const filePath = `${basePath}/${objectType}/${objectId}.json`;
+    const data = await this.githubGet<{ content?: string }>(
+      `/repos/${owner}/${repo}/contents/${filePath}?ref=${encodeURIComponent(ref)}`,
+    );
+    return this.decodeContent(data?.content);
   }
 
   async getRecentCommits(limit = 50): Promise<GitCommit[]> {
@@ -138,22 +218,10 @@ export class ConfigHubGitService {
     if (!s) return [];
     const { owner, repo } = this.parseRepoUrl(s.repoUrl);
     if (!owner || !repo) return [];
-    try {
-      const basePath = s.backupsPath.replace(/^\/|\/$/g, '');
-      const params = new URLSearchParams({ sha: s.defaultBranch, path: basePath, per_page: String(limit) });
-      const url = `https://api.github.com/repos/${owner}/${repo}/commits?${params}`;
-      const res = await fetch(url, { headers: this.githubHeaders(s) });
-      if (!res.ok) return [];
-      const data = await res.json() as any[];
-      return (data || []).map((c: any) => ({
-        sha: c.sha as string,
-        message: ((c.commit?.message as string) || '').split('\n')[0],
-        author: (c.commit?.author?.name || c.author?.login || 'Unknown') as string,
-        timestamp: (c.commit?.author?.date || '') as string,
-      }));
-    } catch {
-      return [];
-    }
+    const basePath = s.backupsPath.replace(/^\/|\/$/g, '');
+    const params = new URLSearchParams({ sha: s.defaultBranch, path: basePath, per_page: String(limit) });
+    const data = await this.githubGet<any[]>(`/repos/${owner}/${repo}/commits?${params}`);
+    return this.mapCommits(data);
   }
 
   async getCommitFiles(sha: string): Promise<CommitFile[]> {
@@ -161,30 +229,24 @@ export class ConfigHubGitService {
     if (!s) return [];
     const { owner, repo } = this.parseRepoUrl(s.repoUrl);
     if (!owner || !repo) return [];
-    try {
-      const basePath = s.backupsPath.replace(/^\/|\/$/g, '');
-      const url = `https://api.github.com/repos/${owner}/${repo}/commits/${sha}`;
-      const res = await fetch(url, { headers: this.githubHeaders(s) });
-      if (!res.ok) return [];
-      const data = await res.json();
-      const escapedBase = basePath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const pattern = new RegExp(`^${escapedBase}/([^/]+)/([^/]+)\\.json$`);
-      const files: CommitFile[] = [];
-      for (const f of (data.files ?? [])) {
-        const match = (f.filename as string).match(pattern);
-        if (match) {
-          files.push({
-            objectType: match[1],
-            objectId: match[2],
-            filePath: f.filename as string,
-            status: f.status as CommitFile['status'],
-          });
-        }
+    const basePath = s.backupsPath.replace(/^\/|\/$/g, '');
+    const data = await this.githubGet<{ files?: any[] }>(`/repos/${owner}/${repo}/commits/${sha}`);
+    if (!data) return [];
+    const escapedBase = basePath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const pattern = new RegExp(`^${escapedBase}/([^/]+)/([^/]+)\\.json$`);
+    const files: CommitFile[] = [];
+    for (const f of (data.files ?? [])) {
+      const match = (f.filename as string).match(pattern);
+      if (match) {
+        files.push({
+          objectType: match[1],
+          objectId: match[2],
+          filePath: f.filename as string,
+          status: f.status as CommitFile['status'],
+        });
       }
-      return files;
-    } catch {
-      return [];
     }
+    return files;
   }
 
   // ── Vars (environment variable files) ────────────────────────────────────
@@ -211,17 +273,13 @@ export class ConfigHubGitService {
     const { owner, repo } = this.parseRepoUrl(s.repoUrl);
     if (!owner || !repo) return [];
     const varsPath = (s.varsPath ?? 'vars').replace(/^\/|\/$/g, '');
-    try {
-      const url = `https://api.github.com/repos/${owner}/${repo}/contents/${varsPath}?ref=${encodeURIComponent(s.defaultBranch)}`;
-      const res = await fetch(url, { headers: this.githubHeaders(s) });
-      if (!res.ok) return [];
-      const items = await res.json() as any[];
-      return items
-        .filter((i: any) => i.type === 'file' && (i.name as string).endsWith('.vars.yaml'))
-        .map((i: any) => (i.name as string).replace(/\.vars\.yaml$/, ''));
-    } catch {
-      return [];
-    }
+    const items = await this.githubGet<any[]>(
+      `/repos/${owner}/${repo}/contents/${varsPath}?ref=${encodeURIComponent(s.defaultBranch)}`,
+    );
+    if (!items) return [];
+    return items
+      .filter((i: any) => i.type === 'file' && (i.name as string).endsWith('.vars.yaml'))
+      .map((i: any) => (i.name as string).replace(/\.vars\.yaml$/, ''));
   }
 
   /**
@@ -234,12 +292,12 @@ export class ConfigHubGitService {
     if (!s) return null;
     const { owner, repo } = this.parseRepoUrl(s.repoUrl);
     if (!owner || !repo) return null;
+    const data = await this.githubGet<{ content?: string }>(
+      `/repos/${owner}/${repo}/contents/token-paths.json?ref=${encodeURIComponent(s.defaultBranch)}`,
+    );
+    const content = this.decodeContent(data?.content);
+    if (!content) return null;
     try {
-      const url = `https://api.github.com/repos/${owner}/${repo}/contents/token-paths.json?ref=${encodeURIComponent(s.defaultBranch)}`;
-      const res = await fetch(url, { headers: this.githubHeaders(s) });
-      if (!res.ok) return null;
-      const data = (await res.json()) as { content?: string };
-      const content = atob((data.content as string).replace(/\n/g, ''));
       return JSON.parse(content) as TokenPathsConfig;
     } catch {
       return null;
@@ -257,15 +315,10 @@ export class ConfigHubGitService {
     if (!owner || !repo) return '';
     const varsPath = (s.varsPath ?? 'vars').replace(/^\/|\/$/g, '');
     const filePath = `${varsPath}/${tenant}.vars.yaml`;
-    try {
-      const url = `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}?ref=${encodeURIComponent(s.defaultBranch)}`;
-      const res = await fetch(url, { headers: this.githubHeaders(s) });
-      if (!res.ok) return '';
-      const data = await res.json();
-      return atob((data.content as string).replace(/\n/g, ''));
-    } catch {
-      return '';
-    }
+    const data = await this.githubGet<{ content?: string }>(
+      `/repos/${owner}/${repo}/contents/${filePath}?ref=${encodeURIComponent(s.defaultBranch)}`,
+    );
+    return this.decodeContent(data?.content);
   }
 
   // ── Utilities ─────────────────────────────────────────────────────────────
@@ -279,14 +332,67 @@ export class ConfigHubGitService {
     return { owner: '', repo: '' };
   }
 
-  private githubHeaders(s: GitRepoSettings): Record<string, string> {
-    const headers: Record<string, string> = {
-      Accept: 'application/vnd.github.v3+json',
-      'User-Agent': 'SailPoint-UI-Development-Kit',
-    };
-    if (s.pat) {
-      headers['Authorization'] = `Bearer ${s.pat}`;
+  /**
+   * Issue a read-only GitHub API request.
+   *
+   * In Electron the request is made by the main process so the token stays out
+   * of the renderer entirely. In web mode the in-memory session token is used.
+   * Returns null on any failure.
+   */
+  private async githubGet<T>(apiPath: string): Promise<T | null> {
+    const path = apiPath.startsWith('/') ? apiPath : `/${apiPath}`;
+
+    if (this.isElectron) {
+      try {
+        const res = await this.electronService.electronAPI.configHubGitHubRequest(path) as
+          { ok: boolean; status: number; body: unknown };
+        return res?.ok ? (res.body as T) : null;
+      } catch {
+        return null;
+      }
     }
-    return headers;
+
+    try {
+      const headers: Record<string, string> = {
+        Accept: 'application/vnd.github.v3+json',
+      };
+      if (this.sessionToken) {
+        headers['Authorization'] = `Bearer ${this.sessionToken}`;
+      }
+      const res = await fetch(`${GITHUB_API_ORIGIN}${path}`, { headers });
+      if (!res.ok) return null;
+      return await res.json() as T;
+    } catch {
+      return null;
+    }
+  }
+
+  /** Drop any credential fields before the settings reach renderer storage. */
+  private stripCredentials(settings: GitRepoSettings | LegacyGitRepoSettings): GitRepoSettings {
+    const { pat, ...rest } = settings as LegacyGitRepoSettings;
+    void pat;
+    return rest as GitRepoSettings;
+  }
+
+  private persist(settings: GitRepoSettings): void {
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+  }
+
+  private mapCommits(data: any[] | null): GitCommit[] {
+    return (data ?? []).map((c: any) => ({
+      sha: c.sha as string,
+      message: ((c.commit?.message as string) || '').split('\n')[0],
+      author: (c.commit?.author?.name || c.author?.login || 'Unknown') as string,
+      timestamp: (c.commit?.author?.date || '') as string,
+    }));
+  }
+
+  private decodeContent(content: string | undefined): string {
+    if (!content) return '';
+    try {
+      return atob(content.replace(/\n/g, ''));
+    } catch {
+      return '';
+    }
   }
 }

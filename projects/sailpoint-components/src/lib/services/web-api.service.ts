@@ -49,6 +49,12 @@ export interface ElectronAPIInterface {
   getFileCommitHistory: (owner: string, repo: string, path: string, branch?: string, limit?: number) => Promise<GitCommit[]>;
   getFileAtRef: (owner: string, repo: string, path: string, ref: string) => Promise<string>;
 
+  // Config Hub GitHub credential handling (Electron only - OS safeStorage)
+  setConfigHubGitToken: (token: string) => Promise<{ success: boolean; error?: string }>;
+  deleteConfigHubGitToken: () => Promise<{ success: boolean; error?: string }>;
+  hasConfigHubGitToken: () => Promise<boolean>;
+  configHubGitHubRequest: (apiPath: string) => Promise<{ ok: boolean; status: number; body: unknown; error?: string }>;
+
   // Connector deployment
   uploadConnector: (githubRepoUrl: string, connectorAlias?: string) => Promise<ConnectorDeploymentResponse>;
   
@@ -231,10 +237,11 @@ export type CustomizerDeploymentResponse = {
 // Config Hub types
 export type AuthMethod = 'pat' | 'ssh';
 
+// Credentials are never included here - the GitHub token lives in the main
+// process behind Electron safeStorage.
 export type GitRepoSettings = {
   repoUrl: string;
   authMethod: AuthMethod;
-  pat?: string;
   sshKeyPath?: string;
   defaultBranch: string;
   backupsPath: string;
@@ -777,6 +784,33 @@ export class WebApiService implements ElectronAPIInterface, OnDestroy {
     } catch {
       return '';
     }
+  }
+
+  // Config Hub GitHub credential handling
+  // Web mode has no OS keychain, so the token is never persisted here.
+  // ConfigHubGitService keeps it in memory for the session instead.
+  setConfigHubGitToken(): Promise<{ success: boolean; error?: string }> {
+    return Promise.resolve({
+      success: false,
+      error: 'Secure token storage is only available in Electron mode'
+    });
+  }
+
+  deleteConfigHubGitToken(): Promise<{ success: boolean; error?: string }> {
+    return Promise.resolve({ success: true });
+  }
+
+  hasConfigHubGitToken(): Promise<boolean> {
+    return Promise.resolve(false);
+  }
+
+  configHubGitHubRequest(): Promise<{ ok: boolean; status: number; body: unknown; error?: string }> {
+    return Promise.resolve({
+      ok: false,
+      status: 0,
+      body: null,
+      error: 'Proxied GitHub requests are only available in Electron mode'
+    });
   }
 
   // Connector deployment

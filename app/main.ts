@@ -6,6 +6,7 @@ import { setupSailPointSDKHandlers } from './sailpoint-sdk/ipc-handlers';
 import { setupDiscourseHandlers } from './discourse/ipc-handlers';
 import { setupGitHubHandlers } from './github/ipc-handlers';
 import { setupConnectorHandlers } from './connector/ipc-handlers';
+import { setupConfigHubHandlers } from './config-hub/ipc-handlers';
 import { cancelOAuthCodeFlow, disconnectFromISC, refreshTokens, unifiedLogin, validateTokens, checkAccessTokenStatus, getCurrentTokenDetails, checkOauthCodeFlowComplete } from './authentication/auth';
 import { deleteEnvironment, getTenants, setActiveEnvironment, updateEnvironment, UpdateEnvironmentRequest } from './authentication/config';
 // Global variables
@@ -294,6 +295,7 @@ try {
   setupDiscourseHandlers();
   setupGitHubHandlers();
   setupConnectorHandlers();
+  setupConfigHubHandlers();
   setupSailPointSDKHandlers();
 
 } catch (e) {
