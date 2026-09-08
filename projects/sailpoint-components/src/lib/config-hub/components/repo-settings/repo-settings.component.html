@@ -43,19 +43,47 @@
           SSH keys are only used for local <code>git</code> operations (clone / push / pull).</span>
       </div>
 
+      @if (needsRotation) {
+        <div class="auth-info-banner">
+          <mat-icon color="warn">warning</mat-icon>
+          <span>Your token was previously saved in plaintext browser storage and has now been
+            moved into encrypted storage. Because any local process could have read it,
+            <strong>revoke that token in GitHub and enter a new one below</strong>.</span>
+        </div>
+      }
+
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>GitHub API Token (PAT)</mat-label>
+        <mat-label>{{ tokenStored ? 'Replace GitHub API Token (PAT)' : 'GitHub API Token (PAT)' }}</mat-label>
         <mat-icon matPrefix>vpn_key</mat-icon>
         <input matInput formControlName="pat"
+               autocomplete="off"
                [type]="hidePatValue ? 'password' : 'text'"
-               placeholder="ghp_..." />
+               [placeholder]="tokenStored ? 'Leave blank to keep the stored token' : 'ghp_...'" />
         <button mat-icon-button matSuffix type="button"
                 (click)="hidePatValue = !hidePatValue"
                 [attr.aria-label]="hidePatValue ? 'Show token' : 'Hide token'">
           <mat-icon>{{ hidePatValue ? 'visibility' : 'visibility_off' }}</mat-icon>
         </button>
-        <mat-hint>Requires <code>repo</code> scope. Used for all history and file browsing.</mat-hint>
+        <mat-hint>
+          Requires <code>repo</code> scope. Used for all history and file browsing.
+          @if (tokenIsPersisted) {
+            Stored encrypted by your operating system, never in browser storage.
+          } @else {
+            Kept in memory for this session only - browser mode cannot store it securely.
+          }
+        </mat-hint>
       </mat-form-field>
+
+      @if (tokenStored) {
+        <div class="token-status">
+          <mat-icon>lock</mat-icon>
+          <span>A token is stored{{ tokenIsPersisted ? ' in encrypted OS storage' : ' for this session' }}.</span>
+          <button mat-button color="warn" type="button" (click)="onRemoveToken()">
+            <mat-icon>delete</mat-icon>
+            Remove token
+          </button>
+        </div>
+      }
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>SSH Private Key Path <span class="optional-label">(optional — Electron only)</span></mat-label>

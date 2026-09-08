@@ -5,6 +5,7 @@ const sdkPreloader = require('./sailpoint-sdk/sdk-preload');
 const { discoursePreloader } = require('./discourse/discourse-preload');
 const { githubPreloader } = require('./github/github-preload');
 const { connectorPreloader } = require('./connector/connector-preload');
+const { configHubPreloader } = require('./config-hub/config-hub-preload');
 
 contextBridge.exposeInMainWorld('electronAPI', {
   // Unified authentication and connection
@@ -35,5 +36,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   ...discoursePreloader,
   ...githubPreloader,
   ...connectorPreloader,
+  ...configHubPreloader,
   ...sdkPreloader,
 });

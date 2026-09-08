@@ -1,9 +1,16 @@
 export type AuthMethod = 'pat' | 'ssh';
 
+/**
+ * Non-secret Config Hub repository settings.
+ *
+ * Credentials must never be added to this interface: it is serialized into
+ * renderer localStorage, which any local process can read. The GitHub token is
+ * kept in the Electron main process behind safeStorage
+ * (see ConfigHubGitService.saveToken).
+ */
 export interface GitRepoSettings {
   repoUrl: string;
   authMethod: AuthMethod;
-  pat?: string;
   sshKeyPath?: string;
   defaultBranch: string;
   backupsPath: string;
