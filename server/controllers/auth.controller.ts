@@ -64,7 +64,7 @@ export const oauthCallback = async (req: Request, res: Response): Promise<void> 
   // Check if error was returned
   if (error) {
     console.error('OAuth error:', error);
-    const websiteUrl = process.env.WEBSITE_URL || 'http://localhost:4200';
+    const websiteUrl = process.env.WEBSITE_URL || 'http://localhost:4201';
     res.redirect(`${websiteUrl}/home?error=oauth_error&message=` + encodeURIComponent(String(error)));
     return;
   }
@@ -77,7 +77,7 @@ export const oauthCallback = async (req: Request, res: Response): Promise<void> 
 
   if (!state || !stateData) {
     console.error('Invalid or missing OAuth state');
-    const websiteUrl = process.env.WEBSITE_URL || 'http://localhost:4200';
+    const websiteUrl = process.env.WEBSITE_URL || 'http://localhost:4201';
     res.redirect(`${websiteUrl}/home?error=invalid_state`);
     return;
   }
@@ -133,11 +133,11 @@ export const oauthCallback = async (req: Request, res: Response): Promise<void> 
     }
 
     // Redirect to success URL using the configured website URL
-    const websiteUrl = process.env.WEBSITE_URL || 'http://localhost:4200';
+    const websiteUrl = process.env.WEBSITE_URL || 'http://localhost:4201';
     res.redirect(`${websiteUrl}/home?success=true`);
   } catch (error) {
     console.error('Error in OAuth callback:', error);
-    const websiteUrl = process.env.WEBSITE_URL || 'http://localhost:4200';
+    const websiteUrl = process.env.WEBSITE_URL || 'http://localhost:4201';
     res.redirect(`${websiteUrl}/home?error=callback_error`);
   }
 };

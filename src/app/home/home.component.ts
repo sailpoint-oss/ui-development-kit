@@ -121,12 +121,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   authenticating = false;
-  oauthPolling = false;
+  oauthAwaitingCode = false;
   oauthUuid: string | null = null;
   oauthAuthUrl: string | null = null;
   oauthTtl: number | null = null;
-  pollIntervalId: ReturnType<typeof setInterval> | undefined = undefined;
-  pollTimeoutId: ReturnType<typeof setTimeout> | undefined = undefined;
+  oauthTimeoutId: ReturnType<typeof setTimeout> | undefined = undefined;
 
   private http = inject(HttpClient);
 
@@ -164,8 +163,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Clean up polling when component is destroyed
-    this.stopPolling();
+    // Clean up the sign-in timeout when the component is destroyed
+    this.clearOAuthTimeout();
   }
 
   async checkSessionStatus(): Promise<void> {
@@ -299,7 +298,8 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.handleOAuthFlowWithData(
             String(loginResult.uuid),
             loginResult.authUrl ? String(loginResult.authUrl) : undefined,
-            typeof loginResult.ttl === 'number' ? loginResult.ttl : undefined
+            typeof loginResult.ttl === 'number' ? loginResult.ttl : undefined,
+            loginResult.confirmationCode ? String(loginResult.confirmationCode) : undefined
           );
           return;
         }
@@ -341,8 +341,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.showSnackbar(`Failed to connect to the environment. Please check your configuration and try again. \n\n${errorMessage}`);
     } finally {
       this.authenticating = false;
-      // Only close dialogs if we're not in OAuth polling mode
-      if (!this.oauthPolling) {
+      // Only close dialogs if we are not waiting for the user to paste a code
+      if (!this.oauthAwaitingCode) {
         this.dialog.closeAll();
       }
     }
@@ -578,12 +578,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  handleOAuthFlowWithData(uuid: string, authUrl?: string, ttl?: number): void {
+  handleOAuthFlowWithData(uuid: string, authUrl?: string, ttl?: number, confirmationCode?: string): void {
     try {
       this.oauthUuid = uuid;
       this.oauthAuthUrl = authUrl || null;
       this.oauthTtl = ttl || null;
-      this.oauthPolling = true;
+      this.oauthAwaitingCode = true;
 
       // Close the initial dialog and show the OAuth dialog
       this.dialog.closeAll();
@@ -591,17 +591,30 @@ export class HomeComponent implements OnInit, OnDestroy {
         data: {
           title: 'OAuth Authentication',
           uuid: this.oauthUuid,
-          authUrl: this.oauthAuthUrl || undefined
+          authUrl: this.oauthAuthUrl || undefined,
+          confirmationCode: confirmationCode,
+          submit: (pastedCode: string) =>
+            this.electronService.getApi().submitOauthCode(
+              uuid,
+              this.state.actualTenant.name,
+              pastedCode
+            )
         },
         disableClose: true
       });
 
-      // Start polling for completion
-      this.startPolling();
+      this.startOAuthTimeout();
 
-      // Handle dialog close (cancel)
       dialogRef.afterClosed().subscribe(result => {
-        if (!result && this.oauthPolling) {
+        this.clearOAuthTimeout();
+
+        if (result) {
+          this.oauthAwaitingCode = false;
+          void this.completeAuthentication();
+          return;
+        }
+
+        if (this.oauthAwaitingCode) {
           this.cancelOAuthFlow();
         }
       });
@@ -611,80 +624,37 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-
-  startPolling(): void {
-    if (this.pollIntervalId) {
-      clearInterval(this.pollIntervalId);
-    }
-
-    if (this.pollTimeoutId) {
-      clearTimeout(this.pollTimeoutId);
-    }
-
-    const pollOnce = () => {
-      void (async () => {
-        try {
-          if (!this.oauthUuid || !this.oauthPolling) {
-            this.stopPolling();
-            return;
-          }
-
-          const result = await this.electronService.getApi().checkOauthCodeFlowComplete(
-            this.oauthUuid, 
-            this.state.actualTenant.name
-          );
-
-          if (result.isComplete) {
-            this.stopPolling();
-            
-            if (result.success) {
-              await this.completeAuthentication();
-            } else {
-              this.dialog.closeAll();
-              this.showSnackbar(`OAuth authentication failed: ${result.error || 'Unknown error'}`);
-            }
-          }
-        } catch (error) {
-          console.error('Error polling OAuth status:', error);
-          this.stopPolling();
-          this.dialog.closeAll();
-          this.showSnackbar(`Error checking OAuth status: ${error instanceof Error ? error.message : 'Unknown error'}`);
-        }
-      })();
-    };
-
-    pollOnce();
-    this.pollIntervalId = setInterval(pollOnce, 2000);
+  /**
+   * Closes the sign-in dialog once the authorization code can no longer be used.
+   */
+  startOAuthTimeout(): void {
+    this.clearOAuthTimeout();
 
     const timeoutMs = this.oauthTtl
       ? Math.max(this.oauthTtl * 1000 - Date.now(), 0)
       : 5 * 60 * 1000;
 
-    this.pollTimeoutId = setTimeout(() => {
-      if (this.oauthPolling) {
+    this.oauthTimeoutId = setTimeout(() => {
+      if (this.oauthAwaitingCode) {
         void this.electronService.getApi().cancelOAuthCodeFlow(this.oauthUuid || undefined);
-        this.stopPolling();
+        this.oauthAwaitingCode = false;
         this.dialog.closeAll();
         this.showSnackbar('OAuth authentication timed out');
       }
     }, timeoutMs);
   }
 
-  stopPolling(): void {
-    this.oauthPolling = false;
-    if (this.pollIntervalId) {
-      clearInterval(this.pollIntervalId);
-      this.pollIntervalId = undefined;
-    }
-    if (this.pollTimeoutId) {
-      clearTimeout(this.pollTimeoutId);
-      this.pollTimeoutId = undefined;
+  clearOAuthTimeout(): void {
+    if (this.oauthTimeoutId) {
+      clearTimeout(this.oauthTimeoutId);
+      this.oauthTimeoutId = undefined;
     }
   }
 
   cancelOAuthFlow(): void {
     void this.electronService.getApi().cancelOAuthCodeFlow(this.oauthUuid || undefined);
-    this.stopPolling();
+    this.clearOAuthTimeout();
+    this.oauthAwaitingCode = false;
     this.oauthUuid = null;
     this.oauthAuthUrl = null;
     this.oauthTtl = null;

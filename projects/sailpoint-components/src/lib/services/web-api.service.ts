@@ -11,14 +11,14 @@ export const WEB_API_URL = new InjectionToken<string>('WEB_API_URL');
  */
 export interface ElectronAPIInterface {
   // Unified authentication and connection
-  unifiedLogin: (environment: string) => Promise<{ success: boolean, error?: string, uuid?: string, authUrl?: string, ttl?: number }>;
+  unifiedLogin: (environment: string) => Promise<{ success: boolean, error?: string, uuid?: string, authUrl?: string, ttl?: number, confirmationCode?: string }>;
   disconnectFromISC: () => Promise<void>;
   checkAccessTokenStatus: () => Promise<AccessTokenStatus>;
   getCurrentTokenDetails: (environment: string) => Promise<{ tokenDetails: TokenDetails | undefined, error?: string }>;
   // Token management
   refreshTokens: () => Promise<{ success: boolean, error?: string }>;
   validateTokens: (environment: string) => Promise<{ isValid: boolean, needsRefresh: boolean, error?: string }>;
-  checkOauthCodeFlowComplete: (uuid: string, environment: string) => Promise<{ isComplete: boolean, success?: boolean, error?: string }>;
+  submitOauthCode: (uuid: string, environment: string, pastedCode: string) => Promise<{ success: boolean, error?: string }>;
   cancelOAuthCodeFlow: (uuid?: string) => Promise<{ success: boolean }>;
 
   // Environment management
@@ -410,9 +410,9 @@ export class WebApiService implements ElectronAPIInterface, OnDestroy {
   }
 
   // Authentication and Connection methods
-  async unifiedLogin(environment: string): Promise<{ success: boolean, error?: string, uuid?: string, authUrl?: string, ttl?: number }> {
+  async unifiedLogin(environment: string): Promise<{ success: boolean, error?: string, uuid?: string, authUrl?: string, ttl?: number, confirmationCode?: string }> {
     try {
-      const result = await this.apiCall<{ success: boolean, error?: string, uuid?: string, authUrl?: string, ttl?: number }>('auth/login', 'POST', { environment });
+      const result = await this.apiCall<{ success: boolean, error?: string, uuid?: string, authUrl?: string, ttl?: number, confirmationCode?: string }>('auth/login', 'POST', { environment });
       if (result.success) {
         this.activeEnvironment = environment;
       }
@@ -444,8 +444,8 @@ export class WebApiService implements ElectronAPIInterface, OnDestroy {
     return this.apiCall<{ isValid: boolean, needsRefresh: boolean, error?: string }>(`auth/validate-tokens/${environment}`, 'GET');
   }
 
-  async checkOauthCodeFlowComplete(uuid: string, environment: string): Promise<{ isComplete: boolean, success?: boolean, error?: string }> {
-    return this.apiCall<{ isComplete: boolean, success?: boolean, error?: string }>(`auth/oauth-flow-complete`, 'POST', { uuid, environment });
+  async submitOauthCode(uuid: string, environment: string, pastedCode: string): Promise<{ success: boolean, error?: string }> {
+    return this.apiCall<{ success: boolean, error?: string }>(`auth/oauth-submit-code`, 'POST', { uuid, environment, pastedCode });
   }
 
   async cancelOAuthCodeFlow(uuid?: string): Promise<{ success: boolean }> {

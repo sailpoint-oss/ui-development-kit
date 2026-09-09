@@ -16,7 +16,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   // Token management
   refreshTokens: () => ipcMain.invoke('refresh-tokens'),
   validateTokens: (environment: string) => ipcMain.invoke('validate-tokens', environment),
-  checkOauthCodeFlowComplete: (uuid: string, environment: string) => ipcMain.invoke('check-oauth-code-flow-complete', uuid, environment),
+  submitOauthCode: (uuid: string, environment: string, pastedCode: string) => ipcMain.invoke('submit-oauth-code', uuid, environment, pastedCode),
   cancelOAuthCodeFlow: (uuid?: string) => ipcMain.invoke('cancel-oauth-code-flow', uuid),
 
   // Environment management

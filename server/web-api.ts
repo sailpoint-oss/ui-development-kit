@@ -58,7 +58,7 @@ if (process.env.AWS_LAMBDA_FUNCTION_NAME) {
 } else if (process.env.NODE_ENV === 'development' || !process.env.NODE_ENV) {
   // Only enable CORS in development (when Angular dev server is separate)
   app.use(cors({
-    origin: ['http://localhost:4200', 'http://127.0.0.1:4200'],
+    origin: ['http://localhost:4201', 'http://127.0.0.1:4201'],
     credentials: true
   }));
 }

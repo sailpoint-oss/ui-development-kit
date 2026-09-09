@@ -9,7 +9,7 @@
             "type": "chrome",
             "request": "attach",
             "port": 9876,
-            "url": "http://localhost:4200",
+            "url": "http://localhost:4201",
             "sourceMaps": true,  
             "timeout": 10000,
             "trace": "verbose",

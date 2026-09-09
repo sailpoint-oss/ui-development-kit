@@ -32,7 +32,7 @@ Parameters:
   RedirectUri:
     Type: String
     Description: OAuth redirect URI
-    Default: http://localhost:4200/oauth/callback
+    Default: http://localhost:4201/oauth/callback
   OAuthScopes:
     Type: String
     Description: OAuth scopes to request
@@ -40,7 +40,7 @@ Parameters:
   WebsiteUrl:
     Type: String
     Description: CloudFront URL for the Angular app
-    Default: http://localhost:4200
+    Default: http://localhost:4201
 
 Resources:
   # API Gateway for the backend services
