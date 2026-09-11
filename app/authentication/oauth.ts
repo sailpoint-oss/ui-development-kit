@@ -15,7 +15,7 @@ export const OAUTH_CLIENT_ID = "sailapps";
  * page never receives a token and never calls an API, so no SailPoint-operated
  * service handles the authorization code or the PKCE verifier.
  */
-export const OAUTH_REDIRECT_URI = "http://developer.sailpoint.com/sailapps";
+export const OAUTH_REDIRECT_URI = "https://developer.sailpoint.com/sailapps";
 
 /** Prefix and version of the value the redirect page produces. */
 const PASTE_CODE_PREFIX = "sp1.";
