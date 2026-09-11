@@ -15,7 +15,7 @@ export const OAUTH_CLIENT_ID = "sailapps";
  * page never receives a token and never calls an API, so no SailPoint-operated
  * service handles the authorization code or the PKCE verifier.
  */
-export const OAUTH_REDIRECT_URI = "http://developer.sailpoint.com/sailapps";
+export const OAUTH_REDIRECT_URI = "https://developer.sailpoint.com/sailapps";
 
 /** Prefix and version of the value the redirect page produces. */
 const PASTE_CODE_PREFIX = "sp1.";
@@ -32,6 +32,7 @@ let currentOAuthSession: {
     id: string;
     baseURL: string;
     tokenEndpoint: string;
+    redirectUri: string;
     state: string;
     codeVerifier: string;
     expiresAt: number;
@@ -66,6 +67,28 @@ export function assertHttpsUrl(rawURL: string, label: string): URL {
     }
 
     return parsed;
+}
+
+/**
+ * Checks OAUTH_REDIRECT_URI before the browser opens. The authorization server
+ * rejects a value that does not match its registration, and the error it
+ * returns names no parameter, so catch a wrong value here instead.
+ */
+export function resolveRedirectUri(redirectUri: string = OAUTH_REDIRECT_URI): string {
+    let parsed: URL;
+    try {
+        parsed = new URL(redirectUri);
+    } catch {
+        throw new Error(`OAUTH_REDIRECT_URI is not a valid URL: "${redirectUri}"`);
+    }
+
+    const host = parsed.hostname.toLowerCase();
+    const isLoopback = host === "localhost" || host === "127.0.0.1";
+    if (parsed.protocol === "https:" || (parsed.protocol === "http:" && isLoopback)) {
+        return redirectUri;
+    }
+
+    throw new Error(`OAUTH_REDIRECT_URI must use HTTPS, or HTTP with a loopback host. Found "${redirectUri}"`);
 }
 
 function toBase64Url(value: Buffer): string {
@@ -315,6 +338,7 @@ export function validateOAuthTokens(environment: string) {
  */
 export const OAuthLogin = async ({ baseAPIUrl }: { tenant: string, baseAPIUrl: string, environment: string }): Promise<{ success: boolean, error?: string, uuid?: string, authUrl?: string, ttl?: number, confirmationCode?: string }> => {
     try {
+        const redirectUri = resolveRedirectUri();
         const baseParsed = assertHttpsUrl((baseAPIUrl || "").replace(/\/+$/, ""), "Tenant API URL");
         const baseURL = baseParsed.origin;
         const tokenEndpoint = `${baseURL}/oauth/token`;
@@ -329,6 +353,7 @@ export const OAuthLogin = async ({ baseAPIUrl }: { tenant: string, baseAPIUrl: s
             id,
             baseURL,
             tokenEndpoint,
+            redirectUri,
             state,
             codeVerifier,
             expiresAt: Date.now() + OAUTH_SESSION_LIFETIME_MS,
@@ -337,7 +362,7 @@ export const OAuthLogin = async ({ baseAPIUrl }: { tenant: string, baseAPIUrl: s
         const authURL = new URL(authorizeEndpoint);
         authURL.searchParams.set("client_id", OAUTH_CLIENT_ID);
         authURL.searchParams.set("response_type", "code");
-        authURL.searchParams.set("redirect_uri", OAUTH_REDIRECT_URI);
+        authURL.searchParams.set("redirect_uri", redirectUri);
         authURL.searchParams.set("state", state);
         authURL.searchParams.set("code_challenge", codeChallenge(codeVerifier));
         authURL.searchParams.set("code_challenge_method", "S256");
@@ -388,14 +413,14 @@ export const completeOAuthLogin = async (uuid: string, pastedCode: string): Prom
 
     // The verifier is used once. Take it out of memory before the exchange so a
     // second attempt cannot reuse it.
-    const { state, codeVerifier, tokenEndpoint } = session;
+    const { state, codeVerifier, tokenEndpoint, redirectUri } = session;
     const authorizationCode = parsePasteCode(pastedCode, state);
     clearOAuthSession(uuid);
 
     const form = new URLSearchParams();
     form.set("grant_type", "authorization_code");
     form.set("code", authorizationCode);
-    form.set("redirect_uri", OAUTH_REDIRECT_URI);
+    form.set("redirect_uri", redirectUri);
     form.set("code_verifier", codeVerifier);
 
     return requestToken(tokenEndpoint, form);
