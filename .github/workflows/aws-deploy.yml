@@ -96,7 +96,7 @@ jobs:
                 ClientSecret="$CLIENT_SECRET" \
                 RedirectUri="$REDIRECT_URI" \
                 OAuthScopes="${OAUTH_SCOPES:-sp:scopes:all}" \
-                WebsiteUrl="http://localhost:4200" \
+                WebsiteUrl="http://localhost:4201" \
               --capabilities CAPABILITY_IAM \
               --resolve-s3
           else
@@ -111,7 +111,7 @@ jobs:
                 ClientSecret="$CLIENT_SECRET" \
                 RedirectUri="$REDIRECT_URI" \
                 OAuthScopes="${OAUTH_SCOPES:-sp:scopes:all}" \
-                WebsiteUrl="http://localhost:4200"
+                WebsiteUrl="http://localhost:4201"
           fi
 
       - name: Get deployment outputs

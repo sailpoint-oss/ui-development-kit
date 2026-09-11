@@ -1,6 +1,6 @@
 {
   "name": "sailpoint-ui-development-kit",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "description": "SailPoint UI development kit",
   "homepage": "https://sailpoint.com",
   "author": {
@@ -43,7 +43,7 @@
     "web:build": "npm run build -- -c web-production",
     "electron": "electron",
     "electron:tsc": "tsc -p tsconfig.serve.json",
-    "electron:dev": "wait-on tcp:4200 && nodemon --watch ./app --exec \"npm run electron:tsc && electron . --serve\"",
+    "electron:dev": "wait-on tcp:4201 && nodemon --watch ./app --exec \"npm run electron:tsc && electron . --serve\"",
     "electron:local": "npm run build:prod && electron .",
     "electron:build": "npm run build:prod && electron-builder build",
     "test": "ng test --watch=false",

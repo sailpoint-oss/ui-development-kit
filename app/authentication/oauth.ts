@@ -1,64 +1,195 @@
+import { createHash, randomBytes, randomUUID, timingSafeEqual } from "node:crypto";
 import { dialog, shell } from "electron";
 import { getTokenDetails, parseJwt } from "./auth";
 import { getConfigEnvironment, getSecureValue, setSecureValue } from "./config";
-import type { LambdaUUIDResponse, RefreshResponse, TokenSet } from "./types";
-import { generateKeyPair } from "./crypto";
+import type { RefreshResponse, TokenSet } from "./types";
 
-// In-memory storage for the active broker auth attempt. The pickup secret must
-// never be persisted or exposed to the renderer process.
+/**
+ * Public OAuth client registered for the SailPoint developer tools. A public
+ * client holds no secret, so it must use PKCE (RFC 7636).
+ */
+export const OAUTH_CLIENT_ID = "sailapps";
+
+/**
+ * Static page that displays the authorization code for the user to copy. The
+ * page never receives a token and never calls an API, so no SailPoint-operated
+ * service handles the authorization code or the PKCE verifier.
+ */
+export const OAUTH_REDIRECT_URI = "http://developer.sailpoint.com/sailapps";
+
+/** Prefix and version of the value the redirect page produces. */
+const PASTE_CODE_PREFIX = "sp1.";
+const PASTE_CODE_VERSION = 1;
+
+/** How long the user has to finish sign-in, in milliseconds. */
+const OAUTH_SESSION_LIFETIME_MS = 10 * 60 * 1000;
+
+/**
+ * The active sign-in attempt. The PKCE verifier stays in the main process and
+ * never reaches the renderer process or the disk.
+ */
 let currentOAuthSession: {
-    id?: string;
-    pickupSecret?: string;
-    ttl?: number;
-    privateKey: string;
-    publicKey: string;
-    publicKeyBase64: string;
+    id: string;
+    baseURL: string;
+    tokenEndpoint: string;
+    state: string;
+    codeVerifier: string;
+    expiresAt: number;
 } | null = null;
 
-export const AuthLambdaBaseURL = 'https://nug87yusrg.execute-api.us-east-1.amazonaws.com/Prod/sailapps'
-export const authLambdaAuthURL = `${AuthLambdaBaseURL}/auth`
-export const authLambdaTokenURL = `${AuthLambdaBaseURL}/auth/token`
-export const authLambdaRefreshURL = `${AuthLambdaBaseURL}/auth/refresh`
-
-
 /**
- * Generates a fresh RSA key pair for OAuth authentication and stores it in memory
- * @returns Promise resolving to the public key in Base64 format
+ * Parses a URL and rejects it unless it is a plain HTTPS URL. The host itself is
+ * not restricted, because a tenant can use a vanity domain.
+ * @param rawURL - The URL to check
+ * @param label - Name of the value, used in the error message
+ * @returns The parsed URL
  */
-async function generateFreshKeyPair(): Promise<string> {
+export function assertHttpsUrl(rawURL: string, label: string): URL {
+    let parsed: URL;
     try {
-        console.log('Generating fresh RSA keys for OAuth authentication');
-        const keyPair = generateKeyPair(2048);
-        
-        // Store the keys in memory
-        currentOAuthSession = {
-            privateKey: keyPair.privateKey,
-            publicKey: keyPair.publicKey,
-            publicKeyBase64: keyPair.publicKeyBase64
-        };
-        
-        return keyPair.publicKeyBase64;
-    } catch (error) {
-        console.error('Error generating fresh key pair:', error);
-        throw error;
+        parsed = new URL(rawURL.trim());
+    } catch {
+        throw new Error(`${label} is not a valid URL`);
     }
+
+    if (parsed.protocol !== "https:") {
+        throw new Error(`${label} must use HTTPS`);
+    }
+    if (!parsed.hostname) {
+        throw new Error(`${label} has no host`);
+    }
+    if (parsed.username || parsed.password) {
+        throw new Error(`${label} must not include credentials`);
+    }
+    if (parsed.hash) {
+        throw new Error(`${label} must not include a fragment`);
+    }
+
+    return parsed;
+}
+
+function toBase64Url(value: Buffer): string {
+    return value.toString("base64url");
+}
+
+/** Returns the S256 PKCE challenge for a verifier (RFC 7636). */
+function codeChallenge(verifier: string): string {
+    return toBase64Url(createHash("sha256").update(verifier).digest());
 }
 
 /**
- * Retrieves and clears the private key from memory
- * @returns The private key in PEM format or undefined if not found
+ * Returns the short code that the application and the redirect page both show.
+ * The user compares the two values before pasting the one-time code.
  */
-export function consumePrivateKey(): string | undefined {
-    const privateKey = currentOAuthSession?.privateKey;
-    
-    if (currentOAuthSession) {
-        console.log('Clearing OAuth session from memory after use');
-        currentOAuthSession = null;
+export function confirmationCodeFromState(state: string): string {
+    if (!state || state.length < 8) {
+        return "";
     }
-    
-    return privateKey;
+    return `${state.slice(0, 4)}-${state.slice(4, 8)}`;
 }
 
+/**
+ * Reads the authorize endpoint from {baseURL}/oauth/info.
+ *
+ * The token endpoint is not taken from this document. The authorization code
+ * and the PKCE verifier always go to the tenant URL from configuration, so a
+ * discovery response can never move them to another host.
+ */
+async function discoverAuthorizeEndpoint(baseURL: string): Promise<string> {
+    const response = await fetch(`${baseURL}/oauth/info`, { redirect: "manual" });
+    if (!response.ok) {
+        throw new Error(`Tenant OAuth information returned status ${response.status}`);
+    }
+
+    const info = await response.json() as { authorizeEndpoint?: string };
+    if (!info.authorizeEndpoint) {
+        throw new Error("Tenant OAuth information is missing the authorize endpoint");
+    }
+
+    assertHttpsUrl(info.authorizeEndpoint, "Authorize endpoint");
+
+    return info.authorizeEndpoint;
+}
+
+/**
+ * Unpacks the value the user copied from the redirect page and verifies that
+ * its state matches the state this application sent.
+ * @param pasted - The value the user pasted
+ * @param expectedState - The state sent in the authorization request
+ * @returns The authorization code
+ */
+export function parsePasteCode(pasted: string, expectedState: string): string {
+    const trimmed = (pasted || "").trim();
+    if (!trimmed) {
+        throw new Error("No code was entered");
+    }
+    if (!trimmed.startsWith(PASTE_CODE_PREFIX)) {
+        throw new Error(`The code must start with "${PASTE_CODE_PREFIX}", so it did not come from the SailPoint sign-in page`);
+    }
+
+    let payload: { v?: number, code?: string, state?: string };
+    try {
+        const decoded = Buffer.from(trimmed.slice(PASTE_CODE_PREFIX.length), "base64url").toString("utf8");
+        payload = JSON.parse(decoded);
+    } catch {
+        throw new Error("The code is damaged, so copy it again");
+    }
+
+    if (payload.v !== PASTE_CODE_VERSION) {
+        throw new Error(`The code uses version ${payload.v}, so update this application`);
+    }
+    if (!payload.code) {
+        throw new Error("The code is missing the authorization code");
+    }
+
+    const received = Buffer.from(payload.state || "", "utf8");
+    const expected = Buffer.from(expectedState, "utf8");
+    if (received.length !== expected.length || !timingSafeEqual(received, expected)) {
+        throw new Error("The code belongs to a different sign-in attempt, so start again");
+    }
+
+    return payload.code;
+}
+
+/**
+ * Posts a form to the tenant token endpoint. The client authenticates with its
+ * client ID only, because the client is public.
+ */
+async function requestToken(tokenEndpoint: string, form: URLSearchParams): Promise<RefreshResponse> {
+    form.set("client_id", OAUTH_CLIENT_ID);
+
+    const response = await fetch(tokenEndpoint, {
+        method: "POST",
+        redirect: "manual",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: form.toString(),
+    });
+
+    const body = await response.text();
+    if (!response.ok) {
+        throw new Error(`Token request failed with status ${response.status}: ${body.trim()}`);
+    }
+
+    let tokenData: RefreshResponse;
+    try {
+        tokenData = JSON.parse(body) as RefreshResponse;
+    } catch {
+        throw new Error("Failed to decode the token response");
+    }
+
+    if (!tokenData.access_token) {
+        throw new Error("No access token in the token response");
+    }
+    if (!tokenData.refresh_token) {
+        throw new Error("No refresh token in the token response");
+    }
+
+    return tokenData;
+}
+
+/** Clears the active sign-in attempt from memory. */
 export function clearOAuthSession(uuid?: string): void {
     if (!currentOAuthSession) {
         return;
@@ -70,20 +201,13 @@ export function clearOAuthSession(uuid?: string): void {
     }
 }
 
-export function getOAuthPickupSecret(uuid: string): string | undefined {
-    if (!currentOAuthSession || currentOAuthSession.id !== uuid) {
-        return undefined;
-    }
-
-    return currentOAuthSession.pickupSecret;
-}
-
+/** Returns the expiry of the active sign-in attempt, in epoch seconds. */
 export function getOAuthSessionTtl(uuid: string): number | undefined {
     if (!currentOAuthSession || currentOAuthSession.id !== uuid) {
         return undefined;
     }
 
-    return currentOAuthSession.ttl;
+    return Math.floor(currentOAuthSession.expiresAt / 1000);
 }
 
 /**
@@ -182,93 +306,109 @@ export function validateOAuthTokens(environment: string) {
     }
 }
 
-
 /**
- * Performs OAuth login for a given environment
- * @param tenant - The tenant name
- * @param baseAPIUrl - The base API URL
- * @param environment - The environment name
- * @returns Promise resolving to the UUID and auth URL for polling
+ * Starts the OAuth 2.0 authorization code flow with PKCE and opens the browser.
+ * The browser sends the authorization code to a static SailPoint page, and the
+ * user copies it back into this application.
+ * @param baseAPIUrl - The tenant API base URL
+ * @returns The session id, the authorization URL, and the confirmation code
  */
-export const OAuthLogin = async ({ baseAPIUrl }: { tenant: string, baseAPIUrl: string, environment: string }): Promise<{ success: boolean, error?: string, uuid?: string, authUrl?: string, ttl?: number }> => {
+export const OAuthLogin = async ({ baseAPIUrl }: { tenant: string, baseAPIUrl: string, environment: string }): Promise<{ success: boolean, error?: string, uuid?: string, authUrl?: string, ttl?: number, confirmationCode?: string }> => {
     try {
-        // Step 1: Generate fresh RSA key pair for this authentication session
-        const publicKeyBase64 = await generateFreshKeyPair();
-        
-        
-            // Step 2: Initiate authentication flow with the public key
-            const authResponse = await fetch(authLambdaAuthURL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    apiBaseURL: baseAPIUrl,
-                    publicKey: publicKeyBase64
-                }),
+        const baseParsed = assertHttpsUrl((baseAPIUrl || "").replace(/\/+$/, ""), "Tenant API URL");
+        const baseURL = baseParsed.origin;
+        const tokenEndpoint = `${baseURL}/oauth/token`;
+
+        const authorizeEndpoint = await discoverAuthorizeEndpoint(baseURL);
+
+        const codeVerifier = toBase64Url(randomBytes(32));
+        const state = toBase64Url(randomBytes(32));
+        const id = randomUUID();
+
+        currentOAuthSession = {
+            id,
+            baseURL,
+            tokenEndpoint,
+            state,
+            codeVerifier,
+            expiresAt: Date.now() + OAUTH_SESSION_LIFETIME_MS,
+        };
+
+        const authURL = new URL(authorizeEndpoint);
+        authURL.searchParams.set("client_id", OAUTH_CLIENT_ID);
+        authURL.searchParams.set("response_type", "code");
+        authURL.searchParams.set("redirect_uri", OAUTH_REDIRECT_URI);
+        authURL.searchParams.set("state", state);
+        authURL.searchParams.set("code_challenge", codeChallenge(codeVerifier));
+        authURL.searchParams.set("code_challenge_method", "S256");
+
+        console.log('Attempting to open browser for authentication');
+        try {
+            await shell.openExternal(authURL.toString());
+        } catch {
+            void dialog.showMessageBox({
+                title: 'OAuth Login',
+                message: 'Please manually open the OAuth login page below',
+                detail: authURL.toString(),
+                buttons: ['OK']
             });
+            console.warn('Cannot open browser automatically. Please manually open OAuth login page below');
+        }
 
-            if (!authResponse.ok) {
-                throw new Error(`Auth lambda returned non-200 status: ${authResponse.status}`);
-            }
-
-            const authData: LambdaUUIDResponse = await authResponse.json();
-            console.log('Auth response received for OAuth session:', {
-                id: authData.id,
-                baseURL: authData.baseURL,
-                ttl: authData.ttl
-            });
-
-            if (!authData.id || !authData.pickupSecret) {
-                clearOAuthSession();
-                throw new Error('Auth lambda response missing id or pickup secret');
-            }
-
-            if (currentOAuthSession) {
-                currentOAuthSession.id = authData.id;
-                currentOAuthSession.pickupSecret = authData.pickupSecret;
-                currentOAuthSession.ttl = authData.ttl;
-            }
-
-            // Step 3: Present Auth URL to user
-            console.log('Attempting to open browser for authentication');
-            try {
-                // Using Electron's shell.openExternal to open the browser
-                await shell.openExternal(authData.authURL);
-                console.log('Successfully opened OAuth URL in default browser');
-
-            } catch {
-                dialog.showMessageBox({
-                    title: 'OAuth Login',
-                    message: 'Please manually open the OAuth login page below',
-                    detail: authData.authURL,
-                    buttons: ['OK']
-                });
-                console.warn('Cannot open browser automatically. Please manually open OAuth login page below');
-                console.log('OAuth URL:', authData.authURL);
-                // Continue with the flow even if browser opening fails
-            }
-
-            // Return the UUID and auth URL immediately for the frontend to start polling
-            return { success: true, uuid: authData.id, authUrl: authData.authURL, ttl: authData.ttl };
+        return {
+            success: true,
+            uuid: id,
+            authUrl: authURL.toString(),
+            ttl: Math.floor(currentOAuthSession.expiresAt / 1000),
+            confirmationCode: confirmationCodeFromState(state),
+        };
     } catch (error) {
         clearOAuthSession();
         console.error('OAuth login error:', error);
-        return { success: false, error: 'OAuth login failed: ' + error };
+        return { success: false, error: 'OAuth login failed: ' + (error instanceof Error ? error.message : String(error)) };
     }
 };
 
+/**
+ * Finishes the sign-in started by OAuthLogin. The code the user pasted is
+ * exchanged for a token directly with the tenant.
+ * @param uuid - The session id returned by OAuthLogin
+ * @param pastedCode - The one-time code the user copied from the browser
+ * @returns The token response from the tenant
+ */
+export const completeOAuthLogin = async (uuid: string, pastedCode: string): Promise<RefreshResponse> => {
+    const session = currentOAuthSession;
+    if (!session || session.id !== uuid) {
+        throw new Error('No sign-in attempt is waiting for a code');
+    }
+    if (Date.now() >= session.expiresAt) {
+        clearOAuthSession(uuid);
+        throw new Error('OAuth authentication timed out');
+    }
+
+    // The verifier is used once. Take it out of memory before the exchange so a
+    // second attempt cannot reuse it.
+    const { state, codeVerifier, tokenEndpoint } = session;
+    const authorizationCode = parsePasteCode(pastedCode, state);
+    clearOAuthSession(uuid);
+
+    const form = new URLSearchParams();
+    form.set("grant_type", "authorization_code");
+    form.set("code", authorizationCode);
+    form.set("redirect_uri", OAUTH_REDIRECT_URI);
+    form.set("code_verifier", codeVerifier);
+
+    return requestToken(tokenEndpoint, form);
+};
 
 /**
- * Refreshes OAuth tokens for a given environment using the provided refresh token
+ * Refreshes OAuth tokens for a given environment using the stored refresh token
  * @param environment - The environment name to refresh tokens for
- * @returns Promise resolving to the new token set
  */
 export const refreshOAuthToken = async (environment: string): Promise<void> => {
     try {
         console.log(`Refreshing OAuth token for environment: ${environment}`);
 
-        // Get API URL from config
         const envConfig = getConfigEnvironment(environment);
         if (!envConfig.baseurl) {
             throw new Error('Environment configuration not found');
@@ -278,57 +418,29 @@ export const refreshOAuthToken = async (environment: string): Promise<void> => {
         if (!storedTokens) {
             throw new Error('No stored OAuth tokens found for environment');
         }
+        if (!storedTokens.refreshToken) {
+            throw new Error('No refresh token found for environment');
+        }
 
-        const apiUrl = envConfig.baseurl;
-        const tenant = envConfig.tenanturl;
+        const baseParsed = assertHttpsUrl(envConfig.baseurl.replace(/\/+$/, ""), "Tenant API URL");
 
-        // Prepare the refresh request body
-        const refreshRequestBody = {
-            refreshToken: storedTokens.refreshToken,
-            apiBaseURL: apiUrl,
-            tenant: tenant || environment
-        };
+        const form = new URLSearchParams();
+        form.set("grant_type", "refresh_token");
+        form.set("refresh_token", storedTokens.refreshToken);
 
+        const refreshData = await requestToken(`${baseParsed.origin}/oauth/token`, form);
 
+        const accessTokenClaims = parseJwt(refreshData.access_token);
+        const refreshTokenClaims = parseJwt(refreshData.refresh_token);
 
-            const response = await fetch(authLambdaRefreshURL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(refreshRequestBody),
-            });
+        storeOAuthTokens(environment, {
+            accessToken: refreshData.access_token,
+            accessExpiry: new Date(accessTokenClaims.exp * 1000),
+            refreshToken: refreshData.refresh_token,
+            refreshExpiry: new Date(refreshTokenClaims.exp * 1000),
+        });
 
-            if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(`Lambda refresh failed: ${response.status} ${response.statusText} - ${errorText}`);
-            }
-
-            const refreshData: RefreshResponse = await response.json();
-
-            if (!refreshData.access_token) {
-                throw new Error('No access token in refresh response');
-            }
-
-            if (!refreshData.refresh_token) {
-                throw new Error('No refresh token in refresh response');
-            }
-
-            // Parse tokens to get expiry
-            const accessTokenClaims = parseJwt(refreshData.access_token);
-            const refreshTokenClaims = parseJwt(refreshData.refresh_token);
-
-            const tokenSet = {
-                accessToken: refreshData.access_token,
-                accessExpiry: new Date(accessTokenClaims.exp * 1000),
-                refreshToken: refreshData.refresh_token,
-                refreshExpiry: new Date(refreshTokenClaims.exp * 1000),
-            };
-
-            // Store the new tokens for future use
-            storeOAuthTokens(environment, tokenSet);
-
-            console.log('OAuth token refresh successful');
+        console.log('OAuth token refresh successful');
     } catch (error) {
         console.error('Error refreshing OAuth token:', error);
         throw error;

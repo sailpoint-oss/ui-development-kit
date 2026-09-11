@@ -7,7 +7,7 @@ import { setupDiscourseHandlers } from './discourse/ipc-handlers';
 import { setupGitHubHandlers } from './github/ipc-handlers';
 import { setupConnectorHandlers } from './connector/ipc-handlers';
 import { setupConfigHubHandlers } from './config-hub/ipc-handlers';
-import { cancelOAuthCodeFlow, disconnectFromISC, refreshTokens, unifiedLogin, validateTokens, checkAccessTokenStatus, getCurrentTokenDetails, checkOauthCodeFlowComplete } from './authentication/auth';
+import { cancelOAuthCodeFlow, disconnectFromISC, refreshTokens, unifiedLogin, validateTokens, checkAccessTokenStatus, getCurrentTokenDetails, submitOauthCode } from './authentication/auth';
 import { deleteEnvironment, getTenants, setActiveEnvironment, updateEnvironment, UpdateEnvironmentRequest } from './authentication/config';
 // Global variables
 let win: BrowserWindow | undefined;
@@ -72,7 +72,7 @@ function createWindow(): BrowserWindow {
         console.error('Failed to enable reloader:', err);
       }
     })();
-    win.loadURL('http://localhost:4200');
+    win.loadURL('http://localhost:4201');
   } else {
     // Path when running electron executable
     let pathIndex = './index.html';
@@ -157,8 +157,8 @@ try {
     return validateTokens(environment);
   });
 
-  ipcMain.handle('check-oauth-code-flow-complete', async (event, uuid: string, environment: string) => {
-    return checkOauthCodeFlowComplete(uuid, environment);
+  ipcMain.handle('submit-oauth-code', async (event, uuid: string, environment: string, pastedCode: string) => {
+    return submitOauthCode(uuid, environment, pastedCode);
   });
 
   ipcMain.handle('cancel-oauth-code-flow', async (event, uuid?: string) => {

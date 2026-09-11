@@ -1,9 +1,8 @@
 import { Configuration, ConfigurationParameters, TenantApi } from 'sailpoint-api-client';
 import { getConfig, setConfig,  getConfigEnvironment, setActiveEnvironementInConfig, getSecureValue} from './config';
-import { clearOAuthSession, getOAuthPickupSecret, getOAuthSessionTtl, getStoredOAuthTokens, OAuthLogin, refreshOAuthToken, validateOAuthTokens, storeOAuthTokens, authLambdaTokenURL, consumePrivateKey} from './oauth';
+import { clearOAuthSession, completeOAuthLogin, getOAuthSessionTtl, getStoredOAuthTokens, OAuthLogin, refreshOAuthToken, validateOAuthTokens, storeOAuthTokens } from './oauth';
 import { getStoredPATTokens, refreshPATToken, validatePATToken } from './pat';
-import { decryptToken } from "./crypto";
-import type { RefreshResponse, TokenSet, TokenResponse } from './types';
+import type { TokenSet } from './types';
 import { ref } from 'process';
 import { existsSync } from 'fs';
 
@@ -78,7 +77,7 @@ export function parseJwt(token: string): AuthPayload {
  * @param request - The login request
  * @returns Promise resolving to the login result
  */
-export const unifiedLogin = async (environment: string): Promise<{ success: boolean, error?: string, uuid?: string, authUrl?: string, ttl?: number }> => {
+export const unifiedLogin = async (environment: string): Promise<{ success: boolean, error?: string, uuid?: string, authUrl?: string, ttl?: number, confirmationCode?: string }> => {
 
   try {
     activeEnvironment = environment;
@@ -253,13 +252,15 @@ export const unifiedLogin = async (environment: string): Promise<{ success: bool
           };
         }
 
-        // Return UUID and authUrl for frontend polling
+        // Return the session id and the authorization URL so the renderer can
+        // ask the user for the one-time code
         if (loginResult.uuid) {
           return {
             success: true,
             uuid: loginResult.uuid,
             authUrl: loginResult.authUrl,
-            ttl: loginResult.ttl
+            ttl: loginResult.ttl,
+            confirmationCode: loginResult.confirmationCode
           };
         }
 
@@ -711,93 +712,49 @@ export function validateTokens(environment: string): { isValid: boolean, needsRe
 }
 
 /**
- * Checks if the OAuth code flow is complete for a given UUID
- * @param uuid - The UUID from the initial OAuth login
+ * Finishes the OAuth code flow with the one-time code the user pasted.
+ * @param uuid - The session id from the initial OAuth login
  * @param environment - The environment name
- * @returns Promise resolving to completion status and token storage result
+ * @param pastedCode - The one-time code the user copied from the browser
+ * @returns Promise resolving to the result of the token exchange
  */
-export async function checkOauthCodeFlowComplete (uuid: string, environment: string): Promise<{ isComplete: boolean, success?: boolean, error?: string }> {
+export async function submitOauthCode (uuid: string, environment: string, pastedCode: string): Promise<{ success: boolean, error?: string }> {
     try {
-      const { tenanturl, baseurl, nermBaseurl, authtype } = getConfigEnvironment(environment);
-        const sessionTtl = getOAuthSessionTtl(uuid);
-        if (sessionTtl && Date.now() >= sessionTtl * 1000) {
-            clearOAuthSession(uuid);
-            return { isComplete: true, success: false, error: 'OAuth authentication timed out' };
-        }
+      const { baseurl, nermBaseurl } = getConfigEnvironment(environment);
 
-        const pickupSecret = getOAuthPickupSecret(uuid);
-        if (!pickupSecret) {
-            clearOAuthSession(uuid);
-            return { isComplete: true, success: false, error: 'OAuth pickup secret is missing for this auth session' };
-        }
+      const sessionTtl = getOAuthSessionTtl(uuid);
+      if (sessionTtl && Date.now() >= sessionTtl * 1000) {
+          clearOAuthSession(uuid);
+          return { success: false, error: 'OAuth authentication timed out' };
+      }
 
-        const tokenResponse = await fetch(`${authLambdaTokenURL}/${uuid}`, {
-            headers: {
-                Authorization: `Bearer ${pickupSecret}`
-            }
-        });
+      const tokenData = await completeOAuthLogin(uuid, pastedCode);
 
-        if (tokenResponse.ok) {
-            const tokenData: TokenResponse = await tokenResponse.json();
+      const accessTokenClaims = parseJwt(tokenData.access_token);
+      const refreshTokenClaims = parseJwt(tokenData.refresh_token);
 
-            // Step 5: Get and consume the private key from memory
-            const privateKey = consumePrivateKey();
-            if (!privateKey) {
-                throw new Error('Private key not found in memory');
-            }
+      const tokenSet = {
+          accessToken: tokenData.access_token,
+          accessExpiry: new Date(accessTokenClaims.exp * 1000),
+          refreshToken: tokenData.refresh_token,
+          refreshExpiry: new Date(refreshTokenClaims.exp * 1000),
+      };
 
-            // Step 6: Decrypt the token info using the private key
-            const decryptedToken = decryptToken<RefreshResponse>(tokenData.tokenInfo, privateKey);
-            console.log('Decrypted token info');
+      storeOAuthTokens(environment, tokenSet);
 
-            // Validate that we have the required tokens
-            if (!decryptedToken.access_token) {
-                console.error('Missing accessToken in response');
-                return { isComplete: true, success: false, error: 'OAuth response missing access token' };
-            }
+      const connectionResult = await connectToISCWithToken(baseurl, tokenSet.accessToken, nermBaseurl);
+      if (!connectionResult.connected) {
+          return {
+              success: false,
+              error: connectionResult.error || 'Failed to connect to ISC with OAuth token'
+          };
+      }
 
-            if (!decryptedToken.refresh_token) {
-                console.error('Missing refreshToken in response');
-                return { isComplete: true, success: false, error: 'OAuth response missing refresh token' };
-            }
-
-            // Step 7: Parse and store the tokens
-            const accessTokenClaims = parseJwt(decryptedToken.access_token);
-            const refreshTokenClaims = parseJwt(decryptedToken.refresh_token);
-
-            const tokenSet = {
-                accessToken: decryptedToken.access_token,
-                accessExpiry: new Date(accessTokenClaims.exp * 1000),
-                refreshToken: decryptedToken.refresh_token,
-                refreshExpiry: new Date(refreshTokenClaims.exp * 1000),
-            };
-
-            storeOAuthTokens(environment, tokenSet);
-            const connectionResult = await connectToISCWithToken(baseurl, tokenSet.accessToken, nermBaseurl);
-            if (!connectionResult.connected) {
-                return {
-                    isComplete: true,
-                    success: false,
-                    error: connectionResult.error || 'Failed to connect to ISC with OAuth token'
-                };
-            }
-
-            return { isComplete: true, success: true };
-        } else if (tokenResponse.status === 404 || tokenResponse.status === 400) {
-            // Token not ready yet, continue polling (backend returns 400 when token not found)
-            return { isComplete: false };
-        } else if (tokenResponse.status === 401) {
-            clearOAuthSession(uuid);
-            return { isComplete: true, success: false, error: 'OAuth pickup secret was missing or malformed' };
-        } else {
-            // Some other error occurred
-            clearOAuthSession(uuid);
-            return { isComplete: true, success: false, error: `Token endpoint returned status: ${tokenResponse.status}` };
-        }
+      return { success: true };
     } catch (error) {
-        console.error('Error checking OAuth code flow completion:', error);
+        console.error('Error completing the OAuth code flow:', error);
         clearOAuthSession(uuid);
-        return { isComplete: true, success: false, error: `Error checking OAuth completion: ${error}` };
+        return { success: false, error: formatErrorAsString(error) };
     }
 };
 
