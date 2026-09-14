@@ -83,6 +83,19 @@
             Transforms
           </a>
         }
+        @if (isComponentEnabled('role-criteria-manager')) {
+          <a
+            mat-list-item
+            class="sidebar-link"
+            routerLink="/role-criteria-manager"
+            routerLinkActive="active-link"
+            [class.disabled]="!isConnected"
+            (click)="onNavItemClick($event)"
+            >
+            <mat-icon class="card-icon">account_tree</mat-icon>
+            Role Criteria Manager
+          </a>
+        }
         @if (isComponentEnabled('attach-rule')) {
           <a
             mat-list-item

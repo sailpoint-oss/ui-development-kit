@@ -21,6 +21,6 @@ describe('ColabComponent', () => {
   });
 
   it('should have correct title', () => {
-    expect(component.title).toBe('Colab');
+    expect(component.title).toBe('CoLab Marketplace');
   });
 });

@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AccountsComponent, AttachRuleComponent, CertificationManagementComponent, ColabComponent, CronicleComponent, IdentitiesComponent, OwnerGraphComponent, REPORT_EXAMPLE_ROUTES, ThemePickerComponent, TransformBuilderComponent, TransformsComponent, ConfigHubComponent , SaasConnectivityCreatorComponent } from 'sailpoint-components';
+import { AccountsComponent, AttachRuleComponent, CertificationManagementComponent, ColabComponent, CronicleComponent, IdentitiesComponent, OwnerGraphComponent, REPORT_EXAMPLE_ROUTES, RoleCriteriaManagerComponent, ThemePickerComponent, TransformBuilderComponent, TransformsComponent, ConfigHubComponent , SaasConnectivityCreatorComponent } from 'sailpoint-components';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './shared/components';
  
@@ -28,6 +28,10 @@ export const appRoutes: Routes = [
   {
     path: 'component-selector',
     loadComponent: () => import('./component-selector/component-selector.component').then(m => m.ComponentSelectorComponent)
+  },
+  {
+    path: 'role-criteria-manager',
+    component: RoleCriteriaManagerComponent
   },
   {
     path: 'attach-rule',

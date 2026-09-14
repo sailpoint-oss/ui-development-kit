@@ -13,7 +13,6 @@ describe('CronicleComponent', () => {
     
     fixture = TestBed.createComponent(CronicleComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
