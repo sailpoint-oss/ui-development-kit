@@ -21,9 +21,6 @@ import {
 // Initialize CSRF tokens
 const tokens = new Tokens();
 
-// In-memory token storage for session-based approach
-let tokenData: TokenData | null = null;
-
 
 /**
  * Initiate OAuth web login flow
@@ -102,17 +99,16 @@ export const oauthCallback = async (req: Request, res: Response): Promise<void> 
 
     const { access_token, refresh_token, expires_in } = tokenResponse.data;
 
-    // Store token information
-    tokenData = {
+    // Store token information exclusively in session storage — no module-level state
+    const sessionTokenData: TokenData = {
       accessToken: access_token,
       accessExpiry: new Date(Date.now() + expires_in * 1000),
       refreshToken: refresh_token,
       refreshExpiry: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 days
     };
 
-    // Store token data using client session ID from OAuth state
     if (stateData.clientSessionId) {
-      await storage.setTokenData(stateData.clientSessionId, tokenData);
+      await storage.setTokenData(stateData.clientSessionId, sessionTokenData);
     }
 
     // Parse JWT to get user info
@@ -188,12 +184,12 @@ export const accessTokenStatus = async (req: Request, res: Response): Promise<vo
     return;
   }
 
-  // Get token data from storage
-  if (!tokenData && req.sessionId) {
-    tokenData = await storage.getTokenData(req.sessionId);
-  }
+  // Resolve token data exclusively from this request's session
+  let sessionTokenData: TokenData | null = req.sessionId
+    ? await storage.getTokenData(req.sessionId)
+    : null;
 
-  if (!tokenData) {
+  if (!sessionTokenData) {
     const response: TokenStatusResponse = {
       authtype: 'oauth' as const,
       accessTokenIsValid: false,
@@ -205,15 +201,14 @@ export const accessTokenStatus = async (req: Request, res: Response): Promise<vo
 
   // Check if access token is still valid
   const now = new Date();
-  let accessTokenIsValid = tokenData.accessExpiry > now;
-  const canRefresh = tokenData.refreshToken && tokenData.refreshExpiry && tokenData.refreshExpiry > now;
+  let accessTokenIsValid = sessionTokenData.accessExpiry > now;
+  const canRefresh = sessionTokenData.refreshToken && sessionTokenData.refreshExpiry && sessionTokenData.refreshExpiry > now;
 
   // If token is expired but we can refresh, attempt to refresh it
   if (!accessTokenIsValid && canRefresh) {
     console.log('Access token expired, attempting to refresh...');
 
     try {
-      // Use the SailPoint token refresh endpoint
       const apiBaseUrl = buildSailPointUrl(SERVER_CONFIG.tenantUrl, 'api');
       const tokenEndpoint = `${apiBaseUrl}/oauth/token`;
 
@@ -221,7 +216,7 @@ export const accessTokenStatus = async (req: Request, res: Response): Promise<vo
       params.append('grant_type', 'refresh_token');
       params.append('client_id', SERVER_CONFIG.clientId);
       params.append('client_secret', SERVER_CONFIG.clientSecret);
-      params.append('refresh_token', tokenData.refreshToken!);
+      params.append('refresh_token', sessionTokenData.refreshToken!);
 
       const refreshResponse = await axios.post(tokenEndpoint, params, {
         headers: {
@@ -231,24 +226,21 @@ export const accessTokenStatus = async (req: Request, res: Response): Promise<vo
 
       const { access_token, refresh_token, expires_in } = refreshResponse.data;
 
-      // Update token data with new tokens
-      tokenData = {
+      // Update token data in session storage only — no module-level writes
+      sessionTokenData = {
         accessToken: access_token,
         accessExpiry: new Date(Date.now() + expires_in * 1000),
-        refreshToken: refresh_token || tokenData.refreshToken,
-        refreshExpiry: tokenData.refreshExpiry
+        refreshToken: refresh_token || sessionTokenData.refreshToken,
+        refreshExpiry: sessionTokenData.refreshExpiry
       };
 
-      // Update storage
       if (req.sessionId) {
-        await storage.setTokenData(req.sessionId, tokenData);
+        await storage.setTokenData(req.sessionId, sessionTokenData);
       }
 
-      // Parse JWT to update user info if needed
       const decodedToken = parseJWT(access_token);
       const username = decodedToken.user_name || 'User';
 
-      // Update session auth with new username
       if (req.sessionId) {
         await storage.setSessionAuth(req.sessionId, {
           isAuthenticated: true,
@@ -267,7 +259,7 @@ export const accessTokenStatus = async (req: Request, res: Response): Promise<vo
   const response: TokenStatusResponse = {
     authtype: 'oauth' as const,
     accessTokenIsValid,
-    expiry: tokenData.accessExpiry,
+    expiry: sessionTokenData.accessExpiry,
     needsRefresh: !accessTokenIsValid && <boolean>canRefresh
   };
 
@@ -278,8 +270,7 @@ export const accessTokenStatus = async (req: Request, res: Response): Promise<vo
  * Logout endpoint
  */
 export const logout = async (req: Request, res: Response): Promise<void> => {
-  // Clear token data, CSRF secret, and session auth from memory and storage
-  tokenData = null;
+  // Clear token data, CSRF secret, and session auth from session storage
   if (req.sessionId) {
     await storage.deleteTokenData(req.sessionId);
     await storage.deleteCsrfSecret(req.sessionId);
@@ -313,10 +304,4 @@ export const csrfToken = async (req: Request, res: Response): Promise<void> => {
   };
 
   res.json(response);
-};
-
-// Export token data getter for SDK controller
-export const getTokenData = (): TokenData | null => tokenData;
-export const setTokenData = (data: TokenData | null): void => {
-  tokenData = data;
 };
