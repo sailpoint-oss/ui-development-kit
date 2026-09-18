@@ -6,7 +6,6 @@
 import { Request, Response } from 'express';
 import { storage } from '../storage';
 import { SERVER_CONFIG } from '../config/server.config';
-import { getTokenData, setTokenData } from './auth.controller';
 import { buildSailPointUrl } from '../utils/helpers';
 
 
@@ -33,14 +32,10 @@ export const sdkProxy = async (req: Request, res: Response): Promise<void> => {
     return;
   }
 
-  // Get token data from storage
-  let currentTokenData = getTokenData();
-  if (!currentTokenData && req.sessionId) {
-    currentTokenData = await storage.getTokenData(req.sessionId);
-    if (currentTokenData) {
-      setTokenData(currentTokenData); // Update global for local development
-    }
-  }
+  // Resolve token data exclusively from this request's session — no global state
+  const currentTokenData = req.sessionId
+    ? await storage.getTokenData(req.sessionId)
+    : null;
 
   if (!currentTokenData) {
     res.status(401).json({ error: 'No token data found' });
