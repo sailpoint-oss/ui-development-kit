@@ -7,6 +7,10 @@
     "name": "Philip Ellis",
     "email": "developer-relations@sailpoint.com"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
   "keywords": [
     "angular",
     "angular 17",
@@ -54,7 +58,9 @@
     "lint": "ng lint",
     "lint:components": "ng lint sailpoint-components",
     "lint:all": "ng lint && ng lint sailpoint-components",
-    "generate:component": "node scripts/generate-component.js"
+    "generate:component": "node scripts/generate-component.js",
+    "lockfile:normalize": "node scripts/lockfile.mjs",
+    "lockfile:verify": "node scripts/lockfile.mjs --verify"
   },
   "dependencies": {
     "@angular/animations": "21.2.4",
