@@ -1,0 +1,67 @@
+name: PR infra destroy
+
+on:
+  pull_request:
+    types: [closed]
+
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: PR number to destroy (for manual runs)
+        required: true
+        type: string
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  destroy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::176038645705:role/github-action-role
+          role-session-name: destroy-ui-dev-kit-pr-${{ github.run_id }}
+          aws-region: us-east-1
+
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Setup SAM CLI
+        uses: aws-actions/setup-sam@v2
+        with:
+          use-installer: true
+
+      - name: Set stack name
+        run: |
+          PR_NUMBER=${{ github.event_name == 'workflow_dispatch' && inputs.pr_number || github.event.pull_request.number }}
+          echo "STACK_NAME=ui-dev-kit-pr-$PR_NUMBER" >> $GITHUB_ENV
+
+      - name: Check stack exists
+        id: check
+        run: |
+          if aws cloudformation describe-stacks --stack-name $STACK_NAME &>/dev/null; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "Stack $STACK_NAME does not exist, nothing to clean up"
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Get S3 bucket name
+        if: steps.check.outputs.exists == 'true'
+        run: |
+          S3_BUCKET=$(aws cloudformation describe-stacks \
+            --stack-name $STACK_NAME \
+            --query "Stacks[0].Outputs[?OutputKey=='S3BucketName'].OutputValue" \
+            --output text)
+          echo "S3_BUCKET=$S3_BUCKET" >> $GITHUB_ENV
+
+      - name: Empty S3 bucket
+        if: steps.check.outputs.exists == 'true' && env.S3_BUCKET != ''
+        run: aws s3 rm s3://$S3_BUCKET --recursive
+
+      - name: Delete SAM stack
+        if: steps.check.outputs.exists == 'true'
+        run: sam delete --stack-name $STACK_NAME --no-prompts --region us-east-1

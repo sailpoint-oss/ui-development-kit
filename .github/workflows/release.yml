@@ -207,6 +207,27 @@ jobs:
             -Name 'LongPathsEnabled' `
             -Value 1
 
+      - name: Cache Electron binary (macOS)
+        if: runner.os == 'macOS'
+        uses: actions/cache@v4
+        with:
+          path: ~/Library/Caches/electron
+          key: electron-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Cache Electron binary (Linux)
+        if: runner.os == 'Linux'
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/electron
+          key: electron-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Cache Electron binary (Windows)
+        if: runner.os == 'Windows'
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.LOCALAPPDATA }}\electron\Cache
+          key: electron-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
       - name: Install dependencies (Windows)
         if: runner.os == 'Windows'
         # Redirect the npm cache into the workspace so each run starts with a
@@ -215,11 +236,11 @@ jobs:
         # (https://github.com/npm/cli/issues/7308) — a fresh per-run path avoids it.
         env:
           NPM_CONFIG_CACHE: ${{ github.workspace }}/.npm-cache
-        run: npm install
+        run: npm ci
 
       - name: Install dependencies
         if: runner.os != 'Windows'
-        run: npm install
+        run: npm ci
 
       - name: Install platform deps (Linux-only)
         if: startsWith(matrix.os, 'ubuntu')
