@@ -1,0 +1,644 @@
+<div class="rcm-container">
+  <mat-toolbar color="secondary" class="rcm-toolbar">
+    <mat-icon>account_tree</mat-icon>
+    <span class="rcm-title">Role Criteria Manager</span>
+  </mat-toolbar>
+
+  <div class="rcm-content">
+    <mat-stepper #stepper="matStepper" linear (selectionChange)="onStepChange($event)">
+      <!-- ============================ Step 1: Target ======================= -->
+      <mat-step [completed]="selectedRoles().length > 0" label="Target">
+        <mat-card class="panel-card">
+          <mat-card-content>
+            <mat-radio-group
+              class="mode-group"
+              [(ngModel)]="mode"
+              aria-label="Search mode"
+            >
+              <mat-radio-button value="single">Single role (exact name)</mat-radio-button>
+              <mat-radio-button value="bulk">Bulk (name contains)</mat-radio-button>
+              <mat-radio-button value="criteria">Find by criteria</mat-radio-button>
+              <mat-radio-button value="access">Find by access profile / entitlement</mat-radio-button>
+              <mat-radio-button value="csv">Import from CSV</mat-radio-button>
+            </mat-radio-group>
+
+            @if (mode === 'single' || mode === 'bulk') {
+              <div class="search-row">
+                <mat-form-field class="search-field" appearance="outline">
+                  <mat-label>{{ mode === 'single' ? 'Exact role name' : 'Partial name filter' }}</mat-label>
+                  <input
+                    matInput
+                    [(ngModel)]="searchText"
+                    (keyup.enter)="findRoles()"
+                    placeholder="e.g. DL - Engineering"
+                  />
+                </mat-form-field>
+                <button
+                  mat-raised-button
+                  color="primary"
+                  class="find-button"
+                  (click)="findRoles()"
+                  [disabled]="searching"
+                >
+                  <mat-icon>search</mat-icon>
+                  Find Roles
+                </button>
+              </div>
+            }
+
+            @if (mode === 'access') {
+              <div class="criteria-filter-section">
+                <div class="criteria-filter-row">
+                  <mat-radio-group [(ngModel)]="accessFilter.type" class="access-type-group">
+                    <mat-radio-button value="accessProfile">Access Profile</mat-radio-button>
+                    <mat-radio-button value="entitlement">Entitlement</mat-radio-button>
+                  </mat-radio-group>
+                  <mat-form-field appearance="outline" class="criteria-attr-field">
+                    <mat-label>Name contains (required)</mat-label>
+                    <input
+                      matInput
+                      [(ngModel)]="accessFilter.name"
+                      [matAutocomplete]="autoAccessName"
+                      (focus)="loadAccessSuggestions()"
+                      (keyup.enter)="findRoles()"
+                      placeholder="e.g. Engineering"
+                    />
+                    <mat-autocomplete #autoAccessName="matAutocomplete">
+                      @for (opt of filterAccessSuggestions(accessFilter.name); track opt) {
+                        <mat-option [value]="opt">{{ opt }}</mat-option>
+                      }
+                    </mat-autocomplete>
+                  </mat-form-field>
+                  <button
+                    mat-raised-button
+                    color="primary"
+                    class="find-button"
+                    (click)="findRoles()"
+                    [disabled]="searching || !accessFilter.name.trim()"
+                  >
+                    <mat-icon>search</mat-icon>
+                    Find Roles
+                  </button>
+                </div>
+              </div>
+            }
+
+            @if (mode === 'criteria') {
+              <div class="criteria-filter-section">
+                <div class="criteria-filter-row">
+                  <mat-form-field appearance="outline" class="criteria-attr-field">
+                    <mat-label>Attribute (required)</mat-label>
+                    <input
+                      matInput
+                      [(ngModel)]="criteriaFilter.attribute"
+                      [matAutocomplete]="autoCriteriaAttr"
+                      (focus)="loadIdentityAttributeSuggestions()"
+                      (keyup.enter)="findRoles()"
+                      placeholder="e.g. attribute.department"
+                    />
+                    <mat-autocomplete #autoCriteriaAttr="matAutocomplete">
+                      @for (opt of filterCriteriaAttributes(criteriaFilter.attribute); track opt) {
+                        <mat-option [value]="opt">{{ opt }}</mat-option>
+                      }
+                    </mat-autocomplete>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" class="criteria-op-field">
+                    <mat-label>Operation (optional)</mat-label>
+                    <mat-select [(ngModel)]="criteriaFilter.operation">
+                      <mat-option value="">Any</mat-option>
+                      @for (op of leafOperations; track op) {
+                        <mat-option [value]="op">{{ op }}</mat-option>
+                      }
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" class="criteria-val-field">
+                    <mat-label>Value (optional)</mat-label>
+                    <input
+                      matInput
+                      [(ngModel)]="criteriaFilter.value"
+                      (keyup.enter)="findRoles()"
+                      placeholder="e.g. Engineering"
+                    />
+                  </mat-form-field>
+
+                  <button
+                    mat-raised-button
+                    color="primary"
+                    class="find-button"
+                    (click)="findRoles()"
+                    [disabled]="searching || !criteriaFilter.attribute.trim()"
+                  >
+                    <mat-icon>search</mat-icon>
+                    Find Roles
+                  </button>
+                </div>
+              </div>
+            }
+
+            @if (mode === 'csv') {
+              <div class="criteria-filter-section">
+                <div class="csv-import-row">
+                  <button
+                    mat-raised-button
+                    color="primary"
+                    class="find-button"
+                    (click)="pickCsv()"
+                    [disabled]="searching"
+                  >
+                    <mat-icon>upload_file</mat-icon>
+                    Choose CSV file
+                  </button>
+                  @if (csvFileName) {
+                    <span class="csv-file-name">{{ csvFileName }}</span>
+                  }
+                </div>
+                <p class="attr-hint">
+                  CSV with a <code>RoleName</code> and/or <code>RoleId</code> column (a plain
+                  one-column list of names also works). The roles it lists become your selection —
+                  pick the operation to apply on the next step.
+                </p>
+                @if (csvErrors.length > 0) {
+                  <div class="csv-warning">
+                    <mat-icon>warning</mat-icon>
+                    <span>{{ csvErrors.length }} row(s) skipped:</span>
+                    <ul>
+                      @for (e of csvErrors; track $index) {
+                        <li>Row {{ e.row }}: {{ e.message }}</li>
+                      }
+                    </ul>
+                  </div>
+                }
+                @if (csvUnmatched.length > 0) {
+                  <div class="csv-warning">
+                    <mat-icon>error_outline</mat-icon>
+                    <span>{{ csvUnmatched.length }} CSV entry/entries not found in the tenant:</span>
+                    <ul>
+                      @for (u of csvUnmatched; track $index) {
+                        <li>{{ u }}</li>
+                      }
+                    </ul>
+                  </div>
+                }
+              </div>
+            }
+
+            @if (searching) {
+              <div class="loading-row">
+                <mat-spinner diameter="28"></mat-spinner>
+                <span>Fetching roles…</span>
+              </div>
+            }
+
+            @if (searched && roleRows.length > 0) {
+              <div class="result-count-row">
+                <span>{{ roleRows.length }} role(s) found · {{ selectedRoles().length }} selected</span>
+                @if (mode === 'bulk' || mode === 'criteria' || mode === 'csv') {
+                  <button mat-button (click)="selectAll()">Select All {{ roleRows.length }}</button>
+                  <button mat-button (click)="clearSelection()">Clear</button>
+                }
+              </div>
+              <table mat-table [dataSource]="roleRows" class="role-table mat-elevation-z1">
+                <ng-container matColumnDef="select">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox
+                      [checked]="allSelected()"
+                      [indeterminate]="someSelected()"
+                      (change)="toggleAll($event.checked)"
+                      [disabled]="mode === 'single'"
+                    ></mat-checkbox>
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    <mat-checkbox
+                      [(ngModel)]="row.selected"
+                      [disabled]="mode === 'single'"
+                    ></mat-checkbox>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef>Name</th>
+                  <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef>ID</th>
+                  <td mat-cell *matCellDef="let row" class="mono">{{ row.id }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="membershipType">
+                  <th mat-header-cell *matHeaderCellDef>Membership</th>
+                  <td mat-cell *matCellDef="let row">{{ row.membershipType }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="nodeCount">
+                  <th mat-header-cell *matHeaderCellDef>Nodes</th>
+                  <td mat-cell *matCellDef="let row">{{ row.nodeCount }}</td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+              </table>
+            } @else if (searched && roleRows.length === 0 && !searching) {
+              <div class="empty-state">No roles matched your search.</div>
+            }
+          </mat-card-content>
+        </mat-card>
+
+        <div class="step-actions">
+          <button mat-stroked-button (click)="loadAndRestoreSnapshot()">
+            <mat-icon>restore</mat-icon>
+            Restore from Snapshot
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            matStepperNext
+            [disabled]="selectedRoles().length === 0"
+          >
+            Next
+          </button>
+        </div>
+      </mat-step>
+
+      <!-- ========================== Step 2: Operation ===================== -->
+      <mat-step [completed]="!!buildParams()" label="Operation">
+        <mat-card class="panel-card">
+          <mat-card-content>
+            @if (loadingDetails) {
+              <div class="loading-row">
+                <mat-spinner diameter="28"></mat-spinner>
+                <span>Loading role criteria…</span>
+              </div>
+            } @else {
+              <p class="attr-hint">
+                {{ attributeOptions.length }} attribute(s) found across the selected role(s).
+              </p>
+
+              <mat-tab-group [(selectedIndex)]="selectedTabIndex" animationDuration="0ms">
+                <!-- Update value -->
+                <mat-tab label="Update value">
+                  <div class="op-form">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Attribute</mat-label>
+                      <input matInput [(ngModel)]="updateForm.attribute"
+                             [matAutocomplete]="autoU"
+                             (ngModelChange)="onUpdateAttributeChange()" />
+                      <mat-autocomplete #autoU="matAutocomplete"
+                                        (optionSelected)="onUpdateAttributeChange()">
+                        @for (opt of filterAttributes(updateForm.attribute); track opt) {
+                          <mat-option [value]="opt">{{ opt }}</mat-option>
+                        }
+                      </mat-autocomplete>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Old value to match</mat-label>
+                      @if (oldValueOptions.length > 0) {
+                        <mat-select [(ngModel)]="updateForm.oldValue">
+                          @for (v of oldValueOptions; track v) {
+                            <mat-option [value]="v">{{ v }}</mat-option>
+                          }
+                        </mat-select>
+                      } @else {
+                        <input matInput [(ngModel)]="updateForm.oldValue"
+                               placeholder="Type a value or select an attribute first" />
+                      }
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                      <mat-label>New value(s), comma-separated</mat-label>
+                      <input matInput [(ngModel)]="updateForm.newValues" placeholder="012,013" />
+                    </mat-form-field>
+                  </div>
+                </mat-tab>
+
+                <!-- Add value(s) -->
+                <mat-tab label="Add value(s)">
+                  <div class="op-form">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Attribute</mat-label>
+                      <input matInput [(ngModel)]="addValuesForm.attribute" [matAutocomplete]="autoV" />
+                      <mat-autocomplete #autoV="matAutocomplete">
+                        @for (opt of filterAttributes(addValuesForm.attribute); track opt) {
+                          <mat-option [value]="opt">{{ opt }}</mat-option>
+                        }
+                      </mat-autocomplete>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Value(s) to add, comma-separated</mat-label>
+                      <input matInput [(ngModel)]="addValuesForm.addValues" placeholder="terminated,leave" />
+                    </mat-form-field>
+                  </div>
+                </mat-tab>
+
+                <!-- Add block -->
+                <mat-tab label="Add block">
+                  <div class="op-form">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Key type</mat-label>
+                      <mat-select [(ngModel)]="addBlockForm.keyType">
+                        <mat-option value="IDENTITY">IDENTITY</mat-option>
+                        <mat-option value="ACCOUNT">ACCOUNT</mat-option>
+                        <mat-option value="ENTITLEMENT">ENTITLEMENT</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    @if (addBlockForm.keyType !== 'IDENTITY') {
+                      <mat-form-field appearance="outline">
+                        <mat-label>Source ID (required)</mat-label>
+                        <input matInput [(ngModel)]="addBlockForm.sourceId"
+                               placeholder="e.g. 2c9180887671ff8c01769b880e901222" />
+                      </mat-form-field>
+                    }
+                    <mat-form-field appearance="outline">
+                      <mat-label>Attribute</mat-label>
+                      <input matInput [(ngModel)]="addBlockForm.attribute" [matAutocomplete]="autoA" />
+                      <mat-autocomplete #autoA="matAutocomplete">
+                        @for (opt of filterAttributes(addBlockForm.attribute); track opt) {
+                          <mat-option [value]="opt">{{ opt }}</mat-option>
+                        }
+                      </mat-autocomplete>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Comparison</mat-label>
+                      <mat-select [(ngModel)]="addBlockForm.operation">
+                        @for (op of leafOperations; track op) {
+                          <mat-option [value]="op">{{ op }}</mat-option>
+                        }
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Value(s), comma-separated</mat-label>
+                      <input matInput [(ngModel)]="addBlockForm.values" />
+                    </mat-form-field>
+                    <mat-radio-group [(ngModel)]="addBlockForm.join" class="join-group">
+                      <span class="join-label">Join with existing:</span>
+                      <mat-radio-button value="AND">AND</mat-radio-button>
+                      <mat-radio-button value="OR">OR</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </mat-tab>
+
+                <!-- Remove -->
+                <mat-tab label="Remove">
+                  <div class="op-form">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Attribute</mat-label>
+                      <input matInput [(ngModel)]="removeForm.attribute" [matAutocomplete]="autoR" />
+                      <mat-autocomplete #autoR="matAutocomplete">
+                        @for (opt of filterAttributes(removeForm.attribute); track opt) {
+                          <mat-option [value]="opt">{{ opt }}</mat-option>
+                        }
+                      </mat-autocomplete>
+                    </mat-form-field>
+                    <mat-radio-group [(ngModel)]="removeForm.mode" class="remove-mode">
+                      <mat-radio-button value="value">Remove a specific value</mat-radio-button>
+                      <mat-radio-button value="attribute">Remove the whole attribute</mat-radio-button>
+                    </mat-radio-group>
+                    @if (removeForm.mode === 'value') {
+                      <mat-form-field appearance="outline">
+                        <mat-label>Value to remove</mat-label>
+                        <input matInput [(ngModel)]="removeForm.value" />
+                      </mat-form-field>
+                    }
+                  </div>
+                </mat-tab>
+
+                <!-- Consolidate -->
+                <mat-tab label="Consolidate">
+                  <div class="op-form">
+                    <p class="attr-hint">
+                      Merge sibling OR leaves for one attribute into a single multi-value leaf.
+                    </p>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Attribute</mat-label>
+                      <input matInput [(ngModel)]="consolidateForm.attribute" [matAutocomplete]="autoC" />
+                      <mat-autocomplete #autoC="matAutocomplete">
+                        @for (opt of filterAttributes(consolidateForm.attribute); track opt) {
+                          <mat-option [value]="opt">{{ opt }}</mat-option>
+                        }
+                      </mat-autocomplete>
+                    </mat-form-field>
+                  </div>
+                </mat-tab>
+              </mat-tab-group>
+              <div class="simulate-row">
+                <button
+                  mat-stroked-button
+                  color="accent"
+                  (click)="simulate()"
+                  [disabled]="!buildParams() || simulating"
+                >
+                  @if (simulating) {
+                    <mat-spinner diameter="16"></mat-spinner>
+                  } @else {<mat-icon>science</mat-icon>}
+                  Simulate ({{ selectedRoles().length }} roles)
+                </button>
+              </div>
+              @if (simulationResults) {
+                <mat-card class="simulation-card">
+                  <mat-card-header>
+                    <mat-card-title>Simulation Results</mat-card-title>
+                    <mat-card-subtitle>Applied against {{ simulationResults.total }} selected role(s) — no writes</mat-card-subtitle>
+                  </mat-card-header>
+                  <mat-card-content>
+                    <div class="sim-stats">
+                      <span class="sim-stat-change">{{ simulationResults.wouldChange }} would change</span>
+                      <span class="sim-stat-skip">{{ simulationResults.wouldSkip }} would skip</span>
+                    </div>
+                    @if (simulationResults.wouldSkip > 0) {
+                      <div class="skip-reasons">
+                        @for (entry of skipReasonEntries(); track entry.reason) {
+                          <div>{{ entry.reason }}: {{ entry.count }}</div>
+                        }
+                      </div>
+                    }
+                  </mat-card-content>
+                </mat-card>
+              }
+            }
+          </mat-card-content>
+        </mat-card>
+
+        <div class="step-actions">
+          <button mat-button matStepperPrevious>Back</button>
+          <button
+            mat-raised-button
+            color="primary"
+            matStepperNext
+            [disabled]="!buildParams()"
+          >
+            Preview
+          </button>
+        </div>
+      </mat-step>
+
+      <!-- =========================== Step 3: Preview ====================== -->
+      <mat-step [completed]="hasExecuted" label="Preview">
+        <mat-card class="panel-card">
+          <mat-card-content>
+            <div class="preview-controls">
+              <mat-slide-toggle [(ngModel)]="dryRun" color="primary">
+                Dry run (no writes)
+              </mat-slide-toggle>
+              <mat-slide-toggle [(ngModel)]="snapshot" color="primary">
+                Save snapshot before writing
+              </mat-slide-toggle>
+            </div>
+            @if (dryRun) {
+              <div class="dry-run-hint">
+                <mat-icon>info</mat-icon>
+                Dry run is on — turn it off to enable Execute.
+              </div>
+            }
+
+            <div class="preview-summary">
+              {{ actionablePreviews().length }} role(s) will change · {{ skippedPreviews().length }} skipped · Operation: {{ activeOperation }}
+            </div>
+
+            @for (p of previews; track p.row.id) {
+              <mat-card class="preview-card mat-elevation-z1">
+                <mat-card-header>
+                  <mat-card-title>{{ p.row.name }}</mat-card-title>
+                  <span
+                    class="status-chip"
+                    [class.chip-ready]="p.result.status === 'ready'"
+                    [class.chip-skip]="p.result.status === 'skipped'"
+                  >
+                    {{ p.result.status === 'ready' ? 'Will change' : 'Skipped' }}
+                  </span>
+                </mat-card-header>
+                <mat-card-content>
+                  @if (p.result.status === 'skipped') {
+                    <div class="skip-reason">Reason: {{ p.result.reason }}</div>
+                  } @else {
+                    <!-- Identity count before/after -->
+                    @if (identityCount(p.row.id); as ic) {
+                      <div class="identity-count-row">
+                        <mat-icon class="identity-count-icon">people</mat-icon>
+                        @if (ic.loading) {
+                          <mat-spinner diameter="14"></mat-spinner>
+                          <span class="identity-count-label">Counting identities…</span>
+                        } @else {
+                          <span class="identity-count-label">
+                            Identities:
+                            <strong>{{ ic.before ?? '?' }}</strong>
+                            →
+                            <strong [class.count-up]="(ic.after ?? 0) > (ic.before ?? 0)"
+                                    [class.count-down]="(ic.after ?? 0) < (ic.before ?? 0)">
+                              {{ ic.after ?? '?' }}
+                            </strong>
+                            @if (ic.before !== null && ic.after !== null) {
+                              <span class="count-delta">
+                                ({{ ic.after - ic.before >= 0 ? '+' : '' }}{{ ic.after - ic.before }})
+                              </span>
+                            }
+                          </span>
+                        }
+                      </div>
+                    }
+                    <div class="diff-cols">
+                      <div class="diff-col">
+                        <h4>Current</h4>
+                        <app-criteria-tree [node]="p.before" variant="removed"></app-criteria-tree>
+                      </div>
+                      <div class="diff-col">
+                        <h4>Proposed</h4>
+                        <app-criteria-tree [node]="p.result.tree" variant="added"></app-criteria-tree>
+                      </div>
+                    </div>
+                    <div class="patch-json-section">
+                      <button mat-button (click)="togglePatchJson(p.row.id)">
+                        <mat-icon>{{ isPatchJsonExpanded(p.row.id) ? 'expand_less' : 'expand_more' }}</mat-icon>
+                        View Patch JSON
+                      </button>
+                      <span class="impact-count">{{ leafChangeCount(p) }} leaf node(s) affected</span>
+                      @if (isPatchJsonExpanded(p.row.id)) {
+                        <pre class="patch-json-block">{{ p.result.patch | json }}</pre>
+                      }
+                    </div>
+                  }
+                </mat-card-content>
+              </mat-card>
+            }
+          </mat-card-content>
+        </mat-card>
+
+        <div class="step-actions">
+          <button mat-button matStepperPrevious>Back</button>
+          <button
+            mat-raised-button
+            color="warn"
+            (click)="execute()"
+            [disabled]="!canExecute"
+          >
+            @if (executing) {
+              <mat-spinner diameter="20"></mat-spinner>
+            } @else {
+              Execute
+            }
+          </button>
+        </div>
+      </mat-step>
+
+      <!-- =========================== Step 4: Results ===================== -->
+      <mat-step label="Results">
+        <mat-card class="panel-card">
+          <mat-card-content>
+            @if (results.length === 0) {
+              <div class="empty-state">No results yet.</div>
+            } @else {
+              <div class="results-list">
+                @for (r of results; track r.id) {
+                  <div
+                    class="result-row"
+                    [class.result-updated]="r.status === 'Updated'"
+                    [class.result-skipped]="r.status === 'Skipped'"
+                    [class.result-error]="r.status === 'Error'"
+                  >
+                    <mat-icon class="result-icon">
+                      {{ r.status === 'Updated' ? 'check_circle' : r.status === 'Skipped' ? 'remove_circle_outline' : 'error' }}
+                    </mat-icon>
+                    <span class="result-name">{{ r.role }}</span>
+                    <span class="result-status">{{ r.status }}</span>
+                    @if (r.detail) {
+                      <span class="result-detail">{{ r.detail }}</span>
+                    }
+                    @if (r.status === 'Updated') {
+                      <span class="criteria-delta">
+                        @if (r.verifying) {
+                          <mat-spinner diameter="14"></mat-spinner>
+                        } @else if (r.nodesAfter !== undefined) {
+                          {{ r.nodesBefore ?? '?' }} → {{ r.nodesAfter }} nodes
+                        }
+                      </span>
+                    }
+                  </div>
+                }
+              </div>
+            }
+          </mat-card-content>
+          <mat-card-actions class="results-actions">
+            @if (hasSnapshot) {
+              <button mat-button (click)="redownloadSnapshot()">
+                <mat-icon>download</mat-icon>
+                Re-download snapshot
+              </button>
+            }
+            <button mat-button (click)="loadAndRestoreSnapshot()">
+              <mat-icon>restore</mat-icon>
+              Restore from Snapshot
+            </button>
+            <button mat-stroked-button (click)="startOver()">
+              <mat-icon>restart_alt</mat-icon>
+              Start over
+            </button>
+            <button mat-raised-button color="primary" (click)="runAgain()">
+              <mat-icon>replay</mat-icon>
+              Run again
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </mat-step>
+    </mat-stepper>
+  </div>
+</div>
