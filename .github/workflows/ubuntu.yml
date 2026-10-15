@@ -30,9 +30,14 @@ jobs:
         node-version: '24.15.0'
         cache: 'npm'
 
+    - name: Cache Electron binary
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/electron
+        key: electron-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
     - name: Install Dependencies
-      run: |
-        npm install
+      run: npm ci
 
     - name: Install linux dependencies
       run: |

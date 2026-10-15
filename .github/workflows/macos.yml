@@ -22,10 +22,14 @@ jobs:
           node-version: '24.15.0'
           cache: 'npm'
 
+      - name: Cache Electron binary
+        uses: actions/cache@v4
+        with:
+          path: ~/Library/Caches/electron
+          key: electron-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
       - name: Install Dependencies
-        run: |
-          npm i && npm i -D cli-truncate iconv-corefoundation
-          npm --prefix ./app install
+        run: npm ci
 
       - name: Install Angular CLI Globally
         run: npm install -g @angular/cli

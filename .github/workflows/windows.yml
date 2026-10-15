@@ -42,6 +42,12 @@ jobs:
           -Name 'LongPathsEnabled' `
           -Value 1
 
+    - name: Cache Electron binary
+      uses: actions/cache@v4
+      with:
+        path: ${{ env.LOCALAPPDATA }}\electron\Cache
+        key: electron-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
     - name: Install Dependencies
       # Redirect the npm cache into the workspace so each run starts with a
       # clean cache directory. The shared C:\npm\cache on Windows runners can
@@ -49,7 +55,7 @@ jobs:
       # (https://github.com/npm/cli/issues/7308) — a fresh per-run path avoids it.
       env:
         NPM_CONFIG_CACHE: ${{ github.workspace }}/.npm-cache
-      run: npm install
+      run: npm ci
 
     - name: Install Angular CLI Globally
       run: npm install -g @angular/cli
