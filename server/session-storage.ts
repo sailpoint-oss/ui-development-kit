@@ -26,6 +26,12 @@ interface SessionAuth {
   username: string;
 }
 
+// One-time handoff from the OAuth callback to the browser that started the login
+interface PendingLogin {
+  sessionId: string;
+  clientSessionId: string;
+}
+
 // Storage interface for session data that needs persistence in Lambda
 interface SessionStorage {
   getTokenData(sessionId: string): Promise<TokenData | null>;
@@ -40,6 +46,8 @@ interface SessionStorage {
   getSessionAuth(sessionId: string): Promise<SessionAuth | null>;
   setSessionAuth(sessionId: string, authData: SessionAuth): Promise<void>;
   deleteSessionAuth(sessionId: string): Promise<void>;
+  setPendingLogin(loginCode: string, data: PendingLogin, ttlSeconds?: number): Promise<void>;
+  consumePendingLogin(loginCode: string): Promise<PendingLogin | null>;
 }
 
 // Memory-based storage for local development
@@ -48,6 +56,7 @@ class MemoryStorage implements SessionStorage {
   private oauthStates = new Map<string, { data: OAuthState; expires: number }>();
   private csrfSecrets = new Map<string, string>();
   private sessionAuth = new Map<string, SessionAuth>();
+  private pendingLogins = new Map<string, { data: PendingLogin; expires: number }>();
 
   async getTokenData(sessionId: string): Promise<TokenData | null> {
     return this.tokens.get(sessionId) || null;
@@ -105,6 +114,17 @@ class MemoryStorage implements SessionStorage {
 
   async deleteSessionAuth(sessionId: string): Promise<void> {
     this.sessionAuth.delete(sessionId);
+  }
+
+  async setPendingLogin(loginCode: string, data: PendingLogin, ttlSeconds = 120): Promise<void> {
+    this.pendingLogins.set(loginCode, { data, expires: Date.now() + (ttlSeconds * 1000) });
+  }
+
+  async consumePendingLogin(loginCode: string): Promise<PendingLogin | null> {
+    const entry = this.pendingLogins.get(loginCode);
+    this.pendingLogins.delete(loginCode);
+    if (!entry || Date.now() > entry.expires) return null;
+    return entry.data;
   }
 }
 
@@ -301,6 +321,47 @@ class DynamoStorage implements SessionStorage {
       console.error('Error deleting session auth from DynamoDB:', error);
     }
   }
+
+  async setPendingLogin(loginCode: string, data: PendingLogin, ttlSeconds = 120): Promise<void> {
+    try {
+      await this.client.send(new PutCommand({
+        TableName: this.tableName,
+        Item: {
+          pk: `login#${loginCode}`,
+          sk: 'pending',
+          sessionId: data.sessionId,
+          clientSessionId: data.clientSessionId,
+          expires: Date.now() + (ttlSeconds * 1000),
+          ttl: Math.floor(Date.now() / 1000) + ttlSeconds
+        }
+      }));
+    } catch (error) {
+      console.error('Error setting pending login in DynamoDB:', error);
+    }
+  }
+
+  async consumePendingLogin(loginCode: string): Promise<PendingLogin | null> {
+    try {
+      // Delete and read in one call so the code can only be used once
+      const result = await this.client.send(new DeleteCommand({
+        TableName: this.tableName,
+        Key: { pk: `login#${loginCode}`, sk: 'pending' },
+        ReturnValues: 'ALL_OLD'
+      }));
+
+      const item = result.Attributes;
+      // DynamoDB TTL deletion is not immediate, so check expiry here
+      if (!item || Date.now() > item.expires) return null;
+
+      return {
+        sessionId: item.sessionId,
+        clientSessionId: item.clientSessionId
+      };
+    } catch (error) {
+      console.error('Error consuming pending login from DynamoDB:', error);
+      return null;
+    }
+  }
 }
 
 // Storage factory
@@ -316,4 +377,4 @@ export const createStorage = (): SessionStorage => {
 };
 
 // Export types for use in main application
-export { SessionStorage, TokenData, OAuthState, SessionAuth };
+export { SessionStorage, TokenData, OAuthState, SessionAuth, PendingLogin };

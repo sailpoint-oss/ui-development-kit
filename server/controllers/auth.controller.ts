@@ -5,6 +5,7 @@
 
 import { Request, Response } from 'express';
 import axios from 'axios';
+import crypto from 'crypto';
 import Tokens from 'csrf';
 import { storage } from '../storage';
 import { SERVER_CONFIG } from '../config/server.config';
@@ -62,7 +63,7 @@ export const oauthCallback = async (req: Request, res: Response): Promise<void> 
   if (error) {
     console.error('OAuth error:', error);
     const websiteUrl = process.env.WEBSITE_URL || 'http://localhost:4201';
-    res.redirect(`${websiteUrl}/home?error=oauth_error&message=` + encodeURIComponent(String(error)));
+    res.redirect(`${websiteUrl}/#/home?error=oauth_error&message=` + encodeURIComponent(String(error)));
     return;
   }
 
@@ -75,7 +76,17 @@ export const oauthCallback = async (req: Request, res: Response): Promise<void> 
   if (!state || !stateData) {
     console.error('Invalid or missing OAuth state');
     const websiteUrl = process.env.WEBSITE_URL || 'http://localhost:4201';
-    res.redirect(`${websiteUrl}/home?error=invalid_state`);
+    res.redirect(`${websiteUrl}/#/home?error=invalid_state`);
+    return;
+  }
+
+  // OAuth state is single-use
+  await storage.deleteOAuthState(state as string);
+
+  if (!stateData.clientSessionId) {
+    console.error('OAuth state has no client session');
+    const websiteUrl = process.env.WEBSITE_URL || 'http://localhost:4201';
+    res.redirect(`${websiteUrl}/#/home?error=invalid_state`);
     return;
   }
 
@@ -99,7 +110,10 @@ export const oauthCallback = async (req: Request, res: Response): Promise<void> 
 
     const { access_token, refresh_token, expires_in } = tokenResponse.data;
 
-    // Store token information exclusively in session storage — no module-level state
+    // Store tokens under a new server-generated session ID, never under the
+    // client-supplied ID that started the login (prevents session fixation)
+    const authenticatedSessionId = crypto.randomBytes(32).toString('hex');
+
     const sessionTokenData: TokenData = {
       accessToken: access_token,
       accessExpiry: new Date(Date.now() + expires_in * 1000),
@@ -107,35 +121,59 @@ export const oauthCallback = async (req: Request, res: Response): Promise<void> 
       refreshExpiry: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 days
     };
 
-    if (stateData.clientSessionId) {
-      await storage.setTokenData(stateData.clientSessionId, sessionTokenData);
-    }
+    await storage.setTokenData(authenticatedSessionId, sessionTokenData);
 
     // Parse JWT to get user info
     const decodedToken = parseJWT(access_token);
     const username = decodedToken.user_name || 'User';
 
-    // Store session auth
-    if (stateData.clientSessionId) {
-      await storage.setSessionAuth(stateData.clientSessionId, {
-        isAuthenticated: true,
-        username: username
-      });
-    }
+    await storage.setSessionAuth(authenticatedSessionId, {
+      isAuthenticated: true,
+      username: username
+    });
 
-    // Clear OAuth state from storage
-    if (state) {
-      await storage.deleteOAuthState(state as string);
-    }
+    // The browser that completed the login exchanges this one-time code for the
+    // new session ID. The exchange only succeeds from the session that started the login.
+    const loginCode = crypto.randomBytes(32).toString('hex');
+    await storage.setPendingLogin(loginCode, {
+      sessionId: authenticatedSessionId,
+      clientSessionId: stateData.clientSessionId
+    });
 
     // Redirect to success URL using the configured website URL
     const websiteUrl = process.env.WEBSITE_URL || 'http://localhost:4201';
-    res.redirect(`${websiteUrl}/home?success=true`);
+    res.redirect(`${websiteUrl}/#/home?success=true&login_code=${loginCode}`);
   } catch (error) {
     console.error('Error in OAuth callback:', error);
     const websiteUrl = process.env.WEBSITE_URL || 'http://localhost:4201';
-    res.redirect(`${websiteUrl}/home?error=callback_error`);
+    res.redirect(`${websiteUrl}/#/home?error=callback_error`);
   }
+};
+
+/**
+ * Exchange the one-time login code from the OAuth callback for the
+ * authenticated session ID
+ */
+export const completeLogin = async (req: Request, res: Response): Promise<void> => {
+  const { loginCode } = req.body || {};
+
+  if (!req.sessionId || typeof loginCode !== 'string' || !loginCode) {
+    res.status(400).json({ error: 'Invalid login completion request' });
+    return;
+  }
+
+  const pending = await storage.consumePendingLogin(loginCode);
+
+  // The code must be redeemed by the same pre-login session that started the login
+  if (!pending || pending.clientSessionId !== req.sessionId) {
+    res.status(401).json({ error: 'Invalid or expired login code' });
+    return;
+  }
+
+  // The pre-login session has no further use
+  await storage.deleteCsrfSecret(req.sessionId);
+
+  res.json({ sessionId: pending.sessionId });
 };
 
 /**

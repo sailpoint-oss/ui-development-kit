@@ -82,6 +82,7 @@ const rateLimiter = rateLimit({
 // Authentication routes
 app.post('/api/auth/web-login', rateLimiter, csrfProtection, authController.webLogin);
 app.get('/api/oauth/callback', rateLimiter, authController.oauthCallback);
+app.post('/api/auth/complete-login', rateLimiter, csrfProtection, authController.completeLogin);
 app.get('/api/auth/login-status', rateLimiter, authController.loginStatus);
 app.get('/api/auth/status/access/', rateLimiter, authController.accessTokenStatus);
 app.post('/api/auth/logout', rateLimiter, csrfProtection, authController.logout);

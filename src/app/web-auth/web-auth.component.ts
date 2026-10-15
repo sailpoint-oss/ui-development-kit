@@ -8,6 +8,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { environment } from '../../environments/environment';
 
+// Capture the OAuth callback parameters when the module loads, before the router
+// starts. The app uses hash routing (/#/home?success=true), and the startup
+// navigation to /home drops the query string before this component initializes.
+let oauthCallbackParams: URLSearchParams | null = new URLSearchParams(window.location.hash.split('?')[1] || '');
+
 export type AuthEvent = {
   success: boolean;
   message?: string;
@@ -45,10 +50,11 @@ export class WebAuthComponent implements OnInit {
     // Initialize session ID
     this.initializeSessionId();
 
-    // Check if we're handling an OAuth callback
-    const queryParams = new URLSearchParams(window.location.search);
+    // Check if we're handling an OAuth callback. Use the parameters only once per page load.
+    const queryParams = oauthCallbackParams || new URLSearchParams();
+    oauthCallbackParams = null;
     if (queryParams.has('success')) {
-      void this.checkLoginStatus(true);
+      void this.completeLogin(queryParams.get('login_code'));
     } else if (queryParams.has('error')) {
       const error = queryParams.get('message') || 'Authentication failed';
       this.showError(error);
@@ -70,6 +76,42 @@ export class WebAuthComponent implements OnInit {
     } else {
       console.log('Using existing session ID:', this.sessionId);
     }
+  }
+
+  /**
+   * Exchange the one-time login code from the OAuth callback for the
+   * authenticated session ID issued by the server
+   */
+  private async completeLogin(loginCode: string | null): Promise<void> {
+    if (!loginCode) {
+      this.showError('Authentication failed');
+      return;
+    }
+
+    try {
+      this.csrfToken = await this.fetchCsrfToken();
+
+      const apiUrl = environment.webApiUrl || '/api';
+      const result = await this.http.post<{ sessionId: string }>(`${apiUrl}/auth/complete-login`, { loginCode }, {
+        headers: this.getRequestHeaders(),
+        withCredentials: true
+      }).toPromise();
+
+      if (!result?.sessionId) {
+        throw new Error('No session ID received');
+      }
+
+      this.sessionId = result.sessionId;
+      localStorage.setItem('custom-session-id', this.sessionId);
+      // The CSRF token belongs to the pre-login session
+      this.csrfToken = '';
+    } catch (error) {
+      console.error('Error completing login:', error);
+      this.showError('Authentication failed');
+      return;
+    }
+
+    await this.checkLoginStatus(true);
   }
 
   private generateSessionId(): string {
@@ -141,12 +183,6 @@ export class WebAuthComponent implements OnInit {
       if (result && result.success && result.authUrl) {
         console.log('Redirecting to:', result.authUrl);
         window.location.href = result.authUrl;
-        
-        // Also keep the original redirect as a backup with a slight delay
-        setTimeout(() => {
-          console.log('Fallback redirect executing...');
-          window.location.href = result.authUrl!;
-        }, 100);
       } else {
         console.error('Authentication failed, missing success or authUrl:', result);
         this.showError('Failed to initiate authentication');
