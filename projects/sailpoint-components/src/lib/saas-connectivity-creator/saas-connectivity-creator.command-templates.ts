@@ -85,8 +85,8 @@ The handler in \`index.ts\` already calls \`myClient.testConnection()\`. Verify 
 
 ## Important Notes
 
-- Use \`ConnectorError\` (not generic errors) for config validation failures so ISC surfaces a clear message to administrators.
-- The return value from \`testConnection()\` must be \`{}\` — ISC ignores the body.
+- Use \`ConnectorError\` (not generic errors) for config validation failures so SailPoint Identity Security surfaces a clear message to administrators.
+- The return value from \`testConnection()\` must be \`{}\` — SailPoint Identity Security ignores the body.
 - Import \`logger\` in the client file: \`import { logger } from '@sailpoint/connector-sdk'\`
 `, cn, cls);
 }
@@ -310,8 +310,8 @@ The existing handler should already work. Confirm it looks like this:
 
 ## Important Notes
 
-- **\`ConnectorErrorType.NotFound\` is critical**: When the account doesn't exist, throwing this specific error type tells ISC to automatically trigger account creation during provisioning. Without it, ISC treats the failure as a generic error and skips creation.
-- The \`identity\` field in \`res.send()\` must match what ISC stored when the account was listed — if using a different field as the key, be consistent across all commands.
+- **\`ConnectorErrorType.NotFound\` is critical**: When the account doesn't exist, throwing this specific error type tells SailPoint Identity Security to automatically trigger account creation during provisioning. Without it, SailPoint Identity Security treats the failure as a generic error and skips creation.
+- The \`identity\` field in \`res.send()\` must match what SailPoint Identity Security stored when the account was listed — if using a different field as the key, be consistent across all commands.
 `, cn, cls);
 }
 
@@ -326,15 +326,15 @@ Ask the user these questions before writing any code. Skip any already answered.
 
 1. **Endpoint**: What is the API endpoint for creating an account (e.g. \`POST /users\`)?
 2. **Request body**: What fields does the API expect in the request body? Show a sample request payload.
-3. **Field mappings**: ISC sends account attributes from the provisioning plan. Map each incoming attribute to the API request field:
+3. **Field mappings**: SailPoint Identity Security sends account attributes from the provisioning plan. Map each incoming attribute to the API request field:
    - \`input.attributes.id\` or \`input.attributes.username\` → which API field?
    - \`input.attributes.email\` → which API field?
    - \`input.attributes.firstName\` → which API field?
    - \`input.attributes.lastName\` → which API field?
    - \`input.attributes.displayName\` → which API field?
 4. **Entitlements/groups**: Does the API accept group memberships during account creation, or do they need to be assigned separately afterward? Which attribute holds entitlements in the provisioning plan?
-5. **Auto-generated IDs**: Does the source system auto-generate the account ID, or does ISC supply it? If auto-generated, the response must include the new ID so ISC can store it.
-6. **Password handling**: Does the API require a password at creation time? If so, ISC will supply one in \`input.attributes.password\` — how should it be sent?
+5. **Auto-generated IDs**: Does the source system auto-generate the account ID, or does SailPoint Identity Security supply it? If auto-generated, the response must include the new ID so SailPoint Identity Security can store it.
+6. **Password handling**: Does the API require a password at creation time? If so, SailPoint Identity Security will supply one in \`input.attributes.password\` — how should it be sent?
 7. **Response**: Show a sample API response after successful creation.
 
 ## Step 2: Implement createAccount()
@@ -347,7 +347,7 @@ async createAccount(input: Record<string, unknown>): Promise<Account> {
 
     const attrs = input.attributes as Record<string, any>
 
-    // Handle entitlements — ISC may send a string (single) or array (multiple)
+    // Handle entitlements — SailPoint Identity Security may send a string (single) or array (multiple)
     const entitlements = attrs.entitlements
         ? Array.isArray(attrs.entitlements) ? attrs.entitlements : [attrs.entitlements]
         : []
@@ -390,16 +390,16 @@ The existing handler should work. Confirm it returns the full account with the c
 
 ## Important Notes
 
-- **Return the source-generated ID**: If the source auto-generates the account ID, you MUST return it in the response. ISC stores whatever you send back — if you return nothing useful, ISC won't be able to reference the account later.
-- **Entitlements handling**: Always normalize entitlements from ISC to an array — ISC may send a single string for single-entitlement assignments.
-- **Password strategy**: If the API requires a password and ISC provides one, pass it directly. Do not add your own validation — ISC has already applied policy rules before sending.
+- **Return the source-generated ID**: If the source auto-generates the account ID, you MUST return it in the response. SailPoint Identity Security stores whatever you send back — if you return nothing useful, SailPoint Identity Security won't be able to reference the account later.
+- **Entitlements handling**: Always normalize entitlements from SailPoint Identity Security to an array — SailPoint Identity Security may send a single string for single-entitlement assignments.
+- **Password strategy**: If the API requires a password and SailPoint Identity Security provides one, pass it directly. Do not add your own validation — SailPoint Identity Security has already applied policy rules before sending.
 `, cn, cls);
 }
 
 export function cmdAccountUpdate(cn: string, cls: string): string {
     return r(`# Implement std:account:update
 
-You are implementing the \`std:account:update\` command in this SailPoint SaaS connector. This replaces the stub in \`src/myconnector-client.ts\` \`updateAccount()\` with real API calls. ISC sends a list of attribute change operations (set, add, remove) — your implementation must translate each into the appropriate API call(s).
+You are implementing the \`std:account:update\` command in this SailPoint SaaS connector. This replaces the stub in \`src/myconnector-client.ts\` \`updateAccount()\` with real API calls. SailPoint Identity Security sends a list of attribute change operations (set, add, remove) — your implementation must translate each into the appropriate API call(s).
 
 ## Step 1: Gather Information
 
@@ -584,7 +584,7 @@ The handler returns \`{}\` — that is correct and does not need to change:
 
 ## Important Notes
 
-- **Idempotency matters**: ISC may retry deletions. Handling 404 as success prevents spurious failures on retries.
+- **Idempotency matters**: SailPoint Identity Security may retry deletions. Handling 404 as success prevents spurious failures on retries.
 - **Hard delete only**: If the API only supports disabling/deactivating accounts, use the \`std:account:disable\` command instead and advise the user that true deletion is not supported.
 - **No return value**: \`deleteAccount()\` returns \`void\` — you do not need to re-read the account or return any data.
 `, cn, cls);
@@ -654,8 +654,8 @@ The handler returns the full account — confirm it looks like this:
 
 ## Important Notes
 
-- **Return the full account**: ISC uses the returned account to update its stored state — always return the complete account after enabling, not just the status.
-- The \`enabled\` field in the returned \`Account\` should reflect the updated state (\`true\`) so ISC sees the account as active.
+- **Return the full account**: SailPoint Identity Security uses the returned account to update its stored state — always return the complete account after enabling, not just the status.
+- The \`enabled\` field in the returned \`Account\` should reflect the updated state (\`true\`) so SailPoint Identity Security sees the account as active.
 `, cn, cls);
 }
 
@@ -723,8 +723,8 @@ The handler returns the full account — confirm it looks like this:
 
 ## Important Notes
 
-- **Return the full account**: ISC uses the returned account to update its stored state — always return the complete account after disabling, not just the status.
-- The \`enabled\` field in the returned \`Account\` should reflect the updated state (\`false\`) so ISC sees the account as inactive.
+- **Return the full account**: SailPoint Identity Security uses the returned account to update its stored state — always return the complete account after disabling, not just the status.
+- The \`enabled\` field in the returned \`Account\` should reflect the updated state (\`false\`) so SailPoint Identity Security sees the account as inactive.
 - If the API doesn't distinguish between disable and delete, clarify this with the user — disabling should be reversible (enable should restore the account).
 `, cn, cls);
 }
@@ -795,7 +795,7 @@ The handler returns the full account — confirm it looks like this:
 ## Important Notes
 
 - **Unlocking ≠ enabling**: Unlock only clears a temporary lockout. It should not change the \`enabled\` state of the account. If the user's API conflates the two, note this in the implementation.
-- **Return the full account**: ISC uses the returned account to update its stored state — always return the complete account, not just a status.
+- **Return the full account**: SailPoint Identity Security uses the returned account to update its stored state — always return the complete account, not just a status.
 `, cn, cls);
 }
 
@@ -813,7 +813,7 @@ Ask the user these questions before writing any code. Skip any already answered.
    - \`PUT /users/{id}/password\` with body \`{ "newPassword": "..." }\`
    - \`POST /users/{id}/credentials\` with a credentials body
 2. **Request body**: What exact field name and structure does the API expect for the new password?
-3. **Current password required**: Does the API require the current/old password to change it? If yes, how should it be handled (ISC only provides the new password)?
+3. **Current password required**: Does the API require the current/old password to change it? If yes, how should it be handled (SailPoint Identity Security only provides the new password)?
 4. **Response**: Does the API return anything useful on success, or just a 200/204?
 
 ## Step 2: Implement changePassword()
@@ -856,8 +856,8 @@ The handler returns \`{}\` — confirm it looks like this:
 ## Important Notes
 
 - **Never log the password**: Do not include \`input.password\` or the password value in any log message.
-- **Pass the password directly**: The password ISC provides has already been validated against the source's policy — do not add additional validation or transformation.
-- **Current password**: ISC only provides the new password. If the API requires the current password, this feature cannot be fully implemented — discuss with the user (options: admin override endpoint, token-based reset flow, etc.).
+- **Pass the password directly**: The password SailPoint Identity Security provides has already been validated against the source's policy — do not add additional validation or transformation.
+- **Current password**: SailPoint Identity Security only provides the new password. If the API requires the current password, this feature cannot be fully implemented — discuss with the user (options: admin override endpoint, token-based reset flow, etc.).
 `, cn, cls);
 }
 
@@ -1062,11 +1062,11 @@ The handler should look like this:
 export function cmdSourceDataDiscover(cn: string, cls: string): string {
     return r(`# Implement std:source-data:discover
 
-You are implementing the \`std:source-data:discover\` command in this SailPoint SaaS connector. This replaces the stub in \`src/myconnector-client.ts\` \`discoverSourceData()\` with a real implementation that tells ISC what types of source data your connector can provide.
+You are implementing the \`std:source-data:discover\` command in this SailPoint SaaS connector. This replaces the stub in \`src/myconnector-client.ts\` \`discoverSourceData()\` with a real implementation that tells SailPoint Identity Security what types of source data your connector can provide.
 
 ## What This Command Does
 
-Source data discovery tells ISC what dynamic data is available from your connector — typically used for dropdown menus and dynamic form fields in ISC workflows. For example: available departments, locations, user types, or report IDs that an admin can select when configuring a source or workflow.
+Source data discovery tells SailPoint Identity Security what dynamic data is available from your connector — typically used for dropdown menus and dynamic form fields in SailPoint Identity Security workflows. For example: available departments, locations, user types, or report IDs that an admin can select when configuring a source or workflow.
 
 ## Step 1: Gather Information
 
@@ -1144,7 +1144,7 @@ You are implementing the \`std:source-data:read\` command in this SailPoint SaaS
 
 ## What This Command Does
 
-When an admin selects a source data type in an ISC workflow or form (discovered via \`std:source-data:discover\`), ISC calls this command to populate the actual data. For example: if discovery returned a \`departments\` type, reading it returns the list of all department names/IDs.
+When an admin selects a source data type in a SailPoint Identity Security workflow or form (discovered via \`std:source-data:discover\`), SailPoint Identity Security calls this command to populate the actual data. For example: if discovery returned a \`departments\` type, reading it returns the list of all department names/IDs.
 
 ## Step 1: Gather Information
 

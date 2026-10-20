@@ -29,7 +29,7 @@ export const disconnectFromISC = () => {
     // Simply clear the API configuration
     apiConfig = undefined as unknown as Configuration;
 
-    console.log('Successfully disconnected from ISC');
+    console.log('Successfully disconnected from SailPoint Identity Security');
   } catch (error) {
     console.error('Error during disconnect:', error);
     // Ensure apiConfig is cleared even if there's an error
@@ -165,7 +165,7 @@ export const unifiedLogin = async (environment: string): Promise<{ success: bool
         } else {
           return {
             success: false,
-            error: `Failed to connect to ISC with environment: ${environment} and auth type: ${tokenStatus.authtype}`
+            error: `Failed to connect to SailPoint Identity Security with environment: ${environment} and auth type: ${tokenStatus.authtype}`
           };
         }
 
@@ -214,7 +214,7 @@ export const unifiedLogin = async (environment: string): Promise<{ success: bool
           } else {
             return {
               success: false,
-              error: 'Failed to connect to ISC with environment: ' + environment + ' and auth type: ' + tokenStatus.authtype
+              error: 'Failed to connect to SailPoint Identity Security with environment: ' + environment + ' and auth type: ' + tokenStatus.authtype
             };
           }
         } catch (refreshError) {
@@ -406,7 +406,7 @@ export const connectToISCWithPAT = async (
   clientSecret: string,
   nermBaseUrl?: string,
 ) => {
-  console.log('Connecting to ISC with PAT:');
+  console.log('Connecting to SailPoint Identity Security with PAT:');
   let config: ConfigurationParameters = {
     clientId: clientId,
     clientSecret: clientSecret,
@@ -420,11 +420,11 @@ export const connectToISCWithPAT = async (
     let tenantApi = new TenantApi(apiConfig);
     let response = await tenantApi.getTenantV1();
     if (response.status !== 200) {
-      return { connected: false, error: 'Failed to connect to ISC with PAT' };
+      return { connected: false, error: 'Failed to connect to SailPoint Identity Security with PAT' };
     }
     return { connected: true, error: undefined };
   } catch (error) {
-    console.error('Error connecting to ISC:', error);
+    console.error('Error connecting to SailPoint Identity Security:', error);
     return { connected: false, error: formatErrorAsString(error) };
   }
 };
@@ -434,7 +434,7 @@ export const connectToISCWithToken = async (
   accessToken: string,
   nermBaseUrl?: string,
 ) => {
-  console.log('Connecting to ISC with token:');
+  console.log('Connecting to SailPoint Identity Security with token:');
   let config: ConfigurationParameters = {
     accessToken: accessToken,
     baseurl: apiUrl,
@@ -446,11 +446,11 @@ export const connectToISCWithToken = async (
     let tenantApi = new TenantApi(apiConfig);
     let response = await tenantApi.getTenantV1();
     if (response.status !== 200) {
-      return { connected: false, error: 'Failed to connect to ISC with token' };
+      return { connected: false, error: 'Failed to connect to SailPoint Identity Security with token' };
     }
     return { connected: true, error: undefined };
   } catch (error) {
-    console.error('Error connecting to ISC:', error);
+    console.error('Error connecting to SailPoint Identity Security:', error);
     return { connected: false, error: formatErrorAsString(error) };
   }
 };
@@ -746,7 +746,7 @@ export async function submitOauthCode (uuid: string, environment: string, pasted
       if (!connectionResult.connected) {
           return {
               success: false,
-              error: connectionResult.error || 'Failed to connect to ISC with OAuth token'
+              error: connectionResult.error || 'Failed to connect to SailPoint Identity Security with OAuth token'
           };
       }
 

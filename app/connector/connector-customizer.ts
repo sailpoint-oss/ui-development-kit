@@ -1,7 +1,7 @@
 /**
  * Connector Customizer Deployment API Integration
  * 
- * This module handles creating and uploading SaaS Connector Customizers to Identity Security Cloud
+ * This module handles creating and uploading SaaS Connector Customizers to SailPoint Identity Security
  * using the SDK generic functions for JSON APIs and fetch for binary uploads
  */
 
