@@ -1,0 +1,65 @@
+@if (roots.length && showCopyButton) {
+  <div class="tree-header-actions">
+    <button mat-icon-button matTooltip="Copy criteria as JSON" (click)="copyJson()">
+      <mat-icon>content_copy</mat-icon>
+    </button>
+  </div>
+}
+@if (roots.length) {
+  <div
+    class="criteria-tree"
+    [class.diff-added]="variant === 'added'"
+    [class.diff-removed]="variant === 'removed'"
+  >
+    @for (root of roots; track $index) {
+      <ng-container *ngTemplateOutlet="nodeTpl; context: { $implicit: root }"></ng-container>
+    }
+  </div>
+
+  <ng-template #nodeTpl let-node>
+    @if (!hasChild(0, node)) {
+      <div class="criteria-leaf" [matTooltip]="tooltipText(node)">
+        <mat-icon class="leaf-icon">label_important</mat-icon>
+        <span class="leaf-prop">{{ displayProperty(node) }}</span>
+        <span class="leaf-op">{{ node.operation }}</span>
+        <span class="leaf-values">{{ leafValueText(node) }}</span>
+      </div>
+    } @else {
+      <div
+        class="criteria-composite"
+        [class.composite-and]="node.operation === 'AND'"
+        [class.composite-or]="node.operation === 'OR'"
+      >
+        <div class="composite-row">
+          <button
+            type="button"
+            mat-icon-button
+            [attr.aria-label]="'Toggle ' + node.operation + ' group'"
+            (click)="toggleNode(node)"
+          >
+            <mat-icon>{{
+              isExpanded(node) ? 'expand_more' : 'chevron_right'
+            }}</mat-icon>
+          </button>
+          <span
+            class="composite-op"
+            [class.op-and]="node.operation === 'AND'"
+            [class.op-or]="node.operation === 'OR'"
+            >{{ node.operation }}</span
+          >
+          <span class="composite-count">{{ node.children.length }} rules</span>
+        </div>
+        <div class="nested-children" [class.hidden]="!isExpanded(node)" role="group">
+          @for (child of node.children; track $index) {
+            <ng-container *ngTemplateOutlet="nodeTpl; context: { $implicit: child }"></ng-container>
+          }
+        </div>
+      </div>
+    }
+  </ng-template>
+} @else {
+  <div class="empty-criteria">
+    <mat-icon>info</mat-icon>
+    <span>No membership criteria.</span>
+  </div>
+}

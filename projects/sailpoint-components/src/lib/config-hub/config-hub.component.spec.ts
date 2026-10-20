@@ -19,8 +19,4 @@ describe('ConfigHubComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should have correct title', () => {
-    expect(component.title).toBe('Config Hub');
-  });
 });

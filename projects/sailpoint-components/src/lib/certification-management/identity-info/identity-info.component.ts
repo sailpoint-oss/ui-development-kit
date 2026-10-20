@@ -176,7 +176,8 @@ export class IdentityInfoComponent implements OnInit, OnDestroy {
    */
   getAttributeValue(key: string): string {
     if (!this.identity?.attributes) return 'N/A';
-    return String(this.identity.attributes[key]) || 'N/A';
+    const value = this.identity.attributes[key];
+    return value === undefined || value === null || value === '' ? 'N/A' : String(value);
   }
 
   /**

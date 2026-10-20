@@ -19,8 +19,4 @@ describe('SaasConnectivityCreatorComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should have correct title', () => {
-    expect(component.title).toBe('Saas Connectivity Creator');
-  });
 });

@@ -239,11 +239,11 @@ export class AccessDetailComponent implements OnInit, OnDestroy {
    */
   formatDate(dateString: string): string {
     if (!dateString) return 'N/A';
-    try {
-      return new Date(dateString).toLocaleDateString();
-    } catch {
+    const date = new Date(dateString);
+    if (Number.isNaN(date.getTime())) {
       return dateString;
     }
+    return date.toLocaleDateString();
   }
 
   /**

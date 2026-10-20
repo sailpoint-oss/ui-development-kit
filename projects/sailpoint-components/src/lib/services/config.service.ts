@@ -64,6 +64,14 @@ export class ConfigService {
       enabled: true,
     },
     {
+      name: 'role-criteria-manager',
+      displayName: 'Role Criteria Manager',
+      route: '/role-criteria-manager',
+      icon: 'account_tree',
+      description: 'Bulk-edit ISC role membership criteria.',
+      enabled: false,
+    },
+    {
       name: 'theme-picker',
       displayName: 'Theme Picker',
       route: '/theme-picker',
