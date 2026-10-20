@@ -20,7 +20,7 @@
   <h3 align="center">SailPoint UI Development Kit</h3>
 
   <p align="center">
-    A desktop application development kit for building SailPoint Identity Security Cloud integrations
+    A desktop application development kit for building SailPoint Identity Security integrations
     <br />
     <a href="https://github.com/sailpoint-oss/ui-development-kit/issues/new?assignees=&labels=bug&projects=&template=bug-report.md&title=%5BBUG%5D+Your+Bug+Report+Here">Report Bug</a>
     ·
@@ -52,7 +52,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About the Project
 
-The UI Development Kit is a comprehensive template for building desktop applications that integrate with SailPoint Identity Security Cloud. Built on Angular and Electron, it provides a solid foundation for creating cross-platform desktop applications with modern web technologies.
+The UI Development Kit is a comprehensive template for building desktop applications that integrate with SailPoint Identity Security. Built on Angular and Electron, it provides a solid foundation for creating cross-platform desktop applications with modern web technologies.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -150,10 +150,10 @@ This command will:
 ### Local Development (Web)
 
 #### Getting your OAuth Token:
-1. Log into your ISC instance and navigate to Global -> Security Settings
+1. Log into your SailPoint Identity Security instance and navigate to Global -> Security Settings
 2. Click on "API Management" and add a new API like the following:
 
-![ISC Authentication Screen](img/isc_authentication.png)
+![SailPoint Identity Security Authentication Screen](img/isc_authentication.png)
 
 Record the client id and secret for use in deploying and running locally for authentication purposes (shown below)
 
@@ -430,8 +430,8 @@ Configure the following secrets in your GitHub repository (Settings → Secrets 
 |------------|-------------|----------|---------|
 | `JWT_SECRET` | Secret key for JWT token signing and session encryption | Yes | A long random string (min 32 characters) |
 | `TENANT_URL` | Your SailPoint tenant URL | Yes | `https://your-org.identitynow.com/` |
-| `CLIENT_ID` | OAuth client ID from SailPoint | Yes | From ISC API Management settings |
-| `CLIENT_SECRET` | OAuth client secret from SailPoint | Yes | From ISC API Management settings |
+| `CLIENT_ID` | OAuth client ID from SailPoint | Yes | From SailPoint Identity Security API Management settings |
+| `CLIENT_SECRET` | OAuth client secret from SailPoint | Yes | From SailPoint Identity Security API Management settings |
 | `REDIRECT_URI` | OAuth redirect URI (will be `{API_URL}/oauth/callback`) | Yes | `https://your-api.com/oauth/callback` |
 | `OAUTH_SCOPES` | OAuth scopes to request | No | Defaults to `sp:scopes:all` |
 

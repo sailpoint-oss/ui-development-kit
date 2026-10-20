@@ -137,7 +137,7 @@ export async function deployWorkflow(
         else if (fileError.response?.data) {
           const responseData = fileError.response.data;
           
-          // Check for ISC API error format
+          // Check for SailPoint Identity Security API error format
           if (responseData.messages && Array.isArray(responseData.messages) && responseData.messages.length > 0) {
             errorMsg = responseData.messages.map((m: any) => (m.text || m.message) as string).join(', ');
           } else if (responseData.message) {

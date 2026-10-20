@@ -41,7 +41,7 @@
                 <mat-form-field appearance="outline" class="field-half">
                   <mat-label>Display Name</mat-label>
                   <input matInput formControlName="displayName" placeholder="My API Connector" />
-                  <mat-hint>Human-readable name shown in Identity Security Cloud</mat-hint>
+                  <mat-hint>Human-readable name shown in SailPoint Identity Security</mat-hint>
                   @if (step1.get('displayName')?.hasError('required')) {
                     <mat-error>Display name is required</mat-error>
                   }
@@ -361,7 +361,7 @@
                 <mat-form-field appearance="outline" class="field-third">
                   <mat-label>Display Attribute</mat-label>
                   <mat-select formControlName="displayAttribute"
-                    matTooltip="Maps to Account Name in ISC — should be human-readable and unique">
+                    matTooltip="Maps to Account Name in SailPoint Identity Security — should be human-readable and unique">
                     @for (name of currentAccountAttrNames; track name) {
                       <mat-option [value]="name">{{ name }}</mat-option>
                     }
@@ -371,7 +371,7 @@
                 <mat-form-field appearance="outline" class="field-third">
                   <mat-label>Identity Attribute</mat-label>
                   <mat-select formControlName="identityAttribute"
-                    matTooltip="Maps to Account ID in ISC — must be globally unique">
+                    matTooltip="Maps to Account ID in SailPoint Identity Security — must be globally unique">
                     @for (name of currentAccountAttrNames; track name) {
                       <mat-option [value]="name">{{ name }}</mat-option>
                     }
@@ -445,7 +445,7 @@
 
                   <ng-container matColumnDef="managed">
                     <th mat-header-cell *matHeaderCellDef
-                      matTooltip="Managed: ISC can grant/revoke this entitlement">Managed</th>
+                      matTooltip="Managed: SailPoint Identity Security can grant/revoke this entitlement">Managed</th>
                     <td mat-cell *matCellDef="let row">
                       <mat-checkbox [formControl]="$any(row).get('managed')"
                         [disabled]="!$any(row).get('entitlement').value"></mat-checkbox>

@@ -209,7 +209,7 @@ export class AppComponent implements OnDestroy, OnInit {
   }
 
   /**
-   * Disconnects from Identity Security Cloud and navigates home.
+   * Disconnects from SailPoint Identity Security and navigates home.
    */
   async disconnectFromISC() {
     await this.electronService.getApi().disconnectFromISC();

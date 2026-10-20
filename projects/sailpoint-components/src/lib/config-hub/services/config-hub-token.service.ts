@@ -11,7 +11,7 @@ export interface SubstitutionPreview {
 
 /**
  * Shape of the token-paths.json file stored in the repo.
- * typeAbbreviations: short prefix per ISC object type (e.g. "ROLE", "SRC", "WF").
+ * typeAbbreviations: short prefix per SailPoint Identity Security object type (e.g. "ROLE", "SRC", "WF").
  * tokenizablePaths: array of JSON-path arrays per object type.
  */
 export interface TokenPathsConfig {

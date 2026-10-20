@@ -257,12 +257,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
     if (this.state.selectedTenant === 'new') {
-      this.showSnackbar('Cannot connect to ISC: Please select an environment or create a new one first');
+      this.showSnackbar('Cannot connect to SailPoint Identity Security: Please select an environment or create a new one first');
       return;
     }
 
     if (!this.state.actualTenant) {
-      this.showSnackbar('Cannot connect to ISC: No environment selected');
+      this.showSnackbar('Cannot connect to SailPoint Identity Security: No environment selected');
       return;
     }
 
@@ -278,7 +278,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.authenticating = true;
     this.dialog.open<GenericDialogComponent>(GenericDialogComponent, {
         data: {
-          title: `Logging into ISC...`,
+          title: `Logging into SailPoint Identity Security...`,
           message: "Please wait while we log you into the selected environment.",
       }
     });
@@ -336,7 +336,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.showSnackbar(`Failed to connect to the environment. Please check your configuration and try again. \n\n${errorMessage}`);
       }
     } catch (error) {
-      console.error('Error connecting to ISC:', error);
+      console.error('Error connecting to SailPoint Identity Security:', error);
       const errorMessage = error instanceof Error ? error.message : String(error);
       this.showSnackbar(`Failed to connect to the environment. Please check your configuration and try again. \n\n${errorMessage}`);
     } finally {
